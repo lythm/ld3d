@@ -24,9 +24,11 @@ bool Project::New(const _TCHAR* filename)
 {
 	//s_Allocator.Initialize();
 
+	SetFilePath(filename);
+	RestoreCurrentDirectory();
 	Reset();
 
-	if(false == CreateNewProject(filename))
+	if(false == CreateNewProject())
 	{
 		return false;
 	}
@@ -42,9 +44,10 @@ bool Project::New(const _TCHAR* filename)
 }
 bool Project::Load(const _TCHAR* filename)
 {
+	SetFilePath(filename);
+	RestoreCurrentDirectory();
+	
 	Reset();
-
-	m_filePath = filename;
 
 	RestoreCurrentDirectory();
 
@@ -238,6 +241,10 @@ bool Project::InitEngine()
 
 	CoreApi::SetLogger(util_log_info);
 
+	boost::filesystem::path root = GetProjectRootPath();
+
+
+	boost::filesystem::path c = boost::filesystem::current_path();
 
 	SysSetting setting;
 	setting.graphics.sysMod = L"./d11graphics.dll";
@@ -364,19 +371,26 @@ ProjectPtr Project::Instance()
 
 	return s_pInstance;
 }
-
-bool Project::CreateNewProject(const CString& dir)
+void Project::SetFilePath(const CString& str)
 {
 	using namespace boost;
 	using namespace filesystem;
 
-	path p(dir.GetString());
+	path p(str.GetString());
 
 	if(p.has_extension() == false)
 	{
 		p += path(L".gp");
 	}
-	path tar = p.parent_path();
+	
+	m_filePath = p;
+}
+bool Project::CreateNewProject()
+{
+	using namespace boost;
+	using namespace filesystem;
+
+	path tar = GetProjectRootPath();
 
 	path init = initial_path();
 
@@ -395,7 +409,7 @@ bool Project::CreateNewProject(const CString& dir)
 		return false;
 	}
 
-	Save(dir);
+	Save(m_filePath.wstring().c_str());
 
 	RestoreCurrentDirectory();
 	return true;

@@ -66,7 +66,6 @@ namespace ld3d
 		}
 
 		m_pScreenQuadMaterial = pGraphics->CreateMaterialFromFile("./assets/standard/material/dr_render_merge.fx");
-		//m_pScreenQuadMaterial = CreateMaterialFromFile("./assets/standard/material/dr_render_ssao.fx");
 
 		VertexElement vf[] = 
 		{

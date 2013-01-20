@@ -54,9 +54,11 @@ public:
 	boost::filesystem::path				GetRelativePath(boost::filesystem::path p);
 
 	void								RestoreCurrentDirectory();
+
+
 private:
 
-	bool								CreateNewProject(const CString& dir);
+	bool								CreateNewProject();
 	void								Reset();
 
 	bool								InitRenderer();
@@ -65,6 +67,7 @@ private:
 	bool								InitEngine();
 	void								ReleaseEngine();
 
+	void								SetFilePath(const CString& str);
 private:
 	
 	
