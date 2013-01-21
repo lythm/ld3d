@@ -25,7 +25,7 @@ namespace ld3d
 		virtual ~MemSlot();
 
 
-		bool							Init(uint64 blockBytes);
+		bool							Init(uint64 blockBytes, uint64 shrinkStep, uint64 reservedBlocks);
 		void							Release();
 
 		void*							Alloc(uint64 bytes);
@@ -33,18 +33,24 @@ namespace ld3d
 
 		uint64							GetBlockBytes();
 
-	private:
+		void							Update();
 
+		
+	private:
+		void							ReserveBlocks(uint64 blockBytes, uint64 blockCount);
+		void							Shrink(uint64 count);
+		
 		uint64							m_blockBytes;
 		uint64							m_totalBytes;
 
 		_MemNode*						m_pHead;
 
-
 		int64							m_blockCount;
+		int64							m_allocCount;
+		int64							m_freeCount;
 
-		uint64							m_allocCount;
-		uint64							m_freeCount;
+		int64							m_reservedBlockCount;
+		int64							m_shrinkStep;
 	};
 
 	class MemPool
@@ -60,8 +66,10 @@ namespace ld3d
 		MemPool(void);
 		virtual ~MemPool(void);
 
-		bool										Initialize();
+		bool										Initialize(int slotReservedCount = 1000, int slotShrinkStep = 100);
 		void										Release();
+
+		void										Update();
 
 		void*										Alloc(uint64 bytes);
 		void										Free(void* mem);
@@ -90,8 +98,6 @@ namespace ld3d
 			Free(pObj);
 		}
 		
-		void										WarmSlot(uint64 bytes, int count);
-
 	private:
 		static bool slot_find(const Slot& s1, const Slot&s2);
 

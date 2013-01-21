@@ -15,6 +15,8 @@ namespace ld3d
 
 		const GraphicsSetting&					GetGraphicsSetting();
 
+		VertexShaderPtr							CreateVertexShaderFromFile(const char* szFile);
+
 		bool									Initialize(const GraphicsSetting& setting);
 		void									Release();
 

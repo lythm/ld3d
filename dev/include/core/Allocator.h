@@ -11,6 +11,8 @@ namespace ld3d
 		virtual void*								Alloc(uint64 bytes)					= 0;
 		virtual void								Free(void* mem)						= 0;
 
+		virtual void								Update(){}
+
 		template<typename T>
 		boost::shared_ptr<T>						AllocObject()
 		{

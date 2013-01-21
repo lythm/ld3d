@@ -268,7 +268,7 @@ bool Project::InitEngine()
 
 
 #ifdef _DEBUG
-	if(false == m_pCore->Initialize(setting))
+	if(false == m_pCore->Initialize(setting, &g_Allocator))
 	{
 		return false;
 	}

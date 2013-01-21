@@ -422,5 +422,11 @@ namespace ld3d
 	{
 		return m_pCurrentRW;
 	}
+	VertexShaderPtr D3D11Graphics::CreateVertexShaderFromFile(const char* szFile)
+	{
+		//m_pDevice->CreateVertexShader(
+
+		return VertexShaderPtr();
+	}
 }
 

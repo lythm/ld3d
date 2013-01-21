@@ -36,6 +36,11 @@ namespace ld3d
 		m_pSysInput->Update();
 		m_pSysSound->Update();
 		m_pScene->Update();
+
+		if(s_pAllocator)
+		{
+			s_pAllocator->Update();
+		}
 	}
 	bool CoreApi::Initialize(const SysSetting& setting, Allocator* pAlloc)
 	{

@@ -18,7 +18,13 @@ namespace ld3d
 	{
 		Release();
 	}
-	
+	void MemPool::Update()
+	{
+		for(size_t i = 0; i < m_Slots.size(); ++i)
+		{
+			m_Slots[i].pSlot->Update();
+		}
+	}
 	bool MemPool::slot_find(const Slot& s1, const Slot&s2)
 	{
 		return s1.blockBytes < s2.blockBytes;
@@ -62,7 +68,7 @@ namespace ld3d
 		it->pSlot->Free(mem);
 	}
 
-	bool MemPool::Initialize()
+	bool MemPool::Initialize(int slotReservedCount, int slotShrinkStep)
 	{
 		uint64 v_list[] = 
 		{
@@ -90,34 +96,18 @@ namespace ld3d
 		for(size_t i = 0; i < sizeof(v_list) / sizeof(v_list[0]); ++i)
 		{
 			MemSlot* pSlot = new MemSlot;
-			pSlot->Init(v_list[i]);
+			pSlot->Init(v_list[i], slotShrinkStep, slotReservedCount);
 
 			Slot s;
 			s.blockBytes = v_list[i];
 			s.pSlot = pSlot;
 			m_Slots.push_back(s);
 
-			WarmSlot(v_list[i], 1000);
 		}
 
 		return true;
 	}
-	void MemPool::WarmSlot(uint64 bytes, int count)
-	{
-		std::vector<void*> l;
-		for(int i = 0; i < count; ++i)
-		{
-			void* pMem = Alloc(bytes);
-			l.push_back(pMem);
-		}
-
-		for(int i = 0; i < count; ++i)
-		{
-			Free(l[i]);
-		}
-
-		l.clear();
-	}
+	
 	void MemPool::Release()
 	{
 		for(size_t i = 0; i < m_Slots.size(); ++i)
@@ -141,23 +131,26 @@ namespace ld3d
 
 		m_allocCount					= 0;
 		m_freeCount						= 0;
+
+		m_reservedBlockCount			= 0;
 	}
 	MemSlot::~MemSlot()
 	{
 	}
 
-	bool MemSlot::Init(uint64 blockBytes)
+	bool MemSlot::Init(uint64 blockBytes, uint64 shrinkStep, uint64 reservedBlocks)
 	{
+		m_shrinkStep = shrinkStep;
 		m_blockBytes = blockBytes;
 		m_pHead = new _MemNode;
 
 		m_pHead->next = NULL;
 
+		ReserveBlocks(blockBytes, reservedBlocks);
 		return true;
 	}
 	void MemSlot::Release()
 	{
-
 		_MemNode* pNode = m_pHead;
 
 		while(pNode)
@@ -198,5 +191,57 @@ namespace ld3d
 		m_pHead->next = pNode;
 
 		++m_blockCount;
+	}
+	void MemSlot::Update()
+	{
+		if(m_blockCount - m_reservedBlockCount > m_shrinkStep)
+		{
+			Shrink(m_shrinkStep);
+		}
+	}
+	void MemSlot::ReserveBlocks(uint64 blockBytes, uint64 blockCount)
+	{
+		std::vector<void*> list;
+
+		for(uint64 i = 0; i < blockCount; ++i)
+		{
+			void* pBlock = Alloc(blockBytes);
+			list.push_back(pBlock);
+
+		}
+
+		for(uint64 i = 0; i < blockCount; ++i)
+		{
+			void* pBlock = list[i];
+			Free(pBlock);
+		}
+		list.clear();
+
+		m_reservedBlockCount = blockCount;
+	}
+	void MemSlot::Shrink(uint64 count)
+	{
+		assert(m_blockCount - m_reservedBlockCount > count);
+
+		for(int i = 0; i < count; ++i)
+		{
+			_MemNode* pNode = m_pHead;
+
+			if(pNode == nullptr)
+			{
+				assert(0);
+				return;
+			}
+
+			pNode = m_pHead;
+
+			
+			m_pHead = m_pHead->next;
+
+			delete pNode;
+
+			-- m_blockCount;
+
+		}
 	}
 }

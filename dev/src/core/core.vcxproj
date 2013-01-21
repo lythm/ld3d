@@ -87,6 +87,7 @@
   <ItemGroup>
     <ClInclude Include="..\..\include\core\Allocator.h" />
     <ClInclude Include="..\..\include\core\ArcBall.h" />
+    <ClInclude Include="..\..\include\core\AssetsManager.h" />
     <ClInclude Include="..\..\include\core\BaseCamera.h" />
     <ClInclude Include="..\..\include\core\Camera.h" />
     <ClInclude Include="..\..\include\core\CoreApi.h" />
@@ -100,6 +101,7 @@
     <ClInclude Include="..\..\include\core\Event.h" />
     <ClInclude Include="..\..\include\core\EventDispatcher.h" />
     <ClInclude Include="..\..\include\core\ExtPackage.h" />
+    <ClInclude Include="..\..\include\core\FileSystem.h" />
     <ClInclude Include="..\..\include\core\Font.h" />
     <ClInclude Include="..\..\include\core\GameInterface.h" />
     <ClInclude Include="..\..\include\core\GameObject.h" />
@@ -117,6 +119,7 @@
     <ClInclude Include="..\..\include\core\MeshSerializer_XML.h" />
     <ClInclude Include="..\..\include\core\MeshUtil.h" />
     <ClInclude Include="..\..\include\core\OrbitCamera.h" />
+    <ClInclude Include="..\..\include\core\PixelShader.h" />
     <ClInclude Include="..\..\include\core\PostEffectManager.h" />
     <ClInclude Include="..\..\include\core\PostEffect_BilateralBlur.h" />
     <ClInclude Include="..\..\include\core\PostEffect_FinalCompose.h" />
@@ -147,6 +150,7 @@
     <ClInclude Include="..\..\include\core\Sys_Sound.h" />
     <ClInclude Include="..\..\include\core\Texture.h" />
     <ClInclude Include="..\..\include\core\VertexFormat.h" />
+    <ClInclude Include="..\..\include\core\VertexShader.h" />
     <ClInclude Include="..\..\include\core\ViewFrustum.h" />
     <ClInclude Include="core_pch.h" />
     <ClInclude Include="core_utils.h" />
@@ -154,6 +158,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ArcBall.cpp" />
+    <ClCompile Include="AssetsManager.cpp" />
     <ClCompile Include="BaseCamera.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CoreApi.cpp" />

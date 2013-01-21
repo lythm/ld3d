@@ -16,6 +16,8 @@ namespace ld3d
 
 		bool											Initialize();
 		void											Release();
+
+		void											Update();
 	private:
 		MemPoolPtr										m_pMemPool;
 	};

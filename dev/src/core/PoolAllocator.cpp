@@ -37,4 +37,11 @@ namespace ld3d
 			m_pMemPool.reset();
 		}
 	}
+	void PoolAllocator::Update()
+	{
+		if(m_pMemPool)
+		{
+			m_pMemPool->Update();
+		}
+	}
 }

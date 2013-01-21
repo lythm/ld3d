@@ -66,7 +66,12 @@ namespace ld3d
 	class RenderState;
 	class Shader;
 	class BaseCamera;
+	class VertexShader;
+	class PixelShader;
 
+
+	typedef boost::shared_ptr<PixelShader>					PixelShaderPtr;
+	typedef boost::shared_ptr<VertexShader>					VertexShaderPtr;
 	typedef boost::shared_ptr<RenderState>					RenderStatePtr;
 	typedef boost::shared_ptr<Shader>						ShaderPtr;
 	typedef boost::shared_ptr<Camera>						CameraPtr;
@@ -106,6 +111,12 @@ namespace ld3d
 	typedef boost::shared_ptr<Sound>						SoundPtr;
 	typedef boost::shared_ptr<SoundChannel>					SoundChannelPtr;
 
+
+	class Asset;
+	class AssetManager;
+
+	typedef boost::shared_ptr<Asset>						AssetPtr;
+	typedef boost::shared_ptr<AssetManager>					AssetManagerPtr;
 
 
 	class PropertySet;

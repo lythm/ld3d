@@ -6,7 +6,7 @@ namespace ld3d
 	{
 	public:
 
-
+		virtual void								Release()												= 0;
 	protected:
 
 		Shader(void){}
