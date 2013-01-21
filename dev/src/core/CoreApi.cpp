@@ -305,4 +305,8 @@ namespace ld3d
 	{
 		return m_pSysSound;
 	}
+	AssetManagerPtr	CoreApi::GetAssetManager()
+	{
+		return m_pAssetManager;
+	}
 }

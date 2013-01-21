@@ -9,6 +9,7 @@ namespace ld3d
 
 	Light_Sky::Light_Sky(GameObjectManagerPtr pManager) : GameObjectComponent(L"SkyLight", pManager)
 	{
+
 	}
 
 

@@ -23,15 +23,21 @@ Project::~Project(void)
 bool Project::New(const _TCHAR* filename)
 {
 	//s_Allocator.Initialize();
-
+	boost::filesystem::initial_path();
 	SetFilePath(filename);
 	RestoreCurrentDirectory();
-	Reset();
+	
 
 	if(false == CreateNewProject())
 	{
 		return false;
 	}
+
+	Reset();
+
+	Save(m_filePath.wstring().c_str());
+
+	RestoreCurrentDirectory();
 
 	m_pScene = GameScenePtr(new GameScene(m_pCore));
 
@@ -409,9 +415,6 @@ bool Project::CreateNewProject()
 		return false;
 	}
 
-	Save(m_filePath.wstring().c_str());
-
-	RestoreCurrentDirectory();
 	return true;
 }
 void Project::RestoreCurrentDirectory()

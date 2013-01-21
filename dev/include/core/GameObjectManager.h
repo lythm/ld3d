@@ -62,6 +62,8 @@ namespace ld3d
 		Sys_SoundPtr					GetSysSound();
 
 		void							Log(const std::wstring& text);
+
+		AssetManagerPtr					GetAssetManager();
 	private:
 
 

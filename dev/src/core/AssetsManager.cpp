@@ -3,6 +3,8 @@
 #include "core\Texture.h"
 #include "core\Sys_Graphics.h"
 #include "core_utils.h"
+#include "core\Sys_Sound.h"
+#include "core\Sound.h"
 
 namespace ld3d
 {
@@ -39,7 +41,37 @@ namespace ld3d
 	{
 		return true;
 	}
-	TextureAssetPtr AssetManager::LoadTexture(boost::filesystem::path file)
+	
+	SoundAssetPtr AssetManager::LoadSound(const boost::filesystem::path& file, bool sound3d)
+	{
+		AssetPtr pAsset = FindAsset(file);
+		if(pAsset)
+		{
+			pAsset->IncRef();
+			return boost::shared_dynamic_cast<Asset_T<Sound> >(pAsset);
+		}
+		
+		SoundPtr pSound;
+		
+		if(sound3d)
+		{
+			pSound = m_pSound->Create3DSound(file.string().c_str());
+		}
+		else
+		{
+			pSound = m_pSound->CreateSound(file.string().c_str());
+		}
+		if(pSound == nullptr)
+		{
+			return SoundAssetPtr();
+		}
+
+		pAsset = alloc_object<SoundAsset, SoundPtr>(pSound);
+
+		m_assets[file] = pAsset;
+		return boost::shared_dynamic_cast<SoundAsset>(pAsset);
+	}
+	TextureAssetPtr AssetManager::LoadTexture(const boost::filesystem::path& file)
 	{
 		AssetPtr pAsset = FindAsset(file);
 		if(pAsset)
@@ -56,7 +88,7 @@ namespace ld3d
 		pAsset = alloc_object<TextureAsset, TexturePtr>(pTex);
 
 		m_assets[file] = pAsset;
-		return boost::shared_dynamic_cast<Asset_T<Texture> >(pAsset);
+		return boost::shared_dynamic_cast<TextureAsset >(pAsset);
 
 	}
 	AssetPtr AssetManager::FindAsset(boost::filesystem::path file)

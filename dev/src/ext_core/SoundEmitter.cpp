@@ -8,6 +8,7 @@ namespace ld3d
 
 	SoundEmitter::SoundEmitter(GameObjectManagerPtr pManager):GameObjectComponent(L"SoundEmitter", pManager)
 	{
+		m_bStreamed = false;
 	}
 
 
@@ -39,7 +40,12 @@ namespace ld3d
 	{
 		boost::filesystem::path p = boost::filesystem::current_path();
 		//m_pChannel = m_pManager->GetSysSound()->Create3DStream("./assets/standard/music/1.mp3");
-		m_pChannel = m_pManager->GetSysSound()->Create3DStream("http://music.k618.cn/tytq/song/201208/W020120827815517810655.mp3");
+
+		m_pSound = m_pManager->GetAssetManager()->LoadSound("./assets/standard/music/1.mp3");
+
+		m_pChannel = m_pManager->GetSysSound()->AllocChannel(m_pSound->GetAsset());
+
+		//m_pChannel = m_pManager->GetSysSound()->Create3DStream("http://music.k618.cn/tytq/song/201208/W020120827815517810655.mp3");
 
 		m_pChannel->Play(true);
 
@@ -47,7 +53,10 @@ namespace ld3d
 
 		pPM->Begin(L"SoundEmitter");
 		{
-			
+			pPM->RegisterProperty<bool, SoundEmitter>(this,
+					L"Streamed",
+					&SoundEmitter::GetStreamed,
+					&SoundEmitter::SetStreamed);
 
 		}
 
@@ -61,5 +70,18 @@ namespace ld3d
 			m_pChannel->Release();
 			m_pChannel.reset();
 		}
+		if(m_pSound)
+		{
+			m_pSound->Release();
+			m_pSound.reset();
+		}
+	}
+	const bool& SoundEmitter::GetStreamed()
+	{
+		return m_bStreamed;
+	}
+	void SoundEmitter::SetStreamed(const bool& streamed)
+	{
+		m_bStreamed = streamed;
 	}
 }

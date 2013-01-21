@@ -66,5 +66,6 @@
 
 #include "core\Camera.h"
 
+#include "core\AssetsManager.h"
 
 #include "core\ext\core_ext_all.h"

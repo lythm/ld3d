@@ -17,11 +17,17 @@ bool VoxelDemo::Init(ld3d::CoreApiPtr pCore)
 
 	m_pCore = pCore;
 
+	SoundAssetPtr pAsset = m_pCore->GetAssetManager()->LoadSound("./assets/standard/music/1.mp3");
+
+	pAsset = m_pCore->GetAssetManager()->LoadSound("./assets/standard/music/1.mp3");
+
+	pAsset->Release();
+	
 	//m_pSound = m_pCore->GetSysSound()->CreateSound("./assets/standard/music/1.mp3");
 
-	//m_pChannel = m_pCore->GetSysSound()->AllocChannel(m_pSound);
+	m_pChannel = m_pCore->GetSysSound()->AllocChannel(pAsset->GetAsset());
 
-	m_pChannel = m_pCore->GetSysSound()->Create3DStream("./assets/standard/music/1.mp3");
+	//m_pChannel = m_pCore->GetSysSound()->Create3DStream("./assets/standard/music/1.mp3");
 	
 	//m_pChannel = m_pCore->GetSysSound()->Create3DStream("http://music.k618.cn/tytq/song/201208/W020120827815517810655.mp3");
 

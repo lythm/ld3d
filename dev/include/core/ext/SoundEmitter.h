@@ -16,6 +16,9 @@ namespace ld3d
 		bool										OnUnSerialize(DataStream* pStream, const Version& version );
 		const Version&								GetVersion() const;
 
+		const bool&									GetStreamed();
+		void										SetStreamed(const bool& streamed);
+
 	private:
 		bool										OnAttach();
 		void										OnDetach();
@@ -23,6 +26,8 @@ namespace ld3d
 
 	private:
 		SoundChannelPtr								m_pChannel;
+		SoundAssetPtr								m_pSound;
+		bool										m_bStreamed;
 	};
 
 

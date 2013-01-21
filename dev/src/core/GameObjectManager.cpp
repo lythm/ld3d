@@ -235,4 +235,8 @@ namespace ld3d
 	{
 		return m_pCore->GetSysSound();
 	}
+	AssetManagerPtr GameObjectManager::GetAssetManager()
+	{
+		return m_pCore->GetAssetManager();
+	}
 }

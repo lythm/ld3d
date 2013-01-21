@@ -52,6 +52,10 @@ namespace ld3d
 
 		if(Version(v) != g_scene_file_version)
 		{
+			log(L"invalid scene file version:");
+			log(L"should be:" + g_scene_file_version.AsWString());
+			log(L"file version:" + Version(v).AsWString());
+
 			return false;
 		}
 
@@ -65,8 +69,8 @@ namespace ld3d
 		const math::Matrix44& local = pObj->GetLocalTransform();
 		pStream->Write((void*)&local, sizeof(local));
 
-		uint16 nCom = pObj->GetComponentCount() - 1;
-		pStream->WriteInt16(nCom);
+		uint16 nCom = pObj->GetComponentCount();
+		pStream->WriteInt16(nCom - 1);
 
 		for(int i = 0; i < nCom; ++i)
 		{
@@ -81,6 +85,7 @@ namespace ld3d
 			
 			if(false == pCom->Serialize(pStream))
 			{
+				log(L"failed to save component: " + pCom->GetName());
 				return false;
 			}
 		}
@@ -133,7 +138,11 @@ namespace ld3d
 			}
 			pObj->AddComponent(pCom);
 
-			pCom->UnSerialize(pStream);
+			if(false == pCom->UnSerialize(pStream))
+			{
+				log(L"failed to load component: " + comName);
+				return false;
+			}
 
 		}
 		

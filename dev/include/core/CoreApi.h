@@ -22,6 +22,7 @@ namespace ld3d
 		void											Release();
 		void											HandleMessage(MSG& msg);
 		
+		AssetManagerPtr									GetAssetManager();
 		GameObjectManagerPtr							GetGameObjectManager();
 		Sys_GraphicsPtr									GetSysGraphics();
 		Sys_InputPtr									GetSysInput();
