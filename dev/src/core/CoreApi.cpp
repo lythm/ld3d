@@ -5,6 +5,7 @@
 #include "core\Sys_Graphics.h"
 #include "core\GameObjectManager.h"
 #include "core\RenderSystem.h"
+#include "core\AssetsManager.h"
 
 
 #include "core\Event.h"
@@ -77,11 +78,21 @@ namespace ld3d
 			return false;
 		}
 
+		m_pAssetManager = s_pAllocator->AllocObject<AssetManager>();
+		if(m_pAssetManager->Initialize(m_pSysGraphics, m_pSysSound) == false)
+		{
+			return false;
+		}
+
 		m_pRenderSystem = s_pAllocator->AllocObject<RenderSystem>();
 		if(m_pRenderSystem->Initialize(m_pSysGraphics) == false)
 		{
 			return false;
 		}
+		
+
+		
+
 		m_pObjectManager = s_pAllocator->AllocObject<GameObjectManager>();
 		if(m_pObjectManager->Initialize(shared_from_this()) == false)
 		{
@@ -104,13 +115,18 @@ namespace ld3d
 			m_pObjectManager->Release();
 			m_pObjectManager.reset();
 		}
-
+		
 		if(m_pRenderSystem)
 		{
 			m_pRenderSystem->Release();
 			m_pRenderSystem.reset();
 		}
 
+		if(m_pAssetManager)
+		{
+			m_pAssetManager->Release();
+			m_pAssetManager.reset();
+		}
 		if(m_pSysInput)
 		{
 			m_pSysInput->Release();

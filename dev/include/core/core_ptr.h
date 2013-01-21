@@ -111,10 +111,14 @@ namespace ld3d
 	typedef boost::shared_ptr<Sound>						SoundPtr;
 	typedef boost::shared_ptr<SoundChannel>					SoundChannelPtr;
 
-
+	template <typename T> class Asset_T;
+	typedef Asset_T<Texture>								TextureAsset;
+	typedef Asset_T<Sound>									SoundAsset;
 	class Asset;
 	class AssetManager;
-
+	
+	typedef boost::shared_ptr<SoundAsset>					SoundAssetPtr;
+	typedef boost::shared_ptr<TextureAsset>					TextureAssetPtr;
 	typedef boost::shared_ptr<Asset>						AssetPtr;
 	typedef boost::shared_ptr<AssetManager>					AssetManagerPtr;
 

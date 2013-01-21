@@ -60,6 +60,7 @@ namespace ld3d
 		Sys_InputPtr									m_pSysInput;
 		Sys_SoundPtr									m_pSysSound;
 		EventDispatcherPtr								m_pEventDispatcher;
+		AssetManagerPtr									m_pAssetManager;
 
 		RenderSystemPtr									m_pRenderSystem;
 
