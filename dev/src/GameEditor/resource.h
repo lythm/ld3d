@@ -104,6 +104,7 @@
 #define IDD_PREVIEW                     317
 #define IDD_DIALOG1                     318
 #define IDD_PROJECT_NEW_OPEN            318
+#define IDD_INSPECTOR_PANEL             319
 #define IDC_MFCCOLORBUTTON1             1000
 #define IDC_PROGRESS1                   1009
 #define IDC_PROGRESS                    1009
@@ -111,6 +112,9 @@
 #define IDC_PW_BUTTON_NEW               1013
 #define IDC_PW_BUTTON_OPEN              1014
 #define IDC_EDIT1                       1015
+#define IDC_EXPAND_IMAGE                1017
+#define IDC_NAME                        1019
+#define IDC_SLIDER1                     1020
 #define ID_OV_32771                     32771
 #define ID_OV_DELOBJ                    32772
 #define ID_GAMEOBJECT_CREATEEMPTY       32773
@@ -176,9 +180,9 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        321
+#define _APS_NEXT_RESOURCE_VALUE        323
 #define _APS_NEXT_COMMAND_VALUE         32830
-#define _APS_NEXT_CONTROL_VALUE         1016
+#define _APS_NEXT_CONTROL_VALUE         1021
 #define _APS_NEXT_SYMED_VALUE           313
 #endif
 #endif

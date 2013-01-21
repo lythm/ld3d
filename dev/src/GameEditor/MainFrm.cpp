@@ -166,6 +166,8 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 		return -1;
 	}
 
+	
+
 	m_wndTplView.EnableDocking(CBRS_ALIGN_ANY);
 	m_wndFileView.EnableDocking(CBRS_ALIGN_ANY);
 	m_wndObjectView.EnableDocking(CBRS_ALIGN_ANY);
@@ -176,7 +178,6 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_wndOutput.EnableDocking(CBRS_ALIGN_ANY);
 	
 	DockPane(&m_wndOutput);
-	
 	
 	m_wndProperties.EnableDocking(CBRS_ALIGN_ANY);
 	DockPane(&m_wndProperties);
@@ -236,6 +237,8 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	//CMFCToolBar::SetBasicCommands(lstBasicCommands);
 
 
+
+	GetDockingManager()->BringBarsToTop();
 	util_set_main_frame(this);
 
 	UpdateComClassMap();

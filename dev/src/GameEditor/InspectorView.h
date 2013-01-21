@@ -32,6 +32,7 @@ protected:
 	CFont m_fntPropList;
 	CComboBox m_wndObjectCombo;
 	CInspectorToolBar m_wndToolBar;
+	//controls::CInspectorCtrl m_wndInspector;
 	CInspectorCtrl m_wndInspector;
 // й╣ож
 public:
