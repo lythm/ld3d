@@ -28,7 +28,13 @@ namespace ld3d
 		AssetMap::iterator it = m_assets.begin();
 		for(;it != m_assets.end(); ++it)
 		{
-			it->second->Release();
+			if(it->second->Ready())
+			{
+				wchar_t buffer[100];
+				swprintf_s(buffer, 100, L"%d", it->second->Ref());
+				log(L"asset leak: " + it->first.wstring() + L" ref: " + buffer);
+				it->second->Release();
+			}
 		}
 
 		m_assets.clear();

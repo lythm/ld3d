@@ -415,6 +415,11 @@ bool Project::CreateNewProject()
 		return false;
 	}
 
+	if(false == create_directory(tar / path(L"log")))
+	{
+		return false;
+	}
+
 	return true;
 }
 void Project::RestoreCurrentDirectory()

@@ -72,7 +72,7 @@ namespace ld3d
 		}
 		if(m_pSound)
 		{
-			m_pSound->Release();
+			//m_pSound->Release();
 			m_pSound.reset();
 		}
 	}
