@@ -4,8 +4,15 @@
 #include "FMSoundChannel.h"
 
 
-EXPORT_C_API ld3d::Sys_Sound* CreateSys()
+namespace ld3d
 {
+
+	boost::function<void (const std::wstring& log)>			g_logger;
+}
+
+EXPORT_C_API ld3d::Sys_Sound* CreateSys(const boost::function<void (const std::wstring& log)>& logger)
+{
+	ld3d::g_logger = logger;
 	return new ld3d::FMSoundSystem;
 }
 
@@ -17,6 +24,16 @@ EXPORT_C_API void DestroySys(ld3d::Sys_Sound* pSys)
 
 namespace ld3d
 {
+	void g_log(const std::wstring& str)
+	{
+		if(g_logger.empty())
+		{
+			return;
+		}
+
+		g_logger(str);
+	}
+
 	FMSoundSystem::FMSoundSystem(void)
 	{
 		m_pSystem		= nullptr;

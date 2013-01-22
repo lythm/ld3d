@@ -32,8 +32,12 @@ namespace ld3d
 		if(pBlob)
 		{
 			const char* szTxt =(char*) pBlob->GetBufferPointer();
-			OutputDebugStringA("[D3D11Material Compiler]:\n");
-			OutputDebugStringA(szTxt);
+			g_log(L"[D3D11Material Compiler]: ");
+			
+			std::wstring str;
+
+			Unicode::ANSI_2_UTF16(szTxt, str);
+			g_log(str);
 			pBlob->Release();
 		}
 	}

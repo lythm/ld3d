@@ -2,7 +2,7 @@
 #include "core\EventDispatcher.h"
 #include "core\Allocator.h"
 #include "core\StdAllocator.h"
-
+#include "core\g_format.h"
 #include <boost\enable_shared_from_this.hpp>
 namespace ld3d
 {
@@ -54,6 +54,7 @@ namespace ld3d
 
 		static void										Log(const std::wstring& text);
 		static void										SetLogger(Logger logger);
+
 	private:
 		GameObjectManagerPtr							m_pObjectManager;
 		SysManagerPtr									m_pSysManager;

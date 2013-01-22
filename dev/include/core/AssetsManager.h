@@ -75,6 +75,8 @@ namespace ld3d
 	class EXPORT_CLASS AssetManager
 	{
 		typedef boost::unordered_map<boost::filesystem::path, AssetPtr>					AssetMap;
+		typedef boost::function<AssetPtr (const boost::filesystem::path& file)>			AssetLoader;
+		typedef boost::unordered_map<boost::filesystem::path, AssetLoader>				AssetLoaderMap;
 
 	public:
 		AssetManager(void);
@@ -83,20 +85,24 @@ namespace ld3d
 		bool								Initialize(Sys_GraphicsPtr pGraphics, Sys_SoundPtr pSound);
 		void								Release();
 
+		AssetPtr							LoadAsset(const boost::filesystem::path& file);
+		bool								RegisterAssetLoader(const boost::filesystem::path& ext, AssetLoader loader);
 
-		SoundAssetPtr						LoadSound(const boost::filesystem::path& file, bool sound3d = true);
-		TextureAssetPtr						LoadTexture(const boost::filesystem::path& file);
-
-		AssetPtr							LoadAsset();
-		bool								PreloadAsset();
 
 	private:
-		AssetPtr							FindAsset(boost::filesystem::path file);
+		void								RegisterAssetLoaders();
+		AssetPtr							FindAsset(const boost::filesystem::path& file);
+		AssetLoader							FindLoader(const boost::filesystem::path& file);
+
+		AssetPtr							LoadSound(const boost::filesystem::path& file, bool sound3d = true);
+		AssetPtr							LoadTexture(const boost::filesystem::path& file);
 	private:
 		Sys_GraphicsPtr						m_pGraphics;
 		Sys_SoundPtr						m_pSound;
 		
 
 		AssetMap							m_assets;
+
+		AssetLoaderMap						m_loaders;
 	};
 }

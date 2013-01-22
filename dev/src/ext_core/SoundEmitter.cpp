@@ -41,7 +41,7 @@ namespace ld3d
 		boost::filesystem::path p = boost::filesystem::current_path();
 		//m_pChannel = m_pManager->GetSysSound()->Create3DStream("./assets/standard/music/1.mp3");
 
-		m_pSound = m_pManager->GetAssetManager()->LoadSound("./assets/standard/music/1.mp3");
+		m_pSound = boost::shared_dynamic_cast<SoundAsset>(m_pManager->GetAssetManager()->LoadAsset("./assets/standard/music/1.mp3"));
 
 		m_pChannel = m_pManager->GetSysSound()->AllocChannel(m_pSound->GetAsset());
 

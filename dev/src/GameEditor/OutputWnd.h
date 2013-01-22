@@ -17,6 +17,7 @@ public:
 
 protected:
 	
+	CString					Format(const CString& l);
 
 private:
 	CString					m_buffer;

@@ -17,15 +17,15 @@ bool VoxelDemo::Init(ld3d::CoreApiPtr pCore)
 
 	m_pCore = pCore;
 
-	SoundAssetPtr pAsset = m_pCore->GetAssetManager()->LoadSound("./assets/standard/music/1.mp3");
+	AssetPtr pAsset = m_pCore->GetAssetManager()->LoadAsset("./assets/standard/music/1.mp3");
 
-	pAsset = m_pCore->GetAssetManager()->LoadSound("./assets/standard/music/1.mp3");
+	pAsset = m_pCore->GetAssetManager()->LoadAsset("./assets/standard/music/1.mp3");
 
 	pAsset->Release();
 	
 	//m_pSound = m_pCore->GetSysSound()->CreateSound("./assets/standard/music/1.mp3");
 
-	m_pChannel = m_pCore->GetSysSound()->AllocChannel(pAsset->GetAsset());
+	m_pChannel = m_pCore->GetSysSound()->AllocChannel(boost::shared_dynamic_cast<SoundAsset>(pAsset)->GetAsset());
 
 	//m_pChannel = m_pCore->GetSysSound()->Create3DStream("./assets/standard/music/1.mp3");
 	

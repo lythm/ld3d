@@ -13,3 +13,4 @@
 #include "core\Sys_Sound.h"
 #include "core\SoundChannel.h"
 
+#include <boost\function.hpp>

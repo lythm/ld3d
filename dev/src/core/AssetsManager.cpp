@@ -21,6 +21,10 @@ namespace ld3d
 		m_pGraphics				= pGraphics;
 		m_pSound				= pSound;
 
+		
+
+		RegisterAssetLoaders();
+
 		return true;
 	}
 	void AssetManager::Release()
@@ -38,25 +42,32 @@ namespace ld3d
 		}
 
 		m_assets.clear();
+
+		m_loaders.clear();
+
 	}
-	AssetPtr AssetManager::LoadAsset()
-	{
-		return AssetPtr();
-	}
-	bool AssetManager::PreloadAsset()
-	{
-		return true;
-	}
-	
-	SoundAssetPtr AssetManager::LoadSound(const boost::filesystem::path& file, bool sound3d)
+	AssetPtr AssetManager::LoadAsset(const boost::filesystem::path& file)
 	{
 		AssetPtr pAsset = FindAsset(file);
 		if(pAsset)
 		{
 			pAsset->IncRef();
-			return boost::shared_dynamic_cast<Asset_T<Sound> >(pAsset);
+			return pAsset;
 		}
-		
+
+		AssetLoader loader = FindLoader(file);
+		if(loader.empty())
+		{
+			return AssetPtr();
+		}
+		pAsset = loader(file);
+
+		m_assets[file] = pAsset;
+		return pAsset;
+	}
+
+	AssetPtr AssetManager::LoadSound(const boost::filesystem::path& file, bool sound3d)
+	{
 		SoundPtr pSound;
 		
 		if(sound3d)
@@ -69,35 +80,27 @@ namespace ld3d
 		}
 		if(pSound == nullptr)
 		{
-			return SoundAssetPtr();
+			return AssetPtr();
 		}
 
-		pAsset = alloc_object<SoundAsset, SoundPtr>(pSound);
+		AssetPtr pAsset = alloc_object<SoundAsset, SoundPtr>(pSound);
 
-		m_assets[file] = pAsset;
-		return boost::shared_dynamic_cast<SoundAsset>(pAsset);
+		return pAsset;
 	}
-	TextureAssetPtr AssetManager::LoadTexture(const boost::filesystem::path& file)
+	AssetPtr AssetManager::LoadTexture(const boost::filesystem::path& file)
 	{
-		AssetPtr pAsset = FindAsset(file);
-		if(pAsset)
-		{
-			return boost::shared_dynamic_cast<Asset_T<Texture> >(pAsset);
-		}
-
 		TexturePtr pTex = m_pGraphics->CreateTextureFromFile(file.string().c_str());
 		if(pTex == nullptr)
 		{
 			return TextureAssetPtr();
 		}
 
-		pAsset = alloc_object<TextureAsset, TexturePtr>(pTex);
+		AssetPtr pAsset = alloc_object<TextureAsset, TexturePtr>(pTex);
 
-		m_assets[file] = pAsset;
-		return boost::shared_dynamic_cast<TextureAsset >(pAsset);
+		return pAsset;
 
 	}
-	AssetPtr AssetManager::FindAsset(boost::filesystem::path file)
+	AssetPtr AssetManager::FindAsset(const boost::filesystem::path& file)
 	{
 		AssetMap::iterator it = m_assets.find(file);
 		if(it != m_assets.end())
@@ -109,5 +112,47 @@ namespace ld3d
 		}
 
 		return AssetPtr();
+	}
+	AssetManager::AssetLoader AssetManager::FindLoader(const boost::filesystem::path& path)
+	{
+		if(path.has_extension() == false)
+		{
+			return AssetLoader();
+		}
+		AssetLoaderMap::iterator it = m_loaders.find(path.extension());
+
+		if(it != m_loaders.end())
+		{
+			return it->second;
+		}
+		return AssetLoader();
+	}
+	bool AssetManager::RegisterAssetLoader(const boost::filesystem::path& ext, AssetLoader loader)
+	{
+		AssetLoaderMap::iterator it = m_loaders.find(ext);
+
+		if(it != m_loaders.end())
+		{
+			log(L"Asset loader already exists: " + it->first.wstring());
+			return false;
+		}
+
+		m_loaders[ext] = loader;
+
+		return true;
+	}
+	void AssetManager::RegisterAssetLoaders()
+	{
+		AssetLoader loader = boost::bind(&AssetManager::LoadSound, this, _1, true);
+		RegisterAssetLoader(boost::filesystem::path(".mp3"), loader);
+		RegisterAssetLoader(boost::filesystem::path(".ogg"), loader);
+		RegisterAssetLoader(boost::filesystem::path(".wav"), loader);
+
+		loader = boost::bind(&AssetManager::LoadTexture, this, _1);
+		RegisterAssetLoader(boost::filesystem::path(".dds"), loader);
+		RegisterAssetLoader(boost::filesystem::path(".jpg"), loader);
+		RegisterAssetLoader(boost::filesystem::path(".tga"), loader);
+		RegisterAssetLoader(boost::filesystem::path(".bmp"), loader);
+
 	}
 }

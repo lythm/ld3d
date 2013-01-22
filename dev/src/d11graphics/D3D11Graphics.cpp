@@ -9,8 +9,15 @@
 #include "D3D11RenderTarget.h"
 #include "D3D11RenderWindow.h"
 
-EXPORT_C_API ld3d::Sys_Graphics* CreateSys()
+
+namespace ld3d
 {
+
+	boost::function<void (const std::wstring& log)>			g_logger;
+}
+EXPORT_C_API ld3d::Sys_Graphics* CreateSys(const boost::function<void (const std::wstring& log)>& logger)
+{
+	ld3d::g_logger = logger;
 	return new ld3d::D3D11Graphics;
 }
 
@@ -19,8 +26,21 @@ EXPORT_C_API void DestroySys(ld3d::Sys_Graphics* pSys)
 	delete (ld3d::D3D11Graphics*)pSys;
 }
 
+
 namespace ld3d
 {
+
+	void g_log(const std::wstring& str)
+	{
+		if(g_logger.empty())
+		{
+			return;
+		}
+
+		g_logger(str);
+	}
+
+
 	D3D11Graphics::D3D11Graphics(void)
 	{
 		m_pDevice						= NULL;
@@ -67,7 +87,7 @@ namespace ld3d
 		m_pContext->OMSetBlendState(NULL, 0, -1);
 
 		SetViewPort(0, 0, m_setting.frameBufferWidth , m_setting.frameBufferHeight);
-		
+
 		return true;
 	}
 	void D3D11Graphics::SetViewPort(int x, int y, int w, int h)
@@ -81,7 +101,7 @@ namespace ld3d
 		m_pContext->RSSetViewports( 1, &m_viewPort );
 	}
 
-	
+
 	void D3D11Graphics::Release()
 	{
 		m_pCurrentRW.reset();
@@ -91,7 +111,7 @@ namespace ld3d
 			m_pDefaultRW->Release();
 			m_pDefaultRW.reset();
 		}
-		
+
 		if(m_pContext)
 		{
 			m_pContext->Release();
@@ -124,7 +144,7 @@ namespace ld3d
 		}
 		m_pContext->ClearDepthStencilView(pDV == NULL ? m_pCurrentRW->GetD3D11DepthStencilView() : pDV, d3d11_clear, d, s);
 	}
-	
+
 	void D3D11Graphics::ClearRenderTarget(RenderTargetPtr pTarget, int index, const math::Color4& clr)
 	{
 		ID3D11RenderTargetView* pRTView = NULL;
@@ -245,7 +265,7 @@ namespace ld3d
 	void D3D11Graphics::SetIndexBuffer(GPUBufferPtr pBuffer, G_FORMAT type)
 	{
 		ID3D11Buffer* pD3DBuffer = boost::shared_dynamic_cast<D3D11Buffer>(pBuffer)->GetD3D11BufferInterface();
-		
+
 		m_pContext->IASetIndexBuffer(pD3DBuffer, D3D11Format::Convert(type), 0);
 	}
 	void D3D11Graphics::SetVertexBuffer(GPUBufferPtr pBuffer, unsigned int offset, unsigned int stride)
@@ -254,7 +274,7 @@ namespace ld3d
 
 		m_pContext->IASetVertexBuffers(0, 1, &pD3DBuffer, &stride, &offset);
 	}
-	
+
 	MaterialPtr D3D11Graphics::CreateMaterialFromFile(const char* szFile)
 	{
 		D3D11EffectMaterial* pFX = new D3D11EffectMaterial(m_pContext);
@@ -294,7 +314,7 @@ namespace ld3d
 		return TexturePtr(pTex);
 	}
 
-	
+
 	DepthStencilBufferPtr D3D11Graphics::CreateDepthStencilBuffer(int w, int h, G_FORMAT format)
 	{
 		D3D11DepthStencilBuffer* pTarget = new D3D11DepthStencilBuffer(m_pContext);
@@ -304,7 +324,7 @@ namespace ld3d
 			delete pTarget;
 			return DepthStencilBufferPtr();
 		}
-		
+
 		return DepthStencilBufferPtr(pTarget);
 	}
 	void D3D11Graphics::SetRenderTarget(RenderTargetPtr pRT)
@@ -316,7 +336,7 @@ namespace ld3d
 		}
 
 		D3D11RenderTarget* pD3DRT = (D3D11RenderTarget*)pRT.get();
-				
+
 		ID3D11RenderTargetView** pRTViews = pD3DRT->GetD3D11RenderTargetViews();
 		ID3D11DepthStencilView* pDSView = pD3DRT->GetD3D11DepthStencilView();
 
@@ -324,8 +344,8 @@ namespace ld3d
 		m_pContext->PSSetShaderResources(0, 8, pViews);
 
 		m_pContext->OMSetRenderTargets(pD3DRT->GetRenderTargetCount(), 
-					pRTViews, 
-					pDSView == NULL ? m_pCurrentRW->GetD3D11DepthStencilView() : pDSView);
+			pRTViews, 
+			pDSView == NULL ? m_pCurrentRW->GetD3D11DepthStencilView() : pDSView);
 
 	}
 	void D3D11Graphics::SetRenderWindow(RenderTargetPtr pWnd)
@@ -393,20 +413,20 @@ namespace ld3d
 	bool D3D11Graphics::CreateDefaultRenderTarget(const GraphicsSetting& setting)
 	{
 		m_pDefaultRW = boost::shared_dynamic_cast<D3D11RenderWindow>(CreateRenderWindow(setting.wnd, 
-								setting.frameBufferWidth, 
-								setting.frameBufferHeight,
-								setting.frameBufferFormat,
-								setting.depthStencilFormat,
-								setting.backBufferCount,
-								setting.multiSampleCount,
-								setting.multiSampleQuality,
-								setting.windowed));
+			setting.frameBufferWidth, 
+			setting.frameBufferHeight,
+			setting.frameBufferFormat,
+			setting.depthStencilFormat,
+			setting.backBufferCount,
+			setting.multiSampleCount,
+			setting.multiSampleQuality,
+			setting.windowed));
 
 		if(m_pDefaultRW == boost::shared_ptr<D3D11RenderWindow>())
 		{
 			return false;
 		}
-		
+
 		return true;
 	}
 

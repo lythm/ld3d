@@ -118,14 +118,46 @@ BOOL COutputEdit::Create(const RECT& rect, CWnd* pParentWnd)
 	return CEdit::Create(dwEditStyle, rect, pParentWnd, 0);
 }
 
+CString	COutputEdit::Format(const CString& l)
+{
+	CString o;
 
+	CString tmp;
+
+	for(int i = 0; i < l.GetLength(); ++i)
+	{
+		if(l[i] == '\n')
+		{
+			if(i != 0)
+			{
+				if(l[i - 1] != '\r')
+				{
+					if(tmp != L"" && tmp != L"\r\n")
+					{
+						o += tmp + L"\r\n";
+						tmp = "";
+					}
+					continue;
+				}
+			}
+		}
+
+		tmp += l[i];
+	}
+	o += tmp;
+	o.TrimRight(L"\r\n");
+	return o;
+}
 void COutputEdit::AddLine(const CString& l)
 {
-	m_buffer += l;
+	CString str = Format(l);
+
+	m_buffer += str;
 	m_buffer += "\r\n";
 
 	SetWindowText(m_buffer);
 
+	CEdit::FmtLines(TRUE);
 	ScrollToEnd();
 }
 void COutputEdit::ScrollToEnd()

@@ -21,3 +21,10 @@
 #include <vector>
 
 #include "core\g_format.h"
+
+
+
+namespace ld3d
+{
+	void						g_log(const std::wstring& str);
+}

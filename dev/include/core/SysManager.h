@@ -1,5 +1,6 @@
 #pragma once
 
+#include "core\CoreApi.h"
 
 namespace ld3d
 {
@@ -9,7 +10,7 @@ namespace ld3d
 		template<typename Sys>
 		struct Sys_Mod_T
 		{
-			typedef Sys*					(*Fn_CreateSys)();
+			typedef Sys*					(*Fn_CreateSys)(const boost::function<void (const std::wstring& log)>& logger);
 			typedef void					(*Fn_DestroySys)(Sys*);
 
 			boost::shared_ptr<Sys>			pSys;
@@ -35,7 +36,7 @@ namespace ld3d
 				}
 
 				filename = file;
-				pSys = boost::shared_ptr<Sys>(CreateSys(), boost::bind(&Sys_Mod_T<Sys>::delete_sys, this, _1));
+				pSys = boost::shared_ptr<Sys>(CreateSys(&CoreApi::Log), boost::bind(&Sys_Mod_T<Sys>::delete_sys, this, _1));
 
 
 
@@ -81,7 +82,11 @@ namespace ld3d
 		Sys_SoundPtr							GetSys_Sound();
 		Sys_InputPtr							GetSysInput();
 		Sys_GraphicsPtr							GetSysGraphics();
+
+
 	private:
+
+		
 
 
 	private:
