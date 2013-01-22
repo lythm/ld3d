@@ -388,10 +388,7 @@ namespace ld3d
 	{
 		return m_setting;
 	}
-	ShaderPtr D3D11Graphics::CreateShaderFromFile(const char* szFile)
-	{
-		return ShaderPtr();
-	}
+	
 	RenderStatePtr D3D11Graphics::CreateRenderState()
 	{
 		return RenderStatePtr();
@@ -445,7 +442,7 @@ namespace ld3d
 	VertexShaderPtr D3D11Graphics::CreateVertexShaderFromFile(const char* szFile)
 	{
 		//m_pDevice->CreateVertexShader(
-
+		//D3DX11CompileFromFile(
 		return VertexShaderPtr();
 	}
 }

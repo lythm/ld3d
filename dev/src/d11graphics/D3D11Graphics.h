@@ -47,7 +47,6 @@ namespace ld3d
 
 		void									ResizeFrameBuffer(int cx, int cy);
 
-		ShaderPtr								CreateShaderFromFile(const char* szFile);
 		RenderStatePtr							CreateRenderState();
 
 		RenderTargetPtr							CreateRenderWindow(void* handle, int w, int h, G_FORMAT color_format, G_FORMAT ds_format, int backbufferCount, int multiSampleCount, int multiSampleQuality, bool windowed);
@@ -58,6 +57,9 @@ namespace ld3d
 		int										GetFrameBufferHeight();
 
 		void									SetViewPort(int x, int y, int w, int h);
+
+		
+		
 	private:
 		GPUBufferPtr							CreateIndexBuffer(int bytes, void* pInitData, bool dynamic);
 		GPUBufferPtr							CreateVertexBuffer(int bytes, void* pInitData, bool dynamic);
