@@ -90,9 +90,9 @@ namespace ld3d
 
 		G_FORMAT formats[3] = 
 		{
-			G_FORMAT_R16G16B16A16_FLOAT,				// position
-			G_FORMAT_R16G16B16A16_FLOAT,				// normal
-			G_FORMAT_R16G16B16A16_FLOAT,				// diffuse color : specular
+			G_FORMAT_R32_FLOAT,					// depth
+			G_FORMAT_R16G16_FLOAT,				// normal.xy
+			G_FORMAT_R8G8B8A8_UNORM,			// diffuse color : specular
 		};
 
 		m_pGBuffer = CreateRenderTarget(3, w, h, formats);

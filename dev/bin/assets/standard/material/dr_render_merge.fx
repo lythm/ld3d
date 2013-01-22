@@ -3,7 +3,7 @@
 float4x4 mat:MATRIX_WVP;
 float4x4 matView:MATRIX_WV;
 
-Texture2D<half4> tex_gbuffer[3]:DR_GBUFFER;
+Texture2D tex_gbuffer[3]:DR_GBUFFER;
 Texture2D<float4> tex_abuffer:DR_ABUFFER;
 
 
@@ -41,6 +41,8 @@ ps_out ps_main(vs_out i)
 
 	o.color.xyz = l.xyz * d;
 	o.color.w = 1;
+
+	//o.color.xyz = dr_gbuffer_get_depth(tex_gbuffer, uv) / 100;
 	return o;
 }
 RasterizerState rs

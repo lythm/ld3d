@@ -34,6 +34,7 @@ ps_out ps_main(vs_out i)
 
 	o.color = float4(post_output.Sample(Sampler_GBuffer, uv).xyz, 1);
 
+
 	//o.color = float4(1, 1, 1, 1);
 	return o;
 }

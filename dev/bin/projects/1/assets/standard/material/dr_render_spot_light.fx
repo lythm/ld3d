@@ -1,7 +1,7 @@
 #include <deferred_shading/dr_gbuffer.hlsl>
 #include <deferred_shading/dr_light.hlsl>
 
-Texture2D<half4> tex_gbuffer[3]:DR_GBUFFER;
+Texture2D tex_gbuffer[3]:DR_GBUFFER;
 float4x4 wvp:MATRIX_WVP;
 float4x4 wv:MATRIX_WV;
 float4x4 i_p:MATRIX_I_PROJ;
@@ -34,10 +34,12 @@ PS_OUTPUT ps_main(PS_INPUT i)
 	
 	float2 uv = dr_gbuffer_screenpos_2_uv(i.s_pos);
 
-	half3 n = dr_gbuffer_get_normal(tex_gbuffer, uv);
-	half4 p = dr_gbuffer_get_position(tex_gbuffer, uv);
-
-	o.clr.xyz = dr_light_spot(p, n, light, wv);
+	float3 n = dr_gbuffer_get_normal(tex_gbuffer, uv);
+	
+	float3 v_pos = dr_gbuffer_get_position(tex_gbuffer, uv, i.s_pos.xy);
+	v_pos = mul(float4(v_pos, 1), i_p);
+	
+	o.clr.xyz = dr_light_spot(v_pos, n, light, wv);
 	o.clr.w = 1;
 
 

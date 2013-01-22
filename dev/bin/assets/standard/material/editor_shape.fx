@@ -25,10 +25,11 @@ vs_out vs_main(vs_in i)
 
 GBuffer dr_ps_main(vs_out i)
 {
-	half3 clr = half3(1, 1, 1);
-	half specular = 1;
+	float3 clr = half3(1, 1, 1);
+	float specular = 1;
 	
-	return dr_gbuffer_compose(i.s_pos, normalize(i.normal), clr, specular);
+
+	return dr_gbuffer_compose(i.s_pos.z, normalize(i.normal).xy, clr, specular);
 }
 RasterizerState rs
 {

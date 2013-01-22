@@ -1,7 +1,7 @@
 struct GBuffer
 {
-	float4	T1:SV_TARGET0;
-	float4	T2:SV_TARGET1;
+	float	T1:SV_TARGET0;
+	float2	T2:SV_TARGET1;
 	float4	T3:SV_TARGET2;
 };
 
@@ -28,39 +28,48 @@ SamplerState Sampler_GBufferNormal
 	MaxLod = 0;
 };
 
-GBuffer dr_gbuffer_compose(half4 p, half3 n, half3 d, half s)
+GBuffer dr_gbuffer_compose(float depth, float2 normal_xy, float3 diffuse, float specular)
 {
 	GBuffer g;
-	g.T1 = p;
-	g.T2 = half4(n, 1);
-	g.T3 = half4(d, s);
+	g.T1 = depth;
+	g.T2 = normal_xy;
+	g.T3 = float4(diffuse, specular);
 
 	return g;
 }
-
-float3 dr_gbuffer_get_normal(Texture2D<half4> g[3], float2 uv)
+float dr_gbuffer_get_depth(Texture2D g[3], float2 uv)
 {
-	half3 normal = g[1].Sample(Sampler_GBufferNormal, uv).xyz;
+	float d = g[0].Sample(Sampler_GBuffer, uv).r;
 
+	return d;
+}
+float3 dr_gbuffer_get_normal(Texture2D g[3], float2 uv)
+{
+	float3 normal = float3(g[1].Sample(Sampler_GBufferNormal, uv).xy, 0);
+	
+	normal.z = -sqrt(1-dot(normal.xy, normal.xy));
 	normal = normalize(normal);
 	
 	return normal;
 }
-float4 dr_gbuffer_get_position(Texture2D<half4> g[3], float2 uv)
+
+float3 dr_gbuffer_get_position(Texture2D g[3], float2 uv, float2 spos_xy)
 {
-	half4 p = g[0].Sample(Sampler_GBuffer, uv);
-//	p.xyz = p.xyz / p.w;
+	float3 p;
+
+	p.z = dr_gbuffer_get_depth(g, uv);
+	p.xy = spos_xy;
 
 	return p;
 }
-float3 dr_gbuffer_get_diffuse(Texture2D<half4> g[3], float2 uv)
+float3 dr_gbuffer_get_diffuse(Texture2D g[3], float2 uv)
 {
-	half4 c = g[2].Sample(Sampler_GBuffer, uv);
+	float4 c = g[2].Sample(Sampler_GBuffer, uv);
 	return c.xyz;
 }
 float dr_gbuffer_get_specular_power(Texture2D<half4> g[3], float2 uv)
 {
-	half4 c = g[2].Sample(Sampler_GBuffer, uv);
+	float4 c = g[2].Sample(Sampler_GBuffer, uv);
 	return c.w;
 }
 
