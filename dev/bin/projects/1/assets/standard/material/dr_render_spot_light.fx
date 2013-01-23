@@ -36,8 +36,11 @@ PS_OUTPUT ps_main(PS_INPUT i)
 
 	float3 n = dr_gbuffer_get_normal(tex_gbuffer, uv);
 	
-	float3 v_pos = dr_gbuffer_get_position(tex_gbuffer, uv, i.s_pos.xy);
-	v_pos = mul(float4(v_pos, 1), i_p);
+	float3 v_pos = mul(i.s_pos, i_p).xyz;
+	v_pos = normalize(v_pos);
+	
+	float depth = dr_gbuffer_get_depth(tex_gbuffer, uv);
+	v_pos = v_pos * depth;
 	
 	o.clr.xyz = dr_light_spot(v_pos, n, light, wv);
 	o.clr.w = 1;

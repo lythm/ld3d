@@ -2,12 +2,12 @@
 #include "InspectorCtrl.h"
 
 #include "resource.h"
+#include "InspectorPanel.h"
 
 //namespace controls
 //{
 CInspectorCtrl::CInspectorCtrl(void)
 {
-	m_pannelBk = nullptr;
 }
 
 
@@ -18,9 +18,7 @@ CInspectorCtrl::~CInspectorCtrl(void)
 		delete m_panels[i];
 	}
 	m_panels.clear();
-	delete m_pannelBk;
-	m_pannelBk = nullptr;
-	delete m_pBkBrush;
+	m_bkBrush.DeleteObject();
 }
 BEGIN_MESSAGE_MAP(CInspectorCtrl, CWnd)
 	ON_WM_CREATE()
@@ -38,8 +36,7 @@ int CInspectorCtrl::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	if (CWnd::OnCreate(lpCreateStruct) == -1)
 		return -1;
 
-	m_pannelBk = new CBrush(RGB(70, 70, 70));
-	m_pBkBrush = new CBrush(RGB(83, 83, 83));
+	m_bkBrush.CreateSolidBrush(RGB(83, 83, 83));
 	CRect rc;
 	GetClientRect(&rc);
 
@@ -49,7 +46,7 @@ int CInspectorCtrl::OnCreate(LPCREATESTRUCT lpCreateStruct)
 		rc.top = i * 30;
 		rc.bottom = rc.top + 30;
 
-		CInspectorPanel* pPanel = new CInspectorPanel(m_pannelBk);
+		CInspectorPanel* pPanel = new CInspectorPanel(this);
 		CString name;
 		name.Format(L"T%d", i);
 		pPanel->Create(name, rc, this);
@@ -66,115 +63,28 @@ bool CInspectorCtrl::Create(const TCHAR* szName, const CRect& rc, CWnd* pParent)
 	return CWnd::Create(strClassName, szName, WS_CHILD | WS_VISIBLE | WS_CLIPSIBLINGS | WS_CLIPCHILDREN, rc, pParent, IDD_INSPECTOR_VIEW) == TRUE;
 }
 
-
-void CInspectorCtrl::OnSize(UINT nType, int cx, int cy)
+void CInspectorCtrl::AdjustLayout()
 {
-	CWnd::OnSize(nType, cx, cy);
-
 	CRect rc;
 	GetClientRect(rc);
 
+	int h = 0;
 	for(size_t i = 0; i < m_panels.size(); ++i)
 	{
 		CInspectorPanel* pPanel = m_panels[i];
 
-		pPanel->SetWindowPos(NULL, rc.left, rc.top + i * (INSPECTOR_PANEL_HEIGHT + 1), rc.Width(), INSPECTOR_PANEL_HEIGHT, SWP_NOACTIVATE | SWP_NOZORDER);
+		pPanel->SetWindowPos(NULL, rc.left, rc.top + h, rc.Width(), pPanel->GetHeight(), SWP_NOACTIVATE | SWP_NOZORDER);
+
+		int dh = pPanel->GetHeight() + 1;
+		h += dh;
 	}
-	// TODO: 在此处添加消息处理程序代码
 }
-
-CInspectorPanel::CInspectorPanel(CBrush* pBkBrush)
+void CInspectorCtrl::OnSize(UINT nType, int cx, int cy)
 {
-	m_pContentWnd = nullptr;
-	m_pBkBrush = pBkBrush;
-}
-CInspectorPanel::~CInspectorPanel()
-{
-}
-void CInspectorPanel::Fold()
-{
-}
-void CInspectorPanel::UnFold()
-{
-}
-int	CInspectorPanel::GetHeight()
-{
-	return 0;
-}
-bool CInspectorPanel::Create(const TCHAR* szName, const CRect& rc, CWnd* pParent)
-{
-	//CString strClassName = GetGlobalData()->RegisterWindowClass(_T("GameEditor:InspectorPanel"));
-	m_name = szName;
-	return CDialogEx::Create(IDD_INSPECTOR_PANEL, pParent);
-	//strClassName, szName, WS_CHILD | WS_VISIBLE | WS_CLIPSIBLINGS | WS_CLIPCHILDREN, rc, pParent, IDD_INSPECTOR_PANEL) == TRUE;
-}
-
-
-
-void CInspectorPanel::OnPaint()
-{
-	CPaintDC dc(this); // device context for painting
-
-}
-
-int CInspectorPanel::OnCreate(LPCREATESTRUCT lpCreateStruct)
-{
-	if (CDialogEx::OnCreate(lpCreateStruct) == -1)
-		return -1;
-
-
-
-	return 0;
-}
-BEGIN_MESSAGE_MAP(CInspectorPanel, CWnd)
-	ON_WM_PAINT()
-	ON_WM_CREATE()
-	ON_WM_SIZE()
-	ON_WM_ERASEBKGND()
-	ON_WM_CTLCOLOR()
-END_MESSAGE_MAP()
-
-//}
-
-
-BOOL CInspectorPanel::OnInitDialog()
-{
-	CDialogEx::OnInitDialog();
-
-	CStatic * pText = (CStatic*)GetDlgItem(IDC_NAME);
-	pText->SetWindowTextW(m_name);
-	CDC * pDC = pText->GetDC();
-
-	pDC->SetBkColor(RGB(70, 70, 70));
-	pDC->SetTextColor(RGB(200, 200, 200));
-	pDC->UpdateColors();
-	return TRUE;
-}
-
-
-void CInspectorPanel::OnSize(UINT nType, int cx, int cy)
-{
-	CDialogEx::OnSize(nType, cx, cy);
-
-	CRect rc;
-	GetClientRect(rc);
-
-	CStatic * pText = (CStatic*)GetDlgItem(IDC_NAME);
-
-
-	pText->SetWindowPos(NULL, rc.left, rc.top, rc.Width(), rc.Height(), SWP_NOACTIVATE | SWP_NOZORDER);
-	pText->CenterWindow(this);
-
-	Invalidate();
-}
-
-
-BOOL CInspectorPanel::OnEraseBkgnd(CDC* pDC)
-{
+	CWnd::OnSize(nType, cx, cy);
+	AdjustLayout();
 	
-
-	return TRUE;
-	//return CDialogEx::OnEraseBkgnd(pDC);
+	// TODO: 在此处添加消息处理程序代码
 }
 
 
@@ -185,27 +95,14 @@ BOOL CInspectorCtrl::OnEraseBkgnd(CDC* pDC)
 
 	GetClientRect(rc);
 
-	pDC->FillRect(rc, m_pBkBrush);
+	pDC->FillRect(rc, &m_bkBrush);
 
 	return TRUE;
 	//return CWnd::OnEraseBkgnd(pDC);
 }
 
-
 void CInspectorCtrl::OnDestroy()
 {
 	CWnd::OnDestroy();
 
-}
-
-
-HBRUSH CInspectorPanel::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
-{
-	HBRUSH hbr = CDialogEx::OnCtlColor(pDC, pWnd, nCtlColor);
-	if(nCtlColor==CTLCOLOR_STATIC)
-	{
-		pDC-> SetTextColor(RGB(200,200,200));
-		pDC->SetBkColor(RGB(70, 70, 70));
-	}
-	return *m_pBkBrush;
 }

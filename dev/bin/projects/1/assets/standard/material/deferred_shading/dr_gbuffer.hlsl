@@ -56,7 +56,6 @@ float3 dr_gbuffer_get_normal(Texture2D g[3], float2 uv)
 float3 dr_gbuffer_get_position(Texture2D g[3], float2 uv, float2 spos_xy)
 {
 	float3 p;
-
 	p.z = dr_gbuffer_get_depth(g, uv);
 	p.xy = spos_xy;
 

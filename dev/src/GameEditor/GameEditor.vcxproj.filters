@@ -132,6 +132,15 @@
     <ClInclude Include="editor_utils.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="InspectorProperty_Int.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="InspectorPanel.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="InspectorProperty.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameEditor.cpp">
@@ -240,6 +249,15 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="editor_utils.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="InspectorProperty_Int.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="InspectorPanel.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="InspectorProperty.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
