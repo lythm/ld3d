@@ -218,3 +218,5 @@ void CInspectorPanel::ShowProps()
 		pProp->ShowWindow(m_bExpanded ? SW_SHOW : SW_HIDE);
 	}
 }
+
+
