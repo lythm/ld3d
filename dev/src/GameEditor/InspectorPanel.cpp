@@ -14,7 +14,7 @@
 IMPLEMENT_DYNAMIC(CInspectorPanel, CDialogEx)
 
 
-	void CInspectorPanel::DoDataExchange(CDataExchange* pDX)
+void CInspectorPanel::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
 }
