@@ -141,6 +141,27 @@
     <ClInclude Include="InspectorProperty.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="InspectorProperty_String.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="InspectorProperty_Float.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="InspectorProperty_Bool.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="InspectorProperty_Color.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="InspectorProperty_FilePath.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="InspectorProperty_Range.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="InspectorProperty_Simple.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameEditor.cpp">
@@ -258,6 +279,27 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="InspectorProperty.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="InspectorProperty_String.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="InspectorProperty_Float.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="InspectorProperty_Bool.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="InspectorProperty_Color.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="InspectorProperty_FilePath.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="InspectorProperty_Range.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="InspectorProperty_Simple.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

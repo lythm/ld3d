@@ -14,6 +14,7 @@ public:
 
 	void										AdjustLayout();
 
+	void										RefreshPanels();
 private:
 
 	std::vector<CInspectorPanel*>				m_panels;
@@ -24,5 +25,6 @@ public:
 	afx_msg void OnSize(UINT nType, int cx, int cy);
 	afx_msg BOOL OnEraseBkgnd(CDC* pDC);
 	afx_msg void OnDestroy();
+	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
 };
 

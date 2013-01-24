@@ -25,6 +25,7 @@ BEGIN_MESSAGE_MAP(CInspectorCtrl, CWnd)
 	ON_WM_SIZE()
 	ON_WM_ERASEBKGND()
 	ON_WM_DESTROY()
+	ON_WM_LBUTTONDOWN()
 END_MESSAGE_MAP()
 
 void CInspectorCtrl::AddPanel(CInspectorPanel* pPanel)
@@ -54,6 +55,9 @@ int CInspectorCtrl::OnCreate(LPCREATESTRUCT lpCreateStruct)
 		pPanel->ShowWindow(SW_SHOW);
 		AddPanel(pPanel);
 	}
+
+	//ShowScrollBar(SB_VERT);
+	//SetScoll
 	return 0;
 }
 bool CInspectorCtrl::Create(const TCHAR* szName, const CRect& rc, CWnd* pParent)
@@ -62,7 +66,17 @@ bool CInspectorCtrl::Create(const TCHAR* szName, const CRect& rc, CWnd* pParent)
 
 	return CWnd::Create(strClassName, szName, WS_CHILD | WS_VISIBLE | WS_CLIPSIBLINGS | WS_CLIPCHILDREN, rc, pParent, IDD_INSPECTOR_VIEW) == TRUE;
 }
+void CInspectorCtrl::RefreshPanels()
+{
+	for(size_t i = 0; i < m_panels.size(); ++i)
+	{
+		CInspectorPanel* pPanel = m_panels[i];
 
+		pPanel->InvalidatePanel();
+	}
+
+	Invalidate();
+}
 void CInspectorCtrl::AdjustLayout()
 {
 	CRect rc;
@@ -105,4 +119,12 @@ void CInspectorCtrl::OnDestroy()
 {
 	CWnd::OnDestroy();
 
+}
+
+
+void CInspectorCtrl::OnLButtonDown(UINT nFlags, CPoint point)
+{
+	// TODO: 在此添加消息处理程序代码和/或调用默认值
+	SetFocus();
+	CWnd::OnLButtonDown(nFlags, point);
 }

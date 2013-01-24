@@ -108,6 +108,7 @@ int CInspectorView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 void CInspectorView::OnSize(UINT nType, int cx, int cy)
 {
+
 	CDockablePane::OnSize(nType, cx, cy);
 	AdjustLayout();
 }

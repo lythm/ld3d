@@ -7,7 +7,13 @@
 #include "afxdialogex.h"
 #include "InspectorCtrl.h"
 #include "InspectorProperty.h"
-
+#include "InspectorProperty_Int.h"
+#include "InspectorProperty_String.h"
+#include "InspectorProperty_Color.h"
+#include "InspectorProperty_Float.h"
+#include "InspectorProperty_Bool.h"
+#include "InspectorProperty_FilePath.h"
+#include "InspectorProperty_Range.h"
 
 // CInspectorPanel ¶Ô»°¿ò
 
@@ -65,9 +71,7 @@ void CInspectorPanel::Fold()
 
 	m_pInspector->AdjustLayout();
 
-	InvalidatePanel();
-	m_pInspector->UpdateWindow();
-	m_pInspector->Invalidate();
+	m_pInspector->RefreshPanels();
 
 }
 void CInspectorPanel::UnFold()
@@ -77,10 +81,7 @@ void CInspectorPanel::UnFold()
 
 	m_pInspector->AdjustLayout();
 
-	InvalidatePanel();
-	m_pInspector->UpdateWindow();
-	m_pInspector->Invalidate();
-	
+	m_pInspector->RefreshPanels();
 }
 int	CInspectorPanel::GetHeight()
 {
@@ -134,11 +135,41 @@ BOOL CInspectorPanel::OnInitDialog()
 	pText->SetWindowTextW(m_name);
 
 
-	CInspectorProperty* pProp = new CInspectorProperty;
+	CInspectorProperty* pProp = new CInspectorProperty_Int(L"Int");
 
 	pProp->Create(this);
 	m_propList.push_back(pProp);
 
+	pProp = new CInspectorProperty_String(L"String");
+
+	pProp->Create(this);
+	m_propList.push_back(pProp);
+
+	pProp = new CInspectorProperty_Float(L"Float");
+
+	pProp->Create(this);
+	m_propList.push_back(pProp);
+
+	pProp = new CInspectorProperty_Color(L"Color");
+
+	pProp->Create(this);
+	m_propList.push_back(pProp);
+
+	pProp = new CInspectorProperty_Bool(L"Bool");
+
+	pProp->Create(this);
+	m_propList.push_back(pProp);
+
+
+	pProp = new CInspectorProperty_FilePath(L"File Path");
+
+	pProp->Create(this);
+	m_propList.push_back(pProp);
+
+	pProp = new CInspectorProperty_Range(L"Range");
+
+	pProp->Create(this);
+	m_propList.push_back(pProp);
 	return TRUE;
 }
 
@@ -151,7 +182,6 @@ void CInspectorPanel::OnSize(UINT nType, int cx, int cy)
 	GetClientRect(rc);
 
 	CStatic * pText = (CStatic*)GetDlgItem(IDC_NAME);
-
 
 	pText->SetWindowPos(NULL, rc.left, rc.top, rc.Width(), INSPECTOR_CAPTION_HEIGHT, SWP_NOACTIVATE | SWP_NOZORDER);
 
@@ -190,7 +220,7 @@ HBRUSH CInspectorPanel::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 	HBRUSH hbr = CDialogEx::OnCtlColor(pDC, pWnd, nCtlColor);
 	if(nCtlColor==CTLCOLOR_STATIC)
 	{
-		pDC-> SetTextColor(RGB(200,200,200));
+		pDC->SetTextColor(RGB(200,200,200));
 		pDC->SetBkColor(RGB(70, 70, 70));
 	}
 	return m_bkBrush;
@@ -215,7 +245,9 @@ void CInspectorPanel::ShowProps()
 	{
 		CInspectorProperty* pProp = m_propList[i];
 
+		pProp->UpdateWindow();
 		pProp->ShowWindow(m_bExpanded ? SW_SHOW : SW_HIDE);
+		
 	}
 }
 
