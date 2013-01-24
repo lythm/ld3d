@@ -2,6 +2,7 @@
 #include "InspectorProperty_Int.h"
 #include "resource.h"
 #include "editor_utils.h"
+#include <locale>
 
 
 CInspectorProperty_Int::CInspectorProperty_Int(CString name) : CInspectorProperty_Simple(name, IDD_INSPECTOR_PROPERTY_INT)
@@ -15,6 +16,8 @@ CInspectorProperty_Int::~CInspectorProperty_Int(void)
 }
 BEGIN_MESSAGE_MAP(CInspectorProperty_Int, CInspectorProperty_Simple)
 	ON_EN_CHANGE(IDC_VALUE, &CInspectorProperty_Int::OnEnChangeValue)
+	ON_EN_UPDATE(IDC_VALUE, &CInspectorProperty_Int::OnEnUpdateValue)
+	
 END_MESSAGE_MAP()
 
 
@@ -22,13 +25,16 @@ END_MESSAGE_MAP()
 
 BOOL CInspectorProperty_Int::OnInitDialog()
 {
-	CInspectorProperty::OnInitDialog();
+	CInspectorProperty_Simple::OnInitDialog();
 	SetDlgItemText(IDC_NAME, GetName());
 	SetDlgItemInt(IDC_VALUE, m_value);
 	return TRUE;
 }
 
+void CInspectorProperty_Int::ProcessInput()
+{
 
+}
 
 void CInspectorProperty_Int::OnEnChangeValue()
 {
@@ -39,15 +45,6 @@ void CInspectorProperty_Int::OnEnChangeValue()
 
 	m_value = GetDlgItemInt(IDC_VALUE);
 	
-	CString str;
-	GetDlgItemText(IDC_VALUE, str);
-
-	if(str == L"")
-	{
-		SetDlgItemInt(IDC_VALUE, m_value);
-	
-	}
-
 	// TODO:  在此添加控件通知处理程序代码
 }
 int	CInspectorProperty_Int::GetValue() const
@@ -59,4 +56,10 @@ void CInspectorProperty_Int::SetValue(int v)
 	m_value = v;
 }
 
+
+
+
+void CInspectorProperty_Int::OnEnUpdateValue()
+{
+}
 

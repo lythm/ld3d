@@ -15,7 +15,7 @@ CInspectorProperty_FilePath::~CInspectorProperty_FilePath(void)
 
 BOOL CInspectorProperty_FilePath::OnInitDialog()
 {
-	CInspectorProperty::OnInitDialog();
+	CInspectorProperty_Simple::OnInitDialog();
 
 	CMFCEditBrowseCtrl* pCtrl = (CMFCEditBrowseCtrl*)GetDlgItem(IDC_VALUE);
 

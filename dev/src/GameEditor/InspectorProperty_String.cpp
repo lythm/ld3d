@@ -16,7 +16,7 @@ CInspectorProperty_String::~CInspectorProperty_String(void)
 
 BOOL CInspectorProperty_String::OnInitDialog()
 {
-	CInspectorProperty::OnInitDialog();
+	CInspectorProperty_Simple::OnInitDialog();
 
 	SetDlgItemText(IDC_NAME, GetName());
 	SetDlgItemText(IDC_VALUE, m_value);

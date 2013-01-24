@@ -112,6 +112,7 @@
     <ClInclude Include="AxisIndicator.h" />
     <ClInclude Include="editor_utils.h" />
     <ClInclude Include="GameScene.h" />
+    <ClInclude Include="InspectorPanelBar.h" />
     <ClInclude Include="InspectorProperty.h" />
     <ClInclude Include="InspectorCtrl.h" />
     <ClInclude Include="InspectorPanel.h" />
@@ -162,6 +163,7 @@
     <ClCompile Include="AxisIndicator.cpp" />
     <ClCompile Include="editor_utils.cpp" />
     <ClCompile Include="GameScene.cpp" />
+    <ClCompile Include="InspectorPanelBar.cpp" />
     <ClCompile Include="InspectorProperty.cpp" />
     <ClCompile Include="InspectorCtrl.cpp" />
     <ClCompile Include="InspectorPanel.cpp" />

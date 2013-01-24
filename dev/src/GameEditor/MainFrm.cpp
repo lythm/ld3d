@@ -611,13 +611,7 @@ void CMainFrame::OnEditAppsettings()
 
 	dlg.DoModal();
 }
-class Test
-{
-public:
-	void		foo(ld3d::EventPtr pEvent)
-	{
-	}
-};
+
 void CMainFrame::OnImportImportmaxmesh()
 {
 }

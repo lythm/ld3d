@@ -14,26 +14,16 @@
 #include "InspectorProperty_Bool.h"
 #include "InspectorProperty_FilePath.h"
 #include "InspectorProperty_Range.h"
+#include "InspectorPanelBar.h"
 
 // CInspectorPanel 对话框
 
-IMPLEMENT_DYNAMIC(CInspectorPanel, CDialogEx)
+IMPLEMENT_DYNAMIC(CInspectorPanel, CWnd)
 
 
-void CInspectorPanel::DoDataExchange(CDataExchange* pDX)
-{
-	CDialogEx::DoDataExchange(pDX);
-}
-
-
-
-BEGIN_MESSAGE_MAP(CInspectorPanel, CDialogEx)
+BEGIN_MESSAGE_MAP(CInspectorPanel, CWnd)
 	ON_WM_CREATE()
 	ON_WM_SIZE()
-	ON_WM_ERASEBKGND()
-	ON_WM_CTLCOLOR()
-	ON_WM_LBUTTONUP()
-	ON_STN_CLICKED(IDC_NAME, &CInspectorPanel::OnStnClickedName)
 END_MESSAGE_MAP()
 
 
@@ -43,8 +33,9 @@ END_MESSAGE_MAP()
 CInspectorPanel::CInspectorPanel(CInspectorCtrl* pCtrl)
 {
 	m_pInspector = pCtrl;
-	m_pContentWnd = nullptr;
 	m_bExpanded = false;
+	m_pBar = nullptr;
+
 }
 CInspectorPanel::~CInspectorPanel()
 {
@@ -52,6 +43,9 @@ CInspectorPanel::~CInspectorPanel()
 	{
 		delete m_propList[i];
 	}
+
+	delete m_pBar;
+	m_pBar = nullptr;
 }
 void CInspectorPanel::InvalidatePanel()
 {
@@ -64,6 +58,10 @@ void CInspectorPanel::InvalidatePanel()
 		m_propList[i]->Invalidate();
 	}
 }
+bool CInspectorPanel::Folded()
+{
+	return !m_bExpanded;
+}
 void CInspectorPanel::Fold()
 {
 	m_bExpanded = false;
@@ -71,7 +69,8 @@ void CInspectorPanel::Fold()
 
 	m_pInspector->AdjustLayout();
 
-	m_pInspector->RefreshPanels();
+	//m_pInspector->RefreshPanels();
+	//m_pInspector->Invalidate();
 
 }
 void CInspectorPanel::UnFold()
@@ -80,8 +79,8 @@ void CInspectorPanel::UnFold()
 	ShowProps();
 
 	m_pInspector->AdjustLayout();
-
-	m_pInspector->RefreshPanels();
+	//m_pInspector->Invalidate();
+	//m_pInspector->RefreshPanels();
 }
 int	CInspectorPanel::GetHeight()
 {
@@ -106,34 +105,23 @@ int	CInspectorPanel::GetHeight()
 }
 bool CInspectorPanel::Create(const TCHAR* szName, const CRect& rc, CWnd* pParent)
 {
-	//CString strClassName = GetGlobalData()->RegisterWindowClass(_T("GameEditor:InspectorPanel"));
+	CString strClassName = GetGlobalData()->RegisterWindowClass(_T("GameEditor:InspectorPanel"));
 	m_name = szName;
 
-	m_bkBrush.CreateSolidBrush(RGB(70, 70, 70));
-
-
-	return CDialogEx::Create(IDD_INSPECTOR_PANEL, pParent);
-	//strClassName, szName, WS_CHILD | WS_VISIBLE | WS_CLIPSIBLINGS | WS_CLIPCHILDREN, rc, pParent, IDD_INSPECTOR_PANEL) == TRUE;
+	return CWnd::Create(strClassName, szName, WS_CHILD | WS_VISIBLE | WS_CLIPSIBLINGS | WS_CLIPCHILDREN, rc, pParent, 0) == TRUE;
 }
 
 
 int CInspectorPanel::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
-	if (CDialogEx::OnCreate(lpCreateStruct) == -1)
+	if (CWnd::OnCreate(lpCreateStruct) == -1)
 		return -1;
 
-	return 0;
-}
-//}
 
+	m_pBar = new CInspectorPanelBar(m_name);
 
-BOOL CInspectorPanel::OnInitDialog()
-{
-	CDialogEx::OnInitDialog();
-
-	CStatic * pText = (CStatic*)GetDlgItem(IDC_NAME);
-	pText->SetWindowTextW(m_name);
-
+	m_pBar->Create(this);
+	m_pBar->ShowWindow(SW_SHOW);
 
 	CInspectorProperty* pProp = new CInspectorProperty_Int(L"Int");
 
@@ -170,20 +158,18 @@ BOOL CInspectorPanel::OnInitDialog()
 
 	pProp->Create(this);
 	m_propList.push_back(pProp);
-	return TRUE;
-}
 
+	return 0;
+}
 
 void CInspectorPanel::OnSize(UINT nType, int cx, int cy)
 {
-	CDialogEx::OnSize(nType, cx, cy);
+	CWnd::OnSize(nType, cx, cy);
 
 	CRect rc;
 	GetClientRect(rc);
 
-	CStatic * pText = (CStatic*)GetDlgItem(IDC_NAME);
-
-	pText->SetWindowPos(NULL, rc.left, rc.top, rc.Width(), INSPECTOR_CAPTION_HEIGHT, SWP_NOACTIVATE | SWP_NOZORDER);
+	m_pBar->SetWindowPos(NULL, rc.left, rc.top, rc.Width(), INSPECTOR_CAPTION_HEIGHT, SWP_NOACTIVATE | SWP_NOZORDER);
 
 	int offset = INSPECTOR_CAPTION_HEIGHT;
 
@@ -199,53 +185,16 @@ void CInspectorPanel::OnSize(UINT nType, int cx, int cy)
 		offset += propRc.Height();
 	}
 
-	Invalidate();
+	//Invalidate();
 }
 
-
-BOOL CInspectorPanel::OnEraseBkgnd(CDC* pDC)
-{
-	CPaintDC dc(this); // device context for painting
-
-	CRect rc;
-	GetClientRect(rc);
-	dc.FillRect(rc, &m_bkBrush);
-
-	return TRUE;
-}
-
-
-HBRUSH CInspectorPanel::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
-{
-	HBRUSH hbr = CDialogEx::OnCtlColor(pDC, pWnd, nCtlColor);
-	if(nCtlColor==CTLCOLOR_STATIC)
-	{
-		pDC->SetTextColor(RGB(200,200,200));
-		pDC->SetBkColor(RGB(70, 70, 70));
-	}
-	return m_bkBrush;
-}
-
-
-void CInspectorPanel::OnLButtonUp(UINT nFlags, CPoint point)
-{
-	// TODO: 在此添加消息处理程序代码和/或调用默认值
-
-	CDialogEx::OnLButtonUp(nFlags, point);
-}
-
-
-void CInspectorPanel::OnStnClickedName()
-{
-	m_bExpanded ? Fold() : UnFold();
-}
 void CInspectorPanel::ShowProps()
 {
 	for(size_t i = 0; i < m_propList.size(); ++i)
 	{
 		CInspectorProperty* pProp = m_propList[i];
 
-		pProp->UpdateWindow();
+		//pProp->UpdateWindow();
 		pProp->ShowWindow(m_bExpanded ? SW_SHOW : SW_HIDE);
 		
 	}

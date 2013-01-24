@@ -37,6 +37,7 @@ int CInspectorCtrl::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	if (CWnd::OnCreate(lpCreateStruct) == -1)
 		return -1;
 
+
 	m_bkBrush.CreateSolidBrush(RGB(83, 83, 83));
 	CRect rc;
 	GetClientRect(&rc);
