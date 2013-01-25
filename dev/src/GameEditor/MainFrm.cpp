@@ -169,23 +169,28 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	
 
 	m_wndTplView.EnableDocking(CBRS_ALIGN_ANY);
-	m_wndFileView.EnableDocking(CBRS_ALIGN_ANY);
+	m_wndAssetView.EnableDocking(CBRS_ALIGN_ANY);
 	m_wndObjectView.EnableDocking(CBRS_ALIGN_ANY);
-	DockPane(&m_wndFileView);
-	CDockablePane* pTabbedBar = NULL;
-	m_wndObjectView.AttachToTabWnd(&m_wndFileView, DM_SHOW, TRUE, &pTabbedBar);
-
+	
 	m_wndOutput.EnableDocking(CBRS_ALIGN_ANY);
-	
-	DockPane(&m_wndOutput);
-	
-	
-	
 	m_wndInspectorView.EnableDocking(CBRS_ALIGN_ANY);
-	DockPane(&m_wndInspectorView);
 	
+
+	CDockablePane* pTabbedBar = NULL;
+
+	DockPane(&m_wndInspectorView);
+	m_wndTplView.AttachToTabWnd(&m_wndInspectorView, DM_SHOW, TRUE, &pTabbedBar);
+
+	DockPane(&m_wndOutput);
+	m_wndAssetView.AttachToTabWnd(&m_wndOutput, DM_SHOW, TRUE, &pTabbedBar);
+
+	DockPane(&m_wndObjectView);
+
 	// 基于持久值设置视觉管理器和样式
-	OnApplicationLook(theApp.m_nAppLook);
+	//OnApplicationLook(theApp.m_nAppLook);
+
+	OnApplicationLook(ID_VIEW_APPLOOK_OFF_2007_BLACK);
+	
 
 	// 启用工具栏和停靠窗口菜单替换
 	EnablePaneMenu(TRUE, ID_VIEW_CUSTOMIZE, strCustomize, ID_VIEW_TOOLBAR);
@@ -269,10 +274,10 @@ BOOL CMainFrame::CreateDockingWindows()
 	}
 
 	// 创建文件视图
-	CString strFileView;
-	bNameValid = strFileView.LoadString(IDS_FILE_VIEW);
+	CString strAssetView;
+	bNameValid = strAssetView.LoadString(IDS_FILE_VIEW);
 	ASSERT(bNameValid);
-	if (!m_wndFileView.Create(strFileView, this, CRect(0, 0, 200, 200), TRUE, ID_VIEW_FILEVIEW, WS_CHILD | WS_VISIBLE | WS_CLIPSIBLINGS | WS_CLIPCHILDREN | CBRS_LEFT| CBRS_FLOAT_MULTI))
+	if (!m_wndAssetView.Create(strAssetView, this, CRect(0, 0, 200, 400), TRUE, ID_VIEW_FILEVIEW, WS_CHILD | WS_VISIBLE | WS_CLIPSIBLINGS | WS_CLIPCHILDREN | CBRS_BOTTOM| CBRS_FLOAT_MULTI))
 	{
 		TRACE0("未能创建“文件视图”窗口\n");
 		return FALSE; // 未能创建
@@ -302,7 +307,7 @@ BOOL CMainFrame::CreateDockingWindows()
 	CString strOutputWnd;
 	bNameValid = strOutputWnd.LoadString(IDS_OUTPUT_WND);
 	ASSERT(bNameValid);
-	if (!m_wndOutput.Create(strOutputWnd, this, CRect(0, 0, 100, 100), TRUE, ID_VIEW_OUTPUTWND, WS_CHILD | WS_VISIBLE | WS_CLIPSIBLINGS | WS_CLIPCHILDREN | CBRS_BOTTOM | CBRS_FLOAT_MULTI))
+	if (!m_wndOutput.Create(strOutputWnd, this, CRect(0, 0, 400, 400), TRUE, ID_VIEW_OUTPUTWND, WS_CHILD | WS_VISIBLE | WS_CLIPSIBLINGS | WS_CLIPCHILDREN | CBRS_BOTTOM | CBRS_FLOAT_MULTI))
 	{
 		TRACE0("未能创建输出窗口\n");
 		return FALSE; // 未能创建
@@ -317,7 +322,7 @@ BOOL CMainFrame::CreateDockingWindows()
 void CMainFrame::SetDockingWindowIcons(BOOL bHiColorIcons)
 {
 	HICON hFileViewIcon = (HICON) ::LoadImage(::AfxGetResourceHandle(), MAKEINTRESOURCE(bHiColorIcons ? IDI_FILE_VIEW_HC : IDI_FILE_VIEW), IMAGE_ICON, ::GetSystemMetrics(SM_CXSMICON), ::GetSystemMetrics(SM_CYSMICON), 0);
-	m_wndFileView.SetIcon(hFileViewIcon, FALSE);
+	m_wndAssetView.SetIcon(hFileViewIcon, FALSE);
 
 	HICON hObjectViewIcon = (HICON) ::LoadImage(::AfxGetResourceHandle(), MAKEINTRESOURCE(bHiColorIcons ? IDI_CLASS_VIEW_HC : IDI_CLASS_VIEW), IMAGE_ICON, ::GetSystemMetrics(SM_CXSMICON), ::GetSystemMetrics(SM_CYSMICON), 0);
 	m_wndObjectView.SetIcon(hObjectViewIcon, FALSE);
@@ -964,7 +969,7 @@ void CMainFrame::OutputInfo(const CString& info)
 {
 	m_wndOutput.OuputInfo(info);
 }
-void CMainFrame::outputBuild(const CString& build)
+void CMainFrame::OutputBuild(const CString& build)
 {
 	m_wndOutput.OuputInfo(build);
 }
@@ -993,7 +998,9 @@ void CMainFrame::OnFileSaveAs()
 }
 void CMainFrame::UpdateAssetsView()
 {
-	m_wndFileView.ScanFolder(Project::Instance()->GetProjectRootPath().wstring().c_str());
+	boost::filesystem::path p = Project::Instance()->GetProjectRootPath() / L"assets";
+
+	m_wndAssetView.ScanFolder(p.wstring().c_str());
 }
 
 void CMainFrame::OnFileSaveScene()

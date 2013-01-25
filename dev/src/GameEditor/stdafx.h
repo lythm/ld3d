@@ -65,6 +65,7 @@
 
 #include "core\core_all.h"
 #include "ext_voxel\voxel_all.h"
+#include <afxcview.h>
 
 
 
@@ -89,3 +90,8 @@ typedef boost::shared_ptr<Project>					ProjectPtr;
 
 
 extern ld3d::PoolAllocator							g_Allocator;
+
+
+#define INSPECTOR_PROPERTY_ROW_HEIGHT			20
+#define INSPECTOR_PROPERTY_ROW_H_PADDING		10
+#define INSPECTOR_PROPERTY_ROW_V_PADDING		6

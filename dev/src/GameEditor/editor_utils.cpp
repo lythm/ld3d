@@ -180,6 +180,6 @@ void util_log_build(const std::wstring& text)
 {
 	if(util_get_main_frame())
 	{
-		util_get_main_frame()->outputBuild(text.c_str());
+		util_get_main_frame()->OutputBuild(text.c_str());
 	}
 }

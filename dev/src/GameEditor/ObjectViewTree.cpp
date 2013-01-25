@@ -34,6 +34,9 @@ BEGIN_MESSAGE_MAP(CObjectViewTree, CTreeCtrl)
 	ON_NOTIFY_REFLECT(TVN_BEGINDRAG, &CObjectViewTree::OnTvnBegindrag)
 	ON_WM_MOUSEMOVE()
 	ON_WM_LBUTTONUP()
+	ON_WM_CREATE()
+	ON_WM_ERASEBKGND()
+	ON_WM_CTLCOLOR()
 END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////
@@ -199,19 +202,6 @@ void CObjectViewTree::OnTvnEndlabeledit(NMHDR *pNMHDR, LRESULT *pResult)
 	*pResult = 1;
 }
 
-
-//void CObjectViewTree::OnOvRename()
-//{
-//	// TODO: 在此添加命令处理程序代码
-//
-//	HTREEITEM hItem = GetSelectedItem();
-//	if(hItem == NULL)
-//	{
-//		return;
-//	}
-//}
-
-
 void CObjectViewTree::OnTvnSelchanged(NMHDR *pNMHDR, LRESULT *pResult)
 {
 	LPNMTREEVIEW pNMTreeView = reinterpret_cast<LPNMTREEVIEW>(pNMHDR);
@@ -333,4 +323,42 @@ void CObjectViewTree::OnLButtonUp(UINT nFlags, CPoint point)
 	} 
 	
 	CTreeCtrl::OnLButtonUp(nFlags, point);
+}
+
+
+int CObjectViewTree::OnCreate(LPCREATESTRUCT lpCreateStruct)
+{
+	if (CTreeCtrl::OnCreate(lpCreateStruct) == -1)
+		return -1;
+
+	m_bkBrush.CreateSolidBrush(RGB(83, 83, 83));
+
+	SetTextColor(RGB(200,200,200));
+	SetBkColor(RGB(83, 83, 83));
+	
+	return 0;
+}
+
+
+BOOL CObjectViewTree::OnEraseBkgnd(CDC* pDC)
+{
+	// TODO: 在此添加消息处理程序代码和/或调用默认值
+
+	CRect rc;
+	GetClientRect(rc);
+
+	pDC->FillRect(rc, &m_bkBrush);
+
+	return TRUE;
+	//return CTreeCtrl::OnEraseBkgnd(pDC);
+}
+
+
+HBRUSH CObjectViewTree::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
+{
+	HBRUSH hbr = CTreeCtrl::OnCtlColor(pDC, pWnd, nCtlColor);
+
+	
+	
+	return m_bkBrush;
 }

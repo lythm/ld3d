@@ -39,13 +39,7 @@
     <ClInclude Include="Resource.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="FileView.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="OutputWnd.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="PropertiesWnd.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="GridMesh.h">
@@ -69,16 +63,7 @@
     <ClInclude Include="ObjectView.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="VectorProperty.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="AppConfig.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ObjectPropertyGrid.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="TransformProperty.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="AppSettingsDlg.h">
@@ -177,6 +162,15 @@
     <ClInclude Include="Inspector.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="AssetView.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="AssetFolderTreeView.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="AssetListView.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameEditor.cpp">
@@ -194,13 +188,7 @@
     <ClCompile Include="GameEditorView.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="FileView.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="OutputWnd.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="PropertiesWnd.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="GridMesh.cpp">
@@ -224,16 +212,7 @@
     <ClCompile Include="ObjectView.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="VectorProperty.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="AppConfig.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="ObjectPropertyGrid.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="TransformProperty.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="AppSettingsDlg.cpp">
@@ -330,6 +309,15 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Inspector.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="AssetView.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="AssetFolderTreeView.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="AssetListView.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

@@ -26,12 +26,13 @@ BEGIN_MESSAGE_MAP(CInspectorCtrl, CWnd)
 	ON_WM_ERASEBKGND()
 	ON_WM_DESTROY()
 	ON_WM_LBUTTONDOWN()
+	ON_WM_CTLCOLOR()
+	ON_WM_VSCROLL()
 END_MESSAGE_MAP()
 
 void CInspectorCtrl::AddPanel(CInspectorPanel* pPanel)
 {
 	pPanel->Create(this);
-	//pPanel->ShowWindow(SW_SHOW);
 	m_panels.push_back(pPanel);
 
 	pPanel->UnFold();
@@ -78,12 +79,16 @@ void CInspectorCtrl::AdjustLayout()
 		int dh = pPanel->GetHeight() + 1;
 		h += dh;
 	}
+	h+= 1;
+	
+	SetScrollRange(SB_VERT, 0, max(0, h - rc.Height()));
+
 }
 void CInspectorCtrl::OnSize(UINT nType, int cx, int cy)
 {
 	CWnd::OnSize(nType, cx, cy);
 	AdjustLayout();
-	
+
 	// TODO: 在此处添加消息处理程序代码
 }
 
@@ -135,4 +140,55 @@ void CInspectorCtrl::RemoveAll()
 		delete m_panels[i];
 	}
 	m_panels.clear();
+}
+
+HBRUSH CInspectorCtrl::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
+{
+	HBRUSH hbr = CWnd::OnCtlColor(pDC, pWnd, nCtlColor);
+
+	if(nCtlColor == CTLCOLOR_SCROLLBAR)
+	{
+		pDC->SetBkColor(RGB(70, 70, 70));
+		return m_bkBrush;
+	}
+	return hbr;
+}
+
+
+void CInspectorCtrl::OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
+{
+	// TODO: 在此添加消息处理程序代码和/或调用默认值
+	// its horizontal scroll bar
+	int nCurPos = GetScrollPos(SB_VERT) ;
+	int nPrevPos = nCurPos;
+	// decide what to do for each diffrent scroll event
+
+	CRect rc;
+	GetClientRect(rc);
+
+	switch(nSBCode)
+	{
+	case SB_TOP:   
+		nCurPos = 0;
+		break;
+	case SB_BOTTOM :   
+		nCurPos = GetScrollLimit(SB_VERT)-1;
+		break;
+	case SB_LINEUP:  
+		nCurPos = max(nCurPos - INSPECTOR_PROPERTY_ROW_HEIGHT, 0);
+		break;
+	case SB_LINEDOWN:  nCurPos = min(nCurPos + INSPECTOR_PROPERTY_ROW_HEIGHT, GetScrollLimit(SB_VERT)-1);
+		break;
+	case SB_PAGEUP:  nCurPos = max(nCurPos - rc.Height(), 0);
+		break;
+	case SB_PAGEDOWN:  nCurPos = min(nCurPos + rc.Height(), GetScrollLimit(SB_VERT)-1);
+		break;
+	case SB_THUMBTRACK:
+	case SB_THUMBPOSITION:  nCurPos = nPos;
+		break;
+	}  
+	SetScrollPos(SB_VERT, nCurPos);
+	ScrollWindow(0, nPrevPos - nCurPos) ;
+	CWnd::OnVScroll(nSBCode, nPos, pScrollBar);
+	Invalidate();
 }

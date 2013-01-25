@@ -12,7 +12,7 @@ public:
 
 	void							UpdateGameObjectTree(ld3d::GameObjectPtr pRoot);
 	void							DeleteTree();
-	ld3d::GameObjectPtr			GetGameObject(HTREEITEM hObj);
+	ld3d::GameObjectPtr				GetGameObject(HTREEITEM hObj);
 	void							EraseItem(HTREEITEM hItem);
 private:
 	void							_update_object_tree(ld3d::GameObjectPtr pRoot, HTREEITEM hRoot);
@@ -20,7 +20,7 @@ private:
 // ÷ÿ–¥
 protected:
 	virtual BOOL OnNotify(WPARAM wParam, LPARAM lParam, LRESULT* pResult);
-
+	CBrush							m_bkBrush;
 //  µœ÷
 public:
 	virtual ~CObjectViewTree();
@@ -41,4 +41,7 @@ private:
 public:
 	afx_msg void OnMouseMove(UINT nFlags, CPoint point);
 	afx_msg void OnLButtonUp(UINT nFlags, CPoint point);
+	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
+	afx_msg BOOL OnEraseBkgnd(CDC* pDC);
+	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 };

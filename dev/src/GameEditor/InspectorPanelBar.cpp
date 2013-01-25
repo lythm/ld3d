@@ -33,7 +33,7 @@ bool CInspectorPanelBar::Create(CInspectorPanel* pPanel)
 	m_pPanel = pPanel;
 
 	m_bkBrush.CreateSolidBrush(RGB(70, 70, 70));
-	return CDialogEx::Create(IDD_INSPECTOR_PANEL, pPanel);
+	return CDialogEx::Create(CInspectorPanelBar::IDD, pPanel);
 }
 
 BEGIN_MESSAGE_MAP(CInspectorPanelBar, CDialogEx)

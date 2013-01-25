@@ -12,6 +12,9 @@
 
 #include "editor_utils.h"
 
+#include "Project.h"
+
+
 CInspector::CInspector(void)
 {
 }
@@ -76,9 +79,20 @@ CInspectorProperty* CInspector::CreateProperty(ld3d::Property* p)
 	CInspectorProperty* pProp = nullptr;
 	switch(p->getType())
 	{
+	case property_type_filepath:
+		{
+			boost::filesystem::path v = ((FilePathProperty*)p)->Get();
+			pProp = new CInspectorProperty_FilePath(p->getName().c_str(), v, false, p);
+			
+			if(((FilePathProperty*)p)->IsReadOnly())
+			{
+				pProp->SetReadOnly(true);
+			}
+		}
+		break;
 	case property_type_matrix44:
 		{
-			const math::Matrix44 v = ((Matrix44Property*)p)->Get();
+			math::Matrix44 v = ((Matrix44Property*)p)->Get();
 
 			pProp = new CInspectorProperty_Transform(p->getName().c_str(), v, p);
 			
@@ -220,7 +234,16 @@ void CInspector::OnPropertyChanged(CInspectorProperty* pProp)
 
 		}
 		break;
+	case property_type_filepath:
+		{
+			CInspectorProperty_FilePath* pFileProp = (CInspectorProperty_FilePath*)pProp;
+
+			((FilePathProperty*)p)->Set(pFileProp->GetValue());
+		}
+		break;
 	default:
 		break;
 	}
+
+	//util_update_object_view(Project::Instance()->Root());
 }

@@ -30,8 +30,6 @@ public:
 	afx_msg void OnEditCopy();
 	afx_msg void OnEditClear();
 
-	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
-
 	DECLARE_MESSAGE_MAP()
 };
 
@@ -66,6 +64,6 @@ protected:
 
 	DECLARE_MESSAGE_MAP()
 public:
-	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
+	
 };
 

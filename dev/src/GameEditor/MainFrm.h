@@ -3,7 +3,7 @@
 //
 
 #pragma once
-#include "FileView.h"
+#include "AssetView.h"
 #include "ObjectView.h"
 #include "OutputWnd.h"
 #include "TemplateView.h"
@@ -38,7 +38,7 @@ public:
 	void					UpdateObjectView(ld3d::GameObjectPtr pRoot);
 	void					UpdateGameObjectProperty(ld3d::GameObjectPtr pObj);
 	void					OutputInfo(const CString& info);
-	void					outputBuild(const CString& build);
+	void					OutputBuild(const CString& build);
 	void					UpdateAssetsView();
 private:
 	bool					UpdateComponentMenu(CMFCPopupMenu* pMenu);
@@ -59,7 +59,7 @@ protected:  // 控件条嵌入成员
 	CMFCToolBar       m_wndToolBar;
 	CMFCStatusBar     m_wndStatusBar;
 	CMFCToolBarImages m_UserImages;
-	CFileView         m_wndFileView;
+	CAssetView         m_wndAssetView;
 	CObjectView        m_wndObjectView;
 	COutputWnd        m_wndOutput;
 	CMFCCaptionBar    m_wndCaptionBar;

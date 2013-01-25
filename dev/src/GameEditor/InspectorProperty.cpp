@@ -67,6 +67,9 @@ int CInspectorProperty::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	if (CDialogEx::OnCreate(lpCreateStruct) == -1)
 		return -1;
 
+	
+
+
 	return 0;
 }
 

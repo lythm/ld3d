@@ -108,6 +108,8 @@
   <ItemGroup>
     <ClInclude Include="AppConfig.h" />
     <ClInclude Include="AppSettingsDlg.h" />
+    <ClInclude Include="AssetFolderTreeView.h" />
+    <ClInclude Include="AssetListView.h" />
     <ClInclude Include="Assets.h" />
     <ClInclude Include="AxisIndicator.h" />
     <ClInclude Include="editor_utils.h" />
@@ -131,10 +133,9 @@
     <ClInclude Include="IntEdit.h" />
     <ClInclude Include="MeshImporter.h" />
     <ClInclude Include="MeshImporter_3DSMax.h" />
-    <ClInclude Include="ObjectPropertyGrid.h" />
     <ClInclude Include="ObjectView.h" />
     <ClInclude Include="EditorCamera.h" />
-    <ClInclude Include="FileView.h" />
+    <ClInclude Include="AssetView.h" />
     <ClInclude Include="GameEditor.h" />
     <ClInclude Include="GameEditorDoc.h" />
     <ClInclude Include="GameEditorView.h" />
@@ -146,7 +147,6 @@
     <ClInclude Include="ProgressDlg.h" />
     <ClInclude Include="Project.h" />
     <ClInclude Include="ProjectWizard.h" />
-    <ClInclude Include="PropertiesWnd.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="RenderingSettingDlg.h" />
     <ClInclude Include="Resource.h" />
@@ -156,13 +156,13 @@
     <ClInclude Include="targetver.h" />
     <ClInclude Include="TemplateView.h" />
     <ClInclude Include="TemplateViewTree.h" />
-    <ClInclude Include="TransformProperty.h" />
-    <ClInclude Include="VectorProperty.h" />
     <ClInclude Include="ObjectViewTree.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AppConfig.cpp" />
     <ClCompile Include="AppSettingsDlg.cpp" />
+    <ClCompile Include="AssetFolderTreeView.cpp" />
+    <ClCompile Include="AssetListView.cpp" />
     <ClCompile Include="Assets.cpp" />
     <ClCompile Include="AxisIndicator.cpp" />
     <ClCompile Include="editor_utils.cpp" />
@@ -186,10 +186,9 @@
     <ClCompile Include="IntEdit.cpp" />
     <ClCompile Include="MeshImporter.cpp" />
     <ClCompile Include="MeshImporter_3DSMax.cpp" />
-    <ClCompile Include="ObjectPropertyGrid.cpp" />
     <ClCompile Include="ObjectView.cpp" />
     <ClCompile Include="EditorCamera.cpp" />
-    <ClCompile Include="FileView.cpp" />
+    <ClCompile Include="AssetView.cpp" />
     <ClCompile Include="GameEditor.cpp" />
     <ClCompile Include="GameEditorDoc.cpp" />
     <ClCompile Include="GameEditorView.cpp" />
@@ -201,7 +200,6 @@
     <ClCompile Include="ProgressDlg.cpp" />
     <ClCompile Include="Project.cpp" />
     <ClCompile Include="ProjectWizard.cpp" />
-    <ClCompile Include="PropertiesWnd.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="RenderingSettingDlg.cpp" />
     <ClCompile Include="Settings.cpp" />
@@ -212,8 +210,6 @@
     </ClCompile>
     <ClCompile Include="TemplateView.cpp" />
     <ClCompile Include="TemplateViewTree.cpp" />
-    <ClCompile Include="TransformProperty.cpp" />
-    <ClCompile Include="VectorProperty.cpp" />
     <ClCompile Include="ObjectViewTree.cpp" />
   </ItemGroup>
   <ItemGroup>

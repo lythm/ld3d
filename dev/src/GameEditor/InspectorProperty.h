@@ -1,9 +1,7 @@
 #pragma once
 
 #include "resource.h"
-#define INSPECTOR_PROPERTY_ROW_HEIGHT			20
-#define INSPECTOR_PROPERTY_ROW_H_PADDING		10
-#define INSPECTOR_PROPERTY_ROW_V_PADDING		6
+
 // CInpsectorProperty ¶Ô»°¿ò
 class CInspectorPanel;
 class CInspectorProperty : public CDialogEx

@@ -226,7 +226,7 @@ void CObjectView::OnUpdateSort(CCmdUI* pCmdUI)
 
 void CObjectView::OnNewFolder()
 {
-	AfxMessageBox(_T("新建文件夹..."));
+	//AfxMessageBox(_T("新建文件夹..."));
 }
 
 void CObjectView::OnPaint()
@@ -278,13 +278,6 @@ void CObjectView::OnChangeVisualStyle()
 	m_wndToolBar.LoadBitmap(theApp.m_bHiColorIcons ? IDB_SORT_24 : IDR_SORT, 0, 0, TRUE /* 锁定*/);
 }
 
-
-//void CObjectView::OnIdrOvContext()
-//{
-//	// TODO: 在此添加命令处理程序代码
-//}
-
-
 void CObjectView::OnOvDelobj()
 {
 	// TODO: 在此添加命令处理程序代码
@@ -317,3 +310,4 @@ void CObjectView::ClearSelection()
 	Project::Instance()->SelectObject(ld3d::GameObjectPtr());
 	m_wndObjectView.SelectItem(nullptr);
 }
+

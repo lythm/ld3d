@@ -1,9 +1,9 @@
 
 #pragma once
 
-#include "ObjectViewTree.h"
+#include "AssetFolderTreeView.h"
 
-class CFileViewToolBar : public CMFCToolBar
+class CAssetViewToolBar : public CMFCToolBar
 {
 	virtual void OnUpdateCmdUI(CFrameWnd* /*pTarget*/, BOOL bDisableIfNoHndler)
 	{
@@ -13,11 +13,11 @@ class CFileViewToolBar : public CMFCToolBar
 	virtual BOOL AllowShowOnList() const { return FALSE; }
 };
 
-class CFileView : public CDockablePane
+class CAssetView : public CDockablePane
 {
 // 构造
 public:
-	CFileView();
+	CAssetView();
 
 	void AdjustLayout();
 	void OnChangeVisualStyle();
@@ -28,20 +28,15 @@ public:
 // 特性
 protected:
 
-	CObjectViewTree m_wndFileView;
-	CImageList m_FileViewImages;
-	CFileViewToolBar m_wndToolBar;
+	CSplitterWndEx		m_splitterWnd;
+	CAssetViewToolBar	m_wndToolBar;
 
 protected:
 
-	void			_fill_view(boost::filesystem::path p, HTREEITEM hParent);
-
-
-	HTREEITEM		AddFileItem(HTREEITEM hParent, boost::filesystem::path p);
-	HTREEITEM		AddDirectoryItem(HTREEITEM hParent, boost::filesystem::path p);
+	
 // 实现
 public:
-	virtual ~CFileView();
+	virtual ~CAssetView();
 
 protected:
 	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);

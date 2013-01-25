@@ -13,9 +13,12 @@ namespace ld3d
 		property_type_color,
 		property_type_mesh,
 		property_type_light,
+		property_type_filepath,
 
 	};
 
+	template <>
+	PropType PropTypeId<boost::filesystem::path>::m_type		= PropType(property_type_filepath);
 	
 	template <>
 	PropType PropTypeId<math::Matrix44>::m_type		= PropType(property_type_matrix44);
@@ -46,6 +49,7 @@ namespace ld3d
 	typedef Property_T<math::Color4>				ColorProperty;
 	typedef Property_T<Mesh>						MeshProperty;
 	typedef Property_T<Light>						LightProperty;
+	typedef Property_T<boost::filesystem::path>		FilePathProperty;
 
 	
 }

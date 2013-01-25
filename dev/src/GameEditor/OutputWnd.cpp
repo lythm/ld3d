@@ -25,7 +25,7 @@ COutputWnd::~COutputWnd()
 BEGIN_MESSAGE_MAP(COutputWnd, CDockablePane)
 	ON_WM_CREATE()
 	ON_WM_SIZE()
-	ON_WM_CTLCOLOR()
+	
 END_MESSAGE_MAP()
 
 int COutputWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
@@ -85,12 +85,7 @@ void COutputWnd::UpdateFonts()
 }
 
 
-HBRUSH COutputWnd::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
-{
-	//HBRUSH hbr = CEdit::OnCtlColor(pDC, pWnd, nCtlColor);
 
-	return (HBRUSH)GetStockObject(WHITE_BRUSH);
-}
 
 
 COutputEdit::COutputEdit()
@@ -108,7 +103,7 @@ BEGIN_MESSAGE_MAP(COutputEdit, CEdit)
 	ON_WM_WINDOWPOSCHANGING()
 
 	ON_COMMAND(ID_OUTPUT_EDIT_SELECT_ALL, &COutputEdit::OnOutputEditSelectAll)
-	ON_WM_CTLCOLOR()
+	
 END_MESSAGE_MAP()
 
 BOOL COutputEdit::Create(const RECT& rect, CWnd* pParentWnd)
@@ -221,11 +216,4 @@ void COutputEdit::OnOutputEditSelectAll()
 }
 
 
-
-HBRUSH COutputEdit::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
-{
-	//HBRUSH hbr = CEdit::OnCtlColor(pDC, pWnd, nCtlColor);
-
-	return (HBRUSH)GetStockObject(WHITE_BRUSH);
-}
 

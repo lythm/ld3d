@@ -13,7 +13,7 @@ public:
 	virtual ~CInspectorPanelBar();
 
 // 对话框数据
-	enum { IDD = IDD_INSPECTOR_PANEL };
+	enum { IDD = IDD_INSPECTOR_PANEL_BAR };
 
 	bool										Create(CInspectorPanel* pPanel);
 	int											GetHeight();
