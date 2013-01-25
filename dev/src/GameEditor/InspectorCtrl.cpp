@@ -30,42 +30,27 @@ END_MESSAGE_MAP()
 
 void CInspectorCtrl::AddPanel(CInspectorPanel* pPanel)
 {
+	pPanel->Create(this);
+	//pPanel->ShowWindow(SW_SHOW);
 	m_panels.push_back(pPanel);
+
+	pPanel->UnFold();
+	AdjustLayout();
 }
 int CInspectorCtrl::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
 	if (CWnd::OnCreate(lpCreateStruct) == -1)
 		return -1;
 
-
 	m_bkBrush.CreateSolidBrush(RGB(83, 83, 83));
-	CRect rc;
-	GetClientRect(&rc);
-
-
-	for(int i = 0; i < 10; ++i)
-	{
-		rc.top = i * 30;
-		rc.bottom = rc.top + 30;
-
-		CInspectorPanel* pPanel = new CInspectorPanel(this);
-		CString name;
-		name.Format(L"T%d", i);
-		pPanel->Create(name, rc, this);
-
-		pPanel->ShowWindow(SW_SHOW);
-		AddPanel(pPanel);
-	}
-
-	//ShowScrollBar(SB_VERT);
-	//SetScoll
+	AdjustLayout();
 	return 0;
 }
 bool CInspectorCtrl::Create(const TCHAR* szName, const CRect& rc, CWnd* pParent)
 {
 	CString strClassName = GetGlobalData()->RegisterWindowClass(_T("GameEditor:InspectorCtrl"));
 
-	return CWnd::Create(strClassName, szName, WS_CHILD | WS_VISIBLE | WS_CLIPSIBLINGS | WS_CLIPCHILDREN, rc, pParent, IDD_INSPECTOR_VIEW) == TRUE;
+	return CWnd::Create(strClassName, szName, WS_CHILD | WS_VISIBLE | WS_CLIPSIBLINGS | WS_CLIPCHILDREN, rc, pParent, 0) == TRUE;
 }
 void CInspectorCtrl::RefreshPanels()
 {
@@ -128,4 +113,26 @@ void CInspectorCtrl::OnLButtonDown(UINT nFlags, CPoint point)
 	// TODO: 在此添加消息处理程序代码和/或调用默认值
 	SetFocus();
 	CWnd::OnLButtonDown(nFlags, point);
+}
+void CInspectorCtrl::OnPropertyChanged(CInspectorProperty* pProp)
+{
+
+}
+int CInspectorCtrl::GetPanelCount()
+{
+	return (int)m_panels.size();
+}
+CInspectorPanel* CInspectorCtrl::GetPanel(int index)
+{
+	return m_panels[index];
+}
+void CInspectorCtrl::RemoveAll()
+{
+	for(size_t i = 0; i < m_panels.size(); ++i)
+	{
+		m_panels[i]->RemoveAll();
+		m_panels[i]->DestroyWindow();
+		delete m_panels[i];
+	}
+	m_panels.clear();
 }

@@ -1,6 +1,7 @@
 #pragma once
 
 #define INSPECTOR_CAPTION_HEIGHT				20
+
 // CInspectorPanel 对话框
 class CInspectorCtrl;
 class CInspectorProperty;
@@ -12,7 +13,7 @@ class CInspectorPanel : public CWnd
 	DECLARE_DYNAMIC(CInspectorPanel)
 
 public:
-	CInspectorPanel(CInspectorCtrl* pCtrl);   // 标准构造函数
+	CInspectorPanel(CString name);   // 标准构造函数
 	virtual ~CInspectorPanel();
 
 
@@ -21,9 +22,15 @@ public:
 	bool										Folded();
 	int											GetHeight();
 
-	bool										Create(const TCHAR* szName, const CRect& rc, CWnd* pParent);
+	bool										Create(CInspectorCtrl* pInspector);
+	bool										Create(const TCHAR* szName, const CRect& rc, CInspectorCtrl* pInspector);
 
 	void										InvalidatePanel();
+
+	void										OnPropertyChanged(CInspectorProperty* pProp);
+
+	void										AddProperty(CInspectorProperty* pProp);
+	void										RemoveAll();
 private:
 	void										ShowProps();
 private:

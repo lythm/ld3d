@@ -1,6 +1,7 @@
 #pragma once
 
 class CInspectorPanel;
+class CInspectorProperty;
 
 class CInspectorCtrl : public CWnd
 {
@@ -11,10 +12,12 @@ public:
 
 	bool										Create(const TCHAR* szName, const CRect& rc, CWnd* pParent);
 	void										AddPanel(CInspectorPanel* pPanel);
-
+	int											GetPanelCount();
+	CInspectorPanel*							GetPanel(int index);
 	void										AdjustLayout();
-
 	void										RefreshPanels();
+	void										RemoveAll();
+	virtual void								OnPropertyChanged(CInspectorProperty* pProp);
 private:
 
 	std::vector<CInspectorPanel*>				m_panels;

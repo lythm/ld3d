@@ -13,17 +13,27 @@
 
 IMPLEMENT_DYNAMIC(CInspectorProperty, CDialogEx)
 
-CInspectorProperty::CInspectorProperty(CString name, UINT nIDD)
+	CInspectorProperty::CInspectorProperty(CString name, void* pUserData, UINT nIDD)
 	: CDialogEx(nIDD, nullptr)
 {
 	m_nIDD = nIDD;
 	m_pPanel = nullptr;
 	m_name = name;
+	m_pUserData = pUserData;
+	m_bReadOnly = false;
 }
 
 CInspectorProperty::~CInspectorProperty()
 {
 	m_bkBrush.DeleteObject();
+}
+void CInspectorProperty::SetReadOnly(bool bReadOnly)
+{
+	m_bReadOnly = bReadOnly;
+}
+bool CInspectorProperty::GetReadOnly()
+{
+	return m_bReadOnly;
 }
 const CString& CInspectorProperty::GetName() const
 {
@@ -118,4 +128,16 @@ void CInspectorProperty::OnLButtonDown(UINT nFlags, CPoint point)
 	// TODO: 在此添加消息处理程序代码和/或调用默认值
 	SetFocus();
 	CDialogEx::OnLButtonDown(nFlags, point);
+}
+void CInspectorProperty::SetUserData(void* pUserData)
+{
+	m_pUserData = pUserData;
+}
+void* CInspectorProperty::GetUserData()
+{
+	return m_pUserData;
+}
+void CInspectorProperty::OnValueChanged()
+{
+	m_pPanel->OnPropertyChanged(this);
 }

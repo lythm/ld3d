@@ -3,7 +3,7 @@
 #include "resource.h"
 
 
-CInspectorProperty_FilePath::CInspectorProperty_FilePath(CString name) : CInspectorProperty_Simple(name, IDD_INSPECTOR_PROPERTY_FILEPATH)
+CInspectorProperty_FilePath::CInspectorProperty_FilePath(CString name) : CInspectorProperty_Simple(name, nullptr, IDD_INSPECTOR_PROPERTY_FILEPATH)
 {
 }
 

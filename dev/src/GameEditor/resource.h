@@ -113,6 +113,7 @@
 #define IDD_INSPECTOR_PROPERTY_BOOL     325
 #define IDD_INSPECTOR_PROPERTY_FILEPATH 326
 #define IDD_INSPECTOR_PROPERTY_RANGE    327
+#define IDD_INSPECTOR_PROPERTY_TRANSFORM 328
 #define IDC_MFCCOLORBUTTON1             1000
 #define IDC_PROGRESS1                   1009
 #define IDC_PROGRESS                    1009
@@ -130,6 +131,28 @@
 #define IDC_BUTTON1                     1034
 #define IDC_SPIN1                       1036
 #define IDC_RICHEDIT21                  1037
+#define IDC_TRANSLATION_Y_VALUE         1041
+#define IDC_TRANSLATION_X_VALUE         1042
+#define IDC_TRANSLATION_Z_VALUE         1043
+#define IDC_ROTATION_Y_VALUE            1050
+#define IDC_ROTATION_X_VALUE            1051
+#define IDC_ROTATION_Z_VALUE            1052
+#define IDC_SCALE_Y_VALUE               1053
+#define IDC_SCALE_X_VALUE               1054
+#define IDC_EDIT10                      1055
+#define IDC_SCALE_Z_VALUE               1055
+#define IDC_TRANSLATION                 1056
+#define IDC_ROTATION                    1057
+#define IDC_SCALE                       1058
+#define IDC_TRANSLATION_X               1059
+#define IDC_TRANSLATION_Y               1060
+#define IDC_TRANSLATION_Z               1061
+#define IDC_ROTATION_X                  1062
+#define IDC_ROTATION_Y                  1063
+#define IDC_ROTATION_Z                  1064
+#define IDC_SCALE_X                     1065
+#define IDC_SCALE_Y                     1066
+#define IDC_SCALE_Z                     1067
 #define ID_OV_32771                     32771
 #define ID_OV_DELOBJ                    32772
 #define ID_GAMEOBJECT_CREATEEMPTY       32773
@@ -197,7 +220,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        332
 #define _APS_NEXT_COMMAND_VALUE         32830
-#define _APS_NEXT_CONTROL_VALUE         1038
+#define _APS_NEXT_CONTROL_VALUE         1068
 #define _APS_NEXT_SYMED_VALUE           313
 #endif
 #endif

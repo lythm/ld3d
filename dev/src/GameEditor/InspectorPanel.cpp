@@ -7,13 +7,7 @@
 #include "afxdialogex.h"
 #include "InspectorCtrl.h"
 #include "InspectorProperty.h"
-#include "InspectorProperty_Int.h"
-#include "InspectorProperty_String.h"
-#include "InspectorProperty_Color.h"
-#include "InspectorProperty_Float.h"
-#include "InspectorProperty_Bool.h"
-#include "InspectorProperty_FilePath.h"
-#include "InspectorProperty_Range.h"
+
 #include "InspectorPanelBar.h"
 
 // CInspectorPanel 对话框
@@ -30,9 +24,10 @@ END_MESSAGE_MAP()
 
 // CInspectorPanel 消息处理程序
 
-CInspectorPanel::CInspectorPanel(CInspectorCtrl* pCtrl)
+CInspectorPanel::CInspectorPanel(CString name)
 {
-	m_pInspector = pCtrl;
+	m_name = name;
+	m_pInspector = nullptr;
 	m_bExpanded = false;
 	m_pBar = nullptr;
 
@@ -43,9 +38,18 @@ CInspectorPanel::~CInspectorPanel()
 	{
 		delete m_propList[i];
 	}
-
+	m_propList.clear();
 	delete m_pBar;
 	m_pBar = nullptr;
+}
+void CInspectorPanel::RemoveAll()
+{
+	for(size_t i = 0; i < m_propList.size(); ++i)
+	{
+		m_propList[i]->DestroyWindow();
+		delete m_propList[i];
+	}
+	m_propList.clear();
 }
 void CInspectorPanel::InvalidatePanel()
 {
@@ -103,12 +107,16 @@ int	CInspectorPanel::GetHeight()
 
 	return INSPECTOR_CAPTION_HEIGHT;
 }
-bool CInspectorPanel::Create(const TCHAR* szName, const CRect& rc, CWnd* pParent)
+bool CInspectorPanel::Create(CInspectorCtrl* pInspector)
+{
+	return Create(m_name, CRect(), pInspector);
+}
+bool CInspectorPanel::Create(const TCHAR* szName, const CRect& rc, CInspectorCtrl* pInspector)
 {
 	CString strClassName = GetGlobalData()->RegisterWindowClass(_T("GameEditor:InspectorPanel"));
 	m_name = szName;
-
-	return CWnd::Create(strClassName, szName, WS_CHILD | WS_VISIBLE | WS_CLIPSIBLINGS | WS_CLIPCHILDREN, rc, pParent, 0) == TRUE;
+	m_pInspector = pInspector;
+	return CWnd::Create(strClassName, szName, WS_CHILD | WS_VISIBLE | WS_CLIPSIBLINGS | WS_CLIPCHILDREN, rc, pInspector, 0) == TRUE;
 }
 
 
@@ -120,45 +128,24 @@ int CInspectorPanel::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 	m_pBar = new CInspectorPanelBar(m_name);
 
-	m_pBar->Create(this);
+	if(false == m_pBar->Create(this))
+	{
+		assert(0);
+		return -1;
+	}
 	m_pBar->ShowWindow(SW_SHOW);
+	
+	
+	for(size_t i = 0; i < m_propList.size(); ++i)
+	{
+		if(false == m_propList[i]->Create(this))
+		{
+			assert(0);
+			return -1;
+		}
+	}
 
-	CInspectorProperty* pProp = new CInspectorProperty_Int(L"Int");
-
-	pProp->Create(this);
-	m_propList.push_back(pProp);
-
-	pProp = new CInspectorProperty_String(L"String");
-
-	pProp->Create(this);
-	m_propList.push_back(pProp);
-
-	pProp = new CInspectorProperty_Float(L"Float");
-
-	pProp->Create(this);
-	m_propList.push_back(pProp);
-
-	pProp = new CInspectorProperty_Color(L"Color");
-
-	pProp->Create(this);
-	m_propList.push_back(pProp);
-
-	pProp = new CInspectorProperty_Bool(L"Bool");
-
-	pProp->Create(this);
-	m_propList.push_back(pProp);
-
-
-	pProp = new CInspectorProperty_FilePath(L"File Path");
-
-	pProp->Create(this);
-	m_propList.push_back(pProp);
-
-	pProp = new CInspectorProperty_Range(L"Range");
-
-	pProp->Create(this);
-	m_propList.push_back(pProp);
-
+	ShowProps();
 	return 0;
 }
 
@@ -180,7 +167,7 @@ void CInspectorPanel::OnSize(UINT nType, int cx, int cy)
 		CRect propRc;
 		pProp->GetClientRect(propRc);
 
-		pProp->SetWindowPos(NULL, rc.left, offset, rc.Width(), propRc.Height(), SWP_NOACTIVATE | SWP_NOZORDER);
+		pProp->SetWindowPos(NULL, rc.left, offset, rc.Width(), pProp->GetHeight(), SWP_NOACTIVATE | SWP_NOZORDER);
 
 		offset += propRc.Height();
 	}
@@ -199,5 +186,20 @@ void CInspectorPanel::ShowProps()
 		
 	}
 }
+void CInspectorPanel::OnPropertyChanged(CInspectorProperty* pProp)
+{
+	m_pInspector->OnPropertyChanged(pProp);
+}
 
-
+void CInspectorPanel::AddProperty(CInspectorProperty* pProp)
+{
+	if(pProp == nullptr)
+	{
+		return;
+	}
+	if(m_hWnd != nullptr)
+	{
+		pProp->Create(this);
+	}
+	m_propList.push_back(pProp);
+}

@@ -165,6 +165,18 @@
     <ClInclude Include="InspectorPanelBar.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="IntEdit.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="FloatEdit.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="InspectorProperty_Transform.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Inspector.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameEditor.cpp">
@@ -306,6 +318,18 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="InspectorPanelBar.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="IntEdit.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="FloatEdit.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="InspectorProperty_Transform.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Inspector.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

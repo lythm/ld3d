@@ -1,6 +1,6 @@
 #pragma once
 
-#include "InspectorCtrl.h"
+#include "Inspector.h"
 
 class CInspectorToolBar : public CMFCToolBar
 {
@@ -28,10 +28,13 @@ public:
 		//m_wndPropList.SetGroupNameFullWidth(bSet);
 	}
 
+
+	void											UpdateGameObjectProperty(ld3d::GameObjectPtr pObj);
+
 protected:
 	CFont m_fntPropList;
 	CComboBox m_wndObjectCombo;
-	CInspectorCtrl m_wndInspector;
+	CInspector m_wndInspector;
 // й╣ож
 public:
 	virtual ~CInspectorView();

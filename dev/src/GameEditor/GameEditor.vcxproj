@@ -111,6 +111,7 @@
     <ClInclude Include="Assets.h" />
     <ClInclude Include="AxisIndicator.h" />
     <ClInclude Include="editor_utils.h" />
+    <ClInclude Include="FloatEdit.h" />
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="InspectorPanelBar.h" />
     <ClInclude Include="InspectorProperty.h" />
@@ -124,7 +125,10 @@
     <ClInclude Include="InspectorProperty_Range.h" />
     <ClInclude Include="InspectorProperty_Simple.h" />
     <ClInclude Include="InspectorProperty_String.h" />
+    <ClInclude Include="InspectorProperty_Transform.h" />
     <ClInclude Include="InspectorView.h" />
+    <ClInclude Include="Inspector.h" />
+    <ClInclude Include="IntEdit.h" />
     <ClInclude Include="MeshImporter.h" />
     <ClInclude Include="MeshImporter_3DSMax.h" />
     <ClInclude Include="ObjectPropertyGrid.h" />
@@ -162,6 +166,7 @@
     <ClCompile Include="Assets.cpp" />
     <ClCompile Include="AxisIndicator.cpp" />
     <ClCompile Include="editor_utils.cpp" />
+    <ClCompile Include="FloatEdit.cpp" />
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="InspectorPanelBar.cpp" />
     <ClCompile Include="InspectorProperty.cpp" />
@@ -175,7 +180,10 @@
     <ClCompile Include="InspectorProperty_Range.cpp" />
     <ClCompile Include="InspectorProperty_Simple.cpp" />
     <ClCompile Include="InspectorProperty_String.cpp" />
+    <ClCompile Include="InspectorProperty_Transform.cpp" />
     <ClCompile Include="InspectorView.cpp" />
+    <ClCompile Include="Inspector.cpp" />
+    <ClCompile Include="IntEdit.cpp" />
     <ClCompile Include="MeshImporter.cpp" />
     <ClCompile Include="MeshImporter_3DSMax.cpp" />
     <ClCompile Include="ObjectPropertyGrid.cpp" />

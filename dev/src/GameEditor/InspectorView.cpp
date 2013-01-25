@@ -134,3 +134,7 @@ void CInspectorView::OnDestroy()
 
 	// TODO: 在此处添加消息处理程序代码
 }
+void CInspectorView::UpdateGameObjectProperty(ld3d::GameObjectPtr pObj)
+{
+	m_wndInspector.UpdateGameObjectProperty(pObj);
+}

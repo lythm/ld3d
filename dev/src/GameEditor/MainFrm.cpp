@@ -975,6 +975,9 @@ void CMainFrame::UpdateObjectView(ld3d::GameObjectPtr pRoot)
 void CMainFrame::UpdatePropGrid(ld3d::GameObjectPtr pObj)
 {
 	m_wndProperties.UpdateGameObjectProp(pObj);
+
+	m_wndInspectorView.UpdateGameObjectProperty(pObj);
+
 }
 void CMainFrame::OutputInfo(const CString& info)
 {
