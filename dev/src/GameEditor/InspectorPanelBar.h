@@ -16,7 +16,7 @@ public:
 	enum { IDD = IDD_INSPECTOR_PANEL };
 
 	bool										Create(CInspectorPanel* pPanel);
-
+	int											GetHeight();
 private:
 	CInspectorPanel*							m_pPanel;
 	CBrush										m_bkBrush;

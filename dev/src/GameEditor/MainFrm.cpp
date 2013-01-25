@@ -179,14 +179,11 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	
 	DockPane(&m_wndOutput);
 	
-	m_wndProperties.EnableDocking(CBRS_ALIGN_ANY);
-	DockPane(&m_wndProperties);
+	
 	
 	m_wndInspectorView.EnableDocking(CBRS_ALIGN_ANY);
 	DockPane(&m_wndInspectorView);
 	
-	m_wndTplView.AttachToTabWnd(&m_wndProperties, DM_SHOW, TRUE, &pTabbedBar);
-
 	// 基于持久值设置视觉管理器和样式
 	OnApplicationLook(theApp.m_nAppLook);
 
@@ -311,15 +308,7 @@ BOOL CMainFrame::CreateDockingWindows()
 		return FALSE; // 未能创建
 	}
 
-	// 创建属性窗口
-	CString strPropertiesWnd;
-	bNameValid = strPropertiesWnd.LoadString(IDS_PROPERTIES_WND);
-	ASSERT(bNameValid);
-	if (!m_wndProperties.Create(strPropertiesWnd, this, CRect(0, 0, 200, 200), TRUE, ID_VIEW_PROPERTIESWND, WS_CHILD | WS_VISIBLE | WS_CLIPSIBLINGS | WS_CLIPCHILDREN | CBRS_RIGHT | CBRS_FLOAT_MULTI))
-	{
-		TRACE0("未能创建“属性”窗口\n");
-		return FALSE; // 未能创建
-	}
+	
 
 	SetDockingWindowIcons(theApp.m_bHiColorIcons);
 	return TRUE;
@@ -336,11 +325,8 @@ void CMainFrame::SetDockingWindowIcons(BOOL bHiColorIcons)
 	HICON hOutputBarIcon = (HICON) ::LoadImage(::AfxGetResourceHandle(), MAKEINTRESOURCE(bHiColorIcons ? IDI_OUTPUT_WND_HC : IDI_OUTPUT_WND), IMAGE_ICON, ::GetSystemMetrics(SM_CXSMICON), ::GetSystemMetrics(SM_CYSMICON), 0);
 	m_wndOutput.SetIcon(hOutputBarIcon, FALSE);
 
-	HICON hPropertiesBarIcon = (HICON) ::LoadImage(::AfxGetResourceHandle(), MAKEINTRESOURCE(bHiColorIcons ? IDI_PROPERTIES_WND_HC : IDI_PROPERTIES_WND), IMAGE_ICON, ::GetSystemMetrics(SM_CXSMICON), ::GetSystemMetrics(SM_CYSMICON), 0);
-	m_wndProperties.SetIcon(hPropertiesBarIcon, FALSE);
-
 	HICON hInspectorBarIcon = (HICON) ::LoadImage(::AfxGetResourceHandle(), MAKEINTRESOURCE(bHiColorIcons ? IDI_PROPERTIES_WND_HC : IDI_PROPERTIES_WND), IMAGE_ICON, ::GetSystemMetrics(SM_CXSMICON), ::GetSystemMetrics(SM_CYSMICON), 0);
-	m_wndInspectorView.SetIcon(hPropertiesBarIcon, FALSE);
+	m_wndInspectorView.SetIcon(hInspectorBarIcon, FALSE);
 
 	HICON hTemplateViewIcon = (HICON) ::LoadImage(::AfxGetResourceHandle(), MAKEINTRESOURCE(bHiColorIcons ? IDI_CLASS_VIEW_HC : IDI_CLASS_VIEW), IMAGE_ICON, ::GetSystemMetrics(SM_CXSMICON), ::GetSystemMetrics(SM_CYSMICON), 0);
 	m_wndTplView.SetIcon(hTemplateViewIcon, FALSE);
@@ -557,7 +543,7 @@ void CMainFrame::OnClose()
 {
 	// TODO: 在此添加消息处理程序代码和/或调用默认值
 
-	UpdatePropGrid(ld3d::GameObjectPtr());
+	UpdateGameObjectProperty(ld3d::GameObjectPtr());
 	UpdateObjectView(ld3d::GameObjectPtr());
 
 	ProjectPtr pProject = Project::Instance();
@@ -573,10 +559,7 @@ COutputWnd* CMainFrame::GetOutput()
 {
 	return &m_wndOutput;
 }
-CPropertiesWnd*	CMainFrame::GetPropGrid()
-{
-	return &m_wndProperties;
-}
+
 
 void CMainFrame::OnGameobjectCreateempty()
 {
@@ -812,7 +795,7 @@ void CMainFrame::OnComponentMenu(UINT nID)
 
 	pObj->AddComponent(pCom);
 
-	UpdatePropGrid(pObj);
+	UpdateGameObjectProperty(pObj);
 	return;
 }
 void CMainFrame::OnCreateFromTemplateMenu(UINT nID)
@@ -824,7 +807,7 @@ void CMainFrame::OnCreateFromTemplateMenu(UINT nID)
 	GameObjectPtr pObj = Project::Instance()->CreateObjectFromTpl(pTpl->GetName(), pTpl->GetName());
 
 	UpdateObjectView(Project::Instance()->Root());
-	UpdatePropGrid(pObj);
+	UpdateGameObjectProperty(pObj);
 
 	return;
 }
@@ -972,10 +955,8 @@ void CMainFrame::UpdateObjectView(ld3d::GameObjectPtr pRoot)
 {
 	m_wndObjectView.UpdateObjectView(pRoot);
 }
-void CMainFrame::UpdatePropGrid(ld3d::GameObjectPtr pObj)
+void CMainFrame::UpdateGameObjectProperty(ld3d::GameObjectPtr pObj)
 {
-	m_wndProperties.UpdateGameObjectProp(pObj);
-
 	m_wndInspectorView.UpdateGameObjectProperty(pObj);
 
 }

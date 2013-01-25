@@ -88,3 +88,10 @@ void CInspectorPanelBar::OnSize(UINT nType, int cx, int cy)
 
 	Invalidate();
 }
+int CInspectorPanelBar::GetHeight()
+{
+	CRect rc;
+	GetClientRect(rc);
+
+	return rc.Height();
+}

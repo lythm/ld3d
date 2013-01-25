@@ -2,14 +2,14 @@
 
 #include "resource.h"
 #define INSPECTOR_PROPERTY_ROW_HEIGHT			20
-
+#define INSPECTOR_PROPERTY_ROW_H_PADDING		10
+#define INSPECTOR_PROPERTY_ROW_V_PADDING		6
 // CInpsectorProperty 对话框
 class CInspectorPanel;
 class CInspectorProperty : public CDialogEx
 {
 	DECLARE_DYNAMIC(CInspectorProperty)
-	static const int								H_PADDING = 4;
-	static const int								V_PADDING = 2;
+
 public:
 	CInspectorProperty(CString name, void* pUserData = nullptr, UINT nIDD = IDD_INPSECTOR_PROPERTY);   // 标准构造函数
 	virtual ~CInspectorProperty();
@@ -26,7 +26,7 @@ public:
 	virtual void							SetReadOnly(bool bReadOnly);
 	virtual bool							GetReadOnly();
 
-	virtual int								GetHeight(){return INSPECTOR_PROPERTY_ROW_HEIGHT;}
+	virtual int								GetHeight(){return INSPECTOR_PROPERTY_ROW_HEIGHT + 1;}
 private:
 	CBrush									m_bkBrush;
 	UINT									m_nIDD;

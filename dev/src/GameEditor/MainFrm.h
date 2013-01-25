@@ -6,7 +6,6 @@
 #include "FileView.h"
 #include "ObjectView.h"
 #include "OutputWnd.h"
-#include "PropertiesWnd.h"
 #include "TemplateView.h"
 #include "InspectorView.h"
 
@@ -30,7 +29,6 @@ public:
 
 	CObjectView*			GetObjectView();
 	COutputWnd*				GetOutput();
-	CPropertiesWnd*			GetPropGrid();
 
 	void					SetFPS(float fps);
 
@@ -38,7 +36,7 @@ public:
 	bool					UpdateTemplateMap();
 
 	void					UpdateObjectView(ld3d::GameObjectPtr pRoot);
-	void					UpdatePropGrid(ld3d::GameObjectPtr pObj);
+	void					UpdateGameObjectProperty(ld3d::GameObjectPtr pObj);
 	void					OutputInfo(const CString& info);
 	void					outputBuild(const CString& build);
 	void					UpdateAssetsView();
@@ -64,7 +62,6 @@ protected:  // 控件条嵌入成员
 	CFileView         m_wndFileView;
 	CObjectView        m_wndObjectView;
 	COutputWnd        m_wndOutput;
-	CPropertiesWnd    m_wndProperties;
 	CMFCCaptionBar    m_wndCaptionBar;
 	CTemplateView	  m_wndTplView;
 	CInspectorView		m_wndInspectorView;

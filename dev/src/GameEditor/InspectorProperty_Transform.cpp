@@ -138,5 +138,253 @@ void CInspectorProperty_Transform::OnEnKillfocusValue()
 
 void CInspectorProperty_Transform::AdjustLayout()
 {
+	CRect rc;
+	GetClientRect(rc);
 
+	int width = rc.Width();
+	int label_width = 6;
+	int label_padding = 10;
+	int edit_width = (width - 2 * INSPECTOR_PROPERTY_ROW_H_PADDING - label_width * 3  - label_padding * 5) / 3;
+	
+	int offset = 0;
+
+	// translation
+	CWnd* pWnd = GetDlgItem(IDC_TRANSLATION);
+	pWnd->SetWindowPos(nullptr, 
+					INSPECTOR_PROPERTY_ROW_H_PADDING, 
+					offset + INSPECTOR_PROPERTY_ROW_V_PADDING, 
+					rc.Width() - INSPECTOR_PROPERTY_ROW_V_PADDING, 
+					INSPECTOR_PROPERTY_ROW_HEIGHT, 
+					SWP_NOACTIVATE | SWP_NOZORDER);
+
+	offset += INSPECTOR_PROPERTY_ROW_HEIGHT;
+
+	// translation row
+	// x label
+	int row_offset = INSPECTOR_PROPERTY_ROW_H_PADDING;
+	pWnd = GetDlgItem(IDC_TRANSLATION_X);
+	pWnd->SetWindowPos(nullptr, 
+					row_offset, 
+					offset + INSPECTOR_PROPERTY_ROW_V_PADDING, 
+					label_width, 
+					INSPECTOR_PROPERTY_ROW_HEIGHT - INSPECTOR_PROPERTY_ROW_V_PADDING, 
+					SWP_NOACTIVATE | SWP_NOZORDER);
+	row_offset +=  label_width + label_padding;
+
+	// x value
+	pWnd = GetDlgItem(IDC_TRANSLATION_X_VALUE);
+	pWnd->SetWindowPos(nullptr, 
+					row_offset, 
+					offset + INSPECTOR_PROPERTY_ROW_V_PADDING, 
+					edit_width, 
+					INSPECTOR_PROPERTY_ROW_HEIGHT - INSPECTOR_PROPERTY_ROW_V_PADDING, 
+					SWP_NOACTIVATE | SWP_NOZORDER);
+
+	row_offset += edit_width + label_padding;
+
+	// y label
+	pWnd = GetDlgItem(IDC_TRANSLATION_Y);
+	pWnd->SetWindowPos(nullptr, 
+					row_offset, 
+					offset + INSPECTOR_PROPERTY_ROW_V_PADDING, 
+					label_width, 
+					INSPECTOR_PROPERTY_ROW_HEIGHT - INSPECTOR_PROPERTY_ROW_V_PADDING, 
+					SWP_NOACTIVATE | SWP_NOZORDER);
+
+	row_offset += label_width + label_padding;
+
+	// y value
+	pWnd = GetDlgItem(IDC_TRANSLATION_Y_VALUE);
+	pWnd->SetWindowPos(nullptr, 
+					row_offset, 
+					offset + INSPECTOR_PROPERTY_ROW_V_PADDING, 
+					edit_width, 
+					INSPECTOR_PROPERTY_ROW_HEIGHT - INSPECTOR_PROPERTY_ROW_V_PADDING, 
+					SWP_NOACTIVATE | SWP_NOZORDER);
+
+	row_offset += edit_width + label_padding;
+
+	// z label
+	pWnd = GetDlgItem(IDC_TRANSLATION_Z);
+	pWnd->SetWindowPos(nullptr, 
+					row_offset, 
+					offset + INSPECTOR_PROPERTY_ROW_V_PADDING, 
+					label_width, 
+					INSPECTOR_PROPERTY_ROW_HEIGHT - INSPECTOR_PROPERTY_ROW_V_PADDING, 
+					SWP_NOACTIVATE | SWP_NOZORDER);
+
+	row_offset += label_width + label_padding;
+
+	// z value
+	pWnd = GetDlgItem(IDC_TRANSLATION_Z_VALUE);
+	pWnd->SetWindowPos(nullptr, 
+					row_offset, 
+					offset + INSPECTOR_PROPERTY_ROW_V_PADDING, 
+					edit_width, 
+					INSPECTOR_PROPERTY_ROW_HEIGHT - INSPECTOR_PROPERTY_ROW_V_PADDING, 
+					SWP_NOACTIVATE | SWP_NOZORDER);
+
+	offset += INSPECTOR_PROPERTY_ROW_HEIGHT;
+	
+		
+	// rotation
+	pWnd = GetDlgItem(IDC_ROTATION);
+	pWnd->SetWindowPos(nullptr, 
+					INSPECTOR_PROPERTY_ROW_H_PADDING, 
+					offset + INSPECTOR_PROPERTY_ROW_V_PADDING, 
+					rc.Width() - INSPECTOR_PROPERTY_ROW_V_PADDING, 
+					INSPECTOR_PROPERTY_ROW_HEIGHT, 
+					SWP_NOACTIVATE | SWP_NOZORDER);
+
+	offset += INSPECTOR_PROPERTY_ROW_HEIGHT;
+
+	// rotation row
+	// x label
+	row_offset = INSPECTOR_PROPERTY_ROW_H_PADDING;
+	pWnd = GetDlgItem(IDC_ROTATION_X);
+	pWnd->SetWindowPos(nullptr, 
+					row_offset, 
+					offset + INSPECTOR_PROPERTY_ROW_V_PADDING, 
+					label_width, 
+					INSPECTOR_PROPERTY_ROW_HEIGHT - INSPECTOR_PROPERTY_ROW_V_PADDING, 
+					SWP_NOACTIVATE | SWP_NOZORDER);
+	row_offset +=  label_width + label_padding;
+
+	// x value
+	pWnd = GetDlgItem(IDC_ROTATION_X_VALUE);
+	pWnd->SetWindowPos(nullptr, 
+					row_offset, 
+					offset + INSPECTOR_PROPERTY_ROW_V_PADDING, 
+					edit_width, 
+					INSPECTOR_PROPERTY_ROW_HEIGHT - INSPECTOR_PROPERTY_ROW_V_PADDING, 
+					SWP_NOACTIVATE | SWP_NOZORDER);
+
+	row_offset += edit_width + label_padding;
+
+	// y label
+	pWnd = GetDlgItem(IDC_ROTATION_Y);
+	pWnd->SetWindowPos(nullptr, 
+					row_offset, 
+					offset + INSPECTOR_PROPERTY_ROW_V_PADDING, 
+					label_width, 
+					INSPECTOR_PROPERTY_ROW_HEIGHT - INSPECTOR_PROPERTY_ROW_V_PADDING, 
+					SWP_NOACTIVATE | SWP_NOZORDER);
+
+	row_offset += label_width + label_padding;
+
+	// y value
+	pWnd = GetDlgItem(IDC_ROTATION_Y_VALUE);
+	pWnd->SetWindowPos(nullptr, 
+					row_offset, 
+					offset + INSPECTOR_PROPERTY_ROW_V_PADDING, 
+					edit_width, 
+					INSPECTOR_PROPERTY_ROW_HEIGHT - INSPECTOR_PROPERTY_ROW_V_PADDING, 
+					SWP_NOACTIVATE | SWP_NOZORDER);
+
+	row_offset += edit_width + label_padding;
+
+	// z label
+	pWnd = GetDlgItem(IDC_ROTATION_Z);
+	pWnd->SetWindowPos(nullptr, 
+					row_offset, 
+					offset + INSPECTOR_PROPERTY_ROW_V_PADDING, 
+					label_width, 
+					INSPECTOR_PROPERTY_ROW_HEIGHT - INSPECTOR_PROPERTY_ROW_V_PADDING, 
+					SWP_NOACTIVATE | SWP_NOZORDER);
+
+	row_offset += label_width + label_padding;
+
+	// z value
+	pWnd = GetDlgItem(IDC_ROTATION_Z_VALUE);
+	pWnd->SetWindowPos(nullptr, 
+					row_offset, 
+					offset + INSPECTOR_PROPERTY_ROW_V_PADDING, 
+					edit_width, 
+					INSPECTOR_PROPERTY_ROW_HEIGHT - INSPECTOR_PROPERTY_ROW_V_PADDING, 
+					SWP_NOACTIVATE | SWP_NOZORDER);
+
+
+	offset += INSPECTOR_PROPERTY_ROW_HEIGHT;
+	
+		
+	// scale
+	pWnd = GetDlgItem(IDC_SCALE);
+	pWnd->SetWindowPos(nullptr, 
+					INSPECTOR_PROPERTY_ROW_H_PADDING, 
+					offset + INSPECTOR_PROPERTY_ROW_V_PADDING, 
+					rc.Width() - INSPECTOR_PROPERTY_ROW_V_PADDING, 
+					INSPECTOR_PROPERTY_ROW_HEIGHT, 
+					SWP_NOACTIVATE | SWP_NOZORDER);
+
+	offset += INSPECTOR_PROPERTY_ROW_HEIGHT;
+
+	// scale row
+	// x label
+	row_offset = INSPECTOR_PROPERTY_ROW_H_PADDING;
+	pWnd = GetDlgItem(IDC_SCALE_X);
+	pWnd->SetWindowPos(nullptr, 
+					row_offset, 
+					offset + INSPECTOR_PROPERTY_ROW_V_PADDING, 
+					label_width, 
+					INSPECTOR_PROPERTY_ROW_HEIGHT - INSPECTOR_PROPERTY_ROW_V_PADDING, 
+					SWP_NOACTIVATE | SWP_NOZORDER);
+	row_offset +=  label_width + label_padding;
+
+	// x value
+	pWnd = GetDlgItem(IDC_SCALE_X_VALUE);
+	pWnd->SetWindowPos(nullptr, 
+					row_offset, 
+					offset + INSPECTOR_PROPERTY_ROW_V_PADDING, 
+					edit_width, 
+					INSPECTOR_PROPERTY_ROW_HEIGHT - INSPECTOR_PROPERTY_ROW_V_PADDING, 
+					SWP_NOACTIVATE | SWP_NOZORDER);
+
+	row_offset += edit_width + label_padding;
+
+	// y label
+	pWnd = GetDlgItem(IDC_SCALE_Y);
+	pWnd->SetWindowPos(nullptr, 
+					row_offset, 
+					offset + INSPECTOR_PROPERTY_ROW_V_PADDING, 
+					label_width, 
+					INSPECTOR_PROPERTY_ROW_HEIGHT - INSPECTOR_PROPERTY_ROW_V_PADDING, 
+					SWP_NOACTIVATE | SWP_NOZORDER);
+
+	row_offset += label_width + label_padding;
+
+	// y value
+	pWnd = GetDlgItem(IDC_SCALE_Y_VALUE);
+	pWnd->SetWindowPos(nullptr, 
+					row_offset, 
+					offset + INSPECTOR_PROPERTY_ROW_V_PADDING, 
+					edit_width, 
+					INSPECTOR_PROPERTY_ROW_HEIGHT - INSPECTOR_PROPERTY_ROW_V_PADDING, 
+					SWP_NOACTIVATE | SWP_NOZORDER);
+
+	row_offset += edit_width + label_padding;
+
+	// z label
+	pWnd = GetDlgItem(IDC_SCALE_Z);
+	pWnd->SetWindowPos(nullptr, 
+					row_offset, 
+					offset + INSPECTOR_PROPERTY_ROW_V_PADDING, 
+					label_width, 
+					INSPECTOR_PROPERTY_ROW_HEIGHT - INSPECTOR_PROPERTY_ROW_V_PADDING, 
+					SWP_NOACTIVATE | SWP_NOZORDER);
+
+	row_offset += label_width + label_padding;
+
+	// z value
+	pWnd = GetDlgItem(IDC_SCALE_Z_VALUE);
+	pWnd->SetWindowPos(nullptr, 
+					row_offset, 
+					offset + INSPECTOR_PROPERTY_ROW_V_PADDING, 
+					edit_width, 
+					INSPECTOR_PROPERTY_ROW_HEIGHT - INSPECTOR_PROPERTY_ROW_V_PADDING, 
+					SWP_NOACTIVATE | SWP_NOZORDER);
+
+}
+int CInspectorProperty_Transform::GetHeight()
+{
+	return 6 * INSPECTOR_PROPERTY_ROW_HEIGHT + 1;
 }

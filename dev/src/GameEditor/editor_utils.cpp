@@ -29,7 +29,7 @@ void util_update_obj_property_grid(ld3d::GameObjectPtr pObj)
 {
 	if(util_get_main_frame())
 	{
-		util_get_main_frame()->UpdatePropGrid(pObj);
+		util_get_main_frame()->UpdateGameObjectProperty(pObj);
 	}
 }
 

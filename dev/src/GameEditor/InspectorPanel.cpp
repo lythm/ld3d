@@ -88,10 +88,9 @@ void CInspectorPanel::UnFold()
 }
 int	CInspectorPanel::GetHeight()
 {
+	int height = m_pBar->GetHeight();
 	if(m_bExpanded)
 	{
-		int height = INSPECTOR_CAPTION_HEIGHT;
-
 		for(size_t i = 0; i < m_propList.size(); ++i)
 		{
 			CInspectorProperty* pProp = m_propList[i];
@@ -101,11 +100,9 @@ int	CInspectorPanel::GetHeight()
 
 			height += propRc.Height();
 		}
-
-		return height;
 	}
-
-	return INSPECTOR_CAPTION_HEIGHT;
+	height;
+	return height;
 }
 bool CInspectorPanel::Create(CInspectorCtrl* pInspector)
 {
