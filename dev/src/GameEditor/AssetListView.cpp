@@ -50,7 +50,7 @@ int CAssetListView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	if (CListView::OnCreate(lpCreateStruct) == -1)
 		return -1;
 
-	GetListCtrl().ModifyStyle(LVS_SMALLICON, LVS_ICON);
+	GetListCtrl().ModifyStyle(LVS_SMALLICON, LVS_ICON | LVS_SINGLESEL | LVS_SHOWSELALWAYS | LVS_EDITLABELS);
 	//GetListCtrl().ModifyStyle(LVS_ICON, LVS_SMALLICON);
 
 	GetListCtrl().SetTextColor(RGB(200,200,200));
@@ -82,9 +82,6 @@ int CAssetListView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_FileViewImages.Add(&bmp, RGB(255, 0, 255));
 
 	GetListCtrl().SetImageList(&m_FileViewImages, LVSIL_NORMAL);
-		
-
-	DisplayFolder("./assets/standard/material");
 	
 	return 0;
 }
@@ -92,6 +89,7 @@ int CAssetListView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 void CAssetListView::DisplayFolder(const boost::filesystem::path& root)
 {
 	GetListCtrl().DeleteAllItems();
+	m_assetList.clear();
 
 	using namespace boost::filesystem;
 
@@ -109,9 +107,11 @@ void CAssetListView::DisplayFolder(const boost::filesystem::path& root)
 		{
 			continue;
 		}
-
+		
 		CString filename = it->path().filename().wstring().c_str();
-		GetListCtrl().InsertItem(0, filename, 0);
+		int item = GetListCtrl().InsertItem(0, filename, 0);
+		int index = m_assetList.size();
+		m_assetList.push_back(it->path());
+		GetListCtrl().SetItemData(item, index);
 	}
-
 }

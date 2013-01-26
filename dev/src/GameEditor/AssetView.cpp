@@ -50,6 +50,9 @@ int CAssetView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 	m_splitterWnd.CreateView(0, 0, RUNTIME_CLASS(CAssetFolderTreeView), CSize(300, 500), nullptr);
 	m_splitterWnd.CreateView(0, 1, RUNTIME_CLASS(CAssetListView), CSize(300, 500), nullptr);
+
+	((CAssetFolderTreeView*)m_splitterWnd.GetPane(0, 0))->SetAssetView(this);
+
 	CRect rectDummy;
 	rectDummy.SetRectEmpty();
 
@@ -210,4 +213,9 @@ void CAssetView::ScanFolder(const CString& path)
 
 	pView->ScanFolder(path);
 
+}
+void CAssetView::DisplayFolder(const boost::filesystem::path& p)
+{
+	CAssetListView* pView = (CAssetListView*)m_splitterWnd.GetPane(0, 1);
+	pView->DisplayFolder(p);
 }

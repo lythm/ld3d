@@ -25,6 +25,8 @@ public:
 
 	void			ScanFolder(const CString& path);
 
+	void			DisplayFolder(const boost::filesystem::path& p);
+
 // Ьиад
 protected:
 

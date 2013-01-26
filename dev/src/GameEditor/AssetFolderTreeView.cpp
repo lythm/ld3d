@@ -4,6 +4,7 @@
 #include "stdafx.h"
 #include "GameEditor.h"
 #include "AssetFolderTreeView.h"
+#include "AssetView.h"
 
 
 // CAssetFolderTreeView
@@ -12,7 +13,7 @@ IMPLEMENT_DYNCREATE(CAssetFolderTreeView, CTreeView)
 
 CAssetFolderTreeView::CAssetFolderTreeView()
 {
-
+	m_pAssetView = nullptr;
 }
 
 CAssetFolderTreeView::~CAssetFolderTreeView()
@@ -21,6 +22,8 @@ CAssetFolderTreeView::~CAssetFolderTreeView()
 
 BEGIN_MESSAGE_MAP(CAssetFolderTreeView, CTreeView)
 	ON_WM_CREATE()
+	ON_NOTIFY_REFLECT(TVN_SELCHANGED, &CAssetFolderTreeView::OnTvnSelchanged)
+	ON_NOTIFY_REFLECT(TVN_BEGINLABELEDIT, &CAssetFolderTreeView::OnTvnBeginlabeledit)
 END_MESSAGE_MAP()
 
 
@@ -97,6 +100,9 @@ void CAssetFolderTreeView::ScanFolder(const CString& path)
 	}
 
 	GetTreeCtrl().DeleteAllItems();
+	m_assetFolders.clear();
+
+
 	HTREEITEM root = GetTreeCtrl().GetRootItem();
 	_fill_view(p, root);
 
@@ -128,7 +134,6 @@ HTREEITEM CAssetFolderTreeView::AddFileItem(HTREEITEM hParent, boost::filesystem
 {
 	using namespace ld3d;
 
-
 	if(p.extension() == ".gp")
 	{
 		return nullptr;
@@ -141,6 +146,37 @@ HTREEITEM CAssetFolderTreeView::AddDirectoryItem(HTREEITEM hParent, boost::files
 {
 	HTREEITEM item = GetTreeCtrl().InsertItem(p.filename().wstring().c_str(), 0, 0, hParent);
 
+	int index = m_assetFolders.size();
 
+	m_assetFolders.push_back(p);
+
+	GetTreeCtrl().SetItemData(item, (DWORD_PTR)index);
 	return item;
+}
+
+
+void CAssetFolderTreeView::OnTvnSelchanged(NMHDR *pNMHDR, LRESULT *pResult)
+{
+	LPNMTREEVIEW pNMTreeView = reinterpret_cast<LPNMTREEVIEW>(pNMHDR);
+	
+	int index = GetTreeCtrl().GetItemData(pNMTreeView->itemNew.hItem);
+	m_pAssetView->DisplayFolder(m_assetFolders[index]);
+
+	*pResult = 0;
+}
+void CAssetFolderTreeView::SetAssetView(CAssetView* pView)
+{
+	m_pAssetView = pView;
+}
+
+void CAssetFolderTreeView::OnTvnBeginlabeledit(NMHDR *pNMHDR, LRESULT *pResult)
+{
+	LPNMTVDISPINFO pTVDispInfo = reinterpret_cast<LPNMTVDISPINFO>(pNMHDR);
+	
+	if(pTVDispInfo->item.hItem == GetTreeCtrl().GetRootItem())
+	{
+		*pResult = 1;
+		return;
+	}
+	*pResult = 0;
 }

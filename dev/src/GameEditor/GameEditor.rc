@@ -669,7 +669,6 @@ BEGIN
 
     IDD_INSPECTOR_PANEL_BAR, DIALOG
     BEGIN
-        MOCKUP, 0, 50, 0, 0, ".\UserImages.bmp"
         VERTGUIDE, 80
         HORZGUIDE, 2
     END
@@ -947,7 +946,6 @@ END
 
 STRINGTABLE
 BEGIN
-    IDS_FILE_VIEW           "资源视图"
     IDS_CLASS_VIEW          "对象视图"
     IDS_OUTPUT_WND          "输出"
     IDS_PROPERTIES_WND      "属性"

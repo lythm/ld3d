@@ -7,11 +7,16 @@ class CAssetListView : public CListView
 {
 	DECLARE_DYNCREATE(CAssetListView)
 
+public:
+	void							DisplayFolder(const boost::filesystem::path& root);
+
+
 protected:
 	CAssetListView();           // 动态创建所使用的受保护的构造函数
 	virtual ~CAssetListView();
 
-	void							DisplayFolder(const boost::filesystem::path& root);
+	
+	
 public:
 #ifdef _DEBUG
 	virtual void AssertValid() const;
@@ -22,6 +27,8 @@ public:
 
 protected:
 	CImageList			m_FileViewImages;
+	std::vector<boost::filesystem::path>	m_assetList;
+
 
 	DECLARE_MESSAGE_MAP()
 public:
