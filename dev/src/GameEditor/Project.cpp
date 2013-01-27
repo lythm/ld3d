@@ -6,6 +6,7 @@
 #include "MainFrm.h"
 #include "GameScene.h"
 #include "EditorCamera.h"
+#include "DT_GameObjectMonitor.h"
 
 
 ld3d::PoolAllocator					g_Allocator;
@@ -285,8 +286,11 @@ bool Project::InitEngine()
 	}
 #endif
 
-	m_pCore->GetGameObjectManager()->LoadPackage(L"./extensions/ext_dt.dll");
+	//m_pCore->GetGameObjectManager()->LoadPackage(L"./extensions/ext_dt.dll");
 	m_pCore->GetGameObjectManager()->LoadPackage(L"./extensions/ext_voxel.dll");
+	m_pCore->GetGameObjectManager()->RegisterComponentClass(dt::DT_GameObjectMonitor::GetClass());
+
+
 
 	m_pCore->GetRenderSystem()->SetClearColor(math::Color4(0.3f, 0.2f, 0.4f, 1.0f));
 	//m_pCore->GetRenderSystem()->SetGlobalAmbient(math::Color4(0, 0, 0, 1.0f));

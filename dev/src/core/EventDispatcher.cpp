@@ -11,6 +11,7 @@ namespace ld3d
 
 	EventDispatcher::~EventDispatcher(void)
 	{
+		Clear();
 	}
 	
 	void EventDispatcher::DispatchEvent(EventPtr pEvent)

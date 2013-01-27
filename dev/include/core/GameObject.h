@@ -87,7 +87,7 @@ namespace ld3d
 
 		GameObjectPtr								Clone();
 
-		
+		EventDispatcherPtr							GetDeventDispatcher();
 	private:
 		void										UpdateWorldTransform();
 		void										UpdateComponents();
@@ -106,5 +106,7 @@ namespace ld3d
 		std::wstring								m_name;
 
 		void*										m_pPrivateData;
+
+		EventDispatcherPtr							m_pEventDispather;
 	};
 }

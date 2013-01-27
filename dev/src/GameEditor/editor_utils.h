@@ -22,3 +22,5 @@ bool											util_cpoy_directory(boost::filesystem::path src, boost::filesyste
 
 void											util_log_info(const std::wstring& text);
 void											util_log_build(const std::wstring& text);
+
+ld3d::CoreApiPtr								util_get_core();

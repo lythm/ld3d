@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "editor_utils.h"
 #include "MainFrm.h"
+#include "Project.h"
 
 
 static CWnd*						g_pRenderWnd				= nullptr;
@@ -182,4 +183,8 @@ void util_log_build(const std::wstring& text)
 	{
 		util_get_main_frame()->OutputBuild(text.c_str());
 	}
+}
+ld3d::CoreApiPtr util_get_core()
+{
+	return Project::Instance()->GetCoreApi();
 }

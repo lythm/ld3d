@@ -2,6 +2,8 @@
 #include "..\..\include\core\GameObject.h"
 #include "core\GameObjectComponent.h"
 #include "core_utils.h"
+#include "core\EventDispatcher.h"
+
 namespace ld3d
 {
 	GameObject::GameObject(const std::wstring& name)
@@ -16,6 +18,9 @@ namespace ld3d
 		m_pPrev							= GameObjectPtr();
 
 		m_pPrivateData					= nullptr;
+
+		m_pEventDispather				= alloc_object<EventDispatcher>();
+
 	}
 	GameObject::GameObject()
 	{
@@ -28,6 +33,8 @@ namespace ld3d
 		m_pNext							= GameObjectPtr();
 		m_pPrev							= GameObjectPtr();
 		m_pPrivateData					= nullptr;
+		m_pEventDispather				= alloc_object<EventDispatcher>();
+
 	}
 
 	GameObject::~GameObject(void)
@@ -409,5 +416,9 @@ namespace ld3d
 			pClone->AddComponent(m_components[i]->Clone());
 		}
 		return pClone;
+	}
+	EventDispatcherPtr GameObject::GetDeventDispatcher()
+	{
+		return m_pEventDispather;
 	}
 }
