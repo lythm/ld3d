@@ -11,7 +11,7 @@ struct vs_out
 {
 	float4 pos:SV_POSITION;
 	float4 s_pos:POSITION;
-	float3 normal:NORMAL;
+	nointerpolation float3 normal:NORMAL;
 };
 
 vs_out vs_main(vs_in i)
@@ -29,7 +29,7 @@ GBuffer dr_ps_main(vs_out i)
 	float specular = 1;
 	
 
-	return dr_gbuffer_compose(i.s_pos.z, normalize(i.normal).xy, clr, specular);
+	return dr_gbuffer_compose(i.s_pos.z, i.normal.xy, clr, specular);
 }
 RasterizerState rs
 {

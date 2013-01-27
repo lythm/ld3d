@@ -85,6 +85,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="MemPool.cpp" />
+    <ClCompile Include="MiniDump.cpp" />
     <ClCompile Include="PropertySet.cpp" />
     <ClCompile Include="tinystr.cpp" />
     <ClCompile Include="tinyxml.cpp" />
@@ -99,6 +100,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\utils\MemPool.h" />
+    <ClInclude Include="..\..\include\utils\MiniDump.h" />
     <ClInclude Include="..\..\include\utils\PropertySet.h" />
     <ClInclude Include="..\..\include\utils\tinystr.h" />
     <ClInclude Include="..\..\include\utils\tinyxml.h" />
