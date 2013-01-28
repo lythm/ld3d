@@ -5,13 +5,13 @@ RasterizerState RS_Light
 BlendState BS_Light
 {
 	ALPHATOCOVERAGEENABLE				= false;
-	BLENDENABLE[0]					= true;
-	SRCBLEND					= ONE;
-	DESTBLEND					= ONE;
-	BLENDOP						= ADD;
-	SRCBLENDALPHA					= ONE;
-	DESTBLENDALPHA					= ONE;
-	BLENDOPALPHA					= ADD;
+	BLENDENABLE[0]						= true;
+	SRCBLEND							= ONE;
+	DESTBLEND							= ONE;
+	BLENDOP								= ADD;
+	SRCBLENDALPHA						= ONE;
+	DESTBLENDALPHA						= ONE;
+	BLENDOPALPHA						= ADD;
 	RENDERTARGETWRITEMASK[0]			= 0xF;
 };
 DepthStencilState DS_Light
@@ -31,6 +31,11 @@ DepthStencilState DS_Light
 	BackFaceStencilFunc				= NEVER;
 };
 
+struct LightResult
+{
+	float3							diffuse;
+	float3							specular;
+};
 struct DirectionalLight
 {
 	float3	dir;
@@ -51,9 +56,14 @@ struct SpotLight
 	float3	clr;
 	float	intensity;
 	float	range;
-	float	theta;
+	float	cos_theta;
 	float	specular_pow;
 };
+
+float rgb_2_il(float3 clr)
+{
+    return dot(clr, float3(0.2126f, 0.7152f, 0.0722f));
+}
 
 float dr_light_specular_il(float3 n, float3 l, float power)
 {
@@ -66,7 +76,7 @@ float dr_light_specular_il(float3 n, float3 l, float power)
 	return s;
 }
 
-float3 dr_light_dir(float3 n, DirectionalLight light, float4x4 wv)
+LightResult dr_light_dir(float3 n, DirectionalLight light, float4x4 wv)
 {
 	float3 l = -mul(light.dir, (float3x3)wv);
 
@@ -76,11 +86,15 @@ float3 dr_light_dir(float3 n, DirectionalLight light, float4x4 wv)
 	float s = dr_light_specular_il(n, l, light.specular_pow);
 
 	s = s * light.intensity;
+	
+	LightResult ret;
+	ret.diffuse		= il * light.clr;
+	ret.specular	= s * light.clr;
 
-	return il * light.clr + s * light.clr;
+	return ret;
 }
 
-float3 dr_light_point(float3 p, float3 n, PointLight light, float4x4 wv)
+LightResult dr_light_point(float3 p, float3 n, PointLight light, float4x4 wv)
 {
 	float3 center = mul(float4(0, 0, 0, 1), wv).xyz;
 	
@@ -97,11 +111,17 @@ float3 dr_light_point(float3 p, float3 n, PointLight light, float4x4 wv)
 
 	s = s * light.intensity * att;
 
-	return il * light.clr + s * light.clr;
+	
+
+	LightResult ret;
+	ret.diffuse		= il * light.clr;
+	ret.specular	= s * light.clr;
+
+	return ret;
 }
 
 
-float3 dr_light_spot(float3 p, float3 n, SpotLight light, float4x4 wv)
+LightResult dr_light_spot(float3 p, float3 n, SpotLight light, float4x4 wv)
 {
 	float3 o = mul(float4(0,0,0,1), wv).xyz;
 	float3 ld = mul(float4(0, 0, 1, 0), wv).xyz;
@@ -112,14 +132,19 @@ float3 dr_light_spot(float3 p, float3 n, SpotLight light, float4x4 wv)
 	
 	float cos_angle = dot(ld, -l);
 	
-	float factor = step(light.theta, cos_angle) * step(d , light.range / cos_angle);
+	float factor = step(light.cos_theta, cos_angle) * step(d , light.range / cos_angle);
 	float il = max(0, dot(l , n)) * light.intensity * factor;
 	
 	float s = dr_light_specular_il(n, l, light.specular_pow);
 
 	s = s * light.intensity * factor;
 
-	return il * light.clr + s * light.clr;
+
+	LightResult ret;
+	ret.diffuse		= il * light.clr;
+	ret.specular	= s * light.clr;
+
+	return ret;
 
 }
 

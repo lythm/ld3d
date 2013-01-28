@@ -5,6 +5,7 @@ Texture2D tex_gbuffer[3]:DR_GBUFFER;
 float4x4 wvp:MATRIX_WVP;
 float4x4 wv:MATRIX_WV;
 float4x4 i_p:MATRIX_I_PROJ;
+float4x4 p:MATRIX_PROJ;
 SpotLight	light;
 
 struct INPUT
@@ -14,7 +15,6 @@ struct INPUT
 struct PS_INPUT
 {
 	float4 pos:SV_POSITION;
-	float4 s_pos:POSITION;
 };
 struct PS_OUTPUT
 {
@@ -25,28 +25,28 @@ PS_INPUT vs_main(INPUT i)
 	PS_INPUT o;
 	
 	o.pos = mul(float4(i.pos, 1), wvp);
-	o.s_pos = o.pos;
 	return o;
 }
 PS_OUTPUT ps_main(PS_INPUT i)
 {
 	PS_OUTPUT o;
 	
-	float2 uv = dr_gbuffer_screenpos_2_uv(i.s_pos);
+	float2 dim;
+    tex_gbuffer[0].GetDimensions(dim.x, dim.y);
+
+	float2 uv = i.pos.xy / dim;
 
 	float3 n = dr_gbuffer_get_normal(tex_gbuffer, uv);
-	
-	float3 v_pos = mul(i.s_pos, i_p).xyz;
-	v_pos = normalize(v_pos);
-	
 	float depth = dr_gbuffer_get_depth(tex_gbuffer, uv);
-	v_pos = v_pos * depth;
+	float3 v_pos = view_port_2_view_space(i.pos.xy, depth, p, dim);
 	
-	o.clr.xyz = dr_light_spot(v_pos, n, light, wv);
-	o.clr.w = 1;
 
+	LightResult ret =  dr_light_spot(v_pos, n, light, wv);
+	o.clr.xyz = ret.diffuse;
+	o.clr.w = rgb_2_il(ret.specular);
 
 	return o;
+	
 }
 
 technique11 deferred

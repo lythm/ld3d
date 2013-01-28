@@ -5,6 +5,7 @@
 
 VoxelDemo::VoxelDemo(void)
 {
+	
 }
 
 
@@ -17,22 +18,7 @@ bool VoxelDemo::Init(ld3d::CoreApiPtr pCore)
 
 	m_pCore = pCore;
 
-	AssetPtr pAsset = m_pCore->GetAssetManager()->LoadAsset("./assets/standard/music/1.mp3");
-
-	pAsset = m_pCore->GetAssetManager()->LoadAsset("./assets/standard/music/1.mp3");
-
-	pAsset->Release();
 	
-	//m_pSound = m_pCore->GetSysSound()->CreateSound("./assets/standard/music/1.mp3");
-
-	m_pChannel = m_pCore->GetSysSound()->AllocChannel(boost::shared_dynamic_cast<SoundAsset>(pAsset)->GetAsset());
-
-	//m_pChannel = m_pCore->GetSysSound()->Create3DStream("./assets/standard/music/1.mp3");
-	
-	//m_pChannel = m_pCore->GetSysSound()->Create3DStream("http://music.k618.cn/tytq/song/201208/W020120827815517810655.mp3");
-
-	
-	m_pChannel->Play(true);
 	
 	m_pCore->AddEventHandler(EV_WINMSG, boost::bind(&VoxelDemo::OnMsg, this, _1));
 
@@ -50,13 +36,23 @@ bool VoxelDemo::Init(ld3d::CoreApiPtr pCore)
 	m_pCore->CreatGameObjectFromTemplate(L"Plane", L"Plane");
 
 
-	GameObjectPtr pCube = m_pCore->CreatGameObjectFromTemplate(L"Cube", L"Cube");
-	pCube->Translate(0, 0.5, 0);
+	GameObjectPtr pCube = m_pCore->CreatGameObjectFromTemplate(L"Sphere", L"Cube");
+	pCube->Translate(0, 1, 0);
 	//GameObjectPtr pLight = m_pCore->CreatGameObjectFromTemplate(L"SkyLight", L"light");
 	GameObjectPtr pLight = m_pCore->CreatGameObjectFromTemplate(L"SkyLight", L"light");
 
 	pLight->SetTranslation(5, 5, 0);
 	pLight->LookAt(pCube);
+	
+	pLight = m_pCore->CreatGameObjectFromTemplate(L"PointLight", L"pl");
+	pLight->SetTranslation(0, 5, 0);
+
+
+	pLight = m_pCore->CreatGameObjectFromTemplate(L"SpotLight", L"pl");
+	pLight->SetTranslation(0, 0, -5);
+
+	pLight->LookAt(pCube);
+
 	return true;
 }
 void VoxelDemo::Release()

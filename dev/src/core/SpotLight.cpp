@@ -141,5 +141,4 @@ namespace ld3d
 				
 		mem_free(pVerts);
 	}
-
 }

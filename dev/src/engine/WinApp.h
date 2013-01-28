@@ -40,6 +40,8 @@ namespace ld3d
 
 		int														GetWindowWidth();
 		int														GetWindowHeight();
+
+		static bool												IsActive();
 	protected:
 
 		HINSTANCE												m_hInst;
@@ -54,7 +56,7 @@ namespace ld3d
 		int														m_clientWidth;
 		int														m_clientHeight;
 
-
+		static bool												m_bActive;
 
 	};
 

@@ -15,7 +15,6 @@ struct INPUT
 struct PS_INPUT
 {
 	float4 pos:SV_POSITION;
-	float4 s_pos:POSITION;
 };
 struct PS_OUTPUT
 {
@@ -26,7 +25,6 @@ PS_INPUT vs_dirlight_main(INPUT i)
 	PS_INPUT o;
 	
 	o.pos = float4(i.pos, 1);
-	o.s_pos = o.pos;
 
 	return o;
 }
@@ -34,12 +32,16 @@ PS_OUTPUT ps_dirlight_main(PS_INPUT i)
 {
 	PS_OUTPUT o;
 	
-	float2 uv = dr_gbuffer_screenpos_2_uv(i.s_pos);
+	float2 dim;
+	tex_gbuffer[0].GetDimensions(dim.x, dim.y);
+	
+	float2 uv = i.pos.xy / dim;
 
 	float3 n = dr_gbuffer_get_normal(tex_gbuffer, uv);
 	
-	o.clr.xyz = dr_light_dir(n, light, wv);
-	o.clr.w = 0;
+	LightResult ret = dr_light_dir(n, light, wv);
+	o.clr.xyz = ret.diffuse;
+	o.clr.w = rgb_2_il(ret.specular);
 
 	return o;
 }

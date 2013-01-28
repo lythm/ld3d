@@ -4,6 +4,7 @@
 
 namespace ld3d
 {
+	bool												WinApp::m_bActive = true;
 	WinApp::WinApp(void)
 	{
 		m_hInst	= NULL;
@@ -13,6 +14,8 @@ namespace ld3d
 
 		m_clientWidth		= 0;
 		m_clientHeight		= 0;
+
+
 	}
 
 
@@ -121,7 +124,11 @@ namespace ld3d
 		case WM_DESTROY:
 			PostQuitMessage(0);
 			break;
+		case WM_ACTIVATE:
 
+			m_bActive = LOWORD(wParam) != 0;
+
+			break;
 		case WM_CHAR:
 			{
 				
@@ -148,7 +155,14 @@ namespace ld3d
 			}
 			else
 			{
-				OnUpdate();
+				if(m_bActive)
+				{
+					OnUpdate();
+				}
+				else
+				{
+					Sleep(1);
+				}
 			}
 		}
 
@@ -193,5 +207,9 @@ namespace ld3d
 	int WinApp::GetWindowHeight()
 	{
 		return m_height;
+	}
+	bool WinApp::IsActive()
+	{
+		return m_bActive;
 	}
 }
