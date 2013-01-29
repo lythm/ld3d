@@ -40,7 +40,7 @@ PS_OUTPUT ps_dirlight_main(PS_INPUT i)
 	float2 uv = i.pos.xy / dim;
 
 	float3 n = dr_gbuffer_get_normal(tex_gbuffer, uv);
-	
+
 	LightResult ret = dr_light_dir(n, light, wv);
 	o.clr.xyz = ret.diffuse;
 	o.clr.w = rgb_2_il(ret.specular);

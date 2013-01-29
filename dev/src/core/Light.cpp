@@ -11,9 +11,7 @@ namespace ld3d
 		m_bCastShadow				= false;
 		m_diffClr					= math::Color4(0.6f, 0.6f, 0.6f, 1.0f);
 
-		m_specularPow				= 100;
 		m_intensity					= 1;
-
 		m_bEnabled					= true;
 	}
 
@@ -63,14 +61,6 @@ namespace ld3d
 	void Light::SetCastShadow(const bool& bCast)
 	{
 		m_bCastShadow = bCast;
-	}
-	const float& Light::GetSpecularPow()
-	{
-		return m_specularPow;
-	}
-	void Light::SetSpecularPow(const float& pow)
-	{
-		m_specularPow = pow;
 	}
 	const float& Light::GetIntensity()
 	{

@@ -32,9 +32,6 @@ namespace ld3d
 		const bool&								GetCastShadow();
 		void									SetCastShadow(const bool& bCast);
 
-		const float&							GetSpecularPow();
-		void									SetSpecularPow(const float& pow);
-
 		const float&							GetIntensity();
 		void									SetIntensity(const float& i);
 
@@ -51,7 +48,6 @@ namespace ld3d
 
 		bool									m_bCastShadow;
 		math::Color4							m_diffClr;
-		float									m_specularPow;
 		float									m_intensity;
 
 		bool									m_bEnabled;

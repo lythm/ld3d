@@ -59,7 +59,6 @@ namespace ld3d
 			math::Vector3 d;
 			float i;
 			math::Vector3 c;
-			float specularPow;
 		};
 
 		DirLightParam l;
@@ -68,7 +67,6 @@ namespace ld3d
 		const math::Color4& diffClr = GetDiffuseColor();
 
 		l.c = math::Vector3(diffClr.r, diffClr.g, diffClr.b);
-		l.specularPow = GetSpecularPow();
 
 		m_pMaterial->SetCBByName("light", &l, sizeof(DirLightParam));
 		m_pMaterial->SetGBuffer(pRenderer->GetGBuffer());

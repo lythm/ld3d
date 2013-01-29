@@ -56,10 +56,6 @@ namespace ld3d
 				&SkyLight::GetIntensity,
 				&SkyLight::SetIntensity);
 
-			pPM->RegisterProperty<float, SkyLight>(m_pLight.get(), 
-				L"Specular Power", 
-				&SkyLight::GetSpecularPow,
-				&SkyLight::SetSpecularPow);
 			pPM->RegisterProperty<bool, SkyLight>(m_pLight.get(), 
 				L"Enabled", 
 				&SkyLight::GetEnabled,

@@ -100,7 +100,6 @@ namespace ld3d
 			float			intensity;
 			float			range;
 			float			theta;
-			float			specular_pow;
 		};
 
 		SpotLightParam l;
@@ -109,7 +108,7 @@ namespace ld3d
 		const math::Color4& diffClr = GetDiffuseColor();
 		l.color = math::Vector3(diffClr.r, diffClr.g, diffClr.b);
 		l.range = GetRange();
-		l.specular_pow = GetSpecularPow();
+
 		l.theta = cosf(math::D2R(GetAngle()));
 
 		m_pMaterial->SetCBByName("light", &l, sizeof(SpotLightParam));

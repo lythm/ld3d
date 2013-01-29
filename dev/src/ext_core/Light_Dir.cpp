@@ -56,11 +56,6 @@ namespace ld3d
 				&DirectionalLight::GetIntensity,
 				&DirectionalLight::SetIntensity);
 
-			pPM->RegisterProperty<float, DirectionalLight>(m_pLight.get(), 
-				L"Specular Power", 
-				&DirectionalLight::GetSpecularPow,
-				&DirectionalLight::SetSpecularPow);
-
 			pPM->RegisterProperty<bool, DirectionalLight>(m_pLight.get(), 
 				L"Enabled", 
 				&DirectionalLight::GetEnabled,

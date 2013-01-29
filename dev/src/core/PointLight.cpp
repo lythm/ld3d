@@ -70,7 +70,6 @@ namespace ld3d
 			Vector3			color;
 			float			intensity;
 			float			radius;
-			float			specular_pow;
 		};
 
 		PointLightParam l;
@@ -79,7 +78,7 @@ namespace ld3d
 		const math::Color4& diffClr = GetDiffuseColor();
 		l.color = math::Vector3(diffClr.r, diffClr.g, diffClr.b);
 		l.radius = GetRadius();
-		l.specular_pow = GetSpecularPow();
+		
 
 		m_pMaterial->SetCBByName("light", &l, sizeof(PointLightParam));
 		m_pMaterial->SetGBuffer(pRS->GetGBuffer());
@@ -98,10 +97,8 @@ namespace ld3d
 
 		m_pMaterial->ApplyVertexFormat();
 		
-
 		pRS->ClearDepthBuffer(DepthStencilBufferPtr(), CLEAR_STENCIL, 1.0f, 0);
-
-
+		
 		Sys_GraphicsPtr pGraphics = pRS->GetSysGraphics();
 		pGraphics->SetVertexBuffer(m_pVB, 0, sizeof(math::Vector3));
 		pGraphics->SetPrimitiveType(PT_TRIANGLE_STRIP);
