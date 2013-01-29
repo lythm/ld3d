@@ -28,8 +28,7 @@ GBuffer dr_ps_main(vs_out i)
 	float3 clr = half3(1, 1, 1);
 	float specular = 0;
 	
-
-	return dr_gbuffer_compose(depth_2_view_space_z(i.pos.z, p), i.v_normal.xy, clr, specular);
+	return dr_gbuffer_compose(depth_2_view_space_z(i.pos.z, p), normalize(i.v_normal).xy, clr, specular);
 }
 RasterizerState rs
 {
@@ -40,19 +39,10 @@ DepthStencilState dr_ds
 	DepthEnable						= TRUE;
 	DepthFunc						= LESS;
 	DepthWriteMask					= ALL;
-	StencilEnable					= true;
-
-	FrontFaceStencilFail			= KEEP;
-	FrontFaceStencilDepthFail		= KEEP;
-	FrontFaceStencilPass			= Replace;
-	FrontFaceStencilFunc			= ALWAYS;
-
-	BackFaceStencilFail				= KEEP;
-	BackFaceStencilDepthFail		= KEEP;
-	BackFaceStencilPass				= KEEP;
-	BackFaceStencilFunc				= NEVER;
-
+	StencilEnable					= false;
 };
+
+
 BlendState bs
 {
 	BLENDENABLE[0]					= false;

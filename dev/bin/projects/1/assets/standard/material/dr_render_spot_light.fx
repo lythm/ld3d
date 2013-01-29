@@ -42,7 +42,6 @@ PS_OUTPUT ps_main(PS_INPUT i)
 	float3 n = dr_gbuffer_get_normal(tex_gbuffer, uv);
 	float depth = dr_gbuffer_get_depth(tex_gbuffer, uv);
 	float3 v_pos = view_port_2_view_space(i.pos.xy, depth, p, dim);
-	
 
 	LightResult ret =  dr_light_spot(v_pos, n, light, wv);
 	o.clr.xyz = ret.diffuse;

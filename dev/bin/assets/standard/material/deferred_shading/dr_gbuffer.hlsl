@@ -36,12 +36,11 @@ float dr_gbuffer_get_depth(Texture2D g[3], float2 uv)
 }
 float3 dr_gbuffer_get_normal(Texture2D g[3], float2 uv)
 {
-	float3 normal = float3(g[1].Sample(Sampler_GBuffer, uv).xy, 0);
+	float3 normal;
 	
+	normal.xy = g[1].Sample(Sampler_GBuffer, uv).xy;
 	normal.z = -sqrt(1-dot(normal.xy, normal.xy));
-	normal = normalize(normal);
-	
-	return normal;
+	return normalize(normal);
 }
 
 float4 dr_gbuffer_get_albedo(Texture2D g[3], float2 uv)

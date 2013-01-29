@@ -1,3 +1,5 @@
+float g_specular_pow = 100;
+
 struct LightResult
 {
 	float3							diffuse;
@@ -8,14 +10,12 @@ struct DirectionalLight
 	float3	dir;
 	float	intensity;
 	float3	clr;
-	float	specular_pow;
 };
 struct PointLight
 {
 	float3	clr;
 	float	intensity;
 	float	radius;
-	float	specular_pow;
 };
 
 struct SpotLight
@@ -24,7 +24,6 @@ struct SpotLight
 	float	intensity;
 	float	range;
 	float	cos_theta;
-	float	specular_pow;
 };
 
 float rgb_2_il(float3 clr)
@@ -50,7 +49,7 @@ LightResult dr_light_dir(float3 n, DirectionalLight light, float4x4 wv)
 	float il = saturate(dot(l, n)) * light.intensity;
 	
 
-	float s = dr_light_specular_il(n, l, light.specular_pow);
+	float s = dr_light_specular_il(n, l, g_specular_pow);
 
 	s = s * light.intensity;
 	
@@ -74,7 +73,7 @@ LightResult dr_light_point(float3 p, float3 n, PointLight light, float4x4 wv)
 
 	float il = max(0, dot(l , n)) * light.intensity * att;
 
-	float s = dr_light_specular_il(n, l, light.specular_pow);
+	float s = dr_light_specular_il(n, l, g_specular_pow);
 
 	s = s * light.intensity * att;
 
@@ -102,7 +101,7 @@ LightResult dr_light_spot(float3 p, float3 n, SpotLight light, float4x4 wv)
 	float factor = step(light.cos_theta, cos_angle) * step(d , light.range / cos_angle);
 	float il = max(0, dot(l , n)) * light.intensity * factor;
 	
-	float s = dr_light_specular_il(n, l, light.specular_pow);
+	float s = dr_light_specular_il(n, l, g_specular_pow);
 
 	s = s * light.intensity * factor;
 

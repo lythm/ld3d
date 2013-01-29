@@ -36,10 +36,10 @@ ps_out ps_main(vs_out i)
 	tex_abuffer.GetDimensions(dim.x, dim.y);
 	float2 uv = i.pos.xy / dim;
 
-	float3 d = dr_gbuffer_get_diffuse(tex_gbuffer, uv);
+	float4 d = dr_gbuffer_get_albedo(tex_gbuffer, uv);
 	float4 l = tex_abuffer.Sample(Sampler_GBuffer,uv);
 
-	o.color.xyz = l.xyz * d + l.w * d;
+	o.color.xyz = l.xyz * d.xyz + (l.w * d.xyz) * d.w;
 	o.color.w = 1;
 
 	//o.color.xyz = dr_gbuffer_get_depth(tex_gbuffer, uv) / 100;
