@@ -169,7 +169,6 @@ namespace ld3d
 			
 			m_deferredQueue[i]->Render(m_pGraphics);
 		}
-
 	}
 	void RenderSystem::DR_Merge_Pass()
 	{
@@ -208,6 +207,7 @@ namespace ld3d
 		SetProjMatrix(pCamera->GetProjMatrix());
 
 		RenderShadowMaps();
+
 
 		DR_G_Pass();
 		DR_Light_Pass();

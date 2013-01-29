@@ -77,6 +77,9 @@ namespace ld3d
 		m_pMaterial->SetCBByName("light", &l, sizeof(DirLightParam));
 		m_pMaterial->SetGBuffer(pRenderer->GetGBuffer());
 				
+
+		//pRenderer->ClearDepthBuffer(DepthStencilBufferPtr(), CLEAR_STENCIL, 1.0f, 0);
+		
 		pRenderer->DrawFullScreenQuad(m_pMaterial);
 	}
 }

@@ -49,7 +49,7 @@ bool VoxelDemo::Init(ld3d::CoreApiPtr pCore)
 
 
 	pLight = m_pCore->CreatGameObjectFromTemplate(L"SpotLight", L"pl");
-	pLight->SetTranslation(0, 0, -5);
+	pLight->SetTranslation(5, 5, -5);
 
 	pLight->LookAt(pCube);
 

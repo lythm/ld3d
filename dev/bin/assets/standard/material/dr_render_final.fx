@@ -48,16 +48,8 @@ DepthStencilState ds
 	DepthEnable						= FALSE;
 	DepthFunc						= LESS;
 	DepthWriteMask					= ZERO;
-	StencilEnable					= true;
-	FrontFaceStencilFail			= KEEP;
-	FrontFaceStencilDepthFail		= KEEP;
-	FrontFaceStencilPass			= KEEP;
-	FrontFaceStencilFunc			= ALWAYS;
-
-	BackFaceStencilFail				= KEEP;
-	BackFaceStencilDepthFail		= KEEP;
-	BackFaceStencilPass				= KEEP;
-	BackFaceStencilFunc				= NEVER;
+	StencilEnable					= false;
+	
 };
 BlendState bs
 {

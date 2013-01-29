@@ -14,14 +14,13 @@ struct vs_in
 struct vs_out
 {
 	float4 pos:SV_POSITION;
-	float4 s_pos:POSITION;
 };
 
 vs_out vs_main(vs_in i)
 {
 	vs_out o;
+	i.pos.z = 1;
 	o.pos = float4(i.pos.xyz, 1);
-	o.s_pos = o.pos;
 	return o;
 }
 
@@ -33,13 +32,14 @@ struct ps_out
 ps_out ps_main(vs_out i)
 {
 	ps_out o;
-
-	float2 uv = dr_gbuffer_screenpos_2_uv(i.s_pos);
+	float2 dim;
+	tex_abuffer.GetDimensions(dim.x, dim.y);
+	float2 uv = i.pos.xy / dim;
 
 	float3 d = dr_gbuffer_get_diffuse(tex_gbuffer, uv);
 	float4 l = tex_abuffer.Sample(Sampler_GBuffer,uv);
 
-	o.color.xyz = l.xyz * d;
+	o.color.xyz = l.xyz * d + l.w * d;
 	o.color.w = 1;
 
 	//o.color.xyz = dr_gbuffer_get_depth(tex_gbuffer, uv) / 100;
@@ -51,19 +51,11 @@ RasterizerState rs
 };
 DepthStencilState ds
 {
-	DepthEnable						= FALSE;
-	DepthFunc						= LESS;
+	DepthEnable						= true;
+	DepthFunc						= GREATER;
 	DepthWriteMask					= ZERO;
-	StencilEnable					= true;
-	FrontFaceStencilFail			= KEEP;
-	FrontFaceStencilDepthFail		= KEEP;
-	FrontFaceStencilPass			= KEEP;
-	FrontFaceStencilFunc			= EQUAL;
-
-	BackFaceStencilFail				= KEEP;
-	BackFaceStencilDepthFail		= KEEP;
-	BackFaceStencilPass				= KEEP;
-	BackFaceStencilFunc				= NEVER;
+	StencilEnable					= false;
+	
 };
 BlendState bs
 {

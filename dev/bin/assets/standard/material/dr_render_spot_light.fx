@@ -27,6 +27,9 @@ PS_INPUT vs_main(INPUT i)
 	o.pos = mul(float4(i.pos, 1), wvp);
 	return o;
 }
+
+
+
 PS_OUTPUT ps_main(PS_INPUT i)
 {
 	PS_OUTPUT o;
@@ -46,16 +49,86 @@ PS_OUTPUT ps_main(PS_INPUT i)
 	o.clr.w = rgb_2_il(ret.specular);
 
 	return o;
-	
 }
+
+RasterizerState RS_SpotLight_StencilPass
+{
+	CULLMODE = Back;
+};
+
+BlendState BS_SpotLight_StencilPass
+{
+	ALPHATOCOVERAGEENABLE				= false;
+	BLENDENABLE[0]						= false;
+};
+
+
+DepthStencilState DS_SpotLight_StencilPass
+{
+	DepthEnable						= true;
+	DepthFunc						= LESS_EQUAL;
+	DepthWriteMask					= ZERO;
+	StencilEnable					= true;
+	FrontFaceStencilFail			= KEEP;
+	FrontFaceStencilDepthFail		= REPLACE;
+	FrontFaceStencilPass			= KEEP;
+	FrontFaceStencilFunc			= ALWAYS;
+};
+
+RasterizerState RS_SpotLight
+{
+	CULLMODE = front;
+};
+
+BlendState BS_SpotLight
+{
+	ALPHATOCOVERAGEENABLE				= false;
+	BLENDENABLE[0]						= true;
+	SRCBLEND							= ONE;
+	DESTBLEND							= ONE;
+	BLENDOP								= ADD;
+	SRCBLENDALPHA						= ONE;
+	DESTBLENDALPHA						= ONE;
+	BLENDOPALPHA						= ADD;
+	RENDERTARGETWRITEMASK[0]			= 0xF;
+};
+
+
+DepthStencilState DS_SpotLight
+{
+	DepthEnable						= true;
+	DepthFunc						= GREATER;
+	DepthWriteMask					= ZERO;
+	StencilEnable					= true;
+
+	BackFaceStencilFail				= KEEP;
+	BackFaceStencilDepthFail		= KEEP;
+	BackFaceStencilPass				= KEEP;
+	BackFaceStencilFunc				= EQUAL;
+};
+
+
+
+
+
+
 
 technique11 deferred
 {
 	pass p1
 	{
-		SetBlendState( BS_Light, float4( 0.0f, 0.0f, 0.0f, 0.0f ), 0xFFFFFFFF );
-		SetRasterizerState(RS_Light);
-		SetDepthStencilState(DS_Light, 1);
+		SetBlendState( BS_SpotLight_StencilPass, float4( 0.0f, 0.0f, 0.0f, 0.0f ), 0xFFFFFFFF );
+		SetRasterizerState(RS_SpotLight_StencilPass);
+		SetDepthStencilState(DS_SpotLight_StencilPass, 1);
+		SetVertexShader( CompileShader( vs_4_0, vs_main() ) );
+		SetPixelShader( NULL);
+	}
+
+	pass p2
+	{
+		SetBlendState( BS_SpotLight, float4( 0.0f, 0.0f, 0.0f, 0.0f ), 0xFFFFFFFF );
+		SetRasterizerState(RS_SpotLight);
+		SetDepthStencilState(DS_SpotLight, 0);
 		SetVertexShader( CompileShader( vs_4_0, vs_main() ) );
 		SetPixelShader( CompileShader( ps_4_0, ps_main()));
 	}

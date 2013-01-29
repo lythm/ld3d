@@ -1,36 +1,3 @@
-RasterizerState RS_Light
-{
-	CULLMODE = back;
-};
-BlendState BS_Light
-{
-	ALPHATOCOVERAGEENABLE				= false;
-	BLENDENABLE[0]						= true;
-	SRCBLEND							= ONE;
-	DESTBLEND							= ONE;
-	BLENDOP								= ADD;
-	SRCBLENDALPHA						= ONE;
-	DESTBLENDALPHA						= ONE;
-	BLENDOPALPHA						= ADD;
-	RENDERTARGETWRITEMASK[0]			= 0xF;
-};
-DepthStencilState DS_Light
-{
-	DepthEnable						= FALSE;
-	DepthFunc						= LESS;
-	DepthWriteMask					= ZERO;
-	StencilEnable					= true;
-	FrontFaceStencilFail			= KEEP;
-	FrontFaceStencilDepthFail		= KEEP;
-	FrontFaceStencilPass			= KEEP;
-	FrontFaceStencilFunc			= EQUAL;
-
-	BackFaceStencilFail				= KEEP;
-	BackFaceStencilDepthFail		= KEEP;
-	BackFaceStencilPass				= KEEP;
-	BackFaceStencilFunc				= NEVER;
-};
-
 struct LightResult
 {
 	float3							diffuse;

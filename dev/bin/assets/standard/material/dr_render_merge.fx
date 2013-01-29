@@ -19,6 +19,7 @@ struct vs_out
 vs_out vs_main(vs_in i)
 {
 	vs_out o;
+	i.pos.z = 1;
 	o.pos = float4(i.pos.xyz, 1);
 	return o;
 }
@@ -33,7 +34,7 @@ ps_out ps_main(vs_out i)
 	ps_out o;
 	float2 dim;
 	tex_abuffer.GetDimensions(dim.x, dim.y);
-	float2 uv = i.pos / dim;
+	float2 uv = i.pos.xy / dim;
 
 	float3 d = dr_gbuffer_get_diffuse(tex_gbuffer, uv);
 	float4 l = tex_abuffer.Sample(Sampler_GBuffer,uv);
@@ -50,19 +51,11 @@ RasterizerState rs
 };
 DepthStencilState ds
 {
-	DepthEnable						= FALSE;
-	DepthFunc						= LESS;
+	DepthEnable						= true;
+	DepthFunc						= GREATER;
 	DepthWriteMask					= ZERO;
-	StencilEnable					= true;
-	FrontFaceStencilFail			= KEEP;
-	FrontFaceStencilDepthFail		= KEEP;
-	FrontFaceStencilPass			= KEEP;
-	FrontFaceStencilFunc			= EQUAL;
-
-	BackFaceStencilFail				= KEEP;
-	BackFaceStencilDepthFail		= KEEP;
-	BackFaceStencilPass				= KEEP;
-	BackFaceStencilFunc				= NEVER;
+	StencilEnable					= false;
+	
 };
 BlendState bs
 {

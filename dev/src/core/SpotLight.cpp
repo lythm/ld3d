@@ -117,6 +117,9 @@ namespace ld3d
 		m_pMaterial->ApplyVertexFormat();
 		
 		Sys_GraphicsPtr pGraphics = pRS->GetSysGraphics();
+
+		pGraphics->ClearDepthStencilBuffer(DepthStencilBufferPtr(), CLEAR_STENCIL, 1, 0);
+
 		pGraphics->SetVertexBuffer(m_pVB, 0, sizeof(math::Vector3));
 		pGraphics->SetPrimitiveType(PT_TRIANGLE_LIST);
 		

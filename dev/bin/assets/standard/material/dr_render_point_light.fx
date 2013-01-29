@@ -45,16 +45,86 @@ PS_OUTPUT ps_main(PS_INPUT i)
 	o.clr.xyz = ret.diffuse;
 	o.clr.w = rgb_2_il(ret.specular);
 
+//	o.clr = float4(1, 1, 1, 1);
 	return o;
 }
+
+
+
+RasterizerState RS_PointLight_StencilPass
+{
+	CULLMODE = Back;
+};
+
+BlendState BS_PointLight_StencilPass
+{
+	ALPHATOCOVERAGEENABLE				= false;
+	BLENDENABLE[0]						= false;
+};
+
+
+DepthStencilState DS_PointLight_StencilPass
+{
+	DepthEnable						= true;
+	DepthFunc						= LESS_EQUAL;
+	DepthWriteMask					= ZERO;
+	StencilEnable					= true;
+	FrontFaceStencilFail			= KEEP;
+	FrontFaceStencilDepthFail		= REPLACE;
+	FrontFaceStencilPass			= KEEP;
+	FrontFaceStencilFunc			= ALWAYS;
+};
+
+RasterizerState RS_PointLight
+{
+	CULLMODE = front;
+};
+
+BlendState BS_PointLight
+{
+	ALPHATOCOVERAGEENABLE				= false;
+	BLENDENABLE[0]						= true;
+	SRCBLEND							= ONE;
+	DESTBLEND							= ONE;
+	BLENDOP								= ADD;
+	SRCBLENDALPHA						= ONE;
+	DESTBLENDALPHA						= ONE;
+	BLENDOPALPHA						= ADD;
+	RENDERTARGETWRITEMASK[0]			= 0xF;
+};
+
+
+DepthStencilState DS_PointLight
+{
+	DepthEnable						= true;
+	DepthFunc						= GREATER;
+	DepthWriteMask					= ZERO;
+	StencilEnable					= true;
+
+	BackFaceStencilFail				= KEEP;
+	BackFaceStencilDepthFail		= KEEP;
+	BackFaceStencilPass				= KEEP;
+	BackFaceStencilFunc				= EQUAL;
+};
+
+
 
 technique11 point_light
 {
 	pass p1
 	{
-		SetBlendState( BS_Light, float4( 0.0f, 0.0f, 0.0f, 0.0f ), 0xFFFFFFFF );
-		SetRasterizerState(RS_Light);
-		SetDepthStencilState(DS_Light, 1);
+		SetBlendState( BS_PointLight_StencilPass, float4( 0.0f, 0.0f, 0.0f, 0.0f ), 0xFFFFFFFF );
+		SetRasterizerState(RS_PointLight_StencilPass);
+		SetDepthStencilState(DS_PointLight_StencilPass, 1);
+		SetVertexShader( CompileShader( vs_4_0, vs_main() ) );
+		SetPixelShader( NULL);
+	}
+
+	pass p2
+	{
+		SetBlendState( BS_PointLight, float4( 0.0f, 0.0f, 0.0f, 0.0f ), 0xFFFFFFFF );
+		SetRasterizerState(RS_PointLight);
+		SetDepthStencilState(DS_PointLight, 0);
 		SetVertexShader( CompileShader( vs_4_0, vs_main() ) );
 		SetPixelShader( CompileShader( ps_4_0, ps_main()));
 	}

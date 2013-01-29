@@ -2,6 +2,8 @@
 
 float4x4 mvp:MATRIX_WVP;
 float4x4 mv:MATRIX_WV;
+float4x4 p:MATRIX_PROJ;
+
 struct vs_in
 {
 	float3 pos:POSITION;
@@ -10,26 +12,24 @@ struct vs_in
 struct vs_out
 {
 	float4 pos:SV_POSITION;
-	float4 s_pos:POSITION;
-	float3 normal:NORMAL;
+	float3 v_normal:NORMAL;
 };
 
 vs_out vs_main(vs_in i)
 {
 	vs_out o;
 	o.pos = mul(float4(i.pos, 1), mvp);
-	o.normal = mul(float4(i.normal.xyz, 0), mv).xyz;
-	o.s_pos = mul(float4(i.pos, 1), mv);
+	o.v_normal = mul(float4(i.normal.xyz, 0), mv).xyz;
 	return o;
 }
 
 GBuffer dr_ps_main(vs_out i)
 {
 	float3 clr = half3(1, 1, 1);
-	float specular = 1;
+	float specular = 0;
 	
 
-	return dr_gbuffer_compose(i.s_pos.z, normalize(i.normal).xy, clr, specular);
+	return dr_gbuffer_compose(depth_2_view_space_z(i.pos.z, p), i.v_normal.xy, clr, specular);
 }
 RasterizerState rs
 {

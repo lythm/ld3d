@@ -53,14 +53,6 @@ float3 dr_gbuffer_get_normal(Texture2D g[3], float2 uv)
 	return normal;
 }
 
-float3 dr_gbuffer_get_position(Texture2D g[3], float2 uv, float2 spos_xy)
-{
-	float3 p;
-	p.z = dr_gbuffer_get_depth(g, uv);
-	p.xy = spos_xy;
-
-	return p;
-}
 float3 dr_gbuffer_get_diffuse(Texture2D g[3], float2 uv)
 {
 	float4 c = g[2].Sample(Sampler_GBuffer, uv);
@@ -72,8 +64,31 @@ float dr_gbuffer_get_specular_power(Texture2D<half4> g[3], float2 uv)
 	return c.w;
 }
 
+float depth_2_view_space_z(float z, float4x4 proj)
+{
+	return proj._43 / (z - proj._33);
+}
 
-float2 dr_gbuffer_screenpos_2_uv(float4 spos)
+float2 view_port_2_screen_space(float2 vp, float4x4 proj, float2 dim)
+{
+	float2 screenPixelOffset = float2(2.0f, -2.0f) / dim;
+    return (vp * screenPixelOffset.xy + float2(-1.0f, 1.0f));
+}
+
+float3 view_port_2_view_space(float2 vp, float view_z, float4x4 proj, float2 dim)
+{
+	float2 screen = view_port_2_screen_space(vp, proj, dim);
+	float2 v_ray = float2(screen.x / proj._11,
+							screen.y / proj._22);
+
+	float3 view = float3(v_ray, view_z);
+	
+	view.xy = view.xy * view.z;
+
+	return view;
+}
+
+float2 screenpos_2_uv(float4 spos)
 {
 	float2 uv = spos.xy / spos.w;
 	

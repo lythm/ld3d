@@ -24,6 +24,8 @@ PS_INPUT vs_dirlight_main(INPUT i)
 {
 	PS_INPUT o;
 	
+	i.pos.z = 1;
+
 	o.pos = float4(i.pos, 1);
 
 	return o;
@@ -43,17 +45,45 @@ PS_OUTPUT ps_dirlight_main(PS_INPUT i)
 	o.clr.xyz = ret.diffuse;
 	o.clr.w = rgb_2_il(ret.specular);
 
+	//o.clr.xyz = float3(1, 1, 1);
 	return o;
 }
+
+DepthStencilState DS_DirLight
+{
+	DepthEnable						= true;
+	DepthFunc						= GREATER;
+	DepthWriteMask					= ZERO;
+	StencilEnable					= false;
+};
+RasterizerState RS_DirLight
+{
+	CULLMODE = back;
+};
+
+BlendState BS_DirLight
+{
+	ALPHATOCOVERAGEENABLE				= false;
+	BLENDENABLE[0]						= true;
+	SRCBLEND							= ONE;
+	DESTBLEND							= ONE;
+	BLENDOP								= ADD;
+	SRCBLENDALPHA						= ONE;
+	DESTBLENDALPHA						= ONE;
+	BLENDOPALPHA						= ADD;
+	RENDERTARGETWRITEMASK[0]			= 0xF;
+};
+
+
 
 
 technique11 dir_light
 {
 	pass p1
 	{
-		SetBlendState( BS_Light, float4( 0.0f, 0.0f, 0.0f, 0.0f ), 0xFFFFFFFF );
-		SetRasterizerState(RS_Light);
-		SetDepthStencilState(DS_Light, 1);
+		SetBlendState( BS_DirLight, float4( 0.0f, 0.0f, 0.0f, 0.0f ), 0xFFFFFFFF );
+		SetRasterizerState(RS_DirLight);
+		SetDepthStencilState(DS_DirLight, 1);
 		SetVertexShader( CompileShader( vs_4_0, vs_dirlight_main() ) );
 		SetPixelShader( CompileShader( ps_4_0, ps_dirlight_main()));
 	}

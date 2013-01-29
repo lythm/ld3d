@@ -98,6 +98,10 @@ namespace ld3d
 
 		m_pMaterial->ApplyVertexFormat();
 		
+
+		pRS->ClearDepthBuffer(DepthStencilBufferPtr(), CLEAR_STENCIL, 1.0f, 0);
+
+
 		Sys_GraphicsPtr pGraphics = pRS->GetSysGraphics();
 		pGraphics->SetVertexBuffer(m_pVB, 0, sizeof(math::Vector3));
 		pGraphics->SetPrimitiveType(PT_TRIANGLE_STRIP);
