@@ -27,6 +27,7 @@ namespace ld3d
 		void										Release();
 		void										AddRenderData(RenderDataPtr pData);
 		void										Clear();
+		void										Render(const math::Matrix44& view, const math::Matrix44& proj);
 		void										Render();
 		void										Render(CameraPtr pCamera);
 		void										Present();

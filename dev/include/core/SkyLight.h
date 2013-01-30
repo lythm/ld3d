@@ -24,8 +24,9 @@ namespace ld3d
 		math::Color4						m_diff;
 
 		MaterialPtr							m_pMaterial;
-
 		RenderTargetPtr						m_pShadowMap;
+
+		RenderSystemPtr						m_pRS;
 	};
 
 

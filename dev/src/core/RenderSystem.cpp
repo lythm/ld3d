@@ -201,13 +201,10 @@ namespace ld3d
 			m_transparentQueue[i]->Render(m_pGraphics);
 		}
 	}
-	void RenderSystem::Render(CameraPtr pCamera)
+	void RenderSystem::Render(const math::Matrix44& view, const math::Matrix44& proj)
 	{
-		SetViewMatrix(pCamera->GetViewMatrix());
-		SetProjMatrix(pCamera->GetProjMatrix());
-
-		RenderShadowMaps();
-
+		SetViewMatrix(view);
+		SetProjMatrix(proj);
 
 		DR_G_Pass();
 		DR_Light_Pass();
@@ -218,7 +215,13 @@ namespace ld3d
 		RenderPostEffects();
 		
 		RenderFinal();
-		
+	}
+	void RenderSystem::Render(CameraPtr pCamera)
+	{
+		RenderShadowMaps();
+
+		Render(pCamera->GetViewMatrix(), pCamera->GetProjMatrix());
+
 	}
 	void RenderSystem::Render()
 	{

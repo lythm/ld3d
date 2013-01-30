@@ -13,10 +13,13 @@ namespace ld3d
 
 	SkyLight::~SkyLight(void)
 	{
+		m_pRS.reset();
 	}
 	
 	bool SkyLight::Create(RenderSystemPtr pRs)
 	{
+		m_pRS = pRs;
+
 		m_pMaterial = pRs->CreateMaterialFromFile("./assets/standard/material/dr_render_directional_light.fx");
 
 		VertexFormat vf;
@@ -33,10 +36,11 @@ namespace ld3d
 			int w = pRs->GetFrameBufferWidth();
 			int h = pRs->GetFrameBufferHeight();
 
-			if(CreateShadowMap(w, h, G_FORMAT_R32_FLOAT) == false)
+			if(CreateShadowMap(2048, 2048, G_FORMAT_R32_FLOAT) == false)
 			{
 				return false;
 			}
+
 		}
 		return true;
 	}
@@ -47,6 +51,7 @@ namespace ld3d
 			m_pMaterial->Release();
 			m_pMaterial.reset();
 		}
+		m_pRS.reset();
 		
 	}
 	void SkyLight::RenderLight(RenderSystemPtr pRenderer)
@@ -91,10 +96,20 @@ namespace ld3d
 	}
 	bool SkyLight::CreateShadowMap(int w, int h, G_FORMAT format)
 	{
+		if(false == m_pRS->CreateRenderTarget(1, w, h, &format))
+		{
+			return false;
+		}
 		return true;
 	}
 	void SkyLight::RenderShadowMap()
 	{
+		m_pRS->SetRenderTarget(m_pShadowMap);
+		m_pMaterial->SelectTechByName("T_ShadowMapping");
+
+
+		math::Matrix44 world = GetWorldTM();
+		world.Invert();
 
 	}
 }
