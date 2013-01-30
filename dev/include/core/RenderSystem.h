@@ -75,6 +75,8 @@ namespace ld3d
 		void										AddCamera(CameraPtr pCamera);
 		void										RemoveCamera(CameraPtr pCamera);
 
+
+		GPUBufferPtr								CreateBuffer(BUFFER_TYPE type,  int bytes, void* pInitData, bool dynamic);
 	private:
 		bool										CreateABuffer(int w, int h);
 		bool										CreateGBuffer(int w, int h);

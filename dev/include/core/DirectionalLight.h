@@ -10,15 +10,19 @@ namespace ld3d
 		DirectionalLight(void);
 		virtual ~DirectionalLight(void);
 
-		bool								Create(Sys_GraphicsPtr pGraphics);
+		bool								Create(RenderSystemPtr pRs);
 		void								Release();
 		void								RenderLight(RenderSystemPtr pRenderer);
 	
+	private:
+		bool								CreateShadowMap();
 	private:
 
 		math::Vector3						m_dir;
 		math::Color4						m_diff;
 
 		MaterialPtr							m_pMaterial;
+
+		RenderTargetPtr						m_pShadowMap;
 	};
 }

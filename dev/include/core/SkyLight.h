@@ -10,9 +10,13 @@ namespace ld3d
 		SkyLight(void);
 		virtual ~SkyLight(void);
 
-		bool								Create(Sys_GraphicsPtr pGraphics);
+		bool								Create(RenderSystemPtr pRs);
 		void								Release();
 		void								RenderLight(RenderSystemPtr pRenderer);
+
+		void								RenderShadowMap();
+	private:
+		bool								CreateShadowMap(int w, int h, G_FORMAT format);
 
 	private:
 
@@ -20,6 +24,8 @@ namespace ld3d
 		math::Color4						m_diff;
 
 		MaterialPtr							m_pMaterial;
+
+		RenderTargetPtr						m_pShadowMap;
 	};
 
 

@@ -10,7 +10,7 @@ namespace ld3d
 		SpotLight(void);
 		virtual ~SpotLight(void);
 
-		bool							Create(Sys_GraphicsPtr pGraphics);
+		bool							Create(RenderSystemPtr pRs);
 		const float&					GetAngle();
 		void							SetAngle(const float& angle);
 

@@ -10,7 +10,7 @@ namespace ld3d
 		virtual ~PointLight(void);
 
 
-		bool					Create(Sys_GraphicsPtr pGraphics);
+		bool					Create(RenderSystemPtr pRs);
 
 		float					GetRadius();
 		void					SetRadius(float r);
@@ -24,7 +24,6 @@ namespace ld3d
 
 	private:
 		void					DrawLightVolumn(RenderSystemPtr pRS);
-		void					DrawQuad(RenderSystemPtr pRS);
 	private:
 		float					m_radius;
 		float					m_fallout;

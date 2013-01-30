@@ -16,9 +16,9 @@ namespace ld3d
 	{
 	}
 	
-	bool DirectionalLight::Create(Sys_GraphicsPtr pGraphics)
+	bool DirectionalLight::Create(RenderSystemPtr pRs)
 	{
-		m_pMaterial = pGraphics->CreateMaterialFromFile("./assets/standard/material/dr_render_directional_light.fx");
+		m_pMaterial = pRs->CreateMaterialFromFile("./assets/standard/material/dr_render_directional_light.fx");
 
 		VertexFormat vf;
 		vf.AddElement(VertexElement(0, VertexElement::POSITION, G_FORMAT_R32G32B32_FLOAT));
@@ -27,6 +27,11 @@ namespace ld3d
 		if(m_pMaterial == MaterialPtr())
 		{
 			return false;
+		}
+
+		if(m_bCastShadow)
+		{
+
 		}
 		return true;
 	}
@@ -72,5 +77,9 @@ namespace ld3d
 		m_pMaterial->SetGBuffer(pRenderer->GetGBuffer());
 				
 		pRenderer->DrawFullScreenQuad(m_pMaterial);
+	}
+	bool DirectionalLight::CreateShadowMap()
+	{
+		return true;
 	}
 }

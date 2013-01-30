@@ -470,4 +470,8 @@ namespace ld3d
 	{
 		m_cameras.remove(pCamera);
 	}
+	GPUBufferPtr RenderSystem::CreateBuffer(BUFFER_TYPE type,  int bytes, void* pInitData, bool dynamic)
+	{
+		return m_pGraphics->CreateBuffer(type, bytes, pInitData, dynamic);
+	}
 }

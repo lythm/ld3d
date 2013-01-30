@@ -35,7 +35,7 @@ namespace ld3d
 	{
 		m_pRS = m_pManager->GetRenderSystem();
 		m_pLight = m_pManager->GetAllocator()->AllocObject<SpotLight>();
-		m_pLight->Create(m_pRS->GetSysGraphics());
+		m_pLight->Create(m_pRS);
 		m_pRS->AddLight(m_pLight);
 
 		PropertyManagerPtr pPM = boost::shared_dynamic_cast<PropertyManager>(m_pObject->GetComponent(L"PropertyManager"));

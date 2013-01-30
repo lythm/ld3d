@@ -38,10 +38,10 @@ namespace ld3d
 	{
 		m_fallout = f;
 	}
-	bool PointLight::Create(Sys_GraphicsPtr pGraphics)
+	bool PointLight::Create(RenderSystemPtr pRs)
 	{
 		math::Vector3* pPos = MeshUtil::CreateSphere(1, 20, 20, m_nVerts);
-		m_pVB = pGraphics->CreateBuffer(BT_VERTEX_BUFFER, m_nVerts * sizeof(math::Vector3), pPos, false);
+		m_pVB = pRs->CreateBuffer(BT_VERTEX_BUFFER, m_nVerts * sizeof(math::Vector3), pPos, false);
 		mem_free(pPos);
 
 		if(m_pVB == GPUBufferPtr())
@@ -49,7 +49,7 @@ namespace ld3d
 			return false;
 		}
 
-		m_pMaterial = pGraphics->CreateMaterialFromFile("./assets/standard/material/dr_render_point_light.fx");
+		m_pMaterial = pRs->CreateMaterialFromFile("./assets/standard/material/dr_render_point_light.fx");
 		if(m_pMaterial == MaterialPtr())
 		{
 			return false;
@@ -83,7 +83,6 @@ namespace ld3d
 		m_pMaterial->SetCBByName("light", &l, sizeof(PointLightParam));
 		m_pMaterial->SetGBuffer(pRS->GetGBuffer());
 		DrawLightVolumn(pRS);
-		//DrawQuad(pRS);
 	}
 	void PointLight::DrawLightVolumn(RenderSystemPtr pRS)
 	{
@@ -112,10 +111,7 @@ namespace ld3d
 		}
 		m_pMaterial->End();
 	}
-	void PointLight::DrawQuad(RenderSystemPtr pRS)
-	{
-		pRS->DrawFullScreenQuad(m_pMaterial);
-	}
+	
 	void PointLight::Release()
 	{
 		if(m_pMaterial)

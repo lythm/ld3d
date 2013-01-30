@@ -24,11 +24,11 @@ namespace ld3d
 	SpotLight::~SpotLight(void)
 	{
 	}
-	bool SpotLight::Create(Sys_GraphicsPtr pGraphics)
+	bool SpotLight::Create(RenderSystemPtr pRs)
 	{
 		math::Vector3* pVerts = MeshUtil::CreateSpotLightCone(m_range, m_angle, 50, m_nVerts);
 
-		m_pVB = pGraphics->CreateBuffer(BT_VERTEX_BUFFER, sizeof(math::Vector3) * m_nVerts, pVerts, true);
+		m_pVB = pRs->CreateBuffer(BT_VERTEX_BUFFER, sizeof(math::Vector3) * m_nVerts, pVerts, true);
 		
 		mem_free(pVerts);
 		
@@ -37,7 +37,7 @@ namespace ld3d
 			return false;
 		}
 
-		m_pMaterial = pGraphics->CreateMaterialFromFile("./assets/standard/material/dr_render_spot_light.fx");
+		m_pMaterial = pRs->CreateMaterialFromFile("./assets/standard/material/dr_render_spot_light.fx");
 		if(m_pMaterial == MaterialPtr())
 		{
 			return false;

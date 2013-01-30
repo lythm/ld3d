@@ -15,9 +15,9 @@ namespace ld3d
 	{
 	}
 	
-	bool SkyLight::Create(Sys_GraphicsPtr pGraphics)
+	bool SkyLight::Create(RenderSystemPtr pRs)
 	{
-		m_pMaterial = pGraphics->CreateMaterialFromFile("./assets/standard/material/dr_render_directional_light.fx");
+		m_pMaterial = pRs->CreateMaterialFromFile("./assets/standard/material/dr_render_directional_light.fx");
 
 		VertexFormat vf;
 		vf.AddElement(VertexElement(0, VertexElement::POSITION, G_FORMAT_R32G32B32_FLOAT));
@@ -26,6 +26,17 @@ namespace ld3d
 		if(m_pMaterial == MaterialPtr())
 		{
 			return false;
+		}
+
+		if(m_bCastShadow)
+		{
+			int w = pRs->GetFrameBufferWidth();
+			int h = pRs->GetFrameBufferHeight();
+
+			if(CreateShadowMap(w, h, G_FORMAT_R32_FLOAT) == false)
+			{
+				return false;
+			}
 		}
 		return true;
 	}
@@ -75,9 +86,15 @@ namespace ld3d
 		m_pMaterial->SetCBByName("light", &l, sizeof(DirLightParam));
 		m_pMaterial->SetGBuffer(pRenderer->GetGBuffer());
 				
-
-		//pRenderer->ClearDepthBuffer(DepthStencilBufferPtr(), CLEAR_STENCIL, 1.0f, 0);
 		
 		pRenderer->DrawFullScreenQuad(m_pMaterial);
+	}
+	bool SkyLight::CreateShadowMap(int w, int h, G_FORMAT format)
+	{
+		return true;
+	}
+	void SkyLight::RenderShadowMap()
+	{
+
 	}
 }
