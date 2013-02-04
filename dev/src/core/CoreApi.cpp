@@ -4,7 +4,7 @@
 #include "core\SysManager.h"
 #include "core\Sys_Graphics.h"
 #include "core\GameObjectManager.h"
-#include "core\RenderSystem.h"
+#include "core\RenderManager.h"
 #include "core\AssetsManager.h"
 
 
@@ -93,8 +93,8 @@ namespace ld3d
 			return false;
 		}
 
-		m_pRenderSystem = s_pAllocator->AllocObject<RenderSystem>();
-		if(m_pRenderSystem->Initialize(m_pSysGraphics) == false)
+		m_pRenderManager = s_pAllocator->AllocObject<RenderManager>();
+		if(m_pRenderManager->Initialize(m_pSysGraphics) == false)
 		{
 			return false;
 		}
@@ -129,10 +129,10 @@ namespace ld3d
 			m_pObjectManager.reset();
 		}
 		
-		if(m_pRenderSystem)
+		if(m_pRenderManager)
 		{
-			m_pRenderSystem->Release();
-			m_pRenderSystem.reset();
+			m_pRenderManager->Release();
+			m_pRenderManager.reset();
 		}
 
 		if(m_pAssetManager)
@@ -198,35 +198,35 @@ namespace ld3d
 	}
 	void CoreApi::Render()
 	{
-		if(m_pRenderSystem)
+		if(m_pRenderManager)
 		{
-			m_pRenderSystem->Render();
+			m_pRenderManager->Render();
 		}
 	}
 	void CoreApi::Render(CameraPtr pCamera)
 	{
-		if(m_pRenderSystem)
+		if(m_pRenderManager)
 		{
-			m_pRenderSystem->Render(pCamera);
+			m_pRenderManager->Render(pCamera);
 		}
 	}
 	void CoreApi::AddRenderData(RenderDataPtr pData)
 	{
-		if(m_pRenderSystem)
+		if(m_pRenderManager)
 		{
-			m_pRenderSystem->AddRenderData(pData);
+			m_pRenderManager->AddRenderData(pData);
 		}
 	}
 	void CoreApi::ClearRenderQueue()
 	{
-		if(m_pRenderSystem)
+		if(m_pRenderManager)
 		{
-			m_pRenderSystem->Clear();
+			m_pRenderManager->Clear();
 		}
 	}
-	RenderSystemPtr	CoreApi::GetRenderSystem()
+	RenderManagerPtr	CoreApi::GetRenderManager()
 	{
-		return m_pRenderSystem;
+		return m_pRenderManager;
 	}
 	GameObjectPtr CoreApi::CreateGameObject(const std::wstring& name)
 	{
@@ -274,9 +274,9 @@ namespace ld3d
 	}
 	void CoreApi::Present()
 	{
-		if(m_pRenderSystem)
+		if(m_pRenderManager)
 		{
-			m_pRenderSystem->Present();
+			m_pRenderManager->Present();
 		}
 	}
 	Allocator* CoreApi::GetAllocator()
@@ -313,11 +313,11 @@ namespace ld3d
 	}
 	void CoreApi::AddCamera(CameraPtr pCamera)
 	{
-		m_pRenderSystem->AddCamera(pCamera);
+		m_pRenderManager->AddCamera(pCamera);
 	}
 	void CoreApi::RemoveCamera(CameraPtr pCamera)
 	{
-		m_pRenderSystem->RemoveCamera(pCamera);
+		m_pRenderManager->RemoveCamera(pCamera);
 	}
 	Sys_SoundPtr CoreApi::GetSysSound()
 	{

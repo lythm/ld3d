@@ -22,7 +22,7 @@ namespace ld3d
 		float aspect = float(800) / float(600);
 		m_pCamera->PerspectiveFovLH(1.0f/ 4.0f * math::MATH_PI, aspect, 0.1f, 10000);
 		
-		m_pManager->GetRenderSystem()->AddCamera(m_pCamera);
+		m_pManager->GetRenderManager()->AddCamera(m_pCamera);
 
 		PropertyManagerPtr pPM = boost::shared_dynamic_cast<PropertyManager>(m_pObject->GetComponent(L"PropertyManager"));
 		
@@ -40,7 +40,7 @@ namespace ld3d
 	}
 	void CameraData::OnDetach()
 	{
-		m_pManager->GetRenderSystem()->RemoveCamera(m_pCamera);
+		m_pManager->GetRenderManager()->RemoveCamera(m_pCamera);
 		m_pCamera.reset();
 	}
 	bool CameraData::OnSerialize(DataStream* pStream)

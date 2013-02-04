@@ -21,7 +21,7 @@ bool Renderer::Initialize(ld3d::CoreApiPtr pCore)
 	using namespace ld3d;
 
 	m_pCore = pCore;
-	m_pRS = m_pCore->GetRenderSystem();
+	m_pRenderManager = m_pCore->GetRenderManager();
 
 	m_pGrid = boost::shared_ptr<GridMesh>(new GridMesh());
 
@@ -31,8 +31,8 @@ bool Renderer::Initialize(ld3d::CoreApiPtr pCore)
 	}
 	m_pCamera = EditorCameraPtr(new EditorCamera);
 	
-	int vpw = m_pCore->GetRenderSystem()->GetFrameBufferWidth();
-	int vph = m_pCore->GetRenderSystem()->GetFrameBufferHeight();
+	int vpw = m_pCore->GetRenderManager()->GetFrameBufferWidth();
+	int vph = m_pCore->GetRenderManager()->GetFrameBufferHeight();
 
 	m_pCamera->SetViewPort(vpw, vph);
 
@@ -50,7 +50,7 @@ void Renderer::Resize(int cx, int cy)
 	}
 	if(cx != 0 && cy != 0)
 	{
-		m_pCore->GetRenderSystem()->ResizeFrameBuffer(cx, cy);
+		m_pCore->GetRenderManager()->ResizeFrameBuffer(cx, cy);
 		m_pCore->GetSysGraphics()->SetViewPort(0, 0, cx, cy);
 		m_pCamera->SetViewPort(cx, cy);
 	}
@@ -140,7 +140,7 @@ void Renderer::UpdateFPS()
 }
 void Renderer::SetClearColor(const math::Color4& clr)
 {
-	m_pRS->SetClearColor(clr);
+	m_pRenderManager->SetClearColor(clr);
 }
 EditorCameraPtr	Renderer::GetCamera()
 {

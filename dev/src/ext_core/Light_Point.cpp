@@ -1,7 +1,7 @@
 #include "core_ext_pch.h"
 #include "..\..\include\core\ext\Light_Point.h"
 #include "core\PointLight.h"
-#include "core\RenderSystem.h"
+#include "core\RenderManager.h"
 #include "core\GameObject.h"
 #include "CorePackage.h"
 
@@ -31,12 +31,12 @@ namespace ld3d
 	
 	bool Light_Point::OnAttach()
 	{
-		m_pRS = m_pManager->GetRenderSystem();
+		m_pRenderManager = m_pManager->GetRenderManager();
 
 		m_pLight = m_pManager->GetAllocator()->AllocObject<PointLight>();
-		m_pLight->Create(m_pRS);
+		m_pLight->Create(m_pRenderManager);
 
-		m_pRS->AddLight(m_pLight);
+		m_pRenderManager->AddLight(m_pLight);
 
 		PropertyManagerPtr pPM = boost::shared_dynamic_cast<PropertyManager>(m_pObject->GetComponent(L"PropertyManager"));
 		
@@ -75,7 +75,7 @@ namespace ld3d
 	}
 	void Light_Point::OnDetach()
 	{
-		m_pRS->RemoveLight(m_pLight);
+		m_pRenderManager->RemoveLight(m_pLight);
 		m_pLight->Release();
 		m_pLight.reset();
 	}

@@ -5,7 +5,7 @@
 #include "core\GPUBuffer.h"
 #include "core_utils.h"
 #include "core\Material.h"
-#include "core\RenderSystem.h"
+#include "core\RenderManager.h"
 namespace ld3d
 {
 	PointLight::PointLight(void) : Light(LT_POINTLIGHT)
@@ -38,10 +38,10 @@ namespace ld3d
 	{
 		m_fallout = f;
 	}
-	bool PointLight::Create(RenderSystemPtr pRs)
+	bool PointLight::Create(RenderManagerPtr pRenderManager)
 	{
 		math::Vector3* pPos = MeshUtil::CreateSphere(1, 20, 20, m_nVerts);
-		m_pVB = pRs->CreateBuffer(BT_VERTEX_BUFFER, m_nVerts * sizeof(math::Vector3), pPos, false);
+		m_pVB = pRenderManager->CreateBuffer(BT_VERTEX_BUFFER, m_nVerts * sizeof(math::Vector3), pPos, false);
 		mem_free(pPos);
 
 		if(m_pVB == GPUBufferPtr())
@@ -49,7 +49,7 @@ namespace ld3d
 			return false;
 		}
 
-		m_pMaterial = pRs->CreateMaterialFromFile("./assets/standard/material/dr_render_point_light.fx");
+		m_pMaterial = pRenderManager->CreateMaterialFromFile("./assets/standard/material/dr_render_point_light.fx");
 		if(m_pMaterial == MaterialPtr())
 		{
 			return false;
@@ -61,7 +61,7 @@ namespace ld3d
 		return true;
 	}
 	
-	void PointLight::RenderLight(RenderSystemPtr pRS)
+	void PointLight::RenderLight(RenderManagerPtr pRenderManager)
 	{
 		using namespace math;
 
@@ -81,13 +81,13 @@ namespace ld3d
 		
 
 		m_pMaterial->SetCBByName("light", &l, sizeof(PointLightParam));
-		m_pMaterial->SetGBuffer(pRS->GetGBuffer());
-		DrawLightVolumn(pRS);
+		m_pMaterial->SetGBuffer(pRenderManager->GetGBuffer());
+		DrawLightVolumn(pRenderManager);
 	}
-	void PointLight::DrawLightVolumn(RenderSystemPtr pRS)
+	void PointLight::DrawLightVolumn(RenderManagerPtr pRenderManager)
 	{
-		const math::Matrix44& view = pRS->GetViewMatrix();
-		const math::Matrix44& proj = pRS->GetProjMatrix();
+		const math::Matrix44& view = pRenderManager->GetViewMatrix();
+		const math::Matrix44& proj = pRenderManager->GetProjMatrix();
 		const math::Matrix44& world = GetWorldTM();
 
 		m_pMaterial->SetWorldMatrix(world);
@@ -96,9 +96,9 @@ namespace ld3d
 
 		m_pMaterial->ApplyVertexFormat();
 		
-		pRS->ClearDepthBuffer(DepthStencilBufferPtr(), CLEAR_STENCIL, 1.0f, 0);
+		pRenderManager->ClearDepthBuffer(DepthStencilBufferPtr(), CLEAR_STENCIL, 1.0f, 0);
 		
-		Sys_GraphicsPtr pGraphics = pRS->GetSysGraphics();
+		Sys_GraphicsPtr pGraphics = pRenderManager->GetSysGraphics();
 		pGraphics->SetVertexBuffer(m_pVB, 0, sizeof(math::Vector3));
 		pGraphics->SetPrimitiveType(PT_TRIANGLE_STRIP);
 		

@@ -78,7 +78,7 @@ namespace ld3d
 	{
 		m_bEnabled = bEnabled;
 	}
-	void Light::RenderLight(RenderSystemPtr pRenderer)
+	void Light::RenderLight(RenderManagerPtr pRenderer)
 	{
 
 	}

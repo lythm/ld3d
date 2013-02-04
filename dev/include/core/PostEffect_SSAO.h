@@ -11,8 +11,8 @@ namespace ld3d
 		virtual ~PostEffect_SSAO(void);
 
 		
-		void									Render(RenderSystemPtr pRenderer, RenderTargetPtr pInput, RenderTargetPtr pOutput);
-		bool									Initialize(RenderSystemPtr pRS);
+		void									Render(RenderManagerPtr pRenderer, RenderTargetPtr pInput, RenderTargetPtr pOutput);
+		bool									Initialize(RenderManagerPtr pRenderManager);
 		void									Release();
 
 		const float&							GetBias();

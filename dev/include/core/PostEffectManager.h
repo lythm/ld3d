@@ -9,7 +9,7 @@ namespace ld3d
 		PostEffectManager(void);
 		virtual ~PostEffectManager(void);
 
-		bool										Initialize(RenderSystemPtr pRS);
+		bool										Initialize(RenderManagerPtr pRenderManager);
 		void										Release();
 
 		void										Render();
@@ -35,7 +35,7 @@ namespace ld3d
 
 		std::vector<PostEffectPtr>					m_effects;
 
-		RenderSystemPtr								m_pRS;
+		RenderManagerPtr								m_pRenderManager;
 
 		MaterialPtr									m_pFinalMaterial;
 	};

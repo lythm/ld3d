@@ -46,13 +46,13 @@ namespace ld3d
 		MeshRenderer(GameObjectManagerPtr pManager);
 		virtual ~MeshRenderer(void);
 
-		void							Update();
+		void							Update(float dt);
 
 		void							Reset(MeshDataPtr pMD);
 		const bool&						IsDeferred();
 		void							SetDeferred(const bool& b);
 
-		RenderSystemPtr					GetRenderSystem(){return m_pRS;}
+		RenderManagerPtr					GetRenderManager(){return m_pRenderManager;}
 
 		const Version&					GetVersion() const;
 	private:
@@ -60,7 +60,7 @@ namespace ld3d
 		void							OnDetach();
 	private:
 
-		RenderSystemPtr					m_pRS;
+		RenderManagerPtr					m_pRenderManager;
 
 		GPUBufferPtr					m_pIndexBuffer;
 		GPUBufferPtr					m_pVertexBuffer;

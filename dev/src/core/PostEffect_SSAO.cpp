@@ -1,6 +1,6 @@
 #include "core_pch.h"
 #include "core\PostEffect_SSAO.h"
-#include "core\RenderSystem.h"
+#include "core\RenderManager.h"
 #include "core\Material.h"
 #include "core\Sys_Graphics.h"
 #include "core\Texture.h"
@@ -23,10 +23,10 @@ namespace ld3d
 	PostEffect_SSAO::~PostEffect_SSAO(void)
 	{
 	}
-	bool PostEffect_SSAO::Initialize(RenderSystemPtr pRS)
+	bool PostEffect_SSAO::Initialize(RenderManagerPtr pRenderManager)
 	{
 		
-		m_pMaterial = pRS->CreateMaterialFromFile("./assets/standard/material/dr_render_ssao.fx");
+		m_pMaterial = pRenderManager->CreateMaterialFromFile("./assets/standard/material/dr_render_ssao.fx");
 
 		VertexElement vf[] = 
 		{
@@ -38,23 +38,23 @@ namespace ld3d
 
 		m_pMaterial->SetVertexFormat(format);
 
-		m_pSSAORandomTex = pRS->CreateTextureFromFile("./assets/standard/texture/ssao_rand.jpg");
+		m_pSSAORandomTex = pRenderManager->CreateTextureFromFile("./assets/standard/texture/ssao_rand.jpg");
 		
 		m_pMaterial->SetTextureByName("tex_ssao_rand", m_pSSAORandomTex);
 
 
-		int w = pRS->GetFrameBufferWidth();
+		int w = pRenderManager->GetFrameBufferWidth();
 
-		int h = pRS->GetFrameBufferHeight();
+		int h = pRenderManager->GetFrameBufferHeight();
 		G_FORMAT rt_format[1] = {G_FORMAT_R8G8B8A8_UNORM,};
-		m_pGBlurTarget = pRS->CreateRenderTarget(1, w , h , rt_format);
+		m_pGBlurTarget = pRenderManager->CreateRenderTarget(1, w , h , rt_format);
 
 		if(m_pGBlurTarget == nullptr)
 		{
 			return false;
 		}
 
-		m_pGBlurMaterial = pRS->CreateMaterialFromFile("./assets/standard/material/dr_render_BBlur.fx");
+		m_pGBlurMaterial = pRenderManager->CreateMaterialFromFile("./assets/standard/material/dr_render_BBlur.fx");
 
 		if(m_pGBlurMaterial == nullptr)
 		{
@@ -88,7 +88,7 @@ namespace ld3d
 		}
 	}
 
-	void PostEffect_SSAO::Render(RenderSystemPtr pRenderer, RenderTargetPtr pInput, RenderTargetPtr pOutput)
+	void PostEffect_SSAO::Render(RenderManagerPtr pRenderer, RenderTargetPtr pInput, RenderTargetPtr pOutput)
 	{
 		pRenderer->SetRenderTarget(m_pGBlurTarget);
 		pRenderer->ClearRenderTarget(m_pGBlurTarget, 0, math::Color4(0, 0, 0,0));

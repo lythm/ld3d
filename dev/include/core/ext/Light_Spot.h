@@ -19,7 +19,7 @@ namespace ld3d
 		bool										OnAttach();
 		void										OnDetach();
 	private:
-		RenderSystemPtr								m_pRS;
+		RenderManagerPtr								m_pRenderManager;
 		SpotLightPtr								m_pLight;
 	};
 

@@ -10,7 +10,7 @@ namespace ld3d
 		SpotLight(void);
 		virtual ~SpotLight(void);
 
-		bool							Create(RenderSystemPtr pRs);
+		bool							Create(RenderManagerPtr pRenderManager);
 		const float&					GetAngle();
 		void							SetAngle(const float& angle);
 
@@ -19,7 +19,7 @@ namespace ld3d
 
 		void							Release();
 	
-		void							RenderLight(RenderSystemPtr pRS);
+		void							RenderLight(RenderManagerPtr pRenderManager);
 
 	private:
 		void							UpdateLightVolume();

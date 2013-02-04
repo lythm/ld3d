@@ -50,7 +50,7 @@ namespace ld3d
 		bool							RegisterPackage(ExtPackage* pPack);
 		bool							RegisterComponentClass(ExtPackage::ComponentClass* c);
 
-		RenderSystemPtr					GetRenderSystem();
+		RenderManagerPtr					GetRenderManager();
 
 		Allocator*						GetAllocator();
 		CoreApiPtr						GetCoreApi();

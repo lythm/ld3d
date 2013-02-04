@@ -10,9 +10,9 @@ namespace ld3d
 		SkyLight(void);
 		virtual ~SkyLight(void);
 
-		bool								Create(RenderSystemPtr pRs);
+		bool								Create(RenderManagerPtr pRenderManager);
 		void								Release();
-		void								RenderLight(RenderSystemPtr pRenderer);
+		void								RenderLight(RenderManagerPtr pRenderer);
 
 		void								RenderShadowMap();
 	private:
@@ -26,7 +26,7 @@ namespace ld3d
 		MaterialPtr							m_pMaterial;
 		RenderTargetPtr						m_pShadowMap;
 
-		RenderSystemPtr						m_pRS;
+		RenderManagerPtr						m_pRenderManager;
 	};
 
 

@@ -11,13 +11,13 @@ namespace ld3d
 		virtual ~PostEffect_GaussianBlur(void);
 
 
-		bool									Initialize(RenderSystemPtr pRS);
-		void									Render(RenderSystemPtr pRenderer, RenderTargetPtr pInput, RenderTargetPtr pOutput);
+		bool									Initialize(RenderManagerPtr pRenderManager);
+		void									Render(RenderManagerPtr pRenderer, RenderTargetPtr pInput, RenderTargetPtr pOutput);
 		void									Release();
 
 	private:
 		MaterialPtr								m_pMaterial;
-		RenderSystemPtr							m_pRS;
+		RenderManagerPtr							m_pRenderManager;
 	};
 
 

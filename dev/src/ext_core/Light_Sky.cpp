@@ -31,11 +31,11 @@ namespace ld3d
 	
 	bool Light_Sky::OnAttach()
 	{
-		m_pRS = m_pManager->GetRenderSystem();
+		m_pRenderManager = m_pManager->GetRenderManager();
 		m_pLight = m_pManager->GetAllocator()->AllocObject<SkyLight>();
-		m_pLight->Create(m_pRS);
+		m_pLight->Create(m_pRenderManager);
 
-		m_pRS->AddLight(m_pLight);
+		m_pRenderManager->AddLight(m_pLight);
 
 		PropertyManagerPtr pPM = boost::shared_dynamic_cast<PropertyManager>(m_pObject->GetComponent(L"PropertyManager"));
 
@@ -68,7 +68,7 @@ namespace ld3d
 	}
 	void Light_Sky::OnDetach()
 	{
-		m_pRS->RemoveLight(m_pLight);
+		m_pRenderManager->RemoveLight(m_pLight);
 		m_pLight->Release();
 		m_pLight.reset();
 	}

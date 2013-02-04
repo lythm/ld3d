@@ -10,9 +10,9 @@ namespace ld3d
 		DirectionalLight(void);
 		virtual ~DirectionalLight(void);
 
-		bool								Create(RenderSystemPtr pRs);
+		bool								Create(RenderManagerPtr pRenderManager);
 		void								Release();
-		void								RenderLight(RenderSystemPtr pRenderer);
+		void								RenderLight(RenderManagerPtr pRenderer);
 	
 	private:
 		bool								CreateShadowMap();

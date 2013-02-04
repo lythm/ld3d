@@ -3,7 +3,7 @@
 #include "core\Sys_Graphics.h"
 #include "core\GPUBuffer.h"
 #include "core\Material.h"
-#include "core\RenderSystem.h"
+#include "core\RenderManager.h"
 
 namespace ld3d
 {
@@ -16,9 +16,9 @@ namespace ld3d
 	{
 	}
 	
-	bool DirectionalLight::Create(RenderSystemPtr pRs)
+	bool DirectionalLight::Create(RenderManagerPtr pRenderManager)
 	{
-		m_pMaterial = pRs->CreateMaterialFromFile("./assets/standard/material/dr_render_directional_light.fx");
+		m_pMaterial = pRenderManager->CreateMaterialFromFile("./assets/standard/material/dr_render_directional_light.fx");
 
 		VertexFormat vf;
 		vf.AddElement(VertexElement(0, VertexElement::POSITION, G_FORMAT_R32G32B32_FLOAT));
@@ -43,7 +43,7 @@ namespace ld3d
 			m_pMaterial.reset();
 		}
 	}
-	void DirectionalLight::RenderLight(RenderSystemPtr pRenderer)
+	void DirectionalLight::RenderLight(RenderManagerPtr pRenderer)
 	{
 		const math::Matrix44& view = pRenderer->GetViewMatrix();
 		const math::Matrix44& proj = pRenderer->GetProjMatrix();

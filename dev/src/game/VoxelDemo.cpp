@@ -24,8 +24,8 @@ bool VoxelDemo::Init(ld3d::CoreApiPtr pCore)
 
 	m_pCore->LoadPackage(L"./extensions/ext_voxel.dll");
 
-	m_pCore->GetRenderSystem()->SetGlobalAmbient(math::Color4(0, 0.1, 0.2, 1.0));
-	m_pCore->GetRenderSystem()->SetClearColor(math::Color4(0.3, 0.2, 0.3, 1));
+	m_pCore->GetRenderManager()->SetGlobalAmbient(math::Color4(0, 0.1, 0.2, 1.0));
+	m_pCore->GetRenderManager()->SetClearColor(math::Color4(0.3, 0.2, 0.3, 1));
 
 	m_pCamera = m_pCore->GetAllocator()->AllocObject<ld3d::Camera>();
 	m_pCamera->PerspectiveFovLH(0.25 * 3.14, 4.0 / 3.0, 0.01, 10000);

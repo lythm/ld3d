@@ -87,7 +87,7 @@ namespace ld3d
 
 
 	class CoreApi;
-	class RenderSystem;
+	class RenderManager;
 	class PostEffectManager;
 	class PostEffect;
 	class PostEffect_SSAO;
@@ -97,7 +97,7 @@ namespace ld3d
 	typedef boost::shared_ptr<PostEffect_SSAO>				PostEffect_SSAOPtr;
 	typedef boost::shared_ptr<PostEffect>					PostEffectPtr;
 	typedef boost::shared_ptr<PostEffectManager>			PostEffectManagerPtr;
-	typedef boost::shared_ptr<RenderSystem>					RenderSystemPtr;
+	typedef boost::shared_ptr<RenderManager>				RenderManagerPtr;
 	typedef boost::shared_ptr<CoreApi>						CoreApiPtr;
 
 

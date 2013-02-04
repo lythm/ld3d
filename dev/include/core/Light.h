@@ -14,7 +14,7 @@ namespace ld3d
 		Light(LIGHT_TYPE type);
 		virtual ~Light(void);
 
-		virtual void							RenderLight(RenderSystemPtr pRenderer);
+		virtual void							RenderLight(RenderManagerPtr pRenderer);
 		virtual void							Update();
 		virtual void							RenderShadowMap();
 		virtual bool							IsAffecting(const ViewFrustum& frustum);

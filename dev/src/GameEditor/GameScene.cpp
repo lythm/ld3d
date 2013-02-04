@@ -16,7 +16,7 @@ bool GameScene::New()
 {
 	m_filepath = L"";
 
-	if(m_pCore->GetRenderSystem()->GetLightCount() == 0)
+	if(m_pCore->GetRenderManager()->GetLightCount() == 0)
 	{
 		AddDefaultLight();
 	}

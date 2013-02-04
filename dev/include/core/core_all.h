@@ -35,6 +35,7 @@
 #include "core\Sys_Input.h"
 #include "core\Sys_Graphics.h"
 #include "core\Sys_Sound.h"
+#include "core\Sys_Time.h"
 
 #include "core\Sound.h"
 #include "core\SoundChannel.h"
@@ -49,7 +50,7 @@
 #include "core\DepthStencilBuffer.h"
 #include "core\GameInterface.h"
 #include "core\RenderData.h"
-#include "core\RenderSystem.h"
+#include "core\RenderManager.h"
 #include "core\coreapi.h"
 
 #include "core\Mesh.h"

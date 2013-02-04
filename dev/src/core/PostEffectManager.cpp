@@ -1,7 +1,7 @@
 #include "core_pch.h"
 #include "..\..\include\core\PostEffectManager.h"
 #include "core\PostEffect.h"
-#include "core\RenderSystem.h"
+#include "core\RenderManager.h"
 #include "core\RenderTarget.h"
 #include "core\Material.h"
 #include "core\VertexFormat.h"
@@ -19,19 +19,19 @@ namespace ld3d
 	PostEffectManager::~PostEffectManager(void)
 	{
 	}
-	bool PostEffectManager::Initialize(RenderSystemPtr pRS)
+	bool PostEffectManager::Initialize(RenderManagerPtr pRenderManager)
 	{
-		m_pRS = pRS;
+		m_pRenderManager = pRenderManager;
 
-		int w = pRS->GetFrameBufferWidth();
-		int h = pRS->GetFrameBufferHeight();
+		int w = pRenderManager->GetFrameBufferWidth();
+		int h = pRenderManager->GetFrameBufferHeight();
 
 		if(false == CreateRT(w, h))
 		{
 			return false;
 		}
 		
-		m_pFinalMaterial = pRS->CreateMaterialFromFile("./assets/standard/material/dr_render_final.fx");
+		m_pFinalMaterial = pRenderManager->CreateMaterialFromFile("./assets/standard/material/dr_render_final.fx");
 		if(m_pFinalMaterial == nullptr)
 		{
 			return false;
@@ -49,7 +49,7 @@ namespace ld3d
 
 
 		/*boost::shared_ptr<PostEffect_SSAO> pSSAO = alloc_object<PostEffect_SSAO>();
-		pSSAO->Initialize(m_pRS);
+		pSSAO->Initialize(m_pRenderManager);
 		
 		m_effects.push_back(pSSAO);*/
 
@@ -85,7 +85,7 @@ namespace ld3d
 	{
 		for(size_t i = 0; i < m_effects.size(); ++i)
 		{
-			m_effects[i]->Render(m_pRS, m_pInput, m_pOutput);
+			m_effects[i]->Render(m_pRenderManager, m_pInput, m_pOutput);
 			SwapRenderTarget();
 		}
 		SwapRenderTarget();
@@ -132,14 +132,14 @@ namespace ld3d
 		}
 
 		G_FORMAT formats[1] = {G_FORMAT_R8G8B8A8_UNORM,};
-		m_pInput = m_pRS->CreateRenderTarget(1, w, h, formats);
+		m_pInput = m_pRenderManager->CreateRenderTarget(1, w, h, formats);
 
 		if(m_pInput == nullptr)
 		{
 			return false;
 		}
 
-		m_pOutput = m_pRS->CreateRenderTarget(1, w, h, formats);
+		m_pOutput = m_pRenderManager->CreateRenderTarget(1, w, h, formats);
 
 		if(m_pOutput == nullptr)
 		{
@@ -150,12 +150,12 @@ namespace ld3d
 	}
 	void PostEffectManager::RenderToFrameBuffer()
 	{
-		m_pRS->SetRenderTarget(RenderTargetPtr());
-		m_pRS->ClearRenderTarget(RenderTargetPtr(), 0, m_pRS->GetClearColor());
+		m_pRenderManager->SetRenderTarget(RenderTargetPtr());
+		m_pRenderManager->ClearRenderTarget(RenderTargetPtr(), 0, m_pRenderManager->GetClearColor());
 
 		m_pFinalMaterial->SetTextureByName("post_output", m_pOutput->AsTexture(0));
 
-		m_pRS->DrawFullScreenQuad(m_pFinalMaterial);
+		m_pRenderManager->DrawFullScreenQuad(m_pFinalMaterial);
 	}
 	void PostEffectManager::AddEffect(PostEffectPtr pEffect)
 	{

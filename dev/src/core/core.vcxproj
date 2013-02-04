@@ -132,7 +132,7 @@
     <ClInclude Include="..\..\include\core\property_types.h" />
     <ClInclude Include="..\..\include\core\RenderData.h" />
     <ClInclude Include="..\..\include\core\RenderState.h" />
-    <ClInclude Include="..\..\include\core\RenderSystem.h" />
+    <ClInclude Include="..\..\include\core\RenderManager.h" />
     <ClInclude Include="..\..\include\core\Scene.h" />
     <ClInclude Include="..\..\include\core\SceneSerializer.h" />
     <ClInclude Include="..\..\include\core\Serializer.h" />
@@ -150,11 +150,13 @@
     <ClInclude Include="..\..\include\core\Sys_Sound.h" />
     <ClInclude Include="..\..\include\core\Sys_Time.h" />
     <ClInclude Include="..\..\include\core\Texture.h" />
+    <ClInclude Include="..\..\include\core\TimerManager.h" />
     <ClInclude Include="..\..\include\core\VertexFormat.h" />
     <ClInclude Include="..\..\include\core\VertexShader.h" />
     <ClInclude Include="..\..\include\core\ViewFrustum.h" />
     <ClInclude Include="core_pch.h" />
     <ClInclude Include="core_utils.h" />
+    <ClInclude Include="Frame.h" />
     <ClInclude Include="Time64.h" />
     <ClInclude Include="WMInput.h" />
   </ItemGroup>
@@ -173,6 +175,7 @@
     <ClCompile Include="DataStream_Mem.cpp" />
     <ClCompile Include="DirectionalLight.cpp" />
     <ClCompile Include="EventDispatcher.cpp" />
+    <ClCompile Include="Frame.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameObjectComponent.cpp" />
     <ClCompile Include="GameObjectManager.cpp" />
@@ -191,7 +194,7 @@
     <ClCompile Include="PostEffect_GaussianBlur.cpp" />
     <ClCompile Include="PostEffect_SSAO.cpp" />
     <ClCompile Include="PostEffect.cpp" />
-    <ClCompile Include="RenderSystem.cpp" />
+    <ClCompile Include="RenderManager.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneSerializer.cpp" />
     <ClCompile Include="SkyLight.cpp" />
@@ -200,6 +203,7 @@
     <ClCompile Include="SubMesh.cpp" />
     <ClCompile Include="SysManager.cpp" />
     <ClCompile Include="Time64.cpp" />
+    <ClCompile Include="TimerManager.cpp" />
     <ClCompile Include="ViewFrustum.cpp" />
     <ClCompile Include="WMInput.cpp" />
   </ItemGroup>

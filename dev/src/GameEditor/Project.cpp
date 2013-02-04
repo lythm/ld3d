@@ -292,8 +292,8 @@ bool Project::InitEngine()
 
 
 
-	m_pCore->GetRenderSystem()->SetClearColor(math::Color4(0.3f, 0.2f, 0.4f, 1.0f));
-	//m_pCore->GetRenderSystem()->SetGlobalAmbient(math::Color4(0, 0, 0, 1.0f));
+	m_pCore->GetRenderManager()->SetClearColor(math::Color4(0.3f, 0.2f, 0.4f, 1.0f));
+	//m_pCore->GetRenderManager()->SetGlobalAmbient(math::Color4(0, 0, 0, 1.0f));
 	return true;
 }
 void Project::ReleaseEngine()

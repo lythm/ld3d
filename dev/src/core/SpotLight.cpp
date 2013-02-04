@@ -6,7 +6,7 @@
 #include "core_utils.h"
 
 #include "core\Material.h"
-#include "core\RenderSystem.h"
+#include "core\RenderManager.h"
 
 namespace ld3d
 {
@@ -24,11 +24,11 @@ namespace ld3d
 	SpotLight::~SpotLight(void)
 	{
 	}
-	bool SpotLight::Create(RenderSystemPtr pRs)
+	bool SpotLight::Create(RenderManagerPtr pRenderManager)
 	{
 		math::Vector3* pVerts = MeshUtil::CreateSpotLightCone(m_range, m_angle, 50, m_nVerts);
 
-		m_pVB = pRs->CreateBuffer(BT_VERTEX_BUFFER, sizeof(math::Vector3) * m_nVerts, pVerts, true);
+		m_pVB = pRenderManager->CreateBuffer(BT_VERTEX_BUFFER, sizeof(math::Vector3) * m_nVerts, pVerts, true);
 		
 		mem_free(pVerts);
 		
@@ -37,7 +37,7 @@ namespace ld3d
 			return false;
 		}
 
-		m_pMaterial = pRs->CreateMaterialFromFile("./assets/standard/material/dr_render_spot_light.fx");
+		m_pMaterial = pRenderManager->CreateMaterialFromFile("./assets/standard/material/dr_render_spot_light.fx");
 		if(m_pMaterial == MaterialPtr())
 		{
 			return false;
@@ -82,10 +82,10 @@ namespace ld3d
 			m_pVB.reset();
 		}
 	}
-	void SpotLight::RenderLight(RenderSystemPtr pRS)
+	void SpotLight::RenderLight(RenderManagerPtr pRenderManager)
 	{
-		const math::Matrix44& view = pRS->GetViewMatrix();
-		const math::Matrix44& proj = pRS->GetProjMatrix();
+		const math::Matrix44& view = pRenderManager->GetViewMatrix();
+		const math::Matrix44& proj = pRenderManager->GetProjMatrix();
 		const math::Matrix44& world = GetWorldTM();
 
 		m_pMaterial->SetWorldMatrix(world);
@@ -112,10 +112,10 @@ namespace ld3d
 		l.theta = cosf(math::D2R(GetAngle()));
 
 		m_pMaterial->SetCBByName("light", &l, sizeof(SpotLightParam));
-		m_pMaterial->SetGBuffer(pRS->GetGBuffer());
+		m_pMaterial->SetGBuffer(pRenderManager->GetGBuffer());
 		m_pMaterial->ApplyVertexFormat();
 		
-		Sys_GraphicsPtr pGraphics = pRS->GetSysGraphics();
+		Sys_GraphicsPtr pGraphics = pRenderManager->GetSysGraphics();
 
 		pGraphics->ClearDepthStencilBuffer(DepthStencilBufferPtr(), CLEAR_STENCIL, 1, 0);
 

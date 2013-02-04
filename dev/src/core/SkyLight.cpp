@@ -3,7 +3,7 @@
 #include "core\Sys_Graphics.h"
 #include "core\GPUBuffer.h"
 #include "core\Material.h"
-#include "core\RenderSystem.h"
+#include "core\RenderManager.h"
 namespace ld3d
 {
 	SkyLight::SkyLight(void) : Light(LT_SKYLIGHT)
@@ -13,14 +13,14 @@ namespace ld3d
 
 	SkyLight::~SkyLight(void)
 	{
-		m_pRS.reset();
+		m_pRenderManager.reset();
 	}
 	
-	bool SkyLight::Create(RenderSystemPtr pRs)
+	bool SkyLight::Create(RenderManagerPtr pRenderManager)
 	{
-		m_pRS = pRs;
+		m_pRenderManager = pRenderManager;
 
-		m_pMaterial = pRs->CreateMaterialFromFile("./assets/standard/material/dr_render_directional_light.fx");
+		m_pMaterial = pRenderManager->CreateMaterialFromFile("./assets/standard/material/dr_render_directional_light.fx");
 
 		VertexFormat vf;
 		vf.AddElement(VertexElement(0, VertexElement::POSITION, G_FORMAT_R32G32B32_FLOAT));
@@ -33,8 +33,8 @@ namespace ld3d
 
 		if(m_bCastShadow)
 		{
-			int w = pRs->GetFrameBufferWidth();
-			int h = pRs->GetFrameBufferHeight();
+			int w = pRenderManager->GetFrameBufferWidth();
+			int h = pRenderManager->GetFrameBufferHeight();
 
 			if(CreateShadowMap(2048, 2048, G_FORMAT_R32_FLOAT) == false)
 			{
@@ -51,10 +51,10 @@ namespace ld3d
 			m_pMaterial->Release();
 			m_pMaterial.reset();
 		}
-		m_pRS.reset();
+		m_pRenderManager.reset();
 		
 	}
-	void SkyLight::RenderLight(RenderSystemPtr pRenderer)
+	void SkyLight::RenderLight(RenderManagerPtr pRenderer)
 	{
 		if(GetEnabled() == false)
 		{
@@ -96,7 +96,7 @@ namespace ld3d
 	}
 	bool SkyLight::CreateShadowMap(int w, int h, G_FORMAT format)
 	{
-		if(false == m_pRS->CreateRenderTarget(1, w, h, &format))
+		if(false == m_pRenderManager->CreateRenderTarget(1, w, h, &format))
 		{
 			return false;
 		}
@@ -104,7 +104,7 @@ namespace ld3d
 	}
 	void SkyLight::RenderShadowMap()
 	{
-		m_pRS->SetRenderTarget(m_pShadowMap);
+		m_pRenderManager->SetRenderTarget(m_pShadowMap);
 		m_pMaterial->SelectTechByName("T_ShadowMapping");
 
 

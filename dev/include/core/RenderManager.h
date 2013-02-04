@@ -4,7 +4,7 @@
 
 namespace ld3d
 {
-	class EXPORT_CLASS RenderSystem : public boost::enable_shared_from_this<RenderSystem>
+	class EXPORT_CLASS RenderManager : public boost::enable_shared_from_this<RenderManager>
 	{
 		
 		class ScreenQuad
@@ -20,8 +20,8 @@ namespace ld3d
 
 		typedef boost::shared_ptr<ScreenQuad>		ScreenQuadPtr;
 	public:
-		RenderSystem(void);
-		virtual ~RenderSystem(void);
+		RenderManager(void);
+		virtual ~RenderManager(void);
 
 		bool										Initialize(Sys_GraphicsPtr pGraphics);
 		void										Release();

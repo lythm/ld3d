@@ -23,13 +23,13 @@ namespace ld3d
 	{
 		m_pSSAO = m_pManager->GetAllocator()->AllocObject<PostEffect_SSAO>();
 
-		m_pSSAO->Initialize(m_pManager->GetRenderSystem());
+		m_pSSAO->Initialize(m_pManager->GetRenderManager());
 		
-		m_pManager->GetRenderSystem()->AddPostEffect(m_pSSAO);
+		m_pManager->GetRenderManager()->AddPostEffect(m_pSSAO);
 
 		m_pGBlur = m_pManager->GetAllocator()->AllocObject<PostEffect_GaussianBlur>();
-		m_pGBlur->Initialize(m_pManager->GetRenderSystem());
-		//m_pManager->GetRenderSystem()->AddPostEffect(m_pGBlur);
+		m_pGBlur->Initialize(m_pManager->GetRenderManager());
+		//m_pManager->GetRenderManager()->AddPostEffect(m_pGBlur);
 
 		PropertyManagerPtr pPM = boost::shared_dynamic_cast<PropertyManager>(m_pObject->GetComponent(L"PropertyManager"));
 

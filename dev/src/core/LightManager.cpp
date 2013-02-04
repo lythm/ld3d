@@ -4,7 +4,7 @@
 #include "core_utils.h"
 #include "core\Sys_Graphics.h"
 #include "core\Material.h"
-#include "core\RenderSystem.h"
+#include "core\RenderManager.h"
 
 namespace ld3d
 {
@@ -17,10 +17,10 @@ namespace ld3d
 	LightManager::~LightManager(void)
 	{
 	}
-	bool LightManager::Initialize(RenderSystemPtr pRS)
+	bool LightManager::Initialize(RenderManagerPtr pRenderManager)
 	{
-		m_pRenderSystem = pRS;
-		m_pGraphics = pRS->GetSysGraphics();
+		m_pRenderManager = pRenderManager;
+		m_pGraphics = pRenderManager->GetSysGraphics();
 		m_lightCount = 0;
 		m_pList = LightPtr();
 
@@ -133,7 +133,7 @@ namespace ld3d
 		{
 			if(pLight->GetEnabled())
 			{
-				pLight->RenderLight(m_pRenderSystem);
+				pLight->RenderLight(m_pRenderManager);
 			}
 			pLight = GetNextAffectingLight(pLight, ViewFrustum());
 		}

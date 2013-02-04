@@ -37,7 +37,7 @@ namespace ld3d
 		void											AddCamera(CameraPtr pCamera);
 		void											RemoveCamera(CameraPtr pCamera);
 
-		RenderSystemPtr									GetRenderSystem();
+		RenderManagerPtr								GetRenderManager();
 
 		bool											LoadPackage(const std::wstring& packageFile);
 		GameObjectPtr									CreateGameObject(const std::wstring& name);
@@ -60,7 +60,7 @@ namespace ld3d
 		EventDispatcherPtr								m_pEventDispatcher;
 		AssetManagerPtr									m_pAssetManager;
 
-		RenderSystemPtr									m_pRenderSystem;
+		RenderManagerPtr								m_pRenderManager;
 
 		static Allocator*								s_pAllocator;
 		static Logger									s_logger;

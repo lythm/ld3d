@@ -9,7 +9,7 @@ namespace ld3d
 		LightManager(void);
 		virtual ~LightManager(void);
 
-		bool									Initialize(RenderSystemPtr pRS);
+		bool									Initialize(RenderManagerPtr pRenderManager);
 		void									Release();
 
 		void									AddLight(LightPtr pLight);
@@ -26,6 +26,6 @@ namespace ld3d
 		LightPtr								m_pList;
 		int										m_lightCount;
 		Sys_GraphicsPtr							m_pGraphics;
-		RenderSystemPtr							m_pRenderSystem;
+		RenderManagerPtr							m_pRenderManager;
 	};
 }

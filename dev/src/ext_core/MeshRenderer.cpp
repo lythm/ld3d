@@ -2,7 +2,7 @@
 #include "..\..\include\core\ext\MeshRenderer.h"
 #include "core\GameObject.h"
 #include "core\ext\MeshData.h"
-#include "core\RenderSystem.h"
+#include "core\RenderManager.h"
 #include "core\Sys_Graphics.h"
 #include "core\Mesh.h"
 #include "core\GPUBuffer.h"
@@ -18,7 +18,7 @@ namespace ld3d
 	MeshRenderer::MeshRenderer(GameObjectManagerPtr pManager) : GameObjectComponent(L"MeshRenderer", pManager)
 	{
 		m_deferred = true;
-		m_pRS = m_pManager->GetRenderSystem();
+		m_pRenderManager = m_pManager->GetRenderManager();
 	}
 
 	MeshRenderer::~MeshRenderer(void)
@@ -36,11 +36,11 @@ namespace ld3d
 	{
 		return m_deferred;
 	}
-	void MeshRenderer::Update()
+	void MeshRenderer::Update(float dt)
 	{
 		for(size_t i = 0; i < m_Subsets.size(); ++i)
 		{
-			m_pRS->AddRenderData(m_Subsets[i]);
+			m_pRenderManager->AddRenderData(m_Subsets[i]);
 		}
 	}
 	
@@ -68,7 +68,7 @@ namespace ld3d
 	}
 	void MeshRenderer::OnDetach()
 	{
-		m_pRS.reset();
+		m_pRenderManager.reset();
 
 		if(m_pIndexBuffer)
 		{
@@ -112,9 +112,9 @@ namespace ld3d
 
 		if(pMesh->GetIndexData() != nullptr)
 		{
-			m_pIndexBuffer = m_pRS->GetSysGraphics()->CreateBuffer(BT_INDEX_BUFFER, pMesh->GetIndexDataBytes(), pMesh->GetIndexData(), false);
+			m_pIndexBuffer = m_pRenderManager->GetSysGraphics()->CreateBuffer(BT_INDEX_BUFFER, pMesh->GetIndexDataBytes(), pMesh->GetIndexData(), false);
 		}
-		m_pVertexBuffer = m_pRS->GetSysGraphics()->CreateBuffer(BT_VERTEX_BUFFER, pMesh->GetVertexDataBytes(), pMesh->GetVertexData(), false);
+		m_pVertexBuffer = m_pRenderManager->GetSysGraphics()->CreateBuffer(BT_VERTEX_BUFFER, pMesh->GetVertexDataBytes(), pMesh->GetVertexData(), false);
 
 		for(int i = 0; i < pMesh->GetSubMeshCount(); ++i)
 		{

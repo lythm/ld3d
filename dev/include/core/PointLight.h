@@ -10,7 +10,7 @@ namespace ld3d
 		virtual ~PointLight(void);
 
 
-		bool					Create(RenderSystemPtr pRs);
+		bool					Create(RenderManagerPtr pRenderManager);
 
 		float					GetRadius();
 		void					SetRadius(float r);
@@ -20,10 +20,10 @@ namespace ld3d
 
 		const math::Matrix44&	GetWorldTM();
 		void					Release();
-		void					RenderLight(RenderSystemPtr pRS);
+		void					RenderLight(RenderManagerPtr pRenderManager);
 
 	private:
-		void					DrawLightVolumn(RenderSystemPtr pRS);
+		void					DrawLightVolumn(RenderManagerPtr pRenderManager);
 	private:
 		float					m_radius;
 		float					m_fallout;

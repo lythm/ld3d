@@ -54,4 +54,16 @@ namespace ld3d
 	{
 		return m_soundMod.pSys;
 	}
+	void SysManager::Update()
+	{
+
+	}
+	bool SysManager::Initialize()
+	{
+		return true;
+	}
+	void SysManager::Release()
+	{
+
+	}
 }

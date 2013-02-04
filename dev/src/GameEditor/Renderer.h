@@ -31,6 +31,6 @@ private:
 	bool								m_bShowGrid;
 	EditorCameraPtr						m_pCamera;
 	ld3d::CoreApiPtr					m_pCore;
-	ld3d::RenderSystemPtr				m_pRS;
+	ld3d::RenderManagerPtr				m_pRenderManager;
 };
 

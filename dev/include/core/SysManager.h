@@ -75,6 +75,9 @@ namespace ld3d
 		virtual ~SysManager(void);
 
 
+		bool									Initialize();
+		void									Release();
+
 		Sys_GraphicsPtr							LoadSysGraphics(const wchar_t* szFile);
 		Sys_InputPtr							LoadSysInput(const wchar_t* szFile);
 		Sys_SoundPtr							LoadSysSound(const wchar_t * szFile);
@@ -83,6 +86,7 @@ namespace ld3d
 		Sys_InputPtr							GetSysInput();
 		Sys_GraphicsPtr							GetSysGraphics();
 
+		void									Update();
 
 	private:
 

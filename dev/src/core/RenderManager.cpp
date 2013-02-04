@@ -1,5 +1,5 @@
 #include "core_pch.h"
-#include "..\..\include\core\RenderSystem.h"
+#include "..\..\include\core\RenderManager.h"
 #include "core\RenderData.h"
 #include "core\Sys_Graphics.h"
 #include "core\Material.h"
@@ -14,7 +14,7 @@
 
 namespace ld3d
 {
-	RenderSystem::RenderSystem(void)
+	RenderManager::RenderManager(void)
 	{
 		m_viewMatrix.MakeIdentity();
 		m_projMatrix.MakeIdentity();
@@ -27,11 +27,11 @@ namespace ld3d
 	}
 
 
-	RenderSystem::~RenderSystem(void)
+	RenderManager::~RenderManager(void)
 	{
 	}
 
-	bool RenderSystem::Initialize(Sys_GraphicsPtr pGraphics)
+	bool RenderManager::Initialize(Sys_GraphicsPtr pGraphics)
 	{
 		m_pGraphics = pGraphics;
 
@@ -80,7 +80,7 @@ namespace ld3d
 		
 		return true;
 	}
-	bool RenderSystem::CreateGBuffer(int w, int h)
+	bool RenderManager::CreateGBuffer(int w, int h)
 	{
 		if(m_pGBuffer != nullptr)
 		{
@@ -100,7 +100,7 @@ namespace ld3d
 		return true;
 
 	}
-	void RenderSystem::Release()
+	void RenderManager::Release()
 	{
 		Clear();
 
@@ -137,7 +137,7 @@ namespace ld3d
 		}
 	}
 
-	void RenderSystem::AddRenderData(RenderDataPtr pData)
+	void RenderManager::AddRenderData(RenderDataPtr pData)
 	{
 		if(pData->IsDeferred())
 		{
@@ -148,13 +148,13 @@ namespace ld3d
 			m_forwardQueue.push_back(pData);
 		}
 	}
-	void RenderSystem::Clear()
+	void RenderManager::Clear()
 	{
 		m_forwardQueue.clear();
 		m_deferredQueue.clear();
 		m_transparentQueue.clear();
 	}
-	void RenderSystem::DR_G_Pass()
+	void RenderManager::DR_G_Pass()
 	{
 		m_pGraphics->SetRenderTarget(m_pGBuffer);
 		m_pGraphics->ClearRenderTarget(m_pGBuffer, 0, math::Color4(0, 0, 0, 1));
@@ -170,7 +170,7 @@ namespace ld3d
 			m_deferredQueue[i]->Render(m_pGraphics);
 		}
 	}
-	void RenderSystem::DR_Merge_Pass()
+	void RenderManager::DR_Merge_Pass()
 	{
 		RenderTargetPtr pOutput = m_pPostEffectManager->GetInput();
 
@@ -185,7 +185,7 @@ namespace ld3d
 
 		DrawFullScreenQuad(m_pScreenQuadMaterial);
 	}
-	void RenderSystem::RenderForward()
+	void RenderManager::RenderForward()
 	{
 		for(size_t i = 0; i < m_forwardQueue.size(); ++i)
 		{
@@ -201,7 +201,7 @@ namespace ld3d
 			m_transparentQueue[i]->Render(m_pGraphics);
 		}
 	}
-	void RenderSystem::Render(const math::Matrix44& view, const math::Matrix44& proj)
+	void RenderManager::Render(const math::Matrix44& view, const math::Matrix44& proj)
 	{
 		SetViewMatrix(view);
 		SetProjMatrix(proj);
@@ -216,14 +216,14 @@ namespace ld3d
 		
 		RenderFinal();
 	}
-	void RenderSystem::Render(CameraPtr pCamera)
+	void RenderManager::Render(CameraPtr pCamera)
 	{
 		RenderShadowMaps();
 
 		Render(pCamera->GetViewMatrix(), pCamera->GetProjMatrix());
 
 	}
-	void RenderSystem::Render()
+	void RenderManager::Render()
 	{
 		m_cameras.sort(Camera::SortFunction);
 
@@ -233,19 +233,19 @@ namespace ld3d
 			Render(*it);
 		}
 	}
-	void RenderSystem::Present()
+	void RenderManager::Present()
 	{
 		m_pGraphics->Present();
 	}
-	void RenderSystem::SetViewMatrix(const math::Matrix44& view)
+	void RenderManager::SetViewMatrix(const math::Matrix44& view)
 	{
 		m_viewMatrix = view;
 	}
-	void RenderSystem::SetProjMatrix(const math::Matrix44& proj)
+	void RenderManager::SetProjMatrix(const math::Matrix44& proj)
 	{
 		m_projMatrix = proj;
 	}
-	void RenderSystem::SetSemanticsValue(RenderDataPtr pData)
+	void RenderManager::SetSemanticsValue(RenderDataPtr pData)
 	{
 		MaterialPtr pMaterial = pData->GetMaterial();
 		math::Matrix44 world = pData->GetWorldMatrix();
@@ -253,27 +253,27 @@ namespace ld3d
 		pMaterial->SetViewMatrix(m_viewMatrix);
 		pMaterial->SetWorldMatrix(world);
 	}
-	Sys_GraphicsPtr	RenderSystem::GetSysGraphics()
+	Sys_GraphicsPtr	RenderManager::GetSysGraphics()
 	{
 		return m_pGraphics;
 	}
-	void RenderSystem::SetClearColor(const math::Color4& clr)
+	void RenderManager::SetClearColor(const math::Color4& clr)
 	{
 		m_clearClr	 = clr;
 	}
-	const math::Color4&	RenderSystem::GetClearColor()
+	const math::Color4&	RenderManager::GetClearColor()
 	{
 		return m_clearClr;
 	}
-	void RenderSystem::SetClearDepth(float d)
+	void RenderManager::SetClearDepth(float d)
 	{
 		m_clearDepth = d;
 	}
-	void RenderSystem::SetClearStencil(int s)
+	void RenderManager::SetClearStencil(int s)
 	{
 		m_clearStencil = s;
 	}
-	void RenderSystem::ResizeFrameBuffer(int cx, int cy)
+	void RenderManager::ResizeFrameBuffer(int cx, int cy)
 	{
 		if(cx == 0 || cy == 0)
 		{
@@ -290,20 +290,20 @@ namespace ld3d
 
 		m_pPostEffectManager->Resize(cx, cy);
 	}
-	void RenderSystem::AddLight(LightPtr pLight)
+	void RenderManager::AddLight(LightPtr pLight)
 	{
 		m_pLightManager->AddLight(pLight);
 	}
-	void RenderSystem::RemoveLight(LightPtr pLight)
+	void RenderManager::RemoveLight(LightPtr pLight)
 	{
 		m_pLightManager->RemoveLight(pLight);
 	}
-	int	RenderSystem::GetLightCount()
+	int	RenderManager::GetLightCount()
 	{
 		return m_pLightManager->GetLightCount();
 	}
 	
-	void RenderSystem::DR_Light_Pass()
+	void RenderManager::DR_Light_Pass()
 	{
 		m_pGraphics->SetRenderTarget(m_pABuffer);
 
@@ -314,7 +314,7 @@ namespace ld3d
 
 		m_pLightManager->RenderLights();
 	}
-	void RenderSystem::RenderShadowMaps()
+	void RenderManager::RenderShadowMaps()
 	{
 		LightPtr pLight = m_pLightManager->GetNextAffectingLight(LightPtr(), ViewFrustum());
 		while(pLight)
@@ -327,7 +327,7 @@ namespace ld3d
 		}
 	}
 	
-	bool RenderSystem::CreateABuffer(int w, int h)
+	bool RenderManager::CreateABuffer(int w, int h)
 	{
 		if(m_pABuffer != nullptr)
 		{
@@ -340,23 +340,23 @@ namespace ld3d
 
 		return true;
 	}
-	RenderTargetPtr RenderSystem::GetGBuffer()
+	RenderTargetPtr RenderManager::GetGBuffer()
 	{
 		return m_pGBuffer;
 	}
-	RenderTargetPtr RenderSystem::GetABuffer()
+	RenderTargetPtr RenderManager::GetABuffer()
 	{
 		return m_pABuffer;
 	}
-	const math::Matrix44& RenderSystem::GetViewMatrix()
+	const math::Matrix44& RenderManager::GetViewMatrix()
 	{
 		return m_viewMatrix;
 	}
-	const math::Matrix44& RenderSystem::GetProjMatrix()
+	const math::Matrix44& RenderManager::GetProjMatrix()
 	{
 		return m_projMatrix;
 	}
-	void RenderSystem::DrawFullScreenQuad(MaterialPtr pMaterial)
+	void RenderManager::DrawFullScreenQuad(MaterialPtr pMaterial)
 	{
 		m_pScreenQuad->Render(m_pGraphics, pMaterial);
 	}
@@ -370,7 +370,7 @@ namespace ld3d
 
 namespace ld3d
 {
-	bool RenderSystem::ScreenQuad::Init(Sys_GraphicsPtr pGraphics)
+	bool RenderManager::ScreenQuad::Init(Sys_GraphicsPtr pGraphics)
 	{
 		math::Vector3 verts[] = 
 		{
@@ -386,7 +386,7 @@ namespace ld3d
 
 		return true;
 	}
-	void RenderSystem::ScreenQuad::Release()
+	void RenderManager::ScreenQuad::Release()
 	{
 		if(m_pVB)
 		{
@@ -394,7 +394,7 @@ namespace ld3d
 			m_pVB.reset();
 		}
 	}
-	void RenderSystem::ScreenQuad::Render(Sys_GraphicsPtr pGraphics, MaterialPtr pMaterial)
+	void RenderManager::ScreenQuad::Render(Sys_GraphicsPtr pGraphics, MaterialPtr pMaterial)
 	{
 		pGraphics->SetVertexBuffer(m_pVB, 0, sizeof(math::Vector3));
 		pGraphics->SetPrimitiveType(PT_TRIANGLE_LIST);
@@ -413,67 +413,67 @@ namespace ld3d
 
 		pMaterial->End();
 	}
-	const math::Color4& RenderSystem::GetGlobalAmbient()
+	const math::Color4& RenderManager::GetGlobalAmbient()
 	{
 		return m_globalAmbientColor;
 	}
-	void RenderSystem::SetGlobalAmbient(const math::Color4& clr)
+	void RenderManager::SetGlobalAmbient(const math::Color4& clr)
 	{
 		m_globalAmbientColor = clr;
 	}
-	void RenderSystem::SetRenderTarget(RenderTargetPtr pRT)
+	void RenderManager::SetRenderTarget(RenderTargetPtr pRT)
 	{
 		m_pGraphics->SetRenderTarget(pRT);
 	}
-	void RenderSystem::ClearRenderTarget(RenderTargetPtr pRT, int index, const math::Color4 & clr)
+	void RenderManager::ClearRenderTarget(RenderTargetPtr pRT, int index, const math::Color4 & clr)
 	{
 		m_pGraphics->ClearRenderTarget(pRT, index, clr);
 	}
-	void RenderSystem::ClearDepthBuffer(DepthStencilBufferPtr pDS, CLEAR_DS_FLAG flag, float d, int s)
+	void RenderManager::ClearDepthBuffer(DepthStencilBufferPtr pDS, CLEAR_DS_FLAG flag, float d, int s)
 	{
 		m_pGraphics->ClearDepthStencilBuffer(pDS, flag, d, s);
 	}
-	RenderTargetPtr	RenderSystem::CreateRenderTarget(int c, int w, int h, G_FORMAT format[])
+	RenderTargetPtr	RenderManager::CreateRenderTarget(int c, int w, int h, G_FORMAT format[])
 	{
 		return m_pGraphics->CreateRenderTarget(c, w, h, format);
 	}
-	int	RenderSystem::GetFrameBufferWidth()
+	int	RenderManager::GetFrameBufferWidth()
 	{
 		return m_pGraphics->GetFrameBufferWidth();
 	}
-	int	RenderSystem::GetFrameBufferHeight()
+	int	RenderManager::GetFrameBufferHeight()
 	{
 		return m_pGraphics->GetFrameBufferHeight();
 	}
-	void RenderSystem::RenderPostEffects()
+	void RenderManager::RenderPostEffects()
 	{
 		m_pPostEffectManager->Render();
 	}
-	void RenderSystem::RenderFinal()
+	void RenderManager::RenderFinal()
 	{
 		m_pPostEffectManager->RenderToFrameBuffer();
 	}
-	MaterialPtr	RenderSystem::CreateMaterialFromFile(const char* szFile)
+	MaterialPtr	RenderManager::CreateMaterialFromFile(const char* szFile)
 	{
 		return m_pGraphics->CreateMaterialFromFile(szFile);
 	}
-	TexturePtr RenderSystem::CreateTextureFromFile(const char* szFile)
+	TexturePtr RenderManager::CreateTextureFromFile(const char* szFile)
 	{
 		return m_pGraphics->CreateTextureFromFile(szFile);
 	}
-	void RenderSystem::AddPostEffect(PostEffectPtr pEffect)
+	void RenderManager::AddPostEffect(PostEffectPtr pEffect)
 	{
 		m_pPostEffectManager->AddEffect(pEffect);
 	}
-	void RenderSystem::AddCamera(CameraPtr pCamera)
+	void RenderManager::AddCamera(CameraPtr pCamera)
 	{
 		m_cameras.push_back(pCamera);
 	}
-	void RenderSystem::RemoveCamera(CameraPtr pCamera)
+	void RenderManager::RemoveCamera(CameraPtr pCamera)
 	{
 		m_cameras.remove(pCamera);
 	}
-	GPUBufferPtr RenderSystem::CreateBuffer(BUFFER_TYPE type,  int bytes, void* pInitData, bool dynamic)
+	GPUBufferPtr RenderManager::CreateBuffer(BUFFER_TYPE type,  int bytes, void* pInitData, bool dynamic)
 	{
 		return m_pGraphics->CreateBuffer(type, bytes, pInitData, dynamic);
 	}

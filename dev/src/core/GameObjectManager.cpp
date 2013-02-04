@@ -147,9 +147,9 @@ namespace ld3d
 
 		return true;
 	}
-	RenderSystemPtr	GameObjectManager::GetRenderSystem()
+	RenderManagerPtr	GameObjectManager::GetRenderManager()
 	{
-		return m_pCore->GetRenderSystem();
+		return m_pCore->GetRenderManager();
 	}
 	Allocator* GameObjectManager::GetAllocator()
 	{

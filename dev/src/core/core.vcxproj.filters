@@ -14,7 +14,6 @@
     <ClCompile Include="GameObjectTemplate.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="MeshSerializer_XML.cpp" />
-    <ClCompile Include="RenderSystem.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SubMesh.cpp" />
     <ClCompile Include="SysManager.cpp" />
@@ -42,6 +41,9 @@
     <ClCompile Include="OrbitCamera.cpp" />
     <ClCompile Include="AssetsManager.cpp" />
     <ClCompile Include="Time64.cpp" />
+    <ClCompile Include="TimerManager.cpp" />
+    <ClCompile Include="RenderManager.cpp" />
+    <ClCompile Include="Frame.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\core\ArcBall.h" />
@@ -67,7 +69,6 @@
     <ClInclude Include="..\..\include\core\MeshSerializer.h" />
     <ClInclude Include="..\..\include\core\MeshSerializer_XML.h" />
     <ClInclude Include="..\..\include\core\RenderData.h" />
-    <ClInclude Include="..\..\include\core\RenderSystem.h" />
     <ClInclude Include="..\..\include\core\Scene.h" />
     <ClInclude Include="..\..\include\core\Serializer.h" />
     <ClInclude Include="..\..\include\core\SubMesh.h" />
@@ -116,5 +117,8 @@
     <ClInclude Include="..\..\include\core\AssetsManager.h" />
     <ClInclude Include="..\..\include\core\Sys_Time.h" />
     <ClInclude Include="Time64.h" />
+    <ClInclude Include="..\..\include\core\TimerManager.h" />
+    <ClInclude Include="..\..\include\core\RenderManager.h" />
+    <ClInclude Include="Frame.h" />
   </ItemGroup>
 </Project>
