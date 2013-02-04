@@ -13,7 +13,7 @@ namespace ld3d
 		GameObjectPtr					Root();
 		void							Reset();
 		void							Release();
-		void							Update();
+		void							Update(float dt);
 
 		bool							Serialize(DataStream* pStream);
 		bool							UnSerialize(DataStream* pStream);

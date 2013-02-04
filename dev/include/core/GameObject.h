@@ -12,7 +12,7 @@ namespace ld3d
 		
 
 		bool										IsAncestor(GameObjectPtr pObj);
-		void										Update();
+		void										Update(float dt);
 		bool										AddComponent(GameObjectComponentPtr pCom);
 		GameObjectComponentPtr						GetComponent(const std::wstring& name);
 		int											GetComponentCount();
@@ -90,7 +90,7 @@ namespace ld3d
 		EventDispatcherPtr							GetDeventDispatcher();
 	private:
 		void										UpdateWorldTransform();
-		void										UpdateComponents();
+		void										UpdateComponents(float dt);
 	private:
 		math::Matrix44								m_LocalTransform;
 		math::Matrix44								m_WorldTransform;

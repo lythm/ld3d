@@ -10,7 +10,7 @@ namespace ld3d
 		SoundEmitter(GameObjectManagerPtr pManager);
 		virtual ~SoundEmitter(void);
 
-		void										Update();
+		void										Update(float dt);
 		
 		bool										OnSerialize(DataStream* pStream);
 		bool										OnUnSerialize(DataStream* pStream, const Version& version );

@@ -20,7 +20,7 @@ namespace ld3d
 		m_pObject.reset();
 		m_name = L"";
 	}
-	void GameObjectComponent::Update()
+	void GameObjectComponent::Update(float dt)
 	{
 
 	}

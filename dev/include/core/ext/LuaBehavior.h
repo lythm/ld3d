@@ -8,7 +8,7 @@ namespace ld3d
 		LuaBehavior(GameObjectManagerPtr pManager);
 		virtual ~LuaBehavior(void);
 
-		void						Update();
+		void						Update(float dt);
 		const Version&				GetVersion() const;
 	private:
 		bool						OnAttach();

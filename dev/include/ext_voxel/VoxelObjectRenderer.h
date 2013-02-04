@@ -8,7 +8,7 @@ namespace ld3d
 		VoxelObjectRenderer(GameObjectManagerPtr pManager);
 		virtual ~VoxelObjectRenderer(void);
 
-		void										Update();
+		void										Update(float dt);
 		const Version&								GetVersion() const;
 	private:
 		bool										OnAttach();

@@ -8,7 +8,7 @@ namespace ld3d
 		Light_Dir(GameObjectManagerPtr pManager);
 		virtual ~Light_Dir(void);
 
-		void										Update();
+		void										Update(float dt);
 		DirectionalLightPtr							GetLight();
 
 		bool										OnSerialize(DataStream* pStream);

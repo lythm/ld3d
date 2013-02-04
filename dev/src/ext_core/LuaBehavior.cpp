@@ -15,7 +15,7 @@ namespace ld3d
 	{
 		return g_packageVersion;
 	}
-	void LuaBehavior::Update()
+	void LuaBehavior::Update(float dt)
 	{
 	}
 	bool LuaBehavior::OnAttach()

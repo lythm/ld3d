@@ -12,7 +12,7 @@ namespace ld3d
 	SoundListener::~SoundListener(void)
 	{
 	}
-	void SoundListener::Update()
+	void SoundListener::Update(float dt)
 	{
 		const math::Matrix44& mat = m_pObject->GetWorldTransform();
 		

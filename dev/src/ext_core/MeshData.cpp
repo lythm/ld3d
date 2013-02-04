@@ -27,7 +27,7 @@ namespace ld3d
 	{
 		return g_packageVersion;
 	}
-	void MeshData::Update()
+	void MeshData::Update(float dt)
 	{
 		if(m_pMesh)
 		{

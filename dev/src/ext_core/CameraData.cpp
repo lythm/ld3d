@@ -59,7 +59,7 @@ namespace ld3d
 		m_pCamera->SetOrder(order);
 		return true;
 	}
-	void CameraData::Update()
+	void CameraData::Update(float dt)
 	{
 		math::Matrix44 mat = m_pObject->GetWorldTransform();
 

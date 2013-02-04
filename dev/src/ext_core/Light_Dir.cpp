@@ -16,7 +16,7 @@ namespace ld3d
 	{
 	}
 	
-	void Light_Dir::Update()
+	void Light_Dir::Update(float dt)
 	{
 		if(m_pLight)
 		{

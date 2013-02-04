@@ -17,7 +17,7 @@ namespace ld3d
 	VoxelWorld::~VoxelWorld(void)
 	{
 	}
-	void VoxelWorld::Update()
+	void VoxelWorld::Update(float dt)
 	{
 
 	}

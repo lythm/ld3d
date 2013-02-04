@@ -41,6 +41,7 @@
     <ClCompile Include="PostEffect_GaussianBlur.cpp" />
     <ClCompile Include="OrbitCamera.cpp" />
     <ClCompile Include="AssetsManager.cpp" />
+    <ClCompile Include="Time64.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\core\ArcBall.h" />
@@ -113,5 +114,7 @@
     <ClInclude Include="..\..\include\core\VertexShader.h" />
     <ClInclude Include="..\..\include\core\FileSystem.h" />
     <ClInclude Include="..\..\include\core\AssetsManager.h" />
+    <ClInclude Include="..\..\include\core\Sys_Time.h" />
+    <ClInclude Include="Time64.h" />
   </ItemGroup>
 </Project>

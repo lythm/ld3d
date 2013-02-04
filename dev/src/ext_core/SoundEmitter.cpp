@@ -15,7 +15,7 @@ namespace ld3d
 	SoundEmitter::~SoundEmitter(void)
 	{
 	}
-	void SoundEmitter::Update()
+	void SoundEmitter::Update(float dt)
 	{
 		if(m_pChannel)
 		{

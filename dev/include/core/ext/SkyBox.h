@@ -10,7 +10,7 @@ namespace ld3d
 		SkyBox(GameObjectManagerPtr pManager);
 		virtual ~SkyBox(void);
 
-		void										Update();
+		void										Update(float dt);
 		const Version&								GetVersion() const;
 	private:
 		bool										OnAttach();

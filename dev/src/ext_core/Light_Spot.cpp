@@ -17,7 +17,7 @@ namespace ld3d
 	{
 		return g_packageVersion;
 	}
-	void Light_Spot::Update()
+	void Light_Spot::Update(float dt)
 	{
 		if(m_pLight)
 		{

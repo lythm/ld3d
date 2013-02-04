@@ -11,7 +11,7 @@ namespace ld3d
 	Behavior::~Behavior(void)
 	{
 	}
-	void Behavior::Update()
+	void Behavior::Update(float dt)
 	{
 	}
 	bool Behavior::OnAttach()

@@ -57,10 +57,6 @@ namespace ld3d
 
 	private:
 		GameObjectManagerPtr							m_pObjectManager;
-		SysManagerPtr									m_pSysManager;
-		Sys_GraphicsPtr									m_pSysGraphics;
-		Sys_InputPtr									m_pSysInput;
-		Sys_SoundPtr									m_pSysSound;
 		EventDispatcherPtr								m_pEventDispatcher;
 		AssetManagerPtr									m_pAssetManager;
 
@@ -69,5 +65,15 @@ namespace ld3d
 		static Allocator*								s_pAllocator;
 		static Logger									s_logger;
 		ScenePtr										m_pScene;
+
+
+
+		float											m_lastFrameTime;
+
+		SysManagerPtr									m_pSysManager;
+		Sys_GraphicsPtr									m_pSysGraphics;
+		Sys_InputPtr									m_pSysInput;
+		Sys_SoundPtr									m_pSysSound;
+		Sys_TimePtr										m_pSysTime;
 	};
 }

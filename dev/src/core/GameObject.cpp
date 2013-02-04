@@ -53,17 +53,17 @@ namespace ld3d
 
 		m_components.clear();
 	}
-	void GameObject::Update()
+	void GameObject::Update(float dt)
 	{
 		GameObjectPtr pObj = GetFirstChild();
 
 		while(pObj)
 		{
-			pObj->Update();
+			pObj->Update(dt);
 			pObj = pObj->GetNextNode();
 		}
 
-		UpdateComponents();
+		UpdateComponents(dt);
 	}
 	GameObjectPtr GameObject::ThisPtr()
 	{
@@ -80,11 +80,11 @@ namespace ld3d
 		
 		return true;
 	}
-	void GameObject::UpdateComponents()
+	void GameObject::UpdateComponents(float dt)
 	{
 		for(size_t i = 0; i < m_components.size(); ++i)
 		{
-			m_components[i]->Update();
+			m_components[i]->Update(dt);
 		}
 	}
 	GameObjectComponentPtr GameObject::GetComponent(const std::wstring& name)

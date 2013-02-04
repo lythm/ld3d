@@ -16,7 +16,7 @@ namespace ld3d
 	{
 	}
 	
-	void Light_Point::Update()
+	void Light_Point::Update(float dt)
 	{
 		if(m_pLight)
 		{

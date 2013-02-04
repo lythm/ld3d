@@ -12,7 +12,7 @@ namespace ld3d
 	SkyBox::~SkyBox(void)
 	{
 	}
-	void SkyBox::Update()
+	void SkyBox::Update(float dt)
 	{
 	}
 	const Version& SkyBox::GetVersion() const

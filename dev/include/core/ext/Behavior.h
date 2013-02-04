@@ -11,7 +11,7 @@ namespace ld3d
 		virtual ~Behavior(void);
 
 
-		void						Update();
+		void						Update(float dt);
 		bool						OnAttach();
 		void						OnDetach();
 

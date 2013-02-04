@@ -8,7 +8,7 @@ namespace ld3d
 		Light_Sky(GameObjectManagerPtr pManager);
 		virtual ~Light_Sky(void);
 
-		void										Update();
+		void										Update(float dt);
 		SkyLightPtr									GetLight();
 
 

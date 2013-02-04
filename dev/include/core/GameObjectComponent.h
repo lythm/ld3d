@@ -10,7 +10,7 @@ namespace ld3d
 		GameObjectComponent(GameObjectManagerPtr pManager);
 		virtual ~GameObjectComponent(void);
 		
-		virtual void				Update();
+		virtual void				Update(float dt);
 
 		virtual bool				Attach(GameObjectPtr pObject);
 		virtual void				Detach();

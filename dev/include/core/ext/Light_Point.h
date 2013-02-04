@@ -10,7 +10,7 @@ namespace ld3d
 		Light_Point(GameObjectManagerPtr pManager);
 		virtual ~Light_Point(void);
 
-		void										Update();
+		void										Update(float dt);
 		PointLightPtr								GetLight();
 
 		bool										OnSerialize(DataStream* pStream);

@@ -35,9 +35,9 @@ namespace ld3d
 		Reset();
 		m_pRoot.reset();
 	}
-	void Scene::Update()
+	void Scene::Update(float dt)
 	{
-		m_pRoot->Update();
+		m_pRoot->Update(dt);
 	}
 	
 	bool Scene::Serialize(DataStream* pStream)

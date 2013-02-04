@@ -11,7 +11,7 @@ namespace ld3d
 		virtual ~MeshData(void);
 
 
-		void						Update();
+		void						Update(float dt);
 		MeshPtr						GetMesh();
 		void						SetMesh(MeshPtr pMesh);
 		bool						OnAttach();

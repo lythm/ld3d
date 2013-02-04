@@ -16,7 +16,7 @@ namespace ld3d
 	Light_Sky::~Light_Sky(void)
 	{
 	}
-	void Light_Sky::Update()
+	void Light_Sky::Update(float dt)
 	{
 		if(m_pLight)
 		{

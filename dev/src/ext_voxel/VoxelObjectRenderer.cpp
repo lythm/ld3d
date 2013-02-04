@@ -12,7 +12,7 @@ namespace ld3d
 	VoxelObjectRenderer::~VoxelObjectRenderer(void)
 	{
 	}
-	void VoxelObjectRenderer::Update()
+	void VoxelObjectRenderer::Update(float dt)
 	{
 		
 	}

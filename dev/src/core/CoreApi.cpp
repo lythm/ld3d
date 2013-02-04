@@ -18,6 +18,10 @@
 #include "WMInput.h"
 #include "core\Sys_Sound.h"
 
+
+#include "Time64.h"
+
+
 namespace ld3d
 {
 	Allocator*										CoreApi::s_pAllocator;
@@ -34,14 +38,18 @@ namespace ld3d
 	}
 	void CoreApi::Update()
 	{
+		m_pSysTime->Update();
+
+		float dt = m_pSysTime->Second() - m_lastFrameTime;
+		m_lastFrameTime = m_pSysTime->Second();
+
+		s_pAllocator->Update();
+
+
 		m_pSysInput->Update();
 		m_pSysSound->Update();
-		m_pScene->Update();
-
-		if(s_pAllocator)
-		{
-			s_pAllocator->Update();
-		}
+		m_pScene->Update(dt);
+		
 	}
 	bool CoreApi::Initialize(const SysSetting& setting, Allocator* pAlloc)
 	{
@@ -51,7 +59,8 @@ namespace ld3d
 		{
 			s_pAllocator = &g_stdAllocator;
 		}
-		
+		m_pSysTime = s_pAllocator->AllocObject<Time64>();
+		m_pSysTime->Start();
 		m_pEventDispatcher = s_pAllocator->AllocObject<EventDispatcher>();
 		m_pSysManager = s_pAllocator->AllocObject<SysManager>();
 		m_pSysGraphics = m_pSysManager->LoadSysGraphics(setting.graphics.sysMod.c_str());
@@ -101,6 +110,10 @@ namespace ld3d
 
 		m_pScene = s_pAllocator->AllocObject<Scene, GameObjectManagerPtr>(m_pObjectManager);
 
+
+
+		
+		m_lastFrameTime = m_pSysTime->Second();
 		return true;
 	}
 	void CoreApi::Release()
@@ -151,6 +164,11 @@ namespace ld3d
 			m_pEventDispatcher.reset();
 		}
 
+		if(m_pSysTime)
+		{
+			m_pSysTime->Stop();
+			m_pSysTime.reset();
+		}
 		s_pAllocator	= nullptr;
 	}
 

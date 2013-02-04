@@ -23,10 +23,12 @@ namespace ld3d
 	class Sys_Graphics;
 	class Sys_Sound;
 	class Sys_Physics;
+	class Sys_Time;
 	class SysManager;
 
 	
 	typedef boost::shared_ptr<SysManager>					SysManagerPtr;
+	typedef boost::shared_ptr<Sys_Time>						Sys_TimePtr;
 	typedef boost::shared_ptr<Sys_Physics>					Sys_PhysicsPtr;
 	typedef boost::shared_ptr<Sys_Input>					Sys_InputPtr;
 	typedef boost::shared_ptr<Sys_Graphics>					Sys_GraphicsPtr;

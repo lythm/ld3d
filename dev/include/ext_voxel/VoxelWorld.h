@@ -9,7 +9,7 @@ namespace ld3d
 		VoxelWorld(GameObjectManagerPtr pManager);
 		virtual ~VoxelWorld(void);
 
-		void										Update();
+		void										Update(float dt);
 		
 		void										AddBlock();
 		void										RemoveBlock();

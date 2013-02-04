@@ -31,7 +31,7 @@ ps_out ps_main(vs_out i)
 	float2 dim;
 	post_output.GetDimensions(dim.x, dim.y);
 	
-	float2 uv = i.pos.xy / dim;
+	float2 uv = i.pos / dim;
 
 	o.color = float4(post_output.Sample(Sampler_GBuffer, uv).xyz, 1);
 
