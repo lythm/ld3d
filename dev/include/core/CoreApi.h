@@ -22,6 +22,8 @@ namespace ld3d
 		void											Release();
 		void											HandleMessage(MSG& msg);
 		
+		TimerManagerPtr									GetTimerManager();
+
 		AssetManagerPtr									GetAssetManager();
 		GameObjectManagerPtr							GetGameObjectManager();
 		Sys_GraphicsPtr									GetSysGraphics();
@@ -66,7 +68,7 @@ namespace ld3d
 		static Logger									s_logger;
 		ScenePtr										m_pScene;
 
-
+		TimerManagerPtr									m_pTimerManager;
 
 		float											m_lastFrameTime;
 

@@ -125,6 +125,11 @@ namespace ld3d
 	typedef boost::shared_ptr<AssetManager>					AssetManagerPtr;
 
 
+	class TimerManager;
+	typedef boost::shared_ptr<TimerManager>					TimerManagerPtr;
+	typedef void*											timer_handle;
+
+
 	class PropertySet;
 	class Property;
 

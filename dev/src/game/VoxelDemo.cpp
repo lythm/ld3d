@@ -53,6 +53,7 @@ bool VoxelDemo::Init(ld3d::CoreApiPtr pCore)
 
 	pLight->LookAt(pCube);
 
+
 	return true;
 }
 void VoxelDemo::Release()

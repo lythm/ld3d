@@ -14,6 +14,7 @@
 #include <boost\unordered_map.hpp>
 #include <boost\enable_shared_from_this.hpp>
 #include <boost\filesystem.hpp>
+#include <boost\signal.hpp>
 
 
 #include <string>
