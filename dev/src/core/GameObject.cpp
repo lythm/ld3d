@@ -80,6 +80,28 @@ namespace ld3d
 		
 		return true;
 	}
+	void GameObject::RemoveComponent(int index)
+	{
+		m_components[index]->Detach();
+		m_components.erase(m_components.begin() + index);
+	}
+	void GameObject::RemoveComponent(GameObjectComponentPtr pCom)
+	{
+		int index = -1;
+		for(size_t i = 0; i < m_components.size(); ++i)
+		{
+			if(pCom == m_components[i])
+			{
+				index = i;
+				break;
+			}
+		}
+
+		if(index != -1)
+		{
+			RemoveComponent(index);
+		}
+	}
 	void GameObject::UpdateComponents(float dt)
 	{
 		for(size_t i = 0; i < m_components.size(); ++i)

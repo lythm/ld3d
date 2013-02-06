@@ -15,9 +15,10 @@ public:
 	int											GetPanelCount();
 	CInspectorPanel*							GetPanel(int index);
 	void										AdjustLayout();
-	void										RefreshPanels();
+	
 	void										RemoveAll();
 	virtual void								OnPropertyChanged(CInspectorProperty* pProp);
+	virtual void								OnPanelEnabled(CInspectorPanel* pPanel, bool bEnabled);
 private:
 
 	std::vector<CInspectorPanel*>				m_panels;

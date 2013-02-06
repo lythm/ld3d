@@ -345,4 +345,8 @@ namespace ld3d
 	{
 		return m_pTimerManager;
 	}
+	Sys_TimePtr	CoreApi::GetSysTime()
+	{
+		return m_pSysTime;
+	}
 }

@@ -53,17 +53,7 @@ bool CInspectorCtrl::Create(const TCHAR* szName, const CRect& rc, CWnd* pParent)
 
 	return CWnd::Create(strClassName, szName, WS_CHILD | WS_VISIBLE | WS_CLIPSIBLINGS | WS_CLIPCHILDREN, rc, pParent, 0) == TRUE;
 }
-void CInspectorCtrl::RefreshPanels()
-{
-	for(size_t i = 0; i < m_panels.size(); ++i)
-	{
-		CInspectorPanel* pPanel = m_panels[i];
 
-		pPanel->InvalidatePanel();
-	}
-
-	Invalidate();
-}
 void CInspectorCtrl::AdjustLayout()
 {
 	CRect rc;
@@ -191,4 +181,10 @@ void CInspectorCtrl::OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 	ScrollWindow(0, nPrevPos - nCurPos) ;
 	CWnd::OnVScroll(nSBCode, nPos, pScrollBar);
 	Invalidate();
+}
+
+
+void CInspectorCtrl::OnPanelEnabled(CInspectorPanel* pPanel, bool bEnabled)
+{
+
 }

@@ -29,6 +29,7 @@ namespace ld3d
 		Sys_GraphicsPtr									GetSysGraphics();
 		Sys_InputPtr									GetSysInput();
 		Sys_SoundPtr									GetSysSound();
+		Sys_TimePtr										GetSysTime();
 
 		void											Render();
 		void											Render(CameraPtr pCamera);

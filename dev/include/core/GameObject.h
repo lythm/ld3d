@@ -14,6 +14,8 @@ namespace ld3d
 		bool										IsAncestor(GameObjectPtr pObj);
 		void										Update(float dt);
 		bool										AddComponent(GameObjectComponentPtr pCom);
+		void										RemoveComponent(GameObjectComponentPtr pCom);
+		void										RemoveComponent(int index);
 		GameObjectComponentPtr						GetComponent(const std::wstring& name);
 		int											GetComponentCount();
 		GameObjectComponentPtr						GetComponent(int index);

@@ -158,6 +158,8 @@
 #define IDC_SCALE_Z                     1067
 #define IDC_MFCVSLISTBOX1               1069
 #define IDC_SPLIT1                      1074
+#define IDC_MFCMENUBUTTON1              1075
+#define IDC_MENU_BTN                    1075
 #define ID_OV_32771                     32771
 #define ID_OV_DELOBJ                    32772
 #define ID_GAMEOBJECT_CREATEEMPTY       32773
@@ -223,9 +225,9 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        334
+#define _APS_NEXT_RESOURCE_VALUE        335
 #define _APS_NEXT_COMMAND_VALUE         32830
-#define _APS_NEXT_CONTROL_VALUE         1075
+#define _APS_NEXT_CONTROL_VALUE         1076
 #define _APS_NEXT_SYMED_VALUE           313
 #endif
 #endif

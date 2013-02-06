@@ -24,12 +24,13 @@ END_MESSAGE_MAP()
 
 // CInspectorPanel 消息处理程序
 
-CInspectorPanel::CInspectorPanel(CString name)
+CInspectorPanel::CInspectorPanel(CString name, void* pUserData)
 {
 	m_name = name;
 	m_pInspector = nullptr;
 	m_bExpanded = false;
 	m_pBar = nullptr;
+	m_pUserData = pUserData;
 
 }
 CInspectorPanel::~CInspectorPanel()
@@ -51,17 +52,7 @@ void CInspectorPanel::RemoveAll()
 	}
 	m_propList.clear();
 }
-void CInspectorPanel::InvalidatePanel()
-{
-	UpdateWindow();
-	Invalidate();
 
-	for(size_t i = 0; i < m_propList.size(); ++i)
-	{
-		m_propList[i]->UpdateWindow();
-		m_propList[i]->Invalidate();
-	}
-}
 bool CInspectorPanel::Folded()
 {
 	return !m_bExpanded;
@@ -72,10 +63,6 @@ void CInspectorPanel::Fold()
 	ShowProps();
 
 	m_pInspector->AdjustLayout();
-
-	//m_pInspector->RefreshPanels();
-	//m_pInspector->Invalidate();
-
 }
 void CInspectorPanel::UnFold()
 {
@@ -83,8 +70,6 @@ void CInspectorPanel::UnFold()
 	ShowProps();
 
 	m_pInspector->AdjustLayout();
-	//m_pInspector->Invalidate();
-	//m_pInspector->RefreshPanels();
 }
 int	CInspectorPanel::GetHeight()
 {
@@ -168,8 +153,6 @@ void CInspectorPanel::OnSize(UINT nType, int cx, int cy)
 
 		offset += propRc.Height();
 	}
-
-	//Invalidate();
 }
 
 void CInspectorPanel::ShowProps()
@@ -178,7 +161,6 @@ void CInspectorPanel::ShowProps()
 	{
 		CInspectorProperty* pProp = m_propList[i];
 
-		//pProp->UpdateWindow();
 		pProp->ShowWindow(m_bExpanded ? SW_SHOW : SW_HIDE);
 		
 	}
@@ -199,4 +181,12 @@ void CInspectorPanel::AddProperty(CInspectorProperty* pProp)
 		pProp->Create(this);
 	}
 	m_propList.push_back(pProp);
+}
+void CInspectorPanel::SetUserData(void* pData)
+{
+	m_pUserData = pData;
+}
+void* CInspectorPanel::GetUserData()
+{
+	return m_pUserData;
 }
