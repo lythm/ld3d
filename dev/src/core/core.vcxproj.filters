@@ -45,6 +45,7 @@
     <ClCompile Include="RenderManager.cpp" />
     <ClCompile Include="Frame.cpp" />
     <ClCompile Include="PostEffect_FXAA.cpp" />
+    <ClCompile Include="Material2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\core\ArcBall.h" />
@@ -122,5 +123,6 @@
     <ClInclude Include="..\..\include\core\RenderManager.h" />
     <ClInclude Include="Frame.h" />
     <ClInclude Include="PostEffect_FXAA.h" />
+    <ClInclude Include="..\..\include\core\Material2.h" />
   </ItemGroup>
 </Project>

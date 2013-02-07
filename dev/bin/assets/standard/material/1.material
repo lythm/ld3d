@@ -1,0 +1,18 @@
+<?xml version='1.0'?>
+<material name="mat1">
+
+	<param name="param1" type="float" />
+	<param name="param2" type="float2" />
+	<param name="param3" type="texture" />
+
+	<shader name="vs" src="1.hlsl" profile="glsl">
+
+	</shader>
+
+	<tech name="t1">
+		<pass name="p1">
+			<state name="vs">vs</state>
+		</pass>
+	</tech>
+
+</material>
