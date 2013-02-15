@@ -88,10 +88,10 @@ namespace ld3d
 
 	void EngineApp::ShowFPS()
 	{
-		static int tick = GetTickCount();
+		static int tick = m_pCore->GetSysTime()->Tick();
 
 		static int frames = 0;
-		int dt = GetTickCount() - tick;
+		int dt = m_pCore->GetSysTime()->Tick() - tick;
 
 		int iv = 100;
 		if(dt >= iv)
@@ -104,7 +104,7 @@ namespace ld3d
 
 			SetTitle(buffer);
 
-			tick = GetTickCount();
+			tick = m_pCore->GetSysTime()->Tick();
 			frames = 0;
 		}
 
