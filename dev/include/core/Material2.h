@@ -65,15 +65,20 @@ namespace ld3d
 
 
 	public:
-		Material2(void);
+		Material2(Sys_GraphicsPtr pGraphics);
 		virtual ~Material2(void);
 
 		bool									LoadFromFile(const char* szFile);
+		void									Release();
 
+
+		void									Begin();
+		void									ApplyPass();
+		void									End();
 	private:
 		std::vector<Parameter>					m_params;
-
 		std::vector<Tech>						m_techs;
-
+		
+		Sys_GraphicsPtr							m_pGraphics;
 	};
 }

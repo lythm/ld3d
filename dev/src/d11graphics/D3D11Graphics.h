@@ -15,8 +15,6 @@ namespace ld3d
 
 		const GraphicsSetting&					GetGraphicsSetting();
 
-		VertexShaderPtr							CreateVertexShaderFromFile(const char* szFile);
-
 		bool									Initialize(const GraphicsSetting& setting);
 		void									Release();
 
@@ -32,6 +30,8 @@ namespace ld3d
 		void									PSSetConstantBuffer(GPUBufferPtr pBuffer);
 		void									SetIndexBuffer(GPUBufferPtr pBuffer, G_FORMAT type);
 		void									SetVertexBuffer(GPUBufferPtr pBuffer, unsigned int offset, unsigned int stride);
+
+		
 
 		GPUBufferPtr							CreateBuffer(BUFFER_TYPE type, int bytes, void* pInitData, bool dynamic);
 
@@ -58,8 +58,13 @@ namespace ld3d
 
 		void									SetViewPort(int x, int y, int w, int h);
 
+		VertexShaderPtr							CreateVSFromFile(const char* szFile);
+		PixelShaderPtr							CreatePSFromFile(const char* szFile);
 		
-		
+
+		void									SetPixelShader(PixelShaderPtr pShader);
+		void									SetVertexShader(VertexShaderPtr pShader);
+
 	private:
 		GPUBufferPtr							CreateIndexBuffer(int bytes, void* pInitData, bool dynamic);
 		GPUBufferPtr							CreateVertexBuffer(int bytes, void* pInitData, bool dynamic);

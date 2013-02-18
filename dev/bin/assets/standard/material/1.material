@@ -6,6 +6,7 @@
 	<param name="param3" type="texture" />
 
 	<shader name="vs" src="1.hlsl" profile="glsl">
+	<shader name="ps" src="1.hlsl" profile="glsl">
 
 	</shader>
 
