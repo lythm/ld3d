@@ -85,6 +85,9 @@ namespace ld3d
 
 		virtual void									SetPixelShader(PixelShaderPtr pShader)						= 0;
 		virtual void									SetVertexShader(VertexShaderPtr pShader)					= 0;
+
+		virtual RenderStatePtr							CreateRenderState()											= 0;
+		virtual void									SetRenderState(RenderStatePtr pState)						= 0;
 	protected:
 		Sys_Graphics(void){}
 		virtual ~Sys_Graphics(void){}

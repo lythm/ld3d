@@ -48,7 +48,7 @@ namespace ld3d
 		void									ResizeFrameBuffer(int cx, int cy);
 
 		RenderStatePtr							CreateRenderState();
-
+		void									SetRenderState(RenderStatePtr pState);
 		RenderTargetPtr							CreateRenderWindow(void* handle, int w, int h, G_FORMAT color_format, G_FORMAT ds_format, int backbufferCount, int multiSampleCount, int multiSampleQuality, bool windowed);
 		void									SetRenderWindow(RenderTargetPtr pWnd);
 		RenderTargetPtr							GetDefaultRenderTarget();

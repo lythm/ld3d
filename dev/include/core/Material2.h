@@ -1,16 +1,17 @@
 #pragma once
 
+#include "core\BaseMaterial.h"
 
 namespace ld3d
 {
-	class Material2
+	class Material2 : public BaseMaterial
 	{
 	public:
 
 		class Parameter
 		{
 		public:
-			enum
+			enum PARAMETER_TYPE
 			{
 				pt_float,
 				pt_float2,
@@ -31,13 +32,17 @@ namespace ld3d
 			Parameter();
 			virtual ~Parameter();
 
-			const std::string&						GetName();
-			void									SetName(const std::string& name);
+			const std::string&									GetName();
+			void												SetName(const std::string& name);
 
-			
+			PARAMETER_TYPE										GetType() const;
 		private:
-			std::string								m_name;
+			std::string											m_name;
+			PARAMETER_TYPE										m_type;
 		};
+
+		typedef boost::shared_ptr<Parameter>					ParameterPtr;
+
 
 		template<typename T>
 		class Parameter_T : public Parameter
@@ -48,20 +53,32 @@ namespace ld3d
 
 		class Pass
 		{
+		public:
+			Pass();
+			virtual ~Pass();
+
+		private:
+			VertexShaderPtr										m_pVS;
+			PixelShaderPtr										m_pPS;
 		};
 
+
+		typedef boost::shared_ptr<Pass>							PassPtr;
 
 		class Tech
 		{
 		public:
-
+			Tech();
+			virtual ~Tech();
 
 		private:
-			std::vector<Pass>			m_passes;
+			std::vector<PassPtr>								m_passes;
 		};
 
 		
-
+		
+		typedef boost::shared_ptr<Tech>							TechPtr;
+		
 
 
 	public:
@@ -75,10 +92,21 @@ namespace ld3d
 		void									Begin();
 		void									ApplyPass();
 		void									End();
+
+		ParameterPtr							GetParameterByName(const char* szName);
+		TechPtr									GetTechByName(const char* szName);
+
+		void									SelectTechByName(const char* szName);
+
+
+
 	private:
-		std::vector<Parameter>					m_params;
-		std::vector<Tech>						m_techs;
+		std::vector<ParameterPtr>				m_params;
+		std::vector<TechPtr>					m_techs;
 		
+
+
+
 		Sys_GraphicsPtr							m_pGraphics;
 	};
 }

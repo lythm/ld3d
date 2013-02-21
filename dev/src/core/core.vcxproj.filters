@@ -124,5 +124,10 @@
     <ClInclude Include="Frame.h" />
     <ClInclude Include="PostEffect_FXAA.h" />
     <ClInclude Include="..\..\include\core\Material2.h" />
+    <ClInclude Include="..\..\include\core\BaseMaterial.h" />
+    <ClInclude Include="..\..\include\core\DepthStencilState.h" />
+    <ClInclude Include="..\..\include\core\RasterizerState.h" />
+    <ClInclude Include="..\..\include\core\BlendState.h" />
+    <ClInclude Include="..\..\include\core\SamplerState.h" />
   </ItemGroup>
 </Project>

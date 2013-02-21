@@ -10,6 +10,7 @@
 #include "D3D11RenderWindow.h"
 #include "D3D11VertexShader.h"
 #include "D3D11PixelShader.h"
+#include "D3D11RenderState.h"
 
 
 namespace ld3d
@@ -391,7 +392,13 @@ namespace ld3d
 	
 	RenderStatePtr D3D11Graphics::CreateRenderState()
 	{
-		return RenderStatePtr();
+		D3D11RenderState* pState = new D3D11RenderState(m_pContext);
+		if(false == pState->Create())
+		{
+			delete pState;
+			return RenderStatePtr();
+		}
+		return RenderStatePtr(pState);
 	}
 	RenderTargetPtr	D3D11Graphics::CreateRenderWindow(void* handle, int w, int h, G_FORMAT color_format, G_FORMAT ds_format, int backbufferCount, int multiSampleCount, int multiSampleQuality, bool windowed)
 	{
@@ -468,6 +475,10 @@ namespace ld3d
 	void D3D11Graphics::SetVertexShader(VertexShaderPtr pShader)
 	{
 		m_pContext->VSSetShader(((D3D11VertexShader*)pShader.get())->GetD3D11Shader(), nullptr, 0);
+	}
+	void D3D11Graphics::SetRenderState(RenderStatePtr pState)
+	{
+		((D3D11RenderState*)pState.get())->Apply();
 	}
 }
 

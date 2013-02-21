@@ -1,13 +1,18 @@
 <?xml version='1.0'?>
 <material name="mat1">
 
-	<param name="param1" type="float" />
-	<param name="param2" type="float2" />
-	<param name="param3" type="texture" />
+	<paramblock>
+		<param name="param1" type="float" />
+		<param name="param2" type="float2" />
+		<param name="param3" type="texture" />
+	</paramblock>
 
 	<shader name="vs" src="1.hlsl" profile="glsl">
-	<shader name="ps" src="1.hlsl" profile="glsl">
+		
+	</shader>
 
+	<shader name="ps" src="1.hlsl" profile="glsl">
+		
 	</shader>
 
 	<tech name="t1">
