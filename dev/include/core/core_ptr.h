@@ -62,7 +62,6 @@ namespace ld3d
 	class RenderData;
 	class RenderTarget;
 	class Texture;
-	class Material;
 	class GPUBuffer;
 	class Camera;
 	class RenderState;
@@ -72,6 +71,19 @@ namespace ld3d
 	class PixelShader;
 	class RenderWindow;
 
+	class Material;
+	class MaterialPass;
+	class MaterialTech;
+	class MaterialParameterManager;
+	class MaterialParameter;
+	
+	typedef boost::shared_ptr<Material>						MaterialPtr;
+	typedef boost::shared_ptr<MaterialPass>					MaterialPassPtr;
+	typedef boost::shared_ptr<MaterialTech>					MaterialTechPtr;
+	typedef boost::shared_ptr<MaterialParameterManager>		MaterialParameterManagerPtr;
+	typedef boost::shared_ptr<MaterialParameter>			MaterialParameterPtr;
+
+	
 	typedef boost::shared_ptr<RenderWindow>					RenderWindowPtr;
 	typedef boost::shared_ptr<PixelShader>					PixelShaderPtr;
 	typedef boost::shared_ptr<VertexShader>					VertexShaderPtr;
@@ -84,7 +96,7 @@ namespace ld3d
 	typedef boost::shared_ptr<RenderData>					RenderDataPtr;
 	typedef boost::shared_ptr<GPUBuffer>					GPUBufferPtr;
 	typedef boost::shared_ptr<Texture>						TexturePtr;
-	typedef boost::shared_ptr<Material>						MaterialPtr;
+	
 
 
 	class CoreApi;

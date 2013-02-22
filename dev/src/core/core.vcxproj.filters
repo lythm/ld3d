@@ -46,6 +46,10 @@
     <ClCompile Include="Frame.cpp" />
     <ClCompile Include="PostEffect_FXAA.cpp" />
     <ClCompile Include="Material2.cpp" />
+    <ClCompile Include="MaterialParameterManager.cpp" />
+    <ClCompile Include="MaterialParameter.cpp" />
+    <ClCompile Include="MaterialPass.cpp" />
+    <ClCompile Include="MaterialTech.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\core\ArcBall.h" />
@@ -130,5 +134,12 @@
     <ClInclude Include="..\..\include\core\BlendState.h" />
     <ClInclude Include="..\..\include\core\SamplerState.h" />
     <ClInclude Include="..\..\include\core\RenderWindow.h" />
+    <ClInclude Include="MaterialParameterManager.h" />
+    <ClInclude Include="..\..\include\core\MaterialParameter.h" />
+    <ClInclude Include="..\..\include\core\MaterialPass.h" />
+    <ClInclude Include="..\..\include\core\MaterialTech.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
 </Project>

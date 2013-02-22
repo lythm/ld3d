@@ -118,6 +118,9 @@
     <ClInclude Include="..\..\include\core\LightManager.h" />
     <ClInclude Include="..\..\include\core\Material.h" />
     <ClInclude Include="..\..\include\core\Material2.h" />
+    <ClInclude Include="..\..\include\core\MaterialParameter.h" />
+    <ClInclude Include="..\..\include\core\MaterialPass.h" />
+    <ClInclude Include="..\..\include\core\MaterialTech.h" />
     <ClInclude Include="..\..\include\core\Mesh.h" />
     <ClInclude Include="..\..\include\core\MeshSerializer.h" />
     <ClInclude Include="..\..\include\core\MeshSerializer_XML.h" />
@@ -164,6 +167,7 @@
     <ClInclude Include="core_pch.h" />
     <ClInclude Include="core_utils.h" />
     <ClInclude Include="Frame.h" />
+    <ClInclude Include="MaterialParameterManager.h" />
     <ClInclude Include="PostEffect_FXAA.h" />
     <ClInclude Include="Time64.h" />
     <ClInclude Include="WMInput.h" />
@@ -191,6 +195,10 @@
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="LightManager.cpp" />
     <ClCompile Include="Material2.cpp" />
+    <ClCompile Include="MaterialParameter.cpp" />
+    <ClCompile Include="MaterialParameterManager.cpp" />
+    <ClCompile Include="MaterialPass.cpp" />
+    <ClCompile Include="MaterialTech.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="MeshSerializer_XML.cpp" />
     <ClCompile Include="MeshUtil.cpp" />
@@ -216,6 +224,9 @@
     <ClCompile Include="TimerManager.cpp" />
     <ClCompile Include="ViewFrustum.cpp" />
     <ClCompile Include="WMInput.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

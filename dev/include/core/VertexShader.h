@@ -8,12 +8,13 @@ namespace ld3d
 	{
 	public:
 
-		VertexShader(void)
-		{
-		}
 
-		virtual ~VertexShader(void)
-		{
-		}
+		virtual void												Release()									= 0;
+
+
+	protected:
+		VertexShader(void){}
+
+		virtual ~VertexShader(void){}
 	};
 }
