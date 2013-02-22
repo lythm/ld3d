@@ -7,7 +7,7 @@
 
 namespace ld3d
 {
-	D3D11RenderWindow::D3D11RenderWindow(ID3D11DeviceContext* pContext) : D3D11RenderTarget(pContext)
+	D3D11RenderWindow::D3D11RenderWindow(ID3D11DeviceContext* pContext)
 	{
 		m_pSwapChain				= NULL;
 
@@ -16,6 +16,15 @@ namespace ld3d
 		m_backbufferCount			= 0;
 		m_multiSampleCount			= 0;
 		m_multiSampleQuality		= 0;
+
+
+		m_pContext					= pContext;
+		m_pRTView					= NULL;
+		m_pDevice					= NULL;
+		m_pContext->GetDevice(&m_pDevice);
+
+		m_width						= 0;
+		m_height					= 0;
 
 	}
 
@@ -88,8 +97,6 @@ namespace ld3d
 		pDXGIAdapter->Release();
 		pDXGIDevice->Release();
 
-		m_pRTViews = new ID3D11RenderTargetView*[1];
-
 		if(CreateFrameBuffer() == false)
 		{
 			return false;
@@ -115,19 +122,17 @@ namespace ld3d
 			m_pSwapChain->Release();
 			m_pSwapChain = NULL;
 		}
-		m_pRTViews[0]->Release();
-
+		m_pRTView->Release();
+		m_pRTView = NULL;
 		m_pDepthBuffer->Release();
 		m_pDepthBuffer.reset();
 		m_pContext = NULL;
 
-		D3D11RenderTarget::Release();
+		m_pDevice->Release();
+		m_pContext = NULL;
+		m_pDepthBuffer.reset();
 	}
 	
-	TexturePtr D3D11RenderWindow::AsTexture(int index)
-	{
-		return TexturePtr();
-	}
 
 	bool D3D11RenderWindow::CreateFrameBuffer()
 	{
@@ -137,17 +142,13 @@ namespace ld3d
 		if( FAILED( m_pSwapChain->GetBuffer( 0, __uuidof( ID3D11Texture2D ), (LPVOID*)&pBackBuffer ) ) )
 			return false;
 
-		HRESULT ret = m_pDevice->CreateRenderTargetView( pBackBuffer, NULL, &m_pRTViews[0]);
+		HRESULT ret = m_pDevice->CreateRenderTargetView( pBackBuffer, NULL, &m_pRTView);
 		pBackBuffer->Release();
 
 		if( FAILED( ret ) )
 			return false;
 
 		return true;
-	}
-	int	D3D11RenderWindow::GetRenderTargetCount()
-	{
-		return 1;
 	}
 
 	void D3D11RenderWindow::Present()
@@ -156,10 +157,10 @@ namespace ld3d
 	}
 	void D3D11RenderWindow::Resize(int cx, int cy)
 	{
-		if(m_pRTViews[0] != NULL)
+		if(m_pRTView != NULL)
 		{
-			m_pRTViews[0]->Release();
-			m_pRTViews[0] = NULL;
+			m_pRTView->Release();
+			m_pRTView = NULL;
 		}
 
 		
@@ -185,5 +186,27 @@ namespace ld3d
 		
 		m_pDepthBuffer = DepthStencilBufferPtr(pTarget);
 
+	}
+
+	ID3D11DepthStencilView* D3D11RenderWindow::GetD3D11DepthStencilView()
+	{
+		if(m_pDepthBuffer == nullptr)
+		{
+			return NULL;
+		}
+		return ((D3D11DepthStencilBuffer*)m_pDepthBuffer.get())->GetD3D11DepthStencilView();
+	}
+
+	ID3D11RenderTargetView* D3D11RenderWindow::GetD3D11RenderTargetView()
+	{
+		return m_pRTView;
+	}
+	int	D3D11RenderWindow::GetWidth()
+	{
+		return m_width;
+	}
+	int	D3D11RenderWindow::GetHeight()
+	{
+		return m_height;
 	}
 }

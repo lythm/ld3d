@@ -58,6 +58,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ext_voxel", "ext_voxel\ext_
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "fmod_sound", "fmod_sound\fmod_sound.vcxproj", "{09F51CC9-EA16-4F44-B548-4155FC5063EF}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ogl4graphics", "ogl4graphics\ogl4graphics.vcxproj", "{A6EC5DEF-1473-4BAA-8F0D-DA463A28E5F5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -100,6 +102,10 @@ Global
 		{09F51CC9-EA16-4F44-B548-4155FC5063EF}.Debug|Win32.Build.0 = Debug|Win32
 		{09F51CC9-EA16-4F44-B548-4155FC5063EF}.Release|Win32.ActiveCfg = Release|Win32
 		{09F51CC9-EA16-4F44-B548-4155FC5063EF}.Release|Win32.Build.0 = Release|Win32
+		{A6EC5DEF-1473-4BAA-8F0D-DA463A28E5F5}.Debug|Win32.ActiveCfg = Debug|Win32
+		{A6EC5DEF-1473-4BAA-8F0D-DA463A28E5F5}.Debug|Win32.Build.0 = Debug|Win32
+		{A6EC5DEF-1473-4BAA-8F0D-DA463A28E5F5}.Release|Win32.ActiveCfg = Release|Win32
+		{A6EC5DEF-1473-4BAA-8F0D-DA463A28E5F5}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

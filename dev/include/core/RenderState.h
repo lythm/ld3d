@@ -61,6 +61,34 @@ namespace ld3d
 			RS_CULL_BACK    = 3,
 		};
 
+		enum RS_DEPTH_WRITE
+		{
+			RS_DEPTH_WRITE_MASK_ZERO   = 0,
+			RS_DEPTH_WRITE_MASK_ALL    = 1,
+		};
+
+		enum RS_COMPARISON_FUNC 
+		{
+			RS_COMPARISON_NEVER           = 1,
+			RS_COMPARISON_LESS            = 2,
+			RS_COMPARISON_EQUAL           = 3,
+			RS_COMPARISON_LESS_EQUAL      = 4,
+			RS_COMPARISON_GREATER         = 5,
+			RS_COMPARISON_NOT_EQUAL       = 6,
+			RS_COMPARISON_GREATER_EQUAL   = 7,
+			RS_COMPARISON_ALWAYS          = 8,
+		};
+		enum RS_STENCIL_OP
+		{
+			RS_STENCIL_OP_KEEP       = 1,
+			RS_STENCIL_OP_ZERO       = 2,
+			RS_STENCIL_OP_REPLACE    = 3,
+			RS_STENCIL_OP_INCR_SAT   = 4,
+			RS_STENCIL_OP_DECR_SAT   = 5,
+			RS_STENCIL_OP_INVERT     = 6,
+			RS_STENCIL_OP_INCR       = 7,
+			RS_STENCIL_OP_DECR       = 8,
+		};
 
 
 		virtual void										Begin()									= 0;

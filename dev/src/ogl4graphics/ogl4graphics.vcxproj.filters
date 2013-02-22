@@ -15,30 +15,24 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="game_pch.h">
+    <ClInclude Include="ogl4graphics_pch.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Game.h">
+    <ClInclude Include="OGL4Graphics.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="VoxelDemo.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="GraphicsTest.h">
+    <ClInclude Include="OGL4RenderWindow.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="game_pch.cpp">
+    <ClCompile Include="ogl4graphics_pch.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Game.cpp">
+    <ClCompile Include="OGL4Graphics.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="VoxelDemo.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="GraphicsTest.cpp">
+    <ClCompile Include="OGL4RenderWindow.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

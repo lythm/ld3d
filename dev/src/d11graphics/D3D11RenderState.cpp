@@ -22,22 +22,38 @@ namespace ld3d
 		m_blendState.RenderTarget[0].DestBlendAlpha					= D3D11_BLEND_ZERO ;
 		m_blendState.RenderTarget[0].BlendOpAlpha					= D3D11_BLEND_OP_ADD;
 		m_blendState.RenderTarget[0].RenderTargetWriteMask			= D3D11_COLOR_WRITE_ENABLE_ALL ;
-		
+
 		ZeroMemory(&m_rasterizeState, sizeof(m_rasterizeState));
-		m_rasterizeState.FillMode	= D3D11_FILL_SOLID;
-		m_rasterizeState.CullMode	= D3D11_CULL_BACK;
-		m_rasterizeState.FrontCounterClockwise = FALSE;
-		m_rasterizeState.DepthBias = 0 ;
-		m_rasterizeState.SlopeScaledDepthBias = 0.0f ;
-		m_rasterizeState.DepthBiasClamp = 0.0f ;
-		m_rasterizeState.DepthClipEnable = TRUE ;
-		m_rasterizeState.ScissorEnable = FALSE ;
-		m_rasterizeState.MultisampleEnable = FALSE ;
-		m_rasterizeState.AntialiasedLineEnable = FALSE ;
+		m_rasterizeState.FillMode									= D3D11_FILL_SOLID;
+		m_rasterizeState.CullMode									= D3D11_CULL_BACK;
+		m_rasterizeState.FrontCounterClockwise						= FALSE;
+		m_rasterizeState.DepthBias									= 0 ;
+		m_rasterizeState.SlopeScaledDepthBias						= 0.0f ;
+		m_rasterizeState.DepthBiasClamp								= 0.0f ;
+		m_rasterizeState.DepthClipEnable							= TRUE ;
+		m_rasterizeState.ScissorEnable								= FALSE ;
+		m_rasterizeState.MultisampleEnable							= FALSE ;
+		m_rasterizeState.AntialiasedLineEnable						= FALSE ;
 
 
 		ZeroMemory(&m_depthStencilState, sizeof(m_depthStencilState));
-		
+		m_depthStencilState.DepthEnable								= TRUE ;
+		m_depthStencilState.DepthWriteMask							= D3D11_DEPTH_WRITE_MASK_ALL;
+		m_depthStencilState.DepthFunc								= D3D11_COMPARISON_LESS ;
+		m_depthStencilState.StencilEnable							= FALSE ;
+		m_depthStencilState.StencilReadMask							= D3D11_DEFAULT_STENCIL_READ_MASK ;
+		m_depthStencilState.StencilWriteMask						= D3D11_DEFAULT_STENCIL_WRITE_MASK ;
+		m_depthStencilState.FrontFace.StencilFunc					= D3D11_COMPARISON_ALWAYS ;
+		m_depthStencilState.FrontFace.StencilDepthFailOp			= D3D11_STENCIL_OP_KEEP ;
+		m_depthStencilState.FrontFace.StencilPassOp					= D3D11_STENCIL_OP_KEEP ;
+		m_depthStencilState.FrontFace.StencilFailOp					= D3D11_STENCIL_OP_KEEP;
+
+		m_depthStencilState.BackFace.StencilFunc					= D3D11_COMPARISON_ALWAYS ;
+		m_depthStencilState.BackFace.StencilDepthFailOp				= D3D11_STENCIL_OP_KEEP ;
+		m_depthStencilState.BackFace.StencilPassOp					= D3D11_STENCIL_OP_KEEP ;
+		m_depthStencilState.BackFace.StencilFailOp					= D3D11_STENCIL_OP_KEEP;
+
+
 		m_blendFactor = math::Vector4();
 		m_sampleMask = 0xffffffff;
 		m_stencilRef = 0;
@@ -107,7 +123,7 @@ namespace ld3d
 			m_pDSS = nullptr;
 		}
 
-		
+
 
 		if(m_pDevice)
 		{
@@ -199,5 +215,61 @@ namespace ld3d
 	void D3D11RenderState::SetDepthClipEnable(bool val)
 	{
 		m_rasterizeState.DepthClipEnable = val;
+	}
+	void D3D11RenderState::SetDepthEnable(bool val)
+	{
+		m_depthStencilState.DepthEnable = val;
+	}
+	void D3D11RenderState::SetDepthWriteMask(RS_DEPTH_WRITE val)
+	{
+		m_depthStencilState.DepthWriteMask = (D3D11_DEPTH_WRITE_MASK)val;
+	}
+	void D3D11RenderState::SetDepthFunc(RS_COMPARISON_FUNC val)
+	{
+		m_depthStencilState.DepthFunc = (D3D11_COMPARISON_FUNC)val;
+	}
+	void D3D11RenderState::SetStencilEnable(bool val)
+	{
+		m_depthStencilState.StencilEnable = val;
+	}
+	void D3D11RenderState::SetStencilReadMask(uint8 mask)
+	{
+		m_depthStencilState.StencilReadMask = mask;
+	}
+	void D3D11RenderState::SetStencilWriteMask(uint8 mask)
+	{
+		m_depthStencilState.StencilWriteMask = mask;
+	}
+	void D3D11RenderState::SetFrontFaceStencilFailOp(RS_STENCIL_OP op)
+	{
+		m_depthStencilState.FrontFace.StencilFailOp = (D3D11_STENCIL_OP)op;
+	}
+	void D3D11RenderState::SetFrontFaceStencilDepthFailOp(RS_STENCIL_OP op)
+	{
+		m_depthStencilState.FrontFace.StencilDepthFailOp = (D3D11_STENCIL_OP)op;
+	}
+	void D3D11RenderState::SetFrontFaceStencilPassOp(RS_STENCIL_OP op)
+	{
+		m_depthStencilState.FrontFace.StencilPassOp = (D3D11_STENCIL_OP)op;
+	}
+	void D3D11RenderState::SetFrontFaceStencilFunc(RS_COMPARISON_FUNC val)
+	{
+		m_depthStencilState.FrontFace.StencilFunc = (D3D11_COMPARISON_FUNC)val;
+	}
+	void D3D11RenderState::SetBackFaceStencilFailOp(RS_STENCIL_OP op)
+	{
+		m_depthStencilState.BackFace.StencilFailOp = (D3D11_STENCIL_OP)op;
+	}
+	void D3D11RenderState::SetBackFaceStencilDepthFailOp(RS_STENCIL_OP op)
+	{
+		m_depthStencilState.BackFace.StencilDepthFailOp = (D3D11_STENCIL_OP)op;
+	}
+	void D3D11RenderState::SetBackFaceStencilPassOp(RS_STENCIL_OP op)
+	{
+		m_depthStencilState.BackFace.StencilPassOp = (D3D11_STENCIL_OP)op;
+	}
+	void D3D11RenderState::SetBackFaceStencilFunc(RS_COMPARISON_FUNC val)
+	{
+		m_depthStencilState.BackFace.StencilFunc = (D3D11_COMPARISON_FUNC)val;
 	}
 }

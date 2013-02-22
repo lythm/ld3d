@@ -70,7 +70,7 @@ void CPreviewWnd::OnClose()
 
 	ld3d::CoreApiPtr pCore = Project::Instance()->GetCoreApi();
 
-	pCore->GetSysGraphics()->SetRenderWindow(ld3d::RenderTargetPtr());
+	pCore->GetSysGraphics()->SetRenderWindow(ld3d::RenderWindowPtr());
 
 	int w = pCore->GetSysGraphics()->GetFrameBufferWidth();
 	int h = pCore->GetSysGraphics()->GetFrameBufferHeight();
@@ -98,7 +98,7 @@ void CPreviewWnd::OnSize(UINT nType, int cx, int cy)
 {
 	CDialogEx::OnSize(nType, cx, cy);
 
-	if(m_pRenderTarget != ld3d::RenderTargetPtr())
+	if(m_pRenderTarget != ld3d::RenderWindowPtr())
 	{
 		Project::Instance()->ResizeRenderer(cx, cy);
 	}

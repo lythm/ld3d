@@ -155,7 +155,11 @@ namespace ld3d
 		{
 			pRTView = ((D3D11RenderTarget*)pTarget.get())->GetD3D11RenderTargetView(index);
 		}
-		m_pContext->ClearRenderTargetView(pRTView == NULL ? m_pCurrentRW->GetD3D11RenderTargetView(index) : pRTView, clr.v);
+		else
+		{
+			pRTView = m_pCurrentRW->GetD3D11RenderTargetView();
+		}
+		m_pContext->ClearRenderTargetView(pRTView, clr.v);
 	}
 	void D3D11Graphics::Present()
 	{
@@ -334,7 +338,7 @@ namespace ld3d
 	{
 		if(pRT == nullptr)
 		{
-			SetRenderTarget(m_pCurrentRW);
+			SetRenderWindow(m_pCurrentRW);
 			return;
 		}
 
@@ -351,17 +355,25 @@ namespace ld3d
 			pDSView == NULL ? m_pCurrentRW->GetD3D11DepthStencilView() : pDSView);
 
 	}
-	void D3D11Graphics::SetRenderWindow(RenderTargetPtr pWnd)
+	void D3D11Graphics::SetRenderWindow(RenderWindowPtr pWnd)
 	{
-		if(pWnd == RenderTargetPtr())
+		if(pWnd == RenderWindowPtr())
 		{
 			m_pCurrentRW = m_pDefaultRW;
-			SetRenderTarget(m_pCurrentRW);
-			return;
+			
 		}
-		m_pCurrentRW = boost::shared_dynamic_cast<D3D11RenderWindow>(pWnd);
+		else
+		{
+			m_pCurrentRW = boost::shared_dynamic_cast<D3D11RenderWindow>(pWnd);
+		}
 
-		SetRenderTarget(m_pCurrentRW);
+		ID3D11RenderTargetView* pRTViews = m_pCurrentRW->GetD3D11RenderTargetView();
+		ID3D11DepthStencilView* pDSView = m_pCurrentRW->GetD3D11DepthStencilView();
+
+		ID3D11ShaderResourceView* pViews[8] = { NULL,};
+		m_pContext->PSSetShaderResources(0, 8, pViews);
+
+		m_pContext->OMSetRenderTargets(1, &pRTViews, pDSView);
 	}
 
 	TexturePtr D3D11Graphics::CreateTexture(TEXTURE_TYPE type, G_FORMAT format, int w, int h)
@@ -400,17 +412,17 @@ namespace ld3d
 		}
 		return RenderStatePtr(pState);
 	}
-	RenderTargetPtr	D3D11Graphics::CreateRenderWindow(void* handle, int w, int h, G_FORMAT color_format, G_FORMAT ds_format, int backbufferCount, int multiSampleCount, int multiSampleQuality, bool windowed)
+	RenderWindowPtr	D3D11Graphics::CreateRenderWindow(void* handle, int w, int h, G_FORMAT color_format, G_FORMAT ds_format, int backbufferCount, int multiSampleCount, int multiSampleQuality, bool windowed)
 	{
 		D3D11RenderWindow* pWnd = new D3D11RenderWindow(m_pContext);
 		if(pWnd->Create(handle, w, h, color_format, ds_format, backbufferCount, multiSampleCount, multiSampleQuality, windowed) == false)
 		{
 			delete pWnd;
-			return RenderTargetPtr();
+			return RenderWindowPtr();
 		}
-		return RenderTargetPtr(pWnd);
+		return RenderWindowPtr(pWnd);
 	}
-	RenderTargetPtr D3D11Graphics::GetDefaultRenderTarget()
+	RenderWindowPtr D3D11Graphics::GetDefaultRenderWindow()
 	{
 		return m_pDefaultRW;
 	}
@@ -436,13 +448,13 @@ namespace ld3d
 
 	int D3D11Graphics::GetFrameBufferWidth()
 	{
-		return m_pCurrentRW->GetWidth(0);
+		return m_pCurrentRW->GetWidth();
 	}
 	int D3D11Graphics::GetFrameBufferHeight()
 	{
-		return m_pCurrentRW->GetHeight(0);
+		return m_pCurrentRW->GetHeight();
 	}
-	RenderTargetPtr D3D11Graphics::GetCurrentRenderTarget()
+	RenderWindowPtr D3D11Graphics::GetCurrentRenderWindow()
 	{
 		return m_pCurrentRW;
 	}

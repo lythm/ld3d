@@ -9,7 +9,9 @@ namespace ld3d
 
 		//virtual const std::string&										GetName()							= 0;
 
-
+		virtual void														Begin(){}
+		virtual void														End(){}
+		virtual void														ApplyPass(){}
 
 
 	protected:

@@ -26,6 +26,6 @@ namespace ld3d
 		LightPtr								m_pList;
 		int										m_lightCount;
 		Sys_GraphicsPtr							m_pGraphics;
-		RenderManagerPtr							m_pRenderManager;
+		RenderManagerPtr						m_pRenderManager;
 	};
 }

@@ -43,7 +43,6 @@ namespace ld3d
 
 		typedef boost::shared_ptr<Parameter>					ParameterPtr;
 
-
 		template<typename T>
 		class Parameter_T : public Parameter
 		{

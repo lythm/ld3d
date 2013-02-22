@@ -70,8 +70,9 @@ namespace ld3d
 	class BaseCamera;
 	class VertexShader;
 	class PixelShader;
+	class RenderWindow;
 
-
+	typedef boost::shared_ptr<RenderWindow>					RenderWindowPtr;
 	typedef boost::shared_ptr<PixelShader>					PixelShaderPtr;
 	typedef boost::shared_ptr<VertexShader>					VertexShaderPtr;
 	typedef boost::shared_ptr<RenderState>					RenderStatePtr;

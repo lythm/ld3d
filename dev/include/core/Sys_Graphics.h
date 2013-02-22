@@ -66,7 +66,7 @@ namespace ld3d
 
 		virtual void									ResizeFrameBuffer(int cx, int cy)							= 0;
 
-		virtual RenderTargetPtr							CreateRenderWindow(void* handle, 
+		virtual RenderWindowPtr							CreateRenderWindow(void* handle, 
 																	int w, 
 																	int h, 
 																	G_FORMAT color_format, 
@@ -76,7 +76,7 @@ namespace ld3d
 																	int multiSampleQuality, 
 																	bool windowed)									= 0;
 
-		virtual void									SetRenderWindow(RenderTargetPtr pWnd)						= 0;
+		virtual void									SetRenderWindow(RenderWindowPtr pWnd)						= 0;
 
 		virtual void									SetViewPort(int x, int y, int w, int h)						= 0;
 

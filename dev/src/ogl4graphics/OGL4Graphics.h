@@ -2,16 +2,14 @@
 
 #include "core\Sys_Graphics.h"
 
-
 namespace ld3d
 {
-	class D3D11RenderWindow;
-
-	class D3D11Graphics : public Sys_Graphics
+	class OGL4Graphics : public Sys_Graphics
 	{
 	public:
-		D3D11Graphics(void);
-		virtual ~D3D11Graphics(void);
+		OGL4Graphics(void);
+		virtual ~OGL4Graphics(void);
+
 
 		const GraphicsSetting&					GetGraphicsSetting();
 
@@ -51,8 +49,8 @@ namespace ld3d
 		void									SetRenderState(RenderStatePtr pState);
 		RenderWindowPtr							CreateRenderWindow(void* handle, int w, int h, G_FORMAT color_format, G_FORMAT ds_format, int backbufferCount, int multiSampleCount, int multiSampleQuality, bool windowed);
 		void									SetRenderWindow(RenderWindowPtr pWnd);
-		RenderWindowPtr							GetDefaultRenderWindow();
-		RenderWindowPtr							GetCurrentRenderWindow();
+		RenderTargetPtr							GetDefaultRenderTarget();
+		RenderTargetPtr							GetCurrentRenderTarget();
 		int										GetFrameBufferWidth();
 		int										GetFrameBufferHeight();
 
@@ -65,27 +63,10 @@ namespace ld3d
 		void									SetPixelShader(PixelShaderPtr pShader);
 		void									SetVertexShader(VertexShaderPtr pShader);
 
-	private:
-		GPUBufferPtr							CreateIndexBuffer(int bytes, void* pInitData, bool dynamic);
-		GPUBufferPtr							CreateVertexBuffer(int bytes, void* pInitData, bool dynamic);
-		GPUBufferPtr							CreateConstantBuffer(int bytes, void* pInitData);
 
-		bool									CreateDefaultRenderTarget(const GraphicsSetting& setting);
-		bool									CreateFrameBuffer();
-		bool									CreateDepthStencilBuffer(const GraphicsSetting& setting);
-		
 	private:
-
-		ID3D11Device*							m_pDevice;
-		ID3D11DeviceContext*					m_pContext;
-		
 		GraphicsSetting							m_setting;
-
-		boost::shared_ptr<D3D11RenderWindow>	m_pDefaultRW;
-
-		boost::shared_ptr<D3D11RenderWindow>	m_pCurrentRW;
-		
-		D3D11_VIEWPORT							m_viewPort;
-
 	};
+
+
 }

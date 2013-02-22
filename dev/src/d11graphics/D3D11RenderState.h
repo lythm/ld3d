@@ -35,22 +35,22 @@ namespace ld3d
 		void										SetSlopeScaledDepthBias(float val);
 		void										SetDepthClipEnable(bool val);
 
+		void										SetDepthEnable(bool val);
+		void										SetDepthWriteMask(RS_DEPTH_WRITE val);
+		void										SetDepthFunc(RS_COMPARISON_FUNC val);
+		void										SetStencilEnable(bool val);
+		void										SetStencilReadMask(uint8 mask);
+		void										SetStencilWriteMask(uint8 mask);
 
-		/* BOOL                       DepthEnable;
-  D3D11_DEPTH_WRITE_MASK     DepthWriteMask;
-  D3D11_COMPARISON_FUNC      DepthFunc;
-  BOOL                       StencilEnable;
-  UINT8                      StencilReadMask;
-  UINT8                      StencilWriteMask;
-  D3D11_DEPTH_STENCILOP_DESC FrontFace;
-  D3D11_DEPTH_STENCILOP_DESC BackFace;*/
+		void										SetFrontFaceStencilFailOp(RS_STENCIL_OP op);
+		void										SetFrontFaceStencilDepthFailOp(RS_STENCIL_OP op);
+		void										SetFrontFaceStencilPassOp(RS_STENCIL_OP op);
+		void										SetFrontFaceStencilFunc(RS_COMPARISON_FUNC val);
 
-		void										SetDepthEnable();
-		void										SetDepthWriteMask();
-		void										SetDepthFunc();
-		void										SetStencilEnable();
-		void										SetStencilReadMask();
-		void										SetStencilWriteMask();
+		void										SetBackFaceStencilFailOp(RS_STENCIL_OP op);
+		void										SetBackFaceStencilDepthFailOp(RS_STENCIL_OP op);
+		void										SetBackFaceStencilPassOp(RS_STENCIL_OP op);
+		void										SetBackFaceStencilFunc(RS_COMPARISON_FUNC val);
 
 		void										End();
 

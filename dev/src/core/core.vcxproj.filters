@@ -129,5 +129,6 @@
     <ClInclude Include="..\..\include\core\RasterizerState.h" />
     <ClInclude Include="..\..\include\core\BlendState.h" />
     <ClInclude Include="..\..\include\core\SamplerState.h" />
+    <ClInclude Include="..\..\include\core\RenderWindow.h" />
   </ItemGroup>
 </Project>
