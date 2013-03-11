@@ -15,8 +15,5 @@ namespace ld3d
 
 		virtual void											Release()											= 0;
 
-
 	};
-
-
 }

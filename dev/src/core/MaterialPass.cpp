@@ -5,17 +5,26 @@
 #include "core\RenderState.h"
 #include "core\VertexShader.h"
 #include "core\PixelShader.h"
+#include "core\GPUBuffer.h"
 
 namespace ld3d
 {
-	MaterialPass::MaterialPass(Sys_GraphicsPtr pGraphics)
+	MaterialPass::MaterialPass()
 	{
-		m_pGraphics = pGraphics;
+		
 	}
 
 
 	MaterialPass::~MaterialPass(void)
 	{
+	}
+	bool MaterialPass::Create(Sys_GraphicsPtr pGraphics)
+	{	
+		m_pGraphics = pGraphics;
+
+		m_pRenderState = m_pGraphics->CreateRenderState();
+
+		return true;
 	}
 	void MaterialPass::Apply()
 	{
@@ -38,6 +47,18 @@ namespace ld3d
 	}
 	void MaterialPass::Release()
 	{
+		if(m_pVSParameterBlock)
+		{
+			m_pVSParameterBlock->Release();
+			m_pVSParameterBlock.reset();
+		}
+
+		if(m_pPSParameterBlock)
+		{
+			m_pPSParameterBlock->Release();
+			m_pPSParameterBlock.reset();
+		}
+
 		if(m_pRenderState)
 		{
 			m_pRenderState->Release();
@@ -56,5 +77,13 @@ namespace ld3d
 			m_pPixelShader.reset();
 		}
 
+	}
+	bool MaterialPass::Validate()
+	{
+		return true;
+	}
+	bool MaterialPass::Parse()
+	{
+		return true;
 	}
 }

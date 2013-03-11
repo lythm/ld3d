@@ -41,10 +41,24 @@ namespace ld3d
 	}
 	bool MaterialTech::Validate()
 	{
+		m_valid = false;
+		for(size_t i = 0; i < m_passes.size(); ++i)
+		{
+			if(m_passes[i]->Validate() == false)
+			{
+				return false;
+			}
+		}
+
+		m_valid = true;
 		return true;
 	}
 	bool MaterialTech::IsValid()
 	{
 		return m_valid;
+	}
+	bool MaterialTech::Parse()
+	{
+		return true;
 	}
 }
