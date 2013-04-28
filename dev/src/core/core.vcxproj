@@ -156,6 +156,7 @@
     <ClInclude Include="..\..\include\core\SysManager.h" />
     <ClInclude Include="..\..\include\core\Sys_Graphics.h" />
     <ClInclude Include="..\..\include\core\Sys_Input.h" />
+    <ClInclude Include="..\..\include\core\Sys_Network.h" />
     <ClInclude Include="..\..\include\core\Sys_Physics.h" />
     <ClInclude Include="..\..\include\core\Sys_Sound.h" />
     <ClInclude Include="..\..\include\core\Sys_Time.h" />

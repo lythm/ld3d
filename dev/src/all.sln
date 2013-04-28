@@ -60,6 +60,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "fmod_sound", "fmod_sound\fm
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ogl4graphics", "ogl4graphics\ogl4graphics.vcxproj", "{A6EC5DEF-1473-4BAA-8F0D-DA463A28E5F5}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "network", "network\network.vcxproj", "{BEB26854-C063-4D32-B97B-02A1AC76BFBF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -106,6 +108,10 @@ Global
 		{A6EC5DEF-1473-4BAA-8F0D-DA463A28E5F5}.Debug|Win32.Build.0 = Debug|Win32
 		{A6EC5DEF-1473-4BAA-8F0D-DA463A28E5F5}.Release|Win32.ActiveCfg = Release|Win32
 		{A6EC5DEF-1473-4BAA-8F0D-DA463A28E5F5}.Release|Win32.Build.0 = Release|Win32
+		{BEB26854-C063-4D32-B97B-02A1AC76BFBF}.Debug|Win32.ActiveCfg = Debug|Win32
+		{BEB26854-C063-4D32-B97B-02A1AC76BFBF}.Debug|Win32.Build.0 = Debug|Win32
+		{BEB26854-C063-4D32-B97B-02A1AC76BFBF}.Release|Win32.ActiveCfg = Release|Win32
+		{BEB26854-C063-4D32-B97B-02A1AC76BFBF}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
