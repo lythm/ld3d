@@ -28,7 +28,7 @@ namespace ld3d
 
 	bool VoxelWorld::OnAttach()
 	{
-		PropertyManagerPtr pPM = boost::shared_dynamic_cast<PropertyManager>(m_pObject->GetComponent(L"PropertyManager"));
+		PropertyManagerPtr pPM = boost::dynamic_pointer_cast<PropertyManager>(m_pObject->GetComponent(L"PropertyManager"));
 
 		pPM->Begin(L"VoxelWorld");
 		{

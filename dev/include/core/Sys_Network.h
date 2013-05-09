@@ -6,7 +6,7 @@ namespace ld3d
 	{
 	public:
 
-		virtual bool												Init()							= 0;
+		/*virtual bool												Init()							= 0;
 		virtual void												Release()						= 0;
 
 		virtual void												Update()						= 0;
@@ -20,7 +20,7 @@ namespace ld3d
 
 		virtual void												Recv()							= 0;
 		virtual void												Send()							= 0;
-		virtual void												Close()							= 0;
+		virtual void												Close()							= 0;*/
 
 
 	protected:

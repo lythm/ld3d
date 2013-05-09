@@ -271,13 +271,13 @@ namespace ld3d
 	}
 	void D3D11Graphics::SetIndexBuffer(GPUBufferPtr pBuffer, G_FORMAT type)
 	{
-		ID3D11Buffer* pD3DBuffer = boost::shared_dynamic_cast<D3D11Buffer>(pBuffer)->GetD3D11BufferInterface();
+		ID3D11Buffer* pD3DBuffer = boost::dynamic_pointer_cast<D3D11Buffer>(pBuffer)->GetD3D11BufferInterface();
 
 		m_pContext->IASetIndexBuffer(pD3DBuffer, D3D11Format::Convert(type), 0);
 	}
 	void D3D11Graphics::SetVertexBuffer(GPUBufferPtr pBuffer, unsigned int offset, unsigned int stride)
 	{
-		ID3D11Buffer* pD3DBuffer = boost::shared_dynamic_cast<D3D11Buffer>(pBuffer)->GetD3D11BufferInterface();
+		ID3D11Buffer* pD3DBuffer = boost::dynamic_pointer_cast<D3D11Buffer>(pBuffer)->GetD3D11BufferInterface();
 
 		m_pContext->IASetVertexBuffers(0, 1, &pD3DBuffer, &stride, &offset);
 	}
@@ -364,7 +364,7 @@ namespace ld3d
 		}
 		else
 		{
-			m_pCurrentRW = boost::shared_dynamic_cast<D3D11RenderWindow>(pWnd);
+			m_pCurrentRW = boost::dynamic_pointer_cast<D3D11RenderWindow>(pWnd);
 		}
 
 		ID3D11RenderTargetView* pRTViews = m_pCurrentRW->GetD3D11RenderTargetView();
@@ -428,7 +428,7 @@ namespace ld3d
 	}
 	bool D3D11Graphics::CreateDefaultRenderTarget(const GraphicsSetting& setting)
 	{
-		m_pDefaultRW = boost::shared_dynamic_cast<D3D11RenderWindow>(CreateRenderWindow(setting.wnd, 
+		m_pDefaultRW = boost::dynamic_pointer_cast<D3D11RenderWindow>(CreateRenderWindow(setting.wnd, 
 			setting.frameBufferWidth, 
 			setting.frameBufferHeight,
 			setting.frameBufferFormat,

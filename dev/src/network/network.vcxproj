@@ -78,11 +78,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Network_Boost_ASIO.h" />
     <ClInclude Include="Network_Epoll.h" />
     <ClInclude Include="Network_IOCP.h" />
     <ClInclude Include="network_pch.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Network_Boost_ASIO.cpp" />
     <ClCompile Include="Network_Epoll.cpp" />
     <ClCompile Include="Network_IOCP.cpp" />
     <ClCompile Include="network_pch.cpp">

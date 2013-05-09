@@ -46,7 +46,7 @@ namespace ld3d
 	
 	bool MeshRenderer::OnAttach()
 	{
-		MeshDataPtr pMD = boost::shared_dynamic_cast<MeshData>(m_pObject->GetComponent(L"MeshData"));
+		MeshDataPtr pMD = boost::dynamic_pointer_cast<MeshData>(m_pObject->GetComponent(L"MeshData"));
 
 		if(pMD == MeshDataPtr())
 		{
@@ -54,7 +54,7 @@ namespace ld3d
 		}
 		Reset(pMD);
 
-		PropertyManagerPtr pPM = boost::shared_dynamic_cast<PropertyManager>(m_pObject->GetComponent(L"PropertyManager"));
+		PropertyManagerPtr pPM = boost::dynamic_pointer_cast<PropertyManager>(m_pObject->GetComponent(L"PropertyManager"));
 		pPM->Begin(L"MeshRenderer");
 
 		pPM->RegisterProperty<bool, MeshRenderer>(this,

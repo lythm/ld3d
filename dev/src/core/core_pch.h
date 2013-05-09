@@ -15,7 +15,7 @@
 #include <boost\enable_shared_from_this.hpp>
 #include <boost\filesystem.hpp>
 #include <boost\signal.hpp>
-
+#include <boost\pointer_cast.hpp>
 
 #include <string>
 #include <math\math_all.h>

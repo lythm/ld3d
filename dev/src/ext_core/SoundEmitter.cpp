@@ -41,7 +41,7 @@ namespace ld3d
 		boost::filesystem::path p = boost::filesystem::current_path();
 		//m_pChannel = m_pManager->GetSysSound()->Create3DStream("./assets/standard/music/1.mp3");
 
-		m_pSound = boost::shared_dynamic_cast<SoundAsset>(m_pManager->GetAssetManager()->LoadAsset("./assets/standard/music/1.mp3"));
+		m_pSound = boost::dynamic_pointer_cast<SoundAsset>(m_pManager->GetAssetManager()->LoadAsset("./assets/standard/music/1.mp3"));
 
 		m_pChannel = m_pManager->GetSysSound()->AllocChannel(m_pSound->GetAsset());
 
@@ -49,7 +49,7 @@ namespace ld3d
 
 		m_pChannel->Play(true);
 
-		PropertyManagerPtr pPM = boost::shared_dynamic_cast<PropertyManager>(m_pObject->GetComponent(L"PropertyManager"));
+		PropertyManagerPtr pPM = boost::dynamic_pointer_cast<PropertyManager>(m_pObject->GetComponent(L"PropertyManager"));
 
 		pPM->Begin(L"SoundEmitter");
 		{

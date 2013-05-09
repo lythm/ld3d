@@ -38,7 +38,7 @@ namespace ld3d
 		m_pLight->Create(m_pRenderManager);
 		m_pRenderManager->AddLight(m_pLight);
 
-		PropertyManagerPtr pPM = boost::shared_dynamic_cast<PropertyManager>(m_pObject->GetComponent(L"PropertyManager"));
+		PropertyManagerPtr pPM = boost::dynamic_pointer_cast<PropertyManager>(m_pObject->GetComponent(L"PropertyManager"));
 		pPM->Begin(L"SpotLight");
 		{
 			pPM->RegisterProperty<bool, SpotLight>(m_pLight.get(), 
