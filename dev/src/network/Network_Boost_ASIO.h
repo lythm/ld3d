@@ -11,7 +11,11 @@ namespace ld3d
 	public:
 		Network_Boost_ASIO(void);
 		virtual ~Network_Boost_ASIO(void);
+
+
+		bool										Initialize();
+		void										Release();
+		void										Update();
+
 	};
-
-
 }

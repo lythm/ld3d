@@ -70,6 +70,10 @@ namespace ld3d
 		typedef Sys_Mod_T<Sys_Graphics>			Sys_GraphicsMod;
 
 		typedef Sys_Mod_T<Sys_Sound>			Sys_SoundMod;
+
+		typedef Sys_Mod_T<Sys_Network>			Sys_NetworkMod;
+
+
 	public:
 		SysManager(void);
 		virtual ~SysManager(void);
@@ -81,7 +85,9 @@ namespace ld3d
 		Sys_GraphicsPtr							LoadSysGraphics(const wchar_t* szFile);
 		Sys_InputPtr							LoadSysInput(const wchar_t* szFile);
 		Sys_SoundPtr							LoadSysSound(const wchar_t * szFile);
-		
+		Sys_NetworkPtr							LoadSysNetwork(const wchar_t* szFile);
+
+		Sys_NetworkPtr							GetSys_Network();
 		Sys_SoundPtr							GetSys_Sound();
 		Sys_InputPtr							GetSysInput();
 		Sys_GraphicsPtr							GetSysGraphics();
@@ -98,6 +104,7 @@ namespace ld3d
 		Sys_GraphicsMod							m_graphicsMod;
 		Sys_InputMod							m_inputMod;
 		Sys_SoundMod							m_soundMod;
+		Sys_NetworkMod							m_networkMod;
 
 	};
 

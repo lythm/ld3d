@@ -54,6 +54,21 @@ namespace ld3d
 	{
 		return m_soundMod.pSys;
 	}
+
+	Sys_NetworkPtr SysManager::LoadSysNetwork(const wchar_t* szFile)
+	{
+		if(m_networkMod.load_sys(szFile) == false)
+		{
+			return Sys_NetworkPtr();
+		}
+		return m_networkMod.pSys;
+	}
+
+	Sys_NetworkPtr SysManager::GetSys_Network()
+	{
+		return m_networkMod.pSys;
+	}
+
 	void SysManager::Update()
 	{
 

@@ -3,6 +3,7 @@
 
 #include "core\SysManager.h"
 #include "core\Sys_Graphics.h"
+#include "core\Sys_Network.h"
 #include "core\GameObjectManager.h"
 #include "core\RenderManager.h"
 #include "core\AssetsManager.h"
@@ -45,8 +46,10 @@ namespace ld3d
 		m_lastFrameTime = m_pSysTime->Second();
 
 		s_pAllocator->Update();
-
 		m_pTimerManager->Update();
+
+
+		m_pSysNetwork->Update();
 
 		m_pSysInput->Update();
 		m_pSysSound->Update();
@@ -89,6 +92,11 @@ namespace ld3d
 			return false;
 		}
 
+		m_pSysNetwork = m_pSysManager->LoadSysNetwork(setting.network.sysMod.c_str());
+		if(m_pSysNetwork->Initialize() == false)
+		{
+			return false;
+		}
 		m_pTimerManager = s_pAllocator->AllocObject<TimerManager>();
 
 		if(m_pTimerManager->Init(m_pSysTime) == false)
@@ -154,6 +162,13 @@ namespace ld3d
 			m_pTimerManager->Release();
 			m_pTimerManager.reset();
 		}
+
+		if(m_pSysNetwork)
+		{
+			m_pSysNetwork->Release();
+			m_pSysNetwork.reset();
+		}
+
 		if(m_pSysInput)
 		{
 			m_pSysInput->Release();

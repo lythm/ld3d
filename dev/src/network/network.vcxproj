@@ -52,7 +52,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;NETWORK_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>DLL_EXPORTS;WIN32;_DEBUG;_WINDOWS;_USRDLL;NETWORK_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeaderFile>network_pch.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
@@ -79,14 +79,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Network_Boost_ASIO.h" />
-    <ClInclude Include="Network_Epoll.h" />
-    <ClInclude Include="Network_IOCP.h" />
     <ClInclude Include="network_pch.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Network_Boost_ASIO.cpp" />
-    <ClCompile Include="Network_Epoll.cpp" />
-    <ClCompile Include="Network_IOCP.cpp" />
     <ClCompile Include="network_pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
     </ClCompile>

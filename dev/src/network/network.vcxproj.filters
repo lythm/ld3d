@@ -18,24 +18,12 @@
     <ClInclude Include="network_pch.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Network_Epoll.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="Network_IOCP.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="Network_Boost_ASIO.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="network_pch.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Network_Epoll.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Network_IOCP.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Network_Boost_ASIO.cpp">

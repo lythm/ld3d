@@ -198,12 +198,16 @@ namespace ld3d
 	{
 		std::wstring		sysMod;
 	};
-
+	struct NetworkSettting
+	{
+		std::wstring		sysMod;
+	};
 	struct SysSetting
 	{
 		GraphicsSetting		graphics;
 		InputSetting		input;
 		SoundSetting		sound;
+		NetworkSettting		network;
 		PhysicsSetting		physics;
 	};
 

@@ -78,5 +78,6 @@ namespace ld3d
 		Sys_InputPtr									m_pSysInput;
 		Sys_SoundPtr									m_pSysSound;
 		Sys_TimePtr										m_pSysTime;
+		Sys_NetworkPtr									m_pSysNetwork;
 	};
 }

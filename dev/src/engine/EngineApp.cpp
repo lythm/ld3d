@@ -51,6 +51,8 @@ namespace ld3d
 
 		setting.physics.sysMod = L"";
 
+		setting.network.sysMod = L"./network.dll";
+
 		if(false == m_pCore->Initialize(setting))
 		{
 			return false;

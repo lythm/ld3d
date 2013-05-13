@@ -23,6 +23,9 @@ namespace ld3d
 		virtual void												Close()							= 0;*/
 
 
+		virtual bool												Initialize()					= 0;
+		virtual void												Release()						= 0;
+		virtual void												Update()						= 0;
 	protected:
 		Sys_Network(void){}
 		virtual ~Sys_Network(void){}
