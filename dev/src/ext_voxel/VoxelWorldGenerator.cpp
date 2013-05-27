@@ -1,6 +1,7 @@
 #include "voxel_pch.h"
 #include "VoxelWorldGenerator.h"
 #include "ext_voxel\VoxelBlock.h"
+#include "VoxelPool.h"
 
 namespace ld3d
 {
@@ -12,17 +13,22 @@ namespace ld3d
 	VoxelWorldGenerator::~VoxelWorldGenerator(void)
 	{
 	}
-	std::vector<VoxelBlockPtr> VoxelWorldGenerator::Generate(Allocator* pAllocator, int w, int h)
+	std::vector<Voxel*> VoxelWorldGenerator::Generate(VoxelPoolPtr pPool, int sx, int sy, int sz)
 	{
-		std::vector<VoxelBlockPtr> blocks;
-		blocks.resize(w * h);
 
-		for(int i = 0; i < w * h; ++i)
+		std::vector<Voxel*>	voxels;
+		voxels.resize(sx * sy * sz);
+
+		for(int i = 0; i < sx * sy * sz; ++i)
 		{
-			VoxelBlockPtr pBlock = pAllocator->AllocObject<VoxelBlock>();
-			blocks.push_back(pBlock);
+			Voxel* pData = (Voxel*)pPool->Alloc();
+
+			pData->pos = i;
+
+			voxels.push_back(pData);
+			
 
 		}
-		return blocks;
+		return voxels;
 	}
 }

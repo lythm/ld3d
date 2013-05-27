@@ -3,16 +3,4 @@
 
 namespace ld3d
 {
-	VoxelBlock::VoxelBlock(void)
-	{
-	}
-
-
-	VoxelBlock::~VoxelBlock(void)
-	{
-	}
-	const math::Vector3& VoxelBlock::Center()
-	{
-		return m_center;
-	}
 }

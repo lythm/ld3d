@@ -2,6 +2,7 @@
 
 namespace ld3d
 {
+	struct Voxel;
 	class VoxelWorld : public GameObjectComponent
 	{
 	public:
@@ -14,14 +15,17 @@ namespace ld3d
 		void										AddBlock();
 		void										RemoveBlock();
 
-		const int&									GetBlockSize();
-		void										SetBlockSize(const int& blockSize);
+		const int&									GetVoxelSize();
+		void										SetVoxelSize(const int& size);
 
-		const int&									GetWorldHeight();
-		void										SetWorldHeight(const int& h);
+		const int&									GetWorldSizeY();
+		void										SetWorldSizeY(const int& y);
 
-		const int&									GetWorldWidth();
-		void										SetWorldWidth(const int& w);
+		const int&									GetWorldSizeX();
+		void										SetWorldSizeX(const int& x);
+
+		const int&									GetWorldSizeZ();
+		void										SetWorldSizeZ(const int& z);
 
 		void										Generate();
 		const Version&								GetVersion() const;
@@ -36,13 +40,16 @@ namespace ld3d
 		void										Polygonize();
 
 	private:
-		int											m_blockSize;
-		int											m_worldWidth;
-		int											m_worldHeight;
+		int											m_voxelSize;
+		int											m_worldSizeX;
+		int											m_worldSizeY;
+		int											m_worldSizeZ;
 
+		std::vector<Voxel*>							m_voxels;
 		VoxelPolygonizerPtr							m_pPolygonizer;
 
 		OctTreeNodePtr								m_pRoot;
-		std::vector<VoxelBlockPtr>					m_blocks;
+
+		VoxelPoolPtr								m_pVoxelPool;
 	};
 }

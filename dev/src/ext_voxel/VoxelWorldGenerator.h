@@ -2,11 +2,12 @@
 
 namespace ld3d
 {
+	struct Voxel;
 	class VoxelWorldGenerator
 	{
 	public:
 		
-		static std::vector<VoxelBlockPtr>											Generate(Allocator* pAllocator, int w, int h);
+		static std::vector<Voxel*>											Generate(VoxelPoolPtr pPool, int sx, int sy, int sz);
 
 
 	private:
