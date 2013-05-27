@@ -1,11 +1,13 @@
 #pragma once
 
+
 namespace ld3d
 {
 	enum EVENT_ID
 	{
 		EV_WINMSG,
 		EV_RESIZE_FRAMEBUFFER,
+		EV_FRUSTUM_CULL,
 	};
 	class Event
 	{
@@ -31,6 +33,18 @@ namespace ld3d
 		int							m_width;
 		int							m_height;
 	};
+
+	class Event_FrustumCull : public Event
+	{
+	public:
+		Event_FrustumCull(BaseCameraPtr pCamera) : Event(EV_FRUSTUM_CULL)
+		{
+			m_pCamera	= pCamera;
+		}
+
+		BaseCameraPtr				m_pCamera;
+	};
+
 #if defined(WIN32) || defined(WIN64)
 	class Event_WindowMessage: public Event
 	{

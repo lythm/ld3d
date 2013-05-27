@@ -33,4 +33,5 @@ namespace ld3d
 	{
 		CoreApi::Log(text);
 	}
+
 }

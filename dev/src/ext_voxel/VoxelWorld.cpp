@@ -2,6 +2,8 @@
 #include "..\..\include\ext_voxel\VoxelWorld.h"
 #include "ext_voxel\VoxelBlock.h"
 
+#include "VoxelPolygonizer.h"
+#include "VoxelWorldGenerator.h"
 
 namespace ld3d
 {
@@ -11,6 +13,7 @@ namespace ld3d
 		m_worldWidth			= 10;
 		m_worldHeight			= 10;
 
+		m_pPolygonizer = pManager->GetAllocator()->AllocObject<VoxelPolygonizer>();
 	}
 
 
@@ -49,7 +52,7 @@ namespace ld3d
 		}
 		pPM->End();
 
-
+		m_pPolygonizer->Reset();
 		return true;
 	}
 	void VoxelWorld::DestroyWorld()
@@ -99,17 +102,27 @@ namespace ld3d
 		DestroyWorld();
 
 		Generate();
+
 		
 	}
 	
 	void VoxelWorld::Generate()
 	{
-		for(int i = 0; i < m_worldHeight * m_worldWidth; ++i)
-		{
-			VoxelBlockPtr pBlock = m_pManager->GetAllocator()->AllocObject<VoxelBlock>();
+		m_blocks = VoxelWorldGenerator::Generate(m_pManager->GetAllocator(), m_worldWidth, m_worldHeight);
 
-			m_blocks.push_back(pBlock);
-		}
+		Polygonize();
+
+	}
+	void VoxelWorld::FrustumCull(BaseCameraPtr pCamera)
+	{
+
+	}
+	void VoxelWorld::Polygonize()
+	{
+		m_pPolygonizer->Process(boost::dynamic_pointer_cast<VoxelWorld>(shared_from_this()));
+
+		// build octree from polygons
+		// 
 	}
 }
 

@@ -23,7 +23,7 @@ namespace ld3d
 		RenderManager(void);
 		virtual ~RenderManager(void);
 
-		bool										Initialize(Sys_GraphicsPtr pGraphics);
+		bool										Initialize(Sys_GraphicsPtr pGraphics, EventDispatcherPtr pED);
 		void										Release();
 		void										AddRenderData(RenderDataPtr pData);
 		void										Clear();
@@ -120,5 +120,7 @@ namespace ld3d
 		PostEffectManagerPtr						m_pPostEffectManager;
 
 		std::list<CameraPtr>						m_cameras;
+
+		EventDispatcherPtr							m_pEventDispatcher;
 	};
 }

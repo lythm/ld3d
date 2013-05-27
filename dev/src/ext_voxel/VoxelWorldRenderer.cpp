@@ -37,11 +37,24 @@ namespace ld3d
 		{
 			return false;
 		}
+
+
+		m_hFrustumCull = m_pManager->AddEventHandler(EV_FRUSTUM_CULL, boost::bind(&VoxelWorldRenderer::on_event_frustumcull, this, _1));
+
 		return true;
 	}
 	void VoxelWorldRenderer::OnDetach()
 	{
+		m_pManager->RemoveEventHandler(m_hFrustumCull);
 		m_pRenderData->Release();
 		m_pRenderData.reset();
+	}
+	void VoxelWorldRenderer::UpdateVoxelWorld(VoxelWorldPtr pWorld)
+	{
+
+	}
+	void VoxelWorldRenderer::on_event_frustumcull(EventPtr pEvent)
+	{
+
 	}
 }

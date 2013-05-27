@@ -273,6 +273,8 @@ bool Project::InitEngine()
 
 	setting.physics.sysMod = L"";
 
+	setting.network.sysMod = L"./network.dll";
+
 
 #ifdef _DEBUG
 	if(false == m_pCore->Initialize(setting, &g_Allocator))

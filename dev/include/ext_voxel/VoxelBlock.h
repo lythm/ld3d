@@ -8,9 +8,12 @@ namespace ld3d
 		VoxelBlock(void);
 		virtual ~VoxelBlock(void);
 
+
+		const math::Vector3&							Center();
+
 	private:
-		int									m_x;
-		int									m_y;
-		int									m_z;
+		math::Vector3									m_center;
+
+		VoxelPtr										m_voxels[4][4];
 	};
 }

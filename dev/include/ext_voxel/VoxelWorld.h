@@ -25,18 +25,24 @@ namespace ld3d
 
 		void										Generate();
 		const Version&								GetVersion() const;
+
+		void										FrustumCull(BaseCameraPtr pCamera);
 	private:
 		bool										OnAttach();
 		void										OnDetach();
 
 		void										RebuildWorld();
 		void										DestroyWorld();
+		void										Polygonize();
 
 	private:
 		int											m_blockSize;
 		int											m_worldWidth;
 		int											m_worldHeight;
 
+		VoxelPolygonizerPtr							m_pPolygonizer;
+
+		OctTreeNodePtr								m_pRoot;
 		std::vector<VoxelBlockPtr>					m_blocks;
 	};
 }

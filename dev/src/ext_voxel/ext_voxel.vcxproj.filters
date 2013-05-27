@@ -66,6 +66,9 @@
     <ClInclude Include="VoxelPolygonizer.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="OctTreeNode.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="voxel_pch.cpp">
@@ -111,6 +114,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="VoxelPolygonizer.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="OctTreeNode.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

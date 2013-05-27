@@ -48,9 +48,7 @@ namespace ld3d
 		s_pAllocator->Update();
 		m_pTimerManager->Update();
 
-
 		m_pSysNetwork->Update();
-
 		m_pSysInput->Update();
 		m_pSysSound->Update();
 		m_pScene->Update(dt);
@@ -111,7 +109,7 @@ namespace ld3d
 		}
 
 		m_pRenderManager = s_pAllocator->AllocObject<RenderManager>();
-		if(m_pRenderManager->Initialize(m_pSysGraphics) == false)
+		if(m_pRenderManager->Initialize(m_pSysGraphics, m_pEventDispatcher) == false)
 		{
 			return false;
 		}

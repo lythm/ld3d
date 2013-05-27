@@ -12,6 +12,9 @@
 
 #include "CorePackage.h"
 
+#include "core\Event.h"
+
+
 namespace ld3d
 {
 
@@ -38,10 +41,7 @@ namespace ld3d
 	}
 	void MeshRenderer::Update(float dt)
 	{
-		for(size_t i = 0; i < m_Subsets.size(); ++i)
-		{
-			m_pRenderManager->AddRenderData(m_Subsets[i]);
-		}
+		
 	}
 	
 	bool MeshRenderer::OnAttach()
@@ -64,10 +64,15 @@ namespace ld3d
 
 		pPM->End();
 
+
+		m_hFrustumCull = m_pManager->AddEventHandler(EV_FRUSTUM_CULL, boost::bind(&MeshRenderer::on_event_frustum_cull, this, _1));
+
 		return true;
 	}
 	void MeshRenderer::OnDetach()
 	{
+		m_pManager->RemoveEventHandler(m_hFrustumCull);
+
 		m_pRenderManager.reset();
 
 		if(m_pIndexBuffer)
@@ -82,6 +87,13 @@ namespace ld3d
 		}
 
 		m_Subsets.clear();
+	}
+	void MeshRenderer::on_event_frustum_cull(EventPtr pEvent)
+	{
+		for(size_t i = 0; i < m_Subsets.size(); ++i)
+		{
+			m_pRenderManager->AddRenderData(m_Subsets[i]);
+		}
 	}
 	void MeshRenderer::Reset(MeshDataPtr pMD)
 	{

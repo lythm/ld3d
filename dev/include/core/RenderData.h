@@ -1,5 +1,6 @@
 #pragma once
 
+#include "core\ViewFrustum.h"
 
 namespace ld3d
 {
@@ -10,6 +11,7 @@ namespace ld3d
 		RenderData(void){}
 
 		virtual ~RenderData(void){}
+
 
 		virtual void											Render_Depth(Sys_GraphicsPtr pSysGraphics)									= 0;
 		virtual void											Render(Sys_GraphicsPtr pSysGraphics, MaterialPtr pMaterial = MaterialPtr())	= 0;

@@ -52,15 +52,22 @@ namespace ld3d
 		const bool&						IsDeferred();
 		void							SetDeferred(const bool& b);
 
-		RenderManagerPtr					GetRenderManager(){return m_pRenderManager;}
+		RenderManagerPtr				GetRenderManager(){return m_pRenderManager;}
 
 		const Version&					GetVersion() const;
+
+
+
 	private:
 		bool							OnAttach();
 		void							OnDetach();
+
+		void							on_event_frustum_cull(EventPtr pEvent);
 	private:
 
-		RenderManagerPtr					m_pRenderManager;
+		EventDispatcher::EventHandlerHandle				m_hFrustumCull;
+
+		RenderManagerPtr				m_pRenderManager;
 
 		GPUBufferPtr					m_pIndexBuffer;
 		GPUBufferPtr					m_pVertexBuffer;

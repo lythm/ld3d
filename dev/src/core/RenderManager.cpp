@@ -11,6 +11,7 @@
 #include "core\Light.h"
 #include "core\PostEffectManager.h"
 #include "core\Camera.h"
+#include "core\Event.h"
 
 namespace ld3d
 {
@@ -31,9 +32,10 @@ namespace ld3d
 	{
 	}
 
-	bool RenderManager::Initialize(Sys_GraphicsPtr pGraphics)
+	bool RenderManager::Initialize(Sys_GraphicsPtr pGraphics, EventDispatcherPtr pED)
 	{
 		m_pGraphics = pGraphics;
+		m_pEventDispatcher = pED;
 
 		int w = pGraphics->GetFrameBufferWidth();
 		int h = pGraphics->GetFrameBufferHeight();
@@ -218,6 +220,14 @@ namespace ld3d
 	}
 	void RenderManager::Render(CameraPtr pCamera)
 	{
+
+		pCamera->UpdateViewFrustum();
+
+		boost::shared_ptr<Event_FrustumCull> pEvent = alloc_object<Event_FrustumCull, BaseCameraPtr>(pCamera);
+			
+		m_pEventDispatcher->DispatchEvent(pEvent);
+
+
 		RenderShadowMaps();
 
 		Render(pCamera->GetViewMatrix(), pCamera->GetProjMatrix());

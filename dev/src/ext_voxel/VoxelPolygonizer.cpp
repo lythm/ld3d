@@ -11,16 +11,17 @@ namespace ld3d
 	VoxelPolygonizer::~VoxelPolygonizer(void)
 	{
 	}
-	std::vector<VoxelPolygonizer::Face> VoxelPolygonizer::Polygonize(VoxelWorldPtr pWorld)
+	
+	void VoxelPolygonizer::Reset()
 	{
-		return std::vector<Face>();
+
 	}
-	std::vector<VoxelPolygonizer::Face> VoxelPolygonizer::Polygonize(VoxelObjectPtr pObj)
+	void VoxelPolygonizer::Process(VoxelWorldPtr pWorld)
 	{
-		return std::vector<Face>();
+
 	}
-	std::vector<VoxelPolygonizer::Face> VoxelPolygonizer::Polygonize(VoxelBlockPtr pBlock)
+	const std::vector<VoxelPolygonizer::Face>& VoxelPolygonizer::GetFaces()
 	{
-		return std::vector<Face>();
+		return m_faces;
 	}
 }

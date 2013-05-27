@@ -5,6 +5,7 @@ namespace ld3d
 	class VoxelPolygonizer
 	{
 	public:
+		
 		struct Face
 		{
 			math::Vector3	v[3];
@@ -13,8 +14,15 @@ namespace ld3d
 		VoxelPolygonizer(void);
 		virtual ~VoxelPolygonizer(void);
 
-		std::vector<Face>				Polygonize(VoxelWorldPtr pWorld);
-		std::vector<Face>				Polygonize(VoxelObjectPtr pObj);
-		std::vector<Face>				Polygonize(VoxelBlockPtr pBlock);
+
+		void													Reset();
+
+		void													Process(VoxelWorldPtr pWorld);
+
+		const std::vector<Face>&								GetFaces();
+
+	private:
+		std::vector<Face>										m_faces;
+
 	};
 }

@@ -71,5 +71,6 @@
 
 #include "core\AssetsManager.h"
 #include "core\TimerManager.h"
+#include "core\EventDispatcher.h"
 
 #include "core\ext\core_ext_all.h"

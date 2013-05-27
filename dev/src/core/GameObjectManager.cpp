@@ -239,4 +239,16 @@ namespace ld3d
 	{
 		return m_pCore->GetAssetManager();
 	}
+	void GameObjectManager::DispatchEvent(EventPtr pEvent)
+	{
+		m_pCore->DispatchEvent(pEvent);
+	}
+	EventDispatcher::EventHandlerHandle GameObjectManager::AddEventHandler(uint32 id, EventDispatcher::EventHandler handler)
+	{
+		return m_pCore->AddEventHandler(id, handler);
+	}
+	void GameObjectManager::RemoveEventHandler(EventDispatcher::EventHandlerHandle handle)
+	{
+		m_pCore->RemoveEventHandler(handle);
+	}
 }
