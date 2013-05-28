@@ -13,18 +13,28 @@ namespace ld3d
 	}
 	bool VoxelPool::Initialize(int count)
 	{
+		m_pool.CreatePool(count);
+
 		return true;
 	}
 	void VoxelPool::Release()
 	{
+		m_pool.DestroyPool();
+
 	}
 
 	Voxel* VoxelPool::Alloc()
 	{
-		return new Voxel;
+		Voxel* pVoxel = m_pool.Alloc();
+
+		//Voxel* pVoxel = new Voxel;
+		
+		return pVoxel;
 	}
 	void VoxelPool::Free(Voxel* pVoxel)
 	{
-		delete pVoxel;
+		m_pool.Free(pVoxel);
+
+		//delete pVoxel;
 	}
 }

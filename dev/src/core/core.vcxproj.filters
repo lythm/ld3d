@@ -139,6 +139,7 @@
     <ClInclude Include="..\..\include\core\MaterialPass.h" />
     <ClInclude Include="..\..\include\core\MaterialTech.h" />
     <ClInclude Include="..\..\include\core\Sys_Network.h" />
+    <ClInclude Include="..\..\include\core\ObjectPool.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

@@ -36,7 +36,7 @@ namespace ld3d
 	{
 
 		m_pVoxelPool = m_pManager->GetAllocator()->AllocObject<VoxelPool>();
-		if(m_pVoxelPool->Initialize(100) == false)
+		if(m_pVoxelPool->Initialize(100000) == false)
 		{
 			return false;
 		}
@@ -66,7 +66,10 @@ namespace ld3d
 		}
 		pPM->End();
 
+
 		m_pPolygonizer->Reset();
+
+		RebuildWorld();
 
 		return true;
 	}
@@ -92,8 +95,9 @@ namespace ld3d
 
 		m_pVoxelPool->Release();
 	}
-	void VoxelWorld::AddBlock()
+	void VoxelWorld::AddBlock(Voxel* pVoxel)
 	{
+
 	}
 	void VoxelWorld::RemoveBlock()
 	{
@@ -146,6 +150,11 @@ namespace ld3d
 	void VoxelWorld::Generate()
 	{
 		m_voxels = VoxelWorldGenerator::Generate(m_pVoxelPool, m_worldSizeX, m_worldSizeY, m_worldSizeZ);
+
+		for(size_t i = 0; i < m_voxels.size(); ++i)
+		{
+			AddBlock(m_voxels[i]);
+		}
 
 		Polygonize();
 

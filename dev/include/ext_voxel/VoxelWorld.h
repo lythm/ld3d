@@ -12,7 +12,7 @@ namespace ld3d
 
 		void										Update(float dt);
 		
-		void										AddBlock();
+		void										AddBlock(Voxel* pVoxel);
 		void										RemoveBlock();
 
 		const int&									GetVoxelSize();

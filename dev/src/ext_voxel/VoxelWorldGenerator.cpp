@@ -17,17 +17,26 @@ namespace ld3d
 	{
 
 		std::vector<Voxel*>	voxels;
-		voxels.resize(sx * sy * sz);
+		voxels.reserve(sx * sy * sz);
 
-		for(int i = 0; i < sx * sy * sz; ++i)
+
+		for(int x = 0; x < sx; ++x)
 		{
-			Voxel* pData = (Voxel*)pPool->Alloc();
+			for(int z = 0; z < sz; ++z)
+			{
 
-			pData->pos = i;
+				Voxel* pData = (Voxel*)pPool->Alloc();
 
-			voxels.push_back(pData);
-			
+				if(pData == nullptr)
+				{
+					break;
+				}
+				pData->pos.x = x;
+				pData->pos.y = 0;
+				pData->pos.z = z;
 
+				voxels.push_back(pData);
+			}
 		}
 		return voxels;
 	}

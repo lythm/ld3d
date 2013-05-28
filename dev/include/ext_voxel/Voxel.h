@@ -4,7 +4,7 @@ namespace ld3d
 {
 	struct Voxel
 	{
-		uint32																pos;
+		math::Vector3														pos;
 		uint32																clr;
 		uint8																type;
 	};

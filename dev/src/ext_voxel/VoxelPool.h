@@ -1,6 +1,8 @@
 #pragma once
 
 #include "ext_voxel\Voxel.h"
+#include "core\ObjectPool.h"
+
 
 namespace ld3d
 {
@@ -18,6 +20,6 @@ namespace ld3d
 		void																Free(Voxel* pVoxel);
 
 	private:
-		Voxel*																m_pPool;
+		ObjectPool<Voxel>													m_pool;
 	};
 }
