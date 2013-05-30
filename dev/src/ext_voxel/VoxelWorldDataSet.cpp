@@ -1,23 +1,37 @@
 #include "voxel_pch.h"
 #include "VoxelWorldDataSet.h"
 
+#include "ext_voxel\VoxelBlock.h"
+#include "VoxelPool.h"
+
 
 namespace ld3d
 {
 	VoxelWorldDataSet::VoxelWorldDataSet(void)
 	{
 		m_pChunks = nullptr;
+		m_nChunks = 0;
+		m_voxelSize = 1.0f;
 	}
 
 
 	VoxelWorldDataSet::~VoxelWorldDataSet(void)
 	{
 	}
-	bool VoxelWorldDataSet::Initialize()
+	bool VoxelWorldDataSet::Initialize(float voxelSize)
 	{
-		m_pChunks = new VoxelChunk*[256 * 256 * 256];
+		m_voxelSize = voxelSize;
+		m_pPool = VoxelPoolPtr(new VoxelPool);
 
-		memset(m_pChunks, 0, sizeof(VoxelChunk*) * 256 * 256 * 256);
+		if(false == m_pPool->Initialize(256 * 256 * 128))
+		{
+			return false;
+		}
+
+		m_nChunks = 256 * 256 * 256;
+		m_pChunks = new VoxelChunk*[m_nChunks];
+
+		memset(m_pChunks, 0, sizeof(VoxelChunk*) * m_nChunks);
 
 		return true;
 	}
@@ -27,6 +41,11 @@ namespace ld3d
 		{
 			delete []m_pChunks;
 			m_pChunks = nullptr;
+		}
+
+		if(m_pPool)
+		{
+			m_pPool->Release();
 		}
 	}
 	void VoxelWorldDataSet::Update()
@@ -48,6 +67,25 @@ namespace ld3d
 
 		return v_x + v_z * 4 + v_y * 16;
 	}
+	void VoxelWorldDataSet::_chunk_key_to_world(uint32 key, int32& x, int32& y, int32 &z)
+	{
+
+	}
+	void VoxelWorldDataSet::_voxel_index_to_world(VoxelChunk* pChunk, uint32 index, int32& x, int32& y, int32& z)
+	{
+		int32 v_x, v_y, v_z;
+		
+		_voxel_index_to_local(index, v_x, v_y, v_z);
+
+		_chunk_key_to_world(pChunk->key, x, y, z);
+
+		x += v_x;
+		y += v_y;
+		z += v_z;
+	}
+	void VoxelWorldDataSet::_voxel_index_to_local(uint32 index, int32& x, int32& y, int32& z)
+	{
+	}
 	uint8 VoxelWorldDataSet::GetVoxelType(uint32 x, uint32 y, uint32 z)
 	{
 		uint32 key = _chunk_key(x, y, z);
@@ -65,11 +103,11 @@ namespace ld3d
 		}
 
 		uint32 index = _voxel_index(x, y, z);
-		return pChunk == nullptr ? -1 : pChunk->data[index];
+		return pChunk == nullptr ? VT_EMPTY : pChunk->data[index];
 	}
 	bool VoxelWorldDataSet::Exist(uint32 x, uint32 y, uint32 z)
 	{
-		return GetVoxelType(x, y, z) != -1;
+		return GetVoxelType(x, y, z) != VT_EMPTY;
 	}
 	bool VoxelWorldDataSet::AddVoxel(uint8 type, uint32 x, uint32 y, uint32 z)
 	{
@@ -91,7 +129,7 @@ namespace ld3d
 
 		if(pChunk != nullptr)
 		{
-			if(pChunk->data[index] != -1)
+			if(pChunk->data[index] != VT_EMPTY)
 			{
 				return false;
 			}
@@ -99,10 +137,10 @@ namespace ld3d
 			return true;
 		}
 		
-		pChunk = new VoxelChunk;
+		pChunk = m_pPool->Alloc();;
 
 		pChunk->key = key;
-		memset(pChunk->data, -1, sizeof(uint8) * 64);
+		memset(pChunk->data, VT_EMPTY, sizeof(uint8) * 64);
 		
 		pChunk->data[index] = type;
 
@@ -136,11 +174,11 @@ namespace ld3d
 		}
 		uint32 index = _voxel_index(x, y, z);
 
-		pChunk->data[index] = -1;
+		pChunk->data[index] = VT_EMPTY;
 		
 		for(int i = 0; i < 64; ++i)
 		{
-			if(pChunk->data[i] != -1)
+			if(pChunk->data[i] != VT_EMPTY)
 			{
 				return;
 			}
@@ -157,10 +195,39 @@ namespace ld3d
 			pPrev->next = pChunk->next;
 		}
 
-		delete pChunk;
+		m_pPool->Free(pChunk);
 	}
 	uint8 VoxelWorldDataSet::Pick(const math::Ray& r)
 	{
-		return -1;
+		return VT_EMPTY;
+	}
+	std::vector<VoxelFace> VoxelWorldDataSet::GenerateMesh()
+	{
+		std::vector<VoxelFace> faces;
+
+		for(int i = 0; i < m_nChunks; ++i)
+		{
+			VoxelChunk* pChunk = m_pChunks[i];
+
+			while(pChunk)
+			{
+				for(int ii = 0; ii < 64; ++ii)
+				{
+					if(pChunk->data[ii] == VT_EMPTY)
+					{
+						continue;
+					}
+
+
+
+				}
+
+				pChunk = pChunk->next;
+			}
+
+		}
+
+
+		return faces;
 	}
 }

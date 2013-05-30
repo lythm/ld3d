@@ -72,6 +72,9 @@
     <ClInclude Include="VoxelWorldDataSet.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\ext_voxel\VoxelType.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="voxel_pch.cpp">

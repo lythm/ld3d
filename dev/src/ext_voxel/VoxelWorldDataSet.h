@@ -2,13 +2,14 @@
 
 namespace ld3d
 {
+	struct VoxelChunk;
 	class VoxelWorldDataSet
 	{
 	public:
 		VoxelWorldDataSet(void);
 		virtual ~VoxelWorldDataSet(void);
 
-		bool													Initialize();
+		bool													Initialize(float voxelSize = 1.0f);
 		void													Release();
 
 		void													Update();
@@ -20,18 +21,24 @@ namespace ld3d
 		bool													Exist(uint32 x, uint32 y, uint32 z);
 
 		uint8													Pick(const math::Ray& r);
+
+		std::vector<VoxelFace>									GenerateMesh();	
+
 	private:
 		uint32													_chunk_key(uint32 x, uint32 y, uint32 z);
 		uint32													_voxel_index(uint32 x, uint32 y, uint32 z);
+
+		void													_voxel_index_to_world(VoxelChunk* pChunk, uint32 index, int32& x, int32& y, int32& z);
+		void													_voxel_index_to_local(uint32 index, int32& x, int32& y, int32& z);
+		void													_chunk_key_to_world(uint32 key, int32& x, int32& y, int32 &z);
 	private:
 
-		struct VoxelChunk
-		{
-			uint32												key;
-			uint8												data[64];
-			VoxelChunk*											next;
-		};
-
 		VoxelChunk**											m_pChunks;
+
+		VoxelPoolPtr											m_pPool;
+
+		int														m_nChunks;
+
+		float													m_voxelSize;
 	};
 }

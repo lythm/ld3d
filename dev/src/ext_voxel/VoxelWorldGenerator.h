@@ -7,7 +7,7 @@ namespace ld3d
 	{
 	public:
 		
-		static VoxelWorldDataSetPtr											Generate(VoxelPoolPtr pPool, int sx, int sy, int sz);
+		static VoxelWorldDataSetPtr											Generate(int sx, int sy, int sz);
 
 
 	private:

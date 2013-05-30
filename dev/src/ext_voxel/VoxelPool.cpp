@@ -1,6 +1,8 @@
 #include "voxel_pch.h"
 #include "VoxelPool.h"
 
+#include "ext_voxel\VoxelBlock.h"
+
 namespace ld3d
 {
 	VoxelPool::VoxelPool(void)
@@ -20,18 +22,17 @@ namespace ld3d
 	void VoxelPool::Release()
 	{
 		m_pool.DestroyPool();
-
 	}
 
-	Voxel* VoxelPool::Alloc()
+	VoxelChunk* VoxelPool::Alloc()
 	{
-		Voxel* pVoxel = m_pool.Alloc();
+		VoxelChunk* pVoxel = m_pool.Alloc();
 
 		//Voxel* pVoxel = new Voxel;
 		
 		return pVoxel;
 	}
-	void VoxelPool::Free(Voxel* pVoxel)
+	void VoxelPool::Free(VoxelChunk* pVoxel)
 	{
 		m_pool.Free(pVoxel);
 

@@ -36,11 +36,6 @@ namespace ld3d
 	bool VoxelWorld::OnAttach()
 	{
 
-		m_pVoxelPool = m_pManager->GetAllocator()->AllocObject<VoxelPool>();
-		if(m_pVoxelPool->Initialize(100000) == false)
-		{
-			return false;
-		}
 		PropertyManagerPtr pPM = boost::dynamic_pointer_cast<PropertyManager>(m_pObject->GetComponent(L"PropertyManager"));
 
 		pPM->Begin(L"VoxelWorld");
@@ -93,15 +88,6 @@ namespace ld3d
 	void VoxelWorld::OnDetach()
 	{
 		DestroyWorld();
-
-		m_pVoxelPool->Release();
-	}
-	void VoxelWorld::AddBlock(Voxel* pVoxel)
-	{
-
-	}
-	void VoxelWorld::RemoveBlock()
-	{
 	}
 	const int& VoxelWorld::GetWorldSizeX()
 	{
@@ -150,7 +136,7 @@ namespace ld3d
 	
 	void VoxelWorld::Generate()
 	{
-		m_pDataSet = VoxelWorldGenerator::Generate(m_pVoxelPool, m_worldSizeX, m_worldSizeY, m_worldSizeZ);
+		m_pDataSet = VoxelWorldGenerator::Generate(m_worldSizeX, m_worldSizeY, m_worldSizeZ);
 
 		Polygonize();
 
@@ -165,6 +151,10 @@ namespace ld3d
 
 		// build octree from polygons
 		// 
+	}
+	VoxelWorldDataSetPtr VoxelWorld::GetDataSet()
+	{
+		return m_pDataSet;
 	}
 }
 

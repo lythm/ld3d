@@ -11,7 +11,8 @@ namespace ld3d
 		void										Update();
 		const Version&								GetVersion() const;
 
-		void										UpdateVoxelWorld(VoxelWorldPtr pWorld);
+		void										UpdateWorldMesh();
+
 
 	private:
 		bool										OnAttach();
@@ -23,5 +24,7 @@ namespace ld3d
 		EventDispatcher::EventHandlerHandle			m_hFrustumCull;
 		VoxelWorldRenderDataPtr						m_pRenderData;
 		VoxelWorldPtr								m_pWorld;
+
+		MaterialPtr									m_pMaterial;
 	};
 }

@@ -1,13 +1,12 @@
 #pragma once
 
 
-#include "Voxel.h"
-
-
 namespace ld3d
 {
-	struct VoxelBlock
+	struct VoxelChunk
 	{
-		Voxel									voxels[4][4];
+		uint32												key;
+		uint8												data[64];
+		VoxelChunk*											next;
 	};
 }

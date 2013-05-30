@@ -12,9 +12,6 @@ namespace ld3d
 
 		void										Update(float dt);
 		
-		void										AddBlock(Voxel* pVoxel);
-		void										RemoveBlock();
-
 		const int&									GetVoxelSize();
 		void										SetVoxelSize(const int& size);
 
@@ -31,6 +28,8 @@ namespace ld3d
 		const Version&								GetVersion() const;
 
 		void										FrustumCull(BaseCameraPtr pCamera);
+
+		VoxelWorldDataSetPtr						GetDataSet();
 	private:
 		bool										OnAttach();
 		void										OnDetach();
@@ -46,7 +45,6 @@ namespace ld3d
 		int											m_worldSizeZ;
 
 		VoxelPolygonizerPtr							m_pPolygonizer;
-		VoxelPoolPtr								m_pVoxelPool;
 		VoxelWorldDataSetPtr						m_pDataSet;
 	};
 }

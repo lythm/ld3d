@@ -85,6 +85,7 @@
     <ClInclude Include="..\..\include\ext_voxel\VoxelBlock.h" />
     <ClInclude Include="..\..\include\ext_voxel\VoxelObject.h" />
     <ClInclude Include="..\..\include\ext_voxel\VoxelObjectRenderer.h" />
+    <ClInclude Include="..\..\include\ext_voxel\VoxelType.h" />
     <ClInclude Include="..\..\include\ext_voxel\VoxelWorldRenderer.h" />
     <ClInclude Include="..\..\include\ext_voxel\VoxelWorld.h" />
     <ClInclude Include="..\..\include\ext_voxel\voxel_all.h" />

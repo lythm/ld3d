@@ -6,7 +6,7 @@
 
 namespace ld3d
 {
-	struct Voxel;
+	struct VoxelChunk;
 	class VoxelPool
 	{
 	public:
@@ -16,10 +16,10 @@ namespace ld3d
 		bool																Initialize(int count);
 		void																Release();
 
-		Voxel*																Alloc();
-		void																Free(Voxel* pVoxel);
+		VoxelChunk*															Alloc();
+		void																Free(VoxelChunk* pVoxel);
 
 	private:
-		ObjectPool<Voxel>													m_pool;
+		ObjectPool<VoxelChunk>												m_pool;
 	};
 }
