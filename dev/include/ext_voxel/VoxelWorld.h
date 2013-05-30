@@ -45,11 +45,8 @@ namespace ld3d
 		int											m_worldSizeY;
 		int											m_worldSizeZ;
 
-		std::vector<Voxel*>							m_voxels;
 		VoxelPolygonizerPtr							m_pPolygonizer;
-
-		OctTreeNodePtr								m_pRoot;
-
 		VoxelPoolPtr								m_pVoxelPool;
+		VoxelWorldDataSetPtr						m_pDataSet;
 	};
 }

@@ -5,6 +5,7 @@
 #include "VoxelPolygonizer.h"
 #include "VoxelWorldGenerator.h"
 #include "VoxelPool.h"
+#include "VoxelWorldDataSet.h"
 
 namespace ld3d
 {
@@ -75,11 +76,11 @@ namespace ld3d
 	}
 	void VoxelWorld::DestroyWorld()
 	{
-		for(size_t i = 0;i < m_voxels.size(); ++i)
+		if(m_pDataSet)
 		{
-			m_pVoxelPool->Free(m_voxels[i]);
+			m_pDataSet->Release();
+			m_pDataSet.reset();
 		}
-		m_voxels.clear();
 	}
 	const int& VoxelWorld::GetVoxelSize()
 	{
@@ -149,12 +150,7 @@ namespace ld3d
 	
 	void VoxelWorld::Generate()
 	{
-		m_voxels = VoxelWorldGenerator::Generate(m_pVoxelPool, m_worldSizeX, m_worldSizeY, m_worldSizeZ);
-
-		for(size_t i = 0; i < m_voxels.size(); ++i)
-		{
-			AddBlock(m_voxels[i]);
-		}
+		m_pDataSet = VoxelWorldGenerator::Generate(m_pVoxelPool, m_worldSizeX, m_worldSizeY, m_worldSizeZ);
 
 		Polygonize();
 

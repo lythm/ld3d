@@ -7,7 +7,7 @@ namespace ld3d
 	{
 	public:
 		
-		static std::vector<Voxel*>											Generate(VoxelPoolPtr pPool, int sx, int sy, int sz);
+		static VoxelWorldDataSetPtr											Generate(VoxelPoolPtr pPool, int sx, int sy, int sz);
 
 
 	private:
