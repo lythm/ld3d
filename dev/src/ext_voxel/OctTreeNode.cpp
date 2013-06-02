@@ -7,11 +7,11 @@ namespace ld3d
 	OctTreeNode::OctTreeNode(void)
 	{
 		m_bLeaf					= false;
-		m_pParent				= NULL;
+		m_pParent				= OctTreeNodePtr();
 
 		for(int i = 0; i < 8; ++i)
 		{
-			m_pChildren[i] = NULL;
+			m_pChildren[i] = OctTreeNodePtr();
 		}
 	}
 
