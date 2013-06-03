@@ -1,6 +1,6 @@
 #include "voxel_pch.h"
 #include "..\..\include\ext_voxel\VoxelWorld.h"
-#include "ext_voxel\VoxelBlock.h"
+#include "VoxelWorldChunk.h"
 
 #include "VoxelPolygonizer.h"
 #include "VoxelWorldGenerator.h"
@@ -136,6 +136,7 @@ namespace ld3d
 	
 	void VoxelWorld::Generate()
 	{
+		
 		m_pDataSet = VoxelWorldGenerator::Generate(m_worldSizeX, m_worldSizeY, m_worldSizeZ);
 
 		Polygonize();

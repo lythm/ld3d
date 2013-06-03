@@ -1,6 +1,6 @@
 #include "voxel_pch.h"
 #include "VoxelWorldGenerator.h"
-#include "ext_voxel\VoxelBlock.h"
+#include "VoxelWorldChunk.h"
 #include "VoxelPool.h"
 #include "VoxelWorldDataSet.h"
 

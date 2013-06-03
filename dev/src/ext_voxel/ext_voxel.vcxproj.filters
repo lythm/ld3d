@@ -21,9 +21,6 @@
     <ClInclude Include="..\..\include\ext_voxel\Voxel.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\ext_voxel\VoxelBlock.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\include\ext_voxel\VoxelWorld.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -75,15 +72,18 @@
     <ClInclude Include="..\..\include\ext_voxel\VoxelType.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="VoxelWorldChunk.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="VoxelWorldRegion.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="voxel_pch.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Voxel.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="VoxelBlock.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="VoxelWorld.cpp">
@@ -126,6 +126,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="VoxelWorldDataSet.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="VoxelWorldRegion.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

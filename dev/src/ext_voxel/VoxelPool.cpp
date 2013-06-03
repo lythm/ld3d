@@ -1,7 +1,7 @@
 #include "voxel_pch.h"
 #include "VoxelPool.h"
 
-#include "ext_voxel\VoxelBlock.h"
+#include "VoxelWorldChunk.h"
 
 namespace ld3d
 {
@@ -24,15 +24,15 @@ namespace ld3d
 		m_pool.DestroyPool();
 	}
 
-	VoxelChunk* VoxelPool::Alloc()
+	VoxelWorldChunk* VoxelPool::Alloc()
 	{
-		VoxelChunk* pVoxel = m_pool.Alloc();
+		VoxelWorldChunk* pVoxel = m_pool.Alloc();
 
 		//Voxel* pVoxel = new Voxel;
 		
 		return pVoxel;
 	}
-	void VoxelPool::Free(VoxelChunk* pVoxel)
+	void VoxelPool::Free(VoxelWorldChunk* pVoxel)
 	{
 		m_pool.Free(pVoxel);
 

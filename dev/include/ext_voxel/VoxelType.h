@@ -15,7 +15,7 @@ namespace ld3d
 		VT_TREE_TRUNK			= 8,
 
 
-		VT_EMPTY				= -1,
+		VT_EMPTY				= 255,
 	};
 
 	struct VoxelFace
@@ -23,5 +23,13 @@ namespace ld3d
 		math::Vector3			verts[4];
 		uint32					index[3];
 		uint32					clr;
+	};
+
+	enum 
+	{
+		VOXEL_WORLD_CHUNK_SIZE					= 16,
+		VOXEL_WORLD_REGION_SIZE					= 256,
+		VOXEL_WORLD_CHUNK_MAP_RATIO				= 8,
+		VOXEL_WORLD_CHUNK_MAP_SIZE				= (VOXEL_WORLD_REGION_SIZE * VOXEL_WORLD_REGION_SIZE * VOXEL_WORLD_REGION_SIZE) / VOXEL_WORLD_CHUNK_MAP_RATIO,
 	};
 }
