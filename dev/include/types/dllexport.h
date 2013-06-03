@@ -1,6 +1,6 @@
 #pragma once
 
-#ifdef	DLL_EXPORTS
+#ifdef	_USRDLL
 #define EXPORT_CLASS	__declspec(dllexport)
 #define EXPORT_API		__declspec(dllexport) 
 #define EXPORT_C_API	extern "C" __declspec(dllexport) 

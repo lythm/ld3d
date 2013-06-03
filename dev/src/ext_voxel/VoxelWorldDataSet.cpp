@@ -55,8 +55,6 @@ namespace ld3d
 	}
 	std::vector<VoxelFace> VoxelWorldDataSet::GenerateMesh()
 	{
-		std::vector<VoxelFace> faces;
-
-		return faces;
+		return m_pRegion->GenerateMesh();
 	}
 }

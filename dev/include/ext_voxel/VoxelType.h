@@ -20,8 +20,8 @@ namespace ld3d
 
 	struct VoxelFace
 	{
-		math::Vector3			verts[4];
-		uint32					index[3];
+		math::Vector3			verts[6];
+		math::Vector3			normals[6];
 		uint32					clr;
 	};
 
@@ -31,5 +31,7 @@ namespace ld3d
 		VOXEL_WORLD_REGION_SIZE					= 256,
 		VOXEL_WORLD_CHUNK_MAP_RATIO				= 8,
 		VOXEL_WORLD_CHUNK_MAP_SIZE				= (VOXEL_WORLD_REGION_SIZE * VOXEL_WORLD_REGION_SIZE * VOXEL_WORLD_REGION_SIZE) / VOXEL_WORLD_CHUNK_MAP_RATIO,
+
+		VOXEL_WORLD_BLOCK_SIZE					= 1,
 	};
 }

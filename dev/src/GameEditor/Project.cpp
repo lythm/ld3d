@@ -282,7 +282,7 @@ bool Project::InitEngine()
 		return false;
 	}
 #else
-	if(false == s_pCore->Initialize(setting, &g_Allocator))
+	if(false == m_pCore->Initialize(setting, &g_Allocator))
 	{
 		return false;
 	}

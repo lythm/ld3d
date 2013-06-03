@@ -141,6 +141,7 @@ namespace ld3d
 
 		Polygonize();
 
+		m_pDataSet->GenerateMesh();
 	}
 	void VoxelWorld::FrustumCull(BaseCameraPtr pCamera)
 	{

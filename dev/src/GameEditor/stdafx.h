@@ -57,6 +57,7 @@
 #endif
 
 #include <string>
+#include <iostream>
 
 #include "types\dllexport.h"
 #include "types\types.h"

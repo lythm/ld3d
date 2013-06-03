@@ -2,6 +2,7 @@
 #include "VoxelWorldRegion.h"
 
 #include "VoxelWorldChunk.h"
+#include "VoxelPool.h"
 
 namespace ld3d
 {
@@ -15,6 +16,11 @@ namespace ld3d
 	}
 	bool VoxelWorldRegion::Initialize()
 	{
+		m_pPool = VoxelPoolPtr(new VoxelPool);
+		if(m_pPool->Initialize(64 * 64 * 10) == false)
+		{
+			return false;
+		}
 		m_pChunkMap = new VoxelWorldChunk*[VOXEL_WORLD_CHUNK_MAP_SIZE];
 		memset(m_pChunkMap, 0, sizeof(VoxelWorldChunk*) * VOXEL_WORLD_CHUNK_MAP_SIZE);
 
@@ -30,13 +36,19 @@ namespace ld3d
 			{
 				VoxelWorldChunk* pTmp = pChunk;
 				pChunk = pChunk->next;
-				delete pTmp;
+				m_pPool->Free(pTmp);
 			}
 		}
 		if(m_pChunkMap)
 		{
 			delete []m_pChunkMap;
 			m_pChunkMap = nullptr;
+		}
+
+		if(m_pPool)
+		{
+			m_pPool->Release();
+			m_pPool.reset();
 		}
 	}
 	void VoxelWorldRegion::Update()
@@ -56,7 +68,10 @@ namespace ld3d
 	void VoxelWorldRegion::ConvertBlock(uint8 vt, uint32 x, uint32 y, uint32 z)
 	{
 		VoxelWorldChunk* pChunk = _add_chunk(x, y, z);
-
+		if(pChunk == nullptr)
+		{
+			return;
+		}
 		uint32 index = _voxel_region_to_index(x, y, z);
 		pChunk->data[index] = vt;
 
@@ -69,6 +84,10 @@ namespace ld3d
 	{
 		VoxelWorldChunk* pChunk = _add_chunk(x, y, z);
 
+		if(pChunk == nullptr)
+		{
+			return false;
+		}
 		uint32 index = _voxel_region_to_index(x, y, z);
 
 		if(pChunk->data[index] == VT_EMPTY)
@@ -136,6 +155,11 @@ namespace ld3d
 	}
 	VoxelWorldChunk* VoxelWorldRegion::_get_chunk(uint32 x, uint32 y, uint32 z)
 	{
+		if(InRegion(x, y, z) == false)
+		{
+			return nullptr;
+		}
+
 		uint32 key = _chunk_key(x, y, z);
 
 		VoxelWorldChunk* pChunk = m_pChunkMap[key % VOXEL_WORLD_CHUNK_MAP_SIZE];
@@ -153,8 +177,24 @@ namespace ld3d
 		return nullptr;
 
 	}
+	bool VoxelWorldRegion::InRegion(uint32 x, uint32 y, uint32 z)
+	{
+		uint32 regionsize = VOXEL_WORLD_CHUNK_SIZE * VOXEL_WORLD_REGION_SIZE;
+
+		if(x > regionsize || y > regionsize || z > regionsize)
+		{
+			return false;
+		}
+		return true;
+	}
 	VoxelWorldChunk* VoxelWorldRegion::_add_chunk(uint32 x, uint32 y, uint32 z)
 	{
+		if(InRegion(x, y, z) == false)
+		{
+			return nullptr;
+		}
+
+
 		uint32 key = _chunk_key(x, y, z);
 
 		VoxelWorldChunk* pChunk = m_pChunkMap[key % VOXEL_WORLD_CHUNK_MAP_SIZE];
@@ -169,7 +209,11 @@ namespace ld3d
 			pChunk = pChunk->next;
 		}
 
-		pChunk = new VoxelWorldChunk;
+		pChunk = m_pPool->Alloc();
+		if(pChunk == nullptr)
+		{
+			int i = 0;
+		}
 		pChunk->key = key;
 		memset(pChunk->data, VT_EMPTY, sizeof(uint8) * VOXEL_WORLD_CHUNK_SIZE * VOXEL_WORLD_CHUNK_SIZE * VOXEL_WORLD_CHUNK_SIZE);
 		pChunk->next = m_pChunkMap[key % VOXEL_WORLD_CHUNK_MAP_SIZE];
@@ -192,6 +236,9 @@ namespace ld3d
 	std::vector<VoxelFace> VoxelWorldRegion::GenerateMesh()
 	{
 		std::vector<VoxelFace> faces;
+
+		int t = GetTickCount();
+
 		for(uint32 i = 0; i < VOXEL_WORLD_CHUNK_MAP_SIZE; ++i)
 		{
 			VoxelWorldChunk* pChunk = m_pChunkMap[i];
@@ -206,11 +253,144 @@ namespace ld3d
 			}
 		}
 
+		t = GetTickCount() - t;
 		return faces;
 	}
 	std::vector<VoxelFace> VoxelWorldRegion::GenerateChunkMesh(VoxelWorldChunk* pChunk)
 	{
 		std::vector<VoxelFace> faces;
+
+		for(int i = 0; i < VOXEL_WORLD_CHUNK_SIZE * VOXEL_WORLD_CHUNK_SIZE * VOXEL_WORLD_CHUNK_SIZE; ++i)
+		{
+			uint32 x ,y,z;
+
+			_voxel_index_to_region(pChunk->key, i, x, y, z);
+
+			// x axis
+			if(Empty(x - 1, y, z))
+			{
+				VoxelFace f;
+				f.clr = 0xffffffff;
+				f.verts[0] = math::Vector3(x, y, z)					* VOXEL_WORLD_BLOCK_SIZE;
+				f.verts[1] = math::Vector3(x, y + 1, z + 1)			* VOXEL_WORLD_BLOCK_SIZE;
+				f.verts[2] = math::Vector3(x, y + 1, z)				* VOXEL_WORLD_BLOCK_SIZE;
+
+				f.verts[3] = math::Vector3(x, y, z)					* VOXEL_WORLD_BLOCK_SIZE;
+				f.verts[4] = math::Vector3(x, y, z + 1)				* VOXEL_WORLD_BLOCK_SIZE;
+				f.verts[5] = math::Vector3(x, y + 1, z + 1)			* VOXEL_WORLD_BLOCK_SIZE;
+
+				for(int inormal = 0; inormal < 6; ++inormal)
+				{
+					f.normals[inormal] = math::Vector3(-1, 0, 0);
+				}
+
+				faces.push_back(f);
+			}
+
+			if(Empty(x + 1, y, z))
+			{
+				VoxelFace f;
+				f.clr = 0xffffffff;
+				f.verts[0] = math::Vector3(x + 1, y, z)				* VOXEL_WORLD_BLOCK_SIZE;
+				f.verts[1] = math::Vector3(x + 1, y + 1, z)			* VOXEL_WORLD_BLOCK_SIZE;
+				f.verts[2] = math::Vector3(x + 1, y + 1, z + 1)		* VOXEL_WORLD_BLOCK_SIZE;
+
+				f.verts[3] = math::Vector3(x + 1, y, z)				* VOXEL_WORLD_BLOCK_SIZE;
+				f.verts[4] = math::Vector3(x + 1, y + 1, z + 1)		* VOXEL_WORLD_BLOCK_SIZE;
+				f.verts[5] = math::Vector3(x + 1, y, z + 1)			* VOXEL_WORLD_BLOCK_SIZE;
+
+
+				for(int inormal = 0; inormal < 6; ++inormal)
+				{
+					f.normals[inormal] = math::Vector3(1, 0, 0);
+				}
+
+				faces.push_back(f);
+			}
+
+			// y axis
+			if(Empty(x , y - 1, z))
+			{
+				VoxelFace f;
+				f.clr = 0xffffffff;
+				f.verts[0] = math::Vector3(x, y, z)					* VOXEL_WORLD_BLOCK_SIZE;
+				f.verts[1] = math::Vector3(x + 1, y, z)				* VOXEL_WORLD_BLOCK_SIZE;
+				f.verts[2] = math::Vector3(x + 1, y, z + 1)			* VOXEL_WORLD_BLOCK_SIZE;
+
+				f.verts[3] = math::Vector3(x, y, z)					* VOXEL_WORLD_BLOCK_SIZE;
+				f.verts[4] = math::Vector3(x + 1, y, z + 1)			* VOXEL_WORLD_BLOCK_SIZE;
+				f.verts[5] = math::Vector3(x, y, z + 1)				* VOXEL_WORLD_BLOCK_SIZE;
+
+				for(int inormal = 0; inormal < 6; ++inormal)
+				{
+					f.normals[inormal] = math::Vector3(0, -1, 0);
+				}
+				faces.push_back(f);
+			}
+
+			if(Empty(x, y + 1, z))
+			{
+				VoxelFace f;
+				f.clr = 0xffffffff;
+				f.verts[0] = math::Vector3(x, y + 1, z)					* VOXEL_WORLD_BLOCK_SIZE;
+				f.verts[1] = math::Vector3(x + 1, y + 1, z)				* VOXEL_WORLD_BLOCK_SIZE;
+				f.verts[2] = math::Vector3(x + 1, y + 1, z + 1)			* VOXEL_WORLD_BLOCK_SIZE;
+
+				f.verts[3] = math::Vector3(x, y + 1, z)					* VOXEL_WORLD_BLOCK_SIZE;
+				f.verts[4] = math::Vector3(x, y + 1, z + 1)				* VOXEL_WORLD_BLOCK_SIZE;
+				f.verts[5] = math::Vector3(x + 1, y + 1, z + 1)			* VOXEL_WORLD_BLOCK_SIZE;
+
+
+				for(int inormal = 0; inormal < 6; ++inormal)
+				{
+					f.normals[inormal] = math::Vector3(0, 1, 0);
+
+				}
+				faces.push_back(f);
+			}
+
+			// z axis
+			if(Empty(x, y, z - 1))
+			{
+				VoxelFace f;
+				f.clr = 0xffffffff;
+				f.verts[0] = math::Vector3(x, y, z)						* VOXEL_WORLD_BLOCK_SIZE;
+				f.verts[1] = math::Vector3(x, y + 1, z)					* VOXEL_WORLD_BLOCK_SIZE;
+				f.verts[2] = math::Vector3(x + 1, y + 1, z)				* VOXEL_WORLD_BLOCK_SIZE;
+
+				f.verts[3] = math::Vector3(x, y, z)						* VOXEL_WORLD_BLOCK_SIZE;
+				f.verts[4] = math::Vector3(x + 1, y + 1, z)				* VOXEL_WORLD_BLOCK_SIZE;
+				f.verts[5] = math::Vector3(x + 1, y, z)					* VOXEL_WORLD_BLOCK_SIZE;
+
+
+				for(int inormal = 0; inormal < 6; ++inormal)
+				{
+					f.normals[inormal] = math::Vector3(0, 0, -1);
+				}
+
+				faces.push_back(f);
+			}
+
+			if(Empty(x, y, z + 1))
+			{
+				VoxelFace f;
+				f.clr = 0xffffffff;
+				f.verts[0] = math::Vector3(x, y, z + 1)					* VOXEL_WORLD_BLOCK_SIZE;
+				f.verts[1] = math::Vector3(x, y + 1, z + 1)				* VOXEL_WORLD_BLOCK_SIZE;
+				f.verts[2] = math::Vector3(x + 1, y + 1, z + 1)			* VOXEL_WORLD_BLOCK_SIZE;
+
+				f.verts[3] = math::Vector3(x, y, z + 1)					* VOXEL_WORLD_BLOCK_SIZE;
+				f.verts[4] = math::Vector3(x + 1, y, z + 1)				* VOXEL_WORLD_BLOCK_SIZE;
+				f.verts[5] = math::Vector3(x + 1, y + 1, z + 1)			* VOXEL_WORLD_BLOCK_SIZE;
+
+				for(int inormal = 0; inormal < 6; ++inormal)
+				{
+					f.normals[inormal] = math::Vector3(0, 0, 1);
+
+				}
+				faces.push_back(f);
+			}
+		}
 
 		return faces;
 	}

@@ -22,6 +22,8 @@ namespace ld3d
 		uint8													GetBlock(uint32 x, uint32 y, uint32 z);
 		void													RemoveBlock(uint32 x, uint32 y, uint32 z);
 		void													ConvertBlock(uint8 vt, uint32 x, uint32 y, uint32 z);
+
+		bool													InRegion(uint32 x, uint32 y, uint32 z);
 	private:
 
 		std::vector<VoxelFace>									GenerateChunkMesh(VoxelWorldChunk* pChunk);
@@ -39,5 +41,6 @@ namespace ld3d
 		void													_chunk_key_to_region(uint32 key, uint32& x, uint32& y, uint32 &z);
 	private:
 		VoxelWorldChunk**										m_pChunkMap;
+		VoxelPoolPtr											m_pPool;
 	};
 }
