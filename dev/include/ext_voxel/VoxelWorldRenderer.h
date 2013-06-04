@@ -24,7 +24,5 @@ namespace ld3d
 		EventDispatcher::EventHandlerHandle			m_hFrustumCull;
 		VoxelWorldRenderDataPtr						m_pRenderData;
 		VoxelWorldPtr								m_pWorld;
-
-		MaterialPtr									m_pMaterial;
 	};
 }

@@ -14,8 +14,9 @@ namespace ld3d
 		void													Release();
 		void													Update();
 
+		void													GenerateMesh();
 
-		std::vector<VoxelFace>									GenerateMesh();
+		void													UpdateMesh();
 
 		bool													Empty(uint32 x, uint32 y, uint32 z);
 		bool													AddBlock(uint8 vt, uint32 x, uint32 y, uint32 z);
@@ -24,9 +25,14 @@ namespace ld3d
 		void													ConvertBlock(uint8 vt, uint32 x, uint32 y, uint32 z);
 
 		bool													InRegion(uint32 x, uint32 y, uint32 z);
+
+
+		const std::vector<VoxelFace>&							GetMeshData();
 	private:
 
-		std::vector<VoxelFace>									GenerateChunkMesh(VoxelWorldChunk* pChunk);
+		void													AddChunkToDirtyList(VoxelWorldChunk* pChunk);
+
+		void													GenerateChunkMesh(VoxelWorldChunk* pChunk);
 
 		VoxelWorldChunk*										_get_chunk(uint32 x, uint32 y, uint32 z);
 		uint8													_get_voxel(uint32 x, uint32 y, uint32 z);
@@ -42,5 +48,9 @@ namespace ld3d
 	private:
 		VoxelWorldChunk**										m_pChunkMap;
 		VoxelPoolPtr											m_pPool;
+
+		std::vector<VoxelFace>									m_mesh;
+
+		VoxelWorldChunk*										m_pDirtyList;
 	};
 }

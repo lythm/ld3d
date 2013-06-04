@@ -23,8 +23,10 @@ namespace ld3d
 		void													RemoveVoxel(uint32 x, uint32 y, uint32 z);
 		bool													Exist(uint32 x, uint32 y, uint32 z);
 
-		std::vector<VoxelFace>									GenerateMesh();	
+		void													GenerateMesh();	
 
+
+		const std::vector<VoxelFace>&							GetMeshData();
 	private:
 		
 	private:

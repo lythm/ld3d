@@ -8,6 +8,8 @@ namespace ld3d
 {
 	VoxelWorldRegion::VoxelWorldRegion(void)
 	{
+		m_pDirtyList = nullptr;
+		m_pChunkMap = nullptr;
 	}
 
 
@@ -23,12 +25,14 @@ namespace ld3d
 		}
 		m_pChunkMap = new VoxelWorldChunk*[VOXEL_WORLD_CHUNK_MAP_SIZE];
 		memset(m_pChunkMap, 0, sizeof(VoxelWorldChunk*) * VOXEL_WORLD_CHUNK_MAP_SIZE);
-
+		m_pDirtyList = nullptr;
 
 		return true;
 	}
 	void VoxelWorldRegion::Release()
 	{
+		m_pDirtyList = nullptr;
+
 		for(uint32 i = 0; i < VOXEL_WORLD_CHUNK_MAP_SIZE; ++i)
 		{
 			VoxelWorldChunk* pChunk = m_pChunkMap[i];
@@ -62,8 +66,8 @@ namespace ld3d
 			return;
 		}
 		uint32 index = _voxel_region_to_index(x, y, z);
-
 		pChunk->data[index] = VT_EMPTY;
+		AddChunkToDirtyList(pChunk);
 	}
 	void VoxelWorldRegion::ConvertBlock(uint8 vt, uint32 x, uint32 y, uint32 z)
 	{
@@ -74,10 +78,14 @@ namespace ld3d
 		}
 		uint32 index = _voxel_region_to_index(x, y, z);
 		pChunk->data[index] = vt;
-
+		AddChunkToDirtyList(pChunk);
 	}
 	bool VoxelWorldRegion::Empty(uint32 x, uint32 y, uint32 z)
 	{
+		if(InRegion(x, y, z) == false)
+		{
+			return true;
+		}
 		return _get_voxel(x ,y, z) == VT_EMPTY;
 	}
 	bool VoxelWorldRegion::AddBlock(uint8 vt, uint32 x, uint32 y, uint32 z)
@@ -90,13 +98,13 @@ namespace ld3d
 		}
 		uint32 index = _voxel_region_to_index(x, y, z);
 
-		if(pChunk->data[index] == VT_EMPTY)
+		if(pChunk->data[index] != VT_EMPTY)
 		{
-			pChunk->data[index] = vt;
-			return true;
+			return false;
 		}
-
-		return false;
+		pChunk->data[index] = vt;
+		AddChunkToDirtyList(pChunk);
+		return true;
 	}
 	uint8 VoxelWorldRegion::GetBlock(uint32 x, uint32 y, uint32 z)
 	{
@@ -215,9 +223,13 @@ namespace ld3d
 			int i = 0;
 		}
 		pChunk->key = key;
+		pChunk->in_dirty_list = false;
 		memset(pChunk->data, VT_EMPTY, sizeof(uint8) * VOXEL_WORLD_CHUNK_SIZE * VOXEL_WORLD_CHUNK_SIZE * VOXEL_WORLD_CHUNK_SIZE);
 		pChunk->next = m_pChunkMap[key % VOXEL_WORLD_CHUNK_MAP_SIZE];
+		pChunk->dirty_list_next = nullptr;
 		m_pChunkMap[key % VOXEL_WORLD_CHUNK_MAP_SIZE] = pChunk;
+
+
 
 		return pChunk;
 	}
@@ -233,9 +245,12 @@ namespace ld3d
 
 		return pChunk->data[index];
 	}
-	std::vector<VoxelFace> VoxelWorldRegion::GenerateMesh()
+	void VoxelWorldRegion::GenerateMesh()
 	{
-		std::vector<VoxelFace> faces;
+		UpdateMesh();
+
+		m_mesh.clear();
+		m_mesh.reserve(1000);
 
 		int t = GetTickCount();
 
@@ -244,22 +259,18 @@ namespace ld3d
 			VoxelWorldChunk* pChunk = m_pChunkMap[i];
 			while(pChunk)
 			{
-				std::vector<VoxelFace> chunk;
-				chunk = GenerateChunkMesh(pChunk);
-
-				faces.insert(faces.end(), chunk.begin(), chunk.end());
+				m_mesh.insert(m_mesh.end(), pChunk->mesh.begin(), pChunk->mesh.end());
 
 				pChunk = pChunk->next;
 			}
 		}
 
 		t = GetTickCount() - t;
-		return faces;
+		
 	}
-	std::vector<VoxelFace> VoxelWorldRegion::GenerateChunkMesh(VoxelWorldChunk* pChunk)
+	void VoxelWorldRegion::GenerateChunkMesh(VoxelWorldChunk* pChunk)
 	{
-		std::vector<VoxelFace> faces;
-
+		pChunk->mesh.clear();
 		for(int i = 0; i < VOXEL_WORLD_CHUNK_SIZE * VOXEL_WORLD_CHUNK_SIZE * VOXEL_WORLD_CHUNK_SIZE; ++i)
 		{
 			uint32 x ,y,z;
@@ -284,7 +295,7 @@ namespace ld3d
 					f.normals[inormal] = math::Vector3(-1, 0, 0);
 				}
 
-				faces.push_back(f);
+				pChunk->mesh.push_back(f);
 			}
 
 			if(Empty(x + 1, y, z))
@@ -305,7 +316,7 @@ namespace ld3d
 					f.normals[inormal] = math::Vector3(1, 0, 0);
 				}
 
-				faces.push_back(f);
+				pChunk->mesh.push_back(f);
 			}
 
 			// y axis
@@ -325,7 +336,7 @@ namespace ld3d
 				{
 					f.normals[inormal] = math::Vector3(0, -1, 0);
 				}
-				faces.push_back(f);
+				pChunk->mesh.push_back(f);
 			}
 
 			if(Empty(x, y + 1, z))
@@ -346,7 +357,7 @@ namespace ld3d
 					f.normals[inormal] = math::Vector3(0, 1, 0);
 
 				}
-				faces.push_back(f);
+				pChunk->mesh.push_back(f);
 			}
 
 			// z axis
@@ -368,7 +379,7 @@ namespace ld3d
 					f.normals[inormal] = math::Vector3(0, 0, -1);
 				}
 
-				faces.push_back(f);
+				pChunk->mesh.push_back(f);
 			}
 
 			if(Empty(x, y, z + 1))
@@ -388,10 +399,40 @@ namespace ld3d
 					f.normals[inormal] = math::Vector3(0, 0, 1);
 
 				}
-				faces.push_back(f);
+				pChunk->mesh.push_back(f);
 			}
 		}
 
-		return faces;
+	}
+	const std::vector<VoxelFace>& VoxelWorldRegion::GetMeshData()
+	{
+		return m_mesh;
+	}
+	void VoxelWorldRegion::UpdateMesh()
+	{
+		while(m_pDirtyList)
+		{
+			GenerateChunkMesh(m_pDirtyList);
+			m_pDirtyList->in_dirty_list = false;
+			m_pDirtyList = m_pDirtyList->dirty_list_next;
+		}
+		m_pDirtyList = nullptr;
+	}
+	void VoxelWorldRegion::AddChunkToDirtyList(VoxelWorldChunk* pChunk)
+	{
+		if(pChunk == nullptr || pChunk->in_dirty_list == true)
+		{
+			return;
+		}
+
+		pChunk->in_dirty_list = true;
+		if(m_pDirtyList == nullptr)
+		{
+			m_pDirtyList = pChunk;
+			m_pDirtyList->dirty_list_next = nullptr;
+			return;
+		}
+		pChunk->dirty_list_next = m_pDirtyList;
+		m_pDirtyList = pChunk;
 	}
 }

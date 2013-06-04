@@ -53,8 +53,12 @@ namespace ld3d
 	{
 		m_pRegion->RemoveBlock(x, y, z);
 	}
-	std::vector<VoxelFace> VoxelWorldDataSet::GenerateMesh()
+	void VoxelWorldDataSet::GenerateMesh()
 	{
-		return m_pRegion->GenerateMesh();
+		m_pRegion->GenerateMesh();
+	}
+	const std::vector<VoxelFace>& VoxelWorldDataSet::GetMeshData()
+	{
+		return m_pRegion->GetMeshData();
 	}
 }

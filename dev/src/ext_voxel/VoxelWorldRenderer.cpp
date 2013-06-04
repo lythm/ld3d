@@ -33,10 +33,10 @@ namespace ld3d
 		}
 		pPM->End();
 
-		m_pMaterial = m_pManager->GetRenderManager()->CreateMaterialFromFile("./assets/standard/material/editor_shape.fx");
+		
 
 		m_pRenderData = m_pManager->GetAllocator()->AllocObject<VoxelWorldRenderData>();
-		if(m_pRenderData->Initialize(m_pMaterial) == false)
+		if(m_pRenderData->Initialize(m_pManager->GetRenderManager()->GetSysGraphics()) == false)
 		{
 			return false;
 		}
@@ -55,8 +55,7 @@ namespace ld3d
 		m_pRenderData->Release();
 		m_pRenderData.reset();
 
-		m_pMaterial->Release();
-		m_pMaterial.reset();
+		
 	}
 	void VoxelWorldRenderer::UpdateWorldMesh()
 	{
@@ -66,12 +65,13 @@ namespace ld3d
 		}
 		VoxelWorldDataSetPtr pDataSet = m_pWorld->GetDataSet();
 
-		std::vector<VoxelFace> faces = pDataSet->GenerateMesh();
-
-
+		pDataSet->GenerateMesh();
 	}
 	void VoxelWorldRenderer::on_event_frustumcull(EventPtr pEvent)
 	{
+		const std::vector<VoxelFace>& mesh = m_pWorld->GetDataSet()->GetMeshData();
+
+		m_pRenderData->PrepareData(mesh);
 		m_pManager->GetRenderManager()->AddRenderData(m_pRenderData);
 	}
 	
