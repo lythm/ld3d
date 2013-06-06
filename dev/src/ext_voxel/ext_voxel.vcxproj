@@ -93,7 +93,6 @@
     <ClInclude Include="..\..\include\ext_voxel\VoxelWorld.h" />
     <ClInclude Include="..\..\include\ext_voxel\voxel_all.h" />
     <ClInclude Include="..\..\include\ext_voxel\voxel_ptr.h" />
-    <ClInclude Include="OctTreeNode.h" />
     <ClInclude Include="VoxelPolygonizer.h" />
     <ClInclude Include="VoxelObjectTemplate.h" />
     <ClInclude Include="VoxelPackage.h" />
@@ -102,13 +101,13 @@
     <ClInclude Include="VoxelWorldChunk.h" />
     <ClInclude Include="VoxelWorldDataSet.h" />
     <ClInclude Include="VoxelWorldGenerator.h" />
+    <ClInclude Include="VoxelWorldOctTree.h" />
     <ClInclude Include="VoxelWorldRegion.h" />
     <ClInclude Include="VoxelWorldRenderData.h" />
     <ClInclude Include="VoxelWorldTemplate.h" />
     <ClInclude Include="voxel_pch.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="OctTreeNode.cpp" />
     <ClCompile Include="VoxelPolygonizer.cpp" />
     <ClCompile Include="VoxelObjectRenderer.cpp" />
     <ClCompile Include="VoxelObjectTemplate.cpp" />
@@ -118,6 +117,7 @@
     <ClCompile Include="VoxelPool.cpp" />
     <ClCompile Include="VoxelWorldDataSet.cpp" />
     <ClCompile Include="VoxelWorldGenerator.cpp" />
+    <ClCompile Include="VoxelWorldOctTree.cpp" />
     <ClCompile Include="VoxelWorldRegion.cpp" />
     <ClCompile Include="VoxelWorldRenderer.cpp" />
     <ClCompile Include="VoxelSerializer.cpp" />

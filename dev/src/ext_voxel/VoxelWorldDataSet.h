@@ -23,12 +23,13 @@ namespace ld3d
 		void													RemoveVoxel(uint32 x, uint32 y, uint32 z);
 		bool													Exist(uint32 x, uint32 y, uint32 z);
 
-		void													GenerateMesh();	
 
+		void													UpdateMesh();
 
-		const std::vector<VoxelFace>&							GetMeshData();
+		VoxelWorldChunk*										FrustumCull(const ViewFrustum& vf);
 
-		void													FrustumCull(const ViewFrustum& vf);
+		uint32													GetFaceCount();
+
 	private:
 		
 	private:

@@ -53,16 +53,20 @@ namespace ld3d
 	{
 		m_pRegion->RemoveBlock(x, y, z);
 	}
-	void VoxelWorldDataSet::GenerateMesh()
-	{
-		m_pRegion->GenerateMesh();
-	}
-	const std::vector<VoxelFace>& VoxelWorldDataSet::GetMeshData()
-	{
-		return m_pRegion->GetMeshData();
-	}
-	void VoxelWorldDataSet::FrustumCull(const ViewFrustum& vf)
+	
+	VoxelWorldChunk* VoxelWorldDataSet::FrustumCull(const ViewFrustum& vf)
 	{
 		m_pRegion->FrustumCull(vf);
+
+		return m_pRegion->GetRenderList();
 	}
+	void VoxelWorldDataSet::UpdateMesh()
+	{
+		m_pRegion->UpdateMesh();
+	}
+	uint32 VoxelWorldDataSet::GetFaceCount()
+	{
+		return m_pRegion->GetFaceCount();
+	}
+
 }

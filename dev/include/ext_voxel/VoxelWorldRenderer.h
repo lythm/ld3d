@@ -11,9 +11,6 @@ namespace ld3d
 		void										Update();
 		const Version&								GetVersion() const;
 
-		void										UpdateWorldMesh();
-
-
 	private:
 		bool										OnAttach();
 		void										OnDetach();

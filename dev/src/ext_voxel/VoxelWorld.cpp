@@ -13,7 +13,7 @@ namespace ld3d
 	{
 		m_voxelSize				= 1;
 		m_worldSizeX			= 10;
-		m_worldSizeY			= 10;
+		m_worldSizeY			= 2;
 		m_worldSizeZ			= 10;
 		
 
@@ -26,7 +26,7 @@ namespace ld3d
 	}
 	void VoxelWorld::Update(float dt)
 	{
-
+		m_pDataSet->UpdateMesh();
 	}
 	const Version& VoxelWorld::GetVersion() const
 	{
@@ -136,7 +136,7 @@ namespace ld3d
 		tick = GetTickCount() - tick;
 		wchar_t szBuffer[512];
 
-		swprintf(szBuffer, L"Voxel world rebuilt.(%.4fs)", float(tick) / 1000.0f);
+		swprintf(szBuffer, L"Voxel world rebuilt.(%d triangles in %.4fs)", m_pDataSet->GetFaceCount() * 2, float(tick) / 1000.0f);
 
 		m_pManager->Log(szBuffer);
 		
@@ -146,14 +146,14 @@ namespace ld3d
 	{
 		m_pDataSet = VoxelWorldGenerator::Generate(m_worldSizeX, m_worldSizeY, m_worldSizeZ);
 		Polygonize();
-		m_pDataSet->GenerateMesh();
+		m_pDataSet->UpdateMesh();
 	}
-	void VoxelWorld::FrustumCull(BaseCameraPtr pCamera)
+	VoxelWorldChunk* VoxelWorld::FrustumCull(BaseCameraPtr pCamera)
 	{
 		const ViewFrustum& vf = pCamera->GetViewFrustum();
 
-		m_pDataSet->FrustumCull(vf);
 
+		return m_pDataSet->FrustumCull(vf);
 	}
 	void VoxelWorld::Polygonize()
 	{

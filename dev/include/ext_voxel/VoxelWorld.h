@@ -2,7 +2,8 @@
 
 namespace ld3d
 {
-	struct Voxel;
+	struct VoxelWorldChunk;
+	
 	class VoxelWorld : public GameObjectComponent
 	{
 	public:
@@ -27,7 +28,7 @@ namespace ld3d
 		void										Generate();
 		const Version&								GetVersion() const;
 
-		void										FrustumCull(BaseCameraPtr pCamera);
+		VoxelWorldChunk*							FrustumCull(BaseCameraPtr pCamera);
 
 		VoxelWorldDataSetPtr						GetDataSet();
 	private:

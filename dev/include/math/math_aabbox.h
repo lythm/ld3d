@@ -32,15 +32,28 @@ namespace math
 
 		bool					IsValid() const;
 
+		bool					Inside(const math::Vector3& pt);
 	private:
 		void					UpdateValid();
 		void					UpdateCenter();
 
-		bool					m_bValid;
 		Vector3					m_max;
 		Vector3					m_min;
 		Vector3					m_center;
+		bool					m_bValid;
 	};
+
+	inline
+		bool AABBox::Inside(const math::Vector3& pt)
+	{
+		return pt.x >= m_min.x 
+				&& pt.y >= m_min.y
+				&& pt.z >= m_min.z
+				&& pt.x <= m_max.x
+				&& pt.y <= m_max.y
+				&& pt.z <= m_max.z;
+
+	}
 
 	inline
 		AABBox operator&(const AABBox& lhs, const AABBox& rhs)

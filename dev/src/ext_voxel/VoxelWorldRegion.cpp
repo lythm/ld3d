@@ -3,13 +3,16 @@
 
 #include "VoxelWorldChunk.h"
 #include "VoxelPool.h"
+#include "VoxelWorldOctTree.h"
 
 namespace ld3d
 {
 	VoxelWorldRegion::VoxelWorldRegion(void)
 	{
 		m_pDirtyList = nullptr;
+		m_pRenderList = nullptr;
 		m_pChunkMap = nullptr;
+		m_faceCount = 0;
 	}
 
 
@@ -26,12 +29,22 @@ namespace ld3d
 		m_pChunkMap = new VoxelWorldChunk*[VOXEL_WORLD_CHUNK_MAP_SIZE];
 		memset(m_pChunkMap, 0, sizeof(VoxelWorldChunk*) * VOXEL_WORLD_CHUNK_MAP_SIZE);
 		m_pDirtyList = nullptr;
+		m_faceCount = 0;
+
+		m_pRoot = VoxelWorldOctTreePtr(new VoxelWorldOctTree);
+		float size = VOXEL_WORLD_CHUNK_SIZE * VOXEL_WORLD_REGION_SIZE;
+
+		math::AABBox bound(math::Vector3(0, 0, 0), math::Vector3(size, size, size));
+
+		m_pRoot->SetBound(bound);
 
 		return true;
 	}
 	void VoxelWorldRegion::Release()
 	{
 		m_pDirtyList = nullptr;
+		m_pRenderList = nullptr;
+		m_pRoot.reset();
 
 		for(uint32 i = 0; i < VOXEL_WORLD_CHUNK_MAP_SIZE; ++i)
 		{
@@ -220,16 +233,17 @@ namespace ld3d
 		pChunk = m_pPool->Alloc();
 		if(pChunk == nullptr)
 		{
-			int i = 0;
+			assert(0);
+			return nullptr;
 		}
 		pChunk->key = key;
 		pChunk->in_dirty_list = false;
 		memset(pChunk->data, VT_EMPTY, sizeof(uint8) * VOXEL_WORLD_CHUNK_SIZE * VOXEL_WORLD_CHUNK_SIZE * VOXEL_WORLD_CHUNK_SIZE);
 		pChunk->next = m_pChunkMap[key % VOXEL_WORLD_CHUNK_MAP_SIZE];
 		pChunk->dirty_list_next = nullptr;
+		pChunk->render_list_next = nullptr;
+		pChunk->in_oct_tree = false;
 		m_pChunkMap[key % VOXEL_WORLD_CHUNK_MAP_SIZE] = pChunk;
-
-
 
 		return pChunk;
 	}
@@ -245,37 +259,22 @@ namespace ld3d
 
 		return pChunk->data[index];
 	}
-	void VoxelWorldRegion::GenerateMesh()
-	{
-		UpdateMesh();
-
-		m_mesh.clear();
-		m_mesh.reserve(1000);
-
-		int t = GetTickCount();
-
-		for(uint32 i = 0; i < VOXEL_WORLD_CHUNK_MAP_SIZE; ++i)
-		{
-			VoxelWorldChunk* pChunk = m_pChunkMap[i];
-			while(pChunk)
-			{
-				m_mesh.insert(m_mesh.end(), pChunk->mesh.begin(), pChunk->mesh.end());
-
-				pChunk = pChunk->next;
-			}
-		}
-
-		t = GetTickCount() - t;
-		
-	}
+	
 	void VoxelWorldRegion::GenerateChunkMesh(VoxelWorldChunk* pChunk)
 	{
+		int delta = pChunk->mesh.size();
+
 		pChunk->mesh.clear();
 		for(int i = 0; i < VOXEL_WORLD_CHUNK_SIZE * VOXEL_WORLD_CHUNK_SIZE * VOXEL_WORLD_CHUNK_SIZE; ++i)
 		{
 			uint32 x ,y,z;
 
 			_voxel_index_to_region(pChunk->key, i, x, y, z);
+
+			if(Empty(x, y, z))
+			{
+				continue;
+			}
 
 			// x axis
 			if(Empty(x - 1, y, z))
@@ -344,8 +343,9 @@ namespace ld3d
 				VoxelFace f;
 				f.clr = 0xffffffff;
 				f.verts[0] = math::Vector3(x, y + 1, z)					* VOXEL_WORLD_BLOCK_SIZE;
-				f.verts[1] = math::Vector3(x + 1, y + 1, z)				* VOXEL_WORLD_BLOCK_SIZE;
-				f.verts[2] = math::Vector3(x + 1, y + 1, z + 1)			* VOXEL_WORLD_BLOCK_SIZE;
+				
+				f.verts[1] = math::Vector3(x + 1, y + 1, z + 1)			* VOXEL_WORLD_BLOCK_SIZE;
+				f.verts[2] = math::Vector3(x + 1, y + 1, z)				* VOXEL_WORLD_BLOCK_SIZE;
 
 				f.verts[3] = math::Vector3(x, y + 1, z)					* VOXEL_WORLD_BLOCK_SIZE;
 				f.verts[4] = math::Vector3(x, y + 1, z + 1)				* VOXEL_WORLD_BLOCK_SIZE;
@@ -387,8 +387,8 @@ namespace ld3d
 				VoxelFace f;
 				f.clr = 0xffffffff;
 				f.verts[0] = math::Vector3(x, y, z + 1)					* VOXEL_WORLD_BLOCK_SIZE;
-				f.verts[1] = math::Vector3(x, y + 1, z + 1)				* VOXEL_WORLD_BLOCK_SIZE;
-				f.verts[2] = math::Vector3(x + 1, y + 1, z + 1)			* VOXEL_WORLD_BLOCK_SIZE;
+				f.verts[1] = math::Vector3(x + 1, y + 1, z + 1)			* VOXEL_WORLD_BLOCK_SIZE;
+				f.verts[2] = math::Vector3(x, y + 1, z + 1)				* VOXEL_WORLD_BLOCK_SIZE;
 
 				f.verts[3] = math::Vector3(x, y, z + 1)					* VOXEL_WORLD_BLOCK_SIZE;
 				f.verts[4] = math::Vector3(x + 1, y, z + 1)				* VOXEL_WORLD_BLOCK_SIZE;
@@ -402,12 +402,21 @@ namespace ld3d
 				pChunk->mesh.push_back(f);
 			}
 		}
+		if(pChunk->in_oct_tree == false && pChunk->mesh.size() != 0)
+		{
+			if(false == m_pRoot->AddChunk(pChunk))
+			{
+				assert(0);
+			}
 
+			pChunk->in_oct_tree = true;
+		}
+
+		delta = pChunk->mesh.size() - delta;
+
+		m_faceCount += delta;
 	}
-	const std::vector<VoxelFace>& VoxelWorldRegion::GetMeshData()
-	{
-		return m_mesh;
-	}
+	
 	void VoxelWorldRegion::UpdateMesh()
 	{
 		while(m_pDirtyList)
@@ -437,62 +446,34 @@ namespace ld3d
 	}
 	void VoxelWorldRegion::FrustumCull(const ViewFrustum& vf)
 	{
-		math::AABBox bound(math::Vector3(0, 0, 0), math::Vector3(VOXEL_WORLD_REGION_SIZE, VOXEL_WORLD_REGION_SIZE, VOXEL_WORLD_REGION_SIZE));
+		m_pRenderList = nullptr;
 
-		_frustum_cull(bound, vf);
+		m_pRoot->FrustumCull(vf, boost::bind(&VoxelWorldRegion::AddChunkToRenderList, this, _1));
 	}
-	void VoxelWorldRegion::_frustum_cull(const math::AABBox& bound, const ViewFrustum& vf)
+	
+	void VoxelWorldRegion::AddChunkToRenderList(VoxelWorldChunk* pChunk)
 	{
-		if(false == vf.IntersectBox(bound))
+		if(pChunk == nullptr || pChunk->mesh.size() == 0)
 		{
 			return;
 		}
-
-		int l = int(bound.GetMaxCoord().x - bound.GetMinCoord().x);
-		if((int(bound.GetMaxCoord().x - bound.GetMinCoord().x)) == VOXEL_WORLD_CHUNK_SIZE)
+		if(m_pRenderList == nullptr)
 		{
-			// chunk in vf
+			pChunk->render_list_next = nullptr;
+			m_pRenderList = pChunk;
 			return;
 		}
 
-		math::Vector3 min_coord, max_coord, center_coord;
-		center_coord = bound.GetCenter();
-		min_coord = bound.GetMinCoord();
-		max_coord = bound.GetMaxCoord();
+		pChunk->render_list_next = m_pRenderList;
+		m_pRenderList = pChunk;
+	}
+	VoxelWorldChunk* VoxelWorldRegion::GetRenderList()
+	{
+		return m_pRenderList;
+	}
+	uint32	VoxelWorldRegion::GetFaceCount()
+	{
+		return m_faceCount;
 
-
-		math::AABBox sub;
-		
-		sub.Make(min_coord, center_coord);
-		_frustum_cull(sub, vf);
-
-		sub.Make(math::Vector3(min_coord.x, min_coord.y, center_coord.z), math::Vector3(center_coord.x, center_coord.y, max_coord.z));
-		_frustum_cull(sub, vf);
-
-		
-		sub.Make(math::Vector3(center_coord.x, min_coord.y, min_coord.z), math::Vector3(max_coord.x, center_coord.y, center_coord.z));
-		_frustum_cull(sub, vf);
-
-		sub.Make(math::Vector3(center_coord.x, min_coord.y, center_coord.z), math::Vector3(max_coord.x, center_coord.y, max_coord.z));
-		_frustum_cull(sub, vf);
-
-		// ===============
-
-		
-		sub.Make(math::Vector3(min_coord.x, center_coord.y, min_coord.z), math::Vector3(center_coord.x, max_coord.y, center_coord.z));
-		_frustum_cull(sub, vf);
-
-
-		sub.Make(math::Vector3(min_coord.x, center_coord.y, center_coord.z), math::Vector3(center_coord.x, max_coord.y, max_coord.z));
-		_frustum_cull(sub, vf);
-
-		
-		sub.Make(math::Vector3(center_coord.x, center_coord.y, min_coord.z), math::Vector3(max_coord.x, max_coord.y, center_coord.z));
-		_frustum_cull(sub, vf);
-
-		
-
-		sub.Make(center_coord, max_coord);
-		_frustum_cull(sub, vf);
 	}
 }

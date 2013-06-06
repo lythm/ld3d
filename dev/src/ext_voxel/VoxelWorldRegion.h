@@ -13,11 +13,7 @@ namespace ld3d
 		bool													Initialize();
 		void													Release();
 		void													Update();
-
-		void													GenerateMesh();
-
 		void													UpdateMesh();
-
 		bool													Empty(uint32 x, uint32 y, uint32 z);
 		bool													AddBlock(uint8 vt, uint32 x, uint32 y, uint32 z);
 		uint8													GetBlock(uint32 x, uint32 y, uint32 z);
@@ -28,15 +24,16 @@ namespace ld3d
 
 		void													FrustumCull(const ViewFrustum& vf);
 
-		const std::vector<VoxelFace>&							GetMeshData();
+		VoxelWorldChunk*										GetRenderList();
+
+		uint32													GetFaceCount();
+
 	private:
 
+		void													AddChunkToRenderList(VoxelWorldChunk* pChunk);
 		void													AddChunkToDirtyList(VoxelWorldChunk* pChunk);
 
 		void													GenerateChunkMesh(VoxelWorldChunk* pChunk);
-
-
-		void													_frustum_cull(const math::AABBox& bound, const ViewFrustum& vf);
 
 		VoxelWorldChunk*										_get_chunk(uint32 x, uint32 y, uint32 z);
 		uint8													_get_voxel(uint32 x, uint32 y, uint32 z);
@@ -53,8 +50,12 @@ namespace ld3d
 		VoxelWorldChunk**										m_pChunkMap;
 		VoxelPoolPtr											m_pPool;
 
-		std::vector<VoxelFace>									m_mesh;
-
 		VoxelWorldChunk*										m_pDirtyList;
+
+		VoxelWorldChunk*										m_pRenderList;
+
+		uint32													m_faceCount;
+
+		VoxelWorldOctTreePtr									m_pRoot;
 	};
 }

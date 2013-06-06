@@ -11,8 +11,10 @@ namespace ld3d
 	class VoxelPolygonizer;
 	class VoxelPool;
 	class VoxelWorldDataSet;
+	class VoxelWorldOctTree;
 
 
+	typedef boost::shared_ptr<VoxelWorldOctTree>					VoxelWorldOctTreePtr;
 	typedef boost::shared_ptr<VoxelWorldDataSet>					VoxelWorldDataSetPtr;
 	typedef boost::shared_ptr<VoxelPool>							VoxelPoolPtr;
 	typedef boost::shared_ptr<VoxelPolygonizer>						VoxelPolygonizerPtr;

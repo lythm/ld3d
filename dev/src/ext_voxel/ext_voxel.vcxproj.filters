@@ -60,9 +60,6 @@
     <ClInclude Include="VoxelPolygonizer.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="OctTreeNode.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="VoxelPool.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -76,6 +73,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="VoxelWorldRegion.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="VoxelWorldOctTree.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
@@ -119,9 +119,6 @@
     <ClCompile Include="VoxelPolygonizer.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="OctTreeNode.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="VoxelPool.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -129,6 +126,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="VoxelWorldRegion.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="VoxelWorldOctTree.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

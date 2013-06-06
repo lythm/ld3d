@@ -2,6 +2,7 @@
 
 namespace ld3d
 {
+	struct VoxelWorldChunk;
 	class VoxelWorldRenderData : public RenderData
 	{
 		struct VoxelVertex
@@ -21,8 +22,11 @@ namespace ld3d
 		math::Matrix44											GetWorldMatrix();
 		bool													IsDeferred();
 
-		void													PrepareData(const std::vector<VoxelFace>& data);
+		void													PrepareRenderList(VoxelWorldChunk* pList);
 
+
+	private:
+		void													_draw(Sys_GraphicsPtr pSysGraphics, MaterialPtr pMaterial);
 	private:
 		GPUBufferPtr											m_pVertexBuffer;
 		GPUBufferPtr											m_pIndexBuffer;
@@ -35,5 +39,7 @@ namespace ld3d
 		uint32													m_nVBOffset;
 		uint32													m_nVertexStride;
 		uint32													m_nVertexCount;
+
+		VoxelWorldChunk*										m_pRenderList;
 	};
 }
