@@ -69,6 +69,10 @@ namespace ld3d
 	}
 	void VoxelWorldRenderer::on_event_frustumcull(EventPtr pEvent)
 	{
+		boost::shared_ptr<Event_FrustumCull> e = boost::dynamic_pointer_cast<Event_FrustumCull>(pEvent);
+
+		m_pWorld->FrustumCull(e->m_pCamera);
+
 		const std::vector<VoxelFace>& mesh = m_pWorld->GetDataSet()->GetMeshData();
 
 		m_pRenderData->PrepareData(mesh);

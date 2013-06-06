@@ -435,4 +435,64 @@ namespace ld3d
 		pChunk->dirty_list_next = m_pDirtyList;
 		m_pDirtyList = pChunk;
 	}
+	void VoxelWorldRegion::FrustumCull(const ViewFrustum& vf)
+	{
+		math::AABBox bound(math::Vector3(0, 0, 0), math::Vector3(VOXEL_WORLD_REGION_SIZE, VOXEL_WORLD_REGION_SIZE, VOXEL_WORLD_REGION_SIZE));
+
+		_frustum_cull(bound, vf);
+	}
+	void VoxelWorldRegion::_frustum_cull(const math::AABBox& bound, const ViewFrustum& vf)
+	{
+		if(false == vf.IntersectBox(bound))
+		{
+			return;
+		}
+
+		int l = int(bound.GetMaxCoord().x - bound.GetMinCoord().x);
+		if((int(bound.GetMaxCoord().x - bound.GetMinCoord().x)) == VOXEL_WORLD_CHUNK_SIZE)
+		{
+			// chunk in vf
+			return;
+		}
+
+		math::Vector3 min_coord, max_coord, center_coord;
+		center_coord = bound.GetCenter();
+		min_coord = bound.GetMinCoord();
+		max_coord = bound.GetMaxCoord();
+
+
+		math::AABBox sub;
+		
+		sub.Make(min_coord, center_coord);
+		_frustum_cull(sub, vf);
+
+		sub.Make(math::Vector3(min_coord.x, min_coord.y, center_coord.z), math::Vector3(center_coord.x, center_coord.y, max_coord.z));
+		_frustum_cull(sub, vf);
+
+		
+		sub.Make(math::Vector3(center_coord.x, min_coord.y, min_coord.z), math::Vector3(max_coord.x, center_coord.y, center_coord.z));
+		_frustum_cull(sub, vf);
+
+		sub.Make(math::Vector3(center_coord.x, min_coord.y, center_coord.z), math::Vector3(max_coord.x, center_coord.y, max_coord.z));
+		_frustum_cull(sub, vf);
+
+		// ===============
+
+		
+		sub.Make(math::Vector3(min_coord.x, center_coord.y, min_coord.z), math::Vector3(center_coord.x, max_coord.y, center_coord.z));
+		_frustum_cull(sub, vf);
+
+
+		sub.Make(math::Vector3(min_coord.x, center_coord.y, center_coord.z), math::Vector3(center_coord.x, max_coord.y, max_coord.z));
+		_frustum_cull(sub, vf);
+
+		
+		sub.Make(math::Vector3(center_coord.x, center_coord.y, min_coord.z), math::Vector3(max_coord.x, max_coord.y, center_coord.z));
+		_frustum_cull(sub, vf);
+
+		
+
+		sub.Make(center_coord, max_coord);
+		_frustum_cull(sub, vf);
+	}
 }

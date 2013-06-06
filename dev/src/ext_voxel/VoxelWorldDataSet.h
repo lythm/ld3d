@@ -27,6 +27,8 @@ namespace ld3d
 
 
 		const std::vector<VoxelFace>&							GetMeshData();
+
+		void													FrustumCull(const ViewFrustum& vf);
 	private:
 		
 	private:

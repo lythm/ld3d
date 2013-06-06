@@ -13,7 +13,7 @@ namespace math
 	class AABBox
 	{
 	public:
-		AABBox(const Vector3& max_coord, const Vector3& min_coord);
+		AABBox(const Vector3& min_coord, const Vector3& max_coord);
 		AABBox();
 
 		~AABBox(void);
@@ -24,7 +24,7 @@ namespace math
 
 		void					SetMaxCoord(const Vector3& max_coord);
 		void					SetMinCoord(const Vector3& min_coord);
-		void					Make(const Vector3& max_coord, const Vector3& min_coord);
+		void					Make(const Vector3& min_coord, const Vector3& max_coord);
 
 		void					Merge(const AABBox& box);
 
@@ -57,7 +57,7 @@ namespace math
 		UpdateCenter();
 	}
 	inline
-		AABBox::AABBox(const Vector3& max_coord, const Vector3& min_coord) : m_max(max_coord), m_min(min_coord)
+		AABBox::AABBox(const Vector3& min_coord, const Vector3& max_coord) : m_max(max_coord), m_min(min_coord)
 	{
 		UpdateValid();
 		UpdateCenter();
@@ -101,7 +101,7 @@ namespace math
 		UpdateCenter();
 	}
 	inline
-		void AABBox::Make(const Vector3& max_coord, const Vector3& min_coord)
+		void AABBox::Make(const Vector3& min_coord, const Vector3& max_coord)
 	{
 		m_max = max_coord;
 		m_min = min_coord;

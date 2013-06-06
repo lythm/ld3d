@@ -61,4 +61,8 @@ namespace ld3d
 	{
 		return m_pRegion->GetMeshData();
 	}
+	void VoxelWorldDataSet::FrustumCull(const ViewFrustum& vf)
+	{
+		m_pRegion->FrustumCull(vf);
+	}
 }

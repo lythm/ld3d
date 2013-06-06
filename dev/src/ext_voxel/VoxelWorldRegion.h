@@ -26,6 +26,7 @@ namespace ld3d
 
 		bool													InRegion(uint32 x, uint32 y, uint32 z);
 
+		void													FrustumCull(const ViewFrustum& vf);
 
 		const std::vector<VoxelFace>&							GetMeshData();
 	private:
@@ -33,6 +34,9 @@ namespace ld3d
 		void													AddChunkToDirtyList(VoxelWorldChunk* pChunk);
 
 		void													GenerateChunkMesh(VoxelWorldChunk* pChunk);
+
+
+		void													_frustum_cull(const math::AABBox& bound, const ViewFrustum& vf);
 
 		VoxelWorldChunk*										_get_chunk(uint32 x, uint32 y, uint32 z);
 		uint8													_get_voxel(uint32 x, uint32 y, uint32 z);

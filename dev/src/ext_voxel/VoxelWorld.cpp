@@ -126,25 +126,33 @@ namespace ld3d
 	void VoxelWorld::RebuildWorld()
 	{
 		m_pManager->Log(L"Rebuilding Voxel world...");
+
+		int tick = GetTickCount();
+
 		DestroyWorld();
 
 		Generate();
 
-		m_pManager->Log(L"Voxel world rebuilt.");
+		tick = GetTickCount() - tick;
+		wchar_t szBuffer[512];
+
+		swprintf(szBuffer, L"Voxel world rebuilt.(%.4fs)", float(tick) / 1000.0f);
+
+		m_pManager->Log(szBuffer);
 		
 	}
 	
 	void VoxelWorld::Generate()
 	{
-		
 		m_pDataSet = VoxelWorldGenerator::Generate(m_worldSizeX, m_worldSizeY, m_worldSizeZ);
-
 		Polygonize();
-
 		m_pDataSet->GenerateMesh();
 	}
 	void VoxelWorld::FrustumCull(BaseCameraPtr pCamera)
 	{
+		const ViewFrustum& vf = pCamera->GetViewFrustum();
+
+		m_pDataSet->FrustumCull(vf);
 
 	}
 	void VoxelWorld::Polygonize()
@@ -158,5 +166,6 @@ namespace ld3d
 	{
 		return m_pDataSet;
 	}
+	
 }
 
