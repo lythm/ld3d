@@ -20,8 +20,7 @@ namespace ld3d
 
 	struct VoxelFace
 	{
-		math::Vector3			verts[6];
-		math::Vector3			normals[6];
+		math::Vector3			verts[4];
 		uint32					clr;
 	};
 

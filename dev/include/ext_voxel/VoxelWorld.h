@@ -31,13 +31,15 @@ namespace ld3d
 		VoxelWorldChunk*							FrustumCull(BaseCameraPtr pCamera);
 
 		VoxelWorldDataSetPtr						GetDataSet();
+
+		bool										OnSerialize(DataStream* pStream);
+		bool										OnUnSerialize(DataStream* pStream, const Version& version);
 	private:
 		bool										OnAttach();
 		void										OnDetach();
 
 		void										RebuildWorld();
 		void										DestroyWorld();
-		void										Polygonize();
 
 	private:
 		int											m_voxelSize;
@@ -45,7 +47,6 @@ namespace ld3d
 		int											m_worldSizeY;
 		int											m_worldSizeZ;
 
-		VoxelPolygonizerPtr							m_pPolygonizer;
 		VoxelWorldDataSetPtr						m_pDataSet;
 	};
 }

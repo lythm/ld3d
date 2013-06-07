@@ -106,15 +106,27 @@ namespace ld3d
 					m_nVBOffset = 0;
 					m_nVBCurrent = 0;
 					bytesLeft = m_nVBBytes;
+					m_nVertexCount = 0;
 				}
 
 
 				const VoxelFace& face = pChunk->mesh[i];
 				VoxelVertex vert[6];
+				math::Vector3 normal = math::Cross(face.verts[1] - face.verts[0], face.verts[3] - face.verts[0]);
+				normal.Normalize();
+
+				vert[0].pos = face.verts[0];
+				vert[1].pos = face.verts[1];
+				vert[2].pos = face.verts[2];
+
+				vert[3].pos = face.verts[1];
+				vert[4].pos = face.verts[3];
+				vert[5].pos = face.verts[2];
+
+
 				for(int ivert = 0; ivert < 6; ++ivert)
 				{
-					vert[ivert].normal = face.normals[ivert];
-					vert[ivert].pos = face.verts[ivert];
+					vert[ivert].normal = normal;
 				}
 				
 				memcpy(data + m_nVBCurrent, &vert, sizeof(VoxelVertex) * 6);

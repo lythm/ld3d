@@ -17,7 +17,6 @@ namespace ld3d
 		m_worldSizeZ			= 10;
 		
 
-		m_pPolygonizer = pManager->GetAllocator()->AllocObject<VoxelPolygonizer>();
 	}
 
 
@@ -62,8 +61,6 @@ namespace ld3d
 		}
 		pPM->End();
 
-
-		m_pPolygonizer->Reset();
 
 		RebuildWorld();
 
@@ -145,7 +142,6 @@ namespace ld3d
 	void VoxelWorld::Generate()
 	{
 		m_pDataSet = VoxelWorldGenerator::Generate(m_worldSizeX, m_worldSizeY, m_worldSizeZ);
-		Polygonize();
 		m_pDataSet->UpdateMesh();
 	}
 	VoxelWorldChunk* VoxelWorld::FrustumCull(BaseCameraPtr pCamera)
@@ -155,17 +151,34 @@ namespace ld3d
 
 		return m_pDataSet->FrustumCull(vf);
 	}
-	void VoxelWorld::Polygonize()
-	{
-		m_pPolygonizer->Process(boost::dynamic_pointer_cast<VoxelWorld>(shared_from_this()));
-
-		// build octree from polygons
-		// 
-	}
+	
 	VoxelWorldDataSetPtr VoxelWorld::GetDataSet()
 	{
 		return m_pDataSet;
 	}
-	
+
+	bool VoxelWorld::OnSerialize(DataStream* pStream)
+	{
+		pStream->WriteInt32(m_worldSizeX);
+		pStream->WriteInt32(m_worldSizeY);
+		pStream->WriteInt32(m_worldSizeZ);
+		pStream->WriteInt32(m_voxelSize);
+		return true;
+	}
+	bool VoxelWorld::OnUnSerialize(DataStream* pStream, const Version& version)
+	{
+		if(version != GetVersion())
+		{
+			return false;
+		}
+
+		m_worldSizeX = pStream->ReadInt32();
+		m_worldSizeY = pStream->ReadInt32();
+		m_worldSizeZ = pStream->ReadInt32();
+		m_voxelSize = pStream->ReadInt32();
+
+		RebuildWorld();
+		return true;
+	}
 }
 
