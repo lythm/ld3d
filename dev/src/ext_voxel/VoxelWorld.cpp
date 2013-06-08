@@ -62,7 +62,7 @@ namespace ld3d
 		pPM->End();
 
 
-		RebuildWorld();
+	//	RebuildWorld();
 
 		return true;
 	}

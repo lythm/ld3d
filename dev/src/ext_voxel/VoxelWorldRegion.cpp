@@ -260,117 +260,12 @@ namespace ld3d
 		return pChunk->data[index];
 	}
 	
-	void VoxelWorldRegion::GenerateChunkMesh(VoxelWorldChunk* pChunk)
-	{
-		int delta = pChunk->mesh.size();
-
-		pChunk->mesh.clear();
-		for(int i = 0; i < VOXEL_WORLD_CHUNK_SIZE * VOXEL_WORLD_CHUNK_SIZE * VOXEL_WORLD_CHUNK_SIZE; ++i)
-		{
-			uint32 x ,y,z;
-
-			_voxel_index_to_region(pChunk->key, i, x, y, z);
-
-			if(Empty(x, y, z))
-			{
-				continue;
-			}
-
-			// x axis
-			if(Empty(x - 1, y, z))
-			{
-				VoxelFace f;
-				f.clr = 0xffffffff;
-				f.verts[0] = math::Vector3(x, y, z)					* VOXEL_WORLD_BLOCK_SIZE;
-				f.verts[1] = math::Vector3(x, y, z + 1)				* VOXEL_WORLD_BLOCK_SIZE;
-				f.verts[2] = math::Vector3(x, y + 1, z)				* VOXEL_WORLD_BLOCK_SIZE;
-				f.verts[3] = math::Vector3(x, y + 1, z + 1)			* VOXEL_WORLD_BLOCK_SIZE;
-				
-				pChunk->mesh.push_back(f);
-			}
-
-			if(Empty(x + 1, y, z))
-			{
-				VoxelFace f;
-				f.clr = 0xffffffff;
-				f.verts[0] = math::Vector3(x + 1, y, z)				* VOXEL_WORLD_BLOCK_SIZE;
-				f.verts[1] = math::Vector3(x + 1, y + 1, z)			* VOXEL_WORLD_BLOCK_SIZE;
-				f.verts[2] = math::Vector3(x + 1, y, z + 1)			* VOXEL_WORLD_BLOCK_SIZE;
-				f.verts[3] = math::Vector3(x + 1, y + 1, z + 1)		* VOXEL_WORLD_BLOCK_SIZE;
-
-				pChunk->mesh.push_back(f);
-			}
-
-			// y axis
-			if(Empty(x , y - 1, z) && y != 0)
-			{
-				VoxelFace f;
-				f.clr = 0xffffffff;
-				f.verts[0] = math::Vector3(x, y, z)					* VOXEL_WORLD_BLOCK_SIZE;
-				f.verts[1] = math::Vector3(x + 1, y, z)				* VOXEL_WORLD_BLOCK_SIZE;
-				f.verts[2] = math::Vector3(x, y, z + 1)				* VOXEL_WORLD_BLOCK_SIZE;
-				f.verts[3] = math::Vector3(x + 1, y, z + 1)			* VOXEL_WORLD_BLOCK_SIZE;
-
-				pChunk->mesh.push_back(f);
-			}
-
-			if(Empty(x, y + 1, z))
-			{
-				VoxelFace f;
-				f.clr = 0xffffffff;
-				f.verts[0] = math::Vector3(x, y + 1, z)						* VOXEL_WORLD_BLOCK_SIZE;
-				f.verts[1] = math::Vector3(x, y + 1, z + 1)					* VOXEL_WORLD_BLOCK_SIZE;
-				f.verts[2] = math::Vector3(x + 1, y + 1, z )				* VOXEL_WORLD_BLOCK_SIZE;
-				f.verts[3] = math::Vector3(x + 1, y + 1, z + 1)				* VOXEL_WORLD_BLOCK_SIZE;
-				
-				pChunk->mesh.push_back(f);
-			}
-
-			// z axis
-			if(Empty(x, y, z - 1))
-			{
-				VoxelFace f;
-				f.clr = 0xffffffff;
-				f.verts[0] = math::Vector3(x, y, z)						* VOXEL_WORLD_BLOCK_SIZE;
-				f.verts[1] = math::Vector3(x, y + 1, z)					* VOXEL_WORLD_BLOCK_SIZE;
-				f.verts[2] = math::Vector3(x + 1, y, z)					* VOXEL_WORLD_BLOCK_SIZE;
-				f.verts[3] = math::Vector3(x + 1, y + 1, z)				* VOXEL_WORLD_BLOCK_SIZE;
-				
-				pChunk->mesh.push_back(f);
-			}
-
-			if(Empty(x, y, z + 1))
-			{
-				VoxelFace f;
-				f.clr = 0xffffffff;
-				f.verts[0] = math::Vector3(x, y, z + 1)					* VOXEL_WORLD_BLOCK_SIZE;
-				f.verts[1] = math::Vector3(x + 1, y, z + 1)				* VOXEL_WORLD_BLOCK_SIZE;
-				f.verts[2] = math::Vector3(x, y + 1, z + 1)				* VOXEL_WORLD_BLOCK_SIZE;
-				f.verts[3] = math::Vector3(x + 1, y + 1, z + 1)			* VOXEL_WORLD_BLOCK_SIZE;
-				
-				pChunk->mesh.push_back(f);
-			}
-		}
-		if(pChunk->in_oct_tree == false && pChunk->mesh.size() != 0)
-		{
-			if(false == m_pRoot->AddChunk(pChunk))
-			{
-				assert(0);
-			}
-
-			pChunk->in_oct_tree = true;
-		}
-
-		delta = pChunk->mesh.size() - delta;
-
-		m_faceCount += delta;
-	}
+	
 	
 	void VoxelWorldRegion::UpdateMesh()
 	{
 		while(m_pDirtyList)
 		{
-			//GenerateChunkMesh(m_pDirtyList);
 			GenChunkMesh(m_pDirtyList);
 			m_pDirtyList->in_dirty_list = false;
 			m_pDirtyList = m_pDirtyList->dirty_list_next;

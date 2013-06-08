@@ -35,7 +35,6 @@ namespace ld3d
 		void													AddChunkToRenderList(VoxelWorldChunk* pChunk);
 		void													AddChunkToDirtyList(VoxelWorldChunk* pChunk);
 
-		void													GenerateChunkMesh(VoxelWorldChunk* pChunk);
 		void													GenChunkMesh(VoxelWorldChunk* pChunk);
 		VoxelWorldChunk*										_get_chunk(uint32 x, uint32 y, uint32 z);
 		uint8													_get_voxel(uint32 x, uint32 y, uint32 z);
