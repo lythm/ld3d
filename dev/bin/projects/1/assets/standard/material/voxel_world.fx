@@ -33,6 +33,7 @@ GBuffer dr_ps_main(vs_out i)
 RasterizerState rs
 {
 	CULLMODE						= Back;
+	//FILLMODE						= WireFrame;
 };
 DepthStencilState dr_ds
 {

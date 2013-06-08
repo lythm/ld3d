@@ -318,8 +318,8 @@ namespace ld3d
 			{
 				VoxelFace f;
 				f.clr = 0xffffffff;
-				f.verts[0] = math::Vector3(x, y + 1, z)					* VOXEL_WORLD_BLOCK_SIZE;
-				f.verts[1] = math::Vector3(x, y + 1, z + 1)			* VOXEL_WORLD_BLOCK_SIZE;
+				f.verts[0] = math::Vector3(x, y + 1, z)						* VOXEL_WORLD_BLOCK_SIZE;
+				f.verts[1] = math::Vector3(x, y + 1, z + 1)					* VOXEL_WORLD_BLOCK_SIZE;
 				f.verts[2] = math::Vector3(x + 1, y + 1, z )				* VOXEL_WORLD_BLOCK_SIZE;
 				f.verts[3] = math::Vector3(x + 1, y + 1, z + 1)				* VOXEL_WORLD_BLOCK_SIZE;
 				
@@ -370,7 +370,8 @@ namespace ld3d
 	{
 		while(m_pDirtyList)
 		{
-			GenerateChunkMesh(m_pDirtyList);
+			//GenerateChunkMesh(m_pDirtyList);
+			GenChunkMesh(m_pDirtyList);
 			m_pDirtyList->in_dirty_list = false;
 			m_pDirtyList = m_pDirtyList->dirty_list_next;
 		}
@@ -524,7 +525,7 @@ namespace ld3d
 
 		for(int i = 0; i < 6; ++i)
 		{
-			std::vector<VoxelFace> ret = CombineFace(faces[i]);
+			std::vector<VoxelFace> ret = CombineFace(faces[i], i);
 			pChunk->mesh.insert(pChunk->mesh.begin(), ret.begin(), ret.end());
 		}
 		
@@ -542,7 +543,7 @@ namespace ld3d
 
 		m_faceCount += delta;
 	}
-	std::vector<VoxelFace> VoxelWorldRegion::CombineFace(std::list<VoxelFace>& faces)
+	std::vector<VoxelFace> VoxelWorldRegion::CombineFace(std::list<VoxelFace>& faces, int axis)
 	{
 		std::vector<VoxelFace> ret;
 
@@ -551,15 +552,160 @@ namespace ld3d
 		
 		while(it != faces.end())
 		{
+			bool merged = false;
+			for(size_t i = 0; i < ret.size(); ++i)
+			{
+				if(MergeWith(*it, ret[i], axis) == true)
+				{
+					merged = true;
+					break;
+				}
+			}
 
-
+			if(merged == false)
+			{
+				ret.push_back(*it);
+			}
+			
 			++it;
 		}
 
 		return ret;
 	}
-	bool VoxelWorldRegion::MergeWith(VoxelFace& f1, VoxelFace& f2)
+	bool VoxelWorldRegion::CanMerge(VoxelFace& f1, VoxelFace& f2)
 	{
+		struct FaceEdge
+		{
+			uint32			a, b;
+		};
+
+		FaceEdge edges[4];
+
+		edges[0].a = 0;
+		edges[0].b = 1;
+
+		edges[1].a = 1;
+		edges[1].b = 3;
+
+		edges[2].a = 3;
+		edges[2].b = 2;
+
+		edges[3].a = 2;
+		edges[3].b = 0;
+
+		int e1 = -1;
+		int e2 = -1;
+
+		for(int i1 = 0; i1 < 4; ++i1)
+		{
+			math::Vector3 a1, b1;
+
+			a1 = f1.verts[edges[i1].a];
+			b1 = f1.verts[edges[i1].b];
+			
+			for(int i2 = 0; i2 < 4; ++i2)
+			{
+				math::Vector3 a2, b2;
+				a2 = f2.verts[edges[i2].a];
+				b2 = f2.verts[edges[i2].b];
+
+				if((a1 == a2 && b1 == b2) || (a1 == b2 && b1 == a2))
+				{
+					e1 = i1;
+					e2 = i2;
+					return true;
+				}
+			}
+		}
+
 		return false;
+	}
+	bool VoxelWorldRegion::MergeWith(VoxelFace& f1, VoxelFace& f2, int axis)
+	{
+		if(CanMerge(f1, f2) == false)
+		{
+			return false;
+		}
+		// merge f1 to f2
+		math::Vector3 min_vert( 99999, 99999, 99999), max_vert(-99999, -99999, -99999);
+
+		for(int i = 0; i < 4; ++i)
+		{
+			min_vert.x = min_vert.x > f1.verts[i].x ? f1.verts[i].x : min_vert.x;
+			min_vert.y = min_vert.y > f1.verts[i].y ? f1.verts[i].y : min_vert.y;
+			min_vert.z = min_vert.z > f1.verts[i].z ? f1.verts[i].z : min_vert.z;
+
+			max_vert.x = max_vert.x < f1.verts[i].x ? f1.verts[i].x : max_vert.x;
+			max_vert.y = max_vert.y < f1.verts[i].y ? f1.verts[i].y : max_vert.y;
+			max_vert.z = max_vert.z < f1.verts[i].z ? f1.verts[i].z : max_vert.z;
+		}
+
+		for(int i = 0; i < 4; ++i)
+		{
+			min_vert.x = min_vert.x > f2.verts[i].x ? f2.verts[i].x : min_vert.x;
+			min_vert.y = min_vert.y > f2.verts[i].y ? f2.verts[i].y : min_vert.y;
+			min_vert.z = min_vert.z > f2.verts[i].z ? f2.verts[i].z : min_vert.z;
+
+			max_vert.x = max_vert.x < f2.verts[i].x ? f2.verts[i].x : max_vert.x;
+			max_vert.y = max_vert.y < f2.verts[i].y ? f2.verts[i].y : max_vert.y;
+			max_vert.z = max_vert.z < f2.verts[i].z ? f2.verts[i].z : max_vert.z;
+		}
+
+		switch(axis)
+		{
+		case 0: // -x axis
+			{
+				f2.verts[0] = math::Vector3(min_vert.x, min_vert.y, min_vert.z);
+				f2.verts[1] = math::Vector3(min_vert.x, min_vert.y, max_vert.z);
+				f2.verts[2] = math::Vector3(min_vert.x, max_vert.y, min_vert.z);
+				f2.verts[3] = math::Vector3(min_vert.x, max_vert.y, max_vert.z);
+			}
+			break;
+		case 1: // +x axis
+			{
+				f2.verts[0] = math::Vector3(max_vert.x, min_vert.y, min_vert.z);
+				f2.verts[1] = math::Vector3(max_vert.x, max_vert.y, min_vert.z);
+				f2.verts[2] = math::Vector3(max_vert.x, min_vert.y, max_vert.z);
+				f2.verts[3] = math::Vector3(max_vert.x, max_vert.y, max_vert.z);
+			}
+			break;
+		case 2: // -y axis
+			{
+				f2.verts[0] = math::Vector3(min_vert.x, min_vert.y, min_vert.z);
+				f2.verts[1] = math::Vector3(max_vert.x, min_vert.y, min_vert.z);
+				f2.verts[2] = math::Vector3(min_vert.x, min_vert.y, max_vert.z);
+				f2.verts[3] = math::Vector3(min_vert.x, min_vert.y, max_vert.z);
+			}
+			break;
+		case 3: // +y axis
+			{
+				f2.verts[0] = math::Vector3(min_vert.x, max_vert.y, min_vert.z);
+				f2.verts[1] = math::Vector3(min_vert.x, max_vert.y, max_vert.z);
+				f2.verts[2] = math::Vector3(max_vert.x, max_vert.y, min_vert.z);
+				f2.verts[3] = math::Vector3(max_vert.x, max_vert.y, max_vert.z);
+			}
+			break;
+		case 4: // -z axis
+			{
+				f2.verts[0] = math::Vector3(min_vert.x, min_vert.y, min_vert.z);
+				f2.verts[1] = math::Vector3(min_vert.x, max_vert.y, min_vert.z);
+				f2.verts[2] = math::Vector3(max_vert.x, min_vert.y, min_vert.z);
+				f2.verts[3] = math::Vector3(max_vert.x, max_vert.y, min_vert.z);
+			}
+			break;
+		case 5: // +z axis
+			{
+				f2.verts[0] = math::Vector3(min_vert.x, min_vert.y, max_vert.z);
+				f2.verts[1] = math::Vector3(max_vert.x, min_vert.y, max_vert.z);
+				f2.verts[2] = math::Vector3(min_vert.x, max_vert.y, max_vert.z);
+				f2.verts[3] = math::Vector3(max_vert.x, max_vert.y, max_vert.z);
+			}
+			break;
+		default:
+			assert(0);
+			return false;
+		}
+
+		return true;
 	}
 }

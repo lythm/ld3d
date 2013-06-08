@@ -29,8 +29,9 @@ namespace ld3d
 		uint32													GetFaceCount();
 
 	private:
-		bool													MergeWith(VoxelFace& f1, VoxelFace& f2);
-		std::vector<VoxelFace>									CombineFace(std::list<VoxelFace>& faces);
+		bool													CanMerge(VoxelFace& f1, VoxelFace& f2);
+		bool													MergeWith(VoxelFace& f1, VoxelFace& f2, int axis);
+		std::vector<VoxelFace>									CombineFace(std::list<VoxelFace>& faces, int axis);
 		void													AddChunkToRenderList(VoxelWorldChunk* pChunk);
 		void													AddChunkToDirtyList(VoxelWorldChunk* pChunk);
 
