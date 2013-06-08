@@ -21,7 +21,9 @@ namespace ld3d
 	struct VoxelFace
 	{
 		math::Vector3			verts[4];
+		math::Vector3			normal;
 		uint32					clr;
+		uint8					type;
 	};
 
 	enum 

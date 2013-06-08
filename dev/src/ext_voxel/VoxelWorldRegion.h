@@ -6,11 +6,17 @@ namespace ld3d
 	struct VoxelWorldChunk;
 	class VoxelWorldRegion
 	{
+		struct FaceRegion
+		{
+			int x1, y1;
+			int x2, y2;
+			int type;
+		};
 	public:
 		VoxelWorldRegion(void);
 		virtual ~VoxelWorldRegion(void);
 
-		bool													Initialize();
+		bool													Initialize(int sx, int sy, int sz);
 		void													Release();
 		void													Update();
 		void													UpdateMesh();
@@ -29,13 +35,13 @@ namespace ld3d
 		uint32													GetFaceCount();
 
 	private:
-		bool													CanMerge(VoxelFace& f1, VoxelFace& f2);
-		bool													MergeWith(VoxelFace& f1, VoxelFace& f2, int axis);
-		std::vector<VoxelFace>									CombineFace(std::list<VoxelFace>& faces, int axis);
+		void													GenChunkMesh(VoxelWorldChunk* pChunk);
+		std::vector<FaceRegion>									ExtractRegion(uint8 faces[VOXEL_WORLD_CHUNK_SIZE][VOXEL_WORLD_CHUNK_SIZE]);
+		bool													FindMaxRegion(uint8 faces[VOXEL_WORLD_CHUNK_SIZE][VOXEL_WORLD_CHUNK_SIZE], FaceRegion& r);
+		
 		void													AddChunkToRenderList(VoxelWorldChunk* pChunk);
 		void													AddChunkToDirtyList(VoxelWorldChunk* pChunk);
 
-		void													GenChunkMesh(VoxelWorldChunk* pChunk);
 		VoxelWorldChunk*										_get_chunk(uint32 x, uint32 y, uint32 z);
 		uint8													_get_voxel(uint32 x, uint32 y, uint32 z);
 		VoxelWorldChunk*										_add_chunk(uint32 x, uint32 y, uint32 z);
@@ -58,5 +64,11 @@ namespace ld3d
 		uint32													m_faceCount;
 
 		VoxelWorldOctTreePtr									m_pRoot;
+
+		int														m_worldSizeX;
+		int														m_worldSizeY;
+		int														m_worldSizeZ;
+
+
 	};
 }

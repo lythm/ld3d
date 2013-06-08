@@ -112,9 +112,7 @@ namespace ld3d
 
 				const VoxelFace& face = pChunk->mesh[i];
 				VoxelVertex vert[6];
-				math::Vector3 normal = math::Cross(face.verts[1] - face.verts[0], face.verts[3] - face.verts[0]);
-				normal.Normalize();
-
+				
 				vert[0].pos = face.verts[0];
 				vert[1].pos = face.verts[1];
 				vert[2].pos = face.verts[2];
@@ -126,7 +124,7 @@ namespace ld3d
 
 				for(int ivert = 0; ivert < 6; ++ivert)
 				{
-					vert[ivert].normal = normal;
+					vert[ivert].normal = face.normal;
 				}
 				
 				memcpy(data + m_nVBCurrent, &vert, sizeof(VoxelVertex) * 6);
@@ -144,6 +142,7 @@ namespace ld3d
 	}
 	void VoxelWorldRenderData::_draw(Sys_GraphicsPtr pSysGraphics, MaterialPtr pMaterial)
 	{
+
 		if(m_nVertexCount == 0)
 		{
 			return;

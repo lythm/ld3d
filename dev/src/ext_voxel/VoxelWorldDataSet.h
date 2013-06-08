@@ -12,7 +12,7 @@ namespace ld3d
 		VoxelWorldDataSet(void);
 		virtual ~VoxelWorldDataSet(void);
 
-		bool													Initialize(float voxelSize = 1.0f);
+		bool													Initialize(int sx, int sy, int sz, float voxelSize = 1.0f);
 		void													Release();
 
 		void													Update();

@@ -51,6 +51,7 @@ namespace ld3d
 		{
 			return false;
 		}
+
 		return _add_chunk(pChunk);
 	}
 	bool VoxelWorldOctTree::_add_chunk(VoxelWorldChunk* pChunk)

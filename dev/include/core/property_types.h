@@ -14,7 +14,12 @@ namespace ld3d
 		property_type_mesh,
 		property_type_light,
 		property_type_filepath,
+		property_type_signal,
 
+	};
+
+	struct prop_signal
+	{
 	};
 
 	template <>
@@ -51,5 +56,5 @@ namespace ld3d
 	typedef Property_T<Light>						LightProperty;
 	typedef Property_T<boost::filesystem::path>		FilePathProperty;
 
-	
+	typedef Property_T<prop_signal>					SignalProperty;
 }

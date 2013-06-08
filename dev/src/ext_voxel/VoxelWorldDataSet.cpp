@@ -16,10 +16,10 @@ namespace ld3d
 	VoxelWorldDataSet::~VoxelWorldDataSet(void)
 	{
 	}
-	bool VoxelWorldDataSet::Initialize(float voxelSize)
+	bool VoxelWorldDataSet::Initialize(int sx, int sy, int sz, float voxelSize)
 	{
 		m_pRegion = new VoxelWorldRegion;
-		if(m_pRegion->Initialize() == false)
+		if(m_pRegion->Initialize(sx, sy, sz) == false)
 		{
 			return false;
 		}
