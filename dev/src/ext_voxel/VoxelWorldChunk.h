@@ -13,7 +13,8 @@ namespace ld3d
 		bool												in_dirty_list;
 		bool												in_oct_tree;
 		std::vector<VoxelFace>								mesh;
-
+		math::Vector3*										vertex_buffer;
+		int													vertex_count;
 
 		math::Vector3										chunk_coord()
 		{

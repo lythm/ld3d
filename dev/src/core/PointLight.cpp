@@ -40,7 +40,7 @@ namespace ld3d
 	}
 	bool PointLight::Create(RenderManagerPtr pRenderManager)
 	{
-		math::Vector3* pPos = MeshUtil::CreateSphere(1, 20, 20, m_nVerts);
+		math::Vector3* pPos = MeshUtil::CreateSphere(1, 15, 15, m_nVerts);
 		m_pVB = pRenderManager->CreateBuffer(BT_VERTEX_BUFFER, m_nVerts * sizeof(math::Vector3), pPos, false);
 		mem_free(pPos);
 

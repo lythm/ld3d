@@ -6,3 +6,4 @@
 #include "utils\PropertySet.h"
 #include "utils\Version.h"
 #include "utils\Unicode.h"
+#include "utils\PerlinNoise.h"

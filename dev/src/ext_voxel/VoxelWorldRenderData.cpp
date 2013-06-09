@@ -66,7 +66,69 @@ namespace ld3d
 
 	void VoxelWorldRenderData::Render(Sys_GraphicsPtr pSysGraphics, MaterialPtr pMaterial)
 	{
+
 		if(m_pRenderList == nullptr)
+		{
+			return;
+		}
+		MaterialPtr pMat = pMaterial == nullptr ? m_pMaterial : pMaterial;
+
+		VoxelWorldChunk* pChunk = m_pRenderList;
+		
+		
+		m_nVertexCount = 0;
+		m_nVBOffset = m_nVBCurrent;
+		uint32 bytesLeft = m_nVBBytes - m_nVBCurrent;
+
+		uint8* data = nullptr;
+		if(bytesLeft <= sizeof(VoxelVertex) * pChunk->vertex_count)
+		{
+			data = (uint8*)m_pVertexBuffer->Map(MAP_DISCARD);
+			m_nVBOffset = 0;
+			m_nVBCurrent = 0;
+			bytesLeft = m_nVBBytes;
+		}
+		else
+		{
+			data = (uint8*)m_pVertexBuffer->Map(MAP_NO_OVERWRITE);
+		}
+
+		while(pChunk)
+		{
+			if(pChunk->vertex_count == 0)
+			{
+				pChunk = pChunk->render_list_next;
+				continue;
+			}
+			bytesLeft = m_nVBBytes - m_nVBCurrent;
+			if(bytesLeft <= sizeof(VoxelVertex) * pChunk->vertex_count)
+			{
+				m_pVertexBuffer->Unmap();
+				_draw(pSysGraphics, pMat);
+
+				data = (uint8*)m_pVertexBuffer->Map(MAP_DISCARD);
+				m_nVBOffset = 0;
+				m_nVBCurrent = 0;
+				bytesLeft = m_nVBBytes;
+				m_nVertexCount = 0;
+			}
+
+			memcpy(data + m_nVBCurrent, pChunk->vertex_buffer, sizeof(VoxelVertex) * pChunk->vertex_count);
+			
+			m_nVBCurrent += sizeof(VoxelVertex) * pChunk->vertex_count;
+			m_nVertexCount += pChunk->vertex_count;
+			
+			pChunk = pChunk->render_list_next;
+		}
+
+		m_pVertexBuffer->Unmap();
+
+		_draw(pSysGraphics, pMat);
+
+		m_pRenderList = nullptr;
+
+
+		/*if(m_pRenderList == nullptr)
 		{
 			return;
 		}
@@ -138,11 +200,10 @@ namespace ld3d
 
 		_draw(pSysGraphics, pMat);
 
-		m_pRenderList = nullptr;
+		m_pRenderList = nullptr;*/
 	}
 	void VoxelWorldRenderData::_draw(Sys_GraphicsPtr pSysGraphics, MaterialPtr pMaterial)
 	{
-
 		if(m_nVertexCount == 0)
 		{
 			return;

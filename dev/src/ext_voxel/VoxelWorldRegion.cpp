@@ -23,12 +23,7 @@ namespace ld3d
 	VoxelWorldRegion::~VoxelWorldRegion(void)
 	{
 	}
-	int expo(int x)
-	{
-		int r = x >> 1 ? expo(x >> 1) << 1 : 1;
-		return r < x ? r << 1 : r;
-
-	}
+	
 	bool VoxelWorldRegion::Initialize(int sx, int sy, int sz)
 	{
 		m_pPool = VoxelPoolPtr(new VoxelPool);
@@ -52,7 +47,9 @@ namespace ld3d
 		m_pRoot = VoxelWorldOctTreePtr(new VoxelWorldOctTree);
 
 		int m = int(max_size / VOXEL_WORLD_CHUNK_SIZE);
-		m = expo(m);
+		int e = math::closest_expo(m);
+		m = e < m ? e << 1 : e;
+
 		float size = m * VOXEL_WORLD_CHUNK_SIZE;
 
 
@@ -74,6 +71,10 @@ namespace ld3d
 			while(pChunk)
 			{
 				VoxelWorldChunk* pTmp = pChunk;
+
+				delete[] pTmp->vertex_buffer;
+				pTmp->vertex_buffer = nullptr;
+
 				pChunk = pChunk->next;
 				m_pPool->Free(pTmp);
 			}
@@ -265,6 +266,7 @@ namespace ld3d
 		pChunk->dirty_list_next = nullptr;
 		pChunk->render_list_next = nullptr;
 		pChunk->in_oct_tree = false;
+		pChunk->vertex_buffer = nullptr;
 		m_pChunkMap[key % VOXEL_WORLD_CHUNK_MAP_SIZE] = pChunk;
 
 		return pChunk;
@@ -608,15 +610,43 @@ namespace ld3d
 			}
 		}
 
-		for(size_t i = 0; i < pChunk->mesh.size(); ++i)
-		{
-			pChunk->mesh[i].verts[0] += pChunk->chunk_coord();
-			pChunk->mesh[i].verts[1] += pChunk->chunk_coord();
-			pChunk->mesh[i].verts[2] += pChunk->chunk_coord();
-			pChunk->mesh[i].verts[3] += pChunk->chunk_coord();
-		}
+		delete[] pChunk->vertex_buffer;
+		pChunk->vertex_buffer = nullptr;
+		pChunk->vertex_count = 0;
 
-		if(pChunk->in_oct_tree == false && pChunk->mesh.size() != 0)
+		if(pChunk->mesh.size() != 0)
+		{
+			pChunk->vertex_buffer = new math::Vector3[pChunk->mesh.size() * 6 * 2];
+			pChunk->vertex_count = pChunk->mesh.size() * 6;
+		
+			math::Vector3* pData = pChunk->vertex_buffer;
+			
+			for(size_t i = 0; i < pChunk->mesh.size(); ++i)
+			{
+				const VoxelFace& face = pChunk->mesh[i];
+				*pData++ = face.verts[0] + pChunk->chunk_coord();
+				*pData++ = face.normal;
+				*pData++ = face.verts[1] + pChunk->chunk_coord();
+				*pData++ = face.normal;
+				*pData++ = face.verts[2] + pChunk->chunk_coord();
+				*pData++ = face.normal;
+
+				*pData++ = face.verts[1] + pChunk->chunk_coord();
+				*pData++ = face.normal;
+				*pData++ = face.verts[3] + pChunk->chunk_coord();
+				*pData++ = face.normal;
+				*pData++ = face.verts[2] + pChunk->chunk_coord();
+				*pData++ = face.normal;
+
+			}
+		}
+		
+
+		delta = pChunk->mesh.size() - delta;
+		m_faceCount += delta;
+
+
+		if(pChunk->in_oct_tree == false && pChunk->vertex_count != 0)
 		{
 			if(false == m_pRoot->AddChunk(pChunk))
 			{
@@ -626,9 +656,7 @@ namespace ld3d
 			pChunk->in_oct_tree = true;
 		}
 
-		delta = pChunk->mesh.size() - delta;
-
-		m_faceCount += delta;
+		
 	}
 	std::vector<VoxelWorldRegion::FaceRegion> VoxelWorldRegion::ExtractRegion(uint8 faces[VOXEL_WORLD_CHUNK_SIZE][VOXEL_WORLD_CHUNK_SIZE])
 	{

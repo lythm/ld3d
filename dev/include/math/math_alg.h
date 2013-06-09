@@ -271,6 +271,11 @@ namespace math
 		if(v2 > max_v)	max_v = v2;
 	}
 
+	inline
+	int closest_expo(int v)
+	{
+		return v >> 1 ? closest_expo(v >> 1) << 1 : 1;
+	}
 }
 
 #ifdef _D3DX9_IMPL_

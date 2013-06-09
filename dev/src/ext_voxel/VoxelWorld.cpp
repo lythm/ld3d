@@ -140,7 +140,8 @@ namespace ld3d
 	
 	void VoxelWorld::Generate()
 	{
-		m_pDataSet = VoxelWorldGenerator::Generate(m_worldSizeX, m_worldSizeY, m_worldSizeZ);
+		//m_pDataSet = VoxelWorldGenerator::Generate_Perlin(m_worldSizeX, m_worldSizeY, m_worldSizeZ);
+		m_pDataSet = VoxelWorldGenerator::Generate_Fractal(m_worldSizeX, m_worldSizeY, m_worldSizeZ);
 		m_pDataSet->UpdateMesh();
 	}
 	VoxelWorldChunk* VoxelWorld::FrustumCull(BaseCameraPtr pCamera)
