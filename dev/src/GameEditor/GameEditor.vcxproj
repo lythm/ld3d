@@ -129,6 +129,7 @@
     <ClInclude Include="InspectorProperty_Float.h" />
     <ClInclude Include="InspectorProperty_Int.h" />
     <ClInclude Include="InspectorProperty_Range.h" />
+    <ClInclude Include="InspectorProperty_Signal.h" />
     <ClInclude Include="InspectorProperty_Simple.h" />
     <ClInclude Include="InspectorProperty_String.h" />
     <ClInclude Include="InspectorProperty_Transform.h" />
@@ -184,6 +185,7 @@
     <ClCompile Include="InspectorProperty_Float.cpp" />
     <ClCompile Include="InspectorProperty_Int.cpp" />
     <ClCompile Include="InspectorProperty_Range.cpp" />
+    <ClCompile Include="InspectorProperty_Signal.cpp" />
     <ClCompile Include="InspectorProperty_Simple.cpp" />
     <ClCompile Include="InspectorProperty_String.cpp" />
     <ClCompile Include="InspectorProperty_Transform.cpp" />

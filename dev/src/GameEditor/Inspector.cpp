@@ -8,6 +8,7 @@
 #include "InspectorProperty_FilePath.h"
 #include "InspectorProperty_Range.h"
 #include "InspectorProperty_Transform.h"
+#include "InspectorProperty_Signal.h"
 #include "InspectorPanel.h"
 
 #include "editor_utils.h"
@@ -161,6 +162,10 @@ CInspectorProperty* CInspector::CreateProperty(ld3d::Property* p)
 			}
 		}
 		break;
+	case property_type_signal:
+		{
+			pProp = new CInspectorProperty_Signal(p->getName().c_str(), p);
+		}
 	default:
 		break;
 	}
@@ -237,6 +242,10 @@ void CInspector::OnPropertyChanged(CInspectorProperty* pProp)
 			CInspectorProperty_FilePath* pFileProp = (CInspectorProperty_FilePath*)pProp;
 
 			((FilePathProperty*)p)->Set(pFileProp->GetValue());
+		}
+		break;
+	case property_type_signal:
+		{
 		}
 		break;
 	default:

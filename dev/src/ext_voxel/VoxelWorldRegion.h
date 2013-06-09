@@ -35,6 +35,7 @@ namespace ld3d
 		uint32													GetFaceCount();
 
 	private:
+
 		void													GenChunkMesh(VoxelWorldChunk* pChunk);
 		std::vector<FaceRegion>									ExtractRegion(uint8 faces[VOXEL_WORLD_CHUNK_SIZE][VOXEL_WORLD_CHUNK_SIZE]);
 		bool													FindMaxRegion(uint8 faces[VOXEL_WORLD_CHUNK_SIZE][VOXEL_WORLD_CHUNK_SIZE], FaceRegion& r);

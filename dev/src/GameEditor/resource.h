@@ -115,6 +115,8 @@
 #define IDD_INSPECTOR_PROPERTY_FILEPATH 326
 #define IDD_INSPECTOR_PROPERTY_RANGE    327
 #define IDD_INSPECTOR_PROPERTY_TRANSFORM 328
+#define IDD_DIALOGBAR                   329
+#define IDD_INSPECTOR_PROPERTY_SIGNAL   329
 #define IDB_BITMAP1                     333
 #define IDB_ASSETLIST                   333
 #define IDC_MFCCOLORBUTTON1             1000
@@ -158,8 +160,7 @@
 #define IDC_SCALE_Z                     1067
 #define IDC_MFCVSLISTBOX1               1069
 #define IDC_SPLIT1                      1074
-#define IDC_MFCMENUBUTTON1              1075
-#define IDC_MENU_BTN                    1075
+#define IDC_SIGNAL_BTN                  1076
 #define ID_OV_32771                     32771
 #define ID_OV_DELOBJ                    32772
 #define ID_GAMEOBJECT_CREATEEMPTY       32773
@@ -227,7 +228,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        335
 #define _APS_NEXT_COMMAND_VALUE         32830
-#define _APS_NEXT_CONTROL_VALUE         1076
+#define _APS_NEXT_CONTROL_VALUE         1077
 #define _APS_NEXT_SYMED_VALUE           313
 #endif
 #endif

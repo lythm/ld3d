@@ -58,6 +58,13 @@ namespace ld3d
 				L"World Size Z",
 				&VoxelWorld::GetWorldSizeZ,
 				&VoxelWorld::SetWorldSizeZ);
+
+			pPM->RegisterProperty<prop_signal, VoxelWorld>(this,
+				L"Rebuild",
+				&VoxelWorld::_dummy,
+				&VoxelWorld::OnSignaleGenerate);
+
+
 		}
 		pPM->End();
 
@@ -92,9 +99,7 @@ namespace ld3d
 	}
 	void VoxelWorld::SetWorldSizeX(const int& x)
 	{
-		DestroyWorld();
 		m_worldSizeX = x;
-		RebuildWorld();
 	}
 
 	const int& VoxelWorld::GetWorldSizeY()
@@ -103,9 +108,7 @@ namespace ld3d
 	}
 	void VoxelWorld::SetWorldSizeY(const int& y)
 	{
-		DestroyWorld();
 		m_worldSizeY = y;
-		RebuildWorld();
 	}
 
 	const int& VoxelWorld::GetWorldSizeZ()
@@ -114,11 +117,7 @@ namespace ld3d
 	}
 	void VoxelWorld::SetWorldSizeZ(const int& z)
 	{
-		DestroyWorld();
 		m_worldSizeZ = z;
-		RebuildWorld();
-
-
 	}
 	void VoxelWorld::RebuildWorld()
 	{
@@ -179,6 +178,14 @@ namespace ld3d
 
 		RebuildWorld();
 		return true;
+	}
+	void VoxelWorld::OnSignaleGenerate(const prop_signal& s)
+	{
+		RebuildWorld();
+	}
+	prop_signal VoxelWorld::_dummy()
+	{
+		return prop_signal();
 	}
 }
 

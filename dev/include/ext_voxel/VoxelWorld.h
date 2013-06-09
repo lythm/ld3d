@@ -35,6 +35,10 @@ namespace ld3d
 		bool										OnSerialize(DataStream* pStream);
 		bool										OnUnSerialize(DataStream* pStream, const Version& version);
 	private:
+
+		void										OnSignaleGenerate(const prop_signal& s);
+		prop_signal									_dummy();
+
 		bool										OnAttach();
 		void										OnDetach();
 

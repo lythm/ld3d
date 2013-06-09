@@ -38,6 +38,9 @@ namespace ld3d
 	template <>
 	PropType PropTypeId<Light>::m_type				= PropType(property_type_light);
 
+	template <>
+	PropType PropTypeId<prop_signal>::m_type		= PropType(property_type_signal);
+
 
 
 	// general

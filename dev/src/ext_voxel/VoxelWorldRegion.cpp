@@ -391,10 +391,10 @@ namespace ld3d
 			for(size_t i = 0; i < r.size(); ++i)
 			{
 				VoxelFace f;
-				f.verts[0] = math::Vector3(x, r[i].x1, r[i].y1) + pChunk->chunk_coord();
-				f.verts[1] = math::Vector3(x, r[i].x1, r[i].y2 + 1) + pChunk->chunk_coord();
-				f.verts[2] = math::Vector3(x, r[i].x2 + 1, r[i].y1) + pChunk->chunk_coord();
-				f.verts[3] = math::Vector3(x, r[i].x2 + 1, r[i].y2 + 1) + pChunk->chunk_coord();
+				f.verts[0] = math::Vector3(x, r[i].x1, r[i].y1);
+				f.verts[1] = math::Vector3(x, r[i].x1, r[i].y2 + 1);
+				f.verts[2] = math::Vector3(x, r[i].x2 + 1, r[i].y1);
+				f.verts[3] = math::Vector3(x, r[i].x2 + 1, r[i].y2 + 1);
 				f.normal = math::Vector3(-1, 0, 0);
 				pChunk->mesh.push_back(f);
 			}
@@ -432,10 +432,10 @@ namespace ld3d
 			for(size_t i = 0; i < r.size(); ++i)
 			{
 				VoxelFace f;
-				f.verts[0] = math::Vector3(x + 1, r[i].x1, r[i].y1) + pChunk->chunk_coord();
-				f.verts[1] = math::Vector3(x + 1, r[i].x2 + 1, r[i].y1) + pChunk->chunk_coord();
-				f.verts[2] = math::Vector3(x + 1, r[i].x1, r[i].y2 + 1) + pChunk->chunk_coord();
-				f.verts[3] = math::Vector3(x + 1, r[i].x2 + 1, r[i].y2 + 1) + pChunk->chunk_coord();
+				f.verts[0] = math::Vector3(x + 1, r[i].x1, r[i].y1);
+				f.verts[1] = math::Vector3(x + 1, r[i].x2 + 1, r[i].y1);
+				f.verts[2] = math::Vector3(x + 1, r[i].x1, r[i].y2 + 1);
+				f.verts[3] = math::Vector3(x + 1, r[i].x2 + 1, r[i].y2 + 1);
 				f.normal = math::Vector3(1, 0, 0);
 				pChunk->mesh.push_back(f);
 			}
@@ -473,10 +473,10 @@ namespace ld3d
 			for(size_t i = 0; i < r.size(); ++i)
 			{
 				VoxelFace f;
-				f.verts[0] = math::Vector3(r[i].x1, y, r[i].y1) + pChunk->chunk_coord();
-				f.verts[1] = math::Vector3(r[i].x2 + 1, y, r[i].y1) + pChunk->chunk_coord();
-				f.verts[2] = math::Vector3(r[i].x1, y, r[i].y2 + 1) + pChunk->chunk_coord();
-				f.verts[3] = math::Vector3(r[i].x2 + 1, y, r[i].y2 + 1) + pChunk->chunk_coord();
+				f.verts[0] = math::Vector3(r[i].x1, y, r[i].y1);
+				f.verts[1] = math::Vector3(r[i].x2 + 1, y, r[i].y1);
+				f.verts[2] = math::Vector3(r[i].x1, y, r[i].y2 + 1);
+				f.verts[3] = math::Vector3(r[i].x2 + 1, y, r[i].y2 + 1);
 				f.normal = math::Vector3(0, -1, 0);
 				pChunk->mesh.push_back(f);
 			}
@@ -515,10 +515,10 @@ namespace ld3d
 			for(size_t i = 0; i < r.size(); ++i)
 			{
 				VoxelFace f;
-				f.verts[0] = math::Vector3(r[i].x1, y + 1, r[i].y1) + pChunk->chunk_coord();
-				f.verts[1] = math::Vector3(r[i].x1, y + 1, r[i].y2 + 1) + pChunk->chunk_coord();
-				f.verts[2] = math::Vector3(r[i].x2 + 1, y + 1, r[i].y1) + pChunk->chunk_coord();
-				f.verts[3] = math::Vector3(r[i].x2 + 1, y + 1, r[i].y2 + 1) + pChunk->chunk_coord();
+				f.verts[0] = math::Vector3(r[i].x1, y + 1, r[i].y1);
+				f.verts[1] = math::Vector3(r[i].x1, y + 1, r[i].y2 + 1);
+				f.verts[2] = math::Vector3(r[i].x2 + 1, y + 1, r[i].y1);
+				f.verts[3] = math::Vector3(r[i].x2 + 1, y + 1, r[i].y2 + 1);
 				f.normal = math::Vector3(0, 1, 0);
 				pChunk->mesh.push_back(f);
 			}
@@ -557,10 +557,10 @@ namespace ld3d
 			for(size_t i = 0; i < r.size(); ++i)
 			{
 				VoxelFace f;
-				f.verts[0] = math::Vector3(r[i].x1, r[i].y1, z) + pChunk->chunk_coord();
-				f.verts[1] = math::Vector3(r[i].x1, r[i].y2 + 1, z) + pChunk->chunk_coord();
-				f.verts[2] = math::Vector3(r[i].x2 + 1, r[i].y1, z) + pChunk->chunk_coord();
-				f.verts[3] = math::Vector3(r[i].x2 + 1, r[i].y2 + 1, z) + pChunk->chunk_coord();
+				f.verts[0] = math::Vector3(r[i].x1, r[i].y1, z);
+				f.verts[1] = math::Vector3(r[i].x1, r[i].y2 + 1, z);
+				f.verts[2] = math::Vector3(r[i].x2 + 1, r[i].y1, z);
+				f.verts[3] = math::Vector3(r[i].x2 + 1, r[i].y2 + 1, z);
 				f.normal = math::Vector3(0, 0, -1);
 				pChunk->mesh.push_back(f);
 			}
@@ -599,15 +599,22 @@ namespace ld3d
 			for(size_t i = 0; i < r.size(); ++i)
 			{
 				VoxelFace f;
-				f.verts[0] = math::Vector3(r[i].x1, r[i].y1, z + 1) + pChunk->chunk_coord();
-				f.verts[1] = math::Vector3(r[i].x2 + 1, r[i].y1, z + 1) + pChunk->chunk_coord();
-				f.verts[2] = math::Vector3(r[i].x1, r[i].y2 + 1, z + 1) + pChunk->chunk_coord();
-				f.verts[3] = math::Vector3(r[i].x2 + 1, r[i].y2 + 1, z + 1) + pChunk->chunk_coord();
-				f.normal = math::Vector3(0, 0, -1);
+				f.verts[0] = math::Vector3(r[i].x1, r[i].y1, z + 1);
+				f.verts[1] = math::Vector3(r[i].x2 + 1, r[i].y1, z + 1);
+				f.verts[2] = math::Vector3(r[i].x1, r[i].y2 + 1, z + 1);
+				f.verts[3] = math::Vector3(r[i].x2 + 1, r[i].y2 + 1, z + 1);
+				f.normal = math::Vector3(0, 0, 1);
 				pChunk->mesh.push_back(f);
 			}
 		}
 
+		for(size_t i = 0; i < pChunk->mesh.size(); ++i)
+		{
+			pChunk->mesh[i].verts[0] += pChunk->chunk_coord();
+			pChunk->mesh[i].verts[1] += pChunk->chunk_coord();
+			pChunk->mesh[i].verts[2] += pChunk->chunk_coord();
+			pChunk->mesh[i].verts[3] += pChunk->chunk_coord();
+		}
 
 		if(pChunk->in_oct_tree == false && pChunk->mesh.size() != 0)
 		{
@@ -744,7 +751,6 @@ namespace ld3d
 
 		int max_area = 0;
 
-		FaceRegion max_r;
 		for(int i = 0; i < h_strides.size(); ++i)
 		{
 			FaceRegion region;
@@ -782,12 +788,10 @@ namespace ld3d
 			if(max_area < area)
 			{
 				max_area = area;
-				max_r = region;
+				r = region;
 			}
 
 		}
-
-		r = max_r;
 
 		return true;
 	}

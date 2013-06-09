@@ -177,6 +177,9 @@
     <ClInclude Include="DT_GameObjectMonitor.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="InspectorProperty_Signal.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameEditor.cpp">
@@ -330,6 +333,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="DT_GameObjectMonitor.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="InspectorProperty_Signal.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
