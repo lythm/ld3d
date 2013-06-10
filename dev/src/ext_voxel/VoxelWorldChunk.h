@@ -2,6 +2,12 @@
 
 namespace ld3d
 {
+	struct VoxelVertex
+	{
+		math::Vector3										pos;
+		math::Vector3										normal;
+		uint32												clr;
+	};
 	struct VoxelWorldChunk
 	{
 	public:
@@ -12,8 +18,7 @@ namespace ld3d
 		VoxelWorldChunk*									render_list_next;
 		bool												in_dirty_list;
 		bool												in_oct_tree;
-		std::vector<VoxelFace>								mesh;
-		math::Vector3*										vertex_buffer;
+		VoxelVertex*										vertex_buffer;
 		int													vertex_count;
 
 		math::Vector3										chunk_coord()

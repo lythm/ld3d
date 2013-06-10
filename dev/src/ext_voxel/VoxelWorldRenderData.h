@@ -5,11 +5,6 @@ namespace ld3d
 	struct VoxelWorldChunk;
 	class VoxelWorldRenderData : public RenderData
 	{
-		struct VoxelVertex
-		{
-			math::Vector3				pos;
-			math::Vector3				normal;
-		};
 	public:
 		VoxelWorldRenderData(void);
 		virtual ~VoxelWorldRenderData(void);

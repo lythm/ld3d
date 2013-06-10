@@ -8,11 +8,13 @@ struct vs_in
 {
 	float3 pos:POSITION;
 	float3 normal:NORMAL;
+	float4 clr:COLOR;
 };
 struct vs_out
 {
 	float4 pos:SV_POSITION;
 	float3 v_normal:NORMAL;
+	float4 clr:COLOR;
 };
 
 vs_out vs_main(vs_in i)
@@ -20,15 +22,17 @@ vs_out vs_main(vs_in i)
 	vs_out o;
 	o.pos = mul(float4(i.pos, 1), mvp);
 	o.v_normal = mul(float4(i.normal.xyz, 0), mv).xyz;
+	o.clr = i.clr;
 	return o;
 }
 
 GBuffer dr_ps_main(vs_out i)
 {
-	float3 clr = half3(1, 1, 1);
+	float4 clr = i.clr;
+	//float3 clr = float3(0, 1, 0);
 	float specular = 0;
 	
-	return dr_gbuffer_compose(depth_2_view_space_z(i.pos.z, p), normalize(i.v_normal).xy, clr, specular);
+	return dr_gbuffer_compose(depth_2_view_space_z(i.pos.z, p), normalize(i.v_normal).xy, clr.xyz, specular);
 }
 RasterizerState rs
 {

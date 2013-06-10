@@ -45,6 +45,10 @@ namespace ld3d
 	{
 		return m_pRegion->Empty(x, y, z) == false;
 	}
+	void VoxelWorldDataSet::ConvertVoxel(uint8 t, uint32 x, uint32 y, uint32 z)
+	{
+		m_pRegion->ConvertBlock(t, x, y, z);
+	}
 	bool VoxelWorldDataSet::AddVoxel(uint8 type, uint32 x, uint32 y, uint32 z)
 	{
 		return m_pRegion->AddBlock(type, x, y, z);

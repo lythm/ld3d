@@ -32,6 +32,7 @@ namespace ld3d
 		VertexFormat vf;
 		vf.AddElement(VertexElement(0, VertexElement::POSITION, G_FORMAT_R32G32B32_FLOAT));
 		vf.AddElement(VertexElement(0, VertexElement::NORMAL, G_FORMAT_R32G32B32_FLOAT));
+		vf.AddElement(VertexElement(0, VertexElement::COLOR, G_FORMAT_R8G8B8A8_UNORM));
 		m_pMaterial->SetVertexFormat(vf);
 
 		m_pVertexBuffer = pGraphics->CreateBuffer(BT_VERTEX_BUFFER, m_nVBBytes, nullptr, true);

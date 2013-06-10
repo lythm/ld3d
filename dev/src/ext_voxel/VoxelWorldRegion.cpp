@@ -7,6 +7,19 @@
 
 namespace ld3d
 {
+	static uint32 VoxelColorMap[VT_EMPTY] = 
+	{
+		0xff334455,
+		0xff999999,
+		0xffbbbbbb,
+		0xffeeeeee,
+		0xff00ffff,
+		0xffee0000,
+		0xff00ff00,
+		0xff00cccc,
+
+
+	};
 	VoxelWorldRegion::VoxelWorldRegion(void)
 	{
 		m_pDirtyList = nullptr;
@@ -126,6 +139,10 @@ namespace ld3d
 	}
 	bool VoxelWorldRegion::AddBlock(uint8 vt, uint32 x, uint32 y, uint32 z)
 	{
+		if(vt == VT_EMPTY)
+		{
+			return false;
+		}
 		VoxelWorldChunk* pChunk = _add_chunk(x, y, z);
 
 		if(pChunk == nullptr)
@@ -267,6 +284,7 @@ namespace ld3d
 		pChunk->render_list_next = nullptr;
 		pChunk->in_oct_tree = false;
 		pChunk->vertex_buffer = nullptr;
+		pChunk->vertex_count = 0;
 		m_pChunkMap[key % VOXEL_WORLD_CHUNK_MAP_SIZE] = pChunk;
 
 		return pChunk;
@@ -322,7 +340,7 @@ namespace ld3d
 
 	void VoxelWorldRegion::AddChunkToRenderList(VoxelWorldChunk* pChunk)
 	{
-		if(pChunk == nullptr || pChunk->mesh.size() == 0)
+		if(pChunk == nullptr || pChunk->vertex_count == 0)
 		{
 			return;
 		}
@@ -354,9 +372,10 @@ namespace ld3d
 		c_y = pChunk->chunk_coord().y;
 		c_z = pChunk->chunk_coord().z;
 
-		int delta = pChunk->mesh.size();
 
-		pChunk->mesh.clear();
+		std::vector<VoxelFace> mesh;
+
+		int delta = pChunk->vertex_count / 3;
 
 		uint8 faces[VOXEL_WORLD_CHUNK_SIZE][VOXEL_WORLD_CHUNK_SIZE];
 
@@ -398,7 +417,8 @@ namespace ld3d
 				f.verts[2] = math::Vector3(x, r[i].x2 + 1, r[i].y1);
 				f.verts[3] = math::Vector3(x, r[i].x2 + 1, r[i].y2 + 1);
 				f.normal = math::Vector3(-1, 0, 0);
-				pChunk->mesh.push_back(f);
+				f.type = r[i].type;
+				mesh.push_back(f);
 			}
 
 		}
@@ -439,7 +459,8 @@ namespace ld3d
 				f.verts[2] = math::Vector3(x + 1, r[i].x1, r[i].y2 + 1);
 				f.verts[3] = math::Vector3(x + 1, r[i].x2 + 1, r[i].y2 + 1);
 				f.normal = math::Vector3(1, 0, 0);
-				pChunk->mesh.push_back(f);
+				f.type = r[i].type;
+				mesh.push_back(f);
 			}
 		}
 
@@ -480,7 +501,8 @@ namespace ld3d
 				f.verts[2] = math::Vector3(r[i].x1, y, r[i].y2 + 1);
 				f.verts[3] = math::Vector3(r[i].x2 + 1, y, r[i].y2 + 1);
 				f.normal = math::Vector3(0, -1, 0);
-				pChunk->mesh.push_back(f);
+				f.type = r[i].type;
+				mesh.push_back(f);
 			}
 		}
 
@@ -522,7 +544,8 @@ namespace ld3d
 				f.verts[2] = math::Vector3(r[i].x2 + 1, y + 1, r[i].y1);
 				f.verts[3] = math::Vector3(r[i].x2 + 1, y + 1, r[i].y2 + 1);
 				f.normal = math::Vector3(0, 1, 0);
-				pChunk->mesh.push_back(f);
+				f.type = r[i].type;
+				mesh.push_back(f);
 			}
 		}
 
@@ -564,7 +587,8 @@ namespace ld3d
 				f.verts[2] = math::Vector3(r[i].x2 + 1, r[i].y1, z);
 				f.verts[3] = math::Vector3(r[i].x2 + 1, r[i].y2 + 1, z);
 				f.normal = math::Vector3(0, 0, -1);
-				pChunk->mesh.push_back(f);
+				f.type = r[i].type;
+				mesh.push_back(f);
 			}
 		}
 
@@ -606,7 +630,9 @@ namespace ld3d
 				f.verts[2] = math::Vector3(r[i].x1, r[i].y2 + 1, z + 1);
 				f.verts[3] = math::Vector3(r[i].x2 + 1, r[i].y2 + 1, z + 1);
 				f.normal = math::Vector3(0, 0, 1);
-				pChunk->mesh.push_back(f);
+				f.type = r[i].type;
+
+				mesh.push_back(f);
 			}
 		}
 
@@ -614,35 +640,54 @@ namespace ld3d
 		pChunk->vertex_buffer = nullptr;
 		pChunk->vertex_count = 0;
 
-		if(pChunk->mesh.size() != 0)
+		if(mesh.size() != 0)
 		{
-			pChunk->vertex_buffer = new math::Vector3[pChunk->mesh.size() * 6 * 2];
-			pChunk->vertex_count = pChunk->mesh.size() * 6;
+			pChunk->vertex_buffer = new VoxelVertex[mesh.size() * 6];
+			pChunk->vertex_count = mesh.size() * 6;
 		
-			math::Vector3* pData = pChunk->vertex_buffer;
+			VoxelVertex* pData = pChunk->vertex_buffer;
 			
-			for(size_t i = 0; i < pChunk->mesh.size(); ++i)
+			for(size_t i = 0; i < mesh.size(); ++i)
 			{
-				const VoxelFace& face = pChunk->mesh[i];
-				*pData++ = face.verts[0] + pChunk->chunk_coord();
-				*pData++ = face.normal;
-				*pData++ = face.verts[1] + pChunk->chunk_coord();
-				*pData++ = face.normal;
-				*pData++ = face.verts[2] + pChunk->chunk_coord();
-				*pData++ = face.normal;
+				const VoxelFace& face = mesh[i];
+				uint32 clr = VoxelColorMap[face.type];
 
-				*pData++ = face.verts[1] + pChunk->chunk_coord();
-				*pData++ = face.normal;
-				*pData++ = face.verts[3] + pChunk->chunk_coord();
-				*pData++ = face.normal;
-				*pData++ = face.verts[2] + pChunk->chunk_coord();
-				*pData++ = face.normal;
+				pData->pos = face.verts[0] + pChunk->chunk_coord();
+				pData->normal = face.normal;
+				pData->clr = clr;
+				++pData;
+
+				pData->pos = face.verts[1] + pChunk->chunk_coord();
+				pData->normal = face.normal;
+				pData->clr = clr;
+				++pData;
+
+				pData->pos = face.verts[2] + pChunk->chunk_coord();
+				pData->normal = face.normal;
+				pData->clr = clr;
+				++pData;
+
+				pData->pos = face.verts[1] + pChunk->chunk_coord();
+				pData->normal = face.normal;
+				pData->clr = clr;
+				++pData;
+
+				pData->pos = face.verts[3] + pChunk->chunk_coord();
+				pData->normal = face.normal;
+				pData->clr = clr;
+				++pData;
+
+				pData->pos = face.verts[2] + pChunk->chunk_coord();
+				pData->normal = face.normal;
+				pData->clr = clr;
+
+				++pData;
 
 			}
 		}
 		
 
-		delta = pChunk->mesh.size() - delta;
+		delta = (pChunk->vertex_count / 3) - delta;
 		m_faceCount += delta;
 
 
@@ -690,6 +735,7 @@ namespace ld3d
 		{
 			int x, y;
 			int len;
+			int type;
 		};
 
 		Stride max_v_s;
@@ -705,6 +751,7 @@ namespace ld3d
 				{
 					s.x = x;
 					s.y = y;
+					s.type = faces[x][y];
 					s.len = 1;
 					break;
 				}
@@ -717,7 +764,7 @@ namespace ld3d
 
 			for(int y = s.y + 1; y < VOXEL_WORLD_CHUNK_SIZE;++y)
 			{
-				if(faces[x][y] == VT_EMPTY)
+				if(faces[x][y] != s.type)
 				{
 					break;
 				}
@@ -746,9 +793,11 @@ namespace ld3d
 			Stride s;
 			s.len = 0;
 			s.y = y;
+			s.type = max_v_s.type;
+
 			for(int x = max_v_s.x; x < VOXEL_WORLD_CHUNK_SIZE; ++x)
 			{
-				if(faces[x][y] == VT_EMPTY)
+				if(faces[x][y] != s.type)
 				{
 					break;
 				}
@@ -760,7 +809,7 @@ namespace ld3d
 
 			for(int x = max_v_s.x - 1; x >= 0; --x)
 			{
-				if(faces[x][y] == VT_EMPTY)
+				if(faces[x][y] != s.type)
 				{
 					break;
 				}
@@ -786,7 +835,7 @@ namespace ld3d
 
 			region.x1 = s.x;
 			region.y1 = s.y;
-
+			region.type = s.type;
 			int v_len = 1;
 
 			for(int ii = i + 1; ii < h_strides.size(); ++ii)

@@ -56,16 +56,23 @@ namespace ld3d
 		pDataSet->Initialize(sx, sy, sz);
 
 
-		/*for(int y = 0; y < sy; ++y)
+		for(int y = 0; y < sy; ++y)
 		{
-		for(int x = 0; x < sx; ++x)
-		{
-		for(int z = 0; z < sz; ++z)
-		{
-		pDataSet->AddVoxel(VT_STONE, x, y, z);
+			for(int x = 0; x < sx; ++x)
+			{
+				for(int z = 0; z < sz; ++z)
+				{
+					if(y == 0)
+					{
+						pDataSet->AddVoxel(VT_GOLD, x, y, z);
+					}
+					else
+					{
+						pDataSet->AddVoxel(VT_STONE, x, y, z);
+					}
+				}
+			}
 		}
-		}
-		}*/
 
 
 		/*for(int x = 0; x < sx; ++x)
@@ -129,7 +136,7 @@ namespace ld3d
 	{
 
 		int seed = GetTickCount();
-		float h = 0.4;
+		float h = 0.6;
 		float hscale = 1;
 
 		float ratio = (float) pow (2.,-h);
@@ -221,13 +228,62 @@ namespace ld3d
 
 
 				h *= sy;
-
+				h = h > sy ? sy : h;
 				//h = h < 1 ? 1 : h;
 
 				for(int y = 0; y < (int)h; ++y)
 				{
-					pDataSet->AddVoxel(VT_STONE, x, y, z);
+					if(y < 5)
+					{
+						pDataSet->AddVoxel(VT_GRASS, x, y, z);
+					}
+					else if( y < 10)
+					{
+						pDataSet->AddVoxel(VT_STONE, x, y, z);
+					}
+					else
+					{
+						pDataSet->AddVoxel(VT_SILVER, x, y, z);
+					}
 				}
+			}
+		}
+
+		for(int x = 0; x < sx; ++x)
+		{
+			for(int z = 0; z < sz; ++z)
+			{
+				uint8 t = pDataSet->GetVoxelType(x + 1, 0, z);
+				
+				if(t != VT_EMPTY && t != VT_WATER)
+				{
+					pDataSet->ConvertVoxel(VT_BEACH, x + 1, 0, z);
+				}
+
+				t = pDataSet->GetVoxelType(x , 0, z + 1);
+				
+				if(t != VT_EMPTY && t != VT_WATER)
+				{
+					pDataSet->ConvertVoxel(VT_BEACH, x, 0, z + 1);
+				}
+
+				t = pDataSet->GetVoxelType(x , 0, z - 1);
+				
+				if(t != VT_EMPTY && t != VT_WATER)
+				{
+					pDataSet->ConvertVoxel(VT_BEACH, x, 0, z - 1);
+				}
+
+				t = pDataSet->GetVoxelType(x -1, 0, z);
+				
+				if(t != VT_EMPTY && t != VT_WATER)
+				{
+					pDataSet->ConvertVoxel(VT_BEACH, x - 1, 0, z);
+				}
+
+
+				pDataSet->AddVoxel(VT_WATER, x, 0, z);
+				
 			}
 		}
 
@@ -240,12 +296,8 @@ namespace ld3d
 	
 	float VoxelWorldGenerator::_rand (float min, float max)
 	{
-		int r;
-		float	x;
-
-		r = rand();
-		x = (float)(r & 0x7fff) /
-			(float)0x7fff;
+		int r = rand();
+		float x = (float)(r & 0x7fff) / (float)0x7fff;
 		return (x * (max - min) + min);
 	} 
 	float VoxelWorldGenerator::_fractal_rand(float v)

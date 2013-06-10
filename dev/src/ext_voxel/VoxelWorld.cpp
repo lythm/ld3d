@@ -132,7 +132,7 @@ namespace ld3d
 		tick = GetTickCount() - tick;
 		wchar_t szBuffer[512];
 
-		swprintf(szBuffer, L"Voxel world rebuilt.(%d triangles in %.4fs)", m_pDataSet->GetFaceCount() * 2, float(tick) / 1000.0f);
+		swprintf(szBuffer, L"Voxel world rebuilt.(%d triangles in %.4fs)", m_pDataSet->GetFaceCount(), float(tick) / 1000.0f);
 
 		m_pManager->Log(szBuffer);
 		
@@ -142,6 +142,7 @@ namespace ld3d
 	{
 		//m_pDataSet = VoxelWorldGenerator::Generate_Perlin(m_worldSizeX, m_worldSizeY, m_worldSizeZ);
 		m_pDataSet = VoxelWorldGenerator::Generate_Fractal(m_worldSizeX, m_worldSizeY, m_worldSizeZ);
+		//m_pDataSet = VoxelWorldGenerator::Generate(m_worldSizeX, m_worldSizeY, m_worldSizeZ);
 		m_pDataSet->UpdateMesh();
 	}
 	VoxelWorldChunk* VoxelWorld::FrustumCull(BaseCameraPtr pCamera)

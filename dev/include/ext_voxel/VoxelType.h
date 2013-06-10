@@ -11,8 +11,9 @@ namespace ld3d
 		VT_GOLD					= 4,
 		VT_WATER				= 5,
 		VT_GRASS				= 6,
-		VT_TREE_LEAF			= 7,
-		VT_TREE_TRUNK			= 8,
+		VT_BEACH				= 7,
+		VT_TREE_LEAF			= 8,
+		VT_TREE_TRUNK			= 9,
 
 
 		VT_EMPTY				= 255,
@@ -22,7 +23,6 @@ namespace ld3d
 	{
 		math::Vector3			verts[4];
 		math::Vector3			normal;
-		uint32					clr;
 		uint8					type;
 	};
 
@@ -35,4 +35,6 @@ namespace ld3d
 
 		VOXEL_WORLD_BLOCK_SIZE					= 1,
 	};
+
+
 }
