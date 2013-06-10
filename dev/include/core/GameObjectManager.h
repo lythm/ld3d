@@ -69,6 +69,8 @@ namespace ld3d
 		void																DispatchEvent(EventPtr pEvent);
 		EventDispatcher::EventHandlerHandle									AddEventHandler(uint32 id, EventDispatcher::EventHandler handler);
 		void																RemoveEventHandler(EventDispatcher::EventHandlerHandle handle);
+
+		RUN_MODE															GetRunMode();
 	private:
 
 
@@ -76,7 +78,7 @@ namespace ld3d
 		boost::unordered_map<std::wstring, GameObjectTemplate*>				m_templates;
 		boost::unordered_map<std::wstring, ExtPackage::ComponentClass*>		m_componentClasses;
 
-		std::vector<PackageMod>			m_packages;
-		CoreApiPtr						m_pCore;
+		std::vector<PackageMod>												m_packages;
+		CoreApiPtr															m_pCore;
 	};
 }

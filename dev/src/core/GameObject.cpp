@@ -76,6 +76,13 @@ namespace ld3d
 			return false;
 		}
 
+		if(pCom->IsExclusive())
+		{
+			if(GetComponent(pCom->GetName()) != nullptr)
+			{
+				return false;
+			}
+		}
 		m_components.push_back(pCom);
 		
 		return true;

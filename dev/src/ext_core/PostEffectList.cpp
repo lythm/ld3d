@@ -9,16 +9,14 @@ namespace ld3d
 
 	PostEffectList::PostEffectList(GameObjectManagerPtr pManager) : GameObjectComponent(L"PostEffectList", pManager)
 	{
+		SetVersion(g_packageVersion);
 	}
 
 
 	PostEffectList::~PostEffectList(void)
 	{
 	}
-	const Version& PostEffectList::GetVersion() const
-	{
-		return g_packageVersion;
-	}
+	
 	bool PostEffectList::OnAttach()
 	{
 		m_pSSAO = m_pManager->GetAllocator()->AllocObject<PostEffect_SSAO>();

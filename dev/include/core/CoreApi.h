@@ -15,7 +15,7 @@ namespace ld3d
 		virtual ~CoreApi(void);
 
 
-		bool											Initialize(const SysSetting& setting, Allocator* pAlloc = nullptr);
+		bool											Initialize(const SysSetting& setting, Allocator* pAlloc = nullptr, RUN_MODE rm = RM_RT);
 
 		void											Update();
 		
@@ -53,6 +53,9 @@ namespace ld3d
 		void											RemoveEventHandler(EventDispatcher::EventHandlerHandle handle);
 		ScenePtr										GetScene();
 		void											ResetScene();
+
+		RUN_MODE										GetRunMode();
+
 		static Allocator*								GetAllocator();
 
 		static void										Log(const std::wstring& text);
@@ -79,5 +82,7 @@ namespace ld3d
 		Sys_SoundPtr									m_pSysSound;
 		Sys_TimePtr										m_pSysTime;
 		Sys_NetworkPtr									m_pSysNetwork;
+
+		RUN_MODE										m_runmode;
 	};
 }

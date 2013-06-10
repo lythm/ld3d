@@ -9,6 +9,7 @@ namespace ld3d
 {
 	Light_Dir::Light_Dir(GameObjectManagerPtr pManager) : GameObjectComponent(L"DirectionalLight", pManager)
 	{
+		SetVersion(g_packageVersion);
 	}
 
 
@@ -112,8 +113,5 @@ namespace ld3d
 		
 	}
 
-	const Version& Light_Dir::GetVersion() const
-	{
-		return g_packageVersion;
-	}
+	
 }

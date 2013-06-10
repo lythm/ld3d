@@ -123,6 +123,11 @@ ld3d::GameObjectPtr GameScene::CreateObjectFromTpl(const std::wstring& name, con
 	GameObjectComponentPtr pPM = CreateGameObjectComponent(L"DT_GameObjectMonitor");
 	pObj->AddComponent(pPM);
 
+	if(name == L"")
+	{
+
+	}
+
 	m_objNo++;
 	return pObj;
 }

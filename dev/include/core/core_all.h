@@ -55,6 +55,9 @@
 #include "core\RenderManager.h"
 #include "core\coreapi.h"
 
+#include "core\BBoxRenderData.h"
+
+
 #include "core\Mesh.h"
 #include "core\SubMesh.h"
 #include "core\Event.h"

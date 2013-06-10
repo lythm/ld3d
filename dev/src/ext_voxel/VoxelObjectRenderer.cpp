@@ -6,6 +6,7 @@ namespace ld3d
 {
 	VoxelObjectRenderer::VoxelObjectRenderer(GameObjectManagerPtr pManager) : GameObjectComponent(L"VoxelObjectRenderer", pManager)
 	{
+		SetVersion(g_packageVersion);
 	}
 
 
@@ -16,11 +17,7 @@ namespace ld3d
 	{
 		
 	}
-	const Version& VoxelObjectRenderer::GetVersion() const
-	{
-		return g_packageVersion;
-	}
-		
+			
 	bool VoxelObjectRenderer::OnAttach()
 	{
 		PropertyManagerPtr pPM = boost::dynamic_pointer_cast<PropertyManager>(m_pObject->GetComponent(L"PropertyManager"));

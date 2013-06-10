@@ -7,6 +7,7 @@
 #include "GameScene.h"
 #include "EditorCamera.h"
 #include "DT_GameObjectMonitor.h"
+#include "DT_VoxelWorldEditor.h"
 
 
 ld3d::PoolAllocator					g_Allocator;
@@ -277,12 +278,12 @@ bool Project::InitEngine()
 
 
 #ifdef _DEBUG
-	if(false == m_pCore->Initialize(setting, &g_Allocator))
+	if(false == m_pCore->Initialize(setting, &g_Allocator, ld3d::RM_DT))
 	{
 		return false;
 	}
 #else
-	if(false == m_pCore->Initialize(setting, &g_Allocator))
+	if(false == m_pCore->Initialize(setting, &g_Allocator, ld3d::RM_DT))
 	{
 		return false;
 	}
@@ -290,7 +291,9 @@ bool Project::InitEngine()
 
 	//m_pCore->GetGameObjectManager()->LoadPackage(L"./extensions/ext_dt.dll");
 	m_pCore->GetGameObjectManager()->LoadPackage(L"./extensions/ext_voxel.dll");
+	
 	m_pCore->GetGameObjectManager()->RegisterComponentClass(dt::DT_GameObjectMonitor::GetClass());
+	m_pCore->GetGameObjectManager()->RegisterComponentClass(dt::DT_VoxelWorldEditor::GetClass());
 
 
 

@@ -54,12 +54,6 @@
     <ClInclude Include="VoxelObjectTemplate.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="VoxelWorldGenerator.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="VoxelPolygonizer.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="VoxelPool.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -76,6 +70,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="VoxelWorldOctTree.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\ext_voxel\VoxelWorldGenerator.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
@@ -114,9 +111,6 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="VoxelWorldGenerator.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="VoxelPolygonizer.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="VoxelPool.cpp">

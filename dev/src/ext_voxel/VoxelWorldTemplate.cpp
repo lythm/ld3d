@@ -2,6 +2,7 @@
 #include "VoxelWorldTemplate.h"
 #include "ext_voxel\VoxelWorld.h"
 #include "ext_voxel\VoxelWorldRenderer.h"
+#include "ext_voxel\VoxelWorldGenerator.h"
 
 namespace ld3d
 {
@@ -22,7 +23,8 @@ namespace ld3d
 
 		pObj->AddComponent(pWorld);
 
-		pWorld->Generate();
+		VoxelWorldGeneratorPtr pGen = m_pManager->GetAllocator()->AllocObject<VoxelWorldGenerator>(m_pManager);
+		pObj->AddComponent(pGen);
 
 		VoxelWorldRendererPtr pRenderer = m_pManager->GetAllocator()->AllocObject<VoxelWorldRenderer>(m_pManager);
 		pObj->AddComponent(pRenderer);

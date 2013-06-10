@@ -251,4 +251,8 @@ namespace ld3d
 	{
 		m_pCore->RemoveEventHandler(handle);
 	}
+	RUN_MODE GameObjectManager::GetRunMode()
+	{
+		return m_pCore->GetRunMode();
+	}
 }

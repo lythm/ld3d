@@ -6,6 +6,12 @@
 
 namespace ld3d
 {
+	enum RUN_MODE
+	{
+		RM_RT,			// run time
+		RM_DT,			// design time
+	};
+
 	class GameObject;
 	class GameObjectManager;
 	class GameObjectComponent;
@@ -60,6 +66,8 @@ namespace ld3d
 	typedef boost::shared_ptr<DataStream>					DataStreamPtr;
 	typedef boost::shared_ptr<Mesh>							MeshPtr;
 
+
+	class BBoxRenderData;
 	class DepthStencilBuffer;
 	class RenderData;
 	class RenderTarget;
@@ -79,6 +87,10 @@ namespace ld3d
 	class MaterialParameterManager;
 	class MaterialParameter;
 	
+
+	typedef boost::shared_ptr<BBoxRenderData>				BBoxRenderDataPtr;
+
+
 	typedef boost::shared_ptr<Material>						MaterialPtr;
 	typedef boost::shared_ptr<MaterialPass>					MaterialPassPtr;
 	typedef boost::shared_ptr<MaterialTech>					MaterialTechPtr;

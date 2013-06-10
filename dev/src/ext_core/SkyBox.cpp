@@ -6,6 +6,7 @@ namespace ld3d
 {
 	SkyBox::SkyBox(GameObjectManagerPtr pManager) : GameObjectComponent(L"SkyBox", pManager)
 	{
+		SetVersion(g_packageVersion);
 	}
 
 
@@ -15,10 +16,7 @@ namespace ld3d
 	void SkyBox::Update(float dt)
 	{
 	}
-	const Version& SkyBox::GetVersion() const
-	{
-		return g_packageVersion;
-	}
+	
 	bool SkyBox::OnAttach()
 	{
 	

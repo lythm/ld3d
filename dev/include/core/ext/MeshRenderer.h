@@ -54,10 +54,6 @@ namespace ld3d
 
 		RenderManagerPtr				GetRenderManager(){return m_pRenderManager;}
 
-		const Version&					GetVersion() const;
-
-
-
 	private:
 		bool							OnAttach();
 		void							OnDetach();

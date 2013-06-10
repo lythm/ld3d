@@ -22,15 +22,15 @@ namespace ld3d
 	{
 		m_deferred = true;
 		m_pRenderManager = m_pManager->GetRenderManager();
+
+		SetVersion(g_packageVersion);
+
 	}
 
 	MeshRenderer::~MeshRenderer(void)
 	{
 	}
-	const Version& MeshRenderer::GetVersion() const
-	{
-		return g_packageVersion;
-	}
+	
 	void MeshRenderer::SetDeferred(const bool& b)
 	{
 		m_deferred = b;

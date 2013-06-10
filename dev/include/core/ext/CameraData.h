@@ -10,8 +10,6 @@ namespace ld3d
 		CameraData(GameObjectManagerPtr pManager);
 		virtual ~CameraData(void);
 
-		const Version&				GetVersion() const;
-
 		bool						OnAttach();
 		void						OnDetach();
 		bool						OnSerialize(DataStream* pStream);

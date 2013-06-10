@@ -50,6 +50,7 @@
     <ClCompile Include="MaterialParameter.cpp" />
     <ClCompile Include="MaterialPass.cpp" />
     <ClCompile Include="MaterialTech.cpp" />
+    <ClCompile Include="BBoxRenderData.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\core\ArcBall.h" />
@@ -68,7 +69,6 @@
     <ClInclude Include="..\..\include\core\GameObjectComponent.h" />
     <ClInclude Include="..\..\include\core\GameObjectManager.h" />
     <ClInclude Include="..\..\include\core\GameObjectTemplate.h" />
-    <ClInclude Include="..\..\include\core\GFX.h" />
     <ClInclude Include="..\..\include\core\GPUBuffer.h" />
     <ClInclude Include="..\..\include\core\g_format.h" />
     <ClInclude Include="..\..\include\core\Mesh.h" />
@@ -140,6 +140,7 @@
     <ClInclude Include="..\..\include\core\MaterialTech.h" />
     <ClInclude Include="..\..\include\core\Sys_Network.h" />
     <ClInclude Include="..\..\include\core\ObjectPool.h" />
+    <ClInclude Include="..\..\include\core\BBoxRenderData.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

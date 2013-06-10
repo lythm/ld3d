@@ -9,6 +9,7 @@ namespace ld3d
 	SoundEmitter::SoundEmitter(GameObjectManagerPtr pManager):GameObjectComponent(L"SoundEmitter", pManager)
 	{
 		m_bStreamed = false;
+		SetVersion(g_packageVersion);
 	}
 
 
@@ -31,11 +32,7 @@ namespace ld3d
 	{
 		return true;
 	}
-	const Version& SoundEmitter::GetVersion() const
-	{
-		return g_packageVersion;
-	}
-
+	
 	bool SoundEmitter::OnAttach()
 	{
 		boost::filesystem::path p = boost::filesystem::current_path();

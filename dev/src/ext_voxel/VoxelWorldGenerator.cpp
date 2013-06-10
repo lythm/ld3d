@@ -1,21 +1,99 @@
 #include "voxel_pch.h"
-#include "VoxelWorldGenerator.h"
+#include "ext_voxel\VoxelWorldGenerator.h"
 #include "VoxelWorldChunk.h"
 #include "VoxelPool.h"
 #include "VoxelWorldDataSet.h"
+#include "ext_voxel\VoxelWorld.h"
 
 #include <boost\random.hpp>
 
 namespace ld3d
 {
-	VoxelWorldGenerator::VoxelWorldGenerator(void)
+	VoxelWorldGenerator::VoxelWorldGenerator(GameObjectManagerPtr pManager) : GameObjectComponent(L"VoxelWorldGenerator", pManager)
 	{
+		m_smooth = 0.6f;
 	}
 
 
 	VoxelWorldGenerator::~VoxelWorldGenerator(void)
 	{
 	}
+	const float& VoxelWorldGenerator::GetSmooth() const
+	{
+		return m_smooth;
+	}
+	void VoxelWorldGenerator::SetSmooth(const float& r)
+	{
+		m_smooth = r;
+
+		m_smooth = m_smooth > 1.0f ? 1.0f : m_smooth;
+		m_smooth = m_smooth < 0.0f ? 0.0f : m_smooth;
+	}
+	void VoxelWorldGenerator::RebuildWorld()
+	{
+		VoxelWorldPtr pWorld = boost::dynamic_pointer_cast<VoxelWorld>(GetGameObject()->GetComponent(L"VoxelWorld"));
+
+		if(pWorld == nullptr)
+		{
+			return;
+		}
+		m_pManager->Log(L"Rebuilding Voxel world...");
+
+		int tick = GetTickCount();
+
+		VoxelWorldDataSetPtr pDataSet = pWorld->GetDataSet();
+		if(pDataSet != nullptr)
+		{
+			pDataSet->Release();
+		}
+
+		pDataSet = Generate_Fractal(pWorld->GetWorldSizeX(), pWorld->GetWorldSizeY(), pWorld->GetWorldSizeZ(), m_smooth);
+		pDataSet->UpdateMesh();
+
+		pWorld->SetDataSet(pDataSet);
+
+		tick = GetTickCount() - tick;
+		wchar_t szBuffer[512];
+
+		swprintf(szBuffer, L"Voxel world rebuilt.(%d triangles in %.4fs)", pDataSet->GetFaceCount(), float(tick) / 1000.0f);
+
+		m_pManager->Log(szBuffer);
+		
+	}
+	void VoxelWorldGenerator::OnSignaleGenerate(const prop_signal& s)
+	{
+		RebuildWorld();
+	}
+	prop_signal VoxelWorldGenerator::_dummy()
+	{
+		return prop_signal();
+	}
+	bool VoxelWorldGenerator::OnAttach()
+	{
+		PropertyManagerPtr pPM = boost::dynamic_pointer_cast<PropertyManager>(m_pObject->GetComponent(L"PropertyManager"));
+
+		pPM->Begin(L"VoxelWorldGenerator");
+		{
+			pPM->RegisterProperty<float, VoxelWorldGenerator>(this,
+				L"Smooth",
+				&VoxelWorldGenerator::GetSmooth,
+				&VoxelWorldGenerator::SetSmooth);
+
+			pPM->RegisterProperty<prop_signal, VoxelWorldGenerator>(this,
+				L"Generate",
+				&VoxelWorldGenerator::_dummy,
+				&VoxelWorldGenerator::OnSignaleGenerate);
+
+		}
+		pPM->End();
+
+		return true;
+	}
+	void VoxelWorldGenerator::OnDetach()
+	{
+	}
+
+
 	VoxelWorldDataSetPtr VoxelWorldGenerator::Generate_Perlin(int sx, int sy, int sz)
 	{
 		PerlinNoise pl(7, 4, 1, GetTickCount());
@@ -24,9 +102,6 @@ namespace ld3d
 		VoxelWorldDataSetPtr pDataSet = VoxelWorldDataSetPtr(new VoxelWorldDataSet);
 
 		pDataSet->Initialize(sx, sy, sz);
-
-
-
 
 		for(int x = 0; x < sx; ++x)
 		{
@@ -132,11 +207,9 @@ namespace ld3d
 
 		return pDataSet;
 	}
-	VoxelWorldDataSetPtr VoxelWorldGenerator::Generate_Fractal(int sx, int sy, int sz)
+	VoxelWorldDataSetPtr VoxelWorldGenerator::Generate_Fractal(int sx, int sy, int sz, float h)
 	{
-
 		int seed = GetTickCount();
-		float h = 0.6;
 		float hscale = 1;
 
 		float ratio = (float) pow (2.,-h);

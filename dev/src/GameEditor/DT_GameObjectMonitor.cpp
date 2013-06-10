@@ -11,6 +11,7 @@ namespace dt
 
 	DT_GameObjectMonitor::DT_GameObjectMonitor(ld3d::GameObjectManagerPtr pManager) : GameObjectComponent(L"DT_GameObjectMonitor", pManager)
 	{
+		SetVersion(ld3d::Version(0, 0, 0, 1));
 	}
 
 
@@ -35,12 +36,5 @@ namespace dt
 
 		return GameObjectComponentPtr(new DT_GameObjectMonitor(pManager));
 	}
-	const ld3d::Version& DT_GameObjectMonitor::GetVersion() const
-	{
-		using namespace ld3d;
-
-		static Version v(0, 0, 0, 1);
-
-		return v;
-	}
+	
 }

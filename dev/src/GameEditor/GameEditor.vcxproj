@@ -116,6 +116,7 @@
     <ClInclude Include="AxisIndicator.h" />
     <ClInclude Include="DT_GameObjectMonitor.h" />
     <ClInclude Include="DT_Gizmo.h" />
+    <ClInclude Include="DT_VoxelWorldEditor.h" />
     <ClInclude Include="editor_utils.h" />
     <ClInclude Include="FloatEdit.h" />
     <ClInclude Include="GameScene.h" />
@@ -172,6 +173,7 @@
     <ClCompile Include="AxisIndicator.cpp" />
     <ClCompile Include="DT_GameObjectMonitor.cpp" />
     <ClCompile Include="DT_Gizmo.cpp" />
+    <ClCompile Include="DT_VoxelWorldEditor.cpp" />
     <ClCompile Include="editor_utils.cpp" />
     <ClCompile Include="FloatEdit.cpp" />
     <ClCompile Include="GameScene.cpp" />

@@ -5,16 +5,14 @@ namespace ld3d
 {
 	LuaBehavior::LuaBehavior(GameObjectManagerPtr pManager) : GameObjectComponent(L"LuaBehavior", pManager)
 	{
+		SetVersion(g_packageVersion);
 	}
 
 
 	LuaBehavior::~LuaBehavior(void)
 	{
 	}
-	const Version& LuaBehavior::GetVersion() const
-	{
-		return g_packageVersion;
-	}
+	
 	void LuaBehavior::Update(float dt)
 	{
 	}

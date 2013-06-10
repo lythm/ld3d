@@ -5,16 +5,14 @@ namespace ld3d
 {
 	CameraData::CameraData(GameObjectManagerPtr pManager) : GameObjectComponent(L"Camera", pManager)
 	{
+		SetVersion(g_packageVersion);
 	}
 
 
 	CameraData::~CameraData(void)
 	{
 	}
-	const Version& CameraData::GetVersion() const
-	{
-		return g_packageVersion;
-	}
+	
 	bool CameraData::OnAttach()
 	{
 		m_pCamera = m_pManager->GetAllocator()->AllocObject<Camera>();

@@ -12,8 +12,9 @@ namespace ld3d
 	class VoxelPool;
 	class VoxelWorldDataSet;
 	class VoxelWorldOctTree;
+	class VoxelWorldGenerator;
 
-
+	typedef boost::shared_ptr<VoxelWorldGenerator>					VoxelWorldGeneratorPtr;
 	typedef boost::shared_ptr<VoxelWorldOctTree>					VoxelWorldOctTreePtr;
 	typedef boost::shared_ptr<VoxelWorldDataSet>					VoxelWorldDataSetPtr;
 	typedef boost::shared_ptr<VoxelPool>							VoxelPoolPtr;

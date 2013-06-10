@@ -6,6 +6,7 @@ namespace ld3d
 {
 	Behavior::Behavior(GameObjectManagerPtr pManager):GameObjectComponent(L"Behavior", pManager)
 	{
+		SetVersion(g_packageVersion);
 	}
 
 	Behavior::~Behavior(void)
@@ -21,8 +22,5 @@ namespace ld3d
 	void Behavior::OnDetach()
 	{
 	}
-	const Version& Behavior::GetVersion() const
-	{
-		return g_packageVersion;
-	}
+	
 }

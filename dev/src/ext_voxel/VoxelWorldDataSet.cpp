@@ -60,17 +60,24 @@ namespace ld3d
 	
 	VoxelWorldChunk* VoxelWorldDataSet::FrustumCull(const ViewFrustum& vf)
 	{
+		if(m_pRegion == nullptr)
+		{
+			return nullptr;
+		}
 		m_pRegion->FrustumCull(vf);
 
 		return m_pRegion->GetRenderList();
 	}
 	void VoxelWorldDataSet::UpdateMesh()
 	{
-		m_pRegion->UpdateMesh();
+		if(m_pRegion != nullptr)
+		{
+			m_pRegion->UpdateMesh();
+		}
 	}
 	uint32 VoxelWorldDataSet::GetFaceCount()
 	{
-		return m_pRegion->GetFaceCount();
+		return m_pRegion ? m_pRegion->GetFaceCount() : 0;
 	}
 
 }

@@ -32,6 +32,7 @@ namespace ld3d
 
 	CoreApi::CoreApi(void)
 	{
+		m_runmode					= RM_RT;
 	}
 
 
@@ -54,8 +55,9 @@ namespace ld3d
 		m_pScene->Update(dt);
 		
 	}
-	bool CoreApi::Initialize(const SysSetting& setting, Allocator* pAlloc)
+	bool CoreApi::Initialize(const SysSetting& setting, Allocator* pAlloc, RUN_MODE rm)
 	{
+		m_runmode = rm;
 		s_pAllocator = pAlloc;
 
 		if(s_pAllocator == nullptr)
@@ -361,5 +363,9 @@ namespace ld3d
 	Sys_TimePtr	CoreApi::GetSysTime()
 	{
 		return m_pSysTime;
+	}
+	RUN_MODE CoreApi::GetRunMode()
+	{
+		return m_runmode;
 	}
 }

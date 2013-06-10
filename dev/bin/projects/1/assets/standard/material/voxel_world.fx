@@ -28,16 +28,14 @@ vs_out vs_main(vs_in i)
 
 GBuffer dr_ps_main(vs_out i)
 {
-	float4 clr = i.clr;
-	//float3 clr = float3(0, 1, 0);
+	float3 clr = i.clr.xyz;
 	float specular = 0;
 	
-	return dr_gbuffer_compose(depth_2_view_space_z(i.pos.z, p), normalize(i.v_normal).xy, clr.xyz, specular);
+	return dr_gbuffer_compose(depth_2_view_space_z(i.pos.z, p), normalize(i.v_normal).xy, clr, specular);
 }
 RasterizerState rs
 {
 	CULLMODE						= Back;
-	//FILLMODE						= WireFrame;
 };
 DepthStencilState dr_ds
 {

@@ -9,6 +9,7 @@ namespace ld3d
 	{
 		SetName(name);	
 		m_pManager = pManager;
+		m_bExclusive = true;
 	}
 	GameObjectComponent::GameObjectComponent(GameObjectManagerPtr pManager)
 	{
@@ -89,15 +90,22 @@ namespace ld3d
 	{
 		return GetVersion().AsWString().c_str();
 	}
-	const std::vector<std::wstring>& GameObjectComponent::GetDependences()
-	{
-		static std::vector<std::wstring> deps;
-
-		return deps;
-	}
+	
 	bool GameObjectComponent::IsExclusive()
 	{
-		return true;
+		return m_bExclusive;
+	}
+	void GameObjectComponent::SetExclusive(bool v)
+	{
+		m_bExclusive = v;
+	}
+	const Version& GameObjectComponent::GetVersion() const
+	{
+		return m_version;
+	}
+	void GameObjectComponent::SetVersion(const Version& v)
+	{
+		m_version = v;
 	}
 }
 

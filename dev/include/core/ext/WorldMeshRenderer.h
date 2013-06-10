@@ -11,7 +11,6 @@ namespace ld3d
 		WorldMeshRenderer(GameObjectManagerPtr pManager);
 		virtual ~WorldMeshRenderer(void);
 
-		const Version&								GetVersion() const;
 	};
 
 }

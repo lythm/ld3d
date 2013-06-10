@@ -19,7 +19,7 @@ namespace dt
 		static ld3d::GameObjectComponentPtr								Create(ld3d::GameObjectManagerPtr pManager);
 		static ld3d::ExtPackage::ComponentClass*						GetClass();
 
-		const ld3d::Version&											GetVersion() const ;
+		
 	private:
 
 		static ld3d::ExtPackage::ComponentClass							s_class;

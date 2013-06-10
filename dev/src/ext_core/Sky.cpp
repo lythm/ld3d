@@ -5,16 +5,14 @@ namespace ld3d
 {
 	Sky::Sky(GameObjectManagerPtr pManager) : GameObjectComponent(L"Sky", pManager)
 	{
+		SetVersion(g_packageVersion);
 	}
 
 
 	Sky::~Sky(void)
 	{
 	}
-	const Version& Sky::GetVersion() const
-	{
-		return g_packageVersion;
-	}
+	
 	bool Sky::OnAttach()
 	{
 		PropertyManagerPtr pPM = boost::dynamic_pointer_cast<PropertyManager>(m_pObject->GetComponent(L"PropertyManager"));

@@ -9,7 +9,12 @@ namespace ld3d
 		virtual ~VoxelWorldRenderer(void);
 
 		void										Update();
-		const Version&								GetVersion() const;
+
+		const bool&									GetShowBound();
+		void										SetShowBound(const bool& show);
+
+		bool										OnSerialize(DataStream* pStream);
+		bool										OnUnSerialize(DataStream* pStream, const Version& version);
 
 	private:
 		bool										OnAttach();
@@ -21,5 +26,9 @@ namespace ld3d
 		EventDispatcher::EventHandlerHandle			m_hFrustumCull;
 		VoxelWorldRenderDataPtr						m_pRenderData;
 		VoxelWorldPtr								m_pWorld;
+
+		bool										m_bShowBound;
+
+		BBoxRenderDataPtr							m_pBBoxRD;
 	};
 }

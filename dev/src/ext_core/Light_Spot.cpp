@@ -7,16 +7,14 @@ namespace ld3d
 {
 	Light_Spot::Light_Spot(GameObjectManagerPtr pManager) : GameObjectComponent(L"SpotLight", pManager)
 	{
+		SetVersion(g_packageVersion);
 	}
 
 
 	Light_Spot::~Light_Spot(void)
 	{
 	}
-	const Version& Light_Spot::GetVersion() const
-	{
-		return g_packageVersion;
-	}
+	
 	void Light_Spot::Update(float dt)
 	{
 		if(m_pLight)

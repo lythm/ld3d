@@ -19,7 +19,6 @@ namespace ld3d
 
 		void													PrepareRenderList(VoxelWorldChunk* pList);
 
-
 	private:
 		void													_draw(Sys_GraphicsPtr pSysGraphics, MaterialPtr pMaterial);
 	private:
@@ -36,5 +35,6 @@ namespace ld3d
 		uint32													m_nVertexCount;
 
 		VoxelWorldChunk*										m_pRenderList;
+
 	};
 }

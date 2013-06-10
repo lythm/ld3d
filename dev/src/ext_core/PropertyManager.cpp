@@ -8,6 +8,8 @@ namespace ld3d
 	PropertyManager::PropertyManager(GameObjectManagerPtr pManager) : GameObjectComponent(L"PropertyManager", pManager)
 	{
 		m_pCurrentOwner = PropertySetPtr();
+
+		SetVersion(g_packageVersion);
 	}
 
 
@@ -15,10 +17,7 @@ namespace ld3d
 	{
 		m_PropSets.clear();
 	}
-	const Version& PropertyManager::GetVersion() const
-	{
-		return g_packageVersion;
-	}
+	
 	PropertySetPtr PropertyManager::FindProperty(const std::wstring& name)
 	{
 		for(size_t i = 0; i < m_PropSets.size(); ++i)

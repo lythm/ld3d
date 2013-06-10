@@ -10,42 +10,45 @@ namespace ld3d
 		GameObjectComponent(GameObjectManagerPtr pManager);
 		virtual ~GameObjectComponent(void);
 		
-		virtual void				Update(float dt);
+		virtual void												Update(float dt);
 
-		virtual bool				Attach(GameObjectPtr pObject);
-		virtual void				Detach();
+		virtual bool												Attach(GameObjectPtr pObject);
+		virtual void												Detach();
 		
-		bool						Serialize(DataStream* pStream);
-		bool						UnSerialize(DataStream* pStream);
+		bool														Serialize(DataStream* pStream);
+		bool														UnSerialize(DataStream* pStream);
 
-		virtual bool				OnSerialize(DataStream* pStream);
-		virtual bool				OnUnSerialize(DataStream* pStream, const Version& version);
+		virtual bool												OnSerialize(DataStream* pStream);
+		virtual bool												OnUnSerialize(DataStream* pStream, const Version& version);
 		
-		const std::wstring&			GetName();
+		const std::wstring&											GetName();
 
-		void						SetName(const std::wstring& name);
+		void														SetName(const std::wstring& name);
 
-		GameObjectPtr				GetGameObject();
+		GameObjectPtr												GetGameObject();
 
-		GameObjectManagerPtr		GetGameObjectManager();
+		GameObjectManagerPtr										GetGameObjectManager();
 
-		virtual const Version&		GetVersion() const														= 0;
+		const Version&												GetVersion() const;
+		void														SetVersion(const Version& v);
 
-		const wchar_t*				GetVersionString();
+		const wchar_t*												GetVersionString();
 
 		virtual GameObjectComponentPtr Clone();
 
-		virtual const std::vector<std::wstring>&	GetDependences();
-		virtual bool				IsExclusive();
+		bool														IsExclusive();
+		void														SetExclusive(bool v);
 		
 	
 	private:
-		virtual bool				OnAttach();
-		virtual void				OnDetach();
+		virtual bool												OnAttach();
+		virtual void												OnDetach();
 		
 	protected:
-		GameObjectPtr				m_pObject;
-		std::wstring				m_name;
-		GameObjectManagerPtr		m_pManager;
+		GameObjectPtr												m_pObject;
+		std::wstring												m_name;
+		GameObjectManagerPtr										m_pManager;
+		bool														m_bExclusive;
+		Version														m_version;
 	};
 }

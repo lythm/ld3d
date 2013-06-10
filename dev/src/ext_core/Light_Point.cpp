@@ -9,6 +9,7 @@ namespace ld3d
 {
 	Light_Point::Light_Point(GameObjectManagerPtr pManager) : GameObjectComponent(L"PointLight", pManager)
 	{
+		SetVersion(g_packageVersion);
 	}
 
 
@@ -123,8 +124,5 @@ namespace ld3d
 		return true;
 		
 	}
-	const Version& Light_Point::GetVersion() const
-	{
-		return g_packageVersion;
-	}
+	
 }

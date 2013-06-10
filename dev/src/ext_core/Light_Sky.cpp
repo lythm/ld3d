@@ -9,7 +9,7 @@ namespace ld3d
 
 	Light_Sky::Light_Sky(GameObjectManagerPtr pManager) : GameObjectComponent(L"SkyLight", pManager)
 	{
-
+		SetVersion(g_packageVersion);
 	}
 
 
@@ -111,8 +111,5 @@ namespace ld3d
 		return true;
 		
 	}
-	const Version& Light_Sky::GetVersion() const
-	{
-		return g_packageVersion;
-	}
+	
 }

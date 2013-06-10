@@ -6,6 +6,7 @@ namespace ld3d
 
 	SoundListener::SoundListener(GameObjectManagerPtr pManager) : GameObjectComponent(L"SoundListener", pManager)
 	{
+		SetVersion(g_packageVersion);
 	}
 
 
@@ -29,11 +30,7 @@ namespace ld3d
 	{
 		return true;
 	}
-	const Version& SoundListener::GetVersion() const
-	{
-		return g_packageVersion;
-	}
-
+	
 	bool SoundListener::OnAttach()
 	{
 		PropertyManagerPtr pPM = boost::dynamic_pointer_cast<PropertyManager>(m_pObject->GetComponent(L"PropertyManager"));

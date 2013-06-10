@@ -1,10 +1,6 @@
 #include "voxel_pch.h"
 #include "..\..\include\ext_voxel\VoxelWorld.h"
 #include "VoxelWorldChunk.h"
-
-#include "VoxelPolygonizer.h"
-#include "VoxelWorldGenerator.h"
-#include "VoxelPool.h"
 #include "VoxelWorldDataSet.h"
 
 namespace ld3d
@@ -16,7 +12,7 @@ namespace ld3d
 		m_worldSizeY			= 2;
 		m_worldSizeZ			= 10;
 		
-
+		SetVersion(g_packageVersion);
 	}
 
 
@@ -25,13 +21,12 @@ namespace ld3d
 	}
 	void VoxelWorld::Update(float dt)
 	{
-		m_pDataSet->UpdateMesh();
+		if(m_pDataSet)
+		{
+			m_pDataSet->UpdateMesh();
+		}
 	}
-	const Version& VoxelWorld::GetVersion() const
-	{
-		return g_packageVersion;
-	}
-
+	
 	bool VoxelWorld::OnAttach()
 	{
 
@@ -59,28 +54,13 @@ namespace ld3d
 				&VoxelWorld::GetWorldSizeZ,
 				&VoxelWorld::SetWorldSizeZ);
 
-			pPM->RegisterProperty<prop_signal, VoxelWorld>(this,
-				L"Rebuild",
-				&VoxelWorld::_dummy,
-				&VoxelWorld::OnSignaleGenerate);
-
-
 		}
 		pPM->End();
 
 
-	//	RebuildWorld();
-
 		return true;
 	}
-	void VoxelWorld::DestroyWorld()
-	{
-		if(m_pDataSet)
-		{
-			m_pDataSet->Release();
-			m_pDataSet.reset();
-		}
-	}
+	
 	const int& VoxelWorld::GetVoxelSize()
 	{
 		return m_voxelSize;
@@ -91,7 +71,11 @@ namespace ld3d
 	}
 	void VoxelWorld::OnDetach()
 	{
-		DestroyWorld();
+		if(m_pDataSet != nullptr)
+		{
+			m_pDataSet->Release();
+			m_pDataSet.reset();
+		}
 	}
 	const int& VoxelWorld::GetWorldSizeX()
 	{
@@ -119,36 +103,14 @@ namespace ld3d
 	{
 		m_worldSizeZ = z;
 	}
-	void VoxelWorld::RebuildWorld()
-	{
-		m_pManager->Log(L"Rebuilding Voxel world...");
-
-		int tick = GetTickCount();
-
-		DestroyWorld();
-
-		Generate();
-
-		tick = GetTickCount() - tick;
-		wchar_t szBuffer[512];
-
-		swprintf(szBuffer, L"Voxel world rebuilt.(%d triangles in %.4fs)", m_pDataSet->GetFaceCount(), float(tick) / 1000.0f);
-
-		m_pManager->Log(szBuffer);
-		
-	}
 	
-	void VoxelWorld::Generate()
-	{
-		//m_pDataSet = VoxelWorldGenerator::Generate_Perlin(m_worldSizeX, m_worldSizeY, m_worldSizeZ);
-		m_pDataSet = VoxelWorldGenerator::Generate_Fractal(m_worldSizeX, m_worldSizeY, m_worldSizeZ);
-		//m_pDataSet = VoxelWorldGenerator::Generate(m_worldSizeX, m_worldSizeY, m_worldSizeZ);
-		m_pDataSet->UpdateMesh();
-	}
 	VoxelWorldChunk* VoxelWorld::FrustumCull(BaseCameraPtr pCamera)
 	{
+		if(m_pDataSet == nullptr)
+		{
+			return nullptr;
+		}
 		const ViewFrustum& vf = pCamera->GetViewFrustum();
-
 
 		return m_pDataSet->FrustumCull(vf);
 	}
@@ -178,16 +140,16 @@ namespace ld3d
 		m_worldSizeZ = pStream->ReadInt32();
 		m_voxelSize = pStream->ReadInt32();
 
-		RebuildWorld();
 		return true;
 	}
-	void VoxelWorld::OnSignaleGenerate(const prop_signal& s)
+	void VoxelWorld::SetDataSet(VoxelWorldDataSetPtr pDataSet)
 	{
-		RebuildWorld();
-	}
-	prop_signal VoxelWorld::_dummy()
-	{
-		return prop_signal();
+		if(m_pDataSet != nullptr)
+		{
+			m_pDataSet->Release();
+			m_pDataSet.reset();
+		}
+		m_pDataSet = pDataSet;
 	}
 }
 

@@ -6,6 +6,7 @@
 #include "ext_voxel\VoxelWorldRenderer.h"
 #include "ext_voxel\VoxelObject.h"
 #include "ext_voxel\VoxelObjectRenderer.h"
+#include "ext_voxel\VoxelWorldGenerator.h"
 
 
 #include "VoxelWorldTemplate.h"
@@ -34,6 +35,10 @@ namespace ld3d
 							L"Voxel",
 							L"Voxel World",
 							&VoxelPackage::Create_VoxelWorld));
+		m_classes.push_back(ComponentClass(L"VoxelWorldGenerator",
+							L"Voxel",
+							L"Voxel World Generator",
+							&VoxelPackage::Create_VoxelWorldGenerator));
 		m_classes.push_back(ComponentClass(L"VoxelWorldRenderer",
 							L"Voxel",
 							L"Voxel World Renderer",
@@ -86,6 +91,10 @@ namespace ld3d
 	GameObjectComponentPtr VoxelPackage::Create_VoxelWorld(GameObjectManagerPtr pManager)
 	{
 		return pManager->GetAllocator()->AllocObject<VoxelWorld, GameObjectManagerPtr>(pManager);
+	}
+	GameObjectComponentPtr VoxelPackage::Create_VoxelWorldGenerator(GameObjectManagerPtr pManager)
+	{
+		return pManager->GetAllocator()->AllocObject<VoxelWorldGenerator, GameObjectManagerPtr>(pManager);
 	}
 	GameObjectComponentPtr VoxelPackage::Create_VoxelWorldRenderer(GameObjectManagerPtr pManager)
 	{

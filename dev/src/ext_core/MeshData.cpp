@@ -16,6 +16,7 @@ namespace ld3d
 	MeshData::MeshData(GameObjectManagerPtr pManager) : GameObjectComponent(L"MeshData", pManager)
 	{
 		m_pMesh = MeshPtr();
+		SetVersion(g_packageVersion);
 	}
 
 
@@ -23,10 +24,7 @@ namespace ld3d
 	{
 
 	}
-	const Version& MeshData::GetVersion() const
-	{
-		return g_packageVersion;
-	}
+	
 	void MeshData::Update(float dt)
 	{
 		if(m_pMesh)

@@ -14,6 +14,7 @@ namespace ld3d
 		m_nVBOffset						= 0;
 
 		m_pRenderList					= nullptr;
+
 	}
 
 
@@ -245,4 +246,5 @@ namespace ld3d
 	{
 		m_pRenderList = pList;
 	}
+
 }
