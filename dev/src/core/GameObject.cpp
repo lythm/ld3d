@@ -71,11 +71,6 @@ namespace ld3d
 	}
 	bool GameObject::AddComponent(GameObjectComponentPtr pCom)
 	{
-		if(false == pCom->Attach(ThisPtr()))
-		{
-			return false;
-		}
-
 		if(pCom->IsExclusive())
 		{
 			if(GetComponent(pCom->GetName()) != nullptr)
@@ -83,6 +78,14 @@ namespace ld3d
 				return false;
 			}
 		}
+
+
+		if(false == pCom->Attach(ThisPtr()))
+		{
+			return false;
+		}
+
+		
 		m_components.push_back(pCom);
 		
 		return true;

@@ -14,14 +14,12 @@ namespace ld3d
 								const std::wstring& catalog, 
 								const std::wstring& desc, 
 								boost::function<GameObjectComponentPtr (GameObjectManagerPtr)> creator,
-								const std::vector<std::wstring>& deps = std::vector<std::wstring>(),
 								bool bExclusive = true)
 			{
 				m_name						= name;
 				m_catalog					= catalog;
 				m_desc						= desc;
 				m_creator					= creator;
-				m_deps						= deps;
 				m_bExclusive				= bExclusive;
 			}
 			ComponentClass()
@@ -33,8 +31,6 @@ namespace ld3d
 			std::wstring									m_catalog;
 			std::wstring									m_desc;
 			boost::function<GameObjectComponentPtr (GameObjectManagerPtr)>		m_creator;
-
-			std::vector<std::wstring>						m_deps;
 			bool											m_bExclusive;
 		};
 

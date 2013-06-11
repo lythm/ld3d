@@ -24,6 +24,7 @@ namespace ld3d
 		int									GetPropertySetCount();
 		PropertySetPtr						GetPropertySet(int index);
 
+		void								ClearPropertySet(const std::wstring & name);
 
 		template<typename T>
 		bool								RegisterProperty(const std::wstring& name, 
