@@ -46,6 +46,7 @@ void CInspectorView::AdjustLayout()
 
 	m_wndObjectCombo.SetWindowPos(NULL, rectClient.left, rectClient.top, rectClient.Width(), m_nComboHeight, SWP_NOACTIVATE | SWP_NOZORDER);
 	m_wndInspector.SetWindowPos(NULL, rectClient.left, rectClient.top + m_nComboHeight, rectClient.Width(), rectClient.Height() -(m_nComboHeight), SWP_NOACTIVATE | SWP_NOZORDER);
+	m_wndInspector.AdjustLayout();
 }
 
 int CInspectorView::OnCreate(LPCREATESTRUCT lpCreateStruct)
@@ -137,4 +138,8 @@ void CInspectorView::OnDestroy()
 void CInspectorView::UpdateGameObjectProperty(ld3d::GameObjectPtr pObj)
 {
 	m_wndInspector.UpdateGameObjectProperty(pObj);
+}
+CInspector* CInspectorView::GetInspector()
+{
+	return &m_wndInspector;
 }

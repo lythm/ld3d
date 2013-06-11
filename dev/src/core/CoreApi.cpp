@@ -55,9 +55,10 @@ namespace ld3d
 		m_pScene->Update(dt);
 		
 	}
-	bool CoreApi::Initialize(const SysSetting& setting, Allocator* pAlloc, RUN_MODE rm)
+	bool CoreApi::Initialize(const SysSetting& setting, Allocator* pAlloc, DT_CoreApiPtr pDTCore)
 	{
-		m_runmode = rm;
+		m_pDTCore = pDTCore;
+		m_runmode = m_pDTCore == nullptr ? RM_RT : RM_DT;
 		s_pAllocator = pAlloc;
 
 		if(s_pAllocator == nullptr)
@@ -367,5 +368,9 @@ namespace ld3d
 	RUN_MODE CoreApi::GetRunMode()
 	{
 		return m_runmode;
+	}
+	DT_CoreApiPtr CoreApi::GetDTCoreApi()
+	{
+		return m_pDTCore;
 	}
 }

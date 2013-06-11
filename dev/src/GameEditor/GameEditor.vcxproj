@@ -114,6 +114,7 @@
     <ClInclude Include="AssetListView.h" />
     <ClInclude Include="Assets.h" />
     <ClInclude Include="AxisIndicator.h" />
+    <ClInclude Include="DT_CoreApiImpl.h" />
     <ClInclude Include="DT_GameObjectMonitor.h" />
     <ClInclude Include="DT_Gizmo.h" />
     <ClInclude Include="DT_VoxelWorldEditor.h" />
@@ -171,6 +172,7 @@
     <ClCompile Include="AssetListView.cpp" />
     <ClCompile Include="Assets.cpp" />
     <ClCompile Include="AxisIndicator.cpp" />
+    <ClCompile Include="DT_CoreApiImpl.cpp" />
     <ClCompile Include="DT_GameObjectMonitor.cpp" />
     <ClCompile Include="DT_Gizmo.cpp" />
     <ClCompile Include="DT_VoxelWorldEditor.cpp" />

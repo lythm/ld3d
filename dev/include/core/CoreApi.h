@@ -15,7 +15,7 @@ namespace ld3d
 		virtual ~CoreApi(void);
 
 
-		bool											Initialize(const SysSetting& setting, Allocator* pAlloc = nullptr, RUN_MODE rm = RM_RT);
+		bool											Initialize(const SysSetting& setting, Allocator* pAlloc = nullptr, DT_CoreApiPtr pDTCore = nullptr);
 
 		void											Update();
 		
@@ -55,6 +55,7 @@ namespace ld3d
 		void											ResetScene();
 
 		RUN_MODE										GetRunMode();
+		DT_CoreApiPtr									GetDTCoreApi();
 
 		static Allocator*								GetAllocator();
 
@@ -84,5 +85,7 @@ namespace ld3d
 		Sys_NetworkPtr									m_pSysNetwork;
 
 		RUN_MODE										m_runmode;
+
+		DT_CoreApiPtr									m_pDTCore;
 	};
 }

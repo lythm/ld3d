@@ -30,7 +30,7 @@ public:
 
 
 	void											UpdateGameObjectProperty(ld3d::GameObjectPtr pObj);
-
+	CInspector*										GetInspector();
 protected:
 	CFont m_fntPropList;
 	CComboBox m_wndObjectCombo;

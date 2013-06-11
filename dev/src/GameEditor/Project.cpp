@@ -8,6 +8,7 @@
 #include "EditorCamera.h"
 #include "DT_GameObjectMonitor.h"
 #include "DT_VoxelWorldEditor.h"
+#include "DT_CoreApiImpl.h"
 
 
 ld3d::PoolAllocator					g_Allocator;
@@ -238,6 +239,8 @@ bool Project::InitEngine()
 
 	CWnd* pWnd = util_get_rendering_wnd();
 
+	m_pDTCore = DT_CoreApiPtr(new dt::DT_CoreApiImpl);
+
 	CRect rc;
 
 	pWnd->GetClientRect(rc);
@@ -278,12 +281,12 @@ bool Project::InitEngine()
 
 
 #ifdef _DEBUG
-	if(false == m_pCore->Initialize(setting, &g_Allocator, ld3d::RM_DT))
+	if(false == m_pCore->Initialize(setting, &g_Allocator, m_pDTCore))
 	{
 		return false;
 	}
 #else
-	if(false == m_pCore->Initialize(setting, &g_Allocator, ld3d::RM_DT))
+	if(false == m_pCore->Initialize(setting, &g_Allocator, m_pDTCore))
 	{
 		return false;
 	}

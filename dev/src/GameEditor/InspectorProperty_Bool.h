@@ -6,7 +6,7 @@
 class CInspectorProperty_Bool : public CInspectorProperty_Simple
 {
 public:
-	CInspectorProperty_Bool(CString name, bool value, void* pUserData = nullptr);
+	CInspectorProperty_Bool(CString name, ld3d::Property* pProp, void* pUserData = nullptr);
 	virtual ~CInspectorProperty_Bool(void);
 
 
@@ -20,7 +20,7 @@ private:
 
 	
 private:
-	bool								m_value;
+
 	CButton								m_valueButton;
 public:
 	virtual BOOL OnInitDialog();

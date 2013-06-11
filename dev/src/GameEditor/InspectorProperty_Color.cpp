@@ -4,10 +4,10 @@
 #include "resource.h"
 
 
-CInspectorProperty_Color::CInspectorProperty_Color(CString name, const math::Color4& value, void* pUserData) 
-		: CInspectorProperty_Simple(name, pUserData, IDD_INSPECTOR_PROPERTY_COLOR)
+CInspectorProperty_Color::CInspectorProperty_Color(CString name, ld3d::Property* pProp, void* pUserData) 
+		: CInspectorProperty_Simple(name, pProp, pUserData, IDD_INSPECTOR_PROPERTY_COLOR)
 {
-	m_initValue = value;
+
 }
 
 
@@ -23,7 +23,10 @@ BOOL CInspectorProperty_Color::OnInitDialog()
 	SetDlgItemText(IDC_NAME, GetName());
 
 	m_valueButton.EnableOtherButton(L"More...");
-	SetValue(m_initValue);
+
+	ld3d::Property_T<math::Color4> * pProp = (ld3d::Property_T<math::Color4>*)GetProperty();
+
+	SetValue(pProp->Get());
 		
 	return true;
 }
@@ -53,5 +56,10 @@ END_MESSAGE_MAP()
 
 void CInspectorProperty_Color::OnBnClickedValue()
 {
+
+	ld3d::Property_T<math::Color4> * pProp = (ld3d::Property_T<math::Color4>*)GetProperty();
+	pProp->Set(GetValue());
+
 	OnValueChanged();
+
 }

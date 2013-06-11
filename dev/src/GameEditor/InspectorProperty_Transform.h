@@ -7,7 +7,7 @@
 class CInspectorProperty_Transform : public CInspectorProperty
 {
 public:
-	CInspectorProperty_Transform(CString name, const math::Matrix44& value, void* pUserData = nullptr);
+	CInspectorProperty_Transform(CString name, ld3d::Property* pProp, void* pUserData = nullptr);
 	virtual ~CInspectorProperty_Transform(void);
 
 	math::Matrix44								GetValue();
@@ -21,8 +21,6 @@ private:
 
 	enum { IDD = IDD_INSPECTOR_PROPERTY_TRANSFORM };
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV Ö§³Ö
-
-	math::Matrix44								m_value;
 
 	void										AdjustLayout();
 public:

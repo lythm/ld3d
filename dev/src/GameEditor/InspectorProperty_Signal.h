@@ -13,8 +13,6 @@ public:
 
 
 
-private:
-	ld3d::Property*							m_pProp;
 public:
 	afx_msg void OnSignalBtn();
 };

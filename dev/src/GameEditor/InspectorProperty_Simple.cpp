@@ -2,7 +2,7 @@
 #include "InspectorProperty_Simple.h"
 
 
-CInspectorProperty_Simple::CInspectorProperty_Simple(CString name, void* pUserData, UINT nIDD) : CInspectorProperty(name, pUserData, nIDD)
+CInspectorProperty_Simple::CInspectorProperty_Simple(CString name, ld3d::Property* pProp, void* pUserData, UINT nIDD) : CInspectorProperty(name, pProp, pUserData, nIDD)
 {
 }
 

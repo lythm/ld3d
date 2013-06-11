@@ -3,10 +3,9 @@
 #include "resource.h"
 
 
-CInspectorProperty_FilePath::CInspectorProperty_FilePath(CString name, const boost::filesystem::path& value,bool bDirectory, void* pUserData, CString ext, CString filter) 
-	: CInspectorProperty_Simple(name, pUserData, IDD_INSPECTOR_PROPERTY_FILEPATH)
+CInspectorProperty_FilePath::CInspectorProperty_FilePath(CString name, ld3d::Property* pProp, bool bDirectory, void* pUserData, CString ext, CString filter) 
+	: CInspectorProperty_Simple(name, pProp, pUserData, IDD_INSPECTOR_PROPERTY_FILEPATH)
 {
-	m_initValue = value;
 	m_bDir = bDirectory;
 	m_ext = ext;
 	m_filter = filter;
@@ -26,7 +25,11 @@ BOOL CInspectorProperty_FilePath::OnInitDialog()
 	
 	m_bDir ? m_edit.EnableFolderBrowseButton() : m_edit.EnableFileBrowseButton(m_ext, m_filter);
 		
-	m_edit.SetWindowTextW(m_initValue.wstring().c_str());
+	ld3d::Property_T<const boost::filesystem::path> * pProp = (ld3d::Property_T<const boost::filesystem::path>*)GetProperty();
+
+	SetValue(pProp->Get());
+
+	m_edit.SetReadOnly(pProp->IsReadOnly());
 	return TRUE;
 }
 
@@ -44,6 +47,10 @@ END_MESSAGE_MAP()
 
 void CInspectorProperty_FilePath::OnEnUpdateValue()
 {
+	ld3d::Property_T<const boost::filesystem::path> * pProp = (ld3d::Property_T<const boost::filesystem::path>*)GetProperty();
+
+	pProp->Set(GetValue());
+
 	OnValueChanged();
 }
 

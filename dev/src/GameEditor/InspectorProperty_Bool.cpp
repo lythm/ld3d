@@ -3,10 +3,9 @@
 #include "resource.h"
 
 
-CInspectorProperty_Bool::CInspectorProperty_Bool(CString name, bool value, void* pUserData ) 
-			: CInspectorProperty_Simple(name, pUserData, IDD_INSPECTOR_PROPERTY_BOOL)
+CInspectorProperty_Bool::CInspectorProperty_Bool(CString name, ld3d::Property* pProp, void* pUserData ) 
+			: CInspectorProperty_Simple(name, pProp, pUserData, IDD_INSPECTOR_PROPERTY_BOOL)
 {
-	m_value = value;
 }
 
 
@@ -25,9 +24,11 @@ BOOL CInspectorProperty_Bool::OnInitDialog()
 	CInspectorProperty_Simple::OnInitDialog();
 
 	SetDlgItemText(IDC_NAME, GetName());
-	m_valueButton.SetCheck(m_value ? BST_CHECKED : BST_UNCHECKED);
 
-	m_valueButton.EnableWindow(GetReadOnly() == false);
+	ld3d::Property_T<bool> * pProp = (ld3d::Property_T<bool>*)GetProperty();
+
+	m_valueButton.SetCheck(pProp->Get() ? BST_CHECKED : BST_UNCHECKED);
+	m_valueButton.EnableWindow(pProp->IsReadOnly() == false);
 
 	return TRUE;
 }
@@ -38,6 +39,10 @@ END_MESSAGE_MAP()
 
 void CInspectorProperty_Bool::OnBnClickedValue()
 {
+	ld3d::Property_T<bool> * pProp = (ld3d::Property_T<bool>*)GetProperty();
+
+	pProp->Set(GetValue());
+
 	OnValueChanged();
 }
 bool CInspectorProperty_Bool::GetValue()

@@ -255,4 +255,8 @@ namespace ld3d
 	{
 		return m_pCore->GetRunMode();
 	}
+	DT_CoreApiPtr GameObjectManager::GetDTCoreApi()
+	{
+		return m_pCore->GetDTCoreApi();
+	}
 }

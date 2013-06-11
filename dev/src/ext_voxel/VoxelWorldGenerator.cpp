@@ -63,6 +63,11 @@ namespace ld3d
 	void VoxelWorldGenerator::OnSignaleGenerate(const prop_signal& s)
 	{
 		RebuildWorld();
+		static bool b = false;
+		m_pManager->GetDTCoreApi()->Inspector_SetPropertyVisible(L"VoxelWorldGenerator", L"Smooth", b);
+		m_pManager->GetDTCoreApi()->Inspector_AdjustLayout();
+
+		b = !b;
 	}
 	prop_signal VoxelWorldGenerator::_dummy()
 	{

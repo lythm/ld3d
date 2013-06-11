@@ -5,9 +5,8 @@
 #include <locale>
 
 
-CInspectorProperty_Int::CInspectorProperty_Int(CString name, int value, void* pUserData) : CInspectorProperty_Simple(name, pUserData, IDD_INSPECTOR_PROPERTY_INT)
+CInspectorProperty_Int::CInspectorProperty_Int(CString name, ld3d::Property* pProp, void* pUserData) : CInspectorProperty_Simple(name, pProp, pUserData, IDD_INSPECTOR_PROPERTY_INT)
 {
-	m_oriValue = value;
 }
 
 
@@ -26,8 +25,11 @@ BOOL CInspectorProperty_Int::OnInitDialog()
 {
 	CInspectorProperty_Simple::OnInitDialog();
 	SetDlgItemText(IDC_NAME, GetName());
-	m_valueEdit.SetValue(m_oriValue);
-	m_valueEdit.SetReadOnly(GetReadOnly());
+	
+
+	ld3d::Property_T<int> * pProp = (ld3d::Property_T<int>*)GetProperty();
+	SetValue(pProp->Get());
+	m_valueEdit.SetReadOnly(pProp->IsReadOnly());
 	return TRUE;
 }
 
@@ -67,5 +69,9 @@ void CInspectorProperty_Int::DoDataExchange(CDataExchange* pDX)
 
 void CInspectorProperty_Int::OnEnKillfocusValue()
 {
+	ld3d::Property_T<int> * pProp = (ld3d::Property_T<int>*)GetProperty();
+
+	pProp->Set(GetValue());
+
 	OnValueChanged();
 }

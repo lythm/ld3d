@@ -165,4 +165,8 @@ namespace ld3d
 
 	
 
+
+	class DT_CoreApi;
+	typedef boost::shared_ptr<DT_CoreApi>					DT_CoreApiPtr;
+
 }

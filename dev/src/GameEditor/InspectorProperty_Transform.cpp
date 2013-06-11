@@ -3,10 +3,9 @@
 #include "resource.h"
 
 
-CInspectorProperty_Transform::CInspectorProperty_Transform(CString name, const math::Matrix44& value, void* pUserData)
-	: CInspectorProperty(name, pUserData, IDD_INSPECTOR_PROPERTY_TRANSFORM)
+CInspectorProperty_Transform::CInspectorProperty_Transform(CString name, ld3d::Property* pProp, void* pUserData)
+	: CInspectorProperty(name, pProp, pUserData, IDD_INSPECTOR_PROPERTY_TRANSFORM)
 {
-	m_value = value;
 }
 
 CInspectorProperty_Transform::~CInspectorProperty_Transform(void)
@@ -50,7 +49,10 @@ void CInspectorProperty_Transform::SetValue(const math::Matrix44& value)
 BOOL CInspectorProperty_Transform::OnInitDialog()
 {
 	CInspectorProperty::OnInitDialog();
-	SetValue(m_value);
+
+	ld3d::Property_T<math::Matrix44> * pProp = (ld3d::Property_T<math::Matrix44>*)GetProperty();
+
+	SetValue(pProp->Get());
 
 	return true;
 }
@@ -133,6 +135,10 @@ math::Matrix44 CInspectorProperty_Transform::EularToMatrix(const math::Vector3& 
 
 void CInspectorProperty_Transform::OnEnKillfocusValue()
 {
+	ld3d::Property_T<math::Matrix44> * pProp = (ld3d::Property_T<math::Matrix44>*)GetProperty();
+
+	pProp->Set(GetValue());
+
 	OnValueChanged();
 }
 

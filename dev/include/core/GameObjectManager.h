@@ -71,6 +71,8 @@ namespace ld3d
 		void																RemoveEventHandler(EventDispatcher::EventHandlerHandle handle);
 
 		RUN_MODE															GetRunMode();
+
+		DT_CoreApiPtr														GetDTCoreApi();
 	private:
 
 

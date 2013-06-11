@@ -40,6 +40,9 @@ public:
 	void					OutputInfo(const CString& info);
 	void					OutputBuild(const CString& build);
 	void					UpdateAssetsView();
+
+	void					Inspector_AdjustLayout();
+	CInspector*				GetInspector();
 private:
 	bool					UpdateComponentMenu(CMFCPopupMenu* pMenu);
 	ld3d::ExtPackage::ComponentClass* FindClassByMenuID(UINT uID);

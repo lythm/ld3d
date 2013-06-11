@@ -5,10 +5,9 @@
 
 
 
-CInspectorProperty_Float::CInspectorProperty_Float(CString name, float value, void* pUserData) 
-	: CInspectorProperty_Simple(name, pUserData, IDD_INSPECTOR_PROPERTY_FLOAT)
+CInspectorProperty_Float::CInspectorProperty_Float(CString name, ld3d::Property* pProp,  void* pUserData) 
+	: CInspectorProperty_Simple(name, pProp, pUserData, IDD_INSPECTOR_PROPERTY_FLOAT)
 {
-	m_initValue = value;
 }
 
 
@@ -34,14 +33,20 @@ BOOL CInspectorProperty_Float::OnInitDialog()
 	CInspectorProperty_Simple::OnInitDialog();
 
 	SetDlgItemText(IDC_NAME, GetName());
-	m_value.SetValue(m_initValue);
-	m_value.SetReadOnly(GetReadOnly());
+	ld3d::Property_T<float> * pProp = (ld3d::Property_T<float>*)GetProperty();
+	SetValue(pProp->Get());
+
+	m_value.SetReadOnly(pProp->IsReadOnly());
 	return TRUE;
 }
 
 
 void CInspectorProperty_Float::OnEnKillfocusValue()
 {
+	ld3d::Property_T<float> * pProp = (ld3d::Property_T<float>*)GetProperty();
+
+	pProp->Set(GetValue());
+
 	OnValueChanged();
 }
 float CInspectorProperty_Float::GetValue()

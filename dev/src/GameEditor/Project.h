@@ -85,6 +85,8 @@ private:
 	math::Color4						m_clearClr;
 	GameScenePtr						m_pScene;
 	
+	ld3d::DT_CoreApiPtr					m_pDTCore;
+
 	static ProjectPtr					s_pInstance;
 };
 

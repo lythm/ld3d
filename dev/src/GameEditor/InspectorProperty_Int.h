@@ -8,7 +8,7 @@
 class CInspectorProperty_Int : public CInspectorProperty_Simple
 {
 public:
-	CInspectorProperty_Int(CString name, int value, void* pUserData = nullptr);
+	CInspectorProperty_Int(CString name, ld3d::Property* pProp, void* pUserData = nullptr);
 	virtual ~CInspectorProperty_Int(void);
 
 

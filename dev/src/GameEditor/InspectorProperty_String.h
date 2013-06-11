@@ -5,7 +5,7 @@
 class CInspectorProperty_String : public CInspectorProperty_Simple
 {
 public:
-	CInspectorProperty_String(CString name, CString value, void* pUserData = nullptr);
+	CInspectorProperty_String(CString name, ld3d::Property* pProp, void* pUserData = nullptr);
 	virtual ~CInspectorProperty_String(void);
 	virtual BOOL OnInitDialog();
 
@@ -16,7 +16,6 @@ public:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV Ö§³Ö
 private:
 
-	CString								m_value;
 	CEdit								m_edit;
 public:
 	DECLARE_MESSAGE_MAP()

@@ -1226,3 +1226,11 @@ void CMainFrame::OnFileSaveProject()
 
 	util_log_info(L"Project saved.");
 }
+void CMainFrame::Inspector_AdjustLayout()
+{
+	m_wndInspectorView.AdjustLayout();
+}
+CInspector* CMainFrame::GetInspector()
+{
+	return m_wndInspectorView.GetInspector();
+}

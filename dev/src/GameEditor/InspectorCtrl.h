@@ -19,6 +19,10 @@ public:
 	void										RemoveAll();
 	virtual void								OnPropertyChanged(CInspectorProperty* pProp);
 	virtual void								OnPanelEnabled(CInspectorPanel* pPanel, bool bEnabled);
+
+
+	CInspectorProperty*							FindProperty(CString panel, CString name);
+
 private:
 
 	std::vector<CInspectorPanel*>				m_panels;

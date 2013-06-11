@@ -3,10 +3,10 @@
 #include "resource.h"
 
 
-CInspectorProperty_String::CInspectorProperty_String(CString name, CString value, void* pUserData) 
-				: CInspectorProperty_Simple(name, pUserData, IDD_INSPECTOR_PROPERTY_STRING)
+CInspectorProperty_String::CInspectorProperty_String(CString name, ld3d::Property* pProp, void* pUserData) 
+				: CInspectorProperty_Simple(name, pProp, pUserData, IDD_INSPECTOR_PROPERTY_STRING)
 {
-	m_value = value;
+
 }
 
 
@@ -20,9 +20,12 @@ BOOL CInspectorProperty_String::OnInitDialog()
 	CInspectorProperty_Simple::OnInitDialog();
 
 	SetDlgItemText(IDC_NAME, GetName());
-	SetDlgItemText(IDC_VALUE, m_value);
+	
 
-	m_edit.SetReadOnly(GetReadOnly());
+	ld3d::Property_T<std::wstring> * pProp = (ld3d::Property_T<std::wstring>*)GetProperty();
+	SetValue(pProp->Get().c_str());
+
+	m_edit.SetReadOnly(pProp->IsReadOnly());
 	return TRUE;
 
 }
@@ -49,6 +52,9 @@ void CInspectorProperty_String::SetValue(CString v)
 
 void CInspectorProperty_String::OnEnKillfocusValue()
 {
+	ld3d::Property_T<std::wstring> * pProp = (ld3d::Property_T<std::wstring>*)GetProperty();
+	pProp->Set(GetValue().GetString());
+
 	OnValueChanged();
 }
 void CInspectorProperty_String::DoDataExchange(CDataExchange* pDX)

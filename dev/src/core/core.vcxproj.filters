@@ -141,6 +141,7 @@
     <ClInclude Include="..\..\include\core\Sys_Network.h" />
     <ClInclude Include="..\..\include\core\ObjectPool.h" />
     <ClInclude Include="..\..\include\core\BBoxRenderData.h" />
+    <ClInclude Include="..\..\include\core\DT_CoreApi.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

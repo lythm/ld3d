@@ -19,7 +19,7 @@ namespace ld3d
 	}
 	void PropertyManager::ClearPropertySet(const std::wstring & name)
 	{
-		PropertySetPtr pSet = FindProperty(name);
+		PropertySetPtr pSet = FindPropertySet(name);
 		if(pSet == nullptr)
 		{
 			return;
@@ -27,7 +27,7 @@ namespace ld3d
 
 		pSet->clearProperties();
 	}
-	PropertySetPtr PropertyManager::FindProperty(const std::wstring& name)
+	PropertySetPtr PropertyManager::FindPropertySet(const std::wstring& name)
 	{
 		for(size_t i = 0; i < m_PropSets.size(); ++i)
 		{
@@ -38,9 +38,19 @@ namespace ld3d
 		}
 		return PropertySetPtr();
 	}
+	Property* PropertyManager::FindProperty(const std::wstring& set, const std::wstring& name)
+	{
+		PropertySetPtr pSet = FindPropertySet(set);
+		if(pSet == nullptr)
+		{
+			return nullptr;
+		}
+
+		return pSet->getProperty(name.c_str());
+	}
 	PropertySetPtr PropertyManager::Begin(const std::wstring& name)
 	{
-		PropertySetPtr pSet = FindProperty(name);
+		PropertySetPtr pSet = FindPropertySet(name);
 		if(pSet == nullptr)
 		{
 			pSet = m_pManager->GetAllocator()->AllocObject<PropertySet>(name);

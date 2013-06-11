@@ -1,10 +1,9 @@
 #include "stdafx.h"
 #include "InspectorProperty_Signal.h"
+#include "InspectorPanel.h"
 
-
-CInspectorProperty_Signal::CInspectorProperty_Signal(CString name, ld3d::Property* pProp) : CInspectorProperty(name, NULL, IDD_INSPECTOR_PROPERTY_SIGNAL)
+CInspectorProperty_Signal::CInspectorProperty_Signal(CString name, ld3d::Property* pProp) : CInspectorProperty(name, pProp, NULL, IDD_INSPECTOR_PROPERTY_SIGNAL)
 {
-	m_pProp = pProp;
 }
 
 
@@ -42,7 +41,7 @@ BOOL CInspectorProperty_Signal::OnInitDialog()
 	CInspectorProperty::OnInitDialog();
 
 	CWnd* pWnd = GetDlgItem(IDC_SIGNAL_BTN);
-	if(pWnd && m_pProp)
+	if(pWnd && GetProperty())
 	{
 		pWnd->SetWindowTextW(GetName());
 	}
@@ -54,8 +53,10 @@ BOOL CInspectorProperty_Signal::OnInitDialog()
 
 void CInspectorProperty_Signal::OnSignalBtn()
 {
-	if(m_pProp)
+	if(GetProperty())
 	{
-		((ld3d::Property_T<ld3d::prop_signal>*)m_pProp)->Set(ld3d::prop_signal());
+		((ld3d::Property_T<ld3d::prop_signal>*)GetProperty())->Set(ld3d::prop_signal());
 	}
+
+	OnValueChanged();
 }

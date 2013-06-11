@@ -10,6 +10,18 @@
 
 #include "InspectorPanelBar.h"
 
+
+#include "InspectorProperty_Int.h"
+#include "InspectorProperty_String.h"
+#include "InspectorProperty_Color.h"
+#include "InspectorProperty_Float.h"
+#include "InspectorProperty_Bool.h"
+#include "InspectorProperty_FilePath.h"
+#include "InspectorProperty_Range.h"
+#include "InspectorProperty_Transform.h"
+#include "InspectorProperty_Signal.h"
+#include "InspectorPanel.h"
+
 // CInspectorPanel 对话框
 
 IMPLEMENT_DYNAMIC(CInspectorPanel, CWnd)
@@ -24,13 +36,14 @@ END_MESSAGE_MAP()
 
 // CInspectorPanel 消息处理程序
 
-CInspectorPanel::CInspectorPanel(CString name, void* pUserData)
+CInspectorPanel::CInspectorPanel(CString name, ld3d::PropertySetPtr pSet, void* pUserData)
 {
 	m_name = name;
 	m_pInspector = nullptr;
 	m_bExpanded = false;
 	m_pBar = nullptr;
 	m_pUserData = pUserData;
+	m_pSet = pSet;
 
 }
 CInspectorPanel::~CInspectorPanel()
@@ -51,6 +64,7 @@ void CInspectorPanel::RemoveAll()
 		delete m_propList[i];
 	}
 	m_propList.clear();
+
 }
 
 bool CInspectorPanel::Folded()
@@ -79,7 +93,10 @@ int	CInspectorPanel::GetHeight()
 		for(size_t i = 0; i < m_propList.size(); ++i)
 		{
 			CInspectorProperty* pProp = m_propList[i];
-
+			if(pProp->IsVisible() == false)
+			{
+				continue;
+			}
 			CRect propRc;
 			pProp->GetClientRect(propRc);
 
@@ -117,16 +134,8 @@ int CInspectorPanel::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	}
 	m_pBar->ShowWindow(SW_SHOW);
 	
+	GenProps();
 	
-	for(size_t i = 0; i < m_propList.size(); ++i)
-	{
-		if(false == m_propList[i]->Create(this))
-		{
-			assert(0);
-			return -1;
-		}
-	}
-
 	ShowProps();
 	return 0;
 }
@@ -134,6 +143,8 @@ int CInspectorPanel::OnCreate(LPCREATESTRUCT lpCreateStruct)
 void CInspectorPanel::OnSize(UINT nType, int cx, int cy)
 {
 	CWnd::OnSize(nType, cx, cy);
+
+	ShowProps();
 
 	CRect rc;
 	GetClientRect(rc);
@@ -146,6 +157,10 @@ void CInspectorPanel::OnSize(UINT nType, int cx, int cy)
 	{
 		CInspectorProperty* pProp = m_propList[i];
 
+		if(pProp->IsVisible() == false)
+		{
+			continue;
+		}
 		CRect propRc;
 		pProp->GetClientRect(propRc);
 
@@ -161,7 +176,7 @@ void CInspectorPanel::ShowProps()
 	{
 		CInspectorProperty* pProp = m_propList[i];
 
-		pProp->ShowWindow(m_bExpanded ? SW_SHOW : SW_HIDE);
+		pProp->ShowWindow(m_bExpanded && pProp->IsVisible() ? SW_SHOW : SW_HIDE);
 		
 	}
 }
@@ -189,4 +204,97 @@ void CInspectorPanel::SetUserData(void* pData)
 void* CInspectorPanel::GetUserData()
 {
 	return m_pUserData;
+}
+
+
+CInspectorProperty* CInspectorPanel::CreateProperty(ld3d::Property* p)
+{
+	using namespace ld3d;
+
+	CInspectorProperty* pProp = nullptr;
+	switch(p->getType())
+	{
+	case property_type_filepath:
+		{
+			pProp = new CInspectorProperty_FilePath(p->getName().c_str(), p, false);
+		}
+		break;
+	case property_type_matrix44:
+		{
+			math::Matrix44 v = ((Matrix44Property*)p)->Get();
+
+			pProp = new CInspectorProperty_Transform(p->getName().c_str(), p);
+		}
+		break;
+	case property_type_string:
+		{
+			pProp = new CInspectorProperty_String(p->getName().c_str(),p);
+
+		}
+		break;
+	case property_type_bool:
+		{
+			pProp = new CInspectorProperty_Bool(p->getName().c_str(), p);
+		}
+		break;
+	case property_type_int:
+		{
+			pProp = new CInspectorProperty_Int(p->getName().c_str(), p);
+			
+		}
+		break;
+	case property_type_float:
+		{
+			pProp = new CInspectorProperty_Float(p->getName().c_str(), p);
+		}
+		break;
+	case property_type_color:
+		{
+			pProp = new CInspectorProperty_Color(p->getName().c_str(), p);
+		}
+		break;
+	case property_type_signal:
+		{
+			pProp = new CInspectorProperty_Signal(p->getName().c_str(), p);
+		}
+	default:
+		break;
+	}
+	
+	return pProp;
+}
+void CInspectorPanel::GenProps()
+{
+	for(size_t ii = 0; ii < m_pSet->getPropertyCount(); ++ii)
+	{
+		ld3d::Property* p = m_pSet->getProperty(ii);
+		CInspectorProperty* pSub = CreateProperty(p);
+
+		AddProperty(pSub);
+	}
+}
+void CInspectorPanel::ReBuildProperty()
+{
+	RemoveAll();
+	GenProps();
+}
+void CInspectorPanel::RefreshLayout()
+{
+	m_pInspector->AdjustLayout();
+}
+CString CInspectorPanel::GetName()
+{
+	return m_name;
+}
+CInspectorProperty*	CInspectorPanel::FindProperty(CString name)
+{
+	for(size_t i = 0; i < m_propList.size(); ++i)
+	{
+		if(m_propList[i]->GetName() == name)
+		{
+			return m_propList[i];
+		}
+	}
+	return nullptr;
+
 }

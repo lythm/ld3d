@@ -13,7 +13,7 @@ class CInspectorPanel : public CWnd
 	DECLARE_DYNAMIC(CInspectorPanel)
 
 public:
-	CInspectorPanel(CString name, void* pUserData = nullptr);   // 标准构造函数
+	CInspectorPanel(CString name, ld3d::PropertySetPtr pSet, void* pUserData = nullptr);   // 标准构造函数
 	virtual ~CInspectorPanel();
 
 
@@ -27,13 +27,22 @@ public:
 
 	void										OnPropertyChanged(CInspectorProperty* pProp);
 
-	void										AddProperty(CInspectorProperty* pProp);
 	void										RemoveAll();
-
+	void										ReBuildProperty();
 	void										SetUserData(void* pData);
 	void*										GetUserData();
+
+	void										RefreshLayout();
+
+	CString										GetName();
+
+	CInspectorProperty*							FindProperty(CString name);
 private:
+
+	void										GenProps();
+	void										AddProperty(CInspectorProperty* pProp);
 	void										ShowProps();
+	CInspectorProperty*							CreateProperty(ld3d::Property* p);
 private:
 	CString										m_name;
 	CInspectorCtrl*								m_pInspector;
@@ -43,6 +52,8 @@ private:
 	std::vector<CInspectorProperty*>			m_propList;
 
 	void*										m_pUserData;
+
+	ld3d::PropertySetPtr						m_pSet;
 
 
 protected:

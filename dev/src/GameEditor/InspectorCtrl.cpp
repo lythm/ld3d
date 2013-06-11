@@ -188,3 +188,15 @@ void CInspectorCtrl::OnPanelEnabled(CInspectorPanel* pPanel, bool bEnabled)
 {
 
 }
+CInspectorProperty*	CInspectorCtrl::FindProperty(CString panel, CString name)
+{
+	for(size_t i = 0; i < m_panels.size(); ++i)
+	{
+		if(m_panels[i]->GetName() == panel)
+		{
+			return m_panels[i]->FindProperty(name);
+		}
+	}
+
+	return nullptr;
+}

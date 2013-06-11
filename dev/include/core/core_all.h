@@ -77,3 +77,5 @@
 #include "core\EventDispatcher.h"
 
 #include "core\ext\core_ext_all.h"
+
+#include "core\DT_CoreApi.h"

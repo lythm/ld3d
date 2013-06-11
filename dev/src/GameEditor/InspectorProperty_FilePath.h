@@ -6,7 +6,7 @@
 class CInspectorProperty_FilePath : public CInspectorProperty_Simple
 {
 public:
-	CInspectorProperty_FilePath(CString name, const boost::filesystem::path& value, bool bDirectory = false, void* pUserData = nullptr, CString ext = L"", CString filter = L"");
+	CInspectorProperty_FilePath(CString name, ld3d::Property* pProp, bool bDirectory = false, void* pUserData = nullptr, CString ext = L"", CString filter = L"");
 	virtual ~CInspectorProperty_FilePath(void);
 
 	virtual BOOL								OnInitDialog();
@@ -19,7 +19,7 @@ private:
 	enum { IDD = IDD_INSPECTOR_PROPERTY_FILEPATH };
 
 private:
-	boost::filesystem::path						m_initValue;
+	
 	bool										m_bDir;
 	CMFCEditBrowseCtrl							m_edit;
 	CString										m_ext;

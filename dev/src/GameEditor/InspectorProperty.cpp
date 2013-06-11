@@ -13,14 +13,16 @@
 
 IMPLEMENT_DYNAMIC(CInspectorProperty, CDialogEx)
 
-	CInspectorProperty::CInspectorProperty(CString name, void* pUserData, UINT nIDD)
+	CInspectorProperty::CInspectorProperty(CString name, ld3d::Property* pProp, void* pUserData, UINT nIDD)
 	: CDialogEx(nIDD, nullptr)
 {
+	m_pProp = pProp;
 	m_nIDD = nIDD;
 	m_pPanel = nullptr;
 	m_name = name;
 	m_pUserData = pUserData;
 	m_bReadOnly = false;
+	m_bVisible = true;
 }
 
 CInspectorProperty::~CInspectorProperty()
@@ -67,7 +69,7 @@ int CInspectorProperty::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	if (CDialogEx::OnCreate(lpCreateStruct) == -1)
 		return -1;
 
-	
+
 
 
 	return 0;
@@ -143,4 +145,24 @@ void* CInspectorProperty::GetUserData()
 void CInspectorProperty::OnValueChanged()
 {
 	m_pPanel->OnPropertyChanged(this);
+}
+ld3d::Property* CInspectorProperty::GetProperty()
+{
+	return m_pProp;
+}
+void CInspectorProperty::Hide()
+{
+	m_bVisible = false;
+}
+void CInspectorProperty::Show()
+{
+	m_bVisible = true;
+}
+bool CInspectorProperty::IsVisible()
+{
+	return m_bVisible;
+}
+CInspectorPanel* CInspectorProperty::GetPanel()
+{
+	return m_pPanel;
 }

@@ -15,7 +15,7 @@ namespace ld3d
 		virtual ~PropertyManager(void);
 
 		PropertySetPtr						Begin(const std::wstring& name);
-		PropertySetPtr						FindProperty(const std::wstring& name);
+		PropertySetPtr						FindPropertySet(const std::wstring& name);
 		void								AddProperty(boost::shared_ptr<Property> pProp);
 		void								End();
 
@@ -25,6 +25,8 @@ namespace ld3d
 		PropertySetPtr						GetPropertySet(int index);
 
 		void								ClearPropertySet(const std::wstring & name);
+
+		Property*							FindProperty(const std::wstring& set, const std::wstring& name);
 
 		template<typename T>
 		bool								RegisterProperty(const std::wstring& name, 
