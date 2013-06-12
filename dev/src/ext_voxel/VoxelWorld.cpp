@@ -126,7 +126,14 @@ namespace ld3d
 		pStream->WriteInt32(m_worldSizeY);
 		pStream->WriteInt32(m_worldSizeZ);
 		pStream->WriteInt32(m_voxelSize);
-		return true;
+
+		if(m_pDataSet == nullptr)
+		{
+			pStream->WriteInt32(0);
+			return true;
+		}
+
+		return m_pDataSet->Serialize(pStream);
 	}
 	bool VoxelWorld::OnUnSerialize(DataStream* pStream, const Version& version)
 	{
@@ -140,7 +147,15 @@ namespace ld3d
 		m_worldSizeZ = pStream->ReadInt32();
 		m_voxelSize = pStream->ReadInt32();
 
-		return true;
+		if(m_pDataSet != nullptr)
+		{
+			m_pDataSet->Release();
+		}
+		m_pDataSet = VoxelWorldDataSetPtr(new VoxelWorldDataSet);
+
+		m_pDataSet->Initialize(m_worldSizeX, m_worldSizeY, m_worldSizeZ);
+		
+		return m_pDataSet->UnSerialize(pStream);
 	}
 	void VoxelWorld::SetDataSet(VoxelWorldDataSetPtr pDataSet)
 	{

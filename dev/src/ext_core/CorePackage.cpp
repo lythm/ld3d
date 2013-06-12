@@ -129,7 +129,7 @@ namespace ld3d
 					&CorePackage::Create_SkyLight));
 
 		m_classes.push_back(ComponentClass(L"SkyBox",
-					L"Camera",
+					L"Sky",
 					L"SkyBox",
 					&CorePackage::Create_SkyBox));
 

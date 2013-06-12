@@ -34,6 +34,11 @@ namespace ld3d
 
 		uint32													GetFaceCount();
 
+
+		VoxelWorldChunk**										GetChunkMap();
+		uint32													GetChunkCount();
+
+		void													AddChunk(uint32 key, uint8 data[VOXEL_WORLD_CHUNK_SIZE * VOXEL_WORLD_CHUNK_SIZE * VOXEL_WORLD_CHUNK_SIZE]);
 	private:
 
 		void													GenChunkMesh(VoxelWorldChunk* pChunk);
@@ -69,7 +74,6 @@ namespace ld3d
 		int														m_worldSizeX;
 		int														m_worldSizeY;
 		int														m_worldSizeZ;
-
-
+		uint32													m_chunkCount;
 	};
 }

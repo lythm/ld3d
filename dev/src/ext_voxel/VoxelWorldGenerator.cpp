@@ -327,6 +327,21 @@ namespace ld3d
 			}
 		}
 
+
+		for(int x = 0; x < sx; ++x)
+		{
+			for(int z = 0; z < sz; ++z)
+			{
+				uint8 t = pDataSet->GetVoxelType(x, 0, z);
+				if(t != VT_EMPTY)
+				{
+					continue;
+				}
+				pDataSet->AddVoxel(VT_WATER, x, 0, z);
+				
+			}
+		}
+
 		for(int x = 0; x < sx; ++x)
 		{
 			for(int z = 0; z < sz; ++z)

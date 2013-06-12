@@ -30,6 +30,7 @@ namespace ld3d
 		m_worldSizeX		= 0;
 		m_worldSizeY		= 0;
 		m_worldSizeZ		= 0;
+		m_chunkCount		= 0;
 	}
 
 
@@ -40,7 +41,7 @@ namespace ld3d
 	bool VoxelWorldRegion::Initialize(int sx, int sy, int sz)
 	{
 		m_pPool = VoxelPoolPtr(new VoxelPool);
-		if(m_pPool->Initialize(128 * 128 * 10) == false)
+		if(m_pPool->Initialize(256 * 256 * 2) == false)
 		{
 			return false;
 		}
@@ -88,7 +89,7 @@ namespace ld3d
 				delete[] pTmp->vertex_buffer;
 				pTmp->vertex_buffer = nullptr;
 
-				pChunk = pChunk->next;
+				pChunk = pChunk->map_next;
 				m_pPool->Free(pTmp);
 			}
 		}
@@ -115,7 +116,11 @@ namespace ld3d
 			return;
 		}
 		uint32 index = _voxel_region_to_index(x, y, z);
-		pChunk->data[index] = VT_EMPTY;
+		if(pChunk->data[index] != VT_EMPTY)
+		{
+			pChunk->voxel_count--;
+			pChunk->data[index] = VT_EMPTY;
+		}
 		AddChunkToDirtyList(pChunk);
 	}
 	void VoxelWorldRegion::ConvertBlock(uint8 vt, uint32 x, uint32 y, uint32 z)
@@ -126,6 +131,12 @@ namespace ld3d
 			return;
 		}
 		uint32 index = _voxel_region_to_index(x, y, z);
+		
+		if(pChunk->data[index] == VT_EMPTY)
+		{
+			pChunk->voxel_count++;
+		}
+
 		pChunk->data[index] = vt;
 		AddChunkToDirtyList(pChunk);
 	}
@@ -156,6 +167,7 @@ namespace ld3d
 			return false;
 		}
 		pChunk->data[index] = vt;
+		pChunk->voxel_count++;
 		AddChunkToDirtyList(pChunk);
 		return true;
 	}
@@ -232,7 +244,7 @@ namespace ld3d
 				return pChunk;
 			}
 
-			pChunk = pChunk->next;
+			pChunk = pChunk->map_next;
 		}
 
 		return nullptr;
@@ -247,6 +259,28 @@ namespace ld3d
 			return false;
 		}
 		return true;
+	}
+	void VoxelWorldRegion::AddChunk(uint32 key, uint8 data[VOXEL_WORLD_CHUNK_SIZE * VOXEL_WORLD_CHUNK_SIZE * VOXEL_WORLD_CHUNK_SIZE])
+	{
+		uint32 x, y, z;
+		_chunk_key_to_region(key, x, y, z);
+		VoxelWorldChunk* pChunk = _add_chunk(x, y, z);
+		if(pChunk == nullptr)
+		{
+			return;
+		}
+		pChunk->voxel_count = 0;
+		memcpy(pChunk->data, data, VOXEL_WORLD_CHUNK_SIZE * VOXEL_WORLD_CHUNK_SIZE * VOXEL_WORLD_CHUNK_SIZE);
+
+		for(int i = 0; i < VOXEL_WORLD_CHUNK_SIZE * VOXEL_WORLD_CHUNK_SIZE * VOXEL_WORLD_CHUNK_SIZE; ++i)
+		{
+			if(pChunk->data[i] != VT_EMPTY)
+			{
+				pChunk->voxel_count++;
+			}
+		}
+
+		AddChunkToDirtyList(pChunk);
 	}
 	VoxelWorldChunk* VoxelWorldRegion::_add_chunk(uint32 x, uint32 y, uint32 z)
 	{
@@ -267,7 +301,7 @@ namespace ld3d
 				return pChunk;
 			}
 
-			pChunk = pChunk->next;
+			pChunk = pChunk->map_next;
 		}
 
 		pChunk = m_pPool->Alloc();
@@ -276,16 +310,18 @@ namespace ld3d
 			assert(0);
 			return nullptr;
 		}
+		pChunk->voxel_count = 0;
 		pChunk->key = key;
 		pChunk->in_dirty_list = false;
 		memset(pChunk->data, VT_EMPTY, sizeof(uint8) * VOXEL_WORLD_CHUNK_SIZE * VOXEL_WORLD_CHUNK_SIZE * VOXEL_WORLD_CHUNK_SIZE);
-		pChunk->next = m_pChunkMap[key % VOXEL_WORLD_CHUNK_MAP_SIZE];
+		pChunk->map_next = m_pChunkMap[key % VOXEL_WORLD_CHUNK_MAP_SIZE];
 		pChunk->dirty_list_next = nullptr;
 		pChunk->render_list_next = nullptr;
 		pChunk->in_oct_tree = false;
 		pChunk->vertex_buffer = nullptr;
 		pChunk->vertex_count = 0;
 		m_pChunkMap[key % VOXEL_WORLD_CHUNK_MAP_SIZE] = pChunk;
+		++m_chunkCount;
 
 		return pChunk;
 	}
@@ -873,4 +909,12 @@ namespace ld3d
 		return true;
 	}
 
+	VoxelWorldChunk** VoxelWorldRegion::GetChunkMap()
+	{
+		return m_pChunkMap;
+	}
+	uint32 VoxelWorldRegion::GetChunkCount()
+	{
+		return m_chunkCount;
+	}
 }

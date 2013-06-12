@@ -31,6 +31,11 @@ namespace ld3d
 
 		uint32													GetFaceCount();
 
+
+		bool													Serialize(DataStream* pStream);
+		bool													UnSerialize(DataStream* pStream);
+
+
 	private:
 		
 	private:

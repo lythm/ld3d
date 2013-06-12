@@ -13,13 +13,14 @@ namespace ld3d
 	public:
 		uint32												key;
 		uint8												data[VOXEL_WORLD_CHUNK_SIZE * VOXEL_WORLD_CHUNK_SIZE * VOXEL_WORLD_CHUNK_SIZE];
-		VoxelWorldChunk*									next;
+		VoxelWorldChunk*									map_next;
 		VoxelWorldChunk*									dirty_list_next;
 		VoxelWorldChunk*									render_list_next;
-		bool												in_dirty_list;
-		bool												in_oct_tree;
 		VoxelVertex*										vertex_buffer;
 		int													vertex_count;
+		bool												in_dirty_list;
+		bool												in_oct_tree;
+		uint32												voxel_count;
 
 		math::Vector3										chunk_coord()
 		{
