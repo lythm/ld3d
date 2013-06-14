@@ -16,9 +16,9 @@
 namespace ld3d
 {
 
-	boost::function<void (const std::wstring& log)>			g_logger;
+	std::function<void (const std::wstring& log)>			g_logger;
 }
-EXPORT_C_API ld3d::Sys_Graphics* CreateSys(const boost::function<void (const std::wstring& log)>& logger)
+EXPORT_C_API ld3d::Sys_Graphics* CreateSys(const std::function<void (const std::wstring& log)>& logger)
 {
 	ld3d::g_logger = logger;
 	return new ld3d::D3D11Graphics;
@@ -35,7 +35,7 @@ namespace ld3d
 
 	void g_log(const std::wstring& str)
 	{
-		if(g_logger.empty())
+		if(g_logger)
 		{
 			return;
 		}
@@ -271,13 +271,14 @@ namespace ld3d
 	}
 	void D3D11Graphics::SetIndexBuffer(GPUBufferPtr pBuffer, G_FORMAT type)
 	{
-		ID3D11Buffer* pD3DBuffer = boost::dynamic_pointer_cast<D3D11Buffer>(pBuffer)->GetD3D11BufferInterface();
+		
+		ID3D11Buffer* pD3DBuffer = std::dynamic_pointer_cast<D3D11Buffer>(pBuffer)->GetD3D11BufferInterface();
 
 		m_pContext->IASetIndexBuffer(pD3DBuffer, D3D11Format::Convert(type), 0);
 	}
 	void D3D11Graphics::SetVertexBuffer(GPUBufferPtr pBuffer, unsigned int offset, unsigned int stride)
 	{
-		ID3D11Buffer* pD3DBuffer = boost::dynamic_pointer_cast<D3D11Buffer>(pBuffer)->GetD3D11BufferInterface();
+		ID3D11Buffer* pD3DBuffer = std::dynamic_pointer_cast<D3D11Buffer>(pBuffer)->GetD3D11BufferInterface();
 
 		m_pContext->IASetVertexBuffers(0, 1, &pD3DBuffer, &stride, &offset);
 	}
@@ -364,7 +365,7 @@ namespace ld3d
 		}
 		else
 		{
-			m_pCurrentRW = boost::dynamic_pointer_cast<D3D11RenderWindow>(pWnd);
+			m_pCurrentRW = std::dynamic_pointer_cast<D3D11RenderWindow>(pWnd);
 		}
 
 		ID3D11RenderTargetView* pRTViews = m_pCurrentRW->GetD3D11RenderTargetView();
@@ -428,7 +429,7 @@ namespace ld3d
 	}
 	bool D3D11Graphics::CreateDefaultRenderTarget(const GraphicsSetting& setting)
 	{
-		m_pDefaultRW = boost::dynamic_pointer_cast<D3D11RenderWindow>(CreateRenderWindow(setting.wnd, 
+		m_pDefaultRW = std::dynamic_pointer_cast<D3D11RenderWindow>(CreateRenderWindow(setting.wnd, 
 			setting.frameBufferWidth, 
 			setting.frameBufferHeight,
 			setting.frameBufferFormat,
@@ -438,7 +439,7 @@ namespace ld3d
 			setting.multiSampleQuality,
 			setting.windowed));
 
-		if(m_pDefaultRW == boost::shared_ptr<D3D11RenderWindow>())
+		if(m_pDefaultRW == std::shared_ptr<D3D11RenderWindow>())
 		{
 			return false;
 		}

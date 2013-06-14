@@ -5,7 +5,7 @@
 namespace ld3d
 {
 	struct VoxelWorldChunk;
-	class VoxelWorldOctTree : public boost::enable_shared_from_this<VoxelWorldOctTree>
+	class VoxelWorldOctTree : public std::enable_shared_from_this<VoxelWorldOctTree>
 	{
 	public:
 		enum
@@ -25,7 +25,7 @@ namespace ld3d
 
 		bool								AddChunk(VoxelWorldChunk* pChunk);
 		
-		void								FrustumCull(const ViewFrustum& vf, boost::function<void (VoxelWorldChunk*)> op);
+		void								FrustumCull(const ViewFrustum& vf, std::function<void (VoxelWorldChunk*)> op);
 
 	private:
 		bool								SubDivideBound(const math::AABBox& bound, math::AABBox Bounds[8]);

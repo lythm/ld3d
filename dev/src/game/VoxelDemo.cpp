@@ -71,7 +71,7 @@ void VoxelDemo::OnMsg(ld3d::EventPtr pEvent)
 	using namespace ld3d;
 	using namespace math;
 
-	boost::shared_ptr<Event_WindowMessage> pMsg = boost::dynamic_pointer_cast<Event_WindowMessage>(pEvent);
+	std::shared_ptr<Event_WindowMessage> pMsg = std::dynamic_pointer_cast<Event_WindowMessage>(pEvent);
 
 	switch(pMsg->msg.message)
 	{

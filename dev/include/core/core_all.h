@@ -2,8 +2,11 @@
 
 #include "types\dllexport.h"
 #include "types\types.h"
-
+#include <memory>
+#include <functional>
+#include <unordered_map>
 #include <vector>
+#include <csignal>
 
 #include "core\core_ptr.h"
 
@@ -15,12 +18,7 @@
 
 #include "core\DataStream_File.h"
 
-#include <boost\unordered_map.hpp>
-#include <boost\function.hpp>
-#include <boost\bind.hpp>
-#include <boost\enable_shared_from_this.hpp>
 #include <boost\filesystem.hpp>
-#include <boost\pointer_cast.hpp>
 
 #include "core\PoolAllocator.h"
 

@@ -634,7 +634,7 @@ bool CMainFrame::UpdateComponentMenu(CMFCPopupMenu* pMenu)
 
 	UpdateComClassMap();
 
-	boost::unordered_map<std::wstring, std::vector<ExtPackage::ComponentClass*> >::iterator it = m_ComClassMap.begin();
+	std::unordered_map<std::wstring, std::vector<ExtPackage::ComponentClass*> >::iterator it = m_ComClassMap.begin();
 
 	pMenu->RemoveAllItems();
 
@@ -685,7 +685,7 @@ bool CMainFrame::UpdateTemplateMenu(CMFCPopupMenu* pMenu)
 	UpdateTemplateMap();
 	using namespace ld3d;
 
-	boost::unordered_map<std::wstring, std::vector<ld3d::GameObjectTemplate*> >::iterator it = m_templateMap.begin();
+	std::unordered_map<std::wstring, std::vector<ld3d::GameObjectTemplate*> >::iterator it = m_templateMap.begin();
 
 	pMenu->RemoveAllItems();
 
@@ -724,7 +724,7 @@ ld3d::GameObjectTemplate* CMainFrame::FindTemplateByMenuID(UINT uID)
 
 	using namespace ld3d;
 
-	boost::unordered_map<std::wstring, std::vector<ld3d::GameObjectTemplate*> >::iterator it = m_templateMap.begin();
+	std::unordered_map<std::wstring, std::vector<ld3d::GameObjectTemplate*> >::iterator it = m_templateMap.begin();
 
 	int id = ID_COMPONENT_MENU_BASE + 1001;
 	for(it; it != m_templateMap.end(); ++it)
@@ -878,7 +878,7 @@ ld3d::ExtPackage::ComponentClass* CMainFrame::FindClassByMenuID(UINT uID)
 {
 	using namespace ld3d;
 
-	boost::unordered_map<std::wstring, std::vector<ExtPackage::ComponentClass*> >::iterator it = m_ComClassMap.begin();
+	std::unordered_map<std::wstring, std::vector<ExtPackage::ComponentClass*> >::iterator it = m_ComClassMap.begin();
 
 	int id = ID_COMPONENT_MENU_BASE + 1;
 	for(it; it != m_ComClassMap.end(); ++it)

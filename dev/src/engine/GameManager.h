@@ -29,6 +29,6 @@ namespace ld3d
 	};
 
 
-	typedef boost::shared_ptr<GameManager>		GameManagerPtr;
+	typedef std::shared_ptr<GameManager>		GameManagerPtr;
 
 }

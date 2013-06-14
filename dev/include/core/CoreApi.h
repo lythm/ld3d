@@ -3,19 +3,21 @@
 #include "core\Allocator.h"
 #include "core\StdAllocator.h"
 #include "core\g_format.h"
-#include <boost\enable_shared_from_this.hpp>
+
+
 namespace ld3d
 {
-	class EXPORT_CLASS CoreApi : public boost::enable_shared_from_this<CoreApi>
+	
+	class EXPORT_CLASS CoreApi : public std::enable_shared_from_this<CoreApi>
 	{
 	public:
-		typedef boost::function<void (const std::wstring& log)>			Logger;
+		typedef std::function<void (const std::wstring& log)>			Logger;
 
 		CoreApi(void);
 		virtual ~CoreApi(void);
 
 
-		bool											Initialize(const SysSetting& setting, Allocator* pAlloc = nullptr, DT_CoreApiPtr pDTCore = nullptr);
+		bool											Initialize(const SysSetting& setting, Allocator* pAlloc = nullptr, DT_CoreApiPtr pDTCore = DT_CoreApiPtr());
 
 		void											Update();
 		

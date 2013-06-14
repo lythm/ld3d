@@ -6,7 +6,7 @@ namespace ld3d
 {
 	class EXPORT_CLASS PoolAllocator : public Allocator
 	{
-		typedef boost::shared_ptr<MemPool>				MemPoolPtr;
+		typedef std::shared_ptr<MemPool>				MemPoolPtr;
 	public:
 		PoolAllocator(void);
 		virtual ~PoolAllocator(void);

@@ -48,7 +48,7 @@ namespace ld3d
 		m_pFinalMaterial->SetVertexFormat(format);
 
 
-		/*boost::shared_ptr<PostEffect_SSAO> pSSAO = alloc_object<PostEffect_SSAO>();
+		/*std::shared_ptr<PostEffect_SSAO> pSSAO = alloc_object<PostEffect_SSAO>();
 		pSSAO->Initialize(m_pRenderManager);
 		
 		m_effects.push_back(pSSAO);*/

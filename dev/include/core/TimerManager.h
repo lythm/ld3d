@@ -15,7 +15,7 @@ namespace ld3d
 			uint64													interval;
 			uint64													start_tick;
 
-			boost::function<void (timer_handle,  uint64)>			handler;
+			std::function<void (timer_handle,  uint64)>			handler;
 			
 			TimerNode*												prev;
 			TimerNode*												next;
@@ -28,7 +28,7 @@ namespace ld3d
 		void														Release();
 		void														Update();
 
-		timer_handle												RegisterTimer(uint64 interval, const boost::function<void (timer_handle, uint64)>& handler);
+		timer_handle												RegisterTimer(uint64 interval, const std::function<void (timer_handle, uint64)>& handler);
 
 		void														RemoveTimer(timer_handle timer);
 

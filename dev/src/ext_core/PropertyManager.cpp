@@ -63,7 +63,7 @@ namespace ld3d
 		return pSet;
 
 	}
-	void PropertyManager::AddProperty(boost::shared_ptr<Property> pProp)
+	void PropertyManager::AddProperty(std::shared_ptr<Property> pProp)
 	{
 		m_pCurrentOwner->addProperty(pProp);
 	}
@@ -72,14 +72,13 @@ namespace ld3d
 	{
 		m_pCurrentOwner = PropertySetPtr();
 	}
+
 	bool PropertyManager::OnAttach()
 	{
 		m_pCurrentOwner = PropertySetPtr();
 
-
 		Begin(L"General");
 		{
-
 			RegisterProperty<std::wstring, GameObject>(m_pObject.get(), 
 				L"Name", 
 				&GameObject::GetName,

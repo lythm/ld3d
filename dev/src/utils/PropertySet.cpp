@@ -34,7 +34,7 @@ namespace ld3d
 	{
 		return m_nameTable.find(szName) != m_nameTable.end();
 	}
-	bool PropertySet::addProperty(boost::shared_ptr<Property> p)
+	bool PropertySet::addProperty(std::shared_ptr<Property> p)
 	{
 		if(p->getType() == property_type_unknown)
 		{

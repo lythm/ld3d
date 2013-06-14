@@ -99,7 +99,7 @@ namespace ld3d
 		}
 		CleanRemove();
 	}
-	TimerManager::timer_handle TimerManager::RegisterTimer(uint64 interval, const boost::function<void (timer_handle, uint64)>& handler)
+	TimerManager::timer_handle TimerManager::RegisterTimer(uint64 interval, const std::function<void (timer_handle, uint64)>& handler)
 	{
 		uint64 tick = m_pTime->Tick();
 

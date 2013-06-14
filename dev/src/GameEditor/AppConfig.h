@@ -11,6 +11,6 @@ public:
 	bool														Load(const std::wstring& file);
 	bool														Save(const std::wstring& file);
 private:
-	boost::unordered_map<std::wstring, std::wstring>			m_configs;
+	std::unordered_map<std::wstring, std::wstring>			m_configs;
 };
 

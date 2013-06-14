@@ -68,8 +68,8 @@ protected:  // 控件条嵌入成员
 	CMFCCaptionBar    m_wndCaptionBar;
 	CTemplateView	  m_wndTplView;
 	CInspectorView		m_wndInspectorView;
-	boost::unordered_map<std::wstring, std::vector<ld3d::ExtPackage::ComponentClass*> >	m_ComClassMap;
-	boost::unordered_map<std::wstring, std::vector<ld3d::GameObjectTemplate*> >			m_templateMap;
+	std::unordered_map<std::wstring, std::vector<ld3d::ExtPackage::ComponentClass*> >	m_ComClassMap;
+	std::unordered_map<std::wstring, std::vector<ld3d::GameObjectTemplate*> >			m_templateMap;
 // 生成的消息映射函数
 protected:
 	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);

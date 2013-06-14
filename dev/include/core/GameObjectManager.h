@@ -9,7 +9,7 @@ namespace ld3d
 {
 	class Allocator;
 
-	class EXPORT_CLASS GameObjectManager : public boost::enable_shared_from_this<GameObjectManager>
+	class EXPORT_CLASS GameObjectManager : public std::enable_shared_from_this<GameObjectManager>
 	{
 		class PackageMod
 		{
@@ -77,8 +77,8 @@ namespace ld3d
 
 
 	private:
-		boost::unordered_map<std::wstring, GameObjectTemplate*>				m_templates;
-		boost::unordered_map<std::wstring, ExtPackage::ComponentClass*>		m_componentClasses;
+		std::unordered_map<std::wstring, GameObjectTemplate*>				m_templates;
+		std::unordered_map<std::wstring, ExtPackage::ComponentClass*>		m_componentClasses;
 
 		std::vector<PackageMod>												m_packages;
 		CoreApiPtr															m_pCore;

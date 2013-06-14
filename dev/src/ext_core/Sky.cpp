@@ -15,7 +15,7 @@ namespace ld3d
 	
 	bool Sky::OnAttach()
 	{
-		PropertyManagerPtr pPM = boost::dynamic_pointer_cast<PropertyManager>(m_pObject->GetComponent(L"PropertyManager"));
+		PropertyManagerPtr pPM = std::dynamic_pointer_cast<PropertyManager>(m_pObject->GetComponent(L"PropertyManager"));
 
 		pPM->Begin(L"Sky");
 		{

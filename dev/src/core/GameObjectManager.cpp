@@ -162,7 +162,7 @@ namespace ld3d
 	}
 	GameObjectTemplate* GameObjectManager::FindTemplate(const std::wstring& name)
 	{
-		boost::unordered_map<std::wstring, GameObjectTemplate*>::iterator it = m_templates.find(name);
+		std::unordered_map<std::wstring, GameObjectTemplate*>::iterator it = m_templates.find(name);
 
 		if(it == m_templates.end())
 		{

@@ -14,18 +14,18 @@ namespace ld3d
 	class VoxelWorldOctTree;
 	class VoxelWorldGenerator;
 
-	typedef boost::shared_ptr<VoxelWorldGenerator>					VoxelWorldGeneratorPtr;
-	typedef boost::shared_ptr<VoxelWorldOctTree>					VoxelWorldOctTreePtr;
-	typedef boost::shared_ptr<VoxelWorldDataSet>					VoxelWorldDataSetPtr;
-	typedef boost::shared_ptr<VoxelPool>							VoxelPoolPtr;
-	typedef boost::shared_ptr<VoxelPolygonizer>						VoxelPolygonizerPtr;
-	typedef boost::shared_ptr<VoxelWorld>							VoxelWorldPtr;
-	typedef boost::shared_ptr<VoxelWorldRenderer>					VoxelWorldRendererPtr;
-	typedef boost::shared_ptr<VoxelObject>							VoxelObjectPtr;
-	typedef boost::shared_ptr<VoxelObjectRenderer>					VoxelObjectRendererPtr;
+	typedef std::shared_ptr<VoxelWorldGenerator>					VoxelWorldGeneratorPtr;
+	typedef std::shared_ptr<VoxelWorldOctTree>					VoxelWorldOctTreePtr;
+	typedef std::shared_ptr<VoxelWorldDataSet>					VoxelWorldDataSetPtr;
+	typedef std::shared_ptr<VoxelPool>							VoxelPoolPtr;
+	typedef std::shared_ptr<VoxelPolygonizer>						VoxelPolygonizerPtr;
+	typedef std::shared_ptr<VoxelWorld>							VoxelWorldPtr;
+	typedef std::shared_ptr<VoxelWorldRenderer>					VoxelWorldRendererPtr;
+	typedef std::shared_ptr<VoxelObject>							VoxelObjectPtr;
+	typedef std::shared_ptr<VoxelObjectRenderer>					VoxelObjectRendererPtr;
 
 	class VoxelWorldRenderData;
 	
-	typedef boost::shared_ptr<VoxelWorldRenderData>					VoxelWorldRenderDataPtr;
+	typedef std::shared_ptr<VoxelWorldRenderData>					VoxelWorldRenderDataPtr;
 		
 }

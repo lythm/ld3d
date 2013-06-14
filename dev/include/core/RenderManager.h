@@ -4,7 +4,7 @@
 
 namespace ld3d
 {
-	class EXPORT_CLASS RenderManager : public boost::enable_shared_from_this<RenderManager>
+	class EXPORT_CLASS RenderManager : public std::enable_shared_from_this<RenderManager>
 	{
 		
 		class ScreenQuad
@@ -18,7 +18,7 @@ namespace ld3d
 			GPUBufferPtr							m_pVB;
 		};
 
-		typedef boost::shared_ptr<ScreenQuad>		ScreenQuadPtr;
+		typedef std::shared_ptr<ScreenQuad>		ScreenQuadPtr;
 	public:
 		RenderManager(void);
 		virtual ~RenderManager(void);

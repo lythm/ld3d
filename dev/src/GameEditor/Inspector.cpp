@@ -37,7 +37,7 @@ void CInspector::UpdateGameObjectProperty(ld3d::GameObjectPtr pObj)
 		return;
 	}
 	
-	PropertyManagerPtr pPM = boost::dynamic_pointer_cast<PropertyManager>(pObj->GetComponent(L"PropertyManager"));
+	PropertyManagerPtr pPM = std::dynamic_pointer_cast<PropertyManager>(pObj->GetComponent(L"PropertyManager"));
 	
 	for(int i = 0; i < pPM->GetPropertySetCount(); ++i)
 	{

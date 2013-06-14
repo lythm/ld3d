@@ -4,6 +4,8 @@
 #include "core\allocator.h"
 #include "core\coreapi.h"
 
+#include <boost\function.hpp>
+
 namespace ld3d
 {
 
@@ -16,7 +18,7 @@ namespace ld3d
 
 		PropertySetPtr						Begin(const std::wstring& name);
 		PropertySetPtr						FindPropertySet(const std::wstring& name);
-		void								AddProperty(boost::shared_ptr<Property> pProp);
+		void								AddProperty(std::shared_ptr<Property> pProp);
 		void								End();
 
 		bool								OnAttach();
@@ -33,7 +35,7 @@ namespace ld3d
 			boost::function<const T& ()> getter,
 			boost::function<void (const T&)> setter = boost::function<void (const T&)>())
 		{
-			boost::shared_ptr<Property_T<T> > pProp = CoreApi::GetAllocator()->AllocObject<Property_T<T> >(name);
+			std::shared_ptr<Property_T<T> > pProp = CoreApi::GetAllocator()->AllocObject<Property_T<T> >(name);
 			pProp->setType(PropTypeId<T>::m_type);
 			pProp->m_getter = getter;
 			pProp->m_setter = setter;
@@ -49,17 +51,17 @@ namespace ld3d
 			boost::function<const T& (TObject*)> getter,
 			boost::function<void (TObject*, const T&)> setter =  boost::function<void (TObject*, const T&)>())
 		{
-			boost::shared_ptr<Property_T<T> > pProp = CoreApi::GetAllocator()->AllocObject<Property_T<T> >(name);
+			std::shared_ptr<Property_T<T> > pProp = CoreApi::GetAllocator()->AllocObject<Property_T<T> >(name);
 			pProp->setType(PropTypeId<T>::m_type);
 			pProp->m_getter = boost::bind(getter, pObj);
 
-			if(setter.empty() == false)
+			if(!setter)
 			{
 				pProp->m_setter = boost::bind(setter, pObj, _1);
 			}
 			else
 			{
-				pProp->m_setter.clear();
+				pProp->m_setter = boost::function<void (const T&)>();
 			}
 
 			AddProperty(pProp);

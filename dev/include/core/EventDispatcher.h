@@ -8,16 +8,13 @@ namespace ld3d
 	{
 	public:
 
-		typedef boost::function<void (EventPtr)>		EventHandler;
+		typedef std::function<void (EventPtr)>											EventHandler;
 
-		typedef boost::signal<void (EventPtr)>			EventHandlers;
+		typedef boost::signal<void (EventPtr)>											Signal;
 
-		typedef boost::signals::connection				EventHandlerHandle;
+		typedef boost::signals::connection												EventHandlerHandle;
 
-		typedef boost::unordered_map<uint32, EventHandlers> HandlerMap;
-
-
-
+		typedef std::unordered_map<uint32, std::shared_ptr<Signal> >					HandlerMap;
 
 		EventDispatcher(void);
 		virtual ~EventDispatcher(void);

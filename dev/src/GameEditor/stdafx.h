@@ -80,13 +80,13 @@ class PathManager;
 class GameScene;
 
 
-typedef boost::shared_ptr<GameScene>				GameScenePtr;
-typedef boost::shared_ptr<PathManager>				PathManagerPtr;
-typedef boost::shared_ptr<AppConfig>				AppConfigPtr;
-typedef boost::shared_ptr<EditorCamera>				EditorCameraPtr;
-typedef boost::shared_ptr<GridMesh>					GridMeshPtr;
-typedef boost::shared_ptr<Renderer>					RendererPtr;
-typedef boost::shared_ptr<Project>					ProjectPtr;
+typedef std::shared_ptr<GameScene>				GameScenePtr;
+typedef std::shared_ptr<PathManager>				PathManagerPtr;
+typedef std::shared_ptr<AppConfig>				AppConfigPtr;
+typedef std::shared_ptr<EditorCamera>				EditorCameraPtr;
+typedef std::shared_ptr<GridMesh>					GridMeshPtr;
+typedef std::shared_ptr<Renderer>					RendererPtr;
+typedef std::shared_ptr<Project>					ProjectPtr;
 
 
 

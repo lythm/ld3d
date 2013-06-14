@@ -6,10 +6,10 @@
 namespace ld3d
 {
 
-	boost::function<void (const std::wstring& log)>			g_logger;
+	std::function<void (const std::wstring& log)>			g_logger;
 }
 
-EXPORT_C_API ld3d::Sys_Network* CreateSys(const boost::function<void (const std::wstring& log)>& logger)
+EXPORT_C_API ld3d::Sys_Network* CreateSys(const std::function<void (const std::wstring& log)>& logger)
 {
 	ld3d::g_logger = logger;
 	return new ld3d::Network_Boost_ASIO;

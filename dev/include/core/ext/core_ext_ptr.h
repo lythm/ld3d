@@ -15,15 +15,15 @@ namespace ld3d
 	class OctTreeNode;
 
 
-	typedef boost::shared_ptr<OctTreeNode>										OctTreeNodePtr;
-	typedef boost::shared_ptr<CameraData>										CameraDataPtr;
-	typedef boost::shared_ptr<Light_Sky>										Light_SkyPtr;
-	typedef boost::shared_ptr<Light_Spot>										Light_SpotPtr;
-	typedef boost::shared_ptr<Light_Point>										Light_PointPtr;
-	typedef boost::shared_ptr<Light_Dir>										Light_DirPtr;
-	typedef boost::shared_ptr<Behavior>											BehaviorPtr;
-	typedef boost::shared_ptr<PropertyManager>									PropertyManagerPtr;
-	typedef boost::shared_ptr<MeshData>											MeshDataPtr;
-	typedef boost::shared_ptr<MeshRenderer>										MeshRendererPtr;
-	typedef boost::shared_ptr<WorldMeshRenderer>								WorldMeshRendererPtr;
+	typedef std::shared_ptr<OctTreeNode>										OctTreeNodePtr;
+	typedef std::shared_ptr<CameraData>										CameraDataPtr;
+	typedef std::shared_ptr<Light_Sky>										Light_SkyPtr;
+	typedef std::shared_ptr<Light_Spot>										Light_SpotPtr;
+	typedef std::shared_ptr<Light_Point>										Light_PointPtr;
+	typedef std::shared_ptr<Light_Dir>										Light_DirPtr;
+	typedef std::shared_ptr<Behavior>											BehaviorPtr;
+	typedef std::shared_ptr<PropertyManager>									PropertyManagerPtr;
+	typedef std::shared_ptr<MeshData>											MeshDataPtr;
+	typedef std::shared_ptr<MeshRenderer>										MeshRendererPtr;
+	typedef std::shared_ptr<WorldMeshRenderer>								WorldMeshRendererPtr;
 }

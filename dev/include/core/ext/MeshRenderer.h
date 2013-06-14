@@ -68,7 +68,7 @@ namespace ld3d
 		GPUBufferPtr					m_pIndexBuffer;
 		GPUBufferPtr					m_pVertexBuffer;
 
-		typedef boost::shared_ptr<SubMeshRenderData>				SubMeshRenderDataPtr;
+		typedef std::shared_ptr<SubMeshRenderData>				SubMeshRenderDataPtr;
 		std::vector<SubMeshRenderDataPtr>	m_Subsets;
 
 		bool							m_deferred;

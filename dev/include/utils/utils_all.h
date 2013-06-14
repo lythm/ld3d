@@ -1,5 +1,9 @@
 #pragma once
 
+#include <memory>
+#include <functional>
+
+
 #include "utils\tinyxml.h"
 
 #include "utils\MemPool.h"

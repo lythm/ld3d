@@ -10,10 +10,10 @@ namespace ld3d
 		template<typename Sys>
 		struct Sys_Mod_T
 		{
-			typedef Sys*					(*Fn_CreateSys)(const boost::function<void (const std::wstring& log)>& logger);
+			typedef Sys*					(*Fn_CreateSys)(const std::function<void (const std::wstring& log)>& logger);
 			typedef void					(*Fn_DestroySys)(Sys*);
 
-			boost::shared_ptr<Sys>			pSys;
+			std::shared_ptr<Sys>			pSys;
 
 			HMODULE							hLib;
 			std::wstring					filename;
@@ -36,7 +36,7 @@ namespace ld3d
 				}
 
 				filename = file;
-				pSys = boost::shared_ptr<Sys>(CreateSys(&CoreApi::Log), boost::bind(&Sys_Mod_T<Sys>::delete_sys, this, _1));
+				pSys = std::shared_ptr<Sys>(CreateSys(&CoreApi::Log), boost::bind(&Sys_Mod_T<Sys>::delete_sys, this, _1));
 
 
 

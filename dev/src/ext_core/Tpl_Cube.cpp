@@ -15,12 +15,12 @@ namespace ld3d
 	{
 		GameObjectPtr pObj = m_pManager->CreateGameObject(L"Cube");
 		
-		MeshDataPtr pMD = boost::dynamic_pointer_cast<MeshData>(m_pManager->CreateComponent(L"MeshData"));
+		MeshDataPtr pMD = std::dynamic_pointer_cast<MeshData>(m_pManager->CreateComponent(L"MeshData"));
 		pMD->SetMeshAsset(L"_cube_");
 
 		pObj->AddComponent(pMD);
 
-		MeshRendererPtr pMR = boost::dynamic_pointer_cast<MeshRenderer>(m_pManager->CreateComponent(L"MeshRenderer"));
+		MeshRendererPtr pMR = std::dynamic_pointer_cast<MeshRenderer>(m_pManager->CreateComponent(L"MeshRenderer"));
 		pObj->AddComponent(pMR);
 
 		return pObj;

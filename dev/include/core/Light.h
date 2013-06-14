@@ -5,7 +5,7 @@
 
 namespace ld3d
 {
-	class EXPORT_CLASS Light: public boost::enable_shared_from_this<Light>
+	class EXPORT_CLASS Light: public std::enable_shared_from_this<Light>
 	{
 		friend class LightManager;
 

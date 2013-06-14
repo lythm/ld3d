@@ -23,7 +23,7 @@ bool Renderer::Initialize(ld3d::CoreApiPtr pCore)
 	m_pCore = pCore;
 	m_pRenderManager = m_pCore->GetRenderManager();
 
-	m_pGrid = boost::shared_ptr<GridMesh>(new GridMesh());
+	m_pGrid = std::shared_ptr<GridMesh>(new GridMesh());
 
 	if(false == m_pGrid->Init(m_pCore, 1000, 10))
 	{

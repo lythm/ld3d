@@ -2,8 +2,7 @@
 #include <string>
 #include <vector>
 #include <map>
-#include <boost\shared_ptr.hpp>
-#include <boost\function.hpp>
+#include <functional>
 
 
 namespace ld3d
@@ -73,8 +72,8 @@ namespace ld3d
 	class Property_T : public Property
 	{
 	public:
-		typedef boost::function<void (const T&)>				Setter_T;
-		typedef boost::function<const T& ()>					Getter_T;
+		typedef std::function<void (const T&)>				Setter_T;
+		typedef std::function<const T& ()>					Getter_T;
 
 		Property_T(const std::wstring& szName, PropType type = property_type_unknown, void* data = nullptr, Setter_T setter = Setter_T(), Getter_T getter = Getter_T()) : Property(szName, type, data)
 		{
@@ -84,7 +83,7 @@ namespace ld3d
 
 		bool						IsReadOnly()
 		{
-			return m_setter.empty();
+			return !m_setter;
 		}
 
 		void						Set(const T& val)
@@ -108,7 +107,7 @@ namespace ld3d
 		PropertySet(const std::wstring& name);
 		virtual ~PropertySet(void);
 
-		bool								addProperty(boost::shared_ptr<Property> p);
+		bool								addProperty(std::shared_ptr<Property> p);
 		unsigned long						getPropertyCount();
 		Property*							getProperty(int iProp);
 
@@ -119,7 +118,7 @@ namespace ld3d
 
 		const std::wstring&					getName(){return m_name;}
 	private:
-		std::vector<boost::shared_ptr<Property> >
+		std::vector<std::shared_ptr<Property> >
 			m_props;
 
 		std::map<const wchar_t*, size_t>	m_nameTable;

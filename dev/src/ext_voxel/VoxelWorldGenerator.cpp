@@ -31,7 +31,7 @@ namespace ld3d
 	}
 	void VoxelWorldGenerator::RebuildWorld()
 	{
-		VoxelWorldPtr pWorld = boost::dynamic_pointer_cast<VoxelWorld>(GetGameObject()->GetComponent(L"VoxelWorld"));
+		VoxelWorldPtr pWorld = std::dynamic_pointer_cast<VoxelWorld>(GetGameObject()->GetComponent(L"VoxelWorld"));
 
 		if(pWorld == nullptr)
 		{
@@ -75,7 +75,7 @@ namespace ld3d
 	}
 	bool VoxelWorldGenerator::OnAttach()
 	{
-		PropertyManagerPtr pPM = boost::dynamic_pointer_cast<PropertyManager>(m_pObject->GetComponent(L"PropertyManager"));
+		PropertyManagerPtr pPM = std::dynamic_pointer_cast<PropertyManager>(m_pObject->GetComponent(L"PropertyManager"));
 
 		pPM->Begin(L"VoxelWorldGenerator");
 		{

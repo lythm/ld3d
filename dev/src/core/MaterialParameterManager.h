@@ -17,7 +17,7 @@ namespace ld3d
 
 	private:
 
-		boost::unordered_map<std::string, MaterialParameterPtr>				m_parameterMap;
+		std::unordered_map<std::string, MaterialParameterPtr>				m_parameterMap;
 		std::vector<MaterialParameterPtr>									m_params;
 	};
 }

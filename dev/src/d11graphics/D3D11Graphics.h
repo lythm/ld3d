@@ -81,9 +81,9 @@ namespace ld3d
 		
 		GraphicsSetting							m_setting;
 
-		boost::shared_ptr<D3D11RenderWindow>	m_pDefaultRW;
+		std::shared_ptr<D3D11RenderWindow>	m_pDefaultRW;
 
-		boost::shared_ptr<D3D11RenderWindow>	m_pCurrentRW;
+		std::shared_ptr<D3D11RenderWindow>	m_pCurrentRW;
 		
 		D3D11_VIEWPORT							m_viewPort;
 

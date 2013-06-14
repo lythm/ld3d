@@ -133,7 +133,7 @@ namespace ld3d
 
 		return true;
 	}
-	void VoxelWorldOctTree::FrustumCull(const ViewFrustum& vf, boost::function<void (VoxelWorldChunk*)> op)
+	void VoxelWorldOctTree::FrustumCull(const ViewFrustum& vf, std::function<void (VoxelWorldChunk*)> op)
 	{
 		if(vf.IntersectBox(m_bbox) == false)
 		{

@@ -61,17 +61,17 @@ namespace ld3d
 		{
 			return;
 		}
-		MeshRendererPtr pMR = boost::dynamic_pointer_cast<MeshRenderer>(m_pObject->GetComponent(L"MeshRenderer"));
+		MeshRendererPtr pMR = std::dynamic_pointer_cast<MeshRenderer>(m_pObject->GetComponent(L"MeshRenderer"));
 		if(pMR)
 		{
-			pMR->Reset(boost::dynamic_pointer_cast<MeshData>(shared_from_this()));
+			pMR->Reset(std::dynamic_pointer_cast<MeshData>(shared_from_this()));
 		}
 	}
 	bool MeshData::OnAttach()
 	{
 		ResetMeshRenderer();
 
-		PropertyManagerPtr pPM = boost::dynamic_pointer_cast<PropertyManager>(m_pObject->GetComponent(L"PropertyManager"));
+		PropertyManagerPtr pPM = std::dynamic_pointer_cast<PropertyManager>(m_pObject->GetComponent(L"PropertyManager"));
 		pPM->Begin(L"MeshData");
 
 		pPM->RegisterProperty<std::wstring, MeshData>(this,

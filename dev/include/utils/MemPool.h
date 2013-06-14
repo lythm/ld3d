@@ -76,18 +76,18 @@ namespace ld3d
 
 
 		template<typename T>
-		boost::shared_ptr<T>						AllocObject()
+		std::shared_ptr<T>						AllocObject()
 		{
 			T* pObj = (T*)Alloc(sizeof(T));
 			
-			return boost::shared_ptr<T>(new (pObj)T, boost::bind(&MemPool::FreeObject<T>, this, _1));
+			return std::shared_ptr<T>(new (pObj)T, boost::bind(&MemPool::FreeObject<T>, this, _1));
 		}
 		template<typename T, typename TP>
-		boost::shared_ptr<T>						AllocObject(TP param)
+		std::shared_ptr<T>						AllocObject(TP param)
 		{
 			T* pObj = (T*)Alloc(sizeof(T));
 			
-			return boost::shared_ptr<T>(new (pObj) T(param), boost::bind(&MemPool::FreeObject<T>, this, _1));
+			return std::shared_ptr<T>(new (pObj) T(param), boost::bind(&MemPool::FreeObject<T>, this, _1));
 		}
 
 	private:

@@ -3,7 +3,7 @@
 #include <boost\enable_shared_from_this.hpp>
 namespace ld3d
 {
-	class EXPORT_CLASS GameObjectComponent: public boost::enable_shared_from_this<GameObjectComponent>
+	class EXPORT_CLASS GameObjectComponent: public std::enable_shared_from_this<GameObjectComponent>
 	{
 	public:
 		GameObjectComponent(const std::wstring& name, GameObjectManagerPtr pManager);

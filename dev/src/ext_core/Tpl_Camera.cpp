@@ -16,7 +16,7 @@ namespace ld3d
 	{
 		GameObjectPtr pObj = m_pManager->CreateGameObject(L"Camera");
 		
-		CameraDataPtr pMD = boost::dynamic_pointer_cast<CameraData>(m_pManager->CreateComponent(L"Camera"));
+		CameraDataPtr pMD = std::dynamic_pointer_cast<CameraData>(m_pManager->CreateComponent(L"Camera"));
 	
 		pObj->AddComponent(pMD);
 

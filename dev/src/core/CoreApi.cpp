@@ -216,7 +216,7 @@ namespace ld3d
 	}
 	void CoreApi::HandleMessage(MSG& msg)
 	{
-		boost::shared_ptr<Event_WindowMessage> pEvent = s_pAllocator->AllocObject<Event_WindowMessage, MSG>(msg);
+		std::shared_ptr<Event_WindowMessage> pEvent = s_pAllocator->AllocObject<Event_WindowMessage, MSG>(msg);
 		pEvent->msg = msg;
 
 		DispatchEvent(pEvent);
@@ -323,7 +323,7 @@ namespace ld3d
 	}
 	void CoreApi::Log(const std::wstring& text)
 	{
-		if(s_logger.empty() == false)
+		if(s_logger == false)
 		{
 			s_logger(text);
 		}

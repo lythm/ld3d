@@ -1,6 +1,5 @@
 #pragma once
 
-#include <boost\function.hpp>
 #include <boost\signal.hpp>
 namespace dt
 {
@@ -8,7 +7,7 @@ namespace dt
 	{
 	public:
 
-		typedef boost::function<void (ld3d::GameObjectPtr)>				Monitor;
+		typedef std::function<void (ld3d::GameObjectPtr)>				Monitor;
 
 		DT_GameObjectMonitor(ld3d::GameObjectManagerPtr pManager);
 		virtual ~DT_GameObjectMonitor(void);

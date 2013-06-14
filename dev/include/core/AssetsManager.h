@@ -37,7 +37,7 @@ namespace ld3d
 
 	template <typename T> class Asset_T : public Asset
 	{
-		typedef boost::shared_ptr<T>			T_Ptr;
+		typedef std::shared_ptr<T>			T_Ptr;
 	public:
 
 		Asset_T(T_Ptr pAsset)
@@ -74,9 +74,9 @@ namespace ld3d
 	};
 	class EXPORT_CLASS AssetManager
 	{
-		typedef boost::unordered_map<boost::filesystem::path, AssetPtr>					AssetMap;
-		typedef boost::function<AssetPtr (const boost::filesystem::path& file)>			AssetLoader;
-		typedef boost::unordered_map<boost::filesystem::path, AssetLoader>				AssetLoaderMap;
+		typedef std::unordered_map<std::wstring, AssetPtr>								AssetMap;
+		typedef std::function<AssetPtr (const boost::filesystem::path& file)>			AssetLoader;
+		typedef std::unordered_map<std::wstring, AssetLoader>							AssetLoaderMap;
 
 	public:
 		AssetManager(void);

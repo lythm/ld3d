@@ -13,7 +13,7 @@ namespace ld3d
 			ComponentClass(const std::wstring& name, 
 								const std::wstring& catalog, 
 								const std::wstring& desc, 
-								boost::function<GameObjectComponentPtr (GameObjectManagerPtr)> creator,
+								std::function<GameObjectComponentPtr (GameObjectManagerPtr)> creator,
 								bool bExclusive = true)
 			{
 				m_name						= name;
@@ -30,7 +30,7 @@ namespace ld3d
 			std::wstring									m_name;
 			std::wstring									m_catalog;
 			std::wstring									m_desc;
-			boost::function<GameObjectComponentPtr (GameObjectManagerPtr)>		m_creator;
+			std::function<GameObjectComponentPtr (GameObjectManagerPtr)>		m_creator;
 			bool											m_bExclusive;
 		};
 

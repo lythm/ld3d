@@ -16,17 +16,23 @@ namespace ld3d
 	
 	void EventDispatcher::DispatchEvent(EventPtr pEvent)
 	{
-		EventHandlers& handlers = m_HandlerMap[pEvent->id];
-
-		handlers(pEvent);
-		
-
+		std::shared_ptr<Signal> pHandlers = m_HandlerMap[pEvent->id];
+		if(pHandlers)
+		{
+			(*pHandlers)(pEvent);
+		}
 	}
 	EventDispatcher::EventHandlerHandle EventDispatcher::AddEventHandler(uint32 id, const EventHandler& handler)
 	{
-		EventHandlers& handlers = m_HandlerMap[id];
+		std::shared_ptr<Signal> pHandlers = m_HandlerMap[id];
 
-		return handlers.connect(handler);
+		if(pHandlers == nullptr)
+		{
+			pHandlers = std::shared_ptr<Signal>(new Signal);
+			m_HandlerMap[id] = pHandlers;
+		}
+
+		return pHandlers->connect(handler);
 	}
 	void EventDispatcher::Clear()
 	{

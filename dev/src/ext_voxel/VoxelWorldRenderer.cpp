@@ -25,7 +25,7 @@ namespace ld3d
 	
 	bool VoxelWorldRenderer::OnAttach()
 	{
-		PropertyManagerPtr pPM = boost::dynamic_pointer_cast<PropertyManager>(m_pObject->GetComponent(L"PropertyManager"));
+		PropertyManagerPtr pPM = std::dynamic_pointer_cast<PropertyManager>(m_pObject->GetComponent(L"PropertyManager"));
 
 		pPM->Begin(L"VoxelWorldRenderer");
 		{
@@ -46,7 +46,7 @@ namespace ld3d
 
 		m_hFrustumCull = m_pManager->AddEventHandler(EV_FRUSTUM_CULL, boost::bind(&VoxelWorldRenderer::on_event_frustumcull, this, _1));
 
-		m_pWorld = boost::dynamic_pointer_cast<VoxelWorld>(m_pObject->GetComponent(L"VoxelWorld"));
+		m_pWorld = std::dynamic_pointer_cast<VoxelWorld>(m_pObject->GetComponent(L"VoxelWorld"));
 
 		m_pBBoxRD = m_pManager->GetAllocator()->AllocObject<BBoxRenderData>();
 		if(m_pBBoxRD->Initialize(m_pManager->GetRenderManager()->GetSysGraphics()) == false)
@@ -77,7 +77,7 @@ namespace ld3d
 			m_pManager->GetRenderManager()->AddRenderData(m_pBBoxRD);
 		}
 
-		boost::shared_ptr<Event_FrustumCull> e = boost::dynamic_pointer_cast<Event_FrustumCull>(pEvent);
+		std::shared_ptr<Event_FrustumCull> e = std::dynamic_pointer_cast<Event_FrustumCull>(pEvent);
 
 		VoxelWorldChunk* pList = m_pWorld->FrustumCull(e->m_pCamera);
 
