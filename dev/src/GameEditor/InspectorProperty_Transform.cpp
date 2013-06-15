@@ -156,6 +156,10 @@ void CInspectorProperty_Transform::AdjustLayout()
 
 	// translation
 	CWnd* pWnd = GetDlgItem(IDC_TRANSLATION);
+	if(pWnd == nullptr)
+	{
+		return;
+	}
 	pWnd->SetWindowPos(nullptr, 
 					INSPECTOR_PROPERTY_ROW_H_PADDING, 
 					offset + INSPECTOR_PROPERTY_ROW_V_PADDING, 
@@ -169,6 +173,10 @@ void CInspectorProperty_Transform::AdjustLayout()
 	// x label
 	int row_offset = INSPECTOR_PROPERTY_ROW_H_PADDING;
 	pWnd = GetDlgItem(IDC_TRANSLATION_X);
+	if(pWnd == nullptr)
+	{
+		return;
+	}
 	pWnd->SetWindowPos(nullptr, 
 					row_offset, 
 					offset + INSPECTOR_PROPERTY_ROW_V_PADDING, 
@@ -179,6 +187,10 @@ void CInspectorProperty_Transform::AdjustLayout()
 
 	// x value
 	pWnd = GetDlgItem(IDC_TRANSLATION_X_VALUE);
+	if(pWnd == nullptr)
+	{
+		return;
+	}
 	pWnd->SetWindowPos(nullptr, 
 					row_offset, 
 					offset + INSPECTOR_PROPERTY_ROW_V_PADDING, 
@@ -190,6 +202,10 @@ void CInspectorProperty_Transform::AdjustLayout()
 
 	// y label
 	pWnd = GetDlgItem(IDC_TRANSLATION_Y);
+	if(pWnd == nullptr)
+	{
+		return;
+	}
 	pWnd->SetWindowPos(nullptr, 
 					row_offset, 
 					offset + INSPECTOR_PROPERTY_ROW_V_PADDING, 
@@ -201,6 +217,10 @@ void CInspectorProperty_Transform::AdjustLayout()
 
 	// y value
 	pWnd = GetDlgItem(IDC_TRANSLATION_Y_VALUE);
+	if(pWnd == nullptr)
+	{
+		return;
+	}
 	pWnd->SetWindowPos(nullptr, 
 					row_offset, 
 					offset + INSPECTOR_PROPERTY_ROW_V_PADDING, 
@@ -212,6 +232,10 @@ void CInspectorProperty_Transform::AdjustLayout()
 
 	// z label
 	pWnd = GetDlgItem(IDC_TRANSLATION_Z);
+	if(pWnd == nullptr)
+	{
+		return;
+	}
 	pWnd->SetWindowPos(nullptr, 
 					row_offset, 
 					offset + INSPECTOR_PROPERTY_ROW_V_PADDING, 
@@ -223,6 +247,10 @@ void CInspectorProperty_Transform::AdjustLayout()
 
 	// z value
 	pWnd = GetDlgItem(IDC_TRANSLATION_Z_VALUE);
+	if(pWnd == nullptr)
+	{
+		return;
+	}
 	pWnd->SetWindowPos(nullptr, 
 					row_offset, 
 					offset + INSPECTOR_PROPERTY_ROW_V_PADDING, 
@@ -235,6 +263,10 @@ void CInspectorProperty_Transform::AdjustLayout()
 		
 	// rotation
 	pWnd = GetDlgItem(IDC_ROTATION);
+	if(pWnd == nullptr)
+	{
+		return;
+	}
 	pWnd->SetWindowPos(nullptr, 
 					INSPECTOR_PROPERTY_ROW_H_PADDING, 
 					offset + INSPECTOR_PROPERTY_ROW_V_PADDING, 
@@ -248,6 +280,10 @@ void CInspectorProperty_Transform::AdjustLayout()
 	// x label
 	row_offset = INSPECTOR_PROPERTY_ROW_H_PADDING;
 	pWnd = GetDlgItem(IDC_ROTATION_X);
+	if(pWnd == nullptr)
+	{
+		return;
+	}
 	pWnd->SetWindowPos(nullptr, 
 					row_offset, 
 					offset + INSPECTOR_PROPERTY_ROW_V_PADDING, 
@@ -258,6 +294,10 @@ void CInspectorProperty_Transform::AdjustLayout()
 
 	// x value
 	pWnd = GetDlgItem(IDC_ROTATION_X_VALUE);
+	if(pWnd == nullptr)
+	{
+		return;
+	}
 	pWnd->SetWindowPos(nullptr, 
 					row_offset, 
 					offset + INSPECTOR_PROPERTY_ROW_V_PADDING, 
@@ -269,6 +309,10 @@ void CInspectorProperty_Transform::AdjustLayout()
 
 	// y label
 	pWnd = GetDlgItem(IDC_ROTATION_Y);
+	if(pWnd == nullptr)
+	{
+		return;
+	}
 	pWnd->SetWindowPos(nullptr, 
 					row_offset, 
 					offset + INSPECTOR_PROPERTY_ROW_V_PADDING, 
@@ -280,6 +324,10 @@ void CInspectorProperty_Transform::AdjustLayout()
 
 	// y value
 	pWnd = GetDlgItem(IDC_ROTATION_Y_VALUE);
+	if(pWnd == nullptr)
+	{
+		return;
+	}
 	pWnd->SetWindowPos(nullptr, 
 					row_offset, 
 					offset + INSPECTOR_PROPERTY_ROW_V_PADDING, 
@@ -291,6 +339,10 @@ void CInspectorProperty_Transform::AdjustLayout()
 
 	// z label
 	pWnd = GetDlgItem(IDC_ROTATION_Z);
+	if(pWnd == nullptr)
+	{
+		return;
+	}
 	pWnd->SetWindowPos(nullptr, 
 					row_offset, 
 					offset + INSPECTOR_PROPERTY_ROW_V_PADDING, 
@@ -302,6 +354,10 @@ void CInspectorProperty_Transform::AdjustLayout()
 
 	// z value
 	pWnd = GetDlgItem(IDC_ROTATION_Z_VALUE);
+	if(pWnd == nullptr)
+	{
+		return;
+	}
 	pWnd->SetWindowPos(nullptr, 
 					row_offset, 
 					offset + INSPECTOR_PROPERTY_ROW_V_PADDING, 
@@ -315,6 +371,10 @@ void CInspectorProperty_Transform::AdjustLayout()
 		
 	// scale
 	pWnd = GetDlgItem(IDC_SCALE);
+	if(pWnd == nullptr)
+	{
+		return;
+	}
 	pWnd->SetWindowPos(nullptr, 
 					INSPECTOR_PROPERTY_ROW_H_PADDING, 
 					offset + INSPECTOR_PROPERTY_ROW_V_PADDING, 
@@ -328,6 +388,10 @@ void CInspectorProperty_Transform::AdjustLayout()
 	// x label
 	row_offset = INSPECTOR_PROPERTY_ROW_H_PADDING;
 	pWnd = GetDlgItem(IDC_SCALE_X);
+	if(pWnd == nullptr)
+	{
+		return;
+	}
 	pWnd->SetWindowPos(nullptr, 
 					row_offset, 
 					offset + INSPECTOR_PROPERTY_ROW_V_PADDING, 
@@ -338,6 +402,10 @@ void CInspectorProperty_Transform::AdjustLayout()
 
 	// x value
 	pWnd = GetDlgItem(IDC_SCALE_X_VALUE);
+	if(pWnd == nullptr)
+	{
+		return;
+	}
 	pWnd->SetWindowPos(nullptr, 
 					row_offset, 
 					offset + INSPECTOR_PROPERTY_ROW_V_PADDING, 
@@ -349,6 +417,10 @@ void CInspectorProperty_Transform::AdjustLayout()
 
 	// y label
 	pWnd = GetDlgItem(IDC_SCALE_Y);
+	if(pWnd == nullptr)
+	{
+		return;
+	}
 	pWnd->SetWindowPos(nullptr, 
 					row_offset, 
 					offset + INSPECTOR_PROPERTY_ROW_V_PADDING, 
@@ -360,6 +432,10 @@ void CInspectorProperty_Transform::AdjustLayout()
 
 	// y value
 	pWnd = GetDlgItem(IDC_SCALE_Y_VALUE);
+	if(pWnd == nullptr)
+	{
+		return;
+	}
 	pWnd->SetWindowPos(nullptr, 
 					row_offset, 
 					offset + INSPECTOR_PROPERTY_ROW_V_PADDING, 
@@ -371,6 +447,10 @@ void CInspectorProperty_Transform::AdjustLayout()
 
 	// z label
 	pWnd = GetDlgItem(IDC_SCALE_Z);
+	if(pWnd == nullptr)
+	{
+		return;
+	}
 	pWnd->SetWindowPos(nullptr, 
 					row_offset, 
 					offset + INSPECTOR_PROPERTY_ROW_V_PADDING, 
@@ -382,6 +462,10 @@ void CInspectorProperty_Transform::AdjustLayout()
 
 	// z value
 	pWnd = GetDlgItem(IDC_SCALE_Z_VALUE);
+	if(pWnd == nullptr)
+	{
+		return;
+	}
 	pWnd->SetWindowPos(nullptr, 
 					row_offset, 
 					offset + INSPECTOR_PROPERTY_ROW_V_PADDING, 

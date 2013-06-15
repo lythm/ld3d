@@ -85,8 +85,10 @@ void CInspectorPanelBar::OnSize(UINT nType, int cx, int cy)
 	GetClientRect(rc);
 
 	int left = rc.left;
-
-	pName->SetWindowPos(NULL, left, rc.top, rc.Width() - 40, rc.Height(), SWP_NOACTIVATE | SWP_NOZORDER);
+	if(pName)
+	{
+		pName->SetWindowPos(NULL, left, rc.top, rc.Width() - 40, rc.Height(), SWP_NOACTIVATE | SWP_NOZORDER);
+	}
 
 //	CMFCMenuButton* pBtn = (CMFCMenuButton*)GetDlgItem(IDC_MENU_BTN);
 	

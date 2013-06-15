@@ -21,11 +21,17 @@ namespace ld3d
 		m_pCore = pCore;
 
 		m_componentClasses.clear();
-
-		if(false == LoadPackage(L"./ext_core.dll"))
+#ifdef _WIN64
+		if(false == LoadPackage(L"./ext_core_x64.dll"))
 		{
 			return false;
 		}
+#else
+		if(false == LoadPackage(L"./ext_core_x86.dll"))
+		{
+			return false;
+		}
+#endif
 
 		return true;
 	}

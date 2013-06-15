@@ -3,6 +3,7 @@
 #include <vector>
 #include <map>
 #include <functional>
+#include <boost\function.hpp>
 
 
 namespace ld3d
@@ -72,8 +73,8 @@ namespace ld3d
 	class Property_T : public Property
 	{
 	public:
-		typedef std::function<void (const T&)>				Setter_T;
-		typedef std::function<const T& ()>					Getter_T;
+		typedef boost::function<void (const T&)>				Setter_T;
+		typedef boost::function<const T& ()>					Getter_T;
 
 		Property_T(const std::wstring& szName, PropType type = property_type_unknown, void* data = nullptr, Setter_T setter = Setter_T(), Getter_T getter = Getter_T()) : Property(szName, type, data)
 		{

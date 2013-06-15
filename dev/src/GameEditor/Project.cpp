@@ -257,8 +257,9 @@ bool Project::InitEngine()
 
 	boost::filesystem::path c = boost::filesystem::current_path();
 
+#ifdef _WIN64
 	SysSetting setting;
-	setting.graphics.sysMod = L"./d11graphics.dll";
+	setting.graphics.sysMod = L"./d11graphics_x64.dll";
 	setting.graphics.backBufferCount = 2;
 	setting.graphics.depthStencilFormat = G_FORMAT_D24_UNORM_S8_UINT;
 	setting.graphics.frameBufferFormat = G_FORMAT_R8G8B8A8_UNORM;
@@ -273,27 +274,49 @@ bool Project::InitEngine()
 	setting.input.wnd = pWnd->m_hWnd;
 
 	setting.sound.maxChannels = 100;
-	setting.sound.sysMod = L"./fmod_sound.dll";
+	setting.sound.sysMod = L"./fmod_sound_x64.dll";
 
 	setting.physics.sysMod = L"";
 
-	setting.network.sysMod = L"./network.dll";
+	setting.network.sysMod = L"./network_x64.dll";
 
-
-#ifdef _DEBUG
-	if(false == m_pCore->Initialize(setting, &g_Allocator, m_pDTCore))
-	{
-		return false;
-	}
 #else
+	SysSetting setting;
+	setting.graphics.sysMod = L"./d11graphics_x86.dll";
+	setting.graphics.backBufferCount = 2;
+	setting.graphics.depthStencilFormat = G_FORMAT_D24_UNORM_S8_UINT;
+	setting.graphics.frameBufferFormat = G_FORMAT_R8G8B8A8_UNORM;
+	setting.graphics.frameBufferHeight = h;
+	setting.graphics.frameBufferWidth = w;
+	setting.graphics.multiSampleCount = 1;
+	setting.graphics.multiSampleQuality = 0;
+	setting.graphics.windowed = true;
+	setting.graphics.wnd = pWnd->m_hWnd;
+
+	setting.input.sysMod = L"";
+	setting.input.wnd = pWnd->m_hWnd;
+
+	setting.sound.maxChannels = 100;
+	setting.sound.sysMod = L"./fmod_sound_x86.dll";
+
+	setting.physics.sysMod = L"";
+
+	setting.network.sysMod = L"./network_x86.dll";
+#endif
 	if(false == m_pCore->Initialize(setting, &g_Allocator, m_pDTCore))
 	{
 		return false;
 	}
-#endif
 
-	//m_pCore->GetGameObjectManager()->LoadPackage(L"./extensions/ext_dt.dll");
-	m_pCore->GetGameObjectManager()->LoadPackage(L"./extensions/ext_voxel.dll");
+
+
+
+#ifdef _WIN64
+	m_pCore->GetGameObjectManager()->LoadPackage(L"./extensions/ext_voxel_x64.dll");
+
+#else
+	m_pCore->GetGameObjectManager()->LoadPackage(L"./extensions/ext_voxel_x86.dll");
+#endif
 	
 	m_pCore->GetGameObjectManager()->RegisterComponentClass(dt::DT_GameObjectMonitor::GetClass());
 	m_pCore->GetGameObjectManager()->RegisterComponentClass(dt::DT_VoxelWorldEditor::GetClass());

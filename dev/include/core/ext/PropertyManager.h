@@ -55,7 +55,7 @@ namespace ld3d
 			pProp->setType(PropTypeId<T>::m_type);
 			pProp->m_getter = boost::bind(getter, pObj);
 
-			if(!setter)
+			if(setter)
 			{
 				pProp->m_setter = boost::bind(setter, pObj, _1);
 			}

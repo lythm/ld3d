@@ -32,7 +32,7 @@ END_MESSAGE_MAP()
 
 void CInspectorCtrl::AddPanel(CInspectorPanel* pPanel)
 {
-	pPanel->Create(this);
+	bool bret = pPanel->Create(this);
 	m_panels.push_back(pPanel);
 
 	pPanel->UnFold();

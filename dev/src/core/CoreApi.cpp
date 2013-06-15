@@ -323,7 +323,7 @@ namespace ld3d
 	}
 	void CoreApi::Log(const std::wstring& text)
 	{
-		if(s_logger == false)
+		if(s_logger)
 		{
 			s_logger(text);
 		}
