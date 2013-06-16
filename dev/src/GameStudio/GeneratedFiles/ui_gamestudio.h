@@ -13,6 +13,7 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QDockWidget>
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QMainWindow>
@@ -50,6 +51,8 @@ public:
     QMenu *menuTools;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
+    QDockWidget *dockWidget;
+    QWidget *dockWidgetContents;
 
     void setupUi(QMainWindow *GameStudioClass)
     {
@@ -82,6 +85,10 @@ public:
         gridLayout->setObjectName(QStringLiteral("gridLayout"));
         mdiArea = new QMdiArea(centralWidget);
         mdiArea->setObjectName(QStringLiteral("mdiArea"));
+        mdiArea->setViewMode(QMdiArea::TabbedView);
+        mdiArea->setTabsClosable(false);
+        mdiArea->setTabsMovable(true);
+        mdiArea->setTabShape(QTabWidget::Triangular);
 
         gridLayout->addWidget(mdiArea, 0, 0, 1, 1);
 
@@ -110,6 +117,12 @@ public:
         statusBar = new QStatusBar(GameStudioClass);
         statusBar->setObjectName(QStringLiteral("statusBar"));
         GameStudioClass->setStatusBar(statusBar);
+        dockWidget = new QDockWidget(GameStudioClass);
+        dockWidget->setObjectName(QStringLiteral("dockWidget"));
+        dockWidgetContents = new QWidget();
+        dockWidgetContents->setObjectName(QStringLiteral("dockWidgetContents"));
+        dockWidget->setWidget(dockWidgetContents);
+        GameStudioClass->addDockWidget(static_cast<Qt::DockWidgetArea>(1), dockWidget);
 
         menuBar->addAction(menuFile->menuAction());
         menuBar->addAction(menuView->menuAction());
@@ -129,6 +142,9 @@ public:
         menuFile->addAction(actionSave_Scene_As);
         menuFile->addSeparator();
         menuFile->addAction(actionExit);
+        mainToolBar->addAction(actionNew_Scene);
+        mainToolBar->addAction(actionOpen_Scene);
+        mainToolBar->addAction(actionSave_Scene);
 
         retranslateUi(GameStudioClass);
         QObject::connect(actionExit, SIGNAL(triggered()), GameStudioClass, SLOT(close()));
