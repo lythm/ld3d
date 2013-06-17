@@ -34,6 +34,10 @@ public:
         sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(Form_Scene->sizePolicy().hasHeightForWidth());
         Form_Scene->setSizePolicy(sizePolicy);
+        Form_Scene->setStyleSheet(QLatin1String("*\n"
+"{\n"
+"	 background-color: rgb(56, 56, 56);\n"
+"}"));
         label = new QLabel(Form_Scene);
         label->setObjectName(QStringLiteral("label"));
         label->setGeometry(QRect(80, 80, 54, 12));

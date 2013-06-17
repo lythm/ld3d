@@ -53,12 +53,61 @@ public:
     QStatusBar *statusBar;
     QDockWidget *dockHierarchy;
     QWidget *dockWidgetContents;
+    QDockWidget *dockLog;
+    QWidget *dockWidgetContents_2;
+    QGridLayout *gridLayout_2;
+    QDockWidget *dockInspector;
+    QWidget *dockWidgetContents_3;
 
     void setupUi(QMainWindow *GameStudioClass)
     {
         if (GameStudioClass->objectName().isEmpty())
             GameStudioClass->setObjectName(QStringLiteral("GameStudioClass"));
-        GameStudioClass->resize(664, 528);
+        GameStudioClass->resize(1046, 809);
+        GameStudioClass->setStyleSheet(QLatin1String("*\n"
+"\n"
+"{\n"
+"	color: rgb(180, 180, 180);\n"
+"	background-color: rgb(41, 41, 41);\n"
+"	border-color: rgb(41, 41, 41);\n"
+"}\n"
+"\n"
+"QMenuBar \n"
+"{\n"
+"     background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1,\n"
+"                                       stop:0 rgb(80, 80, 80), stop:1 rgb(41, 41, 41));\n"
+" }\n"
+"\n"
+" QMenuBar::item \n"
+"{\n"
+"     background: transparent;\n"
+" }\n"
+"\n"
+" QMenuBar::item:selected { /* when selected using mouse or keyboard */\n"
+"      background-color: rgb(41, 41, 41);\n"
+" }\n"
+"\n"
+" QMenuBar::item:pressed {\n"
+"     background-color: rgb(41, 41, 41);\n"
+" }\n"
+"QToolBar\n"
+"{\n"
+"	color: rgb(180, 180, 180);\n"
+"	background-color: rgb(41, 41, 41);\n"
+"}\n"
+"QToolBar:item\n"
+"{\n"
+"	 background-color: rgb(41, 41, 41);\n"
+"}\n"
+"\n"
+"QTextBrowser\n"
+"{\n"
+"	 background-color: rgb(56, 56, 56);\n"
+"}\n"
+"QTreeView\n"
+"{\n"
+"	background-color: rgb(56, 56, 56);\n"
+"}"));
         actionNew_Project = new QAction(GameStudioClass);
         actionNew_Project->setObjectName(QStringLiteral("actionNew_Project"));
         actionOpen_Project = new QAction(GameStudioClass);
@@ -85,6 +134,7 @@ public:
         gridLayout->setObjectName(QStringLiteral("gridLayout"));
         mdiArea = new QMdiArea(centralWidget);
         mdiArea->setObjectName(QStringLiteral("mdiArea"));
+        mdiArea->setStyleSheet(QStringLiteral(""));
         mdiArea->setViewMode(QMdiArea::TabbedView);
         mdiArea->setTabsClosable(false);
         mdiArea->setTabsMovable(true);
@@ -95,7 +145,15 @@ public:
         GameStudioClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(GameStudioClass);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 664, 23));
+        menuBar->setGeometry(QRect(0, 0, 1046, 23));
+        QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(menuBar->sizePolicy().hasHeightForWidth());
+        menuBar->setSizePolicy(sizePolicy);
+        menuBar->setAutoFillBackground(false);
+        menuBar->setDefaultUp(false);
+        menuBar->setNativeMenuBar(true);
         menuFile = new QMenu(menuBar);
         menuFile->setObjectName(QStringLiteral("menuFile"));
         menuView = new QMenu(menuBar);
@@ -119,10 +177,39 @@ public:
         GameStudioClass->setStatusBar(statusBar);
         dockHierarchy = new QDockWidget(GameStudioClass);
         dockHierarchy->setObjectName(QStringLiteral("dockHierarchy"));
+        dockHierarchy->setAutoFillBackground(true);
+        dockHierarchy->setStyleSheet(QLatin1String("*\n"
+"{\n"
+"	 background-color: rgb(56, 56, 56);\n"
+"}"));
         dockWidgetContents = new QWidget();
         dockWidgetContents->setObjectName(QStringLiteral("dockWidgetContents"));
         dockHierarchy->setWidget(dockWidgetContents);
         GameStudioClass->addDockWidget(static_cast<Qt::DockWidgetArea>(1), dockHierarchy);
+        dockLog = new QDockWidget(GameStudioClass);
+        dockLog->setObjectName(QStringLiteral("dockLog"));
+        dockLog->setStyleSheet(QLatin1String("*\n"
+"{\n"
+"	 background-color: rgb(56, 56, 56);\n"
+"}"));
+        dockWidgetContents_2 = new QWidget();
+        dockWidgetContents_2->setObjectName(QStringLiteral("dockWidgetContents_2"));
+        gridLayout_2 = new QGridLayout(dockWidgetContents_2);
+        gridLayout_2->setSpacing(6);
+        gridLayout_2->setContentsMargins(11, 11, 11, 11);
+        gridLayout_2->setObjectName(QStringLiteral("gridLayout_2"));
+        dockLog->setWidget(dockWidgetContents_2);
+        GameStudioClass->addDockWidget(static_cast<Qt::DockWidgetArea>(8), dockLog);
+        dockInspector = new QDockWidget(GameStudioClass);
+        dockInspector->setObjectName(QStringLiteral("dockInspector"));
+        dockInspector->setStyleSheet(QLatin1String("*\n"
+"{\n"
+"	 background-color: rgb(56, 56, 56);\n"
+"}"));
+        dockWidgetContents_3 = new QWidget();
+        dockWidgetContents_3->setObjectName(QStringLiteral("dockWidgetContents_3"));
+        dockInspector->setWidget(dockWidgetContents_3);
+        GameStudioClass->addDockWidget(static_cast<Qt::DockWidgetArea>(2), dockInspector);
 
         menuBar->addAction(menuFile->menuAction());
         menuBar->addAction(menuView->menuAction());
@@ -171,7 +258,10 @@ public:
         menuComponent->setTitle(QApplication::translate("GameStudioClass", "Component", 0));
         menuHelp->setTitle(QApplication::translate("GameStudioClass", "Help", 0));
         menuTools->setTitle(QApplication::translate("GameStudioClass", "Tools", 0));
+        mainToolBar->setWindowTitle(QApplication::translate("GameStudioClass", "ToolBar", 0));
         dockHierarchy->setWindowTitle(QApplication::translate("GameStudioClass", "Scene Hierarchy", 0));
+        dockLog->setWindowTitle(QApplication::translate("GameStudioClass", "Log", 0));
+        dockInspector->setWindowTitle(QApplication::translate("GameStudioClass", "Inspector", 0));
     } // retranslateUi
 
 };

@@ -31,6 +31,10 @@ public:
         if (Form_Hierarchy->objectName().isEmpty())
             Form_Hierarchy->setObjectName(QStringLiteral("Form_Hierarchy"));
         Form_Hierarchy->resize(304, 608);
+        Form_Hierarchy->setStyleSheet(QLatin1String("*\n"
+"{\n"
+"	 background-color: rgb(56, 56, 56);\n"
+"}"));
         gridLayout = new QGridLayout(Form_Hierarchy);
         gridLayout->setSpacing(6);
         gridLayout->setContentsMargins(11, 11, 11, 11);

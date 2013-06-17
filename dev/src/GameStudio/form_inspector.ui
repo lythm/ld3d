@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Form_Hierarchy</class>
- <widget class="QWidget" name="Form_Hierarchy">
+ <class>Form_Inspector</class>
+ <widget class="QWidget" name="Form_Inspector">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>304</width>
-    <height>608</height>
+    <width>247</width>
+    <height>590</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Scene Hierarchy</string>
+   <string>Form_Inspector</string>
   </property>
   <property name="styleSheet">
    <string notr="true">*
@@ -21,7 +21,11 @@
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
-    <widget class="QTreeView" name="treeView"/>
+    <widget class="QPushButton" name="pushButton">
+     <property name="text">
+      <string>PushButton</string>
+     </property>
+    </widget>
    </item>
   </layout>
  </widget>

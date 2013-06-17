@@ -27,6 +27,10 @@ public:
         if (Form_Preview->objectName().isEmpty())
             Form_Preview->setObjectName(QStringLiteral("Form_Preview"));
         Form_Preview->resize(400, 300);
+        Form_Preview->setStyleSheet(QLatin1String("*\n"
+"{\n"
+"	 background-color: rgb(56, 56, 56);\n"
+"}"));
 
         retranslateUi(Form_Preview);
 

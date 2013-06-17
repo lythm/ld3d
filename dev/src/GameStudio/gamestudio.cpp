@@ -4,6 +4,8 @@
 #include "form_preview.h"
 #include "form_hierarchy.h"
 #include "form_projectwizard.h"
+#include "form_log.h"
+#include "form_inspector.h"
 
 GameStudio::GameStudio(QWidget *parent)
 	: QMainWindow(parent)
@@ -22,18 +24,19 @@ GameStudio::GameStudio(QWidget *parent)
 	m_pPreviewForm->showMaximized();
 
 	m_pSceneForm->raise();
+	
+	m_pHierarchyForm = new Form_Hierarchy(this);
+	dockHierarchy->setWidget(m_pHierarchyForm);
+	
+	m_pLogForm = new Form_Log(this);
+	dockLog->setWidget(m_pLogForm);
 
-
-	dockHierarchy->setWidget(new Form_Hierarchy(dockHierarchy));
-
+	m_pInspectorForm = new Form_Inspector(this);
+	dockInspector->setWidget(m_pInspectorForm);
 
 	QSettings settings("GGUHA Ltd.", "Game Studio");
 	restoreGeometry(settings.value("geometry").toByteArray());
 	restoreState(settings.value("windowState").toByteArray());
-
-
-
-
 
 
 }
@@ -52,7 +55,7 @@ void GameStudio::closeEvent(QCloseEvent *pEvent)
 }
 bool GameStudio::event(QEvent *event)
 {
-
+	
 	int returnValue = QMainWindow::event(event);
 
 	/*if (event->type() == QEvent::Polish && event->spontaneous() == false)
@@ -66,4 +69,12 @@ bool GameStudio::event(QEvent *event)
 
 	return returnValue;
 
+}
+void GameStudio::logInfo(QString str)
+{
+	m_pLogForm->logInfo(str);
+}
+void GameStudio::logBuild(QString str)
+{
+	m_pLogForm->logBuild(str);
 }
