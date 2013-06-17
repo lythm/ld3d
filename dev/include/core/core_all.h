@@ -6,8 +6,10 @@
 #include <functional>
 #include <unordered_map>
 #include <vector>
-#include <csignal>
 
+#include <boost/signal.hpp>
+
+#include <boost\filesystem.hpp>
 #include "core\core_ptr.h"
 
 #include "math\math_all.h"
@@ -18,7 +20,7 @@
 
 #include "core\DataStream_File.h"
 
-#include <boost\filesystem.hpp>
+
 
 #include "core\PoolAllocator.h"
 

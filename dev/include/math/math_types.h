@@ -9,8 +9,6 @@
 #undef MATH_PI
 #endif
 
-
-
 typedef float				Real;
 
 namespace math

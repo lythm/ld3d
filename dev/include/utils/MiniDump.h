@@ -1,5 +1,7 @@
 #pragma once
 
+#if 0
+
 #include <string>
 #include <Windows.h>
 
@@ -20,3 +22,4 @@ namespace ld3d
 		static std::wstring								m_strFilePrefix;
 	};
 }
+#endif

@@ -51,7 +51,7 @@ public:
     QMenu *menuTools;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
-    QDockWidget *dockWidget;
+    QDockWidget *dockHierarchy;
     QWidget *dockWidgetContents;
 
     void setupUi(QMainWindow *GameStudioClass)
@@ -117,12 +117,12 @@ public:
         statusBar = new QStatusBar(GameStudioClass);
         statusBar->setObjectName(QStringLiteral("statusBar"));
         GameStudioClass->setStatusBar(statusBar);
-        dockWidget = new QDockWidget(GameStudioClass);
-        dockWidget->setObjectName(QStringLiteral("dockWidget"));
+        dockHierarchy = new QDockWidget(GameStudioClass);
+        dockHierarchy->setObjectName(QStringLiteral("dockHierarchy"));
         dockWidgetContents = new QWidget();
         dockWidgetContents->setObjectName(QStringLiteral("dockWidgetContents"));
-        dockWidget->setWidget(dockWidgetContents);
-        GameStudioClass->addDockWidget(static_cast<Qt::DockWidgetArea>(1), dockWidget);
+        dockHierarchy->setWidget(dockWidgetContents);
+        GameStudioClass->addDockWidget(static_cast<Qt::DockWidgetArea>(1), dockHierarchy);
 
         menuBar->addAction(menuFile->menuAction());
         menuBar->addAction(menuView->menuAction());
@@ -171,6 +171,7 @@ public:
         menuComponent->setTitle(QApplication::translate("GameStudioClass", "Component", 0));
         menuHelp->setTitle(QApplication::translate("GameStudioClass", "Help", 0));
         menuTools->setTitle(QApplication::translate("GameStudioClass", "Tools", 0));
+        dockHierarchy->setWindowTitle(QApplication::translate("GameStudioClass", "Scene Hierarchy", 0));
     } // retranslateUi
 
 };

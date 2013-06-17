@@ -1,6 +1,8 @@
 #include "utils_pch.h"
 #include "..\..\include\utils\MiniDump.h"
 
+#if 0
+
 #include  "Dbghelp.h"
 #include <tchar.h>
 #include "strsafe.h"
@@ -147,3 +149,5 @@ namespace ld3d
 		return EXCEPTION_CONTINUE_SEARCH; 
 	} 
 }
+
+#endif

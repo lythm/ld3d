@@ -16,8 +16,10 @@ public:
 	GameStudio(QWidget *parent = 0);
 	~GameStudio();
 
-
+	bool event(QEvent *event);
 	void closeEvent(QCloseEvent *pEvent);
+
+
 private:
 
 	Form_Scene*						m_pSceneForm;

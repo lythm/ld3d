@@ -108,7 +108,10 @@
    <addaction name="actionSave_Scene"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
-  <widget class="QDockWidget" name="dockWidget">
+  <widget class="QDockWidget" name="dockHierarchy">
+   <property name="windowTitle">
+    <string>Scene Hierarchy</string>
+   </property>
    <attribute name="dockWidgetArea">
     <number>1</number>
    </attribute>
