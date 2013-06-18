@@ -107,7 +107,8 @@
       <PreprocessorDefinitions>DLL_EXPORTS;WIN32;_DEBUG;_WINDOWS;_USRDLL;CORE_EXT_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeaderFile>core_ext_pch.h</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>..\..\include;</AdditionalIncludeDirectories>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

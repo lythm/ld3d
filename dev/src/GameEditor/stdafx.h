@@ -80,9 +80,9 @@ class PathManager;
 class GameScene;
 
 
-typedef std::shared_ptr<GameScene>				GameScenePtr;
+typedef std::shared_ptr<GameScene>					GameScenePtr;
 typedef std::shared_ptr<PathManager>				PathManagerPtr;
-typedef std::shared_ptr<AppConfig>				AppConfigPtr;
+typedef std::shared_ptr<AppConfig>					AppConfigPtr;
 typedef std::shared_ptr<EditorCamera>				EditorCameraPtr;
 typedef std::shared_ptr<GridMesh>					GridMeshPtr;
 typedef std::shared_ptr<Renderer>					RendererPtr;
