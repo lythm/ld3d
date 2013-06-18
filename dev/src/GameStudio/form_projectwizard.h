@@ -10,7 +10,12 @@ class Form_ProjectWizard : public QDialog, public Ui::Form_ProjectWizard
 
 public:
 	Form_ProjectWizard(QWidget *parent = 0);
-	~Form_ProjectWizard();
+	virtual ~Form_ProjectWizard();
+
+
+private slots:
+	void											on_browseBtn_clicked();
+	void											on_createBtn_clicked();
 };
 
 #endif // FORM_PROJECTWIZARD_H

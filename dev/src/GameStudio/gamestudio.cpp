@@ -10,7 +10,7 @@
 
 #include "AppContext.h"
 
-
+#include "Project.h"
 
 
 GameStudio::GameStudio(QWidget *parent)
@@ -103,8 +103,20 @@ void GameStudio::on_menufile_abouttoshow()
 }
 void GameStudio::on_menufile_new_project()
 {
+	if(m_pProject != nullptr)
+	{
+		m_pProject->Save();
+		m_pProject->Close();
+	}
+
 	Form_ProjectWizard dlg(this);
 
-	dlg.exec();
+	if(QDialog::Rejected == dlg.exec())
+	{
+		return;
+	}
+
+	m_pProject = std::make_shared<Project>();
+	//m_pProject->New(L"");
 }
 

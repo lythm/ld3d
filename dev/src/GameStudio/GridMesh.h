@@ -19,8 +19,8 @@ private:
 	int										m_size;
 	int										m_gridSize;
 	
-	ld3d::GPUBufferPtr					m_pVB;
-	ld3d::GPUBufferPtr					m_pIB;
+	ld3d::GPUBufferPtr						m_pVB;
+	ld3d::GPUBufferPtr						m_pIB;
 	ld3d::MaterialPtr						m_pMaterial;
 
 	ld3d::CoreApiPtr						m_pCore;
