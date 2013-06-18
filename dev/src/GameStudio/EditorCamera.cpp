@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "EditorCamera.h"
-
+#if 0
 EditorCamera::EditorCamera(void)
 {
 	m_vpw				= 800;
@@ -226,3 +226,4 @@ void EditorCamera::SetEyePos(const math::Vector3& eye)
 
 	LookAtLH(GetEyePos(), GetFocusPos(), math::Vector3(0, 1, 0));
 }
+#endif

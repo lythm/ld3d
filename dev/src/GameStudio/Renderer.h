@@ -1,4 +1,6 @@
 #pragma once
+
+#if 0
 class Renderer
 {
 public:
@@ -34,3 +36,5 @@ private:
 	ld3d::RenderManagerPtr				m_pRenderManager;
 };
 
+
+#endif

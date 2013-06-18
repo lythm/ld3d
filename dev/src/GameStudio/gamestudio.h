@@ -25,7 +25,11 @@ public:
 
 	void							logInfo(QString str);
 	void							logBuild(QString str);
+	
 
+	public slots:
+	void							on_menufile_abouttoshow();
+	void							on_menufile_new_project();
 private:
 
 	Form_Scene*						m_pSceneForm;
@@ -33,6 +37,9 @@ private:
 	Form_Log*						m_pLogForm;
 	Form_Inspector*					m_pInspectorForm;
 	Form_Hierarchy*					m_pHierarchyForm;
+
+
+	ProjectPtr						m_pProject;
 };
 
 #endif // GAMESTUDIO_H

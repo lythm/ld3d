@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Renderer.h"
 
+#if 0
 #include "GridMesh.h"
 #include "EditorCamera.h"
 #include "Project.h"
@@ -147,3 +148,4 @@ EditorCameraPtr	Renderer::GetCamera()
 {
 	return m_pCamera;
 }
+#endif

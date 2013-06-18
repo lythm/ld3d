@@ -38,6 +38,7 @@ public:
     QAction *actionSave_Scene_As;
     QAction *actionExit;
     QAction *actionClose_Project;
+    QAction *actionEmpty;
     QWidget *centralWidget;
     QGridLayout *gridLayout;
     QMdiArea *mdiArea;
@@ -70,10 +71,12 @@ public:
 "	color: rgb(180, 180, 180);\n"
 "	background-color: rgb(41, 41, 41);\n"
 "	border-color: rgb(41, 41, 41);\n"
+"\n"
 "}\n"
 "\n"
 "QMenuBar \n"
 "{\n"
+"	\n"
 "     background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1,\n"
 "                                       stop:0 rgb(80, 80, 80), stop:1 rgb(41, 41, 41));\n"
 " }\n"
@@ -83,13 +86,98 @@ public:
 "     background: transparent;\n"
 " }\n"
 "\n"
-" QMenuBar::item:selected { /* when selected using mouse or keyboard */\n"
+" QMenuBar::item:selected \n"
+"{ \n"
 "      background-color: rgb(41, 41, 41);\n"
 " }\n"
 "\n"
-" QMenuBar::item:pressed {\n"
+" QMenuBar::item:pressed\n"
+" {\n"
 "     background-color: rgb(41, 41, 41);\n"
 " }\n"
+"QMenu \n"
+"{\n"
+"	color: rgb(180, 180, 180);\n"
+"	background-color: rgb(41, 41, 41);\n"
+"	border-color: rgb(41, 41, 41);\n"
+"    margin: 2px; /* some spacing around the menu */\n"
+"}\n"
+" \n"
+"QMenu::item \n"
+"{\n"
+"    padding: 2px 25px 2px 20px;\n"
+"    border: 1px solid transparent; /* reserve space for selection border */\n"
+"}\n"
+" \n"
+"QMenu::item:!enabled \n"
+"{\n"
+"	color: rgb(80, 80, 80);\n"
+"    border-color:rgb(41, 41, "
+                        "41);\n"
+"}\n"
+"QMenu::item:selected \n"
+"{\n"
+"    border-color:rgb(41, 41, 41);\n"
+"    background: rgb(100, 100, 100);\n"
+"}\n"
+"\n"
+"QMenu::icon:checked  { /* appearance of a 'checked' icon */\n"
+"    background: gray;\n"
+"    border: 1px inset gray;\n"
+"    position: absolute;\n"
+"    top: 1px;\n"
+"    right: 1px;\n"
+"    bottom: 1px;\n"
+"    left: 1px;\n"
+"}\n"
+" \n"
+"QMenu::separator  {\n"
+"    height: 2px;\n"
+"    background:  rgb(80, 80, 80);;\n"
+"    margin-left: 10px;\n"
+"    margin-right: 5px;\n"
+"}\n"
+" \n"
+"QMenu::indicator  {\n"
+"    width: 13px;\n"
+"    height: 13px;\n"
+"}\n"
+" \n"
+"/* non-exclusive indicator = check box style indicator (see QActionGroup::setExclusive) */\n"
+"QMenu::indicator:non-exclusive:unchecked  {\n"
+"    image: url(:/images/checkbox_unchecked.png);\n"
+"}\n"
+" \n"
+"QMenu::indicator:non-exclusive:unchecked:selected  {\n"
+"    image: url(:/images/checkbox_unchecked_hover.png);\n"
+"}\n"
+" \n"
+"QMenu::indicator:non-exclusive:checked  {\n"
+"    image: url(:/images/checkbox_check"
+                        "ed.png);\n"
+"}\n"
+" \n"
+"QMenu::indicator:non-exclusive:checked:selected  {\n"
+"    image: url(:/images/checkbox_checked_hover.png);\n"
+"}\n"
+" \n"
+"/* exclusive indicator = radio button style indicator (see QActionGroup::setExclusive) */\n"
+"QMenu::indicator:exclusive:unchecked  {\n"
+"    image: url(:/images/radiobutton_unchecked.png);\n"
+"}\n"
+" \n"
+"QMenu::indicator:exclusive:unchecked:selected  {\n"
+"    image: url(:/images/radiobutton_unchecked_hover.png);\n"
+"}\n"
+" \n"
+"QMenu::indicator:exclusive:checked  {\n"
+"    image: url(:/images/radiobutton_checked.png);\n"
+"}\n"
+" \n"
+"QMenu::indicator:exclusive:checked:selected  {\n"
+"    image: url(:/images/radiobutton_checked_hover.png);\n"
+"}\n"
+"\n"
 "QToolBar\n"
 "{\n"
 "	color: rgb(180, 180, 180);\n"
@@ -126,6 +214,8 @@ public:
         actionExit->setObjectName(QStringLiteral("actionExit"));
         actionClose_Project = new QAction(GameStudioClass);
         actionClose_Project->setObjectName(QStringLiteral("actionClose_Project"));
+        actionEmpty = new QAction(GameStudioClass);
+        actionEmpty->setObjectName(QStringLiteral("actionEmpty"));
         centralWidget = new QWidget(GameStudioClass);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         gridLayout = new QGridLayout(centralWidget);
@@ -177,7 +267,7 @@ public:
         GameStudioClass->setStatusBar(statusBar);
         dockHierarchy = new QDockWidget(GameStudioClass);
         dockHierarchy->setObjectName(QStringLiteral("dockHierarchy"));
-        dockHierarchy->setAutoFillBackground(true);
+        dockHierarchy->setAutoFillBackground(false);
         dockHierarchy->setStyleSheet(QLatin1String("*\n"
 "{\n"
 "	 background-color: rgb(56, 56, 56);\n"
@@ -229,6 +319,8 @@ public:
         menuFile->addAction(actionSave_Scene_As);
         menuFile->addSeparator();
         menuFile->addAction(actionExit);
+        menuGameObject->addAction(actionEmpty);
+        menuGameObject->addSeparator();
         mainToolBar->addAction(actionNew_Scene);
         mainToolBar->addAction(actionOpen_Scene);
         mainToolBar->addAction(actionSave_Scene);
@@ -251,6 +343,7 @@ public:
         actionSave_Scene_As->setText(QApplication::translate("GameStudioClass", "Save Scene As...", 0));
         actionExit->setText(QApplication::translate("GameStudioClass", "Exit", 0));
         actionClose_Project->setText(QApplication::translate("GameStudioClass", "Close Project", 0));
+        actionEmpty->setText(QApplication::translate("GameStudioClass", "Empty", 0));
         menuFile->setTitle(QApplication::translate("GameStudioClass", "File", 0));
         menuView->setTitle(QApplication::translate("GameStudioClass", "View", 0));
         menuProject->setTitle(QApplication::translate("GameStudioClass", "Project", 0));

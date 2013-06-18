@@ -7,6 +7,9 @@ public:
 	virtual ~Project(void);
 
 
-
+	void								Close();
+	void								Save();
+	void								Open();
+	void								New();
 };
 

@@ -1,5 +1,6 @@
 #pragma once
 
+#if 0
 class EditorCamera : public ld3d::Camera
 {
 public:
@@ -42,3 +43,5 @@ private:
 	ld3d::CoreApiPtr	m_pCore;
 
 };
+
+#endif

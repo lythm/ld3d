@@ -26,7 +26,13 @@ public:
     {
         if (Form_ProjectWizard->objectName().isEmpty())
             Form_ProjectWizard->setObjectName(QStringLiteral("Form_ProjectWizard"));
+        Form_ProjectWizard->setWindowModality(Qt::WindowModal);
         Form_ProjectWizard->resize(400, 300);
+        QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(Form_ProjectWizard->sizePolicy().hasHeightForWidth());
+        Form_ProjectWizard->setSizePolicy(sizePolicy);
 
         retranslateUi(Form_ProjectWizard);
 
@@ -35,7 +41,7 @@ public:
 
     void retranslateUi(QDialog *Form_ProjectWizard)
     {
-        Form_ProjectWizard->setWindowTitle(QApplication::translate("Form_ProjectWizard", "Form_ProjectWizard", 0));
+        Form_ProjectWizard->setWindowTitle(QApplication::translate("Form_ProjectWizard", "Project Wizzard", 0));
     } // retranslateUi
 
 };

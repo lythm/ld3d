@@ -20,10 +20,12 @@
 	color: rgb(180, 180, 180);
 	background-color: rgb(41, 41, 41);
 	border-color: rgb(41, 41, 41);
+
 }
 
 QMenuBar 
 {
+	
      background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1,
                                        stop:0 rgb(80, 80, 80), stop:1 rgb(41, 41, 41));
  }
@@ -33,13 +35,96 @@ QMenuBar
      background: transparent;
  }
 
- QMenuBar::item:selected { /* when selected using mouse or keyboard */
+ QMenuBar::item:selected 
+{ 
       background-color: rgb(41, 41, 41);
  }
 
- QMenuBar::item:pressed {
+ QMenuBar::item:pressed
+ {
      background-color: rgb(41, 41, 41);
  }
+QMenu 
+{
+	color: rgb(180, 180, 180);
+	background-color: rgb(41, 41, 41);
+	border-color: rgb(41, 41, 41);
+    margin: 2px; /* some spacing around the menu */
+}
+ 
+QMenu::item 
+{
+    padding: 2px 25px 2px 20px;
+    border: 1px solid transparent; /* reserve space for selection border */
+}
+ 
+QMenu::item:!enabled 
+{
+	color: rgb(80, 80, 80);
+    border-color:rgb(41, 41, 41);
+}
+QMenu::item:selected 
+{
+    border-color:rgb(41, 41, 41);
+    background: rgb(100, 100, 100);
+}
+
+QMenu::icon:checked  { /* appearance of a 'checked' icon */
+    background: gray;
+    border: 1px inset gray;
+    position: absolute;
+    top: 1px;
+    right: 1px;
+    bottom: 1px;
+    left: 1px;
+}
+ 
+QMenu::separator  {
+    height: 2px;
+    background:  rgb(80, 80, 80);;
+    margin-left: 10px;
+    margin-right: 5px;
+}
+ 
+QMenu::indicator  {
+    width: 13px;
+    height: 13px;
+}
+ 
+/* non-exclusive indicator = check box style indicator (see QActionGroup::setExclusive) */
+QMenu::indicator:non-exclusive:unchecked  {
+    image: url(:/images/checkbox_unchecked.png);
+}
+ 
+QMenu::indicator:non-exclusive:unchecked:selected  {
+    image: url(:/images/checkbox_unchecked_hover.png);
+}
+ 
+QMenu::indicator:non-exclusive:checked  {
+    image: url(:/images/checkbox_checked.png);
+}
+ 
+QMenu::indicator:non-exclusive:checked:selected  {
+    image: url(:/images/checkbox_checked_hover.png);
+}
+ 
+/* exclusive indicator = radio button style indicator (see QActionGroup::setExclusive) */
+QMenu::indicator:exclusive:unchecked  {
+    image: url(:/images/radiobutton_unchecked.png);
+}
+ 
+QMenu::indicator:exclusive:unchecked:selected  {
+    image: url(:/images/radiobutton_unchecked_hover.png);
+}
+ 
+QMenu::indicator:exclusive:checked  {
+    image: url(:/images/radiobutton_checked.png);
+}
+ 
+QMenu::indicator:exclusive:checked:selected  {
+    image: url(:/images/radiobutton_checked_hover.png);
+}
+
 QToolBar
 {
 	color: rgb(180, 180, 180);
@@ -136,6 +221,8 @@ QTreeView
     <property name="title">
      <string>GameObject</string>
     </property>
+    <addaction name="actionEmpty"/>
+    <addaction name="separator"/>
    </widget>
    <widget class="QMenu" name="menuComponent">
     <property name="title">
@@ -177,7 +264,7 @@ QTreeView
   <widget class="QStatusBar" name="statusBar"/>
   <widget class="QDockWidget" name="dockHierarchy">
    <property name="autoFillBackground">
-    <bool>true</bool>
+    <bool>false</bool>
    </property>
    <property name="styleSheet">
     <string notr="true">*
@@ -268,6 +355,11 @@ QTreeView
   <action name="actionClose_Project">
    <property name="text">
     <string>Close Project</string>
+   </property>
+  </action>
+  <action name="actionEmpty">
+   <property name="text">
+    <string>Empty</string>
    </property>
   </action>
  </widget>

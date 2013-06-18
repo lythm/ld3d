@@ -10,6 +10,9 @@
 
 #include "AppContext.h"
 
+
+
+
 GameStudio::GameStudio(QWidget *parent)
 	: QMainWindow(parent)
 {
@@ -43,6 +46,12 @@ GameStudio::GameStudio(QWidget *parent)
 	restoreState(settings.value("windowState").toByteArray());
 
 	AppContext::pSceneForm = m_pSceneForm;
+
+
+
+	QObject::connect(menuFile, SIGNAL(aboutToShow()), this, SLOT(on_menufile_abouttoshow()));
+
+	QObject::connect(actionNew_Project, SIGNAL(triggered()), this, SLOT(on_menufile_new_project()));
 
 }
 
@@ -83,3 +92,19 @@ void GameStudio::logBuild(QString str)
 {
 	m_pLogForm->logBuild(str);
 }
+void GameStudio::on_menufile_abouttoshow()
+{
+	actionSave_Project->setEnabled(m_pProject != nullptr);
+	actionSave_Scene->setEnabled(m_pProject != nullptr);
+	actionSave_Scene_As->setEnabled(m_pProject != nullptr);
+	actionClose_Project->setEnabled(m_pProject != nullptr);
+	actionNew_Scene->setEnabled(m_pProject != nullptr);
+	actionOpen_Scene->setEnabled(m_pProject != nullptr);
+}
+void GameStudio::on_menufile_new_project()
+{
+	Form_ProjectWizard dlg(this);
+
+	dlg.exec();
+}
+
