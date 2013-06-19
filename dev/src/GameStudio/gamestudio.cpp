@@ -96,11 +96,11 @@ bool GameStudio::event(QEvent *event)
 	return returnValue;
 
 }
-void GameStudio::logInfo(QString str)
+void GameStudio::logInfo(const QString& str)
 {
 	m_pLogForm->logInfo(str);
 }
-void GameStudio::logBuild(QString str)
+void GameStudio::logBuild(const QString& str)
 {
 	m_pLogForm->logBuild(str);
 }
@@ -141,5 +141,21 @@ void GameStudio::on_menufile_new_project()
 	}
 
 	AppContext::project = m_pProject;
+
+	logInfo("Project created.");
 }
 
+void GameStudio::on_mdiArea_subWindowActivated(QMdiSubWindow* pSub)
+{
+	if(pSub)
+	{
+		logInfo(pSub->windowTitle());
+	}
+}
+void GameStudio::on_actionSave_Project_triggered()
+{
+	if(m_pProject)
+	{
+		m_pProject->Save();
+	}
+}

@@ -13,6 +13,8 @@ public:
 	~Form_Scene();
 
 	void						timerEvent(QTimerEvent* event);
+	void						resizeEvent(QResizeEvent* e);
+
 private:
 	int							m_timer;
 };

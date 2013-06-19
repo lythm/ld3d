@@ -6,9 +6,9 @@ public:
 	Project(void);
 	virtual ~Project(void);
 
-
+	bool								Save();
 	void								Close();
-	void								Save();
+	bool								Save(const boost::filesystem::path& file);
 	void								Open();
 	bool								New(const boost::filesystem::path& file);
 

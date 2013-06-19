@@ -25,8 +25,44 @@ void Project::Close()
 		m_pEngine.reset();
 	}
 }
-void Project::Save()
+bool Project::Save(const boost::filesystem::path& file)
 {
+	QFile qfile(QString::fromStdWString(file.wstring()));
+	if (!qfile.open(QIODevice::WriteOnly | QIODevice::Text))
+        return false;
+	
+	QXmlStreamWriter writer(&qfile);
+	writer.setAutoFormatting(true);
+	writer.setAutoFormattingIndent(-1);
+
+	writer.writeStartDocument();
+	{
+
+		writer.writeStartElement("project");
+		{
+			writer.writeTextElement("scene", QString::fromStdWString(m_pScene->GetFileName().wstring()));
+
+			writer.writeTextElement("clear_color", "0,0,0");
+
+			writer.writeStartElement("camera");
+			{
+				writer.writeTextElement("eye_pos", "0, 0, -100");
+				writer.writeTextElement("focus_pos", "0, 0, 0");
+			}
+			writer.writeEndElement();
+		}
+		writer.writeEndElement();
+	}
+	writer.writeEndDocument();
+
+
+	qfile.close();
+
+	m_filePath = file;
+
+	RestoreProjectRoot();
+
+	return true;
 }
 void Project::Open()
 {
@@ -58,8 +94,6 @@ bool Project::New(const boost::filesystem::path& file)
 	{
 		return false;
 	}
-
-	AppContext::log_info(L"Project created.");
 	return true;
 
 }
@@ -169,4 +203,8 @@ boost::filesystem::path	Project::RelativeToRoot(const boost::filesystem::path& p
 GameScenePtr Project::GetGameScene()
 {
 	return m_pScene;
+}
+bool Project::Save()
+{
+	return Save(m_filePath);
 }

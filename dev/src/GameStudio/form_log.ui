@@ -23,7 +23,7 @@
       <enum>QTabWidget::Triangular</enum>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tabInfo">
       <attribute name="title">
@@ -31,7 +31,11 @@
       </attribute>
       <layout class="QGridLayout" name="gridLayout_2">
        <item row="0" column="0">
-        <widget class="QPlainTextEdit" name="textInfo"/>
+        <widget class="QPlainTextEdit" name="textInfo">
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
        </item>
       </layout>
      </widget>
@@ -41,7 +45,11 @@
       </attribute>
       <layout class="QGridLayout" name="gridLayout_3">
        <item row="0" column="0">
-        <widget class="QPlainTextEdit" name="textBuild"/>
+        <widget class="QPlainTextEdit" name="textBuild">
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
        </item>
       </layout>
      </widget>

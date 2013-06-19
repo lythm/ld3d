@@ -13,8 +13,8 @@ public:
 	~Form_Log();
 
 
-	void										logInfo(QString str);
-	void										logBuild(QString str);
+	void										logInfo(const QString& str);
+	void										logBuild(const QString& str);
 };
 
 #endif // FORM_LOG_H

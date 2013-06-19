@@ -1,4 +1,5 @@
 <RCC>
-    <qresource prefix="GameStudio">
+    <qresource prefix="/GameStudio">
+        <file>i001.png</file>
     </qresource>
 </RCC>

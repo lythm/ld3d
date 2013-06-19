@@ -54,6 +54,7 @@ public:
         gridLayout_2->setObjectName(QStringLiteral("gridLayout_2"));
         textInfo = new QPlainTextEdit(tabInfo);
         textInfo->setObjectName(QStringLiteral("textInfo"));
+        textInfo->setReadOnly(true);
 
         gridLayout_2->addWidget(textInfo, 0, 0, 1, 1);
 
@@ -66,6 +67,7 @@ public:
         gridLayout_3->setObjectName(QStringLiteral("gridLayout_3"));
         textBuild = new QPlainTextEdit(tabBuild);
         textBuild->setObjectName(QStringLiteral("textBuild"));
+        textBuild->setReadOnly(true);
 
         gridLayout_3->addWidget(textBuild, 0, 0, 1, 1);
 
@@ -76,7 +78,7 @@ public:
 
         retranslateUi(Form_Log);
 
-        tabWidget->setCurrentIndex(1);
+        tabWidget->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(Form_Log);

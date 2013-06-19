@@ -14,7 +14,6 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QHeaderView>
-#include <QtWidgets/QLabel>
 #include <QtWidgets/QMdiSubWindow>
 
 QT_BEGIN_NAMESPACE
@@ -22,7 +21,6 @@ QT_BEGIN_NAMESPACE
 class Ui_Form_Scene
 {
 public:
-    QLabel *label;
 
     void setupUi(QMdiSubWindow *Form_Scene)
     {
@@ -34,13 +32,9 @@ public:
         sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(Form_Scene->sizePolicy().hasHeightForWidth());
         Form_Scene->setSizePolicy(sizePolicy);
-        Form_Scene->setStyleSheet(QLatin1String("*\n"
-"{\n"
-"	 background-color: rgb(56, 56, 56);\n"
-"}"));
-        label = new QLabel(Form_Scene);
-        label->setObjectName(QStringLiteral("label"));
-        label->setGeometry(QRect(80, 80, 54, 12));
+        Form_Scene->setStyleSheet(QLatin1String("background-color: rgb(56, 56, 56);\n"
+"background-color: rgb(38, 38, 38);\n"
+"border-color: rgb(137, 101, 255);"));
 
         retranslateUi(Form_Scene);
 
@@ -50,7 +44,6 @@ public:
     void retranslateUi(QMdiSubWindow *Form_Scene)
     {
         Form_Scene->setWindowTitle(QApplication::translate("Form_Scene", "Form_Scene", 0));
-        label->setText(QApplication::translate("Form_Scene", "Scene", 0));
     } // retranslateUi
 
 };

@@ -31,3 +31,7 @@ void Form_Scene::timerEvent(QTimerEvent* event)
 	}
 	QMdiSubWindow::timerEvent(event);
 }
+void Form_Scene::resizeEvent(QResizeEvent* e)
+{
+	QMdiSubWindow::resizeEvent(e);
+}

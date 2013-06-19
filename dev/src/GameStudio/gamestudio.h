@@ -23,13 +23,16 @@ public:
 	void closeEvent(QCloseEvent *pEvent);
 
 
-	void							logInfo(QString str);
-	void							logBuild(QString str);
+	void							logInfo(const QString& str);
+	void							logBuild(const QString& str);
 	
 
 	public slots:
 	void							on_menufile_abouttoshow();
 	void							on_menufile_new_project();
+
+	void							on_actionSave_Project_triggered();
+	void							on_mdiArea_subWindowActivated(QMdiSubWindow* pSub);
 private:
 
 	Form_Scene*						m_pSceneForm;

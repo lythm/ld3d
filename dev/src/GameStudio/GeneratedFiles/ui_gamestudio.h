@@ -65,6 +65,9 @@ public:
         if (GameStudioClass->objectName().isEmpty())
             GameStudioClass->setObjectName(QStringLiteral("GameStudioClass"));
         GameStudioClass->resize(1046, 809);
+        QIcon icon;
+        icon.addFile(QStringLiteral(":/GameStudio/i001.png"), QSize(), QIcon::Normal, QIcon::Off);
+        GameStudioClass->setWindowIcon(icon);
         GameStudioClass->setStyleSheet(QLatin1String("*\n"
 "\n"
 "{\n"

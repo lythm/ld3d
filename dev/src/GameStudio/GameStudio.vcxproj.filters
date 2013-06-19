@@ -202,6 +202,9 @@
     <ClInclude Include="GameEngine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="gamestudio.h">
@@ -261,5 +264,10 @@
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="GameStudio.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="icon1.ico" />
+    <Image Include="i001.png" />
+    <Image Include="GameStudio.ico" />
   </ItemGroup>
 </Project>
