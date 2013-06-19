@@ -1,10 +1,12 @@
 #include "stdafx.h"
 #include "GameScene.h"
+#include "GameEngine.h"
 
-
-GameScene::GameScene(ld3d::CoreApiPtr pCore)
+GameScene::GameScene(GameEnginePtr pEngine)
 {
-	m_pCore = pCore;
+	m_pEngine = pEngine;
+
+	m_pCore = m_pEngine->GetCoreApi();
 	m_objNo	= 0;
 }
 
@@ -105,9 +107,6 @@ ld3d::GameObjectPtr GameScene::CreateObject(const std::wstring& name)
 
 	GameObjectPtr pObj = m_pCore->CreateGameObject(full_name.toStdWString());
 
-	GameObjectComponentPtr pPM = CreateGameObjectComponent(L"DT_GameObjectMonitor");
-	pObj->AddComponent(pPM);
-
 	m_objNo++;
 	return pObj;
 }
@@ -120,9 +119,6 @@ ld3d::GameObjectPtr GameScene::CreateObjectFromTpl(const std::wstring& name, con
 	full_name = QString::fromStdWString(name) + QString("%1").arg(m_objNo);
 
 	GameObjectPtr pObj = m_pCore->CreatGameObjectFromTemplate(tpl, full_name.toStdWString());
-
-	GameObjectComponentPtr pPM = CreateGameObjectComponent(L"DT_GameObjectMonitor");
-	pObj->AddComponent(pPM);
 
 	m_objNo++;
 	return pObj;

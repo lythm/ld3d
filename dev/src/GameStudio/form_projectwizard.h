@@ -12,10 +12,15 @@ public:
 	Form_ProjectWizard(QWidget *parent = 0);
 	virtual ~Form_ProjectWizard();
 
+	boost::filesystem::path							ProjectFilePath();
 
 private slots:
 	void											on_browseBtn_clicked();
 	void											on_createBtn_clicked();
+
+
+private:
+	boost::filesystem::path							m_filePath;
 };
 
 #endif // FORM_PROJECTWIZARD_H

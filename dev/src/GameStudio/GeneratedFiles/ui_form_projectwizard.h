@@ -18,7 +18,7 @@
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
-#include <QtWidgets/QListWidget>
+#include <QtWidgets/QListView>
 #include <QtWidgets/QPushButton>
 
 QT_BEGIN_NAMESPACE
@@ -31,10 +31,10 @@ public:
     QPushButton *createBtn;
     QLineEdit *nameEdit;
     QLineEdit *locEdit;
-    QListWidget *listWidget;
-    QLabel *label_2;
     QLabel *label;
     QLabel *label_3;
+    QListView *listView;
+    QLabel *label_2;
 
     void setupUi(QDialog *Form_ProjectWizard)
     {
@@ -63,7 +63,7 @@ public:
         createBtn = new QPushButton(Form_ProjectWizard);
         createBtn->setObjectName(QStringLiteral("createBtn"));
 
-        gridLayout->addWidget(createBtn, 6, 1, 1, 1);
+        gridLayout->addWidget(createBtn, 7, 1, 1, 1);
 
         nameEdit = new QLineEdit(Form_ProjectWizard);
         nameEdit->setObjectName(QStringLiteral("nameEdit"));
@@ -76,22 +76,6 @@ public:
 
         gridLayout->addWidget(locEdit, 3, 0, 1, 1);
 
-        listWidget = new QListWidget(Form_ProjectWizard);
-        QListWidgetItem *__qlistwidgetitem = new QListWidgetItem(listWidget);
-        __qlistwidgetitem->setCheckState(Qt::Unchecked);
-        __qlistwidgetitem->setFlags(Qt::ItemIsSelectable|Qt::ItemIsUserCheckable|Qt::ItemIsEnabled);
-        QListWidgetItem *__qlistwidgetitem1 = new QListWidgetItem(listWidget);
-        __qlistwidgetitem1->setCheckState(Qt::Unchecked);
-        __qlistwidgetitem1->setFlags(Qt::ItemIsSelectable|Qt::ItemIsUserCheckable|Qt::ItemIsEnabled);
-        listWidget->setObjectName(QStringLiteral("listWidget"));
-
-        gridLayout->addWidget(listWidget, 5, 0, 1, 2);
-
-        label_2 = new QLabel(Form_ProjectWizard);
-        label_2->setObjectName(QStringLiteral("label_2"));
-
-        gridLayout->addWidget(label_2, 4, 0, 1, 1);
-
         label = new QLabel(Form_ProjectWizard);
         label->setObjectName(QStringLiteral("label"));
 
@@ -101,6 +85,16 @@ public:
         label_3->setObjectName(QStringLiteral("label_3"));
 
         gridLayout->addWidget(label_3, 0, 0, 1, 1);
+
+        listView = new QListView(Form_ProjectWizard);
+        listView->setObjectName(QStringLiteral("listView"));
+
+        gridLayout->addWidget(listView, 5, 0, 1, 1);
+
+        label_2 = new QLabel(Form_ProjectWizard);
+        label_2->setObjectName(QStringLiteral("label_2"));
+
+        gridLayout->addWidget(label_2, 4, 0, 1, 1);
 
         gridLayout->setColumnStretch(0, 5);
 
@@ -115,18 +109,9 @@ public:
         browseBtn->setText(QApplication::translate("Form_ProjectWizard", "Browse...", 0));
         createBtn->setText(QApplication::translate("Form_ProjectWizard", "Create", 0));
         locEdit->setPlaceholderText(QString());
-
-        const bool __sortingEnabled = listWidget->isSortingEnabled();
-        listWidget->setSortingEnabled(false);
-        QListWidgetItem *___qlistwidgetitem = listWidget->item(0);
-        ___qlistwidgetitem->setText(QApplication::translate("Form_ProjectWizard", "Core", 0));
-        QListWidgetItem *___qlistwidgetitem1 = listWidget->item(1);
-        ___qlistwidgetitem1->setText(QApplication::translate("Form_ProjectWizard", "Voxel", 0));
-        listWidget->setSortingEnabled(__sortingEnabled);
-
-        label_2->setText(QApplication::translate("Form_ProjectWizard", "Packges to import:", 0));
         label->setText(QApplication::translate("Form_ProjectWizard", "Project Location:", 0));
         label_3->setText(QApplication::translate("Form_ProjectWizard", "Project Name:", 0));
+        label_2->setText(QApplication::translate("Form_ProjectWizard", "Packges to import:", 0));
     } // retranslateUi
 
 };

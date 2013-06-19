@@ -24,5 +24,7 @@ private:
 	boost::filesystem::path				m_filePath;
 
 	GameScenePtr						m_pScene;
+
+	GameEnginePtr						m_pEngine;
 };
 

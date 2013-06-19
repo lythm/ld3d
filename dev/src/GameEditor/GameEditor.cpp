@@ -61,6 +61,10 @@ CGameEditorApp theApp;
 BOOL CGameEditorApp::InitInstance()
 {
 	g_Allocator.Initialize();
+
+
+	
+
 	//_CrtSetBreakAlloc(15964);
 
 	// 如果一个运行在 Windows XP 上的应用程序清单指定要

@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Project.h"
 #include "GameScene.h"
+#include "GameEngine.h"
 
 
 Project::Project(void)
@@ -13,6 +14,17 @@ Project::~Project(void)
 }
 void Project::Close()
 {
+	if(m_pScene)
+	{
+		m_pScene->Close();
+		m_pScene.reset();
+	}
+	if(m_pEngine)
+	{
+		m_pEngine->Release();
+		m_pEngine.reset();
+	}
+	g_Allocator.Release();
 }
 void Project::Save()
 {
@@ -24,7 +36,7 @@ bool Project::New(const boost::filesystem::path& file)
 {
 	m_filePath = file;
 
-	//s_Allocator.Initialize();
+	g_Allocator.Initialize();
 	boost::filesystem::initial_path();
 	RestoreProjectRoot();
 
@@ -37,11 +49,16 @@ bool Project::New(const boost::filesystem::path& file)
 
 	RestoreProjectRoot();
 
-	//m_pScene = GameScenePtr(new GameScene(m_pCore));
-
-	//if(false == m_pScene->New())
+	m_pEngine = alloc_shared<GameEngine>();
+	if(m_pEngine->Initialize() == false)
 	{
-	//	return false;
+		return false;
+	}
+	m_pScene = alloc_shared<GameScene>(m_pEngine);
+
+	if(false == m_pScene->New())
+	{
+		return false;
 	}
 
 	return true;

@@ -40,7 +40,24 @@ void Form_ProjectWizard::on_createBtn_clicked()
 		QMessageBox::critical(this, "Failed", "Project location is not valid.");
 		return;
 	}
+	QString name = nameEdit->text();
+	QString loc = locEdit->text();
 
+	boost::filesystem::path root = boost::filesystem::path(loc.toStdWString())
+							/ boost::filesystem::path(name.toStdWString());
+	if(boost::filesystem::exists(root))
+	{
+		QMessageBox::critical(this, "Failed", "Project exists.");
+		return;
+	}
+	boost::filesystem::create_directory(root);
+
+	m_filePath = root / boost::filesystem::path((name + ".gp").toStdWString());
 
 	done(Accepted);
+}
+
+boost::filesystem::path Form_ProjectWizard::ProjectFilePath()
+{
+	return m_filePath;
 }

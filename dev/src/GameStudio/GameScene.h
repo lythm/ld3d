@@ -4,7 +4,7 @@
 class GameScene
 {
 public:
-	GameScene(ld3d::CoreApiPtr pCore);
+	GameScene(GameEnginePtr pEngine);
 	virtual ~GameScene(void);
 
 	bool										Load(boost::filesystem::path file);
@@ -28,5 +28,7 @@ private:
 	ld3d::CoreApiPtr							m_pCore;
 
 	int											m_objNo;
+
+	GameEnginePtr								m_pEngine;
 };
 

@@ -16,6 +16,7 @@
 GameStudio::GameStudio(QWidget *parent)
 	: QMainWindow(parent)
 {
+	g_Allocator.Initialize();
 	setupUi(this);
 
 	m_pSceneForm = new Form_Scene(this);
@@ -45,19 +46,23 @@ GameStudio::GameStudio(QWidget *parent)
 	restoreGeometry(settings.value("geometry").toByteArray());
 	restoreState(settings.value("windowState").toByteArray());
 
-	AppContext::pSceneForm = m_pSceneForm;
-
-
+	AppContext::form_scene = m_pSceneForm;
+	AppContext::form_preview = m_pPreviewForm;
+	AppContext::form_log = m_pLogForm;
 
 	QObject::connect(menuFile, SIGNAL(aboutToShow()), this, SLOT(on_menufile_abouttoshow()));
 
 	QObject::connect(actionNew_Project, SIGNAL(triggered()), this, SLOT(on_menufile_new_project()));
 
+	
+	 
 }
 
 GameStudio::~GameStudio()
 {
-
+	AppContext::project.reset();
+	m_pProject.reset();
+	g_Allocator.Release();
 }
 void GameStudio::closeEvent(QCloseEvent *pEvent)
 {
@@ -116,7 +121,18 @@ void GameStudio::on_menufile_new_project()
 		return;
 	}
 
-	m_pProject = std::make_shared<Project>();
-	//m_pProject->New(L"");
+
+
+	m_pProject = alloc_shared<Project>();
+	
+	if(m_pProject->New(dlg.ProjectFilePath()) == false)
+	{
+		QMessageBox::critical(this, "Failed", "Failed to create new project: " + QString::fromStdWString(dlg.ProjectFilePath().wstring()));
+		m_pProject->Close();
+		m_pProject.reset();
+		return;
+	}
+
+	AppContext::project = m_pProject;
 }
 
