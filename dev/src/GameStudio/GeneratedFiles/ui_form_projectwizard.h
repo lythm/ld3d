@@ -62,6 +62,7 @@ public:
 
         createBtn = new QPushButton(Form_ProjectWizard);
         createBtn->setObjectName(QStringLiteral("createBtn"));
+        createBtn->setDefault(true);
 
         gridLayout->addWidget(createBtn, 7, 1, 1, 1);
 

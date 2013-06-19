@@ -4,6 +4,8 @@
 
 int main(int argc, char *argv[])
 {
+	g_Allocator.Initialize();
+
 	QApplication a(argc, argv);
 	QPixmap pic("./assets/standard/texture/15.png");
 
@@ -18,5 +20,10 @@ int main(int argc, char *argv[])
 	w.show();
 
 	screen.finish(&w);
-	return a.exec();
+	int r = a.exec();
+
+
+	g_Allocator.Release();
+
+	return r;
 }

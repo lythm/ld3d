@@ -2,7 +2,7 @@
 #include "Project.h"
 #include "GameScene.h"
 #include "GameEngine.h"
-
+#include "AppContext.h"
 
 Project::Project(void)
 {
@@ -24,7 +24,6 @@ void Project::Close()
 		m_pEngine->Release();
 		m_pEngine.reset();
 	}
-	g_Allocator.Release();
 }
 void Project::Save()
 {
@@ -36,7 +35,6 @@ bool Project::New(const boost::filesystem::path& file)
 {
 	m_filePath = file;
 
-	g_Allocator.Initialize();
 	boost::filesystem::initial_path();
 	RestoreProjectRoot();
 
@@ -61,6 +59,7 @@ bool Project::New(const boost::filesystem::path& file)
 		return false;
 	}
 
+	AppContext::log_info(L"Project created.");
 	return true;
 
 }
@@ -166,4 +165,8 @@ boost::filesystem::path	Project::RelativeToRoot(const boost::filesystem::path& p
 	QString s = root.relativeFilePath(QString::fromStdWString(path.wstring()));
 
 	return s.toStdWString();
+}
+GameScenePtr Project::GetGameScene()
+{
+	return m_pScene;
 }

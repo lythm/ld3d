@@ -16,7 +16,7 @@
 GameStudio::GameStudio(QWidget *parent)
 	: QMainWindow(parent)
 {
-	g_Allocator.Initialize();
+
 	setupUi(this);
 
 	m_pSceneForm = new Form_Scene(this);
@@ -62,10 +62,17 @@ GameStudio::~GameStudio()
 {
 	AppContext::project.reset();
 	m_pProject.reset();
-	g_Allocator.Release();
+	
 }
 void GameStudio::closeEvent(QCloseEvent *pEvent)
 {
+	if(m_pProject)
+	{
+		m_pProject->Close();
+		m_pProject.reset();
+	}
+	AppContext::project = nullptr;
+
 	QSettings settings("GGUHA Ltd.", "Game Studio");
 	settings.setValue("geometry", saveGeometry());
 	settings.setValue("windowState", saveState());

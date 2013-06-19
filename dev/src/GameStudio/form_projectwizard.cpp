@@ -5,11 +5,16 @@ Form_ProjectWizard::Form_ProjectWizard(QWidget *parent)
 	: QDialog(parent)
 {
 	setupUi(this);
+
+	QSettings settings("GGUHA Ltd.", "Game Studio");
+	locEdit->setText(settings.value("last_project_location").toString());
+	
+
 }
 
 Form_ProjectWizard::~Form_ProjectWizard()
 {
-
+	
 }
 void Form_ProjectWizard::on_browseBtn_clicked()
 {
@@ -53,6 +58,10 @@ void Form_ProjectWizard::on_createBtn_clicked()
 	boost::filesystem::create_directory(root);
 
 	m_filePath = root / boost::filesystem::path((name + ".gp").toStdWString());
+
+
+	QSettings settings("GGUHA Ltd.", "Game Studio");
+	settings.setValue("last_project_location", loc);
 
 	done(Accepted);
 }

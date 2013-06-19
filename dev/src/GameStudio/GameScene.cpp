@@ -136,3 +136,13 @@ ld3d::GameObjectPtr GameScene::Root()
 	return m_pCore->Root();
 }
 
+void GameScene::Update()
+{
+	m_pCore->Update();
+}
+void GameScene::Render()
+{
+	m_pCore->Render();
+	m_pCore->Present();
+	m_pCore->ClearRenderQueue();
+}

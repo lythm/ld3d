@@ -15,8 +15,8 @@
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QHeaderView>
+#include <QtWidgets/QPlainTextEdit>
 #include <QtWidgets/QTabWidget>
-#include <QtWidgets/QTextBrowser>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -28,10 +28,10 @@ public:
     QTabWidget *tabWidget;
     QWidget *tabInfo;
     QGridLayout *gridLayout_2;
-    QTextBrowser *textInfo;
+    QPlainTextEdit *textInfo;
     QWidget *tabBuild;
     QGridLayout *gridLayout_3;
-    QTextBrowser *textBuild;
+    QPlainTextEdit *textBuild;
 
     void setupUi(QWidget *Form_Log)
     {
@@ -52,7 +52,7 @@ public:
         gridLayout_2->setSpacing(6);
         gridLayout_2->setContentsMargins(11, 11, 11, 11);
         gridLayout_2->setObjectName(QStringLiteral("gridLayout_2"));
-        textInfo = new QTextBrowser(tabInfo);
+        textInfo = new QPlainTextEdit(tabInfo);
         textInfo->setObjectName(QStringLiteral("textInfo"));
 
         gridLayout_2->addWidget(textInfo, 0, 0, 1, 1);
@@ -64,7 +64,7 @@ public:
         gridLayout_3->setSpacing(6);
         gridLayout_3->setContentsMargins(11, 11, 11, 11);
         gridLayout_3->setObjectName(QStringLiteral("gridLayout_3"));
-        textBuild = new QTextBrowser(tabBuild);
+        textBuild = new QPlainTextEdit(tabBuild);
         textBuild->setObjectName(QStringLiteral("textBuild"));
 
         gridLayout_3->addWidget(textBuild, 0, 0, 1, 1);
@@ -76,7 +76,7 @@ public:
 
         retranslateUi(Form_Log);
 
-        tabWidget->setCurrentIndex(0);
+        tabWidget->setCurrentIndex(1);
 
 
         QMetaObject::connectSlotsByName(Form_Log);
@@ -85,18 +85,7 @@ public:
     void retranslateUi(QWidget *Form_Log)
     {
         Form_Log->setWindowTitle(QApplication::translate("Form_Log", "Form_Log", 0));
-        textInfo->setHtml(QApplication::translate("Form_Log", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'SimSun'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">infomation</p>\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>", 0));
         tabWidget->setTabText(tabWidget->indexOf(tabInfo), QApplication::translate("Form_Log", "Infomation", 0));
-        textBuild->setHtml(QApplication::translate("Form_Log", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'SimSun'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">build</p></body></html>", 0));
         tabWidget->setTabText(tabWidget->indexOf(tabBuild), QApplication::translate("Form_Log", "Build", 0));
     } // retranslateUi
 

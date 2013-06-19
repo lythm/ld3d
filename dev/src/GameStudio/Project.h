@@ -15,6 +15,8 @@ public:
 	boost::filesystem::path				RelativeToRoot(const boost::filesystem::path& path);
 	boost::filesystem::path				RootPath();
 	void								RestoreProjectRoot();
+
+	GameScenePtr						GetGameScene();
 private:
 	bool								CreateNewProject(const boost::filesystem::path& root);
 	bool								CopyDirectory(boost::filesystem::path src, boost::filesystem::path dst);

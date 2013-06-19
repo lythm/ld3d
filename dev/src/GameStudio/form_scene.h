@@ -12,9 +12,9 @@ public:
 	Form_Scene(QWidget *parent = 0);
 	~Form_Scene();
 
-
+	void						timerEvent(QTimerEvent* event);
 private:
-
+	int							m_timer;
 };
 
 #endif // FORM_SCENE_H
