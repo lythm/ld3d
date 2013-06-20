@@ -80,5 +80,8 @@
     <ClInclude Include="..\..\include\utils\PerlinNoise.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\utils\scope_exit.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

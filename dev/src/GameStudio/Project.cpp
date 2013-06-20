@@ -28,6 +28,9 @@ void Project::Close()
 bool Project::Save(const boost::filesystem::path& file)
 {
 	QFile qfile(QString::fromStdWString(file.wstring()));
+
+	SCOPE_EXIT(qfile.close());
+
 	if (!qfile.open(QIODevice::WriteOnly | QIODevice::Text))
         return false;
 	
@@ -55,8 +58,6 @@ bool Project::Save(const boost::filesystem::path& file)
 	}
 	writer.writeEndDocument();
 
-
-	qfile.close();
 
 	m_filePath = file;
 

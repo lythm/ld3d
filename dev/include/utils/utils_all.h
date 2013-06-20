@@ -11,3 +11,4 @@
 #include "utils\Version.h"
 #include "utils\Unicode.h"
 #include "utils\PerlinNoise.h"
+#include "utils\scope_exit.h"

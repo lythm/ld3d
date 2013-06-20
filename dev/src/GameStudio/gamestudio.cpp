@@ -53,9 +53,16 @@ GameStudio::GameStudio(QWidget *parent)
 	QObject::connect(menuFile, SIGNAL(aboutToShow()), this, SLOT(on_menufile_abouttoshow()));
 
 	QObject::connect(actionNew_Project, SIGNAL(triggered()), this, SLOT(on_menufile_new_project()));
-
-	
 	 
+
+
+	std::vector<int> v;
+
+	for(auto i : v)
+	{
+		++i;
+	}
+
 }
 
 GameStudio::~GameStudio()
@@ -147,7 +154,7 @@ void GameStudio::on_menufile_new_project()
 
 void GameStudio::on_mdiArea_subWindowActivated(QMdiSubWindow* pSub)
 {
-	if(pSub)
+	if(pSub )
 	{
 		logInfo(pSub->windowTitle());
 	}

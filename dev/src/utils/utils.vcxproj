@@ -194,6 +194,7 @@
     <ClInclude Include="..\..\include\utils\MiniDump.h" />
     <ClInclude Include="..\..\include\utils\PerlinNoise.h" />
     <ClInclude Include="..\..\include\utils\PropertySet.h" />
+    <ClInclude Include="..\..\include\utils\scope_exit.h" />
     <ClInclude Include="..\..\include\utils\tinystr.h" />
     <ClInclude Include="..\..\include\utils\tinyxml.h" />
     <ClInclude Include="..\..\include\utils\Unicode.h" />
