@@ -3,6 +3,7 @@
 #include "GameScene.h"
 #include "GameEngine.h"
 #include "AppContext.h"
+#include <QtXml/qdom.h>
 
 Project::Project(void)
 {
@@ -32,8 +33,8 @@ bool Project::Save(const boost::filesystem::path& file)
 	SCOPE_EXIT(qfile.close());
 
 	if (!qfile.open(QIODevice::WriteOnly | QIODevice::Text))
-        return false;
-	
+		return false;
+
 	QXmlStreamWriter writer(&qfile);
 	writer.setAutoFormatting(true);
 	writer.setAutoFormattingIndent(-1);
@@ -45,7 +46,7 @@ bool Project::Save(const boost::filesystem::path& file)
 		{
 			writer.writeTextElement("scene", QString::fromStdWString(m_pScene->GetFileName().wstring()));
 
-			writer.writeTextElement("clear_color", "0,0,0");
+			writer.writeTextElement("clear_color", "0, 0, 0");
 
 			writer.writeStartElement("camera");
 			{
@@ -65,8 +66,96 @@ bool Project::Save(const boost::filesystem::path& file)
 
 	return true;
 }
-void Project::Open()
+bool Project::Open(const boost::filesystem::path& file)
 {
+	QFile qfile(QString::fromStdWString(file.wstring()));
+
+	SCOPE_EXIT(qfile.close());
+
+	if (!qfile.open(QIODevice::ReadOnly | QIODevice::Text))
+		return false;
+
+	m_filePath = file;
+	RestoreProjectRoot();
+
+
+	QDomDocument doc;
+
+	if(doc.setContent(&qfile) == false)
+	{
+		return false;
+	}
+
+	QDomNodeList s = doc.elementsByTagName("scene");
+	if(s.count() == 0)
+	{
+		return false;
+	}
+	QString text = s.at(0).toElement().text();
+
+	m_pEngine = alloc_shared<GameEngine>();
+	if(m_pEngine->Initialize() == false)
+	{
+		return false;
+	}
+
+	m_pScene = alloc_shared<GameScene>(m_pEngine);
+
+	if(text == "")
+	{
+		if(false == m_pScene->New())
+		{
+			return false;
+		}
+	}
+	else
+	{
+		if(false == m_pScene->Load(text.toStdString()))
+		{
+			return false;
+		}
+	}
+
+	s = doc.elementsByTagName("camera");
+	if(s.count() == 0)
+	{
+		return false;
+	}
+
+	QDomElement e = s.at(0).toElement();
+
+	QDomElement eye = e.firstChildElement("eye_pos");
+
+	QDomElement focus = e.firstChildElement("focus_pos");
+
+
+	if(eye.isNull() == false)
+	{
+		math::Vector3 ep;
+
+		QString t = eye.text();
+
+		QString tmp;
+		QTextStream stream(&t);
+		stream >> ep.x >> tmp >> ep.y >> tmp >> ep.z ;
+
+		//m_pRenderer->GetCamera()->SetEyePos(ep);
+	}
+
+
+	if(focus.isNull() == false)
+	{
+		math::Vector3 ep;
+		QString t = focus.text();
+		QString tmp;
+		QTextStream stream(&t);
+		stream >> ep.x >> tmp >> ep.y >> tmp >> ep.z ;
+
+		//m_pRenderer->GetCamera()->SetFocusPos(fp);
+	}
+
+
+	return true;
 }
 bool Project::New(const boost::filesystem::path& file)
 {
@@ -79,8 +168,6 @@ bool Project::New(const boost::filesystem::path& file)
 	{
 		return false;
 	}
-
-	//Save(m_filePath.wstring().c_str());
 
 	RestoreProjectRoot();
 
@@ -95,6 +182,8 @@ bool Project::New(const boost::filesystem::path& file)
 	{
 		return false;
 	}
+
+	Save();
 	return true;
 
 }
@@ -190,13 +279,13 @@ boost::filesystem::path Project::RootPath()
 void Project::RestoreProjectRoot()
 {
 	QString dir = QString::fromStdWString(RootPath().wstring());
-	
+
 	QDir::setCurrent(dir);
 }
 boost::filesystem::path	Project::RelativeToRoot(const boost::filesystem::path& path)
 {
 	QDir root(QString::fromStdWString(RootPath().wstring()));
-	
+
 	QString s = root.relativeFilePath(QString::fromStdWString(path.wstring()));
 
 	return s.toStdWString();

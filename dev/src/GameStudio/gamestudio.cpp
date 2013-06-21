@@ -52,17 +52,6 @@ GameStudio::GameStudio(QWidget *parent)
 
 	QObject::connect(menuFile, SIGNAL(aboutToShow()), this, SLOT(on_menufile_abouttoshow()));
 
-	QObject::connect(actionNew_Project, SIGNAL(triggered()), this, SLOT(on_menufile_new_project()));
-	 
-
-
-	std::vector<int> v;
-
-	for(auto i : v)
-	{
-		++i;
-	}
-
 }
 
 GameStudio::~GameStudio()
@@ -120,7 +109,7 @@ void GameStudio::on_menufile_abouttoshow()
 	actionNew_Scene->setEnabled(m_pProject != nullptr);
 	actionOpen_Scene->setEnabled(m_pProject != nullptr);
 }
-void GameStudio::on_menufile_new_project()
+void GameStudio::on_actionNew_Project_triggered()
 {
 	if(m_pProject != nullptr)
 	{
@@ -165,4 +154,40 @@ void GameStudio::on_actionSave_Project_triggered()
 	{
 		m_pProject->Save();
 	}
+}
+
+void GameStudio::on_actionOpen_Project_triggered()
+{
+	QFileDialog dlg(this);
+	dlg.setFileMode(QFileDialog::ExistingFile);
+	dlg.setNameFilter(tr("Project File (*.gp)"));
+	dlg.setAcceptMode(QFileDialog::AcceptOpen);
+
+	if(dlg.exec() == QFileDialog::Rejected)
+	{
+		return;
+	}
+
+	QString file = dlg.selectedFiles().at(0);
+	boost::filesystem::path filePath(file.toStdWString());
+
+	if(m_pProject != nullptr)
+	{
+		m_pProject->Save();
+		m_pProject->Close();
+	}
+
+	m_pProject = alloc_shared<Project>();
+	
+	if(m_pProject->Open(filePath) == false)
+	{
+		QMessageBox::critical(this, "Failed", "Failed to open project: " + file);
+		m_pProject->Close();
+		m_pProject.reset();
+		return;
+	}
+
+	AppContext::project = m_pProject;
+
+	logInfo("Project loaded.");
 }

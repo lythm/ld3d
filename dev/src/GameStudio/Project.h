@@ -9,7 +9,7 @@ public:
 	bool								Save();
 	void								Close();
 	bool								Save(const boost::filesystem::path& file);
-	void								Open();
+	bool								Open(const boost::filesystem::path& file);
 	bool								New(const boost::filesystem::path& file);
 
 	boost::filesystem::path				RelativeToRoot(const boost::filesystem::path& path);

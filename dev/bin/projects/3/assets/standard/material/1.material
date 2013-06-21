@@ -1,0 +1,15 @@
+<?xml version='1.0'?>
+<material name="mat1">
+
+	<tech name="t1">
+		<pass name="p1">
+
+			<state name="fillmode">solid</state>
+
+
+			<vertex_shader src="1.vs" entry="main" profile="vs_5_0" />
+			<pixel_shader src="1.ps" entry="main" profile="ps_5_0" />
+		</pass>
+	</tech>
+
+</material>
