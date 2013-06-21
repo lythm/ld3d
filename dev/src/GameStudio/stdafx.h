@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <iostream>
 
 #include "types\dllexport.h"
 #include "types\types.h"
@@ -31,8 +32,9 @@ class GridMesh;
 class EditorCamera;
 class GameScene;
 class GameEngine;
+class GameEditor;
 
-
+typedef std::shared_ptr<GameEditor>					GameEditorPtr;
 typedef std::shared_ptr<GameEngine>					GameEnginePtr;
 typedef std::shared_ptr<GameScene>					GameScenePtr;
 typedef std::shared_ptr<EditorCamera>				EditorCameraPtr;
@@ -48,11 +50,11 @@ extern ld3d::PoolAllocator							g_Allocator;
 template<typename T>
 inline std::shared_ptr<T> alloc_shared()
 {
-	return std::allocate_shared<T, ld3d::std_allocator_adapter<T>>(&g_Allocator);
+	return std::allocate_shared<T, ld3d::std_allocator_adapter<T>>(ld3d::std_allocator_adapter<T>(&g_Allocator));
 }
 
 template<typename T, typename arg_T>
 inline std::shared_ptr<T> alloc_shared(arg_T&& arg)
 {
-	return std::allocate_shared<T, ld3d::std_allocator_adapter<T>, arg_T>(&g_Allocator, arg);
+	return std::allocate_shared<T, ld3d::std_allocator_adapter<T>, arg_T>(ld3d::std_allocator_adapter<T>(&g_Allocator), arg);
 }

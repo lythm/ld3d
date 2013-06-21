@@ -28,6 +28,7 @@ namespace ld3d
 
 		if(pHandlers == nullptr)
 		{
+
 			pHandlers = std::shared_ptr<Signal>(new Signal);
 			m_HandlerMap[id] = pHandlers;
 		}
@@ -36,6 +37,10 @@ namespace ld3d
 	}
 	void EventDispatcher::Clear()
 	{
+		for(auto v : m_HandlerMap)
+		{
+			v.second->disconnect_all_slots();
+		}
 		m_HandlerMap.clear();
 	}
 	void EventDispatcher::RemoveEventHandler(EventHandlerHandle handler)

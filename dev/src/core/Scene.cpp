@@ -106,7 +106,10 @@ namespace ld3d
 
 		while(pChild)
 		{
-			SerializeObject(pChild, pStream);
+			if(false == SerializeObject(pChild, pStream))
+			{
+				return false;
+			}
 			pChild = pChild->GetNextNode();
 		}
 
@@ -134,6 +137,7 @@ namespace ld3d
 			GameObjectComponentPtr pCom = m_pObjectManager->CreateComponent(comName);
 			if(pCom == nullptr)
 			{
+				log(L"failed to create component: " + comName);
 				return false;
 			}
 			pObj->AddComponent(pCom);
@@ -151,7 +155,12 @@ namespace ld3d
 		for(uint16 i = 0; i < nChild; ++i)
 		{
 			GameObjectPtr pChild = m_pObjectManager->CreateGameObject(L"");
-			UnSerializeObject(pChild, pStream);
+			if(false == UnSerializeObject(pChild, pStream))
+			{
+				pChild->Clear();
+				pChild.reset();
+				return false;
+			}
 			pChild->LinkTo(pObj);
 		}
 		

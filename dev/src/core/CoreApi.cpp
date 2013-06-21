@@ -141,6 +141,13 @@ namespace ld3d
 			m_pScene->Release();
 			m_pScene.reset();
 		}
+
+		if(m_pEventDispatcher)
+		{
+			m_pEventDispatcher->Clear();
+			m_pEventDispatcher.reset();
+		}
+
 		if(m_pObjectManager)
 		{
 			m_pObjectManager->Release();
@@ -188,11 +195,7 @@ namespace ld3d
 
 		m_pSysManager.reset();
 
-		if(m_pEventDispatcher)
-		{
-			m_pEventDispatcher->Clear();
-			m_pEventDispatcher.reset();
-		}
+		
 
 		if(m_pSysTime)
 		{

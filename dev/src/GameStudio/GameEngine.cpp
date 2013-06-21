@@ -3,7 +3,7 @@
 #include "AppContext.h"
 #include "form_preview.h"
 #include "form_scene.h"
-
+#include "DT_GameObjectMonitor.h"
 
 GameEngine::GameEngine(void)
 {
