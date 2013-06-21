@@ -50,8 +50,6 @@ GameStudio::GameStudio(QWidget *parent)
 	AppContext::form_preview = m_pPreviewForm;
 	AppContext::form_log = m_pLogForm;
 
-	QObject::connect(menuFile, SIGNAL(aboutToShow()), this, SLOT(on_menufile_abouttoshow()));
-
 }
 
 GameStudio::~GameStudio()
@@ -100,7 +98,7 @@ void GameStudio::logBuild(const QString& str)
 {
 	m_pLogForm->logBuild(str);
 }
-void GameStudio::on_menufile_abouttoshow()
+void GameStudio::on_menuFile_aboutToShow()
 {
 	actionSave_Project->setEnabled(m_pProject != nullptr);
 	actionSave_Scene->setEnabled(m_pProject != nullptr);

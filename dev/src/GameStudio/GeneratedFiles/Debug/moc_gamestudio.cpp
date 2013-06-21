@@ -40,7 +40,7 @@ QT_MOC_LITERAL(6, 131, 29),
 QT_MOC_LITERAL(7, 161, 14),
 QT_MOC_LITERAL(8, 176, 4)
     },
-    "GameStudio\0on_menufile_abouttoshow\0\0"
+    "GameStudio\0on_menuFile_aboutToShow\0\0"
     "on_actionNew_Project_triggered\0"
     "on_actionSave_Project_triggered\0"
     "on_actionOpen_Project_triggered\0"
@@ -84,7 +84,7 @@ void GameStudio::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
     if (_c == QMetaObject::InvokeMetaMethod) {
         GameStudio *_t = static_cast<GameStudio *>(_o);
         switch (_id) {
-        case 0: _t->on_menufile_abouttoshow(); break;
+        case 0: _t->on_menuFile_aboutToShow(); break;
         case 1: _t->on_actionNew_Project_triggered(); break;
         case 2: _t->on_actionSave_Project_triggered(); break;
         case 3: _t->on_actionOpen_Project_triggered(); break;

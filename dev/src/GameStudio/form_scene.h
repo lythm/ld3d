@@ -14,7 +14,8 @@ public:
 
 	void						timerEvent(QTimerEvent* event);
 	void						resizeEvent(QResizeEvent* e);
-
+	void						mouseMoveEvent(QMouseEvent* e);
+	void						wheelEvent(QWheelEvent* e);
 private:
 	int							m_timer;
 };

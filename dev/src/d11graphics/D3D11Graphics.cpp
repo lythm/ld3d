@@ -376,8 +376,6 @@ namespace ld3d
 
 		m_pContext->OMSetRenderTargets(1, &pRTViews, pDSView);
 
-		ResizeFrameBuffer(m_pCurrentRW->GetWidth(), m_pCurrentRW->GetHeight());
-		SetViewPort(0, 0, m_pCurrentRW->GetWidth(), m_pCurrentRW->GetHeight());
 	}
 
 	TexturePtr D3D11Graphics::CreateTexture(TEXTURE_TYPE type, G_FORMAT format, int w, int h)

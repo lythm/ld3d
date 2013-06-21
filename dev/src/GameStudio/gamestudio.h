@@ -28,7 +28,7 @@ public:
 	
 
 	public slots:
-	void							on_menufile_abouttoshow();
+	void							on_menuFile_aboutToShow();
 	void							on_actionNew_Project_triggered();
 
 	void							on_actionSave_Project_triggered();

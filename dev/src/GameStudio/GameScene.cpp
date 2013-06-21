@@ -143,6 +143,8 @@ void GameScene::Update()
 void GameScene::Render()
 {
 	m_pCore->Render();
-	m_pCore->Present();
 	m_pCore->ClearRenderQueue();
+
+	m_pCore->Present();
+	
 }

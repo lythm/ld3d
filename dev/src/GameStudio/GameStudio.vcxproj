@@ -163,6 +163,7 @@
     <ClCompile Include="form_preview.cpp" />
     <ClCompile Include="form_projectwizard.cpp" />
     <ClCompile Include="form_scene.cpp" />
+    <ClCompile Include="GameEditor.cpp" />
     <ClCompile Include="GameEngine.cpp" />
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="gamestudio.cpp" />
@@ -435,6 +436,7 @@
     </CustomBuild>
     <ClInclude Include="AppContext.h" />
     <ClInclude Include="EditorCamera.h" />
+    <ClInclude Include="GameEditor.h" />
     <ClInclude Include="GameEngine.h" />
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="GeneratedFiles\ui_form_hierarchy.h" />

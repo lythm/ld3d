@@ -35,3 +35,11 @@ void Form_Scene::resizeEvent(QResizeEvent* e)
 {
 	QMdiSubWindow::resizeEvent(e);
 }
+void Form_Scene::mouseMoveEvent(QMouseEvent* e)
+{
+	QMdiSubWindow::mouseMoveEvent(e);
+}
+void Form_Scene::wheelEvent(QWheelEvent* e)
+{
+	QMdiSubWindow::wheelEvent(e);
+}
