@@ -39,21 +39,26 @@ public:
             Form_Log->setObjectName(QStringLiteral("Form_Log"));
         Form_Log->resize(766, 224);
         gridLayout = new QGridLayout(Form_Log);
-        gridLayout->setSpacing(6);
+        gridLayout->setSpacing(1);
         gridLayout->setContentsMargins(11, 11, 11, 11);
         gridLayout->setObjectName(QStringLiteral("gridLayout"));
+        gridLayout->setContentsMargins(1, 1, 1, 1);
         tabWidget = new QTabWidget(Form_Log);
         tabWidget->setObjectName(QStringLiteral("tabWidget"));
         tabWidget->setTabPosition(QTabWidget::South);
         tabWidget->setTabShape(QTabWidget::Triangular);
+        tabWidget->setElideMode(Qt::ElideNone);
         tabInfo = new QWidget();
         tabInfo->setObjectName(QStringLiteral("tabInfo"));
         gridLayout_2 = new QGridLayout(tabInfo);
-        gridLayout_2->setSpacing(6);
+        gridLayout_2->setSpacing(1);
         gridLayout_2->setContentsMargins(11, 11, 11, 11);
         gridLayout_2->setObjectName(QStringLiteral("gridLayout_2"));
+        gridLayout_2->setContentsMargins(1, 1, 1, 1);
         textInfo = new QPlainTextEdit(tabInfo);
         textInfo->setObjectName(QStringLiteral("textInfo"));
+        textInfo->setFrameShape(QFrame::NoFrame);
+        textInfo->setFrameShadow(QFrame::Plain);
         textInfo->setReadOnly(true);
 
         gridLayout_2->addWidget(textInfo, 0, 0, 1, 1);
@@ -62,11 +67,14 @@ public:
         tabBuild = new QWidget();
         tabBuild->setObjectName(QStringLiteral("tabBuild"));
         gridLayout_3 = new QGridLayout(tabBuild);
-        gridLayout_3->setSpacing(6);
+        gridLayout_3->setSpacing(1);
         gridLayout_3->setContentsMargins(11, 11, 11, 11);
         gridLayout_3->setObjectName(QStringLiteral("gridLayout_3"));
+        gridLayout_3->setContentsMargins(1, 1, 1, 1);
         textBuild = new QPlainTextEdit(tabBuild);
         textBuild->setObjectName(QStringLiteral("textBuild"));
+        textBuild->setFrameShape(QFrame::NoFrame);
+        textBuild->setFrameShadow(QFrame::Plain);
         textBuild->setReadOnly(true);
 
         gridLayout_3->addWidget(textBuild, 0, 0, 1, 1);

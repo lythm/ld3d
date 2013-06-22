@@ -23,10 +23,12 @@ public:
 	void							logBuild(const QString& str);
 	
 
+	void							on_idle();
+
 	public slots:
 	void							on_menuFile_aboutToShow();
 	void							on_actionNew_Project_triggered();
-
+	void							on_actionClose_Project_triggered();
 	void							on_actionSave_Project_triggered();
 	void							on_actionOpen_Project_triggered();
 	void							on_mdiArea_subWindowActivated(QMdiSubWindow* pSub);
@@ -34,7 +36,6 @@ public:
 
 	Form_Scene*						GetFormScene();
 private:
-	void							timerEvent(QTimerEvent* e);
 	void							showEvent(QShowEvent* e);
 	void							closeEvent(QCloseEvent *pEvent);
 private:
@@ -47,7 +48,6 @@ private:
 
 
 	GameEditorPtr					m_pEditor;
-	int								m_updateTimer;
 };
 
 #endif // GAMESTUDIO_H

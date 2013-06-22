@@ -45,7 +45,7 @@ typedef std::shared_ptr<Project>					ProjectPtr;
 
 
 extern ld3d::PoolAllocator							g_Allocator;
-
+extern bool											g_app_running;
 
 template<typename T>
 inline std::shared_ptr<T> alloc_shared()

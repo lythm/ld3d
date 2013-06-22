@@ -155,8 +155,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AppContext.cpp" />
-    <ClCompile Include="DT_GameObjectMonitor.cpp" />
-    <ClCompile Include="EditorCamera.cpp" />
     <ClCompile Include="form_hierarchy.cpp" />
     <ClCompile Include="form_inspector.cpp" />
     <ClCompile Include="form_log.cpp" />
@@ -261,7 +259,6 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="OrbitCamera.cpp" />
     <ClCompile Include="Project.cpp" />
-    <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -436,8 +433,6 @@
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_XML_LIB -DQT_XMLPATTERNS_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtXml" "-I$(QTDIR)\include\QtXmlPatterns" "-I.\..\..\include" "-I$(NOINHERIT)\." "-fstdafx.h" "-f../../form_inspector.h"</Command>
     </CustomBuild>
     <ClInclude Include="AppContext.h" />
-    <ClInclude Include="DT_GameObjectMonitor.h" />
-    <ClInclude Include="EditorCamera.h" />
     <ClInclude Include="GameEditor.h" />
     <ClInclude Include="GameEngine.h" />
     <ClInclude Include="GameScene.h" />
@@ -469,7 +464,6 @@
     <ClInclude Include="GridMesh.h" />
     <ClInclude Include="OrbitCamera.h" />
     <ClInclude Include="Project.h" />
-    <ClInclude Include="Renderer.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>

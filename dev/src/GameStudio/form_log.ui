@@ -14,6 +14,21 @@
    <string>Form_Log</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
+   <property name="leftMargin">
+    <number>1</number>
+   </property>
+   <property name="topMargin">
+    <number>1</number>
+   </property>
+   <property name="rightMargin">
+    <number>1</number>
+   </property>
+   <property name="bottomMargin">
+    <number>1</number>
+   </property>
+   <property name="spacing">
+    <number>1</number>
+   </property>
    <item row="0" column="0">
     <widget class="QTabWidget" name="tabWidget">
      <property name="tabPosition">
@@ -25,13 +40,37 @@
      <property name="currentIndex">
       <number>0</number>
      </property>
+     <property name="elideMode">
+      <enum>Qt::ElideNone</enum>
+     </property>
      <widget class="QWidget" name="tabInfo">
       <attribute name="title">
        <string>Infomation</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_2">
+       <property name="leftMargin">
+        <number>1</number>
+       </property>
+       <property name="topMargin">
+        <number>1</number>
+       </property>
+       <property name="rightMargin">
+        <number>1</number>
+       </property>
+       <property name="bottomMargin">
+        <number>1</number>
+       </property>
+       <property name="spacing">
+        <number>1</number>
+       </property>
        <item row="0" column="0">
         <widget class="QPlainTextEdit" name="textInfo">
+         <property name="frameShape">
+          <enum>QFrame::NoFrame</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Plain</enum>
+         </property>
          <property name="readOnly">
           <bool>true</bool>
          </property>
@@ -44,8 +83,29 @@
        <string>Build</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_3">
+       <property name="leftMargin">
+        <number>1</number>
+       </property>
+       <property name="topMargin">
+        <number>1</number>
+       </property>
+       <property name="rightMargin">
+        <number>1</number>
+       </property>
+       <property name="bottomMargin">
+        <number>1</number>
+       </property>
+       <property name="spacing">
+        <number>1</number>
+       </property>
        <item row="0" column="0">
         <widget class="QPlainTextEdit" name="textBuild">
+         <property name="frameShape">
+          <enum>QFrame::NoFrame</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Plain</enum>
+         </property>
          <property name="readOnly">
           <bool>true</bool>
          </property>

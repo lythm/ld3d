@@ -19,11 +19,16 @@ GameEditor::~GameEditor(void)
 }
 bool GameEditor::Initialize()
 {
+	m_pMainWnd->GetFormScene()->InstallDelegates(shared_from_this());
+
 	m_pCamera = alloc_shared<OrbitCamera>();
+
+
 	return true;
 }
 void GameEditor::Release()
 {
+	m_pMainWnd->GetFormScene()->UnInstallDelegates();
 	if(m_pProject)
 	{
 		m_pProject->Close();
@@ -39,6 +44,8 @@ void GameEditor::Release()
 }
 void GameEditor::Reset()
 {
+	Release();
+	Initialize();
 }
 
 bool GameEditor::ResetEngine()
@@ -130,4 +137,48 @@ ProjectPtr GameEditor::GetProject()
 bool GameEditor::SaveProject()
 {
 	return m_pProject->Save();
+}
+
+void GameEditor::on_resize(QResizeEvent* e)
+{
+	QSize size = e->size();
+
+	m_pCamera->SetViewPort(size.width(), size.height());
+	if(m_pEngine)
+	{
+		m_pEngine->Resize(size.width(), size.height());
+	}
+}
+void GameEditor::on_mouse_move(QMouseEvent* e)
+{
+	using namespace math;
+	QPoint point = e->pos();
+	static QPoint lastpt = point;
+	QPoint delta = point - lastpt;
+
+	if(e->buttons() & Qt::MiddleButton && e->modifiers() & Qt::ControlModifier)
+	{
+		m_pCamera->Rotate(delta.x(), delta.y());
+	}
+	else if(e->buttons() & Qt::MiddleButton)
+	{
+		m_pCamera->Move(delta.x(), delta.y());
+	}
+	lastpt = point;
+
+	//m_pMainWnd->logInfo("mouse move");
+}
+void GameEditor::on_mouse_wheel(QWheelEvent* e)
+{
+	m_pCamera->Zoom(e->delta());
+}
+void GameEditor::on_mouse_press(QMouseEvent* e)
+{
+}
+void GameEditor::on_mouse_release(QMouseEvent* e)
+{
+}
+void GameEditor::on_idle()
+{
+	Update();
 }

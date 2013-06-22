@@ -12,12 +12,33 @@ public:
 	Form_Scene(QWidget *parent = 0);
 	~Form_Scene();
 
-	void						timerEvent(QTimerEvent* event);
-	void						resizeEvent(QResizeEvent* e);
-	void						mouseMoveEvent(QMouseEvent* e);
-	void						wheelEvent(QWheelEvent* e);
+	void													timerEvent(QTimerEvent* event);
+	void													resizeEvent(QResizeEvent* e);
+	void													mouseMoveEvent(QMouseEvent* e);
+	void													wheelEvent(QWheelEvent* e);
+	void													mousePressEvent(QMouseEvent* e);
+	void													mouseReleaseEvent(QMouseEvent* e);
+
+
+	void													InstallDelegates(GameEditorPtr pEditor);
+	void													UnInstallDelegates();
+
+	std::function<void(QResizeEvent*)>						on_resize;
+	std::function<void(QMouseEvent*)>						on_mouse_move;
+	std::function<void(QWheelEvent*)>						on_mouse_wheel;
+	std::function<void(QMouseEvent*)>						on_mouse_press;
+	std::function<void(QMouseEvent*)>						on_mouse_release;
+
+
 private:
-	int							m_timer;
+	template<typename F, typename E>
+	void													_call(F f, E e)
+	{
+		f ? f(e) : 0;
+	}
+private:
+	int														m_timer;
+
 };
 
 #endif // FORM_SCENE_H

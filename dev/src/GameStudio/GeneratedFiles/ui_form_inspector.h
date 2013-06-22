@@ -45,6 +45,9 @@ public:
         formLayout->setContentsMargins(11, 11, 11, 11);
         formLayout->setObjectName(QStringLiteral("formLayout"));
         formLayout->setFieldGrowthPolicy(QFormLayout::ExpandingFieldsGrow);
+        formLayout->setHorizontalSpacing(1);
+        formLayout->setVerticalSpacing(1);
+        formLayout->setContentsMargins(1, 1, 1, 1);
         label = new QLabel(Form_Inspector);
         label->setObjectName(QStringLiteral("label"));
         label->setMinimumSize(QSize(100, 0));

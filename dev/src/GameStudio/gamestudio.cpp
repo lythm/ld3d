@@ -59,7 +59,7 @@ GameStudio::GameStudio(QWidget *parent)
 		return;
 	}
 
-	m_updateTimer = startTimer(10);
+	//m_updateTimer = startTimer(10);
 }
 
 GameStudio::~GameStudio()
@@ -68,7 +68,8 @@ GameStudio::~GameStudio()
 }
 void GameStudio::closeEvent(QCloseEvent *pEvent)
 {
-	killTimer(m_updateTimer);
+	g_app_running = false;
+	//killTimer(m_updateTimer);
 	
 	if(m_pEditor)
 	{
@@ -162,13 +163,17 @@ void GameStudio::showEvent(QShowEvent* e)
 	QMainWindow::showEvent(e);
 }
 
-void GameStudio::timerEvent(QTimerEvent* e)
-{
-	m_pEditor->Update();
-
-	QMainWindow::timerEvent(e);
-}
 Form_Scene* GameStudio::GetFormScene()
 {
 	return m_pSceneForm;
+}
+void GameStudio::on_idle()
+{
+	m_pEditor ? m_pEditor->on_idle() : 0;
+}
+void GameStudio::on_actionClose_Project_triggered()
+{
+	m_pEditor->Reset();
+
+	m_pSceneForm->repaint();
 }

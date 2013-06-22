@@ -56,7 +56,6 @@ public:
     QWidget *dockWidgetContents;
     QDockWidget *dockLog;
     QWidget *dockWidgetContents_2;
-    QGridLayout *gridLayout_2;
     QDockWidget *dockInspector;
     QWidget *dockWidgetContents_3;
 
@@ -199,6 +198,7 @@ public:
 "{\n"
 "	background-color: rgb(56, 56, 56);\n"
 "}"));
+        GameStudioClass->setTabShape(QTabWidget::Triangular);
         GameStudioClass->setDockOptions(QMainWindow::AllowTabbedDocks);
         actionNew_Project = new QAction(GameStudioClass);
         actionNew_Project->setObjectName(QStringLiteral("actionNew_Project"));
@@ -223,9 +223,10 @@ public:
         centralWidget = new QWidget(GameStudioClass);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         gridLayout = new QGridLayout(centralWidget);
-        gridLayout->setSpacing(6);
+        gridLayout->setSpacing(1);
         gridLayout->setContentsMargins(11, 11, 11, 11);
         gridLayout->setObjectName(QStringLiteral("gridLayout"));
+        gridLayout->setContentsMargins(1, 1, 1, 1);
         mdiArea = new QMdiArea(centralWidget);
         mdiArea->setObjectName(QStringLiteral("mdiArea"));
         mdiArea->setStyleSheet(QStringLiteral(""));
@@ -288,10 +289,6 @@ public:
 "}"));
         dockWidgetContents_2 = new QWidget();
         dockWidgetContents_2->setObjectName(QStringLiteral("dockWidgetContents_2"));
-        gridLayout_2 = new QGridLayout(dockWidgetContents_2);
-        gridLayout_2->setSpacing(6);
-        gridLayout_2->setContentsMargins(11, 11, 11, 11);
-        gridLayout_2->setObjectName(QStringLiteral("gridLayout_2"));
         dockLog->setWidget(dockWidgetContents_2);
         GameStudioClass->addDockWidget(static_cast<Qt::DockWidgetArea>(8), dockLog);
         dockInspector = new QDockWidget(GameStudioClass);

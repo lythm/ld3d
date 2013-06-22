@@ -2,7 +2,7 @@
 
 class GameStudio;
 
-class GameEditor
+class GameEditor : public std::enable_shared_from_this<GameEditor>
 {
 public:
 	GameEditor(GameStudio* pMainWnd);
@@ -21,7 +21,14 @@ public:
 	void														Update();
 
 	ProjectPtr													GetProject();
+	void														on_resize(QResizeEvent* e);
+	void														on_mouse_move(QMouseEvent* e);
+	void														on_mouse_wheel(QWheelEvent* e);
+	void														on_mouse_press(QMouseEvent* e);
+	void														on_mouse_release(QMouseEvent* e);;
 
+
+	void														on_idle();
 private:
 	bool														ResetEngine();
 

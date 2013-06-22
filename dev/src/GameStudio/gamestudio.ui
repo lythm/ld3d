@@ -148,11 +148,29 @@ QTreeView
 	background-color: rgb(56, 56, 56);
 }</string>
   </property>
+  <property name="tabShape">
+   <enum>QTabWidget::Triangular</enum>
+  </property>
   <property name="dockOptions">
    <set>QMainWindow::AllowTabbedDocks</set>
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout">
+    <property name="leftMargin">
+     <number>1</number>
+    </property>
+    <property name="topMargin">
+     <number>1</number>
+    </property>
+    <property name="rightMargin">
+     <number>1</number>
+    </property>
+    <property name="bottomMargin">
+     <number>1</number>
+    </property>
+    <property name="spacing">
+     <number>1</number>
+    </property>
     <item row="0" column="0">
      <widget class="QMdiArea" name="mdiArea">
       <property name="styleSheet">
@@ -300,9 +318,7 @@ QTreeView
    <attribute name="dockWidgetArea">
     <number>8</number>
    </attribute>
-   <widget class="QWidget" name="dockWidgetContents_2">
-    <layout class="QGridLayout" name="gridLayout_2"/>
-   </widget>
+   <widget class="QWidget" name="dockWidgetContents_2"/>
   </widget>
   <widget class="QDockWidget" name="dockInspector">
    <property name="styleSheet">

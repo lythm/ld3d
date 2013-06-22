@@ -20,10 +20,14 @@ int main(int argc, char *argv[])
 	w.show();
 
 	screen.finish(&w);
-	int r = a.exec();
 
+	while(g_app_running)
+	{
+		a.processEvents();
+		w.on_idle();
+	}
 
 	g_Allocator.Release();
 
-	return r;
+	return 0;
 }

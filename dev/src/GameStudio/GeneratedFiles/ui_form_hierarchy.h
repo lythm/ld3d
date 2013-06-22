@@ -36,11 +36,14 @@ public:
 "	 background-color: rgb(56, 56, 56);\n"
 "}"));
         gridLayout = new QGridLayout(Form_Hierarchy);
-        gridLayout->setSpacing(6);
+        gridLayout->setSpacing(1);
         gridLayout->setContentsMargins(11, 11, 11, 11);
         gridLayout->setObjectName(QStringLiteral("gridLayout"));
+        gridLayout->setContentsMargins(1, 1, 1, 1);
         treeView = new QTreeView(Form_Hierarchy);
         treeView->setObjectName(QStringLiteral("treeView"));
+        treeView->setFrameShape(QFrame::NoFrame);
+        treeView->setFrameShadow(QFrame::Plain);
 
         gridLayout->addWidget(treeView, 0, 0, 1, 1);
 
