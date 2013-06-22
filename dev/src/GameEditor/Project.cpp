@@ -318,8 +318,8 @@ bool Project::InitEngine()
 	m_pCore->GetGameObjectManager()->LoadPackage(L"./extensions/ext_voxel_x86.dll");
 #endif
 	
-	m_pCore->GetGameObjectManager()->RegisterComponentClass(dt::DT_GameObjectMonitor::GetClass());
-	m_pCore->GetGameObjectManager()->RegisterComponentClass(dt::DT_VoxelWorldEditor::GetClass());
+	//m_pCore->GetGameObjectManager()->RegisterComponentClass(dt::DT_GameObjectMonitor::GetClass());
+	//m_pCore->GetGameObjectManager()->RegisterComponentClass(dt::DT_VoxelWorldEditor::GetClass());
 
 
 

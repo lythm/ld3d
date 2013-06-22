@@ -15,7 +15,6 @@ namespace dt
 		void															AddMonitor(const Monitor& m);
 		void															Alert();
 
-		static ld3d::GameObjectComponentPtr								Create(ld3d::GameObjectManagerPtr pManager);
 		static ld3d::ExtPackage::ComponentClass*						GetClass();
 
 		

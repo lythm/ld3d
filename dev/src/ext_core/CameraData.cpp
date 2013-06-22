@@ -15,7 +15,7 @@ namespace ld3d
 	
 	bool CameraData::OnAttach()
 	{
-		m_pCamera = m_pManager->GetAllocator()->AllocObject<Camera>();
+		m_pCamera = m_pManager->alloc_object<Camera>();
 
 		float aspect = float(800) / float(600);
 		m_pCamera->PerspectiveFovLH(1.0f/ 4.0f * math::MATH_PI, aspect, 0.1f, 10000);

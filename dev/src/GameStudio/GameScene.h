@@ -21,9 +21,7 @@ public:
 	ld3d::GameObjectComponentPtr				CreateGameObjectComponent(const std::wstring& name);
 
 	ld3d::GameObjectPtr							Root();
-
-	void										Update();
-	void										Render();
+	
 private:
 	void										AddDefaultLight();
 private:

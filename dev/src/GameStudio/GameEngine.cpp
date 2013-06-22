@@ -3,37 +3,30 @@
 #include "AppContext.h"
 #include "form_preview.h"
 #include "form_scene.h"
-#include "DT_GameObjectMonitor.h"
+#include "GridMesh.h"
+
 
 GameEngine::GameEngine(void)
 {
+	m_bShowGrid = true;
 }
 
 
 GameEngine::~GameEngine(void)
 {
 }
-bool GameEngine::Initialize()
+bool GameEngine::Initialize(QWidget* pTarget)
 {
 	using namespace ld3d;
+	using namespace math;
 
-	if(AppContext::form_scene == nullptr)
-	{
-		return false;
-	}
-
-	QSize size = AppContext::form_scene->size();
+	QSize size = pTarget->size();
 	int w = size.width();
 	int h = size.height();
 
 	m_pCore = CoreApiPtr(new CoreApi());
 
 	CoreApi::SetLogger(AppContext::log_info);
-
-	boost::filesystem::path root = AppContext::project_root();
-
-
-	boost::filesystem::path c = boost::filesystem::current_path();
 
 #ifdef _WIN64
 	SysSetting setting;
@@ -46,10 +39,10 @@ bool GameEngine::Initialize()
 	setting.graphics.multiSampleCount = 1;
 	setting.graphics.multiSampleQuality = 0;
 	setting.graphics.windowed = true;
-	setting.graphics.wnd = (HWND)AppContext::form_scene->winId();
+	setting.graphics.wnd = (void*)pTarget->winId();
 
 	setting.input.sysMod = L"";
-	setting.input.wnd = (HWND)AppContext::form_scene->winId();
+	setting.input.wnd = (void*)pTarget->winId();
 
 	setting.sound.maxChannels = 100;
 	setting.sound.sysMod = L"./fmod_sound_x64.dll";
@@ -86,6 +79,10 @@ bool GameEngine::Initialize()
 		return false;
 	}
 
+
+	m_pRenderManager = m_pCore->GetRenderManager();
+
+
 #ifdef _WIN64
 	m_pCore->GetGameObjectManager()->LoadPackage(L"./extensions/ext_voxel_x64.dll");
 
@@ -93,18 +90,29 @@ bool GameEngine::Initialize()
 	m_pCore->GetGameObjectManager()->LoadPackage(L"./extensions/ext_voxel_x86.dll");
 #endif
 	
-	//m_pCore->GetGameObjectManager()->RegisterComponentClass(dt::DT_GameObjectMonitor::GetClass());
-	//m_pCore->GetGameObjectManager()->RegisterComponentClass(dt::DT_VoxelWorldEditor::GetClass());
+	m_pRenderManager->SetClearColor(math::Color4(0.3f, 0.2f, 0.4f, 1.0f));
+	//m_pRenderManager->SetGlobalAmbient(math::Color4(0, 0, 0, 1.0f));
 
+	
 
+	m_pGrid = alloc_shared<GridMesh>();
 
-	m_pCore->GetRenderManager()->SetClearColor(math::Color4(0.3f, 0.2f, 0.4f, 1.0f));
-	//m_pCore->GetRenderManager()->SetGlobalAmbient(math::Color4(0, 0, 0, 1.0f));
+	if(false == m_pGrid->Init(m_pCore, 1000, 10))
+	{
+		return false;
+	}
+	
 	return true;
 }
 void GameEngine::Release()
 {
-	if(m_pCore != NULL)
+	if(m_pGrid)
+	{
+		m_pGrid->Release();
+		m_pGrid.reset();
+	}
+	
+	if(m_pCore != nullptr)
 	{
 		m_pCore->Release();
 		m_pCore.reset();
@@ -113,4 +121,38 @@ void GameEngine::Release()
 ld3d::CoreApiPtr GameEngine::GetCoreApi()
 {
 	return m_pCore;
+}
+
+void GameEngine::Update()
+{
+	m_pCore->Update();
+}
+void GameEngine::Render()
+{
+	m_bShowGrid ? m_pCore->AddRenderData(m_pGrid) : 0;
+
+	m_pCore->Render();
+	m_pCore->Present();
+	m_pCore->ClearRenderQueue();
+}
+void GameEngine::Render(ld3d::CameraPtr pCamera)
+{
+	m_bShowGrid ? m_pCore->AddRenderData(m_pGrid) : 0;
+
+	m_pCore->Render(pCamera);
+	m_pCore->Present();
+	m_pCore->ClearRenderQueue();
+}
+void GameEngine::Resize(int w, int h)
+{
+	m_pCore->GetRenderManager()->ResizeFrameBuffer(w, h);
+	m_pCore->GetSysGraphics()->SetViewPort(0, 0, w, h);
+}
+void GameEngine::ShowGrid(bool bShow)
+{
+	m_bShowGrid = bShow;
+}
+bool GameEngine::GridVisible()
+{
+	return m_bShowGrid;
 }

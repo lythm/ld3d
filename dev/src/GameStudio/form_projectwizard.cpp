@@ -18,18 +18,17 @@ Form_ProjectWizard::~Form_ProjectWizard()
 }
 void Form_ProjectWizard::on_browseBtn_clicked()
 {
-	QFileDialog dlg(this);
+	QString dir = QFileDialog::getExistingDirectory(this, "Project Location");
 
-	dlg.setFileMode(QFileDialog::Directory);
-	dlg.setOption(QFileDialog::ShowDirsOnly, true);
-
-	if(QDialog::Rejected == dlg.exec())
+	if(dir == "")
 	{
 		return;
 	}
 
-	QString s = dlg.selectedFiles().first();
-	locEdit->setText(s);
+	QSettings settings("GGUHA Ltd.", "Game Studio");
+	settings.setValue("last_project_location", dir);
+
+	locEdit->setText(dir);
 
 }
 void Form_ProjectWizard::on_createBtn_clicked()
@@ -58,10 +57,6 @@ void Form_ProjectWizard::on_createBtn_clicked()
 	boost::filesystem::create_directory(root);
 
 	m_filePath = root / boost::filesystem::path((name + ".gp").toStdWString());
-
-
-	QSettings settings("GGUHA Ltd.", "Game Studio");
-	settings.setValue("last_project_location", loc);
 
 	done(Accepted);
 }

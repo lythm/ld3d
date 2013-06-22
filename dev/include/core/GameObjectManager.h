@@ -4,7 +4,7 @@
 
 #include <boost\enable_shared_from_this.hpp>
 #include "core\EventDispatcher.h"
-
+#include "core/CoreApi.h"
 namespace ld3d
 {
 	class Allocator;
@@ -15,10 +15,10 @@ namespace ld3d
 		{
 		public:
 			PackageMod();
-			typedef ExtPackage*					(*Fn_CreatePackage)(CoreApiPtr pCore);
+			typedef ExtPackage*					(*Fn_CreatePackage)(GameObjectManagerPtr);
 			typedef void						(*Fn_DestroyPackage)(ExtPackage*);
 
-			bool								load_package(const wchar_t* file, CoreApiPtr pCore);
+			bool								load_package(const wchar_t* file, GameObjectManagerPtr pManager);
 			void								delete_package();
 
 			ExtPackage*							GetPackage();
@@ -37,10 +37,10 @@ namespace ld3d
 		void																Release();
 
 		bool																LoadPackage(const std::wstring& name);
-		
+
 		GameObjectPtr														CreateGameObject(const std::wstring& name);
 		GameObjectPtr														CreateObjectFromTemplate(const std::wstring& tpl);
-		
+
 		bool																RegisterTemplate(GameObjectTemplate* pTpl);
 
 		GameObjectComponentPtr												CreateComponent(const std::wstring& name);
@@ -73,6 +73,18 @@ namespace ld3d
 		RUN_MODE															GetRunMode();
 
 		DT_CoreApiPtr														GetDTCoreApi();
+
+		template<typename T> inline
+			std::shared_ptr<T>												alloc_object()
+		{
+			return std::allocate_shared<T, std_allocator_adapter<T> >(CoreApi::GetAllocator());
+		}
+
+		template<typename T, typename TP> inline
+			std::shared_ptr<T>												alloc_object(TP& p)
+		{
+			return std::allocate_shared<T, std_allocator_adapter<T> >(CoreApi::GetAllocator(), p);
+		}
 	private:
 
 

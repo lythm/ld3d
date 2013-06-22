@@ -33,7 +33,7 @@ namespace ld3d
 	{
 		m_pRenderManager = m_pManager->GetRenderManager();
 
-		m_pLight = m_pManager->GetAllocator()->AllocObject<DirectionalLight>();
+		m_pLight = m_pManager->alloc_object<DirectionalLight>();
 		m_pLight->Create(m_pRenderManager);
 
 		m_pRenderManager->AddLight(m_pLight);

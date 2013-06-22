@@ -151,7 +151,7 @@ namespace ld3d
 		{
 			m_pDataSet->Release();
 		}
-		m_pDataSet = VoxelWorldDataSetPtr(new VoxelWorldDataSet);
+		m_pDataSet = m_pManager->alloc_object<VoxelWorldDataSet>();
 
 		m_pDataSet->Initialize(m_worldSizeX, m_worldSizeY, m_worldSizeZ);
 		

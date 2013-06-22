@@ -49,4 +49,10 @@ namespace ld3d
 	private:
 
 	};
+
+	template <typename T>
+	inline GameObjectComponentPtr Create_Component(GameObjectManagerPtr pManager)
+	{
+		return pManager->alloc_object<T>(pManager);
+	}
 }

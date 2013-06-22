@@ -2,11 +2,14 @@
 #include "AppContext.h"
 #include "form_log.h"
 #include "Project.h"
+#include "GameEditor.h"
 
 Form_Scene*								AppContext::form_scene = nullptr;
 Form_Preview*							AppContext::form_preview = nullptr;
 ProjectPtr								AppContext::project = nullptr;
 Form_Log*								AppContext::form_log = nullptr;
+
+GameEditorPtr							AppContext::editor = nullptr;
 AppContext::AppContext(void)
 {
 }
@@ -31,4 +34,12 @@ boost::filesystem::path AppContext::project_root()
 	}
 
 	return project->RootPath();
+}
+GameEditorPtr AppContext::GameEditor()
+{
+	return editor;
+}
+bool AppContext::Initialize()
+{
+	return true;
 }

@@ -53,7 +53,7 @@ namespace ld3d
 		PropertySetPtr pSet = FindPropertySet(name);
 		if(pSet == nullptr)
 		{
-			pSet = m_pManager->GetAllocator()->AllocObject<PropertySet>(name);
+			pSet = m_pManager->alloc_object<PropertySet>(name);
 		}
 
 		m_PropSets.push_back(pSet);

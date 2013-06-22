@@ -1,7 +1,7 @@
 #include "core_pch.h"
 #include "..\..\include\core\EventDispatcher.h"
 #include "core\Event.h"
-
+#include "core_utils.h"
 namespace ld3d
 {
 	EventDispatcher::EventDispatcher(void)
@@ -29,7 +29,7 @@ namespace ld3d
 		if(pHandlers == nullptr)
 		{
 
-			pHandlers = std::shared_ptr<Signal>(new Signal);
+			pHandlers = alloc_object<Signal>();
 			m_HandlerMap[id] = pHandlers;
 		}
 
@@ -39,7 +39,10 @@ namespace ld3d
 	{
 		for(auto v : m_HandlerMap)
 		{
-			v.second->disconnect_all_slots();
+			if(v.second)
+			{
+				v.second->disconnect_all_slots();
+			}
 		}
 		m_HandlerMap.clear();
 	}

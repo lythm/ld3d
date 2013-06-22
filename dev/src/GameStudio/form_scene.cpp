@@ -19,16 +19,7 @@ Form_Scene::~Form_Scene()
 }
 void Form_Scene::timerEvent(QTimerEvent* event)
 {
-	if(AppContext::project)
-	{
-		GameScenePtr pScene = AppContext::project->GetGameScene();
-		if(pScene)
-		{
-
-			pScene->Update();
-			pScene->Render();
-		}
-	}
+	
 	QMdiSubWindow::timerEvent(event);
 }
 void Form_Scene::resizeEvent(QResizeEvent* e)

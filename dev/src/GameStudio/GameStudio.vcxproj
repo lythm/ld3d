@@ -259,6 +259,7 @@
     </ClCompile>
     <ClCompile Include="GridMesh.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="OrbitCamera.cpp" />
     <ClCompile Include="Project.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -466,6 +467,7 @@
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_XML_LIB -DQT_XMLPATTERNS_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtXml" "-I$(QTDIR)\include\QtXmlPatterns" "-I.\..\..\include" "-I$(NOINHERIT)\." "-fstdafx.h" "-f../../gamestudio.h"</Command>
     </CustomBuild>
     <ClInclude Include="GridMesh.h" />
+    <ClInclude Include="OrbitCamera.h" />
     <ClInclude Include="Project.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="resource.h" />

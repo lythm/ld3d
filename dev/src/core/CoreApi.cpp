@@ -19,7 +19,7 @@
 
 #include "WMInput.h"
 #include "core\Sys_Sound.h"
-
+#include "core_utils.h"
 
 #include "Time64.h"
 
@@ -65,10 +65,10 @@ namespace ld3d
 		{
 			s_pAllocator = &g_stdAllocator;
 		}
-		m_pSysTime = s_pAllocator->AllocObject<Time64>();
+		m_pSysTime = alloc_object<Time64>();
 		m_pSysTime->Start();
-		m_pEventDispatcher = s_pAllocator->AllocObject<EventDispatcher>();
-		m_pSysManager = s_pAllocator->AllocObject<SysManager>();
+		m_pEventDispatcher = alloc_object<EventDispatcher>();
+		m_pSysManager = alloc_object<SysManager>();
 		m_pSysGraphics = m_pSysManager->LoadSysGraphics(setting.graphics.sysMod.c_str());
 		
 		if(m_pSysGraphics == Sys_GraphicsPtr())
@@ -80,7 +80,7 @@ namespace ld3d
 			return false;
 		}
 
-		m_pSysInput = s_pAllocator->AllocObject<WMInput>();
+		m_pSysInput = alloc_object<WMInput>();
 
 		if(false == m_pSysInput->Initialize(setting.input.wnd))
 		{
@@ -98,20 +98,20 @@ namespace ld3d
 		{
 			return false;
 		}
-		m_pTimerManager = s_pAllocator->AllocObject<TimerManager>();
+		m_pTimerManager = alloc_object<TimerManager>();
 
 		if(m_pTimerManager->Init(m_pSysTime) == false)
 		{
 			return false;
 		}
 
-		m_pAssetManager = s_pAllocator->AllocObject<AssetManager>();
+		m_pAssetManager = alloc_object<AssetManager>();
 		if(m_pAssetManager->Initialize(m_pSysGraphics, m_pSysSound) == false)
 		{
 			return false;
 		}
 
-		m_pRenderManager = s_pAllocator->AllocObject<RenderManager>();
+		m_pRenderManager = alloc_object<RenderManager>();
 		if(m_pRenderManager->Initialize(m_pSysGraphics, m_pEventDispatcher) == false)
 		{
 			return false;
@@ -120,13 +120,13 @@ namespace ld3d
 
 		
 
-		m_pObjectManager = s_pAllocator->AllocObject<GameObjectManager>();
+		m_pObjectManager = alloc_object<GameObjectManager>();
 		if(m_pObjectManager->Initialize(shared_from_this()) == false)
 		{
 			return false;
 		}
 
-		m_pScene = s_pAllocator->AllocObject<Scene, GameObjectManagerPtr>(m_pObjectManager);
+		m_pScene = alloc_object<Scene>(m_pObjectManager);
 
 
 
@@ -219,7 +219,7 @@ namespace ld3d
 	}
 	void CoreApi::HandleMessage(MSG& msg)
 	{
-		std::shared_ptr<Event_WindowMessage> pEvent = s_pAllocator->AllocObject<Event_WindowMessage, MSG>(msg);
+		std::shared_ptr<Event_WindowMessage> pEvent = alloc_object<Event_WindowMessage>(msg);
 		pEvent->msg = msg;
 
 		DispatchEvent(pEvent);

@@ -199,6 +199,7 @@ public:
 "{\n"
 "	background-color: rgb(56, 56, 56);\n"
 "}"));
+        GameStudioClass->setDockOptions(QMainWindow::AllowTabbedDocks);
         actionNew_Project = new QAction(GameStudioClass);
         actionNew_Project->setObjectName(QStringLiteral("actionNew_Project"));
         actionOpen_Project = new QAction(GameStudioClass);

@@ -7,7 +7,7 @@ namespace dt
 																						L"DT",
 																						L"Voxel World Editor",
 
-																						&DT_VoxelWorldEditor::Create);
+																						&ld3d::Create_Component<DT_VoxelWorldEditor>);
 	DT_VoxelWorldEditor::DT_VoxelWorldEditor(ld3d::GameObjectManagerPtr pManager) : GameObjectComponent(L"DT_VoxelWorldEditor", pManager)
 	{
 		SetVersion(ld3d::Version(0, 0, 0, 1));
@@ -21,11 +21,4 @@ namespace dt
 	{
 		return &s_class;
 	}
-	ld3d::GameObjectComponentPtr DT_VoxelWorldEditor::Create(ld3d::GameObjectManagerPtr pManager)
-	{
-		using namespace ld3d;
-
-		return GameObjectComponentPtr(new DT_VoxelWorldEditor(pManager));
-	}
-	
 }

@@ -8,7 +8,7 @@ namespace ld3d
 	class VoxelPackage : public ExtPackage
 	{
 	public:
-		VoxelPackage(CoreApiPtr pCore);
+		VoxelPackage(GameObjectManagerPtr pManager);
 		virtual ~VoxelPackage(void);
 
 		
@@ -21,17 +21,10 @@ namespace ld3d
 		GameObjectTemplate*					GetTemplateByIndex(int index);
 
 		void								Release();
-	private:
 		
-		static GameObjectComponentPtr		Create_VoxelWorldGenerator(GameObjectManagerPtr pManager);
-		static GameObjectComponentPtr		Create_VoxelWorld(GameObjectManagerPtr pManager);
-		static GameObjectComponentPtr		Create_VoxelWorldRenderer(GameObjectManagerPtr pManager);
-
-		static GameObjectComponentPtr		Create_VoxelObject(GameObjectManagerPtr pManager);
-		static GameObjectComponentPtr		Create_VoxelObjectRenderer(GameObjectManagerPtr pManager);
 	private:
 
-		CoreApiPtr							m_pCore;
+		GameObjectManagerPtr				m_pManager;
 		std::vector<ComponentClass>			m_classes;
 		std::vector<GameObjectTemplate*>	m_tpls;
 	};

@@ -8,7 +8,6 @@ namespace dt
 		DT_VoxelWorldEditor(ld3d::GameObjectManagerPtr pManager);
 		virtual ~DT_VoxelWorldEditor(void);
 
-		static ld3d::GameObjectComponentPtr								Create(ld3d::GameObjectManagerPtr pManager);
 		static ld3d::ExtPackage::ComponentClass*						GetClass();
 
 	private:

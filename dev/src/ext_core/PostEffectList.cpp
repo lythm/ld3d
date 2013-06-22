@@ -19,13 +19,13 @@ namespace ld3d
 	
 	bool PostEffectList::OnAttach()
 	{
-		m_pSSAO = m_pManager->GetAllocator()->AllocObject<PostEffect_SSAO>();
+		m_pSSAO = m_pManager->alloc_object<PostEffect_SSAO>();
 
 		m_pSSAO->Initialize(m_pManager->GetRenderManager());
 		
 		m_pManager->GetRenderManager()->AddPostEffect(m_pSSAO);
 
-		m_pGBlur = m_pManager->GetAllocator()->AllocObject<PostEffect_GaussianBlur>();
+		m_pGBlur = m_pManager->alloc_object<PostEffect_GaussianBlur>();
 		m_pGBlur->Initialize(m_pManager->GetRenderManager());
 		//m_pManager->GetRenderManager()->AddPostEffect(m_pGBlur);
 

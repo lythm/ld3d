@@ -5,8 +5,9 @@
 #include "AppContext.h"
 #include <QtXml/qdom.h>
 
-Project::Project(void)
+Project::Project(GameEnginePtr pEngine)
 {
+	m_pEngine = pEngine;
 }
 
 
@@ -20,11 +21,7 @@ void Project::Close()
 		m_pScene->Close();
 		m_pScene.reset();
 	}
-	if(m_pEngine)
-	{
-		m_pEngine->Release();
-		m_pEngine.reset();
-	}
+	
 }
 bool Project::Save(const boost::filesystem::path& file)
 {
@@ -92,12 +89,6 @@ bool Project::Open(const boost::filesystem::path& file)
 		return false;
 	}
 	QString text = s.at(0).toElement().text();
-
-	m_pEngine = alloc_shared<GameEngine>();
-	if(m_pEngine->Initialize() == false)
-	{
-		return false;
-	}
 
 	m_pScene = alloc_shared<GameScene>(m_pEngine);
 
@@ -171,11 +162,6 @@ bool Project::New(const boost::filesystem::path& file)
 
 	RestoreProjectRoot();
 
-	m_pEngine = alloc_shared<GameEngine>();
-	if(m_pEngine->Initialize() == false)
-	{
-		return false;
-	}
 	m_pScene = alloc_shared<GameScene>(m_pEngine);
 
 	if(false == m_pScene->New())

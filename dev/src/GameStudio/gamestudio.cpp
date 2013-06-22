@@ -11,6 +11,7 @@
 #include "AppContext.h"
 
 #include "Project.h"
+#include "GameEditor.h"
 
 
 GameStudio::GameStudio(QWidget *parent)
@@ -50,21 +51,31 @@ GameStudio::GameStudio(QWidget *parent)
 	AppContext::form_preview = m_pPreviewForm;
 	AppContext::form_log = m_pLogForm;
 
+
+	m_pEditor = alloc_shared<GameEditor>((GameStudio*)this);
+
+	if(m_pEditor->Initialize() == false)
+	{
+		return;
+	}
+
+	m_updateTimer = startTimer(10);
 }
 
 GameStudio::~GameStudio()
 {
-	AppContext::project.reset();
-	m_pProject.reset();
 	
 }
 void GameStudio::closeEvent(QCloseEvent *pEvent)
 {
-	if(m_pProject)
+	killTimer(m_updateTimer);
+	
+	if(m_pEditor)
 	{
-		m_pProject->Close();
-		m_pProject.reset();
+		m_pEditor->Release();
+		m_pEditor.reset();
 	}
+
 	AppContext::project = nullptr;
 
 	QSettings settings("GGUHA Ltd.", "Game Studio");
@@ -73,23 +84,7 @@ void GameStudio::closeEvent(QCloseEvent *pEvent)
 
 	QMainWindow::closeEvent(pEvent);
 }
-bool GameStudio::event(QEvent *event)
-{
-	
-	int returnValue = QMainWindow::event(event);
 
-	/*if (event->type() == QEvent::Polish && event->spontaneous() == false)
-	{
-		Form_ProjectWizard dlg(this);
-
-		dlg.setModal(true);
-		dlg.exec();
-		return true;
-	}*/
-
-	return returnValue;
-
-}
 void GameStudio::logInfo(const QString& str)
 {
 	m_pLogForm->logInfo(str);
@@ -100,42 +95,30 @@ void GameStudio::logBuild(const QString& str)
 }
 void GameStudio::on_menuFile_aboutToShow()
 {
-	actionSave_Project->setEnabled(m_pProject != nullptr);
-	actionSave_Scene->setEnabled(m_pProject != nullptr);
-	actionSave_Scene_As->setEnabled(m_pProject != nullptr);
-	actionClose_Project->setEnabled(m_pProject != nullptr);
-	actionNew_Scene->setEnabled(m_pProject != nullptr);
-	actionOpen_Scene->setEnabled(m_pProject != nullptr);
+	bool show = m_pEditor->GetProject() != nullptr;
+
+	actionSave_Project->setEnabled(show);
+	actionSave_Scene->setEnabled(show);
+	actionSave_Scene_As->setEnabled(show);
+	actionClose_Project->setEnabled(show);
+	actionNew_Scene->setEnabled(show);
+	actionOpen_Scene->setEnabled(show);
 }
 void GameStudio::on_actionNew_Project_triggered()
 {
-	if(m_pProject != nullptr)
-	{
-		m_pProject->Save();
-		m_pProject->Close();
-	}
-
 	Form_ProjectWizard dlg(this);
 
 	if(QDialog::Rejected == dlg.exec())
 	{
 		return;
 	}
-
-
-
-	m_pProject = alloc_shared<Project>();
-	
-	if(m_pProject->New(dlg.ProjectFilePath()) == false)
+		
+	if(m_pEditor->NewProject(dlg.ProjectFilePath()) == false)
 	{
 		QMessageBox::critical(this, "Failed", "Failed to create new project: " + QString::fromStdWString(dlg.ProjectFilePath().wstring()));
-		m_pProject->Close();
-		m_pProject.reset();
 		return;
 	}
-
-	AppContext::project = m_pProject;
-
+	
 	logInfo("Project created.");
 }
 
@@ -148,44 +131,44 @@ void GameStudio::on_mdiArea_subWindowActivated(QMdiSubWindow* pSub)
 }
 void GameStudio::on_actionSave_Project_triggered()
 {
-	if(m_pProject)
-	{
-		m_pProject->Save();
-	}
+	m_pEditor->SaveProject();
+
 }
 
 void GameStudio::on_actionOpen_Project_triggered()
 {
-	QFileDialog dlg(this);
-	dlg.setFileMode(QFileDialog::ExistingFile);
-	dlg.setNameFilter(tr("Project File (*.gp)"));
-	dlg.setAcceptMode(QFileDialog::AcceptOpen);
 
-	if(dlg.exec() == QFileDialog::Rejected)
+	QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"),
+                                                QString(),
+                                                tr("Project File (*.gp)"));
+
+	if(fileName == "")
 	{
 		return;
 	}
 
-	QString file = dlg.selectedFiles().at(0);
-	boost::filesystem::path filePath(file.toStdWString());
+	boost::filesystem::path filePath(fileName.toStdWString());
 
-	if(m_pProject != nullptr)
+	if(m_pEditor->OpenProject(filePath) == false)
 	{
-		m_pProject->Save();
-		m_pProject->Close();
-	}
-
-	m_pProject = alloc_shared<Project>();
-	
-	if(m_pProject->Open(filePath) == false)
-	{
-		QMessageBox::critical(this, "Failed", "Failed to open project: " + file);
-		m_pProject->Close();
-		m_pProject.reset();
+		QMessageBox::critical(this, "Failed", "Failed to open project: " + fileName);
 		return;
 	}
-
-	AppContext::project = m_pProject;
-
 	logInfo("Project loaded.");
+}
+
+void GameStudio::showEvent(QShowEvent* e)
+{
+	QMainWindow::showEvent(e);
+}
+
+void GameStudio::timerEvent(QTimerEvent* e)
+{
+	m_pEditor->Update();
+
+	QMainWindow::timerEvent(e);
+}
+Form_Scene* GameStudio::GetFormScene()
+{
+	return m_pSceneForm;
 }

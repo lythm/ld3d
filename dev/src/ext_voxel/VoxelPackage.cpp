@@ -13,9 +13,9 @@
 #include "VoxelObjectTemplate.h"
 
 
-EXPORT_C_API ld3d::ExtPackage* CreatePackage(ld3d::CoreApiPtr pCore)
+EXPORT_C_API ld3d::ExtPackage* CreatePackage(ld3d::GameObjectManagerPtr pManager)
 {
-	return new ld3d::VoxelPackage(pCore);
+	return new ld3d::VoxelPackage(pManager);
 }
 
 
@@ -26,38 +26,38 @@ EXPORT_C_API void DestroyPackage(ld3d::ExtPackage* pPackage)
 
 namespace ld3d
 {
-	VoxelPackage::VoxelPackage(CoreApiPtr pCore)
+	VoxelPackage::VoxelPackage(GameObjectManagerPtr pManager)
 	{
 		
-		m_pCore = pCore;
+		m_pManager = pManager;
 
 		m_classes.push_back(ComponentClass(L"VoxelWorld",
 							L"Voxel",
 							L"Voxel World",
-							&VoxelPackage::Create_VoxelWorld));
+							&Create_Component<VoxelWorld>));
 		m_classes.push_back(ComponentClass(L"VoxelWorldGenerator",
 							L"Voxel",
 							L"Voxel World Generator",
-							&VoxelPackage::Create_VoxelWorldGenerator));
+							&Create_Component<VoxelWorldGenerator>));
 		m_classes.push_back(ComponentClass(L"VoxelWorldRenderer",
 							L"Voxel",
 							L"Voxel World Renderer",
-							&VoxelPackage::Create_VoxelWorldRenderer));
+							&Create_Component<VoxelWorldRenderer>));
 
 		m_classes.push_back(ComponentClass(L"VoxelObject",
 							L"Voxel",
 							L"Voxel Object",
-							&VoxelPackage::Create_VoxelObject));
+							&Create_Component<VoxelObject>));
 		m_classes.push_back(ComponentClass(L"VoxelObjectRenderer",
 							L"Voxel",
 							L"Voxel Object Renderer",
-							&VoxelPackage::Create_VoxelObjectRenderer));
+							&Create_Component<VoxelObjectRenderer>));
 
 		// templates
-		GameObjectTemplate* pTpl = new VoxelWorldTemplate(pCore->GetGameObjectManager(), L"VoxelWorld");
+		GameObjectTemplate* pTpl = new VoxelWorldTemplate(m_pManager, L"VoxelWorld");
 		m_tpls.push_back(pTpl);
 
-		pTpl = new VoxelObjectTemplate(pCore->GetGameObjectManager(), L"VoxelObject");
+		pTpl = new VoxelObjectTemplate(m_pManager, L"VoxelObject");
 		m_tpls.push_back(pTpl);
 	}
 
@@ -87,27 +87,6 @@ namespace ld3d
 	VoxelPackage::ComponentClass* VoxelPackage::GetClassByIndex(int index)
 	{
 		return &m_classes[index];
-	}
-	GameObjectComponentPtr VoxelPackage::Create_VoxelWorld(GameObjectManagerPtr pManager)
-	{
-		return pManager->GetAllocator()->AllocObject<VoxelWorld, GameObjectManagerPtr>(pManager);
-	}
-	GameObjectComponentPtr VoxelPackage::Create_VoxelWorldGenerator(GameObjectManagerPtr pManager)
-	{
-		return pManager->GetAllocator()->AllocObject<VoxelWorldGenerator, GameObjectManagerPtr>(pManager);
-	}
-	GameObjectComponentPtr VoxelPackage::Create_VoxelWorldRenderer(GameObjectManagerPtr pManager)
-	{
-		return pManager->GetAllocator()->AllocObject<VoxelWorldRenderer, GameObjectManagerPtr>(pManager);
-	}
-
-	GameObjectComponentPtr VoxelPackage::Create_VoxelObject(GameObjectManagerPtr pManager)
-	{
-		return pManager->GetAllocator()->AllocObject<VoxelObject, GameObjectManagerPtr>(pManager);
-	}
-	GameObjectComponentPtr VoxelPackage::Create_VoxelObjectRenderer(GameObjectManagerPtr pManager)
-	{
-		return pManager->GetAllocator()->AllocObject<VoxelObjectRenderer, GameObjectManagerPtr>(pManager);
 	}
 	int	VoxelPackage::GetTemplateCount()
 	{

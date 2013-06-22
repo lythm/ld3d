@@ -32,7 +32,7 @@ namespace ld3d
 	bool Light_Spot::OnAttach()
 	{
 		m_pRenderManager = m_pManager->GetRenderManager();
-		m_pLight = m_pManager->GetAllocator()->AllocObject<SpotLight>();
+		m_pLight = m_pManager->alloc_object<SpotLight>();
 		m_pLight->Create(m_pRenderManager);
 		m_pRenderManager->AddLight(m_pLight);
 

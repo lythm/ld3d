@@ -7,7 +7,7 @@ namespace dt
 	ld3d::ExtPackage::ComponentClass							DT_GameObjectMonitor::s_class(L"DT_GameObjectMonitor",
 																						L"DT",
 																						L"Game Object Monitor",
-																						&DT_GameObjectMonitor::Create);
+																						&ld3d::Create_Component<DT_GameObjectMonitor>);
 
 	DT_GameObjectMonitor::DT_GameObjectMonitor(ld3d::GameObjectManagerPtr pManager) : GameObjectComponent(L"DT_GameObjectMonitor", pManager)
 	{
@@ -30,11 +30,4 @@ namespace dt
 	{
 		return &s_class;
 	}
-	ld3d::GameObjectComponentPtr DT_GameObjectMonitor::Create(ld3d::GameObjectManagerPtr pManager)
-	{
-		using namespace ld3d;
-
-		return GameObjectComponentPtr(new DT_GameObjectMonitor(pManager));
-	}
-	
 }

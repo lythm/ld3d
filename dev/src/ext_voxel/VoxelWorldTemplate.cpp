@@ -19,14 +19,14 @@ namespace ld3d
 	{
 		GameObjectPtr pObj = m_pManager->CreateGameObject(L"VoxelWorld");
 
-		VoxelWorldPtr pWorld = m_pManager->GetAllocator()->AllocObject<VoxelWorld>(m_pManager);
+		VoxelWorldPtr pWorld = m_pManager->alloc_object<VoxelWorld>(m_pManager);
 
 		pObj->AddComponent(pWorld);
 
-		VoxelWorldGeneratorPtr pGen = m_pManager->GetAllocator()->AllocObject<VoxelWorldGenerator>(m_pManager);
+		VoxelWorldGeneratorPtr pGen = m_pManager->alloc_object<VoxelWorldGenerator>(m_pManager);
 		pObj->AddComponent(pGen);
 
-		VoxelWorldRendererPtr pRenderer = m_pManager->GetAllocator()->AllocObject<VoxelWorldRenderer>(m_pManager);
+		VoxelWorldRendererPtr pRenderer = m_pManager->alloc_object<VoxelWorldRenderer>(m_pManager);
 		pObj->AddComponent(pRenderer);
 
 		return pObj;

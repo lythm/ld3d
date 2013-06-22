@@ -19,10 +19,6 @@ public:
 	GameStudio(QWidget *parent = 0);
 	~GameStudio();
 
-	bool							event(QEvent *event);
-	void							closeEvent(QCloseEvent *pEvent);
-
-
 	void							logInfo(const QString& str);
 	void							logBuild(const QString& str);
 	
@@ -34,6 +30,13 @@ public:
 	void							on_actionSave_Project_triggered();
 	void							on_actionOpen_Project_triggered();
 	void							on_mdiArea_subWindowActivated(QMdiSubWindow* pSub);
+
+
+	Form_Scene*						GetFormScene();
+private:
+	void							timerEvent(QTimerEvent* e);
+	void							showEvent(QShowEvent* e);
+	void							closeEvent(QCloseEvent *pEvent);
 private:
 
 	Form_Scene*						m_pSceneForm;
@@ -43,7 +46,8 @@ private:
 	Form_Hierarchy*					m_pHierarchyForm;
 
 
-	ProjectPtr						m_pProject;
+	GameEditorPtr					m_pEditor;
+	int								m_updateTimer;
 };
 
 #endif // GAMESTUDIO_H

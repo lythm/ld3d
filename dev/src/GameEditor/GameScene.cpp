@@ -104,8 +104,8 @@ ld3d::GameObjectPtr GameScene::CreateObject(const std::wstring& name)
 
 	GameObjectPtr pObj = m_pCore->CreateGameObject(full_name.GetString());
 
-	GameObjectComponentPtr pPM = CreateGameObjectComponent(L"DT_GameObjectMonitor");
-	pObj->AddComponent(pPM);
+	//GameObjectComponentPtr pPM = CreateGameObjectComponent(L"DT_GameObjectMonitor");
+	//pObj->AddComponent(pPM);
 
 	m_objNo++;
 	return pObj;
@@ -120,8 +120,8 @@ ld3d::GameObjectPtr GameScene::CreateObjectFromTpl(const std::wstring& name, con
 
 	GameObjectPtr pObj = m_pCore->CreatGameObjectFromTemplate(tpl, full_name.GetString());
 
-	GameObjectComponentPtr pPM = CreateGameObjectComponent(L"DT_GameObjectMonitor");
-	pObj->AddComponent(pPM);
+	//GameObjectComponentPtr pPM = CreateGameObjectComponent(L"DT_GameObjectMonitor");
+	//pObj->AddComponent(pPM);
 
 	m_objNo++;
 	return pObj;

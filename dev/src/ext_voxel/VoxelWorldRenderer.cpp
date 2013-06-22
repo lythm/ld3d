@@ -38,7 +38,7 @@ namespace ld3d
 
 		
 
-		m_pRenderData = m_pManager->GetAllocator()->AllocObject<VoxelWorldRenderData>();
+		m_pRenderData = m_pManager->alloc_object<VoxelWorldRenderData>();
 		if(m_pRenderData->Initialize(m_pManager->GetRenderManager()->GetSysGraphics()) == false)
 		{
 			return false;
@@ -48,7 +48,7 @@ namespace ld3d
 
 		m_pWorld = std::dynamic_pointer_cast<VoxelWorld>(m_pObject->GetComponent(L"VoxelWorld"));
 
-		m_pBBoxRD = m_pManager->GetAllocator()->AllocObject<BBoxRenderData>();
+		m_pBBoxRD = m_pManager->alloc_object<BBoxRenderData>();
 		if(m_pBBoxRD->Initialize(m_pManager->GetRenderManager()->GetSysGraphics()) == false)
 		{
 			return false;

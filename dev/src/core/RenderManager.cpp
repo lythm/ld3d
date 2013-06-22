@@ -223,7 +223,7 @@ namespace ld3d
 
 		pCamera->UpdateViewFrustum();
 
-		std::shared_ptr<Event_FrustumCull> pEvent = alloc_object<Event_FrustumCull, BaseCameraPtr>(pCamera);
+		std::shared_ptr<Event_FrustumCull> pEvent = alloc_object<Event_FrustumCull>(pCamera);
 			
 		m_pEventDispatcher->DispatchEvent(pEvent);
 

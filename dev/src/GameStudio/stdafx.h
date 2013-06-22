@@ -29,7 +29,7 @@
 class Project;
 class Renderer;
 class GridMesh;
-class EditorCamera;
+class OrbitCamera;
 class GameScene;
 class GameEngine;
 class GameEditor;
@@ -37,7 +37,7 @@ class GameEditor;
 typedef std::shared_ptr<GameEditor>					GameEditorPtr;
 typedef std::shared_ptr<GameEngine>					GameEnginePtr;
 typedef std::shared_ptr<GameScene>					GameScenePtr;
-typedef std::shared_ptr<EditorCamera>				EditorCameraPtr;
+typedef std::shared_ptr<OrbitCamera>				OrbitCameraPtr;
 typedef std::shared_ptr<GridMesh>					GridMeshPtr;
 typedef std::shared_ptr<Renderer>					RendererPtr;
 typedef std::shared_ptr<Project>					ProjectPtr;

@@ -132,7 +132,7 @@ namespace ld3d
 		{
 			SubMeshPtr pSub = pMesh->GetSubMesh(i);
 
-			SubMeshRenderDataPtr pSR = m_pManager->GetAllocator()->AllocObject<SubMeshRenderData, GameObjectPtr>(GetGameObject());
+			SubMeshRenderDataPtr pSR = m_pManager->alloc_object<SubMeshRenderData>(GetGameObject());
 			pSR->Create(pSub, m_pIndexBuffer, m_pVertexBuffer);
 			m_Subsets.push_back(pSR);
 		}

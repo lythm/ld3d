@@ -109,7 +109,7 @@ namespace ld3d
 	bool GameObjectManager::LoadPackage(const std::wstring& name)
 	{
 		PackageMod mod;
-		if(false == mod.load_package(name.c_str(), m_pCore))
+		if(false == mod.load_package(name.c_str(), shared_from_this()))
 		{
 			return false;
 		}
@@ -191,7 +191,7 @@ namespace ld3d
 	{
 		return m_pPackage;
 	}
-	bool GameObjectManager::PackageMod::load_package(const wchar_t* file, CoreApiPtr pCore)
+	bool GameObjectManager::PackageMod::load_package(const wchar_t* file, GameObjectManagerPtr pManager)
 	{
 		m_hLib = ::LoadLibrary(file);
 		if(m_hLib == NULL)
@@ -208,7 +208,7 @@ namespace ld3d
 		}
 
 		m_file = file;
-		m_pPackage = CreatePackage(pCore);
+		m_pPackage = CreatePackage(pManager);
 
 		return true;
 	}

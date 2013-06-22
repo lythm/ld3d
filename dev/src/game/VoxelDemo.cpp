@@ -22,36 +22,48 @@ bool VoxelDemo::Init(ld3d::CoreApiPtr pCore)
 	
 	m_pCore->AddEventHandler(EV_WINMSG, boost::bind(&VoxelDemo::OnMsg, this, _1));
 
-	m_pCore->LoadPackage(L"./extensions/ext_voxel.dll");
+	m_pCore->LoadPackage(L"./extensions/ext_voxel_x64.dll");
 
 	m_pCore->GetRenderManager()->SetGlobalAmbient(math::Color4(0, 0.1, 0.2, 1.0));
 	m_pCore->GetRenderManager()->SetClearColor(math::Color4(0.3, 0.2, 0.3, 1));
 
-	m_pCamera = m_pCore->GetAllocator()->AllocObject<ld3d::Camera>();
+	m_pCamera = m_pCore->GetGameObjectManager()->alloc_object<ld3d::Camera>();
 	m_pCamera->PerspectiveFovLH(0.25 * 3.14, 4.0 / 3.0, 0.01, 10000);
 	m_pCamera->LookAtLH(math::Vector3(2, 2, 2), math::Vector3(0, 0, 0), math::Vector3(0, 1, 0));
 
 	m_pCore->AddCamera(m_pCamera);
 
-	m_pCore->CreatGameObjectFromTemplate(L"Plane", L"Plane");
+	DataStream_File file;
+	if(false == file.OpenStream(L"./projects/2/2.scene"))
+	{
+		return false;
+	}
+
+	if(false == m_pCore->GetScene()->UnSerialize(&file))
+	{
+		return false;
+	}
+
+	m_pCore->CreateGameObjectComponent(L"VoxelWorld");
+	//m_pCore->CreatGameObjectFromTemplate(L"Plane", L"Plane");
 
 
-	GameObjectPtr pCube = m_pCore->CreatGameObjectFromTemplate(L"Sphere", L"Cube");
-	pCube->Translate(0, 1, 0);
+	//GameObjectPtr pCube = m_pCore->CreatGameObjectFromTemplate(L"Sphere", L"Cube");
+	//pCube->Translate(0, 1, 0);
+	////GameObjectPtr pLight = m_pCore->CreatGameObjectFromTemplate(L"SkyLight", L"light");
 	//GameObjectPtr pLight = m_pCore->CreatGameObjectFromTemplate(L"SkyLight", L"light");
-	GameObjectPtr pLight = m_pCore->CreatGameObjectFromTemplate(L"SkyLight", L"light");
 
-	pLight->SetTranslation(5, 5, 0);
-	pLight->LookAt(pCube);
-	
-	pLight = m_pCore->CreatGameObjectFromTemplate(L"PointLight", L"pl");
-	pLight->SetTranslation(0, 5, 0);
+	//pLight->SetTranslation(5, 5, 0);
+	//pLight->LookAt(pCube);
+	//
+	//pLight = m_pCore->CreatGameObjectFromTemplate(L"PointLight", L"pl");
+	//pLight->SetTranslation(0, 5, 0);
 
 
-	pLight = m_pCore->CreatGameObjectFromTemplate(L"SpotLight", L"pl");
-	pLight->SetTranslation(5, 5, -5);
+	//pLight = m_pCore->CreatGameObjectFromTemplate(L"SpotLight", L"pl");
+	//pLight->SetTranslation(5, 5, -5);
 
-	pLight->LookAt(pCube);
+	//pLight->LookAt(pCube);
 
 
 	return true;

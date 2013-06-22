@@ -3,7 +3,7 @@
 class Project
 {
 public:
-	Project(void);
+	Project(GameEnginePtr pEngine);
 	virtual ~Project(void);
 
 	bool								Save();
@@ -25,8 +25,7 @@ private:
 private:
 	boost::filesystem::path				m_filePath;
 
-	GameScenePtr						m_pScene;
-
 	GameEnginePtr						m_pEngine;
+	GameScenePtr						m_pScene;
 };
 

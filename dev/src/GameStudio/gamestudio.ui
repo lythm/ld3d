@@ -148,6 +148,9 @@ QTreeView
 	background-color: rgb(56, 56, 56);
 }</string>
   </property>
+  <property name="dockOptions">
+   <set>QMainWindow::AllowTabbedDocks</set>
+  </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout">
     <item row="0" column="0">
