@@ -18,6 +18,8 @@ public:
 	bool									GridVisible();
 
 	void									Resize(int w, int h);
+
+	ld3d::GameObjectPtr						RootObject();
 private:
 	ld3d::CoreApiPtr						m_pCore;
 

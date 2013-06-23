@@ -30,7 +30,7 @@ public:
     {
         if (Form_Hierarchy->objectName().isEmpty())
             Form_Hierarchy->setObjectName(QStringLiteral("Form_Hierarchy"));
-        Form_Hierarchy->resize(304, 608);
+        Form_Hierarchy->resize(330, 608);
         Form_Hierarchy->setStyleSheet(QLatin1String("*\n"
 "{\n"
 "	 background-color: rgb(56, 56, 56);\n"
@@ -42,8 +42,16 @@ public:
         gridLayout->setContentsMargins(1, 1, 1, 1);
         treeView = new QTreeView(Form_Hierarchy);
         treeView->setObjectName(QStringLiteral("treeView"));
+        treeView->setAcceptDrops(true);
         treeView->setFrameShape(QFrame::NoFrame);
         treeView->setFrameShadow(QFrame::Plain);
+        treeView->setEditTriggers(QAbstractItemView::EditKeyPressed|QAbstractItemView::SelectedClicked);
+        treeView->setDragEnabled(true);
+        treeView->setDragDropOverwriteMode(false);
+        treeView->setDragDropMode(QAbstractItemView::InternalMove);
+        treeView->setDefaultDropAction(Qt::MoveAction);
+        treeView->setSelectionBehavior(QAbstractItemView::SelectItems);
+        treeView->header()->setVisible(false);
 
         gridLayout->addWidget(treeView, 0, 0, 1, 1);
 

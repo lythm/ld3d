@@ -35,6 +35,7 @@ public:
 
 
 	Form_Scene*						GetFormScene();
+	Form_Hierarchy*					GetFormHierarchy();
 private:
 	void							showEvent(QShowEvent* e);
 	void							closeEvent(QCloseEvent *pEvent);

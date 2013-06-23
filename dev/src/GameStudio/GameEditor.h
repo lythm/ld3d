@@ -29,6 +29,9 @@ public:
 
 
 	void														on_idle();
+
+	void														UpdateHierarchyView();
+	void														ClearHierarchyView();
 private:
 	bool														ResetEngine();
 

@@ -156,3 +156,7 @@ bool GameEngine::GridVisible()
 {
 	return m_bShowGrid;
 }
+ld3d::GameObjectPtr	GameEngine::RootObject()
+{
+	return m_pCore ? m_pCore->Root() : nullptr;
+}

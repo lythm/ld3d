@@ -177,3 +177,7 @@ void GameStudio::on_actionClose_Project_triggered()
 
 	m_pSceneForm->repaint();
 }
+Form_Hierarchy* GameStudio::GetFormHierarchy()
+{
+	return m_pHierarchyForm;
+}

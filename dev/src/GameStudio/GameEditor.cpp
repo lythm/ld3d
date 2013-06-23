@@ -5,7 +5,7 @@
 #include "gamestudio.h"
 #include "form_scene.h"
 #include "OrbitCamera.h"
-
+#include "form_hierarchy.h"
 GameEditor::GameEditor(GameStudio* pMainWnd)
 {
 	m_pMainWnd = pMainWnd;
@@ -29,6 +29,7 @@ bool GameEditor::Initialize()
 void GameEditor::Release()
 {
 	m_pMainWnd->GetFormScene()->UnInstallDelegates();
+	m_pMainWnd->GetFormHierarchy()->Clear();
 	if(m_pProject)
 	{
 		m_pProject->Close();
@@ -91,6 +92,7 @@ void GameEditor::Resize(int w, int h)
 }
 bool GameEditor::OpenProject(boost::filesystem::path path)
 {
+	ClearHierarchyView();
 	if(m_pProject != nullptr)
 	{
 		m_pProject->Save();
@@ -107,11 +109,12 @@ bool GameEditor::OpenProject(boost::filesystem::path path)
 		m_pProject.reset();
 		return false;
 	}
-
+	UpdateHierarchyView();
 	return true;
 }
 bool GameEditor::NewProject(boost::filesystem::path path)
 {
+	ClearHierarchyView();
 	if(m_pProject != nullptr)
 	{
 		m_pProject->Save();
@@ -128,6 +131,7 @@ bool GameEditor::NewProject(boost::filesystem::path path)
 		return false;
 	}
 
+	UpdateHierarchyView();
 	return true;
 }
 ProjectPtr GameEditor::GetProject()
@@ -181,4 +185,12 @@ void GameEditor::on_mouse_release(QMouseEvent* e)
 void GameEditor::on_idle()
 {
 	Update();
+}
+void GameEditor::UpdateHierarchyView()
+{
+	m_pMainWnd->GetFormHierarchy()->UpdateHierarchy(m_pEngine->RootObject());
+}
+void GameEditor::ClearHierarchyView()
+{
+	m_pMainWnd->GetFormHierarchy()->Clear();
 }
