@@ -20,6 +20,8 @@ GameStudio::GameStudio(QWidget *parent)
 
 	setupUi(this);
 
+	
+
 	m_pSceneForm = new Form_Scene(this);
 	m_pSceneForm->setWindowTitle("Scene");
 	m_pPreviewForm = new Form_Preview(this);
@@ -59,7 +61,8 @@ GameStudio::GameStudio(QWidget *parent)
 		return;
 	}
 
-	//m_updateTimer = startTimer(10);
+	
+	UpdateActions();
 }
 
 GameStudio::~GameStudio()
@@ -94,6 +97,7 @@ void GameStudio::logBuild(const QString& str)
 {
 	m_pLogForm->logBuild(str);
 }
+
 void GameStudio::on_menuFile_aboutToShow()
 {
 	bool show = m_pEditor->GetProject() != nullptr;
@@ -180,4 +184,106 @@ void GameStudio::on_actionClose_Project_triggered()
 Form_Hierarchy* GameStudio::GetFormHierarchy()
 {
 	return m_pHierarchyForm;
+}
+
+void GameStudio::on_actionNew_Scene_triggered()
+{
+	if(QMessageBox::Yes == QMessageBox::question(this, "warning", "Do you want to save the scene before continue?"))
+	{
+		if(m_pEditor->GetProject()->HasSceneFileSpecified() == false)
+		{
+			if(false == SaveSceneAs())
+			{
+				return;
+			}
+		}
+		else
+		{
+			if(false == SaveScene())
+			{
+				return;
+			}
+		}
+	}
+
+	m_pEditor->NewScene();
+}
+void GameStudio::on_actionSave_Scene_triggered()
+{
+	if(m_pEditor->GetProject()->HasSceneFileSpecified() == false)
+	{
+		SaveSceneAs();
+		return;
+	}
+
+	SaveScene();
+}
+void GameStudio::on_actionSave_Scene_As_triggered()
+{
+	SaveSceneAs();
+}
+void GameStudio::on_actionOpen_Scene_triggered()
+{
+	QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"),
+                                                QString(),
+                                                tr("Scene File (*.scene)"));
+
+	if(fileName == "")
+	{
+		return;
+	}
+
+	boost::filesystem::path filePath(fileName.toStdWString());
+
+	if(m_pEditor->OpenScene(filePath) == false)
+	{
+		QMessageBox::critical(this, "Failed", "Failed to open scene: " + fileName);
+		return;
+	}
+	logInfo("Scene openned.");
+}
+bool GameStudio::SaveSceneAs()
+{
+	QString fileName = QFileDialog::getSaveFileName(this, tr("Open File"),
+                                                QString(),
+                                                tr("Scene File (*.scene)"));
+
+	if(fileName == "")
+	{
+		return false;
+	}
+
+	boost::filesystem::path filePath(fileName.toStdWString());
+
+	if(m_pEditor->SaveScene(filePath) == false)
+	{
+		QMessageBox::critical(this, "Failed", "Failed to save scene: " + fileName);
+		return false;
+	}
+	logInfo("Scene Saved.");
+
+	return true;
+}
+bool GameStudio::SaveScene()
+{
+	if(m_pEditor->SaveScene() == false)
+	{
+		QMessageBox::critical(this, "Failed", "Failed to save scene: " + QString::fromStdWString(m_pEditor->GetSceneFile().wstring()));
+		return false;
+	}
+	logInfo("Scene Saved.");
+
+	return true;
+}
+void GameStudio::UpdateActions()
+{
+	bool show = m_pEditor->GetProject() != nullptr;
+
+	actionSave_Project->setEnabled(show);
+	actionSave_Scene->setEnabled(show);
+	actionSave_Scene_As->setEnabled(show);
+	actionClose_Project->setEnabled(show);
+	actionNew_Scene->setEnabled(show);
+	actionOpen_Scene->setEnabled(show);
+
 }

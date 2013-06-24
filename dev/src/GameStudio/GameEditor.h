@@ -16,7 +16,14 @@ public:
 	bool														OpenProject(boost::filesystem::path path);
 	bool														NewProject(boost::filesystem::path path);
 	bool														SaveProject();
+
+	bool														NewScene();
+	bool														OpenScene(boost::filesystem::path path);
+	bool														SaveScene();
+	bool														SaveScene(boost::filesystem::path path);
 	void														Resize(int w, int h);
+
+
 
 	void														Update();
 
@@ -27,22 +34,25 @@ public:
 	void														on_mouse_press(QMouseEvent* e);
 	void														on_mouse_release(QMouseEvent* e);;
 
-
 	void														on_idle();
 
 	void														UpdateHierarchyView();
 	void														ClearHierarchyView();
+
+	boost::filesystem::path										GetSceneFile();
+
+	void														SetCurrentObject(ld3d::GameObject* pObj);
+	ld3d::GameObject*											GetCurrentObject();
 private:
 	bool														ResetEngine();
 
 private:
 	GameEnginePtr												m_pEngine;
 	GameStudio*													m_pMainWnd;
-
 	ProjectPtr													m_pProject;
-
 	OrbitCameraPtr												m_pCamera;
+
+	MenuManagerPtr												m_pMenuManager;
+
+	ld3d::GameObject*											m_pCurrentObject;
 };
-
-
-

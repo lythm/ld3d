@@ -12,7 +12,6 @@ public:
 	Form_Scene(QWidget *parent = 0);
 	~Form_Scene();
 
-	void													timerEvent(QTimerEvent* event);
 	void													resizeEvent(QResizeEvent* e);
 	void													mouseMoveEvent(QMouseEvent* e);
 	void													wheelEvent(QWheelEvent* e);
@@ -36,8 +35,7 @@ private:
 	{
 		f ? f(e) : 0;
 	}
-private:
-	int														m_timer;
+
 
 };
 

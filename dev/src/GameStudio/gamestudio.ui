@@ -200,6 +200,9 @@ QTreeView
     </property>
     <item row="0" column="0">
      <widget class="QMdiArea" name="mdiArea">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
       <property name="styleSheet">
        <string notr="true"/>
       </property>
@@ -270,11 +273,12 @@ QTreeView
     </property>
    </widget>
    <widget class="QMenu" name="menuGameObject">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
     <property name="title">
      <string>GameObject</string>
     </property>
-    <addaction name="actionEmpty"/>
-    <addaction name="separator"/>
    </widget>
    <widget class="QMenu" name="menuComponent">
     <property name="title">
@@ -405,11 +409,6 @@ QTreeView
   <action name="actionClose_Project">
    <property name="text">
     <string>Close Project</string>
-   </property>
-  </action>
-  <action name="actionEmpty">
-   <property name="text">
-    <string>Empty</string>
    </property>
   </action>
  </widget>

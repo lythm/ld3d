@@ -19,11 +19,15 @@ public:
 	~Form_Hierarchy();
 
 	void										UpdateHierarchy(ld3d::GameObjectPtr pRoot);
-
 	void										Clear();
+
+
+	std::function<void (ld3d::GameObject*)>		on_current_changed;
+
+public slots:
+	void										currentChanged(const QModelIndex& current, const QModelIndex& prev);
 private:
 	HierarchyModel								m_dataModel;
-
 };
 
 

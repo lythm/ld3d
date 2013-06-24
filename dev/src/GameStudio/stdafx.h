@@ -33,6 +33,9 @@ class OrbitCamera;
 class GameScene;
 class GameEngine;
 class GameEditor;
+class MenuManager;
+
+typedef std::shared_ptr<MenuManager>				MenuManagerPtr;
 
 typedef std::shared_ptr<GameEditor>					GameEditorPtr;
 typedef std::shared_ptr<GameEngine>					GameEnginePtr;
@@ -57,4 +60,9 @@ template<typename T, typename arg_T>
 inline std::shared_ptr<T> alloc_shared(arg_T&& arg)
 {
 	return std::allocate_shared<T, ld3d::std_allocator_adapter<T>, arg_T>(ld3d::std_allocator_adapter<T>(&g_Allocator), arg);
+}
+template<typename T, typename arg0_T, typename arg1_T>
+inline std::shared_ptr<T> alloc_shared(arg0_T&& arg0, arg1_T&& arg1)
+{
+	return std::allocate_shared<T, ld3d::std_allocator_adapter<T>>(ld3d::std_allocator_adapter<T>(&g_Allocator), arg0, arg1);
 }

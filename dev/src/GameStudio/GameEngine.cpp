@@ -9,6 +9,8 @@
 GameEngine::GameEngine(void)
 {
 	m_bShowGrid = true;
+
+	m_objNo	= 0;
 }
 
 
@@ -101,7 +103,7 @@ bool GameEngine::Initialize(QWidget* pTarget)
 	{
 		return false;
 	}
-	
+	m_objNo = 0;
 	return true;
 }
 void GameEngine::Release()
@@ -117,6 +119,7 @@ void GameEngine::Release()
 		m_pCore->Release();
 		m_pCore.reset();
 	}
+	m_objNo = 0;
 }
 ld3d::CoreApiPtr GameEngine::GetCoreApi()
 {
@@ -159,4 +162,40 @@ bool GameEngine::GridVisible()
 ld3d::GameObjectPtr	GameEngine::RootObject()
 {
 	return m_pCore ? m_pCore->Root() : nullptr;
+}
+void GameEngine::CreateObject_Empty()
+{
+	using namespace ld3d;
+	GameObjectPtr pObj = CreateObject(L"GameObject");
+}
+ld3d::GameObjectPtr GameEngine::CreateObject(const std::wstring& name)
+{
+	using namespace ld3d;
+
+	QString full_name;
+
+	full_name = QString::fromStdWString(name) + QString("%1").arg(m_objNo);
+	
+
+	GameObjectPtr pObj = m_pCore->CreateGameObject(full_name.toStdWString());
+
+	m_objNo++;
+	return pObj;
+}
+ld3d::GameObjectPtr GameEngine::CreateObjectFromTpl(const std::wstring& name, const std::wstring& tpl)
+{
+	using namespace ld3d;
+
+	QString full_name;
+
+	full_name = QString::fromStdWString(name) + QString("%1").arg(m_objNo);
+
+	GameObjectPtr pObj = m_pCore->CreatGameObjectFromTemplate(tpl, full_name.toStdWString());
+
+	m_objNo++;
+	return pObj;
+}
+ld3d::GameObjectComponentPtr GameEngine::CreateGameObjectComponent(const std::wstring& name)
+{
+	return m_pCore->CreateGameObjectComponent(name);
 }

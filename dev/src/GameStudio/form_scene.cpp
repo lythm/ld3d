@@ -7,19 +7,13 @@ Form_Scene::Form_Scene(QWidget *parent)
 {
 	setupUi(this);
 
-	m_timer = startTimer(100);
-
 }
 
 Form_Scene::~Form_Scene()
 {
-	killTimer(m_timer);
+
 }
-void Form_Scene::timerEvent(QTimerEvent* event)
-{
-	
-	QMdiSubWindow::timerEvent(event);
-}
+
 void Form_Scene::resizeEvent(QResizeEvent* e)
 {
 	_call(on_resize, e);

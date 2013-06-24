@@ -6,10 +6,12 @@
 #include "form_scene.h"
 #include "OrbitCamera.h"
 #include "form_hierarchy.h"
+#include "menumanager.h"
+
 GameEditor::GameEditor(GameStudio* pMainWnd)
 {
 	m_pMainWnd = pMainWnd;
-
+	m_pCurrentObject = nullptr;
 }
 
 
@@ -20,10 +22,11 @@ GameEditor::~GameEditor(void)
 bool GameEditor::Initialize()
 {
 	m_pMainWnd->GetFormScene()->InstallDelegates(shared_from_this());
-
+	m_pMainWnd->GetFormHierarchy()->on_current_changed = std::bind(&GameEditor::SetCurrentObject, this, std::placeholders::_1);
 	m_pCamera = alloc_shared<OrbitCamera>();
 
-
+	m_pMenuManager = alloc_shared<MenuManager>(m_pMainWnd);
+	m_pMenuManager->on_action_triggered = std::bind(&GameEditor::UpdateHierarchyView, this);
 	return true;
 }
 void GameEditor::Release()
@@ -35,6 +38,7 @@ void GameEditor::Release()
 		m_pProject->Close();
 		m_pProject.reset();
 	}
+
 	if(m_pEngine)
 	{
 		m_pEngine->Release();
@@ -42,6 +46,9 @@ void GameEditor::Release()
 	}
 
 	m_pCamera.reset();
+
+	m_pMenuManager->UnInstall();
+	m_pMenuManager.reset();
 }
 void GameEditor::Reset()
 {
@@ -110,6 +117,8 @@ bool GameEditor::OpenProject(boost::filesystem::path path)
 		return false;
 	}
 	UpdateHierarchyView();
+	m_pMenuManager->Reset(m_pEngine);
+	m_pMenuManager->Install();
 	return true;
 }
 bool GameEditor::NewProject(boost::filesystem::path path)
@@ -132,6 +141,9 @@ bool GameEditor::NewProject(boost::filesystem::path path)
 	}
 
 	UpdateHierarchyView();
+
+	m_pMenuManager->Reset(m_pEngine);
+	m_pMenuManager->Install();
 	return true;
 }
 ProjectPtr GameEditor::GetProject()
@@ -193,4 +205,57 @@ void GameEditor::UpdateHierarchyView()
 void GameEditor::ClearHierarchyView()
 {
 	m_pMainWnd->GetFormHierarchy()->Clear();
+}
+
+bool GameEditor::NewScene()
+{
+	if(m_pProject)
+	{
+		ClearHierarchyView();
+		bool ret = m_pProject->NewScene();
+		UpdateHierarchyView();
+
+		return ret;
+	}
+	return false;
+}
+bool GameEditor::OpenScene(boost::filesystem::path path)
+{
+	if(m_pProject == nullptr)
+	{
+		return false;
+	}
+	ClearHierarchyView();
+	bool ret =  m_pProject->OpenScene(path);
+	UpdateHierarchyView();
+	return ret;
+}
+bool GameEditor::SaveScene()
+{
+	if(m_pProject == nullptr)
+	{
+		return false;
+	}
+
+	return m_pProject->SaveScene();
+}
+bool GameEditor::SaveScene(boost::filesystem::path path)
+{
+	if(m_pProject == nullptr)
+	{
+		return false;
+	}
+	return m_pProject->SaveScene(path);
+}
+boost::filesystem::path	GameEditor::GetSceneFile()
+{
+	return m_pProject->GetSceneFilePath();
+}
+void GameEditor::SetCurrentObject(ld3d::GameObject* pObj)
+{
+	m_pCurrentObject = pObj;
+}
+ld3d::GameObject* GameEditor::GetCurrentObject()
+{
+	return m_pCurrentObject;
 }

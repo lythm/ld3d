@@ -38,7 +38,6 @@ public:
     QAction *actionSave_Scene_As;
     QAction *actionExit;
     QAction *actionClose_Project;
-    QAction *actionEmpty;
     QWidget *centralWidget;
     QGridLayout *gridLayout;
     QMdiArea *mdiArea;
@@ -246,8 +245,6 @@ public:
         actionExit->setObjectName(QStringLiteral("actionExit"));
         actionClose_Project = new QAction(GameStudioClass);
         actionClose_Project->setObjectName(QStringLiteral("actionClose_Project"));
-        actionEmpty = new QAction(GameStudioClass);
-        actionEmpty->setObjectName(QStringLiteral("actionEmpty"));
         centralWidget = new QWidget(GameStudioClass);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         gridLayout = new QGridLayout(centralWidget);
@@ -257,6 +254,7 @@ public:
         gridLayout->setContentsMargins(1, 1, 1, 1);
         mdiArea = new QMdiArea(centralWidget);
         mdiArea->setObjectName(QStringLiteral("mdiArea"));
+        mdiArea->setEnabled(true);
         mdiArea->setStyleSheet(QStringLiteral(""));
         mdiArea->setViewMode(QMdiArea::TabbedView);
         mdiArea->setTabsClosable(false);
@@ -285,6 +283,7 @@ public:
         menuProject->setObjectName(QStringLiteral("menuProject"));
         menuGameObject = new QMenu(menuBar);
         menuGameObject->setObjectName(QStringLiteral("menuGameObject"));
+        menuGameObject->setEnabled(true);
         menuComponent = new QMenu(menuBar);
         menuComponent->setObjectName(QStringLiteral("menuComponent"));
         menuHelp = new QMenu(menuBar);
@@ -348,8 +347,6 @@ public:
         menuFile->addAction(actionSave_Scene_As);
         menuFile->addSeparator();
         menuFile->addAction(actionExit);
-        menuGameObject->addAction(actionEmpty);
-        menuGameObject->addSeparator();
         mainToolBar->addAction(actionNew_Scene);
         mainToolBar->addAction(actionOpen_Scene);
         mainToolBar->addAction(actionSave_Scene);
@@ -372,7 +369,6 @@ public:
         actionSave_Scene_As->setText(QApplication::translate("GameStudioClass", "Save Scene As...", 0));
         actionExit->setText(QApplication::translate("GameStudioClass", "Exit", 0));
         actionClose_Project->setText(QApplication::translate("GameStudioClass", "Close Project", 0));
-        actionEmpty->setText(QApplication::translate("GameStudioClass", "Empty", 0));
         menuFile->setTitle(QApplication::translate("GameStudioClass", "File", 0));
         menuView->setTitle(QApplication::translate("GameStudioClass", "View", 0));
         menuProject->setTitle(QApplication::translate("GameStudioClass", "Project", 0));

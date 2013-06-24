@@ -25,20 +25,31 @@ public:
 
 	void							on_idle();
 
+	
 	public slots:
+
 	void							on_menuFile_aboutToShow();
 	void							on_actionNew_Project_triggered();
 	void							on_actionClose_Project_triggered();
 	void							on_actionSave_Project_triggered();
 	void							on_actionOpen_Project_triggered();
 	void							on_mdiArea_subWindowActivated(QMdiSubWindow* pSub);
-
+	void							on_actionNew_Scene_triggered();
+	void							on_actionSave_Scene_triggered();
+	void							on_actionSave_Scene_As_triggered();
+	void							on_actionOpen_Scene_triggered();
+	
 
 	Form_Scene*						GetFormScene();
 	Form_Hierarchy*					GetFormHierarchy();
 private:
 	void							showEvent(QShowEvent* e);
 	void							closeEvent(QCloseEvent *pEvent);
+
+	bool							SaveSceneAs();
+	bool							SaveScene();
+
+	void							UpdateActions();
 private:
 
 	Form_Scene*						m_pSceneForm;

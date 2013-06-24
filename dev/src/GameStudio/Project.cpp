@@ -284,3 +284,32 @@ bool Project::Save()
 {
 	return Save(m_filePath);
 }
+
+bool Project::HasSceneFileSpecified()
+{
+	return m_pScene->GetFileName().wstring() != L"";
+}
+
+bool Project::NewScene()
+{
+	m_pScene->Close();
+	return m_pScene->New();
+}
+bool Project::SaveScene()
+{
+	return m_pScene->Save();
+}
+bool Project::SaveScene(const boost::filesystem::path& file)
+{
+	boost::filesystem::path rel = RelativeToRoot(file);
+	return m_pScene->Save(rel);
+}
+bool Project::OpenScene(const boost::filesystem::path& file)
+{
+	boost::filesystem::path rel = RelativeToRoot(file);
+	return m_pScene->Load(rel);
+}
+boost::filesystem::path Project::GetSceneFilePath()
+{
+	return RootPath() / m_pScene->GetFileName();
+}
