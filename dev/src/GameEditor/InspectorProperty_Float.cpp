@@ -35,8 +35,13 @@ BOOL CInspectorProperty_Float::OnInitDialog()
 	SetDlgItemText(IDC_NAME, GetName());
 	ld3d::Property_T<float> * pProp = (ld3d::Property_T<float>*)GetProperty();
 	SetValue(pProp->Get());
-
 	m_value.SetReadOnly(pProp->IsReadOnly());
+
+	pProp->on_property_changed = [=](ld3d::Property* prop)
+	{
+		ld3d::Property_T<float> * pProp = (ld3d::Property_T<float>*)prop;
+		SetValue(pProp->Get());
+	};
 	return TRUE;
 }
 

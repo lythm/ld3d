@@ -90,14 +90,17 @@ namespace ld3d
 		void						Set(const T& val)
 		{
 			m_setter(val);
+			on_property_changed ? on_property_changed (this) : 0;
 		}
 		const T&					Get()
 		{
 			return m_getter();
 		}
 
-		Setter_T					m_setter;
-		Getter_T					m_getter;
+
+		std::function<void (Property*)>					on_property_changed;
+		Setter_T										m_setter;
+		Getter_T										m_getter;
 
 	};
 
