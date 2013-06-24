@@ -13,11 +13,8 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
-#include <QtWidgets/QComboBox>
-#include <QtWidgets/QFormLayout>
+#include <QtWidgets/QGridLayout>
 #include <QtWidgets/QHeaderView>
-#include <QtWidgets/QLabel>
-#include <QtWidgets/QLineEdit>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -25,55 +22,21 @@ QT_BEGIN_NAMESPACE
 class Ui_Form_Inspector
 {
 public:
-    QFormLayout *formLayout;
-    QLabel *label;
-    QLabel *label_3;
-    QLineEdit *lineEdit;
-    QComboBox *comboBox;
+    QGridLayout *inspector_layout;
 
     void setupUi(QWidget *Form_Inspector)
     {
         if (Form_Inspector->objectName().isEmpty())
             Form_Inspector->setObjectName(QStringLiteral("Form_Inspector"));
-        Form_Inspector->resize(437, 432);
+        Form_Inspector->resize(317, 724);
         Form_Inspector->setStyleSheet(QLatin1String("*\n"
 "{\n"
 "	 background-color: rgb(56, 56, 56);\n"
 "}"));
-        formLayout = new QFormLayout(Form_Inspector);
-        formLayout->setSpacing(6);
-        formLayout->setContentsMargins(11, 11, 11, 11);
-        formLayout->setObjectName(QStringLiteral("formLayout"));
-        formLayout->setFieldGrowthPolicy(QFormLayout::ExpandingFieldsGrow);
-        formLayout->setHorizontalSpacing(1);
-        formLayout->setVerticalSpacing(1);
-        formLayout->setContentsMargins(1, 1, 1, 1);
-        label = new QLabel(Form_Inspector);
-        label->setObjectName(QStringLiteral("label"));
-        label->setMinimumSize(QSize(100, 0));
-
-        formLayout->setWidget(0, QFormLayout::LabelRole, label);
-
-        label_3 = new QLabel(Form_Inspector);
-        label_3->setObjectName(QStringLiteral("label_3"));
-
-        formLayout->setWidget(1, QFormLayout::LabelRole, label_3);
-
-        lineEdit = new QLineEdit(Form_Inspector);
-        lineEdit->setObjectName(QStringLiteral("lineEdit"));
-
-        formLayout->setWidget(0, QFormLayout::FieldRole, lineEdit);
-
-        comboBox = new QComboBox(Form_Inspector);
-        comboBox->setObjectName(QStringLiteral("comboBox"));
-        QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
-        sizePolicy.setHorizontalStretch(0);
-        sizePolicy.setVerticalStretch(0);
-        sizePolicy.setHeightForWidth(comboBox->sizePolicy().hasHeightForWidth());
-        comboBox->setSizePolicy(sizePolicy);
-
-        formLayout->setWidget(1, QFormLayout::FieldRole, comboBox);
-
+        inspector_layout = new QGridLayout(Form_Inspector);
+        inspector_layout->setSpacing(6);
+        inspector_layout->setContentsMargins(11, 11, 11, 11);
+        inspector_layout->setObjectName(QStringLiteral("inspector_layout"));
 
         retranslateUi(Form_Inspector);
 
@@ -83,8 +46,6 @@ public:
     void retranslateUi(QWidget *Form_Inspector)
     {
         Form_Inspector->setWindowTitle(QApplication::translate("Form_Inspector", "Form_Inspector", 0));
-        label->setText(QApplication::translate("Form_Inspector", "TextLabel", 0));
-        label_3->setText(QApplication::translate("Form_Inspector", "TextLabel", 0));
     } // retranslateUi
 
 };

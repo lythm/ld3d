@@ -7,9 +7,9 @@ Widget_Inspector::Widget_Inspector(QWidget *parent)
 {
 	setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
 
+
 	m_pProperty = new Widget_InspectorPropertyString(this);
 
-	resize(800, 100);
 }
 
 Widget_Inspector::~Widget_Inspector()

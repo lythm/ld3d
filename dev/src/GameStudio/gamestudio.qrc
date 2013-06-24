@@ -1,5 +1,6 @@
 <RCC>
-    <qresource prefix="/GameStudio">
-        <file>i001.png</file>
-    </qresource>
+  <qresource prefix="/GameStudio">
+    <file>Toolbar256.bmp</file>
+    <file>i001.png</file>
+  </qresource>
 </RCC>

@@ -9,15 +9,8 @@ Widget_InspectorPropertyString::Widget_InspectorPropertyString(QWidget *parent)
 	m_pName = new QLabel(this);
 	m_pValue = new QLineEdit(this);
 
-	QSize size = m_pName->size();
-	size.setWidth(100);
-	m_pName->resize(size);
-	m_pName->setText("Label");
-	m_pValue->move(50, 0);
-	m_pValue->raise();
-
-	
-	
+	m_pName->setText("Name");
+	m_pValue->move(200, 0);
 }
 
 Widget_InspectorPropertyString::~Widget_InspectorPropertyString()

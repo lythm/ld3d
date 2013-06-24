@@ -14,7 +14,7 @@ public:
 	Form_Inspector(QWidget *parent = 0);
 	~Form_Inspector();
 
-
+	void									resizeEvent(QResizeEvent* e);
 
 private:
 	Widget_Inspector*						m_pInspector;

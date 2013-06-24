@@ -117,7 +117,7 @@ bool GameEditor::OpenProject(boost::filesystem::path path)
 		return false;
 	}
 	UpdateHierarchyView();
-	m_pMenuManager->Reset(m_pEngine);
+	m_pMenuManager->Reset(shared_from_this());
 	m_pMenuManager->Install();
 	return true;
 }
@@ -142,7 +142,7 @@ bool GameEditor::NewProject(boost::filesystem::path path)
 
 	UpdateHierarchyView();
 
-	m_pMenuManager->Reset(m_pEngine);
+	m_pMenuManager->Reset(shared_from_this());
 	m_pMenuManager->Install();
 	return true;
 }
@@ -258,4 +258,8 @@ void GameEditor::SetCurrentObject(ld3d::GameObject* pObj)
 ld3d::GameObject* GameEditor::GetCurrentObject()
 {
 	return m_pCurrentObject;
+}
+GameEnginePtr GameEditor::GetGameEngine()
+{
+	return m_pEngine;
 }

@@ -38,6 +38,7 @@ public:
     QAction *actionSave_Scene_As;
     QAction *actionExit;
     QAction *actionClose_Project;
+    QAction *actionAbout;
     QWidget *centralWidget;
     QGridLayout *gridLayout;
     QMdiArea *mdiArea;
@@ -48,7 +49,7 @@ public:
     QMenu *menuGameObject;
     QMenu *menuComponent;
     QMenu *menuHelp;
-    QMenu *menuTools;
+    QMenu *menuEdit;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
     QDockWidget *dockHierarchy;
@@ -66,9 +67,10 @@ public:
         QIcon icon;
         icon.addFile(QStringLiteral(":/GameStudio/i001.png"), QSize(), QIcon::Normal, QIcon::Off);
         GameStudioClass->setWindowIcon(icon);
-        GameStudioClass->setStyleSheet(QLatin1String("*\n"
+        GameStudioClass->setStyleSheet(QString::fromUtf8("*\n"
 "\n"
 "{\n"
+"	font: 9pt \"\345\256\213\344\275\223\";\n"
 "	color: rgb(180, 180, 180);\n"
 "	background-color: rgb(41, 41, 41);\n"
 "	border-color: rgb(41, 41, 41);\n"
@@ -112,9 +114,9 @@ public:
 " \n"
 "QMenu::item:!enabled \n"
 "{\n"
-"	color: rgb(80, 80, 80);\n"
-"    border-color:rgb(41, 41, "
-                        "41);\n"
+"	color: rgb(8"
+                        "0, 80, 80);\n"
+"    border-color:rgb(41, 41, 41);\n"
 "}\n"
 "QMenu::item:selected \n"
 "{\n"
@@ -153,9 +155,9 @@ public:
 "    image: url(:/images/checkbox_unchecked_hover.png);\n"
 "}\n"
 " \n"
-"QMenu::indicator:non-exclusive:checked  {\n"
-"    image: url(:/images/checkbox_check"
-                        "ed.png);\n"
+"QMenu::indicator:non-exclusive:checked "
+                        " {\n"
+"    image: url(:/images/checkbox_checked.png);\n"
 "}\n"
 " \n"
 "QMenu::indicator:non-exclusive:checked:selected  {\n"
@@ -195,10 +197,10 @@ public:
 "}\n"
 "QTreeView\n"
 "{\n"
-"	background-color: rgb(56, 56, 56);\n"
+"	back"
+                        "ground-color: rgb(56, 56, 56);\n"
 "}\n"
-" QTr"
-                        "eeView {\n"
+" QTreeView {\n"
 "     show-decoration-selected: 1;\n"
 " }\n"
 "\n"
@@ -235,6 +237,9 @@ public:
         actionSave_Project->setObjectName(QStringLiteral("actionSave_Project"));
         actionNew_Scene = new QAction(GameStudioClass);
         actionNew_Scene->setObjectName(QStringLiteral("actionNew_Scene"));
+        QIcon icon1;
+        icon1.addFile(QStringLiteral(":/GameStudio/Toolbar256.bmp"), QSize(), QIcon::Normal, QIcon::Off);
+        actionNew_Scene->setIcon(icon1);
         actionOpen_Scene = new QAction(GameStudioClass);
         actionOpen_Scene->setObjectName(QStringLiteral("actionOpen_Scene"));
         actionSave_Scene = new QAction(GameStudioClass);
@@ -245,6 +250,8 @@ public:
         actionExit->setObjectName(QStringLiteral("actionExit"));
         actionClose_Project = new QAction(GameStudioClass);
         actionClose_Project->setObjectName(QStringLiteral("actionClose_Project"));
+        actionAbout = new QAction(GameStudioClass);
+        actionAbout->setObjectName(QStringLiteral("actionAbout"));
         centralWidget = new QWidget(GameStudioClass);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         gridLayout = new QGridLayout(centralWidget);
@@ -266,7 +273,7 @@ public:
         GameStudioClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(GameStudioClass);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 1046, 23));
+        menuBar->setGeometry(QRect(0, 0, 1046, 18));
         QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
@@ -288,8 +295,8 @@ public:
         menuComponent->setObjectName(QStringLiteral("menuComponent"));
         menuHelp = new QMenu(menuBar);
         menuHelp->setObjectName(QStringLiteral("menuHelp"));
-        menuTools = new QMenu(menuBar);
-        menuTools->setObjectName(QStringLiteral("menuTools"));
+        menuEdit = new QMenu(menuBar);
+        menuEdit->setObjectName(QStringLiteral("menuEdit"));
         GameStudioClass->setMenuBar(menuBar);
         mainToolBar = new QToolBar(GameStudioClass);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
@@ -330,11 +337,11 @@ public:
         GameStudioClass->addDockWidget(static_cast<Qt::DockWidgetArea>(2), dockInspector);
 
         menuBar->addAction(menuFile->menuAction());
+        menuBar->addAction(menuEdit->menuAction());
         menuBar->addAction(menuView->menuAction());
         menuBar->addAction(menuProject->menuAction());
         menuBar->addAction(menuGameObject->menuAction());
         menuBar->addAction(menuComponent->menuAction());
-        menuBar->addAction(menuTools->menuAction());
         menuBar->addAction(menuHelp->menuAction());
         menuFile->addAction(actionNew_Project);
         menuFile->addAction(actionOpen_Project);
@@ -347,6 +354,7 @@ public:
         menuFile->addAction(actionSave_Scene_As);
         menuFile->addSeparator();
         menuFile->addAction(actionExit);
+        menuHelp->addAction(actionAbout);
         mainToolBar->addAction(actionNew_Scene);
         mainToolBar->addAction(actionOpen_Scene);
         mainToolBar->addAction(actionSave_Scene);
@@ -359,7 +367,7 @@ public:
 
     void retranslateUi(QMainWindow *GameStudioClass)
     {
-        GameStudioClass->setWindowTitle(QApplication::translate("GameStudioClass", "GameStudio", 0));
+        GameStudioClass->setWindowTitle(QApplication::translate("GameStudioClass", "\347\224\261\344\275\240\350\270\242-\345\261\261\345\257\250", 0));
         actionNew_Project->setText(QApplication::translate("GameStudioClass", "New Project...", 0));
         actionOpen_Project->setText(QApplication::translate("GameStudioClass", "Open Project...", 0));
         actionSave_Project->setText(QApplication::translate("GameStudioClass", "Save Project", 0));
@@ -369,13 +377,14 @@ public:
         actionSave_Scene_As->setText(QApplication::translate("GameStudioClass", "Save Scene As...", 0));
         actionExit->setText(QApplication::translate("GameStudioClass", "Exit", 0));
         actionClose_Project->setText(QApplication::translate("GameStudioClass", "Close Project", 0));
+        actionAbout->setText(QApplication::translate("GameStudioClass", "About", 0));
         menuFile->setTitle(QApplication::translate("GameStudioClass", "File", 0));
         menuView->setTitle(QApplication::translate("GameStudioClass", "View", 0));
         menuProject->setTitle(QApplication::translate("GameStudioClass", "Project", 0));
         menuGameObject->setTitle(QApplication::translate("GameStudioClass", "GameObject", 0));
         menuComponent->setTitle(QApplication::translate("GameStudioClass", "Component", 0));
         menuHelp->setTitle(QApplication::translate("GameStudioClass", "Help", 0));
-        menuTools->setTitle(QApplication::translate("GameStudioClass", "Tools", 0));
+        menuEdit->setTitle(QApplication::translate("GameStudioClass", "Edit", 0));
         mainToolBar->setWindowTitle(QApplication::translate("GameStudioClass", "ToolBar", 0));
         dockHierarchy->setWindowTitle(QApplication::translate("GameStudioClass", "Scene Hierarchy", 0));
         dockLog->setWindowTitle(QApplication::translate("GameStudioClass", "Log", 0));

@@ -2,6 +2,7 @@
 #include "menumanager.h"
 #include "GameEngine.h"
 #include "gamestudio.h"
+#include "GameEditor.h"
 
 MenuManager::MenuManager(QObject *parent)
 	: QObject(parent)
@@ -37,7 +38,7 @@ void MenuManager::Install_Menu_GameObject()
 
 	std::unordered_map<std::wstring, std::vector<ld3d::GameObjectTemplate*> >			tplMap;
 
-	GameObjectManagerPtr pManager = m_pEngine->GetCoreApi()->GetGameObjectManager();
+	GameObjectManagerPtr pManager = m_pEditor->GetGameEngine()->GetCoreApi()->GetGameObjectManager();
 
 	for(size_t i = 0; i < pManager->GetPackageCount(); ++i)
 	{
@@ -71,7 +72,7 @@ void MenuManager::Install_Menu_GameObject()
 			connect(pAction, SIGNAL(triggered()), this, SLOT(on_menu_gameobject_action()));
 		}
 	}
-
+	pGameObjectMenu->menuAction()->setVisible(true);
 }
 void MenuManager::UnInstall_Menu_GameObject()
 {
@@ -79,6 +80,7 @@ void MenuManager::UnInstall_Menu_GameObject()
 	if(pGameObjectMenu)
 	{
 		pGameObjectMenu->clear();
+		pGameObjectMenu->menuAction()->setVisible(false);
 	}
 }
 void MenuManager::UnInstall()
@@ -86,10 +88,10 @@ void MenuManager::UnInstall()
 	UnInstall_Menu_GameObject();
 	UnInstall_Menu_Component();
 }
-void MenuManager::Reset(GameEnginePtr pEngine)
+void MenuManager::Reset(GameEditorPtr pEditor)
 {
 	UnInstall();
-	m_pEngine = pEngine;
+	m_pEditor = pEditor;
 
 }
 void MenuManager::on_menu_gameobject_action()
@@ -100,19 +102,17 @@ void MenuManager::on_menu_gameobject_action()
 
 	if(pTpl == nullptr)
 	{
-		m_pEngine->CreateObject_Empty();
+		m_pEditor->GetGameEngine()->CreateObject_Empty();
 	}
 	else
 	{
-		m_pEngine->CreateObjectFromTpl(pTpl->GetName(), pTpl->GetName());
+		m_pEditor->GetGameEngine()->CreateObjectFromTpl(pTpl->GetName(), pTpl->GetName());
 	}
 	
 	if(on_action_triggered)
 	{
 		on_action_triggered();
 	}
-
-	
 }
 
 
@@ -122,7 +122,7 @@ void MenuManager::Install_Menu_Component()
 
 	std::unordered_map<std::wstring, std::vector<ld3d::ExtPackage::ComponentClass*> >	comMap;
 
-	GameObjectManagerPtr pManager = m_pEngine->GetCoreApi()->GetGameObjectManager();
+	GameObjectManagerPtr pManager = m_pEditor->GetGameEngine()->GetCoreApi()->GetGameObjectManager();
 
 	for(size_t i = 0; i < pManager->GetPackageCount(); ++i)
 	{
@@ -167,6 +167,9 @@ void MenuManager::Install_Menu_Component()
 			connect(pAction, SIGNAL(triggered()), this, SLOT(on_menu_component_action()));
 		}
 	}
+
+	connect(pMenu, SIGNAL(aboutToShow()), this, SLOT(on_menu_component_aboutToShow()));
+	pMenu->menuAction()->setVisible(true);
 }
 void MenuManager::UnInstall_Menu_Component()
 {
@@ -174,7 +177,9 @@ void MenuManager::UnInstall_Menu_Component()
 	if(pMenu)
 	{
 		pMenu->clear();
+		pMenu->disconnect(SIGNAL(aboutToShow()));
 	}
+	pMenu->menuAction()->setVisible(false);
 }
 void MenuManager::on_menu_component_action()
 {
@@ -183,4 +188,18 @@ void MenuManager::on_menu_component_action()
 		on_action_triggered();
 	}
 
+}
+void MenuManager::on_menu_gameobject_aboutToShow()
+{
+}
+void MenuManager::on_menu_component_aboutToShow()
+{
+	QMenu* pMenu = (QMenu*)sender();
+
+	QList<QAction*> actions = pMenu->actions();
+
+	for(int i = 0; i < actions.count(); ++i)
+	{
+		actions.at(i)->setEnabled(m_pEditor->GetCurrentObject() != nullptr);
+	}
 }

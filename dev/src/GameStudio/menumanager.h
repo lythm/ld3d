@@ -15,13 +15,15 @@ public:
 
 	void														Install();
 	void														UnInstall();
-	void														Reset(GameEnginePtr pEngine);
+	void														Reset(GameEditorPtr pEditor);
 
 
 	std::function<void()>										on_action_triggered;
 public slots:
 	void														on_menu_gameobject_action();
 	void														on_menu_component_action();
+	void														on_menu_gameobject_aboutToShow();
+	void														on_menu_component_aboutToShow();
 private:
 	void														Install_Menu_GameObject();
 	void														UnInstall_Menu_GameObject();
@@ -31,8 +33,8 @@ private:
 private:
 
 	GameStudio*													m_pMainWnd;
-	GameEnginePtr												m_pEngine;
-	
+	GameEditorPtr												m_pEditor;
+
 };
 
 #endif // MENUMANAGER_H

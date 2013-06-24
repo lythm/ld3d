@@ -43,6 +43,8 @@ public:
 
 	void														SetCurrentObject(ld3d::GameObject* pObj);
 	ld3d::GameObject*											GetCurrentObject();
+
+	GameEnginePtr												GetGameEngine();
 private:
 	bool														ResetEngine();
 

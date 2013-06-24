@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>GameStudio</string>
+   <string>由你踢-山寨</string>
   </property>
   <property name="windowIcon">
    <iconset resource="gamestudio.qrc">
@@ -21,6 +21,7 @@
    <string notr="true">*
 
 {
+	font: 9pt &quot;宋体&quot;;
 	color: rgb(180, 180, 180);
 	background-color: rgb(41, 41, 41);
 	border-color: rgb(41, 41, 41);
@@ -228,7 +229,7 @@ QTreeView
      <x>0</x>
      <y>0</y>
      <width>1046</width>
-     <height>23</height>
+     <height>18</height>
     </rect>
    </property>
    <property name="sizePolicy">
@@ -289,18 +290,19 @@ QTreeView
     <property name="title">
      <string>Help</string>
     </property>
+    <addaction name="actionAbout"/>
    </widget>
-   <widget class="QMenu" name="menuTools">
+   <widget class="QMenu" name="menuEdit">
     <property name="title">
-     <string>Tools</string>
+     <string>Edit</string>
     </property>
    </widget>
    <addaction name="menuFile"/>
+   <addaction name="menuEdit"/>
    <addaction name="menuView"/>
    <addaction name="menuProject"/>
    <addaction name="menuGameObject"/>
    <addaction name="menuComponent"/>
-   <addaction name="menuTools"/>
    <addaction name="menuHelp"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
@@ -382,6 +384,10 @@ QTreeView
    </property>
   </action>
   <action name="actionNew_Scene">
+   <property name="icon">
+    <iconset resource="gamestudio.qrc">
+     <normaloff>:/GameStudio/Toolbar256.bmp</normaloff>:/GameStudio/Toolbar256.bmp</iconset>
+   </property>
    <property name="text">
     <string>New Scene</string>
    </property>
@@ -409,6 +415,11 @@ QTreeView
   <action name="actionClose_Project">
    <property name="text">
     <string>Close Project</string>
+   </property>
+  </action>
+  <action name="actionAbout">
+   <property name="text">
+    <string>About</string>
    </property>
   </action>
  </widget>

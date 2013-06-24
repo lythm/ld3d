@@ -63,6 +63,9 @@ GameStudio::GameStudio(QWidget *parent)
 
 	
 	UpdateActions();
+
+	menuGameObject->menuAction()->setVisible(false);
+	menuComponent->menuAction()->setVisible(false);
 }
 
 GameStudio::~GameStudio()
