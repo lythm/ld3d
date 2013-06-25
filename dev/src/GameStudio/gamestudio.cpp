@@ -42,7 +42,8 @@ GameStudio::GameStudio(QWidget *parent)
 	dockLog->setWidget(m_pLogForm);
 
 	m_pInspectorForm = new Form_Inspector(this);
-	dockInspector->setWidget(m_pInspectorForm);
+	scrollArea->setWidget(m_pInspectorForm);
+	//dockInspector->setWidget(m_pInspectorForm);
 	
 	
 	QSettings settings("GGUHA Ltd.", "Game Studio");

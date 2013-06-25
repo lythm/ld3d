@@ -263,3 +263,9 @@ GameEnginePtr GameEditor::GetGameEngine()
 {
 	return m_pEngine;
 }
+void GameEditor::UpdateInspectorView()
+{
+}
+void GameEditor::ClearInspectorView()
+{
+}

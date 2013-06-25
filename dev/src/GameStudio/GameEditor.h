@@ -37,6 +37,8 @@ public:
 	void														on_idle();
 
 	void														UpdateHierarchyView();
+	void														UpdateInspectorView();
+	void														ClearInspectorView();
 	void														ClearHierarchyView();
 
 	boost::filesystem::path										GetSceneFile();

@@ -16,10 +16,12 @@
 #include <QtWidgets/QDockWidget>
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QHeaderView>
+#include <QtWidgets/QLineEdit>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMdiArea>
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
+#include <QtWidgets/QScrollArea>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QWidget>
@@ -58,17 +60,20 @@ public:
     QWidget *dockWidgetContents_2;
     QDockWidget *dockInspector;
     QWidget *dockWidgetContents_3;
+    QGridLayout *gridLayout_2;
+    QScrollArea *scrollArea;
+    QWidget *scrollAreaWidgetContents;
+    QLineEdit *lineEdit;
 
     void setupUi(QMainWindow *GameStudioClass)
     {
         if (GameStudioClass->objectName().isEmpty())
             GameStudioClass->setObjectName(QStringLiteral("GameStudioClass"));
-        GameStudioClass->resize(1046, 809);
+        GameStudioClass->resize(667, 559);
         QIcon icon;
         icon.addFile(QStringLiteral(":/GameStudio/i001.png"), QSize(), QIcon::Normal, QIcon::Off);
         GameStudioClass->setWindowIcon(icon);
         GameStudioClass->setStyleSheet(QString::fromUtf8("*\n"
-"\n"
 "{\n"
 "	font: 9pt \"\345\256\213\344\275\223\";\n"
 "	color: rgb(180, 180, 180);\n"
@@ -76,6 +81,7 @@ public:
 "	border-color: rgb(41, 41, 41);\n"
 "\n"
 "}\n"
+"\n"
 "\n"
 "QMenuBar \n"
 "{\n"
@@ -226,6 +232,15 @@ public:
 " QTreeView::item:selected:!active {\n"
 "     background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #6b9be8, stop: 1 #577fbf);\n"
 " }\n"
+"\n"
+"\n"
+"\n"
+"QLineEdit\n"
+"{\n"
+"\n"
+"background-color: rgb(255, 255, 255);\n"
+"}\n"
+"\n"
 ""));
         GameStudioClass->setTabShape(QTabWidget::Triangular);
         GameStudioClass->setDockOptions(QMainWindow::AllowTabbedDocks);
@@ -263,9 +278,12 @@ public:
         mdiArea->setObjectName(QStringLiteral("mdiArea"));
         mdiArea->setEnabled(true);
         mdiArea->setStyleSheet(QStringLiteral(""));
+        QBrush brush(QColor(160, 160, 160, 255));
+        brush.setStyle(Qt::NoBrush);
+        mdiArea->setBackground(brush);
         mdiArea->setViewMode(QMdiArea::TabbedView);
         mdiArea->setTabsClosable(false);
-        mdiArea->setTabsMovable(true);
+        mdiArea->setTabsMovable(false);
         mdiArea->setTabShape(QTabWidget::Triangular);
 
         gridLayout->addWidget(mdiArea, 0, 0, 1, 1);
@@ -273,7 +291,7 @@ public:
         GameStudioClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(GameStudioClass);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 1046, 18));
+        menuBar->setGeometry(QRect(0, 0, 667, 18));
         QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
@@ -333,6 +351,27 @@ public:
 "}"));
         dockWidgetContents_3 = new QWidget();
         dockWidgetContents_3->setObjectName(QStringLiteral("dockWidgetContents_3"));
+        gridLayout_2 = new QGridLayout(dockWidgetContents_3);
+        gridLayout_2->setSpacing(1);
+        gridLayout_2->setContentsMargins(11, 11, 11, 11);
+        gridLayout_2->setObjectName(QStringLiteral("gridLayout_2"));
+        gridLayout_2->setContentsMargins(1, 1, 1, 1);
+        scrollArea = new QScrollArea(dockWidgetContents_3);
+        scrollArea->setObjectName(QStringLiteral("scrollArea"));
+        scrollArea->setFrameShape(QFrame::NoFrame);
+        scrollArea->setFrameShadow(QFrame::Plain);
+        scrollArea->setWidgetResizable(true);
+        scrollAreaWidgetContents = new QWidget();
+        scrollAreaWidgetContents->setObjectName(QStringLiteral("scrollAreaWidgetContents"));
+        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 180, 422));
+        lineEdit = new QLineEdit(scrollAreaWidgetContents);
+        lineEdit->setObjectName(QStringLiteral("lineEdit"));
+        lineEdit->setGeometry(QRect(40, 160, 113, 20));
+        lineEdit->setStyleSheet(QStringLiteral(""));
+        scrollArea->setWidget(scrollAreaWidgetContents);
+
+        gridLayout_2->addWidget(scrollArea, 0, 0, 1, 1);
+
         dockInspector->setWidget(dockWidgetContents_3);
         GameStudioClass->addDockWidget(static_cast<Qt::DockWidgetArea>(2), dockInspector);
 
@@ -367,7 +406,7 @@ public:
 
     void retranslateUi(QMainWindow *GameStudioClass)
     {
-        GameStudioClass->setWindowTitle(QApplication::translate("GameStudioClass", "\347\224\261\344\275\240\350\270\242-\345\261\261\345\257\250", 0));
+        GameStudioClass->setWindowTitle(QApplication::translate("GameStudioClass", "\345\261\261\346\245\202\347\224\261\344\275\240\350\270\242", 0));
         actionNew_Project->setText(QApplication::translate("GameStudioClass", "New Project...", 0));
         actionOpen_Project->setText(QApplication::translate("GameStudioClass", "Open Project...", 0));
         actionSave_Project->setText(QApplication::translate("GameStudioClass", "Save Project", 0));

@@ -1,25 +1,29 @@
 #include "stdafx.h"
 #include "widget_inspectorpropertystring.h"
 
-Widget_InspectorPropertyString::Widget_InspectorPropertyString(QWidget *parent)
-	: Widget_InspectorProperty(parent)
+Widget_InspectorPropertyString::Widget_InspectorPropertyString(QWidget *parent, const QString& name, const QString& value)
+	: Widget_InspectorPropertySimple(parent, name)
 {
-	setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
-
-	m_pName = new QLabel(this);
 	m_pValue = new QLineEdit(this);
-
-	m_pName->setText("Name");
-	m_pValue->move(200, 0);
+	SetValueWidget(m_pValue);
+	m_pValue->setText(value);
 }
 
 Widget_InspectorPropertyString::~Widget_InspectorPropertyString()
 {
 
 }
-void Widget_InspectorPropertyString::resizeEvent(QResizeEvent* e)
+QString	Widget_InspectorPropertyString::GetValue()
 {
-	
+	return m_pValue->text();
+}
+void Widget_InspectorPropertyString::SetValue(const QString& value)
+{
+	m_pValue->setText(value);
 
-	Widget_InspectorProperty::resizeEvent(e);
+	on_property_changed ? on_property_changed(this) : 0;
+}
+void Widget_InspectorPropertyString::FixValue(const QString& value)
+{
+	m_pValue->setText(value);
 }

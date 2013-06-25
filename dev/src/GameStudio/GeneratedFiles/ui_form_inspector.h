@@ -32,11 +32,19 @@ public:
         Form_Inspector->setStyleSheet(QLatin1String("*\n"
 "{\n"
 "	 background-color: rgb(56, 56, 56);\n"
+"}\n"
+"\n"
+"\n"
+"QLineEdit\n"
+"{\n"
+"	border: 1px solid rgb(70, 70, 70);\n"
+"	background-color: rgb(80, 80, 80);\n"
 "}"));
         inspector_layout = new QGridLayout(Form_Inspector);
-        inspector_layout->setSpacing(6);
+        inspector_layout->setSpacing(1);
         inspector_layout->setContentsMargins(11, 11, 11, 11);
         inspector_layout->setObjectName(QStringLiteral("inspector_layout"));
+        inspector_layout->setContentsMargins(1, 1, 1, 1);
 
         retranslateUi(Form_Inspector);
 

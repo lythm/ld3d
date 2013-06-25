@@ -173,6 +173,15 @@
     <ClCompile Include="GeneratedFiles\Release\moc_menumanager.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="widget_inspectorpropertysimple.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_widget_inspectorpropertysimple.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_widget_inspectorpropertysimple.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -283,6 +292,9 @@
       <Filter>Header Files</Filter>
     </CustomBuild>
     <CustomBuild Include="menumanager.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="widget_inspectorpropertysimple.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
   </ItemGroup>
