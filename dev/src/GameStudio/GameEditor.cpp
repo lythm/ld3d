@@ -47,7 +47,7 @@ void GameEditor::Release()
 
 	m_pCamera.reset();
 
-	m_pMenuManager->UnInstall();
+	m_pMenuManager->Clear();
 	m_pMenuManager.reset();
 }
 void GameEditor::Reset()
@@ -118,7 +118,6 @@ bool GameEditor::OpenProject(boost::filesystem::path path)
 	}
 	UpdateHierarchyView();
 	m_pMenuManager->Reset(shared_from_this());
-	m_pMenuManager->Install();
 	return true;
 }
 bool GameEditor::NewProject(boost::filesystem::path path)
@@ -143,7 +142,6 @@ bool GameEditor::NewProject(boost::filesystem::path path)
 	UpdateHierarchyView();
 
 	m_pMenuManager->Reset(shared_from_this());
-	m_pMenuManager->Install();
 	return true;
 }
 ProjectPtr GameEditor::GetProject()

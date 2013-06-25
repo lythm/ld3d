@@ -14,26 +14,33 @@ MenuManager::~MenuManager()
 {
 
 }
-
-void MenuManager::Install()
+void MenuManager::Clear()
 {
-	UnInstall();
-
-	Install_Menu_GameObject();
-	Install_Menu_Component();
+	UnInstall_MainMenu();
 }
-void MenuManager::Install_Menu_GameObject()
+void MenuManager::Install_MainMenu()
 {
-	QMenu* pGameObjectMenu = m_pMainWnd->menuGameObject;
+	UnInstall_MainMenu();
 
+	QMenu* pMenu = m_pMainWnd->menuGameObject;
+	pMenu->clear();
+	Install_Menu_GameObject(pMenu);
+	pMenu->menuAction()->setVisible(true);
+
+
+	pMenu = m_pMainWnd->menuComponent;
+	pMenu->clear();
+	Install_Menu_Component(pMenu);
+	pMenu->menuAction()->setVisible(true);
+
+}
+void MenuManager::Install_Menu_GameObject(QMenu* pMenu)
+{
 	using namespace ld3d;
 
-	pGameObjectMenu->clear();
+	connect(pMenu->addAction("Empty"), SIGNAL(triggered()), this, SLOT(on_menu_gameobject_action()));
 
-	
-	connect(pGameObjectMenu->addAction("Empty"), SIGNAL(triggered()), this, SLOT(on_menu_gameobject_action()));
-
-	pGameObjectMenu->addSeparator();
+	pMenu->addSeparator();
 	
 
 	std::unordered_map<std::wstring, std::vector<ld3d::GameObjectTemplate*> >			tplMap;
@@ -59,7 +66,7 @@ void MenuManager::Install_Menu_GameObject()
 		}
 		
 		QString subName = QString::fromStdWString(v.first);
-		QMenu* pSub = pGameObjectMenu->addMenu(subName);
+		QMenu* pSub = pMenu->addMenu(subName);
 
 		
 		for(size_t i = 0; i < v.second.size(); ++i)
@@ -72,27 +79,29 @@ void MenuManager::Install_Menu_GameObject()
 			connect(pAction, SIGNAL(triggered()), this, SLOT(on_menu_gameobject_action()));
 		}
 	}
-	pGameObjectMenu->menuAction()->setVisible(true);
 }
-void MenuManager::UnInstall_Menu_GameObject()
+
+void MenuManager::UnInstall_MainMenu()
 {
-	QMenu* pGameObjectMenu = m_pMainWnd->menuGameObject;
-	if(pGameObjectMenu)
+	QMenu* pMenu = m_pMainWnd->menuGameObject;
+	if(pMenu)
 	{
-		pGameObjectMenu->clear();
-		pGameObjectMenu->menuAction()->setVisible(false);
+		pMenu->clear();
+		pMenu->menuAction()->setVisible(false);
 	}
-}
-void MenuManager::UnInstall()
-{
-	UnInstall_Menu_GameObject();
-	UnInstall_Menu_Component();
+
+	pMenu = m_pMainWnd->menuComponent;
+	if(pMenu)
+	{
+		pMenu->clear();
+		pMenu->menuAction()->setVisible(false);
+	}
 }
 void MenuManager::Reset(GameEditorPtr pEditor)
 {
-	UnInstall();
+	UnInstall_MainMenu();
 	m_pEditor = pEditor;
-
+	Install_MainMenu();
 }
 void MenuManager::on_menu_gameobject_action()
 {
@@ -116,7 +125,7 @@ void MenuManager::on_menu_gameobject_action()
 }
 
 
-void MenuManager::Install_Menu_Component()
+void MenuManager::Install_Menu_Component(QMenu* pMenu)
 {
 	using namespace ld3d;
 
@@ -143,9 +152,6 @@ void MenuManager::Install_Menu_Component()
 		}
 	}
 	
-	QMenu* pMenu = m_pMainWnd->menuComponent;
-	pMenu->clear();
-
 	for(auto v : comMap)
 	{
 		if(v.second.size() == 0)
@@ -171,16 +177,7 @@ void MenuManager::Install_Menu_Component()
 	connect(pMenu, SIGNAL(aboutToShow()), this, SLOT(on_menu_component_aboutToShow()));
 	pMenu->menuAction()->setVisible(true);
 }
-void MenuManager::UnInstall_Menu_Component()
-{
-	QMenu* pMenu = m_pMainWnd->menuComponent;
-	if(pMenu)
-	{
-		pMenu->clear();
-		pMenu->disconnect(SIGNAL(aboutToShow()));
-	}
-	pMenu->menuAction()->setVisible(false);
-}
+
 void MenuManager::on_menu_component_action()
 {
 	if(on_action_triggered)

@@ -13,10 +13,10 @@ public:
 	MenuManager(QObject *parent);
 	~MenuManager();
 
-	void														Install();
-	void														UnInstall();
+	
 	void														Reset(GameEditorPtr pEditor);
 
+	void														Clear();
 
 	std::function<void()>										on_action_triggered;
 public slots:
@@ -25,11 +25,10 @@ public slots:
 	void														on_menu_gameobject_aboutToShow();
 	void														on_menu_component_aboutToShow();
 private:
-	void														Install_Menu_GameObject();
-	void														UnInstall_Menu_GameObject();
-
-	void														Install_Menu_Component();
-	void														UnInstall_Menu_Component();
+	void														Install_Menu_GameObject(QMenu* pMenu);
+	void														Install_Menu_Component(QMenu* pMenu);
+	void														Install_MainMenu();
+	void														UnInstall_MainMenu();
 private:
 
 	GameStudio*													m_pMainWnd;
