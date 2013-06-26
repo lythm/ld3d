@@ -6,6 +6,7 @@
 #include "Widget_InspectorPropertyBool.h"
 #include "Widget_InspectorPropertyColor.h"
 #include "Widget_InspectorPropertyTransform.h"
+#include "Widget_InspectorPanel.h"
 
 #include "AppContext.h"
 
@@ -36,6 +37,7 @@ QLayoutItem *Widget_Inspector::InspectorLayout::takeAt(int idx)
 
 void Widget_Inspector::InspectorLayout::addItem(QLayoutItem *item)
 {
+	expandSize(item);
 	list.append(item);
 }
 void Widget_Inspector::InspectorLayout::setGeometry(const QRect &r)
@@ -45,71 +47,44 @@ void Widget_Inspector::InspectorLayout::setGeometry(const QRect &r)
 	if (list.size() == 0)
 		return;
 
-	int w = r.width();
-	int h = r.height() - (list.count() - 1) * spacing();
 	int i = 0;
 	int y_offset = 0;
-	while (i < list.size()) {
+	while (i < list.size())
+	{
 		QLayoutItem *o = list.at(i);
 		
-		QRect geom(r.x(), r.y() + y_offset, w, o->sizeHint().height());
+		QRect geom(r.x() + spacing(), r.y() + y_offset, r.width() - spacing(), o->sizeHint().height());
 		o->setGeometry(geom);
 		y_offset += o->sizeHint().height() + spacing();
 
 		++i;
 	}
-
-	//QString str("%1-%2-%3-%4");
-	//AppContext::log_info(str.arg(r.x()).arg(r.y()).arg(r.width()).arg(r.height()).toStdWString());
 }
 QSize Widget_Inspector::InspectorLayout::sizeHint() const
 {
-	QSize s(0,0);
-	int n = list.count();
-	if (n > 0)
-		s = QSize(100,70); //start with a nice default size
-	int i = 0;
-
-	int w = 0;
-	int h = 0;
-
-	while (i < n) {
-		QLayoutItem *o = list.at(i);
-
-		QSize hint = o->sizeHint();
-
-		w = w < hint.width() ? hint.width() : w;
-		h += hint.height();
-		++i;
-	}
-
-	s = QSize(w, h);
-
-	return s + n * QSize(0, spacing());
+	return sizeHintCache;
 }
 
 QSize Widget_Inspector::InspectorLayout::minimumSize() const
 {
-	QSize s(0,0);
-	int n = list.count();
-	int i = 0;
-	int w = 0;
-	int h = 0;
-
-	while (i < n) {
-		QLayoutItem *o = list.at(i);
-
-		QSize hint = o->minimumSize();
-
-		w = w < hint.width() ? hint.width() : w;
-		h += hint.height();
-		++i;
-	}
-
-	s = QSize(w, h);
-	return s + n*QSize(0, spacing());
+	return sizeMinCache;
 }
+void Widget_Inspector::InspectorLayout::expandSize(QLayoutItem* item)
+{
+	QSize size = item->minimumSize();
 
+	sizeMinCache.width() < size.width() ? sizeMinCache.setWidth(size.width()) : 0;
+
+	sizeMinCache.setHeight(size.height() + sizeMinCache.height() + spacing());
+
+
+	size = item->sizeHint();
+
+	sizeHintCache.width() < size.width() ? sizeHintCache.setWidth(size.width()) : 0;
+
+	sizeHintCache.setHeight(size.height() + sizeHintCache.height() + spacing());
+
+}
 /////////////////////////////////
 
 Widget_Inspector::Widget_Inspector(QWidget *parent)
@@ -119,6 +94,8 @@ Widget_Inspector::Widget_Inspector(QWidget *parent)
 
 	m_pLayout->setMargin(1);
 	setLayout(m_pLayout);
+	
+	setMinimumSize(m_pLayout->minimumSize());
 
 }
 
@@ -131,7 +108,7 @@ void Widget_Inspector::resizeEvent(QResizeEvent* e)
 }
 void Widget_Inspector::AddProperty(Widget_InspectorProperty* pProp)
 {
-	//pProp->setAttribute(Qt::WA_DeleteOnClose);
+	pProp->setParent(this);
 	m_pLayout->addWidget(pProp);
 }
 Widget_InspectorProperty* Widget_Inspector::AddStringProperty(const QString& name, const QString& initValue)
@@ -176,3 +153,11 @@ Widget_InspectorProperty* Widget_Inspector::AddTransformProperty(const math::Mat
 	AddProperty(pProp);
 	return pProp;
 }
+Widget_InspectorPanel* Widget_Inspector::AddPanel()
+{
+	Widget_InspectorPanel* pPanel = new Widget_InspectorPanel(this);
+
+	AddProperty(pPanel);
+	return pPanel;
+}
+

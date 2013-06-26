@@ -43,8 +43,8 @@ GameStudio::GameStudio(QWidget *parent)
 
 	m_pInspectorForm = new Form_Inspector(this);
 	scrollArea->setWidget(m_pInspectorForm);
-	//dockInspector->setWidget(m_pInspectorForm);
-	
+	dockInspector->setMinimumWidth(300);
+
 	
 	QSettings settings("GGUHA Ltd.", "Game Studio");
 	restoreGeometry(settings.value("geometry").toByteArray());

@@ -7,5 +7,9 @@ class Widget_InspectorPanelBar : public QWidget
 public:
 	Widget_InspectorPanelBar(QWidget* parent);
 	virtual ~Widget_InspectorPanelBar(void);
+
+	void											resizeEvent(QResizeEvent* e);
+private:
+	QLabel*											m_pTitle;
 };
 

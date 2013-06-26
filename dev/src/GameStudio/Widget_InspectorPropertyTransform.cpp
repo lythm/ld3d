@@ -48,6 +48,7 @@ Widget_InspectorPropertyTransform::Widget_InspectorPropertyTransform(QWidget *pa
 
 
 	setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
+	
 	setMinimumHeight(6 * (WIDGET_ROW_HEIGHT + WIDGET_ROW_SPACING));
 	setMinimumWidth(100);
 

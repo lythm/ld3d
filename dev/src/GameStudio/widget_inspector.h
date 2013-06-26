@@ -2,10 +2,10 @@
 #define WIDGET_INSPECTOR_H
 
 #include <QWidget>
-class Widget_InspectorProperty;
 
 
 class Widget_InspectorProperty;
+class Widget_InspectorPanel;
 
 class Widget_Inspector : public QWidget
 {
@@ -20,7 +20,11 @@ public:
 	class InspectorLayout : public QLayout
 	{
 	public:
-		InspectorLayout(QWidget *parent): QLayout(parent) {setSpacing(1);}
+		InspectorLayout(QWidget *parent): QLayout(parent) 
+		{
+			setSpacing(1);
+			sizeHintCache = sizeMinCache = QSize(100, 0);
+		}
 		virtual ~InspectorLayout();
 
 		void addItem(QLayoutItem *item);
@@ -32,9 +36,14 @@ public:
 		void setGeometry(const QRect &rect);
 
 	private:
-		QList<QLayoutItem*> list;
+		void									expandSize(QLayoutItem* item);
+	private:
+		QList<QLayoutItem*>						list;
+		QSize									sizeHintCache;
+		QSize									sizeMinCache;
 	};
 public:
+	Widget_InspectorPanel*						AddPanel();
 	
 	Widget_InspectorProperty*					AddStringProperty(const QString& name, const QString& initValue);
 	Widget_InspectorProperty*					AddIntProperty(const QString& name, int initValue);
@@ -50,6 +59,7 @@ private:
 	Widget_InspectorProperty*					m_pProperty;
 
 	InspectorLayout*							m_pLayout;
+
 };
 
 #endif // WIDGET_INSPECTOR_H

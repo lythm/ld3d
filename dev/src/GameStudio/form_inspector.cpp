@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "form_inspector.h"
 #include "widget_inspector.h"
+#include "Widget_InspectorPanel.h"
 
 Form_Inspector::Form_Inspector(QWidget *parent)
 	: QWidget(parent)
@@ -13,15 +14,22 @@ Form_Inspector::Form_Inspector(QWidget *parent)
 	
 	inspector_layout->addWidget(new QPushButton(this));
 
-	for(int i = 0; i < 10; ++i)
+	
+
+
+	for(int i = 0; i < 2; ++i)
 	{
-		m_pInspector->AddTransformProperty(math::MatrixIdentity());
-		m_pInspector->AddStringProperty("Name", "Tom");
-		m_pInspector->AddIntProperty("Age", 30);
-		m_pInspector->AddDoubleProperty("Weight", 59.5);
-		m_pInspector->AddBoolProperty("Married", false);
-		m_pInspector->AddColorProperty("Favorate Color", QColor(180, 200, 55));
+		Widget_InspectorPanel* pPanel = m_pInspector->AddPanel();
 		
+		pPanel->AddTransformProperty(math::MatrixIdentity());
+		pPanel->AddStringProperty("Name", "Tom");
+		pPanel->AddIntProperty("Age", 30);
+		pPanel->AddDoubleProperty("Weight", 59.5);
+
+		pPanel = pPanel->AddPanel();
+
+		pPanel->AddBoolProperty("Married", false);
+		pPanel->AddColorProperty("Favorate Color", QColor(180, 200, 55));
 	}
 }
 
