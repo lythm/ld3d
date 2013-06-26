@@ -1,6 +1,12 @@
 #include "stdafx.h"
 #include "widget_inspector.h"
 #include "widget_inspectorpropertystring.h"
+#include "widget_inspectorpropertyint.h"
+#include "widget_inspectorpropertydouble.h"
+#include "Widget_InspectorPropertyBool.h"
+#include "Widget_InspectorPropertyColor.h"
+#include "Widget_InspectorPropertyTransform.h"
+
 #include "AppContext.h"
 
 Widget_Inspector::InspectorLayout::~InspectorLayout()
@@ -42,10 +48,14 @@ void Widget_Inspector::InspectorLayout::setGeometry(const QRect &r)
 	int w = r.width();
 	int h = r.height() - (list.count() - 1) * spacing();
 	int i = 0;
+	int y_offset = 0;
 	while (i < list.size()) {
 		QLayoutItem *o = list.at(i);
-		QRect geom(r.x(), r.y() + i * (spacing() + o->sizeHint().height()), w, h);
+		
+		QRect geom(r.x(), r.y() + y_offset, w, o->sizeHint().height());
 		o->setGeometry(geom);
+		y_offset += o->sizeHint().height() + spacing();
+
 		++i;
 	}
 
@@ -110,17 +120,6 @@ Widget_Inspector::Widget_Inspector(QWidget *parent)
 	m_pLayout->setMargin(1);
 	setLayout(m_pLayout);
 
-	AddStringProperty("Name", "Tom");
-
-
-	for(int i = 0; i < 20; ++i)
-	{
-
-		m_pLayout->addWidget(new Widget_InspectorPropertyString(this, "Type"));
-		m_pLayout->addWidget(new Widget_InspectorPropertyString(this, "Age"));
-		m_pLayout->addWidget(new Widget_InspectorPropertyString(this, "Desccription"));
-	}
-
 }
 
 Widget_Inspector::~Widget_Inspector()
@@ -137,7 +136,42 @@ void Widget_Inspector::AddProperty(Widget_InspectorProperty* pProp)
 }
 Widget_InspectorProperty* Widget_Inspector::AddStringProperty(const QString& name, const QString& initValue)
 {
-	Widget_InspectorProperty* pProp = new Widget_InspectorPropertyString(this, "Name", initValue);
+	Widget_InspectorProperty* pProp = new Widget_InspectorPropertyString(this, name, initValue);
+
+	AddProperty(pProp);
+	return pProp;
+}
+Widget_InspectorProperty* Widget_Inspector::AddIntProperty(const QString& name, int initValue)
+{
+	Widget_InspectorProperty* pProp = new Widget_InspectorPropertyInt(this, name, initValue);
+
+	AddProperty(pProp);
+	return pProp;
+}
+Widget_InspectorProperty* Widget_Inspector::AddDoubleProperty(const QString& name, double initValue)
+{
+	Widget_InspectorProperty* pProp = new Widget_InspectorPropertyDouble(this, name, initValue);
+
+	AddProperty(pProp);
+	return pProp;
+}
+Widget_InspectorProperty* Widget_Inspector::AddBoolProperty(const QString& name, bool initValue)
+{
+	Widget_InspectorProperty* pProp = new Widget_InspectorPropertyBool(this, name, initValue);
+
+	AddProperty(pProp);
+	return pProp;
+}
+Widget_InspectorProperty* Widget_Inspector::AddColorProperty(const QString& name, const QColor& initValue)
+{
+	Widget_InspectorProperty* pProp = new Widget_InspectorPropertyColor(this, name, initValue);
+
+	AddProperty(pProp);
+	return pProp;
+}
+Widget_InspectorProperty* Widget_Inspector::AddTransformProperty(const math::Matrix44& initValue)
+{
+	Widget_InspectorProperty* pProp = new Widget_InspectorPropertyTransform(this, initValue);
 
 	AddProperty(pProp);
 	return pProp;

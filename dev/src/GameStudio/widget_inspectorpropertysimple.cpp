@@ -6,13 +6,15 @@ Widget_InspectorPropertySimple::Widget_InspectorPropertySimple(QWidget *parent, 
 {
 
 	setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
-	setMinimumHeight(19);
+	setMinimumHeight(WIDGET_ROW_HEIGHT + WIDGET_ROW_SPACING);
 	
 	m_pNameWidget = new QLabel(this);
 	m_pNameWidget->setAttribute(Qt::WA_DeleteOnClose);
 	m_pValueWidget = nullptr;
 
 	SetName(name);
+
+	setMinimumWidth(100);
 
 	//setMinimumWidth(m_pNameWidget->minimumWidth() + 20);
 	//setMinimumWidth(300);
@@ -28,11 +30,11 @@ void Widget_InspectorPropertySimple::resizeEvent(QResizeEvent* e)
 
 	int w1 = s.width() / 3;
 
-	m_pNameWidget->setGeometry(0, 0, w1 - 1, 19);
+	m_pNameWidget->setGeometry(0, 0, w1 - 1, WIDGET_ROW_HEIGHT);
 
 	if(m_pValueWidget)
 	{
-		m_pValueWidget->setGeometry(w1 , 0, s.width() - w1 - 1 , 19);
+		m_pValueWidget->setGeometry(w1 , 0, s.width() - w1 - 1 , WIDGET_ROW_HEIGHT);
 	}
 
 	Widget_InspectorProperty::resizeEvent(e);

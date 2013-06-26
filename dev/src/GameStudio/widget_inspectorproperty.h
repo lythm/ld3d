@@ -11,6 +11,11 @@ public:
 	Widget_InspectorProperty(QWidget *parent, void* userData = nullptr);
 	~Widget_InspectorProperty();
 
+	enum
+	{
+		WIDGET_ROW_HEIGHT			= 19,
+		WIDGET_ROW_SPACING			= 1,
+	};
 
 	void															SetUserData(void* data);
 	void*															GetUserData();

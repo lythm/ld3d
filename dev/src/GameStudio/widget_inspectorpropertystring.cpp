@@ -19,7 +19,7 @@ QString	Widget_InspectorPropertyString::GetValue()
 }
 void Widget_InspectorPropertyString::SetValue(const QString& value)
 {
-	m_pValue->setText(value);
+	FixValue(value);
 
 	on_property_changed ? on_property_changed(this) : 0;
 }

@@ -37,6 +37,12 @@ public:
 public:
 	
 	Widget_InspectorProperty*					AddStringProperty(const QString& name, const QString& initValue);
+	Widget_InspectorProperty*					AddIntProperty(const QString& name, int initValue);
+	Widget_InspectorProperty*					AddDoubleProperty(const QString& name, double initValue);
+	Widget_InspectorProperty*					AddBoolProperty(const QString& name, bool initValue);
+	Widget_InspectorProperty*					AddColorProperty(const QString& name, const QColor& initValue);
+	Widget_InspectorProperty*					AddTransformProperty(const math::Matrix44& initValue);
+
 	void										AddProperty(Widget_InspectorProperty* pProp);
 private:
 	void										resizeEvent(QResizeEvent* e);
