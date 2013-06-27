@@ -14,17 +14,34 @@
    <string>Form_Inspector</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">*
-{
-	 background-color: rgb(56, 56, 56);
-}
-
-
+   <string notr="true">
 QLineEdit
 {
 	border: 1px solid rgb(70, 70, 70);
-	background-color: rgb(80, 80, 80);
-}</string>
+	background-color: rgb(65, 65, 65);
+}
+
+Widget_Inspector
+{
+	background-color: rgb(255, 89, 89);
+}
+Widget_InspectorPanel
+{
+	background-color: rgb(255, 89, 89);
+}
+Widget_InspectorPanelBar
+{
+	background-color: rgb(255, 89, 89);
+}
+Widget_InspectorProperty
+{
+	background-color: rgb(255, 89, 89);
+}
+QPushButton
+{
+	background-color: rgb(255, 89, 89);
+}
+</string>
   </property>
   <layout class="QGridLayout" name="inspector_layout">
    <property name="leftMargin">

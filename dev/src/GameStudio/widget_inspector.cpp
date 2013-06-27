@@ -37,7 +37,6 @@ QLayoutItem *Widget_Inspector::InspectorLayout::takeAt(int idx)
 
 void Widget_Inspector::InspectorLayout::addItem(QLayoutItem *item)
 {
-	expandSize(item);
 	list.append(item);
 }
 void Widget_Inspector::InspectorLayout::setGeometry(const QRect &r)
@@ -47,6 +46,8 @@ void Widget_Inspector::InspectorLayout::setGeometry(const QRect &r)
 	if (list.size() == 0)
 		return;
 
+	int v_spacing = 5;
+
 	int i = 0;
 	int y_offset = 0;
 	while (i < list.size())
@@ -55,47 +56,53 @@ void Widget_Inspector::InspectorLayout::setGeometry(const QRect &r)
 		
 		QRect geom(r.x() + spacing(), r.y() + y_offset, r.width() - spacing(), o->sizeHint().height());
 		o->setGeometry(geom);
-		y_offset += o->sizeHint().height() + spacing();
+		y_offset += o->sizeHint().height() + v_spacing;
 
 		++i;
 	}
 }
 QSize Widget_Inspector::InspectorLayout::sizeHint() const
 {
-	return sizeHintCache;
+	int w = 0;
+	int h = 0;
+
+	for(int i = 0; i < list.count(); ++i)
+	{
+		QSize hint = list.at(i)->sizeHint();
+		w =  w < hint.width() ? hint.width() : w;
+		h += hint.height() + spacing();
+	}
+	return QSize(w, h);
 }
 
 QSize Widget_Inspector::InspectorLayout::minimumSize() const
 {
-	return sizeMinCache;
+	int w = 0;
+	int h = 0;
+
+	for(int i = 0; i < list.count(); ++i)
+	{
+		QSize hint = list.at(i)->sizeHint();
+		w =  w < hint.width() ? hint.width() : w;
+		h += hint.height() + spacing();
+	}
+	return QSize(w, h);
 }
-void Widget_Inspector::InspectorLayout::expandSize(QLayoutItem* item)
-{
-	QSize size = item->minimumSize();
 
-	sizeMinCache.width() < size.width() ? sizeMinCache.setWidth(size.width()) : 0;
-
-	sizeMinCache.setHeight(size.height() + sizeMinCache.height() + spacing());
-
-
-	size = item->sizeHint();
-
-	sizeHintCache.width() < size.width() ? sizeHintCache.setWidth(size.width()) : 0;
-
-	sizeHintCache.setHeight(size.height() + sizeHintCache.height() + spacing());
-
-}
 /////////////////////////////////
 
 Widget_Inspector::Widget_Inspector(QWidget *parent)
 	: QWidget(parent)
 {
+	QString str = styleSheet();
+	setStyleSheet(str);
+//	setStyleSheet("background-color:rgb(255,89,89);}");
 	m_pLayout = new InspectorLayout(this);
 
 	m_pLayout->setMargin(1);
 	setLayout(m_pLayout);
 	
-	setMinimumSize(m_pLayout->minimumSize());
+//	setMinimumSize(m_pLayout->minimumSize());
 
 }
 
@@ -109,6 +116,7 @@ void Widget_Inspector::resizeEvent(QResizeEvent* e)
 void Widget_Inspector::AddProperty(Widget_InspectorProperty* pProp)
 {
 	pProp->setParent(this);
+	pProp->setVisible(true);
 	m_pLayout->addWidget(pProp);
 }
 Widget_InspectorProperty* Widget_Inspector::AddStringProperty(const QString& name, const QString& initValue)

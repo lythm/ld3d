@@ -9,7 +9,13 @@ public:
 	virtual ~Widget_InspectorPanelBar(void);
 
 	void											resizeEvent(QResizeEvent* e);
+	QSize											sizeHint() const;
+
+public:
+Q_SIGNALS:
+	void											clicked();
+
 private:
-	QLabel*											m_pTitle;
+	QPushButton*									m_pTitle;
 };
 

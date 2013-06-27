@@ -243,3 +243,7 @@ math::Matrix44 Widget_InspectorPropertyTransform::EularToMatrix(const math::Vect
 
 	return MatrixRotationAxisY(D2R(r.y)) * MatrixRotationAxisZ(D2R(r.z)) * MatrixRotationAxisX(D2R(r.x));
 }
+QSize Widget_InspectorPropertyTransform::sizeHint() const
+{
+	return QSize(100, 6 * (WIDGET_ROW_HEIGHT + WIDGET_ROW_SPACING));
+}

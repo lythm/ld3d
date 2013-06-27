@@ -12,11 +12,16 @@
 Widget_InspectorPanel::Widget_InspectorPanel(QWidget* parent, const QString& name)
 	:Widget_InspectorProperty(parent)
 {
-	m_indent = 10;
+
+	
+	//setStyleSheet("background-color:rgb(56,56,56);}");
+
+	m_indent = 20;
 	m_pBar = new Widget_InspectorPanelBar(this);
 
+	connect(m_pBar, SIGNAL(clicked()), this, SLOT(slotTitleClicked()));
 	setMinimumWidth(100);
-	setMinimumHeight(WIDGET_ROW_HEIGHT + WIDGET_ROW_SPACING);
+	//setMinimumHeight(WIDGET_ROW_HEIGHT + WIDGET_ROW_SPACING);
 }
 
 
@@ -27,24 +32,26 @@ void Widget_InspectorPanel::resizeEvent(QResizeEvent* e)
 {
 	m_pBar->setGeometry(0, 0, e->size().width(), WIDGET_ROW_HEIGHT);
 
-	int h = m_pBar->minimumHeight();
+	int h = m_pBar->sizeHint().height();
 
 	for(auto v : m_props)
 	{
-		v->setGeometry(m_indent, h, e->size().width() - m_indent, v->minimumHeight());
-		h += v->minimumHeight() + WIDGET_ROW_SPACING;
+		if(v->isVisibleTo(this) == false)
+		{
+			continue;
+		}
+
+		QSize size = v->sizeHint();
+
+		v->setGeometry(m_indent, h, e->size().width() - m_indent, size.height());
+		h += size.height() + WIDGET_ROW_SPACING;
 	}
 	QWidget::resizeEvent(e);
 }
 void Widget_InspectorPanel::AddProperty(Widget_InspectorProperty* pProp)
 {
-	int h = minimumHeight();
-
-	h += pProp->minimumHeight() + WIDGET_ROW_SPACING;
-
-	setMinimumHeight(h);
-
 	pProp->setParent(this);
+	pProp->setVisible(true);
 	m_props.push_back(pProp);
 }
 Widget_InspectorProperty* Widget_InspectorPanel::AddStringProperty(const QString& name, const QString& initValue)
@@ -97,3 +104,38 @@ Widget_InspectorPanel* Widget_InspectorPanel::AddPanel()
 	return pPanel;
 }
 
+QSize Widget_InspectorPanel::sizeHint() const
+{
+	int w = 0;
+	int h = 0;
+
+	w = w < m_pBar->sizeHint().width() ? m_pBar->sizeHint().width() : w;
+	h += m_pBar->sizeHint().height() + WIDGET_ROW_SPACING;
+
+	for(auto v : m_props)
+	{
+		if(v->isVisibleTo(this) == false)
+		{
+			continue;
+		}
+		w = w < v->sizeHint().width() ? v->sizeHint().width() : w;
+		h += v->sizeHint().height() + WIDGET_ROW_SPACING;
+
+	}
+
+	return QSize(w, h);
+}
+void Widget_InspectorPanel::slotTitleClicked()
+{
+	for(auto v : m_props)
+	{
+		bool visible = v->isVisible();
+		v->setVisible(!visible);
+	}
+	QWidget* pWidget = this;
+	while(pWidget)
+	{
+		pWidget->updateGeometry();
+		pWidget = pWidget->parentWidget();
+	}
+}

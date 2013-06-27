@@ -29,17 +29,34 @@ public:
         if (Form_Inspector->objectName().isEmpty())
             Form_Inspector->setObjectName(QStringLiteral("Form_Inspector"));
         Form_Inspector->resize(317, 724);
-        Form_Inspector->setStyleSheet(QLatin1String("*\n"
-"{\n"
-"	 background-color: rgb(56, 56, 56);\n"
-"}\n"
-"\n"
-"\n"
+        Form_Inspector->setStyleSheet(QLatin1String("\n"
 "QLineEdit\n"
 "{\n"
 "	border: 1px solid rgb(70, 70, 70);\n"
-"	background-color: rgb(80, 80, 80);\n"
-"}"));
+"	background-color: rgb(65, 65, 65);\n"
+"}\n"
+"\n"
+"Widget_Inspector\n"
+"{\n"
+"	background-color: rgb(255, 89, 89);\n"
+"}\n"
+"Widget_InspectorPanel\n"
+"{\n"
+"	background-color: rgb(255, 89, 89);\n"
+"}\n"
+"Widget_InspectorPanelBar\n"
+"{\n"
+"	background-color: rgb(255, 89, 89);\n"
+"}\n"
+"Widget_InspectorProperty\n"
+"{\n"
+"	background-color: rgb(255, 89, 89);\n"
+"}\n"
+"QPushButton\n"
+"{\n"
+"	background-color: rgb(255, 89, 89);\n"
+"}\n"
+""));
         inspector_layout = new QGridLayout(Form_Inspector);
         inspector_layout->setSpacing(1);
         inspector_layout->setContentsMargins(11, 11, 11, 11);

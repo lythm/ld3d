@@ -53,3 +53,7 @@ QString	Widget_InspectorPropertySimple::GetName()
 {
 	return m_pNameWidget->text();
 }
+QSize Widget_InspectorPropertySimple::sizeHint() const
+{
+	return QSize(100, WIDGET_ROW_HEIGHT + WIDGET_ROW_SPACING);
+}

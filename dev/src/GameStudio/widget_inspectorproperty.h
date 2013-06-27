@@ -13,7 +13,7 @@ public:
 
 	enum
 	{
-		WIDGET_ROW_HEIGHT			= 19,
+		WIDGET_ROW_HEIGHT			= 16,
 		WIDGET_ROW_SPACING			= 1,
 	};
 

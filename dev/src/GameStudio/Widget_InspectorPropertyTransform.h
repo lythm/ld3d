@@ -14,6 +14,8 @@ public:
 	void											SetValue(const math::Matrix44& value);
 
 	void											resizeEvent(QResizeEvent* e);
+
+	QSize											sizeHint() const;
 private:
 	math::Vector3									MatrixToEular(const math::Matrix44& mat);
 	math::Matrix44									EularToMatrix(const math::Vector3& r);

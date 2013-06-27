@@ -5,6 +5,8 @@ Widget_InspectorProperty::Widget_InspectorProperty(QWidget *parent, void* userDa
 	: QWidget(parent)
 {
 	m_pUserData = userData;
+
+	//setStyleSheet("background-color:rgb(56,56,56);}");
 }
 
 Widget_InspectorProperty::~Widget_InspectorProperty()

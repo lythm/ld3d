@@ -21,6 +21,13 @@ public:
 	Widget_InspectorProperty*					AddTransformProperty(const math::Matrix44& initValue);
 
 	void										AddProperty(Widget_InspectorProperty* pProp);
+
+	QSize										sizeHint() const;
+
+
+public
+Q_SLOTS:
+	void										slotTitleClicked();
 private:
 	Widget_InspectorPanelBar*					m_pBar;
 	std::vector<Widget_InspectorProperty*>		m_props;

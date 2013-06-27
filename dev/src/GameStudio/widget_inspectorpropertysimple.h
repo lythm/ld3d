@@ -16,6 +16,8 @@ public:
 	virtual void								resizeEvent(QResizeEvent* e);
 	void										SetName(const QString& name);
 	QString										GetName();
+
+	QSize										sizeHint() const;
 protected:
 	void										SetValueWidget(QWidget* pValue);
 

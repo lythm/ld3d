@@ -23,7 +23,6 @@ public:
 		InspectorLayout(QWidget *parent): QLayout(parent) 
 		{
 			setSpacing(1);
-			sizeHintCache = sizeMinCache = QSize(100, 0);
 		}
 		virtual ~InspectorLayout();
 
@@ -35,12 +34,10 @@ public:
 		QLayoutItem *takeAt(int);
 		void setGeometry(const QRect &rect);
 
-	private:
-		void									expandSize(QLayoutItem* item);
+	
 	private:
 		QList<QLayoutItem*>						list;
-		QSize									sizeHintCache;
-		QSize									sizeMinCache;
+
 	};
 public:
 	Widget_InspectorPanel*						AddPanel();
