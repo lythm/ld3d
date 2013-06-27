@@ -5,7 +5,8 @@
 #include "ui_form_inspector.h"
 
 class Widget_Inspector;
-
+class Widget_InspectorProperty;
+class Widget_InspectorPanel;
 class Form_Inspector : public QWidget, public Ui::Form_Inspector
 {
 	Q_OBJECT
@@ -15,10 +16,10 @@ public:
 	~Form_Inspector();
 
 
-	void									SetObject(ld3d::GameObjectPtr pObj);
+	void									SetObject(ld3d::GameObject* pObj);
 private:
 	void									resizeEvent(QResizeEvent* e);
-
+	Widget_InspectorProperty*				AddProperty(Widget_InspectorPanel* pPanel, ld3d::Property* p);
 private:
 	Widget_Inspector*						m_pInspector;
 };

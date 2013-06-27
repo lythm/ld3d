@@ -29,7 +29,7 @@ void Widget_ColorButton::paintEvent(QPaintEvent *)
 	// paint button here
 	QStylePainter p(this);
 	QStyleOptionButton opt;
-	//initStyleOption(&opt);
+	initStyleOption(&opt);
 
 	p.drawControl(QStyle::CE_PushButton, opt);
 

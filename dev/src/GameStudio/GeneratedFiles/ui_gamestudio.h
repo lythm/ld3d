@@ -16,7 +16,6 @@
 #include <QtWidgets/QDockWidget>
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QHeaderView>
-#include <QtWidgets/QLineEdit>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMdiArea>
 #include <QtWidgets/QMenu>
@@ -63,13 +62,12 @@ public:
     QGridLayout *gridLayout_2;
     QScrollArea *scrollArea;
     QWidget *scrollAreaWidgetContents;
-    QLineEdit *lineEdit;
 
     void setupUi(QMainWindow *GameStudioClass)
     {
         if (GameStudioClass->objectName().isEmpty())
             GameStudioClass->setObjectName(QStringLiteral("GameStudioClass"));
-        GameStudioClass->resize(667, 559);
+        GameStudioClass->resize(870, 746);
         QIcon icon;
         icon.addFile(QStringLiteral(":/GameStudio/i001.png"), QSize(), QIcon::Normal, QIcon::Off);
         GameStudioClass->setWindowIcon(icon);
@@ -81,7 +79,6 @@ public:
 "	border-color: rgb(41, 41, 41);\n"
 "\n"
 "}\n"
-"\n"
 "\n"
 "QMenuBar \n"
 "{\n"
@@ -120,8 +117,8 @@ public:
 " \n"
 "QMenu::item:!enabled \n"
 "{\n"
-"	color: rgb(8"
-                        "0, 80, 80);\n"
+"	color: rgb(80, 80"
+                        ", 80);\n"
 "    border-color:rgb(41, 41, 41);\n"
 "}\n"
 "QMenu::item:selected \n"
@@ -161,9 +158,9 @@ public:
 "    image: url(:/images/checkbox_unchecked_hover.png);\n"
 "}\n"
 " \n"
-"QMenu::indicator:non-exclusive:checked "
-                        " {\n"
-"    image: url(:/images/checkbox_checked.png);\n"
+"QMenu::indicator:non-exclusive:checked  {\n"
+""
+                        "    image: url(:/images/checkbox_checked.png);\n"
 "}\n"
 " \n"
 "QMenu::indicator:non-exclusive:checked:selected  {\n"
@@ -203,8 +200,8 @@ public:
 "}\n"
 "QTreeView\n"
 "{\n"
-"	back"
-                        "ground-color: rgb(56, 56, 56);\n"
+"	background-"
+                        "color: rgb(56, 56, 56);\n"
 "}\n"
 " QTreeView {\n"
 "     show-decoration-selected: 1;\n"
@@ -291,7 +288,7 @@ public:
         GameStudioClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(GameStudioClass);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 667, 18));
+        menuBar->setGeometry(QRect(0, 0, 870, 18));
         QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
@@ -363,11 +360,7 @@ public:
         scrollArea->setWidgetResizable(true);
         scrollAreaWidgetContents = new QWidget();
         scrollAreaWidgetContents->setObjectName(QStringLiteral("scrollAreaWidgetContents"));
-        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 180, 422));
-        lineEdit = new QLineEdit(scrollAreaWidgetContents);
-        lineEdit->setObjectName(QStringLiteral("lineEdit"));
-        lineEdit->setGeometry(QRect(40, 160, 113, 20));
-        lineEdit->setStyleSheet(QStringLiteral(""));
+        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 354, 609));
         scrollArea->setWidget(scrollAreaWidgetContents);
 
         gridLayout_2->addWidget(scrollArea, 0, 0, 1, 1);

@@ -7,7 +7,7 @@
 #include "OrbitCamera.h"
 #include "form_hierarchy.h"
 #include "menumanager.h"
-
+#include "form_inspector.h"
 GameEditor::GameEditor(GameStudio* pMainWnd)
 {
 	m_pMainWnd = pMainWnd;
@@ -252,6 +252,8 @@ boost::filesystem::path	GameEditor::GetSceneFile()
 void GameEditor::SetCurrentObject(ld3d::GameObject* pObj)
 {
 	m_pCurrentObject = pObj;
+
+	UpdateInspectorView();
 }
 ld3d::GameObject* GameEditor::GetCurrentObject()
 {
@@ -263,7 +265,9 @@ GameEnginePtr GameEditor::GetGameEngine()
 }
 void GameEditor::UpdateInspectorView()
 {
+	m_pMainWnd->GetFormInspector()->SetObject(m_pCurrentObject);
 }
 void GameEditor::ClearInspectorView()
 {
+	m_pMainWnd->GetFormInspector()->SetObject(nullptr);
 }

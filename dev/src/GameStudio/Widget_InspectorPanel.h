@@ -24,7 +24,7 @@ public:
 
 	QSize										sizeHint() const;
 
-
+	void										paintEvent(QPaintEvent *);
 public
 Q_SLOTS:
 	void										slotTitleClicked();

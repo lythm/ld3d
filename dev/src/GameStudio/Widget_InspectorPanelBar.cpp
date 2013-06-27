@@ -2,15 +2,11 @@
 #include "Widget_InspectorPanelBar.h"
 
 
-Widget_InspectorPanelBar::Widget_InspectorPanelBar(QWidget* parent)
+Widget_InspectorPanelBar::Widget_InspectorPanelBar(QWidget* parent, const QString& name)
 	: QWidget(parent)
 {
-	//setStyleSheet("background-color:rgb(56,56,56);}");
-
-	m_pTitle = new QPushButton("Title Bar", this);
-	//m_pTitle->setStyleSheet("background-color:rgb(56,56,56);}");
-	setMinimumHeight(19);
-
+	m_pTitle = new QPushButton(name, this);
+	m_pTitle->setFlat(true);
 	connect(m_pTitle, SIGNAL(clicked()), this, SIGNAL(clicked()));
 }
 
@@ -25,5 +21,5 @@ void Widget_InspectorPanelBar::resizeEvent(QResizeEvent* e)
 }
 QSize Widget_InspectorPanelBar::sizeHint() const
 {
-	return QSize(100, 19);
+	return QSize(100, 16);
 }

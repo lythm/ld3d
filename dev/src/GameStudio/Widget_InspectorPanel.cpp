@@ -12,16 +12,12 @@
 Widget_InspectorPanel::Widget_InspectorPanel(QWidget* parent, const QString& name)
 	:Widget_InspectorProperty(parent)
 {
-
-	
-	//setStyleSheet("background-color:rgb(56,56,56);}");
-
-	m_indent = 20;
-	m_pBar = new Widget_InspectorPanelBar(this);
+	m_indent = 3;
+	m_pBar = new Widget_InspectorPanelBar(this, name);
 
 	connect(m_pBar, SIGNAL(clicked()), this, SLOT(slotTitleClicked()));
 	setMinimumWidth(100);
-	//setMinimumHeight(WIDGET_ROW_HEIGHT + WIDGET_ROW_SPACING);
+	setAutoFillBackground(true);
 }
 
 
@@ -120,7 +116,6 @@ QSize Widget_InspectorPanel::sizeHint() const
 		}
 		w = w < v->sizeHint().width() ? v->sizeHint().width() : w;
 		h += v->sizeHint().height() + WIDGET_ROW_SPACING;
-
 	}
 
 	return QSize(w, h);
@@ -138,4 +133,18 @@ void Widget_InspectorPanel::slotTitleClicked()
 		pWidget->updateGeometry();
 		pWidget = pWidget->parentWidget();
 	}
+}
+void Widget_InspectorPanel::paintEvent(QPaintEvent *e)
+{
+    QStyleOption opt;
+    opt.init(this);
+    QPainter p(this);
+    style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
+
+
+	p.setRenderHint(QPainter::Antialiasing, true);
+    p.setPen(QPen(QBrush(QColor(89, 89, 89)), 1));
+
+	QRect rc = rect();
+    p.drawLine(QLine(0, rc.height(), rc.width(), rc.height()));
 }

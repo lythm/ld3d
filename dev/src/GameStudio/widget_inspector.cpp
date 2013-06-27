@@ -94,16 +94,12 @@ QSize Widget_Inspector::InspectorLayout::minimumSize() const
 Widget_Inspector::Widget_Inspector(QWidget *parent)
 	: QWidget(parent)
 {
-	QString str = styleSheet();
-	setStyleSheet(str);
-//	setStyleSheet("background-color:rgb(255,89,89);}");
 	m_pLayout = new InspectorLayout(this);
 
 	m_pLayout->setMargin(1);
 	setLayout(m_pLayout);
 	
-//	setMinimumSize(m_pLayout->minimumSize());
-
+	setAutoFillBackground(true);
 }
 
 Widget_Inspector::~Widget_Inspector()
@@ -118,6 +114,8 @@ void Widget_Inspector::AddProperty(Widget_InspectorProperty* pProp)
 	pProp->setParent(this);
 	pProp->setVisible(true);
 	m_pLayout->addWidget(pProp);
+	m_props.push_back(pProp);
+
 }
 Widget_InspectorProperty* Widget_Inspector::AddStringProperty(const QString& name, const QString& initValue)
 {
@@ -161,11 +159,26 @@ Widget_InspectorProperty* Widget_Inspector::AddTransformProperty(const math::Mat
 	AddProperty(pProp);
 	return pProp;
 }
-Widget_InspectorPanel* Widget_Inspector::AddPanel()
+Widget_InspectorPanel* Widget_Inspector::AddPanel(const QString& name)
 {
-	Widget_InspectorPanel* pPanel = new Widget_InspectorPanel(this);
+	Widget_InspectorPanel* pPanel = new Widget_InspectorPanel(this, name);
 
 	AddProperty(pPanel);
 	return pPanel;
 }
 
+void Widget_Inspector::paintEvent(QPaintEvent *)
+{
+    QStyleOption opt;
+    opt.init(this);
+    QPainter p(this);
+    style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
+}
+void Widget_Inspector::RemoveAll()
+{
+	for(auto v : m_props)
+	{
+		v->deleteLater();
+	}
+	m_props.clear();
+}

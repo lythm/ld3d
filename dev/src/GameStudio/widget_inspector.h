@@ -13,7 +13,7 @@ class Widget_Inspector : public QWidget
 
 public:
 
-	Widget_Inspector(QWidget *parent = 0);
+	Widget_Inspector(QWidget *parent);
 	virtual ~Widget_Inspector();
 
 
@@ -40,7 +40,10 @@ public:
 
 	};
 public:
-	Widget_InspectorPanel*						AddPanel();
+
+	void										RemoveAll();
+
+	Widget_InspectorPanel*						AddPanel(const QString& name);
 	
 	Widget_InspectorProperty*					AddStringProperty(const QString& name, const QString& initValue);
 	Widget_InspectorProperty*					AddIntProperty(const QString& name, int initValue);
@@ -50,10 +53,12 @@ public:
 	Widget_InspectorProperty*					AddTransformProperty(const math::Matrix44& initValue);
 
 	void										AddProperty(Widget_InspectorProperty* pProp);
+
+	void										paintEvent(QPaintEvent *);
 private:
 	void										resizeEvent(QResizeEvent* e);
 private:
-	Widget_InspectorProperty*					m_pProperty;
+	std::vector<Widget_InspectorProperty*>		m_props;
 
 	InspectorLayout*							m_pLayout;
 

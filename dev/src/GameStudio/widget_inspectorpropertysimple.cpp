@@ -26,7 +26,7 @@ void Widget_InspectorPropertySimple::resizeEvent(QResizeEvent* e)
 {
 	QSize s = e->size();
 
-	int w1 = s.width() / 3;
+	int w1 = 100;
 
 	m_pNameWidget->setGeometry(0, 0, w1 - 1, WIDGET_ROW_HEIGHT);
 

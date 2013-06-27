@@ -291,3 +291,7 @@ void GameStudio::UpdateActions()
 	actionOpen_Scene->setEnabled(show);
 
 }
+Form_Inspector* GameStudio::GetFormInspector()
+{
+	return m_pInspectorForm;
+}

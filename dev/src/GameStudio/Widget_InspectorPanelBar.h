@@ -5,7 +5,7 @@ class Widget_InspectorPanelBar : public QWidget
 {
 	Q_OBJECT
 public:
-	Widget_InspectorPanelBar(QWidget* parent);
+	Widget_InspectorPanelBar(QWidget* parent, const QString& name);
 	virtual ~Widget_InspectorPanelBar(void);
 
 	void											resizeEvent(QResizeEvent* e);

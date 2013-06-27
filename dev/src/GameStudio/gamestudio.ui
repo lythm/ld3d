@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>667</width>
-    <height>559</height>
+    <width>870</width>
+    <height>746</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -26,7 +26,6 @@
 	border-color: rgb(41, 41, 41);
 
 }
-
 
 QMenuBar 
 {
@@ -246,7 +245,7 @@ background-color: rgb(255, 255, 255);
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>667</width>
+     <width>870</width>
      <height>18</height>
     </rect>
    </property>
@@ -417,23 +416,10 @@ background-color: rgb(255, 255, 255);
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>180</width>
-          <height>422</height>
+          <width>354</width>
+          <height>609</height>
          </rect>
         </property>
-        <widget class="QLineEdit" name="lineEdit">
-         <property name="geometry">
-          <rect>
-           <x>40</x>
-           <y>160</y>
-           <width>113</width>
-           <height>20</height>
-          </rect>
-         </property>
-         <property name="styleSheet">
-          <string notr="true"/>
-         </property>
-        </widget>
        </widget>
       </widget>
      </item>

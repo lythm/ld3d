@@ -20,8 +20,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_GameStudio_t {
-    QByteArrayData data[18];
-    char stringdata[395];
+    QByteArrayData data[20];
+    char stringdata[428];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -47,7 +47,9 @@ QT_MOC_LITERAL(13, 306, 29),
 QT_MOC_LITERAL(14, 336, 12),
 QT_MOC_LITERAL(15, 349, 11),
 QT_MOC_LITERAL(16, 361, 16),
-QT_MOC_LITERAL(17, 378, 15)
+QT_MOC_LITERAL(17, 378, 15),
+QT_MOC_LITERAL(18, 394, 16),
+QT_MOC_LITERAL(19, 411, 15)
     },
     "GameStudio\0on_menuFile_aboutToShow\0\0"
     "on_actionNew_Project_triggered\0"
@@ -60,7 +62,8 @@ QT_MOC_LITERAL(17, 378, 15)
     "on_actionSave_Scene_As_triggered\0"
     "on_actionOpen_Scene_triggered\0"
     "GetFormScene\0Form_Scene*\0GetFormHierarchy\0"
-    "Form_Hierarchy*\0"
+    "Form_Hierarchy*\0GetFormInspector\0"
+    "Form_Inspector*\0"
 };
 #undef QT_MOC_LITERAL
 
@@ -70,7 +73,7 @@ static const uint qt_meta_data_GameStudio[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      12,   14, // methods
+      13,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -78,18 +81,19 @@ static const uint qt_meta_data_GameStudio[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,   74,    2, 0x0a,
-       3,    0,   75,    2, 0x0a,
-       4,    0,   76,    2, 0x0a,
-       5,    0,   77,    2, 0x0a,
-       6,    0,   78,    2, 0x0a,
-       7,    1,   79,    2, 0x0a,
-      10,    0,   82,    2, 0x0a,
-      11,    0,   83,    2, 0x0a,
-      12,    0,   84,    2, 0x0a,
-      13,    0,   85,    2, 0x0a,
-      14,    0,   86,    2, 0x0a,
-      16,    0,   87,    2, 0x0a,
+       1,    0,   79,    2, 0x0a,
+       3,    0,   80,    2, 0x0a,
+       4,    0,   81,    2, 0x0a,
+       5,    0,   82,    2, 0x0a,
+       6,    0,   83,    2, 0x0a,
+       7,    1,   84,    2, 0x0a,
+      10,    0,   87,    2, 0x0a,
+      11,    0,   88,    2, 0x0a,
+      12,    0,   89,    2, 0x0a,
+      13,    0,   90,    2, 0x0a,
+      14,    0,   91,    2, 0x0a,
+      16,    0,   92,    2, 0x0a,
+      18,    0,   93,    2, 0x0a,
 
  // slots: parameters
     QMetaType::Void,
@@ -104,6 +108,7 @@ static const uint qt_meta_data_GameStudio[] = {
     QMetaType::Void,
     0x80000000 | 15,
     0x80000000 | 17,
+    0x80000000 | 19,
 
        0        // eod
 };
@@ -127,6 +132,8 @@ void GameStudio::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
             if (_a[0]) *reinterpret_cast< Form_Scene**>(_a[0]) = _r; }  break;
         case 11: { Form_Hierarchy* _r = _t->GetFormHierarchy();
             if (_a[0]) *reinterpret_cast< Form_Hierarchy**>(_a[0]) = _r; }  break;
+        case 12: { Form_Inspector* _r = _t->GetFormInspector();
+            if (_a[0]) *reinterpret_cast< Form_Inspector**>(_a[0]) = _r; }  break;
         default: ;
         }
     }
@@ -159,13 +166,13 @@ int GameStudio::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 12)
+        if (_id < 13)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 12;
+        _id -= 13;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 12)
+        if (_id < 13)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 12;
+        _id -= 13;
     }
     return _id;
 }
