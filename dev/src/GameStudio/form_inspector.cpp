@@ -16,14 +16,14 @@ Form_Inspector::Form_Inspector(QWidget *parent)
 {
 	setupUi(this);
 
-
-	//setStyleSheet("background-color:rgb(89,89,89);}");
-
 	m_pInspector = new Widget_Inspector(this);
 
 	inspector_layout->addWidget(m_pInspector);
+	inspector_layout->addWidget(new QPushButton("Add Component", this));
 
-	m_pInspector->AddPathProperty("File", "");
+	
+
+
 }
 
 Form_Inspector::~Form_Inspector()

@@ -17,7 +17,7 @@ Widget_InspectorPropertyPath::Widget_InspectorPropertyPath(QWidget *parent, cons
 	connect(m_pValue, SIGNAL(editingFinished()), this, SLOT(on_value_changed()));
 
 	connect(m_pPickButton, SIGNAL(clicked()), this, SLOT(slotPickPath()));
-
+	setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
 }
 
 

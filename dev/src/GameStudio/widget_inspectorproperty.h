@@ -20,6 +20,7 @@ public:
 	void															SetUserData(void* data);
 	void*															GetUserData();
 
+	virtual void													Release();
 
 	std::function<void(Widget_InspectorProperty*)>					on_property_changed;
 protected:

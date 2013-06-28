@@ -101,6 +101,7 @@ Widget_Inspector::Widget_Inspector(QWidget *parent)
 	setLayout(m_pLayout);
 	
 	setAutoFillBackground(true);
+	setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
 }
 
 Widget_Inspector::~Widget_Inspector()
@@ -181,6 +182,7 @@ void Widget_Inspector::RemoveAll()
 {
 	for(auto v : m_props)
 	{
+		v->Release();
 		v->deleteLater();
 	}
 	m_props.clear();

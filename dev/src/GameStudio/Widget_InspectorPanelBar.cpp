@@ -16,10 +16,10 @@ Widget_InspectorPanelBar::~Widget_InspectorPanelBar(void)
 }
 void Widget_InspectorPanelBar::resizeEvent(QResizeEvent* e)
 {
-	m_pTitle->setGeometry(0, 0, e->size().width(), e->size().height());
+	m_pTitle->setGeometry(0, 0, e->size().width(), 16);
 	QWidget::resizeEvent(e);
 }
 QSize Widget_InspectorPanelBar::sizeHint() const
 {
-	return QSize(100, 16);
+	return QSize(100, 17);
 }

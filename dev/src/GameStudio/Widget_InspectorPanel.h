@@ -24,7 +24,7 @@ public:
 	void										AddProperty(Widget_InspectorProperty* pProp);
 
 	QSize										sizeHint() const;
-
+	void										Release();
 	void										paintEvent(QPaintEvent *);
 public
 Q_SLOTS:

@@ -164,3 +164,13 @@ Widget_InspectorProperty* Widget_InspectorPanel::AddPathProperty(const QString& 
 	AddProperty(pProp);
 	return pProp;
 }
+void Widget_InspectorPanel::Release()
+{
+	for(auto v : m_props)
+	{
+		v->Release();
+	}
+	m_props.clear();
+
+	Widget_InspectorProperty::Release();
+}

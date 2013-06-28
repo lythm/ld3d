@@ -13,8 +13,8 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
-#include <QtWidgets/QGridLayout>
 #include <QtWidgets/QHeaderView>
+#include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -22,16 +22,20 @@ QT_BEGIN_NAMESPACE
 class Ui_Form_Inspector
 {
 public:
-    QGridLayout *inspector_layout;
+    QVBoxLayout *inspector_layout;
 
     void setupUi(QWidget *Form_Inspector)
     {
         if (Form_Inspector->objectName().isEmpty())
             Form_Inspector->setObjectName(QStringLiteral("Form_Inspector"));
         Form_Inspector->resize(325, 740);
+        Form_Inspector->setLayoutDirection(Qt::LeftToRight);
         Form_Inspector->setAutoFillBackground(false);
         Form_Inspector->setStyleSheet(QLatin1String("*\n"
 "{\n"
+"	\n"
+"	\n"
+"	font: 9pt \"Courier\";\n"
 "	background-color: rgb(56, 56, 56);\n"
 "}\n"
 "\n"
@@ -62,7 +66,7 @@ public:
 "}\n"
 "\n"
 ""));
-        inspector_layout = new QGridLayout(Form_Inspector);
+        inspector_layout = new QVBoxLayout(Form_Inspector);
         inspector_layout->setSpacing(1);
         inspector_layout->setContentsMargins(11, 11, 11, 11);
         inspector_layout->setObjectName(QStringLiteral("inspector_layout"));

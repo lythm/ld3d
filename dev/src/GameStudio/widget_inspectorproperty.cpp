@@ -25,3 +25,8 @@ void* Widget_InspectorProperty::GetUserData()
 {
 	return m_pUserData;
 }
+void Widget_InspectorProperty::Release()
+{
+	on_property_changed = nullptr;
+	m_pUserData = nullptr;
+}
