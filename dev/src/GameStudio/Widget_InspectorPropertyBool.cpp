@@ -12,6 +12,8 @@ Widget_InspectorPropertyBool::Widget_InspectorPropertyBool(QWidget *parent, cons
 	
 	SetValueWidget(m_pValue);
 	SetValue(value);
+
+	connect(m_pValue, SIGNAL(stateChanged(int)), this, SLOT(on_value_changed(int)));
 }
 
 Widget_InspectorPropertyBool::~Widget_InspectorPropertyBool(void)
@@ -23,10 +25,10 @@ bool Widget_InspectorPropertyBool::GetValue()
 }
 void Widget_InspectorPropertyBool::SetValue(bool value)
 {
-	FixValue(value);
-	on_property_changed ? on_property_changed(this) : 0;
-}
-void Widget_InspectorPropertyBool::FixValue(bool value)
-{
 	m_pValue->setChecked(value);
+}
+
+void Widget_InspectorPropertyBool::on_value_changed(int)
+{
+	on_property_changed ? on_property_changed (this) : 0;
 }

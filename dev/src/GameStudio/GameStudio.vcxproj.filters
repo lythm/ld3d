@@ -254,6 +254,15 @@
     <ClCompile Include="GeneratedFiles\Release\moc_Widget_InspectorPanel.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="Widget_InspectorPropertyPath.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_Widget_InspectorPropertyPath.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_Widget_InspectorPropertyPath.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -391,6 +400,9 @@
       <Filter>Header Files</Filter>
     </CustomBuild>
     <CustomBuild Include="Widget_InspectorPanel.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Widget_InspectorPropertyPath.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
   </ItemGroup>

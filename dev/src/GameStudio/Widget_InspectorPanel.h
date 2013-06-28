@@ -13,6 +13,7 @@ public:
 
 
 	Widget_InspectorPanel*						AddPanel();
+	Widget_InspectorProperty*					AddPathProperty(const QString& name, const boost::filesystem::path& initValue);
 	Widget_InspectorProperty*					AddStringProperty(const QString& name, const QString& initValue);
 	Widget_InspectorProperty*					AddIntProperty(const QString& name, int initValue);
 	Widget_InspectorProperty*					AddDoubleProperty(const QString& name, double initValue);

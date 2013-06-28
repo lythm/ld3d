@@ -32,7 +32,9 @@ bool GameEditor::Initialize()
 void GameEditor::Release()
 {
 	m_pMainWnd->GetFormScene()->UnInstallDelegates();
-	m_pMainWnd->GetFormHierarchy()->Clear();
+	ClearHierarchyView();
+	ClearInspectorView();
+
 	if(m_pProject)
 	{
 		m_pProject->Close();

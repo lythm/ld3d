@@ -13,7 +13,9 @@ public:
 
 	double								GetValue();
 	void								SetValue(double value);
-	void								FixValue(double value);
+
+public slots:
+	void								on_value_changed();
 private:
 	QLineEdit*							m_pValue;
 };

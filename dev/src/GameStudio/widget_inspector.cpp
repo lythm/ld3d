@@ -6,6 +6,7 @@
 #include "Widget_InspectorPropertyBool.h"
 #include "Widget_InspectorPropertyColor.h"
 #include "Widget_InspectorPropertyTransform.h"
+#include "Widget_InspectorPropertyPath.h"
 #include "Widget_InspectorPanel.h"
 
 #include "AppContext.h"
@@ -116,6 +117,8 @@ void Widget_Inspector::AddProperty(Widget_InspectorProperty* pProp)
 	m_pLayout->addWidget(pProp);
 	m_props.push_back(pProp);
 
+	updateGeometry();
+
 }
 Widget_InspectorProperty* Widget_Inspector::AddStringProperty(const QString& name, const QString& initValue)
 {
@@ -181,4 +184,13 @@ void Widget_Inspector::RemoveAll()
 		v->deleteLater();
 	}
 	m_props.clear();
+
+	updateGeometry();
+}
+Widget_InspectorProperty* Widget_Inspector::AddPathProperty(const QString& name, const boost::filesystem::path& initValue)
+{
+	Widget_InspectorProperty* pProp = new Widget_InspectorPropertyPath(this, name, initValue);
+
+	AddProperty(pProp);
+	return pProp;
 }

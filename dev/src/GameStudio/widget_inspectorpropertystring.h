@@ -13,7 +13,9 @@ public:
 	
 	QString								GetValue();
 	void								SetValue(const QString& value);
-	void								FixValue(const QString& value);
+
+public slots:
+	void								slotTextChanged();
 private:
 	QLineEdit*							m_pValue;
 };

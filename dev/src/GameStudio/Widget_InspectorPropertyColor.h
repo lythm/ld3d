@@ -14,7 +14,9 @@ public:
 
 	QColor								GetValue();
 	void								SetValue(const QColor& value);
-	void								FixValue(const QColor& value);
+	
+public slots:
+	void								on_value_changed(const QColor&);
 private:
 	Widget_ColorButton*					m_pValue;
 

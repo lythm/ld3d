@@ -7,6 +7,8 @@ Widget_InspectorPropertyString::Widget_InspectorPropertyString(QWidget *parent, 
 	m_pValue = new QLineEdit(this);
 	SetValueWidget(m_pValue);
 	m_pValue->setText(value);
+
+	connect(m_pValue, SIGNAL(editingFinished()), this, SLOT(slotTextChanged()));
 }
 
 Widget_InspectorPropertyString::~Widget_InspectorPropertyString()
@@ -19,11 +21,9 @@ QString	Widget_InspectorPropertyString::GetValue()
 }
 void Widget_InspectorPropertyString::SetValue(const QString& value)
 {
-	FixValue(value);
-
-	on_property_changed ? on_property_changed(this) : 0;
-}
-void Widget_InspectorPropertyString::FixValue(const QString& value)
-{
 	m_pValue->setText(value);
+}
+void Widget_InspectorPropertyString::slotTextChanged()
+{
+	on_property_changed ? on_property_changed(this) : 0;
 }

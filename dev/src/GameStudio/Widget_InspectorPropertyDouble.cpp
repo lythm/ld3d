@@ -12,6 +12,9 @@ Widget_InspectorPropertyDouble::Widget_InspectorPropertyDouble(QWidget *parent, 
 	
 	SetValueWidget(m_pValue);
 	SetValue(value);
+
+	connect(m_pValue, SIGNAL(editingFinished()), this, SLOT(on_value_changed()));
+
 }
 
 Widget_InspectorPropertyDouble::~Widget_InspectorPropertyDouble(void)
@@ -23,10 +26,10 @@ double Widget_InspectorPropertyDouble::GetValue()
 }
 void Widget_InspectorPropertyDouble::SetValue(double value)
 {
-	FixValue(value);
-	on_property_changed ? on_property_changed(this) : 0;
-}
-void Widget_InspectorPropertyDouble::FixValue(double value)
-{
 	m_pValue->setText(QString::number(value));
+}
+
+void Widget_InspectorPropertyDouble::on_value_changed()
+{
+	on_property_changed ? on_property_changed(this) : 0;
 }

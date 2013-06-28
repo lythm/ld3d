@@ -21,7 +21,8 @@ private:
 	math::Matrix44									EularToMatrix(const math::Vector3& r);
 
 	void											adjustLayout(const QSize& size);
-
+public slots:
+	void											on_edit_changed();
 private:
 
 	QLineEdit*										m_rvx;

@@ -12,6 +12,8 @@ Widget_InspectorPropertyColor::Widget_InspectorPropertyColor(QWidget *parent, co
 	
 	SetValueWidget(m_pValue);
 	SetValue(value);
+
+	connect(m_pValue, SIGNAL(colorChanged(const QColor&)), this, SLOT(on_value_changed(const QColor&)));
 }
 
 Widget_InspectorPropertyColor::~Widget_InspectorPropertyColor(void)
@@ -23,10 +25,10 @@ QColor Widget_InspectorPropertyColor::GetValue()
 }
 void Widget_InspectorPropertyColor::SetValue(const QColor& value)
 {
-	FixValue(value);
-	on_property_changed ? on_property_changed(this) : 0;
-}
-void Widget_InspectorPropertyColor::FixValue(const QColor& value)
-{
 	m_pValue->setColor(value);
+}
+
+void Widget_InspectorPropertyColor::on_value_changed(const QColor&)
+{
+	on_property_changed ? on_property_changed(this) : 0;
 }

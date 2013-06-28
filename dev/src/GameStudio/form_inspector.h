@@ -20,6 +20,8 @@ public:
 private:
 	void									resizeEvent(QResizeEvent* e);
 	Widget_InspectorProperty*				AddProperty(Widget_InspectorPanel* pPanel, ld3d::Property* p);
+
+	void									on_property_changed(Widget_InspectorProperty* prop);
 private:
 	Widget_Inspector*						m_pInspector;
 };

@@ -53,6 +53,19 @@ Widget_InspectorPropertyTransform::Widget_InspectorPropertyTransform(QWidget *pa
 	setMinimumWidth(100);
 
 	SetValue(initValue);
+
+
+	connect(m_tvx, SIGNAL(editingFinished()), this, SLOT(on_edit_changed()));
+	connect(m_tvy, SIGNAL(editingFinished()), this, SLOT(on_edit_changed()));
+	connect(m_tvz, SIGNAL(editingFinished()), this, SLOT(on_edit_changed()));
+
+	connect(m_rvx, SIGNAL(editingFinished()), this, SLOT(on_edit_changed()));
+	connect(m_rvy, SIGNAL(editingFinished()), this, SLOT(on_edit_changed()));
+	connect(m_rvz, SIGNAL(editingFinished()), this, SLOT(on_edit_changed()));
+
+	connect(m_svx, SIGNAL(editingFinished()), this, SLOT(on_edit_changed()));
+	connect(m_svy, SIGNAL(editingFinished()), this, SLOT(on_edit_changed()));
+	connect(m_svz, SIGNAL(editingFinished()), this, SLOT(on_edit_changed()));
 }
 
 
@@ -246,4 +259,8 @@ math::Matrix44 Widget_InspectorPropertyTransform::EularToMatrix(const math::Vect
 QSize Widget_InspectorPropertyTransform::sizeHint() const
 {
 	return QSize(100, 6 * (WIDGET_ROW_HEIGHT + WIDGET_ROW_SPACING));
+}
+void Widget_InspectorPropertyTransform::on_edit_changed()
+{
+	on_property_changed ? on_property_changed(this) : 0;
 }

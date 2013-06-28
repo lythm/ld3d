@@ -13,7 +13,10 @@ public:
 
 	bool								GetValue();
 	void								SetValue(bool value);
-	void								FixValue(bool value);
+
+public slots:
+	void								on_value_changed(int);
+
 private:
 	QCheckBox*							m_pValue;
 

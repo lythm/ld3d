@@ -11,6 +11,9 @@ Widget_InspectorPropertyInt::Widget_InspectorPropertyInt(QWidget *parent, const 
 	
 	SetValueWidget(m_pValue);
 	SetValue(value);
+
+	connect(m_pValue, SIGNAL(editingFinished()), this, SLOT(on_value_changed()));
+
 }
 
 Widget_InspectorPropertyInt::~Widget_InspectorPropertyInt(void)
@@ -22,10 +25,9 @@ int Widget_InspectorPropertyInt::GetValue()
 }
 void Widget_InspectorPropertyInt::SetValue(int value)
 {
-	FixValue(value);
-	on_property_changed ? on_property_changed(this) : 0;
-}
-void Widget_InspectorPropertyInt::FixValue(int value)
-{
 	m_pValue->setText(QString::number(value));
+}
+void Widget_InspectorPropertyInt::on_value_changed()
+{
+	on_property_changed ? on_property_changed(this) : 0;
 }

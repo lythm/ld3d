@@ -7,6 +7,7 @@
 #include "Widget_InspectorPropertyBool.h"
 #include "Widget_InspectorPropertyColor.h"
 #include "Widget_InspectorPropertyTransform.h"
+#include "Widget_InspectorPropertyPath.h"
 
 
 Widget_InspectorPanel::Widget_InspectorPanel(QWidget* parent, const QString& name)
@@ -49,6 +50,13 @@ void Widget_InspectorPanel::AddProperty(Widget_InspectorProperty* pProp)
 	pProp->setParent(this);
 	pProp->setVisible(true);
 	m_props.push_back(pProp);
+	QWidget* pWidget = this;
+	while(pWidget)
+	{
+		pWidget->updateGeometry();
+		pWidget = pWidget->parentWidget();
+	}
+
 }
 Widget_InspectorProperty* Widget_InspectorPanel::AddStringProperty(const QString& name, const QString& initValue)
 {
@@ -147,4 +155,12 @@ void Widget_InspectorPanel::paintEvent(QPaintEvent *e)
 
 	QRect rc = rect();
     p.drawLine(QLine(0, rc.height(), rc.width(), rc.height()));
+}
+
+Widget_InspectorProperty* Widget_InspectorPanel::AddPathProperty(const QString& name, const boost::filesystem::path& initValue)
+{
+	Widget_InspectorProperty* pProp = new Widget_InspectorPropertyPath(this, name, initValue);
+
+	AddProperty(pProp);
+	return pProp;
 }
