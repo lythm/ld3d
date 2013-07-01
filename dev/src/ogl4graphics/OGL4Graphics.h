@@ -4,7 +4,6 @@
 
 namespace ld3d
 {
-	class OGL4Loader;
 	class OGL4Graphics : public Sys_Graphics
 	{
 	public:
