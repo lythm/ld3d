@@ -112,6 +112,7 @@ namespace ld3d
 		m_width = IncX + Width;
 		m_height = IncY + Height;
 	}
+	
 	void WinApp::Release()
 	{
 

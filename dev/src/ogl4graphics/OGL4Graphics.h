@@ -4,6 +4,7 @@
 
 namespace ld3d
 {
+	class OGL4Loader;
 	class OGL4Graphics : public Sys_Graphics
 	{
 	public:
@@ -66,6 +67,9 @@ namespace ld3d
 
 	private:
 		GraphicsSetting							m_setting;
+
+
+		OGL4LoaderPtr							m_pLoader;
 	};
 
 

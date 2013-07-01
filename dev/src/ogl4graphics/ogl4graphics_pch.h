@@ -18,5 +18,10 @@
 
 namespace ld3d
 {
-	void						g_log(const std::wstring& str);
+
+	class OGL4Loader;
+
+	typedef std::shared_ptr<OGL4Loader>										OGL4LoaderPtr;
+
+	void																	g_log(const std::wstring& str);
 }

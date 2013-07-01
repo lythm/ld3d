@@ -21,7 +21,7 @@ namespace ld3d
 
 		void													SetTitle(const wchar_t* szTitle);
 		void													ExitApp();
-
+		
 		virtual void											OnUpdate();
 		virtual bool											OnInit();
 		virtual void											OnRelease();

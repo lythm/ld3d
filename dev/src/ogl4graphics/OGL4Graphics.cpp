@@ -1,7 +1,7 @@
 #include "ogl4graphics_pch.h"
 
 #include "OGL4Graphics.h"
-
+#include "OGL4Loader.h"
 
 
 namespace ld3d
@@ -40,10 +40,24 @@ namespace ld3d
 
 	bool OGL4Graphics::Initialize(const GraphicsSetting& setting)
 	{
+		m_pLoader = std::make_shared<OGL4Loader>();
+
+		if(m_pLoader->Load() == false)
+		{
+			return false;
+		}
+
+
+
+
 		return true;
 	}
 	void OGL4Graphics::Release()
 	{
+
+
+		m_pLoader->Unload();
+		m_pLoader.reset();
 	}
 
 	void OGL4Graphics::SetPrimitiveType(PRIMITIVE_TYPE pt)

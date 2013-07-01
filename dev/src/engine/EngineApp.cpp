@@ -20,18 +20,27 @@ namespace ld3d
 		m_pCore->Update();
 
 		ShowFPS();
-		
+
 		m_pGameManager->GetGame()->Update();
-		
+
 		//Sleep(1);
 
 	}
 	bool EngineApp::OnInit()
 	{
+		m_pGameManager = std::make_shared<GameManager>();
+
+		if(false == m_pGameManager->Initialize(L"./game_x64.dll"))
+		{
+			return false;
+		}
+
 
 		m_pCore = std::make_shared<CoreApi>();
 
 		SysSetting setting;
+		
+
 		setting.graphics.sysMod = L"./d11graphics_x64.dll";
 		setting.graphics.backBufferCount = 2;
 		setting.graphics.depthStencilFormat = G_FORMAT_D24_UNORM_S8_UINT;
@@ -41,10 +50,10 @@ namespace ld3d
 		setting.graphics.multiSampleCount = 1;
 		setting.graphics.multiSampleQuality = 0;
 		setting.graphics.windowed = true;
+		setting.input.wnd = GetWnd();
 		setting.graphics.wnd = GetWnd();
 
 		setting.input.sysMod = L"";
-		setting.input.wnd = GetWnd();
 
 		setting.sound.maxChannels = 100;
 		setting.sound.sysMod = L"./fmod_sound_x64.dll";
@@ -53,14 +62,11 @@ namespace ld3d
 
 		setting.network.sysMod = L"./network_x64.dll";
 
-		if(false == m_pCore->Initialize(setting))
-		{
-			return false;
-		}
+		m_pGameManager->GetGame()->AdjustSysSetting(setting);
 		
-		m_pGameManager = std::make_shared<GameManager>();
+		AdjustWindow(setting.graphics.frameBufferWidth, setting.graphics.frameBufferHeight);
 
-		if(false == m_pGameManager->Initialize(L"./game_x64.dll"))
+		if(false == m_pCore->Initialize(setting))
 		{
 			return false;
 		}
@@ -78,7 +84,7 @@ namespace ld3d
 		{
 			m_pGameManager->GetGame()->Release();
 		}
-		
+
 		if(m_pCore)
 		{
 			m_pCore->Release();

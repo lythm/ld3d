@@ -99,6 +99,11 @@ namespace ld3d
 
 		m_pGBuffer = CreateRenderTarget(3, w, h, formats);
 
+		if(m_pGBuffer == nullptr)
+		{
+			return false;
+		}
+
 		return true;
 
 	}
@@ -347,6 +352,11 @@ namespace ld3d
 
 		G_FORMAT formats[1] = {G_FORMAT_R8G8B8A8_UNORM,};
 		m_pABuffer = CreateRenderTarget(1, w, h, formats);
+		
+		if(m_pABuffer == nullptr)
+		{
+			return false;
+		}
 
 		return true;
 	}
