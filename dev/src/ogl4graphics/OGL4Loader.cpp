@@ -18,12 +18,8 @@ namespace ld3d
 	}
 	bool OGL4Loader::Load()
 	{
-		HWND hWnd = GetDesktopWindow();
-
-		HGLRC hRc = wglCreateContext(GetDC(hWnd));
 		
-		wglMakeCurrent(GetDC(hWnd), hRc);
-
+		
 		int major;
 		int minor;
 		GLubyte const * str = glGetString(GL_VERSION);

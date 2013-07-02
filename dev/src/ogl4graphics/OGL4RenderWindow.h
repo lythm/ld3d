@@ -10,7 +10,7 @@ namespace ld3d
 		OGL4RenderWindow(void);
 		virtual ~OGL4RenderWindow(void);
 
-
+		bool														Create();
 		int															GetWidth();
 		int															GetHeight();
 		void														Release();

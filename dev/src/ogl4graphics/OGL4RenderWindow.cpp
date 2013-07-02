@@ -22,4 +22,9 @@ namespace ld3d
 	void OGL4RenderWindow::Release()
 	{
 	}
+	bool OGL4RenderWindow::Create()
+	{
+
+		return true;
+	}
 }
