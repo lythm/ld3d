@@ -36,7 +36,6 @@ namespace ld3d
 		int												m_multiSampleCount;
 		int												m_multiSampleQuality;
 
-
 		ID3D11RenderTargetView*							m_pRTView;
 		ID3D11Device*									m_pDevice;
 		ID3D11DeviceContext*							m_pContext;

@@ -2,6 +2,7 @@
 
 #include "OGL4Graphics.h"
 #include "OGL4Loader.h"
+#include "OGL4RenderWindow.h"
 
 
 namespace ld3d
@@ -40,6 +41,16 @@ namespace ld3d
 
 	bool OGL4Graphics::Initialize(const GraphicsSetting& setting)
 	{
+		m_pMainRW = std::make_shared<OGL4RenderWindow>();
+
+		if(false == m_pMainRW->Create(setting.wnd, setting.frameBufferWidth, setting.frameBufferHeight, setting.frameBufferFormat, setting.depthStencilFormat))
+		{
+			m_pMainRW.reset();
+
+			return false;
+		}
+		m_pMainRW->MakeCurrent();
+
 		m_pLoader = std::make_shared<OGL4Loader>();
 
 		if(m_pLoader->Load() == false)
@@ -48,16 +59,22 @@ namespace ld3d
 		}
 
 
-
-
+		
 		return true;
 	}
 	void OGL4Graphics::Release()
 	{
+		if(m_pMainRW)
+		{
+			m_pMainRW->Release();
+			m_pMainRW.reset();
+		}
 
-
-		m_pLoader->Unload();
-		m_pLoader.reset();
+		if(m_pLoader)
+		{
+			m_pLoader->Unload();
+			m_pLoader.reset();
+		}
 	}
 
 	void OGL4Graphics::SetPrimitiveType(PRIMITIVE_TYPE pt)
@@ -77,6 +94,7 @@ namespace ld3d
 	}
 	void OGL4Graphics::Present()
 	{
+		m_pMainRW->Present();
 	}
 
 	void OGL4Graphics::VSSetConstantBuffer(GPUBufferPtr pBuffer)
@@ -123,6 +141,7 @@ namespace ld3d
 
 	void OGL4Graphics::ResizeFrameBuffer(int cx, int cy)
 	{
+		m_pMainRW->Resize(cx, cy);
 	}
 
 	RenderStatePtr OGL4Graphics::CreateRenderState()
@@ -134,7 +153,15 @@ namespace ld3d
 	}
 	RenderWindowPtr OGL4Graphics::CreateRenderWindow(void* handle, int w, int h, G_FORMAT color_format, G_FORMAT ds_format, int backbufferCount, int multiSampleCount, int multiSampleQuality, bool windowed)
 	{
-		return RenderWindowPtr();
+		OGL4RenderWindowPtr pWnd = std::make_shared<OGL4RenderWindow>();
+		if(pWnd->Create(handle, w, h, color_format, ds_format) == false)
+		{
+			pWnd.reset();
+			return RenderWindowPtr();
+		}
+
+
+		return pWnd;
 	}
 	void OGL4Graphics::SetRenderWindow(RenderWindowPtr pWnd)
 	{

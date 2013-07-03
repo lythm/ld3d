@@ -69,6 +69,8 @@ namespace ld3d
 
 
 		OGL4LoaderPtr							m_pLoader;
+
+		OGL4RenderWindowPtr						m_pMainRW;
 	};
 
 

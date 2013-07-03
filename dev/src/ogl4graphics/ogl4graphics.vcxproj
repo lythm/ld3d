@@ -148,12 +148,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="gl_def.h" />
     <ClInclude Include="OGL4Graphics.h" />
     <ClInclude Include="ogl4graphics_pch.h" />
     <ClInclude Include="OGL4Loader.h" />
     <ClInclude Include="OGL4RenderWindow.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="gl_def.cpp" />
     <ClCompile Include="OGL4Graphics.cpp" />
     <ClCompile Include="ogl4graphics_pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
