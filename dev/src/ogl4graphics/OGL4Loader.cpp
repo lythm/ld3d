@@ -8,7 +8,7 @@
 #include <algorithm>
 
 
-#define LOAD_API(name, type)			name = (type)wglGetProcAddress(#name);
+#define LOAD_API(name, type)			name = (type)wglGetProcAddress(#name);assert(name != nullptr);
 
 namespace ld3d
 {
@@ -26,7 +26,14 @@ namespace ld3d
 		{
 			return false;
 		}
-		
+
+		Version v(3, 3, 0, 0);
+
+		if(m_ver < v)
+		{
+			return false;
+		}
+
 		if(false == load_extension_info())
 		{
 			return false;
@@ -74,7 +81,7 @@ namespace ld3d
 		for (GLint i = 0; i < num_exts; ++ i)
 		{
 			const char* szExt = (const char*)glGetStringi(GL_EXTENSIONS, i);
-			
+
 			m_exts.push_back(szExt);
 		}
 
@@ -90,8 +97,25 @@ namespace ld3d
 	}
 	bool OGL4Loader::load_api()
 	{
-		LOAD_API(glGetStringi, PFNGLGETSTRINGIPROC);
+		LOAD_API(glGetStringi,											PFNGLGETSTRINGIPROC);
 
+		LOAD_API(glGenBuffers,											PFNGLGENBUFFERSPROC);
+
+		LOAD_API(glBindBuffer,											PFNGLBINDBUFFERPROC);
+		LOAD_API(glBufferData,											PFNGLBUFFERDATAPROC);
+
+
+		LOAD_API(glEnableVertexAttribArray,								PFNGLENABLEVERTEXATTRIBARRAYPROC);
+		LOAD_API(glDisableVertexAttribArray,							PFNGLDISABLEVERTEXATTRIBARRAYPROC);
+		LOAD_API(glIsBuffer,											PFNGLISBUFFERPROC);
+
+		LOAD_API(glBufferSubData,										PFNGLBUFFERSUBDATAPROC);
+		LOAD_API(glMapBufferRange,										PFNGLMAPBUFFERRANGEPROC);
+		LOAD_API(glUnmapBuffer,											PFNGLUNMAPBUFFERPROC);
+		LOAD_API(glDeleteBuffers,										PFNGLDELETEBUFFERSPROC);
+
+		LOAD_API(glVertexAttribPointer,									PFNGLVERTEXATTRIBPOINTERPROC);
+		
 		return true;
 	}
 }

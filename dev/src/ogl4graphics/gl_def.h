@@ -3,5 +3,24 @@
 #include "glext/glcorearb.h"
 
 
-extern PFNGLGETSTRINGIPROC glGetStringi;
+extern PFNGLGETSTRINGIPROC								glGetStringi;
+
+
+
+
+
+// VBO
+extern PFNGLGENBUFFERSPROC								glGenBuffers;
+extern PFNGLBINDBUFFERPROC								glBindBuffer;
+extern PFNGLBUFFERDATAPROC								glBufferData;
+extern PFNGLENABLEVERTEXATTRIBARRAYPROC					glEnableVertexAttribArray;
+extern PFNGLDISABLEVERTEXATTRIBARRAYPROC				glDisableVertexAttribArray;
+extern PFNGLISBUFFERPROC								glIsBuffer;	
+extern PFNGLBUFFERSUBDATAPROC							glBufferSubData;	
+extern PFNGLDELETEBUFFERSPROC							glDeleteBuffers;	
+extern PFNGLVERTEXATTRIBPOINTERPROC						glVertexAttribPointer;	
+extern PFNGLMAPBUFFERRANGEPROC							glMapBufferRange;	
+extern PFNGLUNMAPBUFFERPROC								glUnmapBuffer;	
+
+
 

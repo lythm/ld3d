@@ -30,6 +30,12 @@
     <ClInclude Include="gl_def.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="OGL4Buffer.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="OGL4Covert.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ogl4graphics_pch.cpp">
@@ -45,6 +51,12 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="gl_def.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="OGL4Buffer.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="OGL4Covert.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

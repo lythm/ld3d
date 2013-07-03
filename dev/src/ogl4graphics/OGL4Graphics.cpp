@@ -4,6 +4,7 @@
 #include "OGL4Loader.h"
 #include "OGL4RenderWindow.h"
 
+#include "OGL4Buffer.h"
 
 namespace ld3d
 {
@@ -108,10 +109,25 @@ namespace ld3d
 	}
 	void OGL4Graphics::SetVertexBuffer(GPUBufferPtr pBuffer, unsigned int offset, unsigned int stride)
 	{
+		OGL4BufferPtr pGLBuffer = std::dynamic_pointer_cast<OGL4Buffer>(pBuffer);
+		if(pGLBuffer == nullptr)
+		{
+			return;
+		}
+
+		pGLBuffer->Bind();
+		//glEnableVertexAttribArray(0);
+		//glVertexAttribPointer(0, 
 	}
 	GPUBufferPtr OGL4Graphics::CreateBuffer(BUFFER_TYPE type, int bytes, void* pInitData, bool dynamic)
 	{
-		return GPUBufferPtr();
+		OGL4BufferPtr pBuffer = std::make_shared<OGL4Buffer>();
+		if(pBuffer->Create(type, bytes, pInitData, dynamic) == false)
+		{
+			pBuffer.reset();
+
+		}
+		return pBuffer;
 	}
 	MaterialPtr	OGL4Graphics::CreateMaterialFromFile(const char* szFile)
 	{

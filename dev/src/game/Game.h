@@ -4,6 +4,7 @@
 #include "core/GameInterface.h"
 
 #include "voxeldemo.h"
+#include "GraphicsTest.h"
 
 class Game : public ld3d::GameInterface
 {
@@ -21,7 +22,7 @@ private:
 
 	VoxelDemo*								m_pDemo;
 
-	
+	GraphicsTest*							m_pGraphcicsTest;
 
 };
 

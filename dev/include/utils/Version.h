@@ -110,6 +110,26 @@ namespace ld3d
 			
 			return *this;
 		}
+
+		bool						operator <(const Version& rhs) const
+		{
+			return m_value < rhs.m_value;
+		}
+
+		bool						operator >(const Version& rhs) const
+		{
+			return m_value > rhs.m_value;
+		}
+
+		bool						operator <=(const Version& rhs) const
+		{
+			return !operator >(rhs);
+		}
+
+		bool						operator >=(const Version& rhs) const
+		{
+			return !operator<(rhs);
+		}
 	private:
 		uint32						m_value;
 	};
