@@ -17,8 +17,10 @@ namespace ld3d
 	}
 	void EngineApp::OnUpdate()
 	{
-		m_pGraphics->ClearRenderTarget(nullptr, 0, math::Color4(0.3, 0.5, 0.7, 1));
+		m_pGraphics->ClearRenderTarget(0, math::Color4(0.3, 0.5, 0.7, 1));
+		m_pGraphics->ClearDepthStencil(CLEAR_ALL, 1.0f, 0);
 
+		
 		m_pGraphics->Present();
 
 		ShowFPS();

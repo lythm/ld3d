@@ -3,6 +3,7 @@
 #include "OGL4Graphics.h"
 #include "OGL4Loader.h"
 #include "OGL4RenderWindow.h"
+#include "OGL4RenderTexture.h"
 
 #include "OGL4Buffer.h"
 
@@ -13,13 +14,13 @@ namespace ld3d
 
 	std::function<void (const std::wstring& log)>			g_logger;
 }
-EXPORT_C_API ld3d::Sys_Graphics* CreateSys(const std::function<void (const std::wstring& log)>& logger)
+EXPORT_C_API ld3d::Sys_Graphics2* CreateSys(const std::function<void (const std::wstring& log)>& logger)
 {
 	ld3d::g_logger = logger;
 	return new ld3d::OGL4Graphics;
 }
 
-EXPORT_C_API void DestroySys(ld3d::Sys_Graphics* pSys)
+EXPORT_C_API void DestroySys(ld3d::Sys_Graphics2* pSys)
 {
 	delete (ld3d::OGL4Graphics*)pSys;
 }
@@ -136,7 +137,10 @@ namespace ld3d
 	{
 		return m_setting;
 	}
-
+	void OGL4Graphics::ClearRenderTarget(int index, const math::Color4& clr)
+	{
+		glClearBufferfv(GL_COLOR, index, clr.v);
+	}
 	bool OGL4Graphics::Initialize(const GraphicsSetting& setting)
 	{
 		m_pMainRW = std::make_shared<OGL4RenderWindow>();
@@ -185,12 +189,25 @@ namespace ld3d
 	void OGL4Graphics::Draw(int vertexCount, int baseVertex)
 	{
 	}
-	void OGL4Graphics::ClearRenderTarget(RenderTargetPtr pTarget, int index, const math::Color4& clr)
+	void OGL4Graphics::ClearDepthStencil(CLEAR_DS_FLAG flag, float d, int s)
 	{
-		glClearBufferfv(GL_COLOR, index, clr.v);
-	}
-	void OGL4Graphics::ClearDepthStencilBuffer(DepthStencilBufferPtr pTarget, CLEAR_DS_FLAG flag, float d, int s)
-	{
+		switch(flag)
+		{
+		case CLEAR_DEPTH:
+			glClearBufferfi(GL_DEPTH, 0, d, s);
+			break;
+		case CLEAR_STENCIL:
+			glClearBufferfi(GL_STENCIL, 0, d, s);
+			break;
+		case CLEAR_ALL:
+			glClearBufferfi(GL_DEPTH_STENCIL, 0, d, s);
+			break;
+		default:
+			assert(0);
+			break;
+		}
+
+		
 	}
 	void OGL4Graphics::Present()
 	{
@@ -267,15 +284,14 @@ namespace ld3d
 	void OGL4Graphics::SetRenderState(RenderStatePtr pState)
 	{
 	}
-	RenderWindowPtr OGL4Graphics::CreateRenderWindow(void* handle, int w, int h, G_FORMAT color_format, G_FORMAT ds_format, int backbufferCount, int multiSampleCount, int multiSampleQuality, bool windowed)
+	RenderWindow2Ptr OGL4Graphics::CreateRenderWindow(void* handle, int w, int h, G_FORMAT color_format, G_FORMAT ds_format, int backbufferCount, int multiSampleCount, int multiSampleQuality, bool windowed)
 	{
 		OGL4RenderWindowPtr pWnd = std::make_shared<OGL4RenderWindow>();
 		if(pWnd->Create(handle, w, h, color_format, ds_format) == false)
 		{
 			pWnd.reset();
-			return RenderWindowPtr();
+			return RenderWindow2Ptr();
 		}
-
 
 		return pWnd;
 	}
@@ -316,4 +332,16 @@ namespace ld3d
 	{
 	}
 
+	RenderTexture2Ptr OGL4Graphics::CreateRenderTexture(int w, int h, G_FORMAT format)
+	{
+		OGL4RenderTexturePtr pRT = std::make_shared<OGL4RenderTexture>();
+
+		if(pRT->Create(w, h, format) == false)
+		{
+			pRT->Release();
+			pRT.reset();
+		}
+
+		return pRT;
+	}
 }

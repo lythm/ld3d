@@ -4,7 +4,7 @@
 
 namespace ld3d
 {
-	class OGL4Graphics : public Sys_Graphics
+	class OGL4Graphics : public Sys_Graphics2
 	{
 	public:
 		OGL4Graphics(void);
@@ -15,13 +15,20 @@ namespace ld3d
 
 		bool									Initialize(const GraphicsSetting& setting);
 		void									Release();
+		RenderWindow2Ptr						CreateRenderWindow(void* handle, int w, int h, G_FORMAT color_format, G_FORMAT ds_format, int backbufferCount, int multiSampleCount, int multiSampleQuality, bool windowed);
+		void									ClearRenderTarget(int index, const math::Color4& clr);
+		void									ClearDepthStencil(CLEAR_DS_FLAG flag, float d, int s); 
+		RenderTexture2Ptr						CreateRenderTexture(int w, int h, G_FORMAT format);
 
+
+
+
+		//////////////////////////
 		void									SetPrimitiveType(PRIMITIVE_TYPE pt);
 		void									DrawIndexed(int count, int startindex, int basevertex);
 		void									Draw(int vertexCount, int baseVertex);
 
-		void									ClearRenderTarget(RenderTargetPtr pTarget, int index, const math::Color4& clr);
-		void									ClearDepthStencilBuffer(DepthStencilBufferPtr pTarget, CLEAR_DS_FLAG flag, float d, int s); 
+		
 		void									Present();
 
 		void									VSSetConstantBuffer(GPUBufferPtr pBuffer);
@@ -47,7 +54,7 @@ namespace ld3d
 
 		RenderStatePtr							CreateRenderState();
 		void									SetRenderState(RenderStatePtr pState);
-		RenderWindowPtr							CreateRenderWindow(void* handle, int w, int h, G_FORMAT color_format, G_FORMAT ds_format, int backbufferCount, int multiSampleCount, int multiSampleQuality, bool windowed);
+		
 		void									SetRenderWindow(RenderWindowPtr pWnd);
 		RenderTargetPtr							GetDefaultRenderTarget();
 		RenderTargetPtr							GetCurrentRenderTarget();

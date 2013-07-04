@@ -1,23 +1,28 @@
 #pragma once
 
-#include "core/RenderTarget.h"
+#include "core/RenderWindow.h"
 
 namespace ld3d
 {
-	class OGL4RenderTexture : public RenderTarget
+	class OGL4RenderTexture : public RenderTexture2
 	{
 	public:
 		OGL4RenderTexture(void);
 		virtual ~OGL4RenderTexture(void);
 
 
-		int												GetRenderTargetCount();
-		TexturePtr										AsTexture(int index);
-		void											SetDepthStencilBuffer(DepthStencilBufferPtr pDepthBuffer);
-		DepthStencilBufferPtr							GetDepthStencilBuffer();
-		void											Release();
-		int												GetWidth(int index);
-		int												GetHeight(int index);
+		bool														Create(int w, int h, G_FORMAT format);
+		void														Release();
+		
+		int															GetWidth();
+		int															GetHeight();
+
+		TexturePtr													AsTexture();
+
+
+	private:
+		OGL4TexturePtr												m_pTex;
+		
 	};
 
 

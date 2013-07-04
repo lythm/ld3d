@@ -120,7 +120,7 @@ namespace ld3d
 
 
 		LOAD_API(glClearBufferfv,										PFNGLCLEARBUFFERFVPROC);
-
+		LOAD_API(glClearBufferfi,										PFNGLCLEARBUFFERFIPROC);
 
 		LOAD_API(glDebugMessageControl,									PFNGLDEBUGMESSAGECONTROLPROC);
 		LOAD_API(glDebugMessageInsert,									PFNGLDEBUGMESSAGEINSERTPROC);

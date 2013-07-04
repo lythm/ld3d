@@ -149,21 +149,29 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="gl_def.h" />
+    <ClInclude Include="OG4VertexShader.h" />
     <ClInclude Include="OGL4Buffer.h" />
     <ClInclude Include="OGL4Covert.h" />
     <ClInclude Include="OGL4DepthStencilBuffer.h" />
+    <ClInclude Include="OGL4FragmentShader.h" />
+    <ClInclude Include="OGL4GeometryData.h" />
     <ClInclude Include="OGL4Graphics.h" />
     <ClInclude Include="ogl4graphics_pch.h" />
     <ClInclude Include="OGL4Loader.h" />
     <ClInclude Include="OGL4RenderTexture.h" />
     <ClInclude Include="OGL4RenderWindow.h" />
+    <ClInclude Include="OGL4ShaderCompiler.h" />
+    <ClInclude Include="OGL4ShaderProgram.h" />
     <ClInclude Include="OGL4Texture.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="gl_def.cpp" />
+    <ClCompile Include="OG4VertexShader.cpp" />
     <ClCompile Include="OGL4Buffer.cpp" />
     <ClCompile Include="OGL4Covert.cpp" />
     <ClCompile Include="OGL4DepthStencilBuffer.cpp" />
+    <ClCompile Include="OGL4FragmentShader.cpp" />
+    <ClCompile Include="OGL4GeometryData.cpp" />
     <ClCompile Include="OGL4Graphics.cpp" />
     <ClCompile Include="ogl4graphics_pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -174,6 +182,8 @@
     <ClCompile Include="OGL4Loader.cpp" />
     <ClCompile Include="OGL4RenderTexture.cpp" />
     <ClCompile Include="OGL4RenderWindow.cpp" />
+    <ClCompile Include="OGL4ShaderCompiler.cpp" />
+    <ClCompile Include="OGL4ShaderProgram.cpp" />
     <ClCompile Include="OGL4Texture.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

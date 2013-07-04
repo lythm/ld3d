@@ -45,6 +45,21 @@
     <ClInclude Include="OGL4Texture.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="OGL4GeometryData.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="OG4VertexShader.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="OGL4FragmentShader.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="OGL4ShaderCompiler.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="OGL4ShaderProgram.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ogl4graphics_pch.cpp">
@@ -75,6 +90,21 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="OGL4Texture.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="OGL4GeometryData.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="OG4VertexShader.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="OGL4FragmentShader.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="OGL4ShaderCompiler.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="OGL4ShaderProgram.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

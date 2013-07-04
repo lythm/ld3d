@@ -8,6 +8,7 @@ extern PFNGLGETSTRINGIPROC								glGetStringi;
 
 
 extern PFNGLCLEARBUFFERFVPROC							glClearBufferfv;
+extern PFNGLCLEARBUFFERFIPROC							glClearBufferfi;
 
 
 // debug

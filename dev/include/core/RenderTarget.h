@@ -18,4 +18,20 @@ namespace ld3d
 		RenderTarget(void){}
 		virtual ~RenderTarget(void){}
 	};
+
+
+
+	class RenderTarget2
+	{
+	public:
+
+		virtual void											Release()														= 0;
+		virtual int												GetWidth()														= 0;
+		virtual int												GetHeight()														= 0;
+		
+	protected:
+
+		RenderTarget2(void){}
+		virtual ~RenderTarget2(void){}
+	};
 }

@@ -74,7 +74,7 @@ namespace ld3d
 			}
 		};
 
-		typedef Sys_Mod_T<Sys_Graphics>			Sys_GraphicsMod;
+		typedef Sys_Mod_T<Sys_Graphics2>				Sys_GraphicsMod;
 
 
 		EngineApp(void);
@@ -93,7 +93,7 @@ namespace ld3d
 	private:
 
 		Sys_GraphicsMod									m_mod;
-		Sys_GraphicsPtr									m_pGraphics;
+		Sys_Graphics2Ptr								m_pGraphics;
 	};
 
 

@@ -11,30 +11,24 @@ namespace ld3d
 	OGL4RenderTexture::~OGL4RenderTexture(void)
 	{
 	}
-	int	OGL4RenderTexture::GetRenderTargetCount()
+	bool OGL4RenderTexture::Create(int w, int h, G_FORMAT format)
 	{
-		return 0;
-	}
-	TexturePtr OGL4RenderTexture::AsTexture(int index)
-	{
-		return TexturePtr();
-	}
-	void OGL4RenderTexture::SetDepthStencilBuffer(DepthStencilBufferPtr pDepthBuffer)
-	{
-	}
-	DepthStencilBufferPtr OGL4RenderTexture::GetDepthStencilBuffer()
-	{
-		return DepthStencilBufferPtr();
+		return true;
 	}
 	void OGL4RenderTexture::Release()
 	{
 	}
-	int	OGL4RenderTexture::GetWidth(int index)
+		
+	int OGL4RenderTexture::GetWidth()
 	{
 		return 0;
 	}
-	int	OGL4RenderTexture::GetHeight(int index)
+	int OGL4RenderTexture::GetHeight()
 	{
 		return 0;
+	}
+	TexturePtr OGL4RenderTexture::AsTexture()
+	{
+		return TexturePtr();
 	}
 }

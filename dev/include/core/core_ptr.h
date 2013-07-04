@@ -27,6 +27,7 @@ namespace ld3d
 
 	class Sys_Input;
 	class Sys_Graphics;
+	class Sys_Graphics2;
 	class Sys_Sound;
 	class Sys_Physics;
 	class Sys_Time;
@@ -34,13 +35,15 @@ namespace ld3d
 	class SysManager;
 
 	
-	typedef std::shared_ptr<SysManager>					SysManagerPtr;
+	typedef std::shared_ptr<SysManager>						SysManagerPtr;
 	typedef std::shared_ptr<Sys_Time>						Sys_TimePtr;
 	typedef std::shared_ptr<Sys_Network>					Sys_NetworkPtr;
 	typedef std::shared_ptr<Sys_Physics>					Sys_PhysicsPtr;
-	typedef std::shared_ptr<Sys_Input>					Sys_InputPtr;
+	typedef std::shared_ptr<Sys_Input>						Sys_InputPtr;
+	typedef std::shared_ptr<Sys_Sound>						Sys_SoundPtr;
+
 	typedef std::shared_ptr<Sys_Graphics>					Sys_GraphicsPtr;
-	typedef std::shared_ptr<Sys_Sound>					Sys_SoundPtr;
+	typedef std::shared_ptr<Sys_Graphics2>					Sys_Graphics2Ptr;
 
 	class LightManager;
 	class Light;
@@ -80,38 +83,45 @@ namespace ld3d
 	class VertexShader;
 	class PixelShader;
 	class RenderWindow;
-
+	class RenderWindow2;
 	class Material;
 	class MaterialPass;
 	class MaterialTech;
 	class MaterialParameterManager;
 	class MaterialParameter;
-	
+	class RenderTexture2;
+	class GeometryData;
+	class ShaderProgram;
 
-	typedef std::shared_ptr<BBoxRenderData>				BBoxRenderDataPtr;
+
+	typedef std::shared_ptr<BBoxRenderData>					BBoxRenderDataPtr;
 
 
 	typedef std::shared_ptr<Material>						MaterialPtr;
 	typedef std::shared_ptr<MaterialPass>					MaterialPassPtr;
 	typedef std::shared_ptr<MaterialTech>					MaterialTechPtr;
 	typedef std::shared_ptr<MaterialParameterManager>		MaterialParameterManagerPtr;
-	typedef std::shared_ptr<MaterialParameter>			MaterialParameterPtr;
+	typedef std::shared_ptr<MaterialParameter>				MaterialParameterPtr;
 
 	
+	typedef std::shared_ptr<ShaderProgram>					ShaderProgramPtr;
+	typedef std::shared_ptr<GeometryData>					GeometryDataPtr;
+	typedef std::shared_ptr<RenderTexture2>					RenderTexture2Ptr;
+	typedef std::shared_ptr<RenderWindow2>					RenderWindow2Ptr;
+
 	typedef std::shared_ptr<RenderWindow>					RenderWindowPtr;
 	typedef std::shared_ptr<PixelShader>					PixelShaderPtr;
 	typedef std::shared_ptr<VertexShader>					VertexShaderPtr;
 	typedef std::shared_ptr<RenderState>					RenderStatePtr;
-	typedef std::shared_ptr<Shader>						ShaderPtr;
-	typedef std::shared_ptr<Camera>						CameraPtr;
-	typedef std::shared_ptr<BaseCamera>					BaseCameraPtr;
-	typedef std::shared_ptr<DepthStencilBuffer>			DepthStencilBufferPtr;
+	typedef std::shared_ptr<Shader>							ShaderPtr;
+	typedef std::shared_ptr<Camera>							CameraPtr;
+	typedef std::shared_ptr<BaseCamera>						BaseCameraPtr;
+	typedef std::shared_ptr<DepthStencilBuffer>				DepthStencilBufferPtr;
 	typedef std::shared_ptr<RenderTarget>					RenderTargetPtr;
-	typedef std::shared_ptr<RenderData>					RenderDataPtr;
-	typedef std::shared_ptr<GPUBuffer>					GPUBufferPtr;
+	typedef std::shared_ptr<RenderData>						RenderDataPtr;
+	typedef std::shared_ptr<GPUBuffer>						GPUBufferPtr;
 	typedef std::shared_ptr<Texture>						TexturePtr;
 	
-
 
 	class CoreApi;
 	class RenderManager;

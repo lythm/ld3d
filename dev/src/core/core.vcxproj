@@ -188,6 +188,7 @@
     <ClInclude Include="..\..\include\core\GameObjectComponent.h" />
     <ClInclude Include="..\..\include\core\GameObjectManager.h" />
     <ClInclude Include="..\..\include\core\GameObjectTemplate.h" />
+    <ClInclude Include="..\..\include\core\GeometryData.h" />
     <ClInclude Include="..\..\include\core\GPUBuffer.h" />
     <ClInclude Include="..\..\include\core\g_format.h" />
     <ClInclude Include="..\..\include\core\Light.h" />
@@ -223,6 +224,7 @@
     <ClInclude Include="..\..\include\core\SceneSerializer.h" />
     <ClInclude Include="..\..\include\core\Serializer.h" />
     <ClInclude Include="..\..\include\core\Shader.h" />
+    <ClInclude Include="..\..\include\core\ShaderProgram.h" />
     <ClInclude Include="..\..\include\core\SkyLight.h" />
     <ClInclude Include="..\..\include\core\Sound.h" />
     <ClInclude Include="..\..\include\core\SoundChannel.h" />

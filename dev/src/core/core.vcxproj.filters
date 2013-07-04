@@ -140,6 +140,8 @@
     <ClInclude Include="..\..\include\core\ObjectPool.h" />
     <ClInclude Include="..\..\include\core\BBoxRenderData.h" />
     <ClInclude Include="..\..\include\core\DT_CoreApi.h" />
+    <ClInclude Include="..\..\include\core\GeometryData.h" />
+    <ClInclude Include="..\..\include\core\ShaderProgram.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
