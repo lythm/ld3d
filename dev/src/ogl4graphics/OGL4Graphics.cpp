@@ -6,6 +6,8 @@
 
 #include "OGL4Buffer.h"
 
+#include <sstream>
+
 namespace ld3d
 {
 
@@ -24,9 +26,104 @@ EXPORT_C_API void DestroySys(ld3d::Sys_Graphics* pSys)
 
 
 
+void APIENTRY _DebugCallback(GLenum source, 
+							 GLenum type, 
+							 GLuint id,
+							 GLenum severity, 
+							 GLsizei length,
+							 const GLchar* message, 
+							 const void* userParam)
+{
+	std::stringstream str;
+
+	switch(source)
+	{
+	case GL_DEBUG_SOURCE_API_ARB:
+		str << "OpenGL";
+		break;
+	case GL_DEBUG_SOURCE_WINDOW_SYSTEM_ARB:
+		str << "Windows";
+		break;
+	case GL_DEBUG_SOURCE_SHADER_COMPILER_ARB:
+		str << "Shader Compiler";
+		break;
+	case GL_DEBUG_SOURCE_THIRD_PARTY_ARB:
+		str << "Third Party";
+		break;
+	case GL_DEBUG_SOURCE_APPLICATION_ARB:
+		str << "Application";
+		break;
+	case GL_DEBUG_SOURCE_OTHER_ARB:
+		str << "Other";
+		break;
+	default:
+		str << "unknown";
+		break;
+	}
+	str<< "(";
+	
+	switch(type)
+	{
+	case GL_DEBUG_TYPE_ERROR_ARB:
+		str << "Error";
+		break;
+	case GL_DEBUG_TYPE_DEPRECATED_BEHAVIOR_ARB:
+		str << "Deprecated behavior";
+		break;
+	case GL_DEBUG_TYPE_UNDEFINED_BEHAVIOR_ARB:
+		str << "Undefined behavior";
+		break;
+	case GL_DEBUG_TYPE_PORTABILITY_ARB:
+		str << "Portability";
+		break;
+	case GL_DEBUG_TYPE_PERFORMANCE_ARB:
+		str << "Performance";
+		break;
+	case GL_DEBUG_TYPE_OTHER_ARB:
+		str << "Other";
+		break;
+	default:
+		str << "unknown";
+		break;
+	}
+	str<< ",";
+	str << id ;
+	str << ",";
+	switch(severity)
+	{
+	case GL_DEBUG_SEVERITY_HIGH_ARB:
+		str << "High";
+		break;
+	case GL_DEBUG_SEVERITY_MEDIUM_ARB:
+		str << "Medium";
+		break;
+	case GL_DEBUG_SEVERITY_LOW_ARB:
+		str << "Low";
+		break;
+	default :
+		str << "unknown";
+		break;
+	}
+
+	str << "): ";
+	str << message << std::endl;
+
+	OutputDebugStringA(str.str().c_str());
+}
+
 
 namespace ld3d
 {
+	void g_log(const std::wstring& str)
+	{
+		if(g_logger)
+		{
+			return;
+		}
+
+		g_logger(str);
+	}
+
 	OGL4Graphics::OGL4Graphics(void)
 	{
 	}
@@ -59,8 +156,9 @@ namespace ld3d
 			return false;
 		}
 
+		m_pMainRW->EnableVSync(false);
+		glDebugMessageCallback(_DebugCallback, NULL);
 
-		
 		return true;
 	}
 	void OGL4Graphics::Release()
@@ -89,12 +187,14 @@ namespace ld3d
 	}
 	void OGL4Graphics::ClearRenderTarget(RenderTargetPtr pTarget, int index, const math::Color4& clr)
 	{
+		glClearBufferfv(GL_COLOR, index, clr.v);
 	}
 	void OGL4Graphics::ClearDepthStencilBuffer(DepthStencilBufferPtr pTarget, CLEAR_DS_FLAG flag, float d, int s)
 	{
 	}
 	void OGL4Graphics::Present()
 	{
+
 		m_pMainRW->Present();
 	}
 
@@ -145,7 +245,7 @@ namespace ld3d
 	{
 		return TexturePtr();
 	}
-		
+
 	RenderTargetPtr	OGL4Graphics::CreateRenderTarget(int count, int w, int h, G_FORMAT formats[], int miplvls)
 	{
 		return RenderTargetPtr();
@@ -215,4 +315,5 @@ namespace ld3d
 	void OGL4Graphics::SetVertexShader(VertexShaderPtr pShader)
 	{
 	}
+
 }

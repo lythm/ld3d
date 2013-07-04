@@ -23,8 +23,9 @@ namespace ld3d
 	class OGL4Buffer;
 	class OGL4Loader;
 	class OGL4RenderWindow;
+	class OGL4RenderTexture;
 
-
+	typedef std::shared_ptr<OGL4RenderTexture>								OGL4RenderTexturePtr;
 	typedef std::shared_ptr<OGL4Buffer>										OGL4BufferPtr;
 	typedef std::shared_ptr<OGL4RenderWindow>								OGL4RenderWindowPtr;
 	typedef std::shared_ptr<OGL4Loader>										OGL4LoaderPtr;

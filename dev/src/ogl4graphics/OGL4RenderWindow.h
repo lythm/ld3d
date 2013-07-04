@@ -20,6 +20,8 @@ namespace ld3d
 
 		HGLRC														GetContext();
 		void														MakeCurrent();
+
+		void														EnableVSync(bool bEnable);
 	private:
 		HWND														m_hWnd;
 		HDC															m_hDC;

@@ -28,5 +28,19 @@ namespace ld3d
 
 		return GL_INVALID_ENUM;
 	}
-
+	GLenum OGL4Covert::PrimitiveTypeToGL(PRIMITIVE_TYPE type)
+	{
+		switch(type)
+		{
+		case PT_TRIANGLE_LIST:
+			return GL_TRIANGLES;
+		case PT_TRIANGLE_STRIP:
+			return GL_TRIANGLE_STRIP;
+		case PT_LINE_LIST:
+			return GL_LINES;
+		default:
+			assert(0);
+		}
+		return GL_INVALID_ENUM;
+	}
 }

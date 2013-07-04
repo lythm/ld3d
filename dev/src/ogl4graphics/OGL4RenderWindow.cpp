@@ -70,8 +70,10 @@ namespace ld3d
 		{  
 			WGL_CONTEXT_MAJOR_VERSION_ARB, 3,
 			WGL_CONTEXT_MINOR_VERSION_ARB, 3,
-			WGL_CONTEXT_FLAGS_ARB, WGL_CONTEXT_CORE_PROFILE_BIT_ARB,
-			0,
+			WGL_CONTEXT_FLAGS_ARB, WGL_CONTEXT_FORWARD_COMPATIBLE_BIT_ARB |
+			WGL_CONTEXT_DEBUG_BIT_ARB,        
+			WGL_CONTEXT_PROFILE_MASK_ARB, WGL_CONTEXT_CORE_PROFILE_BIT_ARB,
+			0
 		};
 		PFNWGLCREATECONTEXTATTRIBSARBPROC wglCreateContextAttribsARB = (PFNWGLCREATECONTEXTATTRIBSARBPROC)wglGetProcAddress("wglCreateContextAttribsARB");
 		if(wglCreateContextAttribsARB == nullptr)
@@ -88,7 +90,7 @@ namespace ld3d
 			return true;
 		}
 		MakeCurrent();
-		
+
 		wglDeleteContext(tempOpenGLContext);
 
 		m_width = w;
@@ -100,6 +102,7 @@ namespace ld3d
 	void OGL4RenderWindow::Present()
 	{
 		SwapBuffers(m_hDC);
+
 	}
 	HGLRC OGL4RenderWindow::GetContext()
 	{
@@ -114,5 +117,9 @@ namespace ld3d
 	{
 		m_width = cx;
 		m_height = cy;
+	}
+	void OGL4RenderWindow::EnableVSync(bool bEnable)
+	{
+		bEnable ? wglSwapIntervalEXT(1) : wglSwapIntervalEXT(0);
 	}
 }

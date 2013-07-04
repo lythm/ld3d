@@ -97,6 +97,8 @@ namespace ld3d
 	}
 	bool OGL4Loader::load_api()
 	{
+		LOAD_API(wglSwapIntervalEXT,									PFNWGLSWAPINTERVALEXTPROC);
+
 		LOAD_API(glGetStringi,											PFNGLGETSTRINGIPROC);
 
 		LOAD_API(glGenBuffers,											PFNGLGENBUFFERSPROC);
@@ -115,6 +117,15 @@ namespace ld3d
 		LOAD_API(glDeleteBuffers,										PFNGLDELETEBUFFERSPROC);
 
 		LOAD_API(glVertexAttribPointer,									PFNGLVERTEXATTRIBPOINTERPROC);
+
+
+		LOAD_API(glClearBufferfv,										PFNGLCLEARBUFFERFVPROC);
+
+
+		LOAD_API(glDebugMessageControl,									PFNGLDEBUGMESSAGECONTROLPROC);
+		LOAD_API(glDebugMessageInsert,									PFNGLDEBUGMESSAGEINSERTPROC);
+		LOAD_API(glDebugMessageCallback,								PFNGLDEBUGMESSAGECALLBACKPROC);
+		LOAD_API(glGetDebugMessageLog,									PFNGLGETDEBUGMESSAGELOGPROC);
 		
 		return true;
 	}

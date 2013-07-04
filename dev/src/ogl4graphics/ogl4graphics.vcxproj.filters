@@ -36,6 +36,15 @@
     <ClInclude Include="OGL4Covert.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="OGL4RenderTexture.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="OGL4DepthStencilBuffer.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="OGL4Texture.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ogl4graphics_pch.cpp">
@@ -57,6 +66,15 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="OGL4Covert.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="OGL4RenderTexture.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="OGL4DepthStencilBuffer.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="OGL4Texture.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

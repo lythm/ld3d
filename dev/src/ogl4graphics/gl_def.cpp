@@ -3,7 +3,7 @@
 
 PFNGLGETSTRINGIPROC									glGetStringi									= nullptr;
 
-
+PFNGLCLEARBUFFERFVPROC								glClearBufferfv									= nullptr;
 
 PFNGLGENBUFFERSPROC									glGenBuffers									= nullptr;
 PFNGLBINDBUFFERPROC									glBindBuffer									= nullptr;
@@ -17,3 +17,15 @@ PFNGLDELETEBUFFERSPROC								glDeleteBuffers									= nullptr;
 PFNGLVERTEXATTRIBPOINTERPROC						glVertexAttribPointer							= nullptr;	
 PFNGLMAPBUFFERRANGEPROC								glMapBufferRange								= nullptr;
 PFNGLUNMAPBUFFERPROC								glUnmapBuffer									= nullptr;	
+
+
+PFNGLDEBUGMESSAGECONTROLPROC						glDebugMessageControl							= nullptr;
+PFNGLDEBUGMESSAGEINSERTPROC							glDebugMessageInsert							= nullptr;
+PFNGLDEBUGMESSAGECALLBACKPROC						glDebugMessageCallback							= nullptr;
+PFNGLGETDEBUGMESSAGELOGPROC							glGetDebugMessageLog							= nullptr;
+
+
+
+
+// wgl
+PFNWGLSWAPINTERVALEXTPROC							wglSwapIntervalEXT								= nullptr;

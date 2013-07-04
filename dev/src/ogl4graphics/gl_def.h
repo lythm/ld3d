@@ -7,6 +7,14 @@ extern PFNGLGETSTRINGIPROC								glGetStringi;
 
 
 
+extern PFNGLCLEARBUFFERFVPROC							glClearBufferfv;
+
+
+// debug
+extern PFNGLDEBUGMESSAGECONTROLPROC						glDebugMessageControl;
+extern PFNGLDEBUGMESSAGEINSERTPROC						glDebugMessageInsert;
+extern PFNGLDEBUGMESSAGECALLBACKPROC					glDebugMessageCallback;
+extern PFNGLGETDEBUGMESSAGELOGPROC						glGetDebugMessageLog;
 
 
 // VBO
@@ -24,3 +32,12 @@ extern PFNGLUNMAPBUFFERPROC								glUnmapBuffer;
 
 
 
+
+
+
+
+
+#include "glext/wglext.h"
+
+// wgl
+extern PFNWGLSWAPINTERVALEXTPROC						wglSwapIntervalEXT;
