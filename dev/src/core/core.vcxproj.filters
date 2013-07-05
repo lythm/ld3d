@@ -142,6 +142,7 @@
     <ClInclude Include="..\..\include\core\DT_CoreApi.h" />
     <ClInclude Include="..\..\include\core\GeometryData.h" />
     <ClInclude Include="..\..\include\core\ShaderProgram.h" />
+    <ClInclude Include="..\..\include\core\ShaderCompiler.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

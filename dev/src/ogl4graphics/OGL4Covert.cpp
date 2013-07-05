@@ -43,4 +43,19 @@ namespace ld3d
 		}
 		return GL_INVALID_ENUM;
 	}
+	GLenum OGL4Covert::TexTypeToGLTarget(TEXTURE_TYPE type)
+	{
+		switch(type)
+		{
+		case TEX_1D:
+			return GL_TEXTURE_1D;
+		case TEX_2D:
+			return GL_TEXTURE_2D;
+		case TEX_3D:
+			return GL_TEXTURE_3D;
+		default:
+			break;
+		}
+		return GL_INVALID_ENUM;
+	}
 }

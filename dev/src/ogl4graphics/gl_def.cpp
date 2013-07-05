@@ -29,5 +29,18 @@ PFNGLGETDEBUGMESSAGELOGPROC							glGetDebugMessageLog							= nullptr;
 
 
 
+// tex
+PFNGLTEXIMAGE3DPROC									glTexImage3D									= nullptr;
+PFNGLGENERATEMIPMAPPROC								glGenerateMipmap								= nullptr;
+PFNGLACTIVETEXTUREPROC								glActiveTexture									= nullptr;
+
+
+
+
+
+
+
+
+
 // wgl
 PFNWGLSWAPINTERVALEXTPROC							wglSwapIntervalEXT								= nullptr;

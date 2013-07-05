@@ -11,6 +11,11 @@ namespace ld3d
 		virtual ~OGL4DepthStencilBuffer(void);
 
 		void							Release();
+
+		bool							Create();
+
+	private:
+		GLenum							m_buffer;
 	};
 
 

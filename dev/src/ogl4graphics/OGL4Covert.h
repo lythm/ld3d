@@ -9,6 +9,9 @@ namespace ld3d
 
 		static GLenum												BufferTypeToGLTarget(BUFFER_TYPE type);
 		static GLenum												PrimitiveTypeToGL(PRIMITIVE_TYPE type);
+		static GLenum												TexTypeToGLTarget(TEXTURE_TYPE type);
+
+
 	private:
 		OGL4Covert(void);
 		virtual ~OGL4Covert(void);

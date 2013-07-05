@@ -5,6 +5,7 @@ namespace ld3d
 {
 	OGL4DepthStencilBuffer::OGL4DepthStencilBuffer(void)
 	{
+		m_buffer = GL_INVALID_ENUM;
 	}
 
 
@@ -13,5 +14,9 @@ namespace ld3d
 	}
 	void OGL4DepthStencilBuffer::Release()
 	{
+	}
+	bool OGL4DepthStencilBuffer::Create()
+	{
+		return true;
 	}
 }

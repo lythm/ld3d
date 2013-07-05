@@ -6,13 +6,12 @@ namespace ld3d
 	{
 	public:
 
-		SamplerState(void)
-		{
-		}
 
-		virtual ~SamplerState(void)
-		{
-		}
+
+
+	protected:
+		SamplerState(void){}
+		virtual ~SamplerState(void){}
 	};
 
 

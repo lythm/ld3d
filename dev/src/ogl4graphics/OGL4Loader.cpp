@@ -2,8 +2,6 @@
 #include "OGL4Loader.h"
 
 
-#include <gl/GL.h>
-
 #include <regex>
 #include <algorithm>
 
@@ -126,7 +124,12 @@ namespace ld3d
 		LOAD_API(glDebugMessageInsert,									PFNGLDEBUGMESSAGEINSERTPROC);
 		LOAD_API(glDebugMessageCallback,								PFNGLDEBUGMESSAGECALLBACKPROC);
 		LOAD_API(glGetDebugMessageLog,									PFNGLGETDEBUGMESSAGELOGPROC);
-		
+
+
+		LOAD_API(glTexImage3D,											PFNGLTEXIMAGE3DPROC);
+		LOAD_API(glGenerateMipmap,										PFNGLGENERATEMIPMAPPROC);
+		LOAD_API(glActiveTexture,										PFNGLACTIVETEXTUREPROC);
+
 		return true;
 	}
 }

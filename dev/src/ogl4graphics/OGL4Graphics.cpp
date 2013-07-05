@@ -4,7 +4,7 @@
 #include "OGL4Loader.h"
 #include "OGL4RenderWindow.h"
 #include "OGL4RenderTexture.h"
-
+#include "OGL4Texture.h"
 #include "OGL4Buffer.h"
 
 #include <sstream>
@@ -260,7 +260,13 @@ namespace ld3d
 	}
 	TexturePtr OGL4Graphics::CreateTexture(TEXTURE_TYPE type, G_FORMAT format, int w, int h)
 	{
-		return TexturePtr();
+		OGL4TexturePtr pTex = std::make_shared<OGL4Texture>();
+		if(pTex->Create(type, format, w, h) == false)
+		{
+			pTex->Release();
+			pTex.reset();
+		}
+		return pTex;
 	}
 
 	RenderTargetPtr	OGL4Graphics::CreateRenderTarget(int count, int w, int h, G_FORMAT formats[], int miplvls)

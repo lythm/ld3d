@@ -1,5 +1,5 @@
 #pragma once
-
+#include <gl/GL.h>
 #include "glext/glcorearb.h"
 
 
@@ -30,6 +30,12 @@ extern PFNGLDELETEBUFFERSPROC							glDeleteBuffers;
 extern PFNGLVERTEXATTRIBPOINTERPROC						glVertexAttribPointer;	
 extern PFNGLMAPBUFFERRANGEPROC							glMapBufferRange;	
 extern PFNGLUNMAPBUFFERPROC								glUnmapBuffer;	
+
+
+// tex
+extern PFNGLTEXIMAGE3DPROC								glTexImage3D;
+extern PFNGLGENERATEMIPMAPPROC							glGenerateMipmap;
+extern PFNGLACTIVETEXTUREPROC							glActiveTexture;
 
 
 

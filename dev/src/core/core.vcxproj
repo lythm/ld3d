@@ -224,6 +224,7 @@
     <ClInclude Include="..\..\include\core\SceneSerializer.h" />
     <ClInclude Include="..\..\include\core\Serializer.h" />
     <ClInclude Include="..\..\include\core\Shader.h" />
+    <ClInclude Include="..\..\include\core\ShaderCompiler.h" />
     <ClInclude Include="..\..\include\core\ShaderProgram.h" />
     <ClInclude Include="..\..\include\core\SkyLight.h" />
     <ClInclude Include="..\..\include\core\Sound.h" />

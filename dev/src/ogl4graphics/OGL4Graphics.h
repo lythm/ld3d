@@ -19,8 +19,8 @@ namespace ld3d
 		void									ClearRenderTarget(int index, const math::Color4& clr);
 		void									ClearDepthStencil(CLEAR_DS_FLAG flag, float d, int s); 
 		RenderTexture2Ptr						CreateRenderTexture(int w, int h, G_FORMAT format);
-
-
+		GPUBufferPtr							CreateBuffer(BUFFER_TYPE type, int bytes, void* pInitData, bool dynamic);
+		TexturePtr								CreateTexture(TEXTURE_TYPE type, G_FORMAT format, int w, int h);
 
 
 		//////////////////////////
@@ -38,13 +38,13 @@ namespace ld3d
 
 		
 
-		GPUBufferPtr							CreateBuffer(BUFFER_TYPE type, int bytes, void* pInitData, bool dynamic);
+		
 
 		MaterialPtr								CreateMaterialFromFile(const char* szFile);
 
 		TexturePtr								CreateTextureFromFile(const char* szFile);
 		void									SetRenderTarget(RenderTargetPtr pRT);
-		TexturePtr								CreateTexture(TEXTURE_TYPE type, G_FORMAT format, int w, int h);
+		
 
 		
 		RenderTargetPtr							CreateRenderTarget(int count, int w, int h, G_FORMAT formats[], int miplvls = 1);
