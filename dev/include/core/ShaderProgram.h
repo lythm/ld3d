@@ -6,13 +6,13 @@ namespace ld3d
 	{
 	public:
 
-		ShaderProgram(void)
-		{
-		}
 
-		virtual ~ShaderProgram(void)
-		{
-		}
+		virtual void												Release()										= 0;
+
+	protected:
+		ShaderProgram(void){}
+
+		virtual ~ShaderProgram(void){}
 	};
 
 

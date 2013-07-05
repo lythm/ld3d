@@ -9,6 +9,8 @@ namespace ld3d
 	public:
 		OGL4FragmentShader(void);
 		virtual ~OGL4FragmentShader(void);
+
+		void																Release();
 	};
 
 }

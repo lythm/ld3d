@@ -11,5 +11,5 @@ namespace ld3d
 	OGL4ShaderCompiler::~OGL4ShaderCompiler(void)
 	{
 	}
-
+	
 }

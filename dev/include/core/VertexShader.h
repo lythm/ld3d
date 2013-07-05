@@ -4,7 +4,7 @@
 
 namespace ld3d
 {
-	class VertexShader : public Shader
+	class VertexShader 
 	{
 	public:
 

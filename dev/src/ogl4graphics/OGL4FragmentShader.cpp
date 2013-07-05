@@ -11,5 +11,7 @@ namespace ld3d
 	OGL4FragmentShader::~OGL4FragmentShader(void)
 	{
 	}
-
+	void OGL4FragmentShader::Release()
+	{
+	}
 }

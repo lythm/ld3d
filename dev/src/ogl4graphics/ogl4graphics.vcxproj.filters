@@ -48,9 +48,6 @@
     <ClInclude Include="OGL4GeometryData.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="OG4VertexShader.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="OGL4FragmentShader.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -61,6 +58,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="OGL4Sampler.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="OGL4VertexShader.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
@@ -98,9 +98,6 @@
     <ClCompile Include="OGL4GeometryData.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="OG4VertexShader.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="OGL4FragmentShader.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -111,6 +108,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="OGL4Sampler.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="OGL4VertexShader.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

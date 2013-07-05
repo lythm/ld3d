@@ -149,7 +149,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="gl_def.h" />
-    <ClInclude Include="OG4VertexShader.h" />
+    <ClInclude Include="OGL4VertexShader.h" />
     <ClInclude Include="OGL4Buffer.h" />
     <ClInclude Include="OGL4Covert.h" />
     <ClInclude Include="OGL4DepthStencilBuffer.h" />
@@ -167,7 +167,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="gl_def.cpp" />
-    <ClCompile Include="OG4VertexShader.cpp" />
+    <ClCompile Include="OGL4VertexShader.cpp" />
     <ClCompile Include="OGL4Buffer.cpp" />
     <ClCompile Include="OGL4Covert.cpp" />
     <ClCompile Include="OGL4DepthStencilBuffer.cpp" />

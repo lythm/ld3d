@@ -6,6 +6,10 @@
 #include "OGL4RenderTexture.h"
 #include "OGL4Texture.h"
 #include "OGL4Buffer.h"
+#include "OGL4ShaderCompiler.h"
+#include "OGL4ShaderProgram.h"
+#include "OGL4VertexShader.h"
+#include "OGL4FragmentShader.h"
 
 #include <sstream>
 
@@ -163,10 +167,16 @@ namespace ld3d
 		m_pMainRW->EnableVSync(false);
 		glDebugMessageCallback(_DebugCallback, NULL);
 
+
+		m_pShaderCompiler = std::make_shared<OGL4ShaderCompiler>();
 		return true;
 	}
 	void OGL4Graphics::Release()
 	{
+		if(m_pShaderCompiler)
+		{
+			m_pShaderCompiler.reset();
+		}
 		if(m_pMainRW)
 		{
 			m_pMainRW->Release();
@@ -349,5 +359,27 @@ namespace ld3d
 		}
 
 		return pRT;
+	}
+	ShaderCompilerPtr OGL4Graphics::GetShaderCompiler()
+	{
+		return m_pShaderCompiler;
+	}
+	ShaderProgramPtr OGL4Graphics::CreateShaderProgram()
+	{
+		OGL4ShaderProgramPtr pProg = std::make_shared<OGL4ShaderProgram>();
+
+		return pProg;
+	}
+	VertexShaderPtr	OGL4Graphics::CreateVertesShaderFromFile(const char* szFile)
+	{
+		OGL4VertexShaderPtr pVS = std::make_shared<OGL4VertexShader>();
+
+		return pVS;
+	}
+	PixelShaderPtr OGL4Graphics::CreatePixelShaderFromFile(const char* szFile)
+	{
+		OGL4FragmentShaderPtr pPS = std::make_shared<OGL4FragmentShader>();
+
+		return pPS;
 	}
 }

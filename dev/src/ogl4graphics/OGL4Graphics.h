@@ -21,7 +21,11 @@ namespace ld3d
 		RenderTexture2Ptr						CreateRenderTexture(int w, int h, G_FORMAT format);
 		GPUBufferPtr							CreateBuffer(BUFFER_TYPE type, int bytes, void* pInitData, bool dynamic);
 		TexturePtr								CreateTexture(TEXTURE_TYPE type, G_FORMAT format, int w, int h);
+		ShaderCompilerPtr						GetShaderCompiler();
 
+		ShaderProgramPtr						CreateShaderProgram();
+		VertexShaderPtr							CreateVertesShaderFromFile(const char* szFile);
+		PixelShaderPtr							CreatePixelShaderFromFile(const char* szFile);
 
 		//////////////////////////
 		void									SetPrimitiveType(PRIMITIVE_TYPE pt);
@@ -78,6 +82,8 @@ namespace ld3d
 		OGL4LoaderPtr							m_pLoader;
 
 		OGL4RenderWindowPtr						m_pMainRW;
+
+		OGL4ShaderCompilerPtr					m_pShaderCompiler;
 	};
 
 

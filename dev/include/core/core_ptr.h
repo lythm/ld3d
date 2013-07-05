@@ -92,7 +92,10 @@ namespace ld3d
 	class RenderTexture2;
 	class GeometryData;
 	class ShaderProgram;
+	class ShaderCompiler;
 
+
+	typedef std::shared_ptr<ShaderCompiler>					ShaderCompilerPtr;
 
 	typedef std::shared_ptr<BBoxRenderData>					BBoxRenderDataPtr;
 
