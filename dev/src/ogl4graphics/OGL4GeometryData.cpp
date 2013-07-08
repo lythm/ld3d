@@ -1,13 +1,13 @@
 #include "ogl4graphics_pch.h"
 #include "OGL4GeometryData.h"
 #include "OGL4Buffer.h"
-#include "OGL4Covert.h"
+#include "OGL4Convert.h"
 namespace ld3d
 {
 	OGL4GeometryData::OGL4GeometryData(void)
 	{
 		m_vao = 0;
-		m_indexType = GL_INVALID_ENUM;
+		m_indexType = GL_UNSIGNED_SHORT;
 		m_primType = GL_TRIANGLES;
 		m_vbOffset = 0;
 	}
@@ -42,7 +42,7 @@ namespace ld3d
 	{
 		glBindVertexArray(m_vao);
 	}
-	
+
 	void OGL4GeometryData::AttachVertexBuffer(GPUBufferPtr pBuffer, const VertexLayout& layout)
 	{
 		if(m_pVertexBuffer)
@@ -50,7 +50,7 @@ namespace ld3d
 			m_pVertexBuffer->Release();
 		}
 		m_pVertexBuffer = pBuffer;
-		
+
 		SetVertexLayout(layout);
 	}
 	void OGL4GeometryData::AttachIndexBuffer(GPUBufferPtr pBuffer, G_FORMAT format)
@@ -74,12 +74,12 @@ namespace ld3d
 			m_indexType = GL_UNSIGNED_SHORT;
 			break;
 		}
-		
+
 		OGL4BufferPtr pOGLBuffer = std::dynamic_pointer_cast<OGL4Buffer>(m_pIndexBuffer);
 
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, pOGLBuffer->GetBufferObject());
 	}
-	
+
 	GPUBufferPtr OGL4GeometryData::GetIndexBuffer()
 	{
 		return m_pIndexBuffer;
@@ -93,8 +93,9 @@ namespace ld3d
 		m_vbOffset = offset;
 		SetVertexLayout(m_layout);
 	}
-	void OGL4GeometryData::BeginGeometry()
+	void OGL4GeometryData::BeginGeometry(PRIMITIVE_TYPE prim)
 	{
+		SetPrimitiveType(prim);
 		glBindVertexArray(m_vao);
 	}
 	void OGL4GeometryData::EndGeometry()
@@ -125,7 +126,7 @@ namespace ld3d
 			unsigned int value_count = 0;
 			GLenum gltype = GL_INVALID_ENUM;
 
-			assert(OGL4Covert::FormatToGLVertexAttr(type, value_count, gltype));
+			assert(OGL4Convert::FormatToGLVertexAttr(type, value_count, gltype));
 
 			glVertexAttribPointer(i, value_count, gltype, false, stride, (GLvoid*)(m_vbOffset + offset));
 
@@ -136,9 +137,9 @@ namespace ld3d
 	{
 		return m_indexType;
 	}
-	void OGL4GeometryData::SetPrimitiveType(PRIMITIVE_TYPE prim)
+	void OGL4GeometryData::SetPrimitiveType(PRIMITIVE_TYPE type)
 	{
-		m_primType = OGL4Covert::PrimitiveTypeToGL(prim);
+		m_primType = OGL4Convert::PrimitiveTypeToGL(type);
 	}
 	GLenum OGL4GeometryData::GetPrimitiveType() const
 	{

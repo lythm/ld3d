@@ -1,7 +1,7 @@
 #include "ogl4graphics_pch.h"
 #include "OGL4ShaderProgram.h"
 #include "OGL4Shader.h"
-#include "OGL4Covert.h"
+#include "OGL4Convert.h"
 
 namespace ld3d
 {

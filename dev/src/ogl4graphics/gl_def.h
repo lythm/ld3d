@@ -67,7 +67,6 @@ extern PFNGLGETSHADERINFOLOGPROC						glGetShaderInfoLog;
 
 
 
-
 #include "glext/wglext.h"
 
 // wgl

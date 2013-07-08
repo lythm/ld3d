@@ -33,9 +33,6 @@
     <ClInclude Include="OGL4Buffer.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="OGL4Covert.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="OGL4RenderTexture.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -55,6 +52,12 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="OGL4Shader.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="OGL4Convert.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="OGL4RenderState.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
@@ -77,9 +80,6 @@
     <ClCompile Include="OGL4Buffer.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="OGL4Covert.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="OGL4RenderTexture.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -99,6 +99,12 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="OGL4Shader.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="OGL4Convert.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="OGL4RenderState.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

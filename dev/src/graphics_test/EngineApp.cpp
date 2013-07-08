@@ -23,9 +23,12 @@ namespace ld3d
 		m_pGraphics->ClearRenderTarget(0, math::Color4(0.3, 0.5, 0.7, 1));
 		m_pGraphics->ClearDepthStencil(CLEAR_ALL, 1.0f, 0);
 
-		m_pGraphics->SetGeometryData(m_pGeometry);
 		m_pGraphics->SetShaderProgram(m_pProgram);
 		
+		
+		//m_pGraphics->Draw(PT_TRIANGLE_LIST, 3, 0);
+		m_pGraphics->DrawIndexed(m_pGeometry, 3, 0, 0);
+
 		m_pGraphics->Present();
 
 		ShowFPS();
@@ -60,27 +63,44 @@ namespace ld3d
 		}
 
 		
+		math::Vector3 verts[] = 
+		{
+			math::Vector3(0, 0, 1),
+			math::Vector3(0, 1, 1),
+			math::Vector3(1, 0, 1),
+		};
 
-		GPUBufferPtr pVB = m_pGraphics->CreateBuffer(BT_VERTEX_BUFFER, 1024, nullptr, true);
-		GPUBufferPtr pIB = m_pGraphics->CreateBuffer(BT_INDEX_BUFFER, 1024, nullptr, true);
+		unsigned short indices[] = 
+		{
+			0, 1, 2,
+		};
+		GPUBufferPtr pVB = m_pGraphics->CreateBuffer(BT_VERTEX_BUFFER, sizeof(math::Vector3) * 3, nullptr, false);
+
+		void* data = pVB->Map(MAP_DEFAULT);
+		memcpy(data, verts, sizeof(math::Vector3) * 3);
+		pVB->Unmap();
+
+
+		GPUBufferPtr pIB = m_pGraphics->CreateBuffer(BT_INDEX_BUFFER, sizeof(short) * 3, nullptr, false);
+
+		data = pIB->Map(MAP_DEFAULT);
+		memcpy(data, indices, sizeof(short) * 3);
+		pIB->Unmap();
 
 		VertexLayout layout;
 
 		layout.AddAttribute(G_FORMAT_R32G32B32_FLOAT);		// position
-		layout.AddAttribute(G_FORMAT_R32G32B32_FLOAT);		// normal
-
-
+		
+		
 		m_pGeometry = m_pGraphics->CreateGeometryData();
 
-		m_pGeometry->BeginGeometry();
+		m_pGeometry->BeginGeometry(PT_TRIANGLE_LIST);
 		{
 			m_pGeometry->AttachIndexBuffer(pIB, G_FORMAT_R16_UINT);
-
 			m_pGeometry->AttachVertexBuffer(pVB, layout);
 		}
 		m_pGeometry->EndGeometry();
 
-		m_pGeometry->SetPrimitiveType(PT_TRIANGLE_LIST);
 
 		m_pProgram = m_pGraphics->CreateShaderProgram();
 

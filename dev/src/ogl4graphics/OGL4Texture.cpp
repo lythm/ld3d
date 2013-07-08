@@ -1,6 +1,6 @@
 #include "ogl4graphics_pch.h"
 #include "OGL4Texture.h"
-#include "OGL4Covert.h"
+#include "OGL4Convert.h"
 
 namespace ld3d
 {
@@ -28,10 +28,11 @@ namespace ld3d
 	{
 		glGenTextures(1, &m_texture);
 
-		GLenum target = OGL4Covert::TexTypeToGLTarget(type);
+		GLenum target = OGL4Convert::TexTypeToGLTarget(type);
 
 		glBindTexture(target, m_texture);
-		glTexImage2D(target, 0, GL_RGBA, w, h, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
+		//glTexImage2D(target, 0, GL_RGBA, w, h, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
+		
 
 
 		return true;

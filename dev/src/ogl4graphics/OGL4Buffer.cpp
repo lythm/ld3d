@@ -1,6 +1,6 @@
 #include "ogl4graphics_pch.h"
 #include "OGL4Buffer.h"
-#include "OGL4Covert.h"
+#include "OGL4Convert.h"
 
 
 namespace ld3d
@@ -20,7 +20,7 @@ namespace ld3d
 	void* OGL4Buffer::Map(MAP_HINT hint)
 	{
 		
-		GLenum target = OGL4Covert::BufferTypeToGLTarget(m_type);
+		GLenum target = OGL4Convert::BufferTypeToGLTarget(m_type);
 		
 		glBindBuffer(target, m_buffer);
 
@@ -41,7 +41,7 @@ namespace ld3d
 	}
 	void OGL4Buffer::Unmap()
 	{
-		GLenum target = OGL4Covert::BufferTypeToGLTarget(m_type);
+		GLenum target = OGL4Convert::BufferTypeToGLTarget(m_type);
 		glUnmapBuffer(target);
 		glBindBuffer(target, 0);
 	}
@@ -57,7 +57,7 @@ namespace ld3d
 		m_bDynamic = dynamic;
 
 		glGenBuffers(1, &m_buffer);
-		GLenum target = OGL4Covert::BufferTypeToGLTarget(type);
+		GLenum target = OGL4Convert::BufferTypeToGLTarget(type);
 		
 		glBindBuffer(target, m_buffer);
 		

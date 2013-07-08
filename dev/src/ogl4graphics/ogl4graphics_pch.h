@@ -28,8 +28,9 @@ namespace ld3d
 	class OGL4Texture;
 	class OGL4ShaderProgram;
 	class OGL4GeometryData;
+	class OGL4RenderState;
 
-
+	typedef std::shared_ptr<OGL4RenderState>								OGL4RenderStatePtr;
 	typedef std::shared_ptr<OGL4GeometryData>								OGL4GeometryDataPtr;
 	typedef std::shared_ptr<OGL4ShaderProgram>								OGL4ShaderProgramPtr;
 	typedef std::shared_ptr<OGL4Shader>										OGL4ShaderPtr;

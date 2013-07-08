@@ -16,7 +16,7 @@ namespace ld3d
 
 		
 
-		void													BeginGeometry();
+		void													BeginGeometry(PRIMITIVE_TYPE prim);
 
 		void													AttachVertexBuffer(GPUBufferPtr pBuffer, const VertexLayout& layout);
 		void													AttachIndexBuffer(GPUBufferPtr pBuffer, G_FORMAT format);
@@ -30,8 +30,7 @@ namespace ld3d
 		void													EndGeometry();
 
 		void													Release();
-		
-		void													SetPrimitiveType(PRIMITIVE_TYPE prim);
+		void													SetPrimitiveType(PRIMITIVE_TYPE type);
 		const VertexLayout&										GetVertexLayout() const;
 
 
@@ -39,6 +38,7 @@ namespace ld3d
 		void													Bind();
 		GLenum													GetIndexType() const;
 		GLenum													GetPrimitiveType() const;
+		
 	private:
 		GLuint													m_vao;
 
@@ -46,8 +46,8 @@ namespace ld3d
 		GPUBufferPtr											m_pIndexBuffer;
 		VertexLayout											m_layout;
 		GLenum													m_indexType;
-
-		unsigned int											m_vbOffset;
 		GLenum													m_primType;
+		unsigned int											m_vbOffset;
+
 	};
 }

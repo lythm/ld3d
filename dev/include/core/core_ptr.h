@@ -74,6 +74,7 @@ namespace ld3d
 	class DepthStencilBuffer;
 	class RenderData;
 	class RenderTarget;
+	class RenderTarget2;
 	class Texture;
 	class GPUBuffer;
 	class Camera;
@@ -91,14 +92,10 @@ namespace ld3d
 	class RenderTexture2;
 	class GeometryData;
 	class ShaderProgram;
-	class ShaderCompiler;
 
-
-	typedef std::shared_ptr<ShaderCompiler>					ShaderCompilerPtr;
-
+	
 	typedef std::shared_ptr<BBoxRenderData>					BBoxRenderDataPtr;
-
-
+	
 	typedef std::shared_ptr<Material>						MaterialPtr;
 	typedef std::shared_ptr<MaterialPass>					MaterialPassPtr;
 	typedef std::shared_ptr<MaterialTech>					MaterialTechPtr;
@@ -118,6 +115,7 @@ namespace ld3d
 	typedef std::shared_ptr<BaseCamera>						BaseCameraPtr;
 	typedef std::shared_ptr<DepthStencilBuffer>				DepthStencilBufferPtr;
 	typedef std::shared_ptr<RenderTarget>					RenderTargetPtr;
+	typedef std::shared_ptr<RenderTarget2>					RenderTarget2Ptr;
 	typedef std::shared_ptr<RenderData>						RenderDataPtr;
 	typedef std::shared_ptr<GPUBuffer>						GPUBufferPtr;
 	typedef std::shared_ptr<Texture>						TexturePtr;

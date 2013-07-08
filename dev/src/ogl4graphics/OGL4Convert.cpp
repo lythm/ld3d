@@ -1,17 +1,17 @@
 #include "ogl4graphics_pch.h"
-#include "OGL4Covert.h"
+#include "OGL4Convert.h"
 
 namespace ld3d
 {
-	OGL4Covert::OGL4Covert(void)
+	OGL4Convert::OGL4Convert(void)
 	{
 	}
 
 
-	OGL4Covert::~OGL4Covert(void)
+	OGL4Convert::~OGL4Convert(void)
 	{
 	}
-	GLenum OGL4Covert::BufferTypeToGLTarget(BUFFER_TYPE type)
+	GLenum OGL4Convert::BufferTypeToGLTarget(BUFFER_TYPE type)
 	{
 		switch(type)
 		{
@@ -28,7 +28,7 @@ namespace ld3d
 
 		return GL_INVALID_ENUM;
 	}
-	GLenum OGL4Covert::PrimitiveTypeToGL(PRIMITIVE_TYPE type)
+	GLenum OGL4Convert::PrimitiveTypeToGL(PRIMITIVE_TYPE type)
 	{
 		switch(type)
 		{
@@ -43,7 +43,7 @@ namespace ld3d
 		}
 		return GL_INVALID_ENUM;
 	}
-	GLenum OGL4Covert::ShaderTypeToGL(SHADER_TYPE type)
+	GLenum OGL4Convert::ShaderTypeToGL(SHADER_TYPE type)
 	{
 		switch(type)
 		{
@@ -58,7 +58,7 @@ namespace ld3d
 
 		return GL_INVALID_ENUM;
 	}
-	GLenum OGL4Covert::TexTypeToGLTarget(TEXTURE_TYPE type)
+	GLenum OGL4Convert::TexTypeToGLTarget(TEXTURE_TYPE type)
 	{
 		switch(type)
 		{
@@ -73,7 +73,7 @@ namespace ld3d
 		}
 		return GL_INVALID_ENUM;
 	}
-	bool OGL4Covert::FormatToGLVertexAttr(G_FORMAT format, unsigned int &value_count, GLenum& gltype)
+	bool OGL4Convert::FormatToGLVertexAttr(G_FORMAT format, unsigned int &value_count, GLenum& gltype)
 	{
 		switch(format)
 		{

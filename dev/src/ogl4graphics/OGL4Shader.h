@@ -15,8 +15,6 @@ namespace ld3d
 		SHADER_TYPE							GetType();
 
 
-
-
 		bool								CreateFromFile(SHADER_TYPE type, const char* szFile);
 		GLuint								GetShaderObject();
 	private:

@@ -9,7 +9,8 @@
 #include "OGL4ShaderProgram.h"
 #include "OGL4Shader.h"
 #include "OGL4GeometryData.h"
-
+#include "OGL4Convert.h"
+#include "OGL4RenderState.h"
 #include <sstream>
 
 namespace ld3d
@@ -37,6 +38,99 @@ namespace ld3d
 		g_logger(log);
 	}
 
+#ifdef _DEBUG
+	void APIENTRY _DebugCallback(GLenum source, 
+		GLenum type, 
+		GLuint id,
+		GLenum severity, 
+		GLsizei length,
+		const GLchar* message, 
+		const void* userParam)
+	{
+		std::stringstream str;
+
+		switch(source)
+		{
+		case GL_DEBUG_SOURCE_API_ARB:
+			str << "OpenGL";
+			break;
+		case GL_DEBUG_SOURCE_WINDOW_SYSTEM_ARB:
+			str << "Windows";
+			break;
+		case GL_DEBUG_SOURCE_SHADER_COMPILER_ARB:
+			str << "Shader Compiler";
+			break;
+		case GL_DEBUG_SOURCE_THIRD_PARTY_ARB:
+			str << "Third Party";
+			break;
+		case GL_DEBUG_SOURCE_APPLICATION_ARB:
+			str << "Application";
+			break;
+		case GL_DEBUG_SOURCE_OTHER_ARB:
+			str << "Other";
+			break;
+		default:
+			str << "unknown";
+			break;
+		}
+		str<< "(";
+
+		switch(type)
+		{
+		case GL_DEBUG_TYPE_ERROR_ARB:
+			str << "Error";
+			break;
+		case GL_DEBUG_TYPE_DEPRECATED_BEHAVIOR_ARB:
+			str << "Deprecated behavior";
+			break;
+		case GL_DEBUG_TYPE_UNDEFINED_BEHAVIOR_ARB:
+			str << "Undefined behavior";
+			break;
+		case GL_DEBUG_TYPE_PORTABILITY_ARB:
+			str << "Portability";
+			break;
+		case GL_DEBUG_TYPE_PERFORMANCE_ARB:
+			str << "Performance";
+			break;
+		case GL_DEBUG_TYPE_OTHER_ARB:
+			str << "Other";
+			break;
+		default:
+			str << "unknown";
+			break;
+		}
+		str<< ",";
+		str << id ;
+		str << ",";
+		switch(severity)
+		{
+		case GL_DEBUG_SEVERITY_HIGH_ARB:
+			str << "High";
+			break;
+		case GL_DEBUG_SEVERITY_MEDIUM_ARB:
+			str << "Medium";
+			break;
+		case GL_DEBUG_SEVERITY_LOW_ARB:
+			str << "Low";
+			break;
+		default :
+			str << "unknown";
+			break;
+		}
+
+		str << "): ";
+		str << message << std::endl;
+
+
+		g_log(str.str());
+	}
+
+#define _ENABLE_GL_DEBUG_	glDebugMessageCallback(_DebugCallback, NULL);glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
+#else
+#define _ENABLE_GL_DEBUG_	0;
+#endif
+
+
 }
 EXPORT_C_API ld3d::Sys_Graphics2* CreateSys(const std::function<void (const std::wstring& log)>& logger)
 {
@@ -50,103 +144,11 @@ EXPORT_C_API void DestroySys(ld3d::Sys_Graphics2* pSys)
 }
 
 
-#ifdef _DEBUG
-void APIENTRY _DebugCallback(GLenum source, 
-							 GLenum type, 
-							 GLuint id,
-							 GLenum severity, 
-							 GLsizei length,
-							 const GLchar* message, 
-							 const void* userParam)
-{
-	std::stringstream str;
-
-	switch(source)
-	{
-	case GL_DEBUG_SOURCE_API_ARB:
-		str << "OpenGL";
-		break;
-	case GL_DEBUG_SOURCE_WINDOW_SYSTEM_ARB:
-		str << "Windows";
-		break;
-	case GL_DEBUG_SOURCE_SHADER_COMPILER_ARB:
-		str << "Shader Compiler";
-		break;
-	case GL_DEBUG_SOURCE_THIRD_PARTY_ARB:
-		str << "Third Party";
-		break;
-	case GL_DEBUG_SOURCE_APPLICATION_ARB:
-		str << "Application";
-		break;
-	case GL_DEBUG_SOURCE_OTHER_ARB:
-		str << "Other";
-		break;
-	default:
-		str << "unknown";
-		break;
-	}
-	str<< "(";
-	
-	switch(type)
-	{
-	case GL_DEBUG_TYPE_ERROR_ARB:
-		str << "Error";
-		break;
-	case GL_DEBUG_TYPE_DEPRECATED_BEHAVIOR_ARB:
-		str << "Deprecated behavior";
-		break;
-	case GL_DEBUG_TYPE_UNDEFINED_BEHAVIOR_ARB:
-		str << "Undefined behavior";
-		break;
-	case GL_DEBUG_TYPE_PORTABILITY_ARB:
-		str << "Portability";
-		break;
-	case GL_DEBUG_TYPE_PERFORMANCE_ARB:
-		str << "Performance";
-		break;
-	case GL_DEBUG_TYPE_OTHER_ARB:
-		str << "Other";
-		break;
-	default:
-		str << "unknown";
-		break;
-	}
-	str<< ",";
-	str << id ;
-	str << ",";
-	switch(severity)
-	{
-	case GL_DEBUG_SEVERITY_HIGH_ARB:
-		str << "High";
-		break;
-	case GL_DEBUG_SEVERITY_MEDIUM_ARB:
-		str << "Medium";
-		break;
-	case GL_DEBUG_SEVERITY_LOW_ARB:
-		str << "Low";
-		break;
-	default :
-		str << "unknown";
-		break;
-	}
-
-	str << "): ";
-	str << message << std::endl;
-
-
-	ld3d::g_log(str.str());
-	//OutputDebugStringA(str.str().c_str());
-}
-
-#define _ENABLE_GL_DEBUG_	glDebugMessageCallback(_DebugCallback, NULL);glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
-#else
-#define _ENABLE_GL_DEBUG_	0;
-#endif
 
 
 namespace ld3d
 {
-	
+
 
 	OGL4Graphics::OGL4Graphics(void)
 	{
@@ -184,9 +186,9 @@ namespace ld3d
 		}
 
 		m_pMainRW->EnableVSync(false);
-		
+
 		_ENABLE_GL_DEBUG_;
-		
+
 
 		return true;
 	}
@@ -205,14 +207,21 @@ namespace ld3d
 		}
 	}
 
-	void OGL4Graphics::SetPrimitiveType(PRIMITIVE_TYPE pt)
+	void OGL4Graphics::DrawIndexed(GeometryDataPtr pData, int count, int startindex, int basevertex)
 	{
+		OGL4GeometryData* pGLData = (OGL4GeometryData*)pData.get();
+
+		pGLData->Bind();
+
+		glDrawElements(pGLData->GetPrimitiveType(), count, pGLData->GetIndexType(), 0);
 	}
-	void OGL4Graphics::DrawIndexed(int count, int startindex, int basevertex)
+	void OGL4Graphics::Draw(GeometryDataPtr pData, int vertexCount, int baseVertex)
 	{
-	}
-	void OGL4Graphics::Draw(int vertexCount, int baseVertex)
-	{
+		OGL4GeometryData* pGLData = (OGL4GeometryData*)pData.get();
+
+		pGLData->Bind();
+
+		glDrawArrays(pGLData->GetPrimitiveType(), baseVertex, vertexCount);
 	}
 	void OGL4Graphics::ClearDepthStencil(CLEAR_DS_FLAG flag, float d, int s)
 	{
@@ -231,36 +240,12 @@ namespace ld3d
 			assert(0);
 			break;
 		}
-
-		
 	}
 	void OGL4Graphics::Present()
 	{
-
 		m_pMainRW->Present();
 	}
 
-	void OGL4Graphics::VSSetConstantBuffer(GPUBufferPtr pBuffer)
-	{
-	}
-	void OGL4Graphics::PSSetConstantBuffer(GPUBufferPtr pBuffer)
-	{
-	}
-	void OGL4Graphics::SetIndexBuffer(GPUBufferPtr pBuffer, G_FORMAT type)
-	{
-	}
-	void OGL4Graphics::SetVertexBuffer(GPUBufferPtr pBuffer, unsigned int offset, unsigned int stride)
-	{
-		OGL4BufferPtr pGLBuffer = std::dynamic_pointer_cast<OGL4Buffer>(pBuffer);
-		if(pGLBuffer == nullptr)
-		{
-			return;
-		}
-
-
-		//glEnableVertexAttribArray(0);
-		//glVertexAttribPointer(0, 
-	}
 	GPUBufferPtr OGL4Graphics::CreateBuffer(BUFFER_TYPE type, int bytes, void* pInitData, bool dynamic)
 	{
 		OGL4BufferPtr pBuffer = std::make_shared<OGL4Buffer>();
@@ -280,9 +265,6 @@ namespace ld3d
 	{
 		return TexturePtr();
 	}
-	void OGL4Graphics::SetRenderTarget(RenderTargetPtr pRT)
-	{
-	}
 	TexturePtr OGL4Graphics::CreateTexture(TEXTURE_TYPE type, G_FORMAT format, int w, int h)
 	{
 		OGL4TexturePtr pTex = std::make_shared<OGL4Texture>();
@@ -294,10 +276,7 @@ namespace ld3d
 		return pTex;
 	}
 
-	RenderTargetPtr	OGL4Graphics::CreateRenderTarget(int count, int w, int h, G_FORMAT formats[], int miplvls)
-	{
-		return RenderTargetPtr();
-	}
+
 	DepthStencilBufferPtr OGL4Graphics::CreateDepthStencilBuffer(int w, int h, G_FORMAT format)
 	{
 		return DepthStencilBufferPtr();
@@ -310,7 +289,9 @@ namespace ld3d
 
 	RenderStatePtr OGL4Graphics::CreateRenderState()
 	{
-		return RenderStatePtr();
+		OGL4RenderStatePtr pState = std::make_shared<OGL4RenderState>();
+
+		return pState;
 	}
 	void OGL4Graphics::SetRenderState(RenderStatePtr pState)
 	{
@@ -326,9 +307,7 @@ namespace ld3d
 
 		return pWnd;
 	}
-	void OGL4Graphics::SetRenderWindow(RenderWindowPtr pWnd)
-	{
-	}
+
 	RenderTargetPtr	OGL4Graphics::GetDefaultRenderTarget()
 	{
 		return RenderTargetPtr();
@@ -347,8 +326,9 @@ namespace ld3d
 	}
 	void OGL4Graphics::SetViewPort(int x, int y, int w, int h)
 	{
+		glViewport(x, y, w, h);
 	}
-	
+
 	RenderTexture2Ptr OGL4Graphics::CreateRenderTexture(int w, int h, G_FORMAT format)
 	{
 		OGL4RenderTexturePtr pRT = std::make_shared<OGL4RenderTexture>();
@@ -361,7 +341,7 @@ namespace ld3d
 
 		return pRT;
 	}
-	
+
 	ShaderProgramPtr OGL4Graphics::CreateShaderProgram()
 	{
 		OGL4ShaderProgramPtr pProg = std::make_shared<OGL4ShaderProgram>();
@@ -372,7 +352,7 @@ namespace ld3d
 		}
 		return pProg;
 	}
-	
+
 	GeometryDataPtr OGL4Graphics::CreateGeometryData()
 	{
 		OGL4GeometryDataPtr pGD = std::make_shared<OGL4GeometryData>();
@@ -384,18 +364,7 @@ namespace ld3d
 
 		return pGD;
 	}
-	void OGL4Graphics::SetGeometryData(GeometryDataPtr pData)
-	{
-		OGL4GeometryDataPtr pGD = std::dynamic_pointer_cast<OGL4GeometryData>(pData);
-		
-		if(pGD == nullptr)
-		{
-			glBindVertexArray(0);
-			return;
-		}
-		
-		pGD->Bind();
-	}
+
 	ShaderPtr OGL4Graphics::CreateShaderFromFile(const char* szFile)
 	{
 
@@ -410,5 +379,13 @@ namespace ld3d
 		}
 
 		((OGL4ShaderProgram*)pProg.get())->Use();
+	}
+	void OGL4Graphics::SetRenderTargets(const std::vector<RenderTarget2Ptr>& targets)
+	{
+
+	}
+	void OGL4Graphics::SetDepthStencilBuffer(DepthStencilBufferPtr pBuffer)
+	{
+
 	}
 }

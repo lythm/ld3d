@@ -3,7 +3,7 @@
 
 namespace ld3d
 {
-	class OGL4Covert
+	class OGL4Convert
 	{
 	public:
 
@@ -14,8 +14,8 @@ namespace ld3d
 		static bool													FormatToGLVertexAttr(G_FORMAT format, unsigned int &value_count, GLenum& gltype);
 		static GLenum												ShaderTypeToGL(SHADER_TYPE type);
 	private:
-		OGL4Covert(void);
-		virtual ~OGL4Covert(void);
+		OGL4Convert(void);
+		virtual ~OGL4Convert(void);
 	};
 
 

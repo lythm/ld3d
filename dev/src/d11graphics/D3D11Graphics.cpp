@@ -463,5 +463,6 @@ namespace ld3d
 	{
 		((D3D11RenderState*)pState.get())->Apply();
 	}
+
 }
 

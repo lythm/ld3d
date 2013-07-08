@@ -1,6 +1,6 @@
 #include "ogl4graphics_pch.h"
 #include "OGL4Shader.h"
-#include "OGL4Covert.h"
+#include "OGL4Convert.h"
 
 namespace ld3d
 {
@@ -51,7 +51,7 @@ namespace ld3d
 		szCode[size] = 0;
 		m_type = type;
 
-		GLenum gltype = OGL4Covert::ShaderTypeToGL(type);
+		GLenum gltype = OGL4Convert::ShaderTypeToGL(type);
 		m_shader = glCreateShader(gltype);
 
 		glShaderSource(m_shader, 1, &szCode, 0);

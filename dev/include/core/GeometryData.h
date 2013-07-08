@@ -11,7 +11,7 @@ namespace ld3d
 
 		virtual void													Release()												= 0;
 
-		virtual void													BeginGeometry()											= 0;
+		virtual void													BeginGeometry(PRIMITIVE_TYPE prim)						= 0;
 
 		virtual void													AttachVertexBuffer(GPUBufferPtr pBuffer, 
 																			const VertexLayout& layout)							= 0;
@@ -25,10 +25,10 @@ namespace ld3d
 		virtual void													SetVertexLayout(const VertexLayout& layout)				= 0;
 
 		virtual void													EndGeometry()											= 0;
-
+		virtual void													SetPrimitiveType(PRIMITIVE_TYPE type)					= 0;
 		virtual const VertexLayout&										GetVertexLayout() const									= 0;
 
-		virtual void													SetPrimitiveType(PRIMITIVE_TYPE prim)					= 0;
+
 	protected:
 		GeometryData(void){}
 

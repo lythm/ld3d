@@ -149,9 +149,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="gl_def.h" />
+    <ClInclude Include="OGL4RenderState.h" />
     <ClInclude Include="OGL4Shader.h" />
     <ClInclude Include="OGL4Buffer.h" />
-    <ClInclude Include="OGL4Covert.h" />
+    <ClInclude Include="OGL4Convert.h" />
     <ClInclude Include="OGL4DepthStencilBuffer.h" />
     <ClInclude Include="OGL4GeometryData.h" />
     <ClInclude Include="OGL4Graphics.h" />
@@ -165,9 +166,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="gl_def.cpp" />
+    <ClCompile Include="OGL4RenderState.cpp" />
     <ClCompile Include="OGL4Shader.cpp" />
     <ClCompile Include="OGL4Buffer.cpp" />
-    <ClCompile Include="OGL4Covert.cpp" />
+    <ClCompile Include="OGL4Convert.cpp" />
     <ClCompile Include="OGL4DepthStencilBuffer.cpp" />
     <ClCompile Include="OGL4GeometryData.cpp" />
     <ClCompile Include="OGL4Graphics.cpp" />
