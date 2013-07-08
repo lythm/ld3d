@@ -30,6 +30,14 @@ extern PFNGLDELETEBUFFERSPROC							glDeleteBuffers;
 extern PFNGLVERTEXATTRIBPOINTERPROC						glVertexAttribPointer;	
 extern PFNGLMAPBUFFERRANGEPROC							glMapBufferRange;	
 extern PFNGLUNMAPBUFFERPROC								glUnmapBuffer;	
+extern PFNGLBINDVERTEXBUFFERPROC						glBindVertexBuffer;
+
+
+// VAO
+extern PFNGLGENVERTEXARRAYSPROC							glGenVertexArrays;	
+extern PFNGLBINDVERTEXARRAYPROC							glBindVertexArray;
+extern PFNGLDELETEVERTEXARRAYSPROC						glDeleteVertexArrays;
+
 
 
 // tex

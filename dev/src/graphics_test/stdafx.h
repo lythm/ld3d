@@ -17,5 +17,6 @@
 #include <memory.h>
 #include <tchar.h>
 
+#include "core/core_all.h"
 
 // TODO: 在此处引用程序需要的其他头文件

@@ -113,7 +113,8 @@ namespace ld3d
 		LOAD_API(glMapBufferRange,										PFNGLMAPBUFFERRANGEPROC);
 		LOAD_API(glUnmapBuffer,											PFNGLUNMAPBUFFERPROC);
 		LOAD_API(glDeleteBuffers,										PFNGLDELETEBUFFERSPROC);
-
+		LOAD_API(glBindVertexBuffer,									PFNGLBINDVERTEXBUFFERPROC);
+		
 		LOAD_API(glVertexAttribPointer,									PFNGLVERTEXATTRIBPOINTERPROC);
 
 
@@ -129,6 +130,12 @@ namespace ld3d
 		LOAD_API(glTexImage3D,											PFNGLTEXIMAGE3DPROC);
 		LOAD_API(glGenerateMipmap,										PFNGLGENERATEMIPMAPPROC);
 		LOAD_API(glActiveTexture,										PFNGLACTIVETEXTUREPROC);
+
+
+		LOAD_API(glGenVertexArrays,										PFNGLGENVERTEXARRAYSPROC);
+		LOAD_API(glBindVertexArray,										PFNGLBINDVERTEXARRAYPROC);
+		LOAD_API(glDeleteVertexArrays,									PFNGLDELETEVERTEXARRAYSPROC);
+
 
 		return true;
 	}

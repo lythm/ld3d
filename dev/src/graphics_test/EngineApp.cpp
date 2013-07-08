@@ -20,6 +20,8 @@ namespace ld3d
 		m_pGraphics->ClearRenderTarget(0, math::Color4(0.3, 0.5, 0.7, 1));
 		m_pGraphics->ClearDepthStencil(CLEAR_ALL, 1.0f, 0);
 
+		m_pGraphics->SetGeometryData(m_pGeometry);
+
 		
 		m_pGraphics->Present();
 
@@ -54,12 +56,32 @@ namespace ld3d
 			return false;
 		}
 
+		GPUBufferPtr pVB = m_pGraphics->CreateBuffer(BT_VERTEX_BUFFER, 1024, nullptr, true);
+		GPUBufferPtr pIB = m_pGraphics->CreateBuffer(BT_INDEX_BUFFER, 1024, nullptr, true);
+
+		VertexLayout layout;
+
+		layout.AddAttribute(G_FORMAT_R32G32B32_FLOAT);		// position
+		layout.AddAttribute(G_FORMAT_R32G32B32_FLOAT);		// normal
 
 
+		m_pGeometry = m_pGraphics->CreateGeometryData();
+
+		m_pGeometry->BeginGeometry();
+		{
+			m_pGeometry->AttachIndexBuffer(pIB, G_FORMAT_R16_UINT);
+
+			m_pGeometry->AttachVertexBuffer(pVB, layout);
+		}
+		m_pGeometry->EndGeometry();
 		return true;
 	}
 	void EngineApp::OnRelease()
 	{
+		m_pGeometry->Release();
+
+
+		m_pGraphics->Release();
 		m_pGraphics.reset();
 	}
 

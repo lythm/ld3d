@@ -10,6 +10,7 @@
 #include "OGL4ShaderProgram.h"
 #include "OGL4VertexShader.h"
 #include "OGL4FragmentShader.h"
+#include "OGL4GeometryData.h"
 
 #include <sstream>
 
@@ -30,7 +31,7 @@ EXPORT_C_API void DestroySys(ld3d::Sys_Graphics2* pSys)
 }
 
 
-
+#ifdef _DEBUG
 void APIENTRY _DebugCallback(GLenum source, 
 							 GLenum type, 
 							 GLuint id,
@@ -116,6 +117,11 @@ void APIENTRY _DebugCallback(GLenum source,
 	OutputDebugStringA(str.str().c_str());
 }
 
+#define _ENABLE_GL_DEBUG_	glDebugMessageCallback(_DebugCallback, NULL);glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
+#else
+#define _ENABLE_GL_DEBUG_	0;
+#endif
+
 
 namespace ld3d
 {
@@ -165,9 +171,9 @@ namespace ld3d
 		}
 
 		m_pMainRW->EnableVSync(false);
-		glDebugMessageCallback(_DebugCallback, NULL);
-
-
+		
+		_ENABLE_GL_DEBUG_;
+		
 		m_pShaderCompiler = std::make_shared<OGL4ShaderCompiler>();
 		return true;
 	}
@@ -242,7 +248,7 @@ namespace ld3d
 			return;
 		}
 
-		pGLBuffer->Bind();
+
 		//glEnableVertexAttribArray(0);
 		//glVertexAttribPointer(0, 
 	}
@@ -381,5 +387,28 @@ namespace ld3d
 		OGL4FragmentShaderPtr pPS = std::make_shared<OGL4FragmentShader>();
 
 		return pPS;
+	}
+	GeometryDataPtr OGL4Graphics::CreateGeometryData()
+	{
+		OGL4GeometryDataPtr pGD = std::make_shared<OGL4GeometryData>();
+		if(pGD->Create() == false)
+		{
+			pGD->Release();
+			pGD = nullptr;
+		}
+
+		return pGD;
+	}
+	void OGL4Graphics::SetGeometryData(GeometryDataPtr pData)
+	{
+		OGL4GeometryDataPtr pGD = std::dynamic_pointer_cast<OGL4GeometryData>(pData);
+		
+		if(pGD == nullptr)
+		{
+			glBindVertexArray(0);
+			return;
+		}
+		
+		pGD->Bind();
 	}
 }

@@ -94,6 +94,8 @@ namespace ld3d
 
 		Sys_GraphicsMod									m_mod;
 		Sys_Graphics2Ptr								m_pGraphics;
+
+		GeometryDataPtr									m_pGeometry;
 	};
 
 

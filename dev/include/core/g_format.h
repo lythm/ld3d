@@ -108,6 +108,8 @@ namespace ld3d
 	};
 
 
+
+
 	enum TEXTURE_TYPE
 	{
 		TEX_1D,

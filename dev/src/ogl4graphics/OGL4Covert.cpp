@@ -16,7 +16,7 @@ namespace ld3d
 		switch(type)
 		{
 		case BT_VERTEX_BUFFER:
-			
+
 			return GL_ARRAY_BUFFER;
 
 		case BT_INDEX_BUFFER:
@@ -57,5 +57,117 @@ namespace ld3d
 			break;
 		}
 		return GL_INVALID_ENUM;
+	}
+	bool OGL4Covert::FormatToGLVertexAttr(G_FORMAT format, unsigned int &value_count, GLenum& gltype)
+	{
+		switch(format)
+		{
+		case G_FORMAT_R32G32B32A32_FLOAT:
+			value_count = 4;
+			gltype = GL_FLOAT;
+			return true;
+		case G_FORMAT_R32G32B32A32_UINT:
+			value_count = 4;
+			gltype = GL_UNSIGNED_INT;
+			return true;
+		case G_FORMAT_R32G32B32A32_SINT:
+			value_count = 4;
+			gltype = GL_INT;
+			return true;
+
+		case G_FORMAT_R32G32B32_FLOAT:
+			value_count = 3;
+			gltype = GL_FLOAT;
+			return true;
+		case G_FORMAT_R32G32B32_UINT:
+			value_count = 3;
+			gltype = GL_UNSIGNED_INT;
+			return true;
+		case G_FORMAT_R32G32B32_SINT:
+			value_count = 3;
+			gltype = GL_INT;
+			return true;
+
+
+		case G_FORMAT_R16G16B16A16_FLOAT:
+			value_count = 4;
+			gltype = GL_HALF_FLOAT;
+			return true;
+		case G_FORMAT_R16G16B16A16_UINT:
+			value_count = 4;
+			gltype = GL_UNSIGNED_SHORT;
+			return true;
+		case G_FORMAT_R16G16B16A16_SINT:
+			value_count = 4;
+			gltype = GL_SHORT;
+			return true;
+
+		case G_FORMAT_R32G32_FLOAT:
+			value_count = 2;
+			gltype = GL_FLOAT;
+
+			return true;
+		case G_FORMAT_R32G32_UINT:
+			value_count = 2;
+			gltype = GL_UNSIGNED_INT;
+
+			return true;
+		case G_FORMAT_R32G32_SINT:
+			value_count = 2;
+			gltype = GL_INT;
+
+			return true;
+
+		case G_FORMAT_R16G16_FLOAT:
+			value_count = 2;
+			gltype = GL_HALF_FLOAT;
+			return true;
+		case G_FORMAT_R16G16_UINT:
+			value_count = 2;
+			gltype = GL_UNSIGNED_SHORT;
+			return true;
+		case G_FORMAT_R16G16_SINT:
+			value_count = 2;
+			gltype = GL_SHORT;
+			return true;
+		case G_FORMAT_R32_FLOAT:
+			value_count = 1;
+			gltype = GL_FLOAT;
+			return true;
+		case G_FORMAT_R32_UINT:
+			value_count = 1;
+			gltype = GL_UNSIGNED_INT;
+			return true;
+		case G_FORMAT_R32_SINT:
+			value_count = 1;
+			gltype = GL_INT;
+			return true;
+
+		case G_FORMAT_R16_FLOAT:
+			value_count = 1;
+			gltype = GL_HALF_FLOAT;
+			return true;
+		case G_FORMAT_R16_UINT:
+			value_count = 1;
+			gltype = GL_UNSIGNED_SHORT;
+			return true;
+		case G_FORMAT_R16_SINT:
+			value_count = 1;
+			gltype = GL_SHORT;
+			return true;
+		case G_FORMAT_R8_UINT:
+			value_count = 1;
+			gltype = GL_UNSIGNED_BYTE;
+			return true;
+		case G_FORMAT_R8_SINT:
+			value_count = 1;
+			gltype = GL_BYTE;
+			return true;
+		default:
+			assert(0);
+			break;
+		}
+
+		return false;
 	}
 }

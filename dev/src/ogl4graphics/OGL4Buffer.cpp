@@ -19,16 +19,16 @@ namespace ld3d
 	}
 	void* OGL4Buffer::Map(MAP_HINT hint)
 	{
-		Bind();
+		
 		GLenum target = OGL4Covert::BufferTypeToGLTarget(m_type);
 		
+		glBindBuffer(target, m_buffer);
+
 		void* data = nullptr;
 		switch(hint)
 		{
 		case MAP_DISCARD:
-			glBufferData(target, m_bytes, NULL, m_bDynamic ? GL_DYNAMIC_DRAW : GL_STATIC_DRAW);
-
-			data = glMapBufferRange(target, 0, m_bytes, GL_MAP_WRITE_BIT);
+			data = glMapBufferRange(target, 0, m_bytes, GL_MAP_WRITE_BIT | GL_MAP_INVALIDATE_BUFFER_BIT);
 			break;
 		case MAP_NO_OVERWRITE:
 			data = glMapBufferRange(target, 0, m_bytes, GL_MAP_WRITE_BIT | GL_MAP_UNSYNCHRONIZED_BIT);
@@ -43,6 +43,7 @@ namespace ld3d
 	{
 		GLenum target = OGL4Covert::BufferTypeToGLTarget(m_type);
 		glUnmapBuffer(target);
+		glBindBuffer(target, 0);
 	}
 	void OGL4Buffer::Release()
 	{
@@ -56,9 +57,13 @@ namespace ld3d
 		m_bDynamic = dynamic;
 
 		glGenBuffers(1, &m_buffer);
-		Bind();
+		GLenum target = OGL4Covert::BufferTypeToGLTarget(type);
+		
+		glBindBuffer(target, m_buffer);
+		
+		glBufferData(target, bytes, initData, dynamic ? GL_STREAM_DRAW : GL_STATIC_DRAW);
 
-		glBufferData(GL_ARRAY_BUFFER, bytes, initData, dynamic ? GL_DYNAMIC_DRAW : GL_STATIC_DRAW);
+		glBindBuffer(target, 0);
 
 		return true;
 	}
@@ -66,10 +71,4 @@ namespace ld3d
 	{
 		return m_buffer;
 	}
-	void OGL4Buffer::Bind()
-	{
-		GLenum target = OGL4Covert::BufferTypeToGLTarget(m_type);
-		glBindBuffer(target, m_buffer);
-	}
-	
 }

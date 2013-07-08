@@ -14,8 +14,6 @@ namespace ld3d
 		void											Unmap();
 		void											Release();
 
-		void											Bind();
-
 		GLuint											GetBufferObject();
 	private:
 		

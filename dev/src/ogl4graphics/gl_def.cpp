@@ -19,8 +19,10 @@ PFNGLDELETEBUFFERSPROC								glDeleteBuffers									= nullptr;
 PFNGLVERTEXATTRIBPOINTERPROC						glVertexAttribPointer							= nullptr;	
 PFNGLMAPBUFFERRANGEPROC								glMapBufferRange								= nullptr;
 PFNGLUNMAPBUFFERPROC								glUnmapBuffer									= nullptr;	
+PFNGLBINDVERTEXBUFFERPROC							glBindVertexBuffer								= nullptr;
 
 
+// debug
 PFNGLDEBUGMESSAGECONTROLPROC						glDebugMessageControl							= nullptr;
 PFNGLDEBUGMESSAGEINSERTPROC							glDebugMessageInsert							= nullptr;
 PFNGLDEBUGMESSAGECALLBACKPROC						glDebugMessageCallback							= nullptr;
@@ -34,6 +36,13 @@ PFNGLTEXIMAGE3DPROC									glTexImage3D									= nullptr;
 PFNGLGENERATEMIPMAPPROC								glGenerateMipmap								= nullptr;
 PFNGLACTIVETEXTUREPROC								glActiveTexture									= nullptr;
 
+
+
+
+// VAO
+PFNGLGENVERTEXARRAYSPROC							glGenVertexArrays								= nullptr;
+PFNGLBINDVERTEXARRAYPROC							glBindVertexArray								= nullptr;
+PFNGLDELETEVERTEXARRAYSPROC							glDeleteVertexArrays							= nullptr;
 
 
 

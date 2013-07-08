@@ -115,8 +115,13 @@ namespace ld3d
 																	float d, 
 																	int s)											= 0; 
 
-
-
+		virtual GeometryDataPtr							CreateGeometryData()										= 0;
+		virtual GPUBufferPtr							CreateBuffer(BUFFER_TYPE type, 
+																	int bytes, 
+																	void* pInitData, 
+																	bool dynamic)									= 0;
+		virtual void									Present()													= 0;
+		virtual void									SetGeometryData(GeometryDataPtr pData)						= 0;
 		/////////////////////////////////////////////////////////////////
 
 
@@ -130,16 +135,6 @@ namespace ld3d
 		virtual int										GetFrameBufferWidth()										= 0;
 		virtual int										GetFrameBufferHeight()										= 0;
 
-		
-
-		
-
-		virtual void									Present()													= 0;
-
-		virtual GPUBufferPtr							CreateBuffer(BUFFER_TYPE type, 
-																	int bytes, 
-																	void* pInitData, 
-																	bool dynamic)									= 0;
 
 		virtual void									VSSetConstantBuffer(GPUBufferPtr pBuffer)					= 0;
 		virtual void									PSSetConstantBuffer(GPUBufferPtr pBuffer)					= 0;

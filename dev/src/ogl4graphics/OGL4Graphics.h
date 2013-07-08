@@ -26,7 +26,8 @@ namespace ld3d
 		ShaderProgramPtr						CreateShaderProgram();
 		VertexShaderPtr							CreateVertesShaderFromFile(const char* szFile);
 		PixelShaderPtr							CreatePixelShaderFromFile(const char* szFile);
-
+		GeometryDataPtr							CreateGeometryData();
+		void									SetGeometryData(GeometryDataPtr pData);
 		//////////////////////////
 		void									SetPrimitiveType(PRIMITIVE_TYPE pt);
 		void									DrawIndexed(int count, int startindex, int basevertex);
