@@ -6,7 +6,10 @@
 
 namespace ld3d
 {
-
+	void _log(const std::wstring& str)
+	{
+		OutputDebugString(str.c_str());
+	}
 	EngineApp::EngineApp(void)
 	{
 	}
@@ -21,7 +24,7 @@ namespace ld3d
 		m_pGraphics->ClearDepthStencil(CLEAR_ALL, 1.0f, 0);
 
 		m_pGraphics->SetGeometryData(m_pGeometry);
-
+		m_pGraphics->SetShaderProgram(m_pProgram);
 		
 		m_pGraphics->Present();
 
@@ -56,6 +59,8 @@ namespace ld3d
 			return false;
 		}
 
+		
+
 		GPUBufferPtr pVB = m_pGraphics->CreateBuffer(BT_VERTEX_BUFFER, 1024, nullptr, true);
 		GPUBufferPtr pIB = m_pGraphics->CreateBuffer(BT_INDEX_BUFFER, 1024, nullptr, true);
 
@@ -74,6 +79,18 @@ namespace ld3d
 			m_pGeometry->AttachVertexBuffer(pVB, layout);
 		}
 		m_pGeometry->EndGeometry();
+
+		m_pGeometry->SetPrimitiveType(PT_TRIANGLE_LIST);
+
+		m_pProgram = m_pGraphics->CreateShaderProgram();
+
+		m_pProgram->AttachShaderFromFile(ST_VERTEX_SHADER, "./assets/standard/material/1.glsl");
+		m_pProgram->AttachShaderFromFile(ST_PIXEL_SHADER, "./assets/standard/material/2.glsl");
+
+		m_pProgram->Link();
+
+		m_pProgram->Validate();
+
 		return true;
 	}
 	void EngineApp::OnRelease()

@@ -11,7 +11,8 @@
 
 namespace ld3d
 {
-	
+	void _log(const std::wstring& str);
+
 	class EngineApp : public WinApp
 	{
 	public:
@@ -45,7 +46,7 @@ namespace ld3d
 				}
 
 				filename = file;
-				pSys = std::shared_ptr<Sys>(CreateSys(nullptr), std::bind(&Sys_Mod_T<Sys>::delete_sys, this, std::placeholders::_1));
+				pSys = std::shared_ptr<Sys>(CreateSys(_log), std::bind(&Sys_Mod_T<Sys>::delete_sys, this, std::placeholders::_1));
 
 
 
@@ -96,6 +97,8 @@ namespace ld3d
 		Sys_Graphics2Ptr								m_pGraphics;
 
 		GeometryDataPtr									m_pGeometry;
+
+		ShaderProgramPtr								m_pProgram;
 	};
 
 

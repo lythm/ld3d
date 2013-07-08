@@ -21,13 +21,12 @@ namespace ld3d
 		RenderTexture2Ptr						CreateRenderTexture(int w, int h, G_FORMAT format);
 		GPUBufferPtr							CreateBuffer(BUFFER_TYPE type, int bytes, void* pInitData, bool dynamic);
 		TexturePtr								CreateTexture(TEXTURE_TYPE type, G_FORMAT format, int w, int h);
-		ShaderCompilerPtr						GetShaderCompiler();
 
 		ShaderProgramPtr						CreateShaderProgram();
-		VertexShaderPtr							CreateVertesShaderFromFile(const char* szFile);
-		PixelShaderPtr							CreatePixelShaderFromFile(const char* szFile);
+		ShaderPtr								CreateShaderFromFile(const char* szFile);		
 		GeometryDataPtr							CreateGeometryData();
 		void									SetGeometryData(GeometryDataPtr pData);
+		void									SetShaderProgram(ShaderProgramPtr pProg);
 		//////////////////////////
 		void									SetPrimitiveType(PRIMITIVE_TYPE pt);
 		void									DrawIndexed(int count, int startindex, int basevertex);
@@ -68,14 +67,6 @@ namespace ld3d
 
 		void									SetViewPort(int x, int y, int w, int h);
 
-		VertexShaderPtr							CreateVSFromFile(const char* szFile);
-		PixelShaderPtr							CreatePSFromFile(const char* szFile);
-		
-
-		void									SetPixelShader(PixelShaderPtr pShader);
-		void									SetVertexShader(VertexShaderPtr pShader);
-
-
 	private:
 		GraphicsSetting							m_setting;
 
@@ -84,8 +75,5 @@ namespace ld3d
 
 		OGL4RenderWindowPtr						m_pMainRW;
 
-		OGL4ShaderCompilerPtr					m_pShaderCompiler;
 	};
-
-
 }

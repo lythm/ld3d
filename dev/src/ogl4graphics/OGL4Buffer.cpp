@@ -7,7 +7,7 @@ namespace ld3d
 {
 	OGL4Buffer::OGL4Buffer(void)
 	{
-		m_buffer				= -1;
+		m_buffer				= 0;
 		m_bytes					= 0;
 		m_bDynamic				= false;
 		m_type					= BT_UNKNOWN;

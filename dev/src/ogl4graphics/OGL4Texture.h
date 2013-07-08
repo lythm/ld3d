@@ -18,7 +18,7 @@ namespace ld3d
 		void										Release();
 
 	private:
-		GLenum										m_texture;
+		GLuint										m_texture;
 		int											m_width;
 		int											m_height;
 		TEXTURE_TYPE								m_type;

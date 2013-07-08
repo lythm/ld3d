@@ -54,12 +54,6 @@
     <ClInclude Include="D3D11Font.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="D3D11VertexShader.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="D3D11PixelShader.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="D3D11RenderState.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -114,12 +108,6 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="D3D11Font.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="D3D11VertexShader.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="D3D11PixelShader.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="D3D11RenderState.cpp">

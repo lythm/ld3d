@@ -47,7 +47,23 @@ extern PFNGLACTIVETEXTUREPROC							glActiveTexture;
 
 
 
+// shader program
+extern PFNGLCREATEPROGRAMPROC							glCreateProgram;
+extern PFNGLDELETEPROGRAMPROC							glDeleteProgram;
+extern PFNGLLINKPROGRAMPROC								glLinkProgram;
+extern PFNGLUSEPROGRAMPROC								glUseProgram;
+extern PFNGLGETPROGRAMIVPROC							glGetProgramiv;
+extern PFNGLGETPROGRAMINFOLOGPROC						glGetProgramInfoLog;
+extern PFNGLVALIDATEPROGRAMPROC							glValidateProgram;
 
+extern PFNGLCREATESHADERPROC							glCreateShader;
+extern PFNGLDELETESHADERPROC							glDeleteShader;
+extern PFNGLSHADERSOURCEPROC							glShaderSource;
+extern PFNGLCOMPILESHADERPROC							glCompileShader;
+extern PFNGLATTACHSHADERPROC							glAttachShader;
+extern PFNGLDETACHSHADERPROC							glDetachShader;
+extern PFNGLGETSHADERIVPROC								glGetShaderiv;
+extern PFNGLGETSHADERINFOLOGPROC						glGetShaderInfoLog;
 
 
 

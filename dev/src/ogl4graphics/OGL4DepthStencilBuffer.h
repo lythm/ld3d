@@ -15,7 +15,7 @@ namespace ld3d
 		bool							Create();
 
 	private:
-		GLenum							m_buffer;
+		GLuint							m_buffer;
 	};
 
 

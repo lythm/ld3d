@@ -168,12 +168,10 @@
     <ClInclude Include="D3D11Font.h" />
     <ClInclude Include="D3D11Format.h" />
     <ClInclude Include="D3D11Graphics.h" />
-    <ClInclude Include="D3D11PixelShader.h" />
     <ClInclude Include="D3D11RenderState.h" />
     <ClInclude Include="D3D11RenderTarget.h" />
     <ClInclude Include="D3D11RenderWindow.h" />
     <ClInclude Include="D3D11Texture.h" />
-    <ClInclude Include="D3D11VertexShader.h" />
     <ClInclude Include="effect11\Effect.h" />
     <ClInclude Include="effect11\EffectLoad.h" />
     <ClInclude Include="effect11\pchfx.h" />
@@ -193,12 +191,10 @@
     <ClCompile Include="D3D11Font.cpp" />
     <ClCompile Include="D3D11Format.cpp" />
     <ClCompile Include="D3D11Graphics.cpp" />
-    <ClCompile Include="D3D11PixelShader.cpp" />
     <ClCompile Include="D3D11RenderState.cpp" />
     <ClCompile Include="D3D11RenderTarget.cpp" />
     <ClCompile Include="D3D11RenderWindow.cpp" />
     <ClCompile Include="D3D11Texture.cpp" />
-    <ClCompile Include="D3D11VertexShader.cpp" />
     <ClCompile Include="effect11\d3dx11dbg.cpp" />
     <ClCompile Include="effect11\d3dxGlobal.cpp" />
     <ClCompile Include="effect11\EffectAPI.cpp" />

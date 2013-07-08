@@ -14,8 +14,7 @@ namespace ld3d
 		virtual ~OGL4GeometryData(void);
 
 
-		bool													Create();
-		void													Bind();
+		
 
 		void													BeginGeometry();
 
@@ -32,11 +31,16 @@ namespace ld3d
 
 		void													Release();
 		
+		void													SetPrimitiveType(PRIMITIVE_TYPE prim);
 		const VertexLayout&										GetVertexLayout() const;
 
+
+		bool													Create();
+		void													Bind();
 		GLenum													GetIndexType() const;
+		GLenum													GetPrimitiveType() const;
 	private:
-		GLenum													m_vao;
+		GLuint													m_vao;
 
 		GPUBufferPtr											m_pVertexBuffer;
 		GPUBufferPtr											m_pIndexBuffer;
@@ -44,5 +48,6 @@ namespace ld3d
 		GLenum													m_indexType;
 
 		unsigned int											m_vbOffset;
+		GLenum													m_primType;
 	};
 }

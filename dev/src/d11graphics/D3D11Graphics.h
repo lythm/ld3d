@@ -58,13 +58,7 @@ namespace ld3d
 
 		void									SetViewPort(int x, int y, int w, int h);
 
-		VertexShaderPtr							CreateVSFromFile(const char* szFile);
-		PixelShaderPtr							CreatePSFromFile(const char* szFile);
 		
-
-		void									SetPixelShader(PixelShaderPtr pShader);
-		void									SetVertexShader(VertexShaderPtr pShader);
-
 	private:
 		GPUBufferPtr							CreateIndexBuffer(int bytes, void* pInitData, bool dynamic);
 		GPUBufferPtr							CreateVertexBuffer(int bytes, void* pInitData, bool dynamic);

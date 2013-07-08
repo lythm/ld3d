@@ -55,8 +55,7 @@
 #include "core\coreapi.h"
 
 #include "core\BBoxRenderData.h"
-#include "core/VertexShader.h"
-#include "core/PixelShader.h"
+#include "core/Shader.h"
 #include "core/ShaderProgram.h"
 
 #include "core/GeometryData.h"

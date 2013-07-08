@@ -80,8 +80,7 @@ namespace ld3d
 	class RenderState;
 	class Shader;
 	class BaseCamera;
-	class VertexShader;
-	class PixelShader;
+	
 	class RenderWindow;
 	class RenderWindow2;
 	class Material;
@@ -113,8 +112,6 @@ namespace ld3d
 	typedef std::shared_ptr<RenderWindow2>					RenderWindow2Ptr;
 
 	typedef std::shared_ptr<RenderWindow>					RenderWindowPtr;
-	typedef std::shared_ptr<PixelShader>					PixelShaderPtr;
-	typedef std::shared_ptr<VertexShader>					VertexShaderPtr;
 	typedef std::shared_ptr<RenderState>					RenderStatePtr;
 	typedef std::shared_ptr<Shader>							ShaderPtr;
 	typedef std::shared_ptr<Camera>							CameraPtr;

@@ -12,7 +12,7 @@ namespace ld3d
 		static GLenum												TexTypeToGLTarget(TEXTURE_TYPE type);
 
 		static bool													FormatToGLVertexAttr(G_FORMAT format, unsigned int &value_count, GLenum& gltype);
-
+		static GLenum												ShaderTypeToGL(SHADER_TYPE type);
 	private:
 		OGL4Covert(void);
 		virtual ~OGL4Covert(void);

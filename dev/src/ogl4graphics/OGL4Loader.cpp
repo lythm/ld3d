@@ -24,14 +24,7 @@ namespace ld3d
 		{
 			return false;
 		}
-
-		Version v(3, 3, 0, 0);
-
-		if(m_ver < v)
-		{
-			return false;
-		}
-
+		
 		if(false == load_extension_info())
 		{
 			return false;
@@ -136,6 +129,25 @@ namespace ld3d
 		LOAD_API(glBindVertexArray,										PFNGLBINDVERTEXARRAYPROC);
 		LOAD_API(glDeleteVertexArrays,									PFNGLDELETEVERTEXARRAYSPROC);
 
+
+		LOAD_API(glCreateProgram,										PFNGLCREATEPROGRAMPROC);
+		LOAD_API(glDeleteProgram,										PFNGLDELETEPROGRAMPROC);
+		LOAD_API(glLinkProgram,											PFNGLLINKPROGRAMPROC);
+		LOAD_API(glUseProgram,											PFNGLUSEPROGRAMPROC);
+
+		LOAD_API(glCreateShader,										PFNGLCREATESHADERPROC);
+		LOAD_API(glDeleteShader,										PFNGLDELETESHADERPROC);
+		LOAD_API(glShaderSource,										PFNGLSHADERSOURCEPROC);
+		LOAD_API(glCompileShader,										PFNGLCOMPILESHADERPROC);
+		LOAD_API(glAttachShader,										PFNGLATTACHSHADERPROC);
+		LOAD_API(glDetachShader,										PFNGLDETACHSHADERPROC);
+
+
+		LOAD_API(glGetProgramiv,										PFNGLGETPROGRAMIVPROC);
+		LOAD_API(glGetProgramInfoLog,									PFNGLGETPROGRAMINFOLOGPROC);
+		LOAD_API(glValidateProgram,										PFNGLVALIDATEPROGRAMPROC);
+		LOAD_API(glGetShaderiv,											PFNGLGETSHADERIVPROC);
+		LOAD_API(glGetShaderInfoLog,									PFNGLGETSHADERINFOLOGPROC);
 
 		return true;
 	}

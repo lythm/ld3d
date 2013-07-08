@@ -10,10 +10,27 @@ namespace ld3d
 		OGL4ShaderProgram(void);
 		virtual ~OGL4ShaderProgram(void);
 
-		void												AttachShader(VertexShaderPtr pShader);
-		void												AttachShader(PixelShaderPtr pShader);
 
+		bool												AttachShaderFromFile(SHADER_TYPE type, const char* szFile);
+		void												AttachShader(ShaderPtr pShader);
+
+		bool												Link();
+		bool												Validate();
 		void												Release();
+
+
+
+
+
+
+		bool												Create();
+		void												Use();
+
+	private:
+		GLuint												m_program;
+
+
+		std::vector<ShaderPtr>								m_shaders;
 	};
 
 

@@ -115,8 +115,6 @@
     <ClInclude Include="..\..\include\core\Font.h" />
     <ClInclude Include="..\..\include\core\Sound.h" />
     <ClInclude Include="..\..\include\core\SoundChannel.h" />
-    <ClInclude Include="..\..\include\core\PixelShader.h" />
-    <ClInclude Include="..\..\include\core\VertexShader.h" />
     <ClInclude Include="..\..\include\core\FileSystem.h" />
     <ClInclude Include="..\..\include\core\AssetsManager.h" />
     <ClInclude Include="..\..\include\core\Sys_Time.h" />
@@ -142,7 +140,6 @@
     <ClInclude Include="..\..\include\core\DT_CoreApi.h" />
     <ClInclude Include="..\..\include\core\GeometryData.h" />
     <ClInclude Include="..\..\include\core\ShaderProgram.h" />
-    <ClInclude Include="..\..\include\core\ShaderCompiler.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

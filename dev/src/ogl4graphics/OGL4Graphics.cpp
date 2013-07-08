@@ -6,10 +6,8 @@
 #include "OGL4RenderTexture.h"
 #include "OGL4Texture.h"
 #include "OGL4Buffer.h"
-#include "OGL4ShaderCompiler.h"
 #include "OGL4ShaderProgram.h"
-#include "OGL4VertexShader.h"
-#include "OGL4FragmentShader.h"
+#include "OGL4Shader.h"
 #include "OGL4GeometryData.h"
 
 #include <sstream>
@@ -18,6 +16,27 @@ namespace ld3d
 {
 
 	std::function<void (const std::wstring& log)>			g_logger;
+
+	void g_log(const std::wstring& str)
+	{
+		if(g_logger == nullptr)
+		{
+			return;
+		}
+
+		g_logger(str);
+	}
+	void g_log(const std::string& str)
+	{
+		if(g_logger == nullptr)
+		{
+			return;
+		}
+		std::wstring log;
+		ld3d::Unicode::ANSI_2_UTF16(str, log);
+		g_logger(log);
+	}
+
 }
 EXPORT_C_API ld3d::Sys_Graphics2* CreateSys(const std::function<void (const std::wstring& log)>& logger)
 {
@@ -114,7 +133,9 @@ void APIENTRY _DebugCallback(GLenum source,
 	str << "): ";
 	str << message << std::endl;
 
-	OutputDebugStringA(str.str().c_str());
+
+	ld3d::g_log(str.str());
+	//OutputDebugStringA(str.str().c_str());
 }
 
 #define _ENABLE_GL_DEBUG_	glDebugMessageCallback(_DebugCallback, NULL);glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
@@ -125,15 +146,7 @@ void APIENTRY _DebugCallback(GLenum source,
 
 namespace ld3d
 {
-	void g_log(const std::wstring& str)
-	{
-		if(g_logger)
-		{
-			return;
-		}
-
-		g_logger(str);
-	}
+	
 
 	OGL4Graphics::OGL4Graphics(void)
 	{
@@ -174,15 +187,11 @@ namespace ld3d
 		
 		_ENABLE_GL_DEBUG_;
 		
-		m_pShaderCompiler = std::make_shared<OGL4ShaderCompiler>();
+
 		return true;
 	}
 	void OGL4Graphics::Release()
 	{
-		if(m_pShaderCompiler)
-		{
-			m_pShaderCompiler.reset();
-		}
 		if(m_pMainRW)
 		{
 			m_pMainRW->Release();
@@ -339,21 +348,7 @@ namespace ld3d
 	void OGL4Graphics::SetViewPort(int x, int y, int w, int h)
 	{
 	}
-	VertexShaderPtr	OGL4Graphics::CreateVSFromFile(const char* szFile)
-	{
-		return VertexShaderPtr();
-	}
-	PixelShaderPtr OGL4Graphics::CreatePSFromFile(const char* szFile)
-	{
-		return PixelShaderPtr();
-	}
-	void OGL4Graphics::SetPixelShader(PixelShaderPtr pShader)
-	{
-	}
-	void OGL4Graphics::SetVertexShader(VertexShaderPtr pShader)
-	{
-	}
-
+	
 	RenderTexture2Ptr OGL4Graphics::CreateRenderTexture(int w, int h, G_FORMAT format)
 	{
 		OGL4RenderTexturePtr pRT = std::make_shared<OGL4RenderTexture>();
@@ -366,28 +361,18 @@ namespace ld3d
 
 		return pRT;
 	}
-	ShaderCompilerPtr OGL4Graphics::GetShaderCompiler()
-	{
-		return m_pShaderCompiler;
-	}
+	
 	ShaderProgramPtr OGL4Graphics::CreateShaderProgram()
 	{
 		OGL4ShaderProgramPtr pProg = std::make_shared<OGL4ShaderProgram>();
-
+		if(pProg->Create() == false)
+		{
+			pProg->Release();
+			pProg = nullptr;
+		}
 		return pProg;
 	}
-	VertexShaderPtr	OGL4Graphics::CreateVertesShaderFromFile(const char* szFile)
-	{
-		OGL4VertexShaderPtr pVS = std::make_shared<OGL4VertexShader>();
-
-		return pVS;
-	}
-	PixelShaderPtr OGL4Graphics::CreatePixelShaderFromFile(const char* szFile)
-	{
-		OGL4FragmentShaderPtr pPS = std::make_shared<OGL4FragmentShader>();
-
-		return pPS;
-	}
+	
 	GeometryDataPtr OGL4Graphics::CreateGeometryData()
 	{
 		OGL4GeometryDataPtr pGD = std::make_shared<OGL4GeometryData>();
@@ -410,5 +395,20 @@ namespace ld3d
 		}
 		
 		pGD->Bind();
+	}
+	ShaderPtr OGL4Graphics::CreateShaderFromFile(const char* szFile)
+	{
+
+		return ShaderPtr();
+	}
+	void OGL4Graphics::SetShaderProgram(ShaderProgramPtr pProg)
+	{
+		if(pProg == nullptr)
+		{
+			glUseProgram(0);
+			return;
+		}
+
+		((OGL4ShaderProgram*)pProg.get())->Use();
 	}
 }

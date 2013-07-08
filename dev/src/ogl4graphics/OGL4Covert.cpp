@@ -43,6 +43,21 @@ namespace ld3d
 		}
 		return GL_INVALID_ENUM;
 	}
+	GLenum OGL4Covert::ShaderTypeToGL(SHADER_TYPE type)
+	{
+		switch(type)
+		{
+		case ST_VERTEX_SHADER:
+			return GL_VERTEX_SHADER;
+		case ST_PIXEL_SHADER:
+			return GL_FRAGMENT_SHADER;
+		default:
+			assert(0);
+			break;
+		}
+
+		return GL_INVALID_ENUM;
+	}
 	GLenum OGL4Covert::TexTypeToGLTarget(TEXTURE_TYPE type)
 	{
 		switch(type)

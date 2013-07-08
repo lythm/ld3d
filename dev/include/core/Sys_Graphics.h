@@ -80,12 +80,6 @@ namespace ld3d
 
 		virtual void									SetViewPort(int x, int y, int w, int h)						= 0;
 
-		virtual VertexShaderPtr							CreateVSFromFile(const char* szFile)						= 0;
-		virtual PixelShaderPtr							CreatePSFromFile(const char* szFile)						= 0;
-
-		virtual void									SetPixelShader(PixelShaderPtr pShader)						= 0;
-		virtual void									SetVertexShader(VertexShaderPtr pShader)					= 0;
-
 		virtual RenderStatePtr							CreateRenderState()											= 0;
 		virtual void									SetRenderState(RenderStatePtr pState)						= 0;
 	protected:
@@ -122,6 +116,10 @@ namespace ld3d
 																	bool dynamic)									= 0;
 		virtual void									Present()													= 0;
 		virtual void									SetGeometryData(GeometryDataPtr pData)						= 0;
+
+		virtual ShaderProgramPtr						CreateShaderProgram()										= 0;
+
+		virtual void									SetShaderProgram(ShaderProgramPtr pProg)					= 0;
 		/////////////////////////////////////////////////////////////////
 
 
@@ -167,12 +165,7 @@ namespace ld3d
 
 		virtual void									SetViewPort(int x, int y, int w, int h)						= 0;
 
-		virtual VertexShaderPtr							CreateVSFromFile(const char* szFile)						= 0;
-		virtual PixelShaderPtr							CreatePSFromFile(const char* szFile)						= 0;
-
-		virtual void									SetPixelShader(PixelShaderPtr pShader)						= 0;
-		virtual void									SetVertexShader(VertexShaderPtr pShader)					= 0;
-
+		
 		virtual RenderStatePtr							CreateRenderState()											= 0;
 		virtual void									SetRenderState(RenderStatePtr pState)						= 0;
 	protected:

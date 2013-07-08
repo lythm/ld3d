@@ -100,7 +100,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;OGL4GRAPHICS_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_DEBUG;_WINDOWS;_USRDLL;OGL4GRAPHICS_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeaderFile>ogl4graphics_pch.h</PrecompiledHeaderFile>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
@@ -108,7 +108,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>utils.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -149,11 +149,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="gl_def.h" />
-    <ClInclude Include="OGL4VertexShader.h" />
+    <ClInclude Include="OGL4Shader.h" />
     <ClInclude Include="OGL4Buffer.h" />
     <ClInclude Include="OGL4Covert.h" />
     <ClInclude Include="OGL4DepthStencilBuffer.h" />
-    <ClInclude Include="OGL4FragmentShader.h" />
     <ClInclude Include="OGL4GeometryData.h" />
     <ClInclude Include="OGL4Graphics.h" />
     <ClInclude Include="ogl4graphics_pch.h" />
@@ -161,17 +160,15 @@
     <ClInclude Include="OGL4RenderTexture.h" />
     <ClInclude Include="OGL4RenderWindow.h" />
     <ClInclude Include="OGL4Sampler.h" />
-    <ClInclude Include="OGL4ShaderCompiler.h" />
     <ClInclude Include="OGL4ShaderProgram.h" />
     <ClInclude Include="OGL4Texture.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="gl_def.cpp" />
-    <ClCompile Include="OGL4VertexShader.cpp" />
+    <ClCompile Include="OGL4Shader.cpp" />
     <ClCompile Include="OGL4Buffer.cpp" />
     <ClCompile Include="OGL4Covert.cpp" />
     <ClCompile Include="OGL4DepthStencilBuffer.cpp" />
-    <ClCompile Include="OGL4FragmentShader.cpp" />
     <ClCompile Include="OGL4GeometryData.cpp" />
     <ClCompile Include="OGL4Graphics.cpp" />
     <ClCompile Include="ogl4graphics_pch.cpp">
@@ -184,7 +181,6 @@
     <ClCompile Include="OGL4RenderTexture.cpp" />
     <ClCompile Include="OGL4RenderWindow.cpp" />
     <ClCompile Include="OGL4Sampler.cpp" />
-    <ClCompile Include="OGL4ShaderCompiler.cpp" />
     <ClCompile Include="OGL4ShaderProgram.cpp" />
     <ClCompile Include="OGL4Texture.cpp" />
   </ItemGroup>

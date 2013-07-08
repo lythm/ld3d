@@ -8,7 +8,7 @@ namespace ld3d
 	{
 		m_vao = 0;
 		m_indexType = GL_INVALID_ENUM;
-
+		m_primType = GL_TRIANGLES;
 		m_vbOffset = 0;
 	}
 
@@ -135,5 +135,13 @@ namespace ld3d
 	GLenum OGL4GeometryData::GetIndexType() const
 	{
 		return m_indexType;
+	}
+	void OGL4GeometryData::SetPrimitiveType(PRIMITIVE_TYPE prim)
+	{
+		m_primType = OGL4Covert::PrimitiveTypeToGL(prim);
+	}
+	GLenum OGL4GeometryData::GetPrimitiveType() const
+	{
+		return m_primType;
 	}
 }

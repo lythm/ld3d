@@ -137,6 +137,11 @@ namespace ld3d
 
 	};
 
+	enum SHADER_TYPE
+	{
+		ST_VERTEX_SHADER,
+		ST_PIXEL_SHADER,
+	};
 	enum MAP_HINT
 	{
 		MAP_DEFAULT,

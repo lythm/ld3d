@@ -46,9 +46,24 @@ PFNGLDELETEVERTEXARRAYSPROC							glDeleteVertexArrays							= nullptr;
 
 
 
+// shader program
+PFNGLCREATEPROGRAMPROC								glCreateProgram									= nullptr;
+PFNGLDELETEPROGRAMPROC								glDeleteProgram									= nullptr;
+PFNGLLINKPROGRAMPROC								glLinkProgram									= nullptr;
+PFNGLUSEPROGRAMPROC									glUseProgram									= nullptr;
 
+PFNGLCREATESHADERPROC								glCreateShader									= nullptr;
+PFNGLDELETESHADERPROC								glDeleteShader									= nullptr;
+PFNGLSHADERSOURCEPROC								glShaderSource									= nullptr;
+PFNGLCOMPILESHADERPROC								glCompileShader									= nullptr;
+PFNGLATTACHSHADERPROC								glAttachShader									= nullptr;
+PFNGLDETACHSHADERPROC								glDetachShader									= nullptr;
 
-
+PFNGLGETPROGRAMIVPROC								glGetProgramiv									= nullptr;
+PFNGLGETPROGRAMINFOLOGPROC							glGetProgramInfoLog								= nullptr;
+PFNGLVALIDATEPROGRAMPROC							glValidateProgram								= nullptr;
+PFNGLGETSHADERIVPROC								glGetShaderiv									= nullptr;
+PFNGLGETSHADERINFOLOGPROC							glGetShaderInfoLog								= nullptr;
 
 
 // wgl

@@ -8,8 +8,6 @@
 #include "D3D11Format.h"
 #include "D3D11RenderTarget.h"
 #include "D3D11RenderWindow.h"
-#include "D3D11VertexShader.h"
-#include "D3D11PixelShader.h"
 #include "D3D11RenderState.h"
 
 
@@ -35,7 +33,7 @@ namespace ld3d
 
 	void g_log(const std::wstring& str)
 	{
-		if(g_logger)
+		if(g_logger == nullptr)
 		{
 			return;
 		}
@@ -461,35 +459,6 @@ namespace ld3d
 		return m_pCurrentRW;
 	}
 	
-	VertexShaderPtr	D3D11Graphics::CreateVSFromFile(const char* szFile)
-	{
-		D3D11VertexShader* pShader = new D3D11VertexShader(m_pDevice);
-		if(pShader->LoadFromFile(szFile) == false)
-		{
-			delete pShader;
-			return VertexShaderPtr();
-		}
-
-		return VertexShaderPtr(pShader);
-	}
-	PixelShaderPtr D3D11Graphics::CreatePSFromFile(const char* szFile)
-	{
-		D3D11PixelShader* pShader = new D3D11PixelShader(m_pDevice);
-		if(false == pShader->LoadFromFile(szFile))
-		{
-			delete pShader;
-			return PixelShaderPtr();
-		}
-		return PixelShaderPtr(pShader);
-	}
-	void D3D11Graphics::SetPixelShader(PixelShaderPtr pShader)
-	{
-		m_pContext->PSSetShader(((D3D11PixelShader*)pShader.get())->GetD3D11Shader(), nullptr, 0);
-	}
-	void D3D11Graphics::SetVertexShader(VertexShaderPtr pShader)
-	{
-		m_pContext->VSSetShader(((D3D11VertexShader*)pShader.get())->GetD3D11Shader(), nullptr, 0);
-	}
 	void D3D11Graphics::SetRenderState(RenderStatePtr pState)
 	{
 		((D3D11RenderState*)pState.get())->Apply();
