@@ -7,7 +7,7 @@ namespace ld3d
 	class OGL4Shader : public Shader
 	{
 	public:
-		OGL4Shader(void);
+		OGL4Shader(SHADER_TYPE type, GLuint shader);
 		virtual ~OGL4Shader(void);
 
 
@@ -15,7 +15,6 @@ namespace ld3d
 		SHADER_TYPE							GetType();
 
 
-		bool								CreateFromFile(SHADER_TYPE type, const char* szFile);
 		GLuint								GetShaderObject();
 	private:
 		GLuint								m_shader;

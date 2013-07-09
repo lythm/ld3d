@@ -161,6 +161,7 @@
     <ClInclude Include="OGL4RenderTexture.h" />
     <ClInclude Include="OGL4RenderWindow.h" />
     <ClInclude Include="OGL4Sampler.h" />
+    <ClInclude Include="OGL4ShaderCompiler.h" />
     <ClInclude Include="OGL4ShaderProgram.h" />
     <ClInclude Include="OGL4Texture.h" />
   </ItemGroup>
@@ -183,6 +184,7 @@
     <ClCompile Include="OGL4RenderTexture.cpp" />
     <ClCompile Include="OGL4RenderWindow.cpp" />
     <ClCompile Include="OGL4Sampler.cpp" />
+    <ClCompile Include="OGL4ShaderCompiler.cpp" />
     <ClCompile Include="OGL4ShaderProgram.cpp" />
     <ClCompile Include="OGL4Texture.cpp" />
   </ItemGroup>

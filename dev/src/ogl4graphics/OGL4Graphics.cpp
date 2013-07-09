@@ -365,11 +365,7 @@ namespace ld3d
 		return pGD;
 	}
 
-	ShaderPtr OGL4Graphics::CreateShaderFromFile(const char* szFile)
-	{
 
-		return ShaderPtr();
-	}
 	void OGL4Graphics::SetShaderProgram(ShaderProgramPtr pProg)
 	{
 		if(pProg == nullptr)

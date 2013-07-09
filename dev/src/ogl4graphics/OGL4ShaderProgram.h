@@ -6,9 +6,6 @@ namespace ld3d
 {
 	class OGL4ShaderProgram : public ShaderProgram
 	{
-	public:
-		OGL4ShaderProgram(void);
-		virtual ~OGL4ShaderProgram(void);
 
 		struct UniformBlock
 		{
@@ -16,6 +13,11 @@ namespace ld3d
 			GLuint											index;
 			std::string										name;
 		};
+
+
+	public:
+		OGL4ShaderProgram(void);
+		virtual ~OGL4ShaderProgram(void);
 
 
 		bool												AttachShaderFromFile(SHADER_TYPE type, const char* szFile);
@@ -57,6 +59,5 @@ namespace ld3d
 
 		std::vector<UniformBlock>							m_uniformBlocks;
 	};
-
 
 }

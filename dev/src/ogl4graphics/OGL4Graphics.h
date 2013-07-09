@@ -26,7 +26,6 @@ namespace ld3d
 		TexturePtr								CreateTexture(TEXTURE_TYPE type, G_FORMAT format, int w, int h);
 
 		ShaderProgramPtr						CreateShaderProgram();
-		ShaderPtr								CreateShaderFromFile(const char* szFile);		
 		GeometryDataPtr							CreateGeometryData();
 
 		void									SetShaderProgram(ShaderProgramPtr pProg);
@@ -61,10 +60,8 @@ namespace ld3d
 	private:
 		GraphicsSetting							m_setting;
 
-
 		OGL4LoaderPtr							m_pLoader;
 
 		OGL4RenderWindowPtr						m_pMainRW;
-
 	};
 }

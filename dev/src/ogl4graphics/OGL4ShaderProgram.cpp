@@ -5,6 +5,8 @@
 #include "OGL4Buffer.h"
 #include <algorithm>
 
+#include "OGL4ShaderCompiler.h"
+
 namespace ld3d
 {
 	OGL4ShaderProgram::OGL4ShaderProgram(void)
@@ -44,8 +46,8 @@ namespace ld3d
 	
 	bool OGL4ShaderProgram::AttachShaderFromFile(SHADER_TYPE type, const char* szFile)
 	{
-		OGL4ShaderPtr pShader = std::make_shared<OGL4Shader>();
-		if(pShader->CreateFromFile(type, szFile) == false)
+		OGL4ShaderPtr pShader = OGL4ShaderCompiler::CreateShaderFromFile(type, szFile);
+		if(pShader == nullptr)
 		{
 			return false;
 		}
