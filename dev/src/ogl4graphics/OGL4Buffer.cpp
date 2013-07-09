@@ -67,6 +67,10 @@ namespace ld3d
 
 		return true;
 	}
+	uint64 OGL4Buffer::GetBytes() const
+	{
+		return m_bytes;
+	}
 	GLuint OGL4Buffer::GetBufferObject()
 	{
 		return m_buffer;

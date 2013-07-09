@@ -111,11 +111,43 @@ namespace ld3d
 
 		m_pProgram->Validate();
 
+
+
+		struct uniform_block
+		{
+			math::Matrix44 view;
+			math::Matrix44 proj;
+			math::Matrix44 world;
+		};
+
+		uniform_block block;
+		block.view = math::MatrixLookAtLH(math::Vector3(0, 0, -5), math::Vector3(0, 0, 0), math::Vector3(0, 1, 0));
+		block.proj = math::MatrixPerspectiveFovLH(0.25 * 3.14, 4.0 / 3.0, 0.01, 10000);
+		block.world = math::MatrixIdentity();
+
+
+
+		ShaderProgram::ParameterID param = m_pProgram->FindParameterBlockByName("mat");
+
+		m_pProgram->SetParameterBlock(param, &block, sizeof(block));
+
+
+		param = m_pProgram->FindParameterByName("v");
+		m_pProgram->SetParameterMatrix(param, block.view);
+
+
+		param = m_pProgram->FindParameterByName("p");
+		m_pProgram->SetParameterMatrix(param, block.proj);
+		
+
 		return true;
 	}
 	void EngineApp::OnRelease()
 	{
+		
+		
 		m_pGeometry->Release();
+		m_pGeometry.reset();
 
 
 		m_pGraphics->Release();

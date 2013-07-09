@@ -47,13 +47,13 @@ namespace ld3d
 	typedef MaterialParameter_T<TexturePtr>					MaterialParameterTexture;
 	
 
-	typedef std::shared_ptr<MaterialParameterBool>		MaterialParameterBoolPtr;
+	typedef std::shared_ptr<MaterialParameterBool>			MaterialParameterBoolPtr;
 	typedef std::shared_ptr<MaterialParameterInt>			MaterialParameterIntPtr;
-	typedef std::shared_ptr<MaterialParameterFloat>		MaterialParameterFloatPtr;
+	typedef std::shared_ptr<MaterialParameterFloat>			MaterialParameterFloatPtr;
 	typedef std::shared_ptr<MaterialParameterFloat2>		MaterialParameterFloat2Ptr;
 	typedef std::shared_ptr<MaterialParameterFloat3>		MaterialParameterFloat3Ptr;
 	typedef std::shared_ptr<MaterialParameterFloat4>		MaterialParameterFloat4Ptr;
-	typedef std::shared_ptr<MaterialParameterFloat4x4>	MaterialParameterFloat4x4Ptr;
+	typedef std::shared_ptr<MaterialParameterFloat4x4>		MaterialParameterFloat4x4Ptr;
 	typedef std::shared_ptr<MaterialParameterTexture>		MaterialParameterTexturePtr;
 
 }

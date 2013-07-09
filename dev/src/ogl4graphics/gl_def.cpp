@@ -20,6 +20,8 @@ PFNGLVERTEXATTRIBPOINTERPROC						glVertexAttribPointer							= nullptr;
 PFNGLMAPBUFFERRANGEPROC								glMapBufferRange								= nullptr;
 PFNGLUNMAPBUFFERPROC								glUnmapBuffer									= nullptr;	
 PFNGLBINDVERTEXBUFFERPROC							glBindVertexBuffer								= nullptr;
+PFNGLBINDBUFFERRANGEPROC							glBindBufferRange								= nullptr;
+PFNGLBINDBUFFERBASEPROC								glBindBufferBase								= nullptr;
 
 
 // debug
@@ -65,6 +67,31 @@ PFNGLVALIDATEPROGRAMPROC							glValidateProgram								= nullptr;
 PFNGLGETSHADERIVPROC								glGetShaderiv									= nullptr;
 PFNGLGETSHADERINFOLOGPROC							glGetShaderInfoLog								= nullptr;
 
+PFNGLGETUNIFORMBLOCKINDEXPROC						glGetUniformBlockIndex							= nullptr;
+PFNGLUNIFORMBLOCKBINDINGPROC						glUniformBlockBinding							= nullptr;
+PFNGLGETACTIVEUNIFORMBLOCKIVPROC					glGetActiveUniformBlockiv						= nullptr;
+PFNGLGETACTIVEUNIFORMSIVPROC						glGetActiveUniformsiv							= nullptr;
+PFNGLGETACTIVEUNIFORMBLOCKNAMEPROC					glGetActiveUniformBlockName						= nullptr;
+PFNGLGETUNIFORMLOCATIONPROC							glGetUniformLocation							= nullptr;
+
+
+PFNGLPROGRAMUNIFORM1FPROC							glProgramUniform1f								= nullptr;
+PFNGLPROGRAMUNIFORM1IPROC							glProgramUniform1i								= nullptr;
+PFNGLPROGRAMUNIFORM1UIPROC							glProgramUniform1ui								= nullptr;
+	
+PFNGLPROGRAMUNIFORM2FVPROC							glProgramUniform2fv								= nullptr;
+PFNGLPROGRAMUNIFORM3FVPROC							glProgramUniform3fv								= nullptr;
+PFNGLPROGRAMUNIFORM4FVPROC							glProgramUniform4fv								= nullptr;
+	
+PFNGLPROGRAMUNIFORM2IVPROC							glProgramUniform2iv								= nullptr;
+PFNGLPROGRAMUNIFORM3IVPROC							glProgramUniform3iv								= nullptr;
+PFNGLPROGRAMUNIFORM4IVPROC							glProgramUniform4iv								= nullptr;
+	
+PFNGLPROGRAMUNIFORM2UIVPROC							glProgramUniform2uiv							= nullptr;
+PFNGLPROGRAMUNIFORM3UIVPROC							glProgramUniform3uiv							= nullptr;
+PFNGLPROGRAMUNIFORM4UIVPROC							glProgramUniform4uiv							= nullptr;
+
+PFNGLPROGRAMUNIFORMMATRIX4FVPROC					glProgramUniformMatrix4fv						= nullptr;
 
 // wgl
 PFNWGLSWAPINTERVALEXTPROC							wglSwapIntervalEXT								= nullptr;

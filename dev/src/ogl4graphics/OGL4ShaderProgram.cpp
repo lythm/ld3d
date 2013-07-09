@@ -2,6 +2,8 @@
 #include "OGL4ShaderProgram.h"
 #include "OGL4Shader.h"
 #include "OGL4Convert.h"
+#include "OGL4Buffer.h"
+#include <algorithm>
 
 namespace ld3d
 {
@@ -16,6 +18,12 @@ namespace ld3d
 	}
 	void OGL4ShaderProgram::Release()
 	{
+		for(auto v : m_uniformBlocks)
+		{
+			v.pBuffer->Release();
+		}
+		m_uniformBlocks.clear();
+
 		for(auto v : m_shaders)
 		{
 			glDetachShader(m_program, ((OGL4Shader*)v.get())->GetShaderObject());
@@ -48,7 +56,34 @@ namespace ld3d
 		
 		return true;
 	}
-	
+	void OGL4ShaderProgram::CollectUniformBlocks()
+	{
+		GLint count = 0;
+		glGetProgramiv(m_program, GL_ACTIVE_UNIFORM_BLOCKS, &count);
+
+		for(int i = 0; i < count; ++i)
+		{
+			char szName[1024];
+			glGetActiveUniformBlockName(m_program, i, 1024, 0, szName);
+
+			GLint bytes = 0;
+			glGetActiveUniformBlockiv(m_program, i, GL_UNIFORM_BLOCK_DATA_SIZE, &bytes);
+			
+			OGL4BufferPtr pBuffer = std::make_shared<OGL4Buffer>();
+			if(pBuffer->Create(BT_CONSTANT_BUFFER, bytes, nullptr, true) == false)
+			{
+				pBuffer->Release();
+				pBuffer.reset();
+				continue;
+			}
+			UniformBlock block;
+			block.index = i;
+			block.name = szName;
+			block.pBuffer = pBuffer;
+
+			m_uniformBlocks.push_back(block);
+		}
+	}
 	bool OGL4ShaderProgram::Link()
 	{
 		glLinkProgram(m_program);
@@ -65,6 +100,9 @@ namespace ld3d
 			return false;
 		}
 
+
+		CollectUniformBlocks();
+
 		return true;
 	}
 	bool OGL4ShaderProgram::Create()
@@ -75,6 +113,8 @@ namespace ld3d
 	void OGL4ShaderProgram::Use()
 	{
 		glUseProgram(m_program);
+
+		BindUniformBlocks();
 	}
 	bool OGL4ShaderProgram::Validate()
 	{
@@ -92,5 +132,81 @@ namespace ld3d
 			return false;
 		}
 		return true;
+	}
+	
+	OGL4ShaderProgram::ParameterID	OGL4ShaderProgram::FindParameterByName(const char* szName)
+	{
+		return glGetUniformLocation(m_program, szName);
+	}
+	OGL4ShaderProgram::ParameterID	OGL4ShaderProgram::FindParameterBlockByName(const char* szName)
+	{
+		for(uint64 i = 0; i < m_uniformBlocks.size(); ++i)
+		{
+			if(m_uniformBlocks[i].name == szName)
+			{
+				return i;
+			}
+		}
+		
+		return -1;
+	}
+	void OGL4ShaderProgram::BindUniformBlocks()
+	{
+		for(int i = 0; i < m_uniformBlocks.size(); ++i)
+		{
+			glBindBufferBase(GL_UNIFORM_BUFFER, i, m_uniformBlocks[i].pBuffer->GetBufferObject());
+			glUniformBlockBinding(m_program, m_uniformBlocks[i].index, i);
+		}
+	}
+	bool OGL4ShaderProgram::SetParameterBlock(ParameterID param, void* data, uint64 bytes)
+	{
+		if(param < 0 || param >= (int64)m_uniformBlocks.size())
+		{
+			return false;
+		}
+
+		if(m_uniformBlocks[param].pBuffer->GetBytes() < bytes)
+		{
+			return false;
+		}
+		void* pBuffer = m_uniformBlocks[param].pBuffer->Map(MAP_DEFAULT);
+		memcpy(pBuffer, data, bytes);
+		m_uniformBlocks[param].pBuffer->Unmap();
+
+		return true;
+
+	}
+	void OGL4ShaderProgram::SetParameterMatrix(ParameterID param, const math::Matrix44& value)
+	{
+		glProgramUniformMatrix4fv(m_program, (GLint)param, 1, false, value.m);
+	}
+	void OGL4ShaderProgram::SetParameterFloat(ParameterID param, float value)
+	{
+		glProgramUniform1f(m_program, (GLint)param, value);
+	}
+	void OGL4ShaderProgram::SetParameterInt(ParameterID param, int32 value)
+	{
+		glProgramUniform1i(m_program, (GLint)param, value);
+	}
+	void OGL4ShaderProgram::SetParameterUInt(ParameterID param, uint32 value)
+	{
+		glProgramUniform1ui(m_program, (GLint)param, value);
+	}
+	void OGL4ShaderProgram::SetParameterBool(ParameterID param, bool value)
+	{
+		glProgramUniform1ui(m_program, (GLint)param, (uint32)value);
+	}
+
+	void OGL4ShaderProgram::SetParameterVector(ParameterID param, const math::Vector2& value)
+	{
+		glProgramUniform2fv(m_program, (GLint)param, 1, value.v);
+	}
+	void OGL4ShaderProgram::SetParameterVector(ParameterID param, const math::Vector3& value)
+	{
+		glProgramUniform3fv(m_program, (GLint)param, 1, value.v);
+	}
+	void OGL4ShaderProgram::SetParameterVector(ParameterID param, const math::Vector4& value)
+	{
+		glProgramUniform4fv(m_program, (GLint)param, 1, value.v);
 	}
 }

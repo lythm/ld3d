@@ -149,6 +149,37 @@ namespace ld3d
 		LOAD_API(glGetShaderiv,											PFNGLGETSHADERIVPROC);
 		LOAD_API(glGetShaderInfoLog,									PFNGLGETSHADERINFOLOGPROC);
 
+		LOAD_API(glBindBufferRange,										PFNGLBINDBUFFERRANGEPROC);
+		LOAD_API(glBindBufferBase,										PFNGLBINDBUFFERBASEPROC);
+
+		LOAD_API(glGetUniformBlockIndex,								PFNGLGETUNIFORMBLOCKINDEXPROC);
+		LOAD_API(glUniformBlockBinding,									PFNGLUNIFORMBLOCKBINDINGPROC);
+
+		LOAD_API(glGetActiveUniformBlockiv,								PFNGLGETACTIVEUNIFORMBLOCKIVPROC);
+		LOAD_API(glGetActiveUniformBlockName,							PFNGLGETACTIVEUNIFORMBLOCKNAMEPROC);
+
+		LOAD_API(glGetActiveUniformsiv,									PFNGLGETACTIVEUNIFORMSIVPROC);
+		LOAD_API(glGetUniformLocation,									PFNGLGETUNIFORMLOCATIONPROC);
+
+
+		LOAD_API(glProgramUniform1f,									PFNGLPROGRAMUNIFORM1FPROC);
+		LOAD_API(glProgramUniform1i,									PFNGLPROGRAMUNIFORM1IPROC);
+		LOAD_API(glProgramUniform1ui,									PFNGLPROGRAMUNIFORM1UIPROC);
+
+		LOAD_API(glProgramUniform2fv,									PFNGLPROGRAMUNIFORM2FVPROC);
+		LOAD_API(glProgramUniform3fv,									PFNGLPROGRAMUNIFORM3FVPROC);
+		LOAD_API(glProgramUniform4fv,									PFNGLPROGRAMUNIFORM4FVPROC);
+
+		LOAD_API(glProgramUniform2iv,									PFNGLPROGRAMUNIFORM2IVPROC);
+		LOAD_API(glProgramUniform3iv,									PFNGLPROGRAMUNIFORM3IVPROC);
+		LOAD_API(glProgramUniform4iv,									PFNGLPROGRAMUNIFORM4IVPROC);
+
+		LOAD_API(glProgramUniform2uiv,									PFNGLPROGRAMUNIFORM2UIVPROC);
+		LOAD_API(glProgramUniform3uiv,									PFNGLPROGRAMUNIFORM3UIVPROC);
+		LOAD_API(glProgramUniform4uiv,									PFNGLPROGRAMUNIFORM4UIVPROC);
+
+		LOAD_API(glProgramUniformMatrix4fv,								PFNGLPROGRAMUNIFORMMATRIX4FVPROC);
+
 		return true;
 	}
 }

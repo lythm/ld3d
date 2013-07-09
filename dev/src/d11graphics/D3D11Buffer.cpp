@@ -14,6 +14,12 @@ namespace ld3d
 	D3D11Buffer::~D3D11Buffer(void)
 	{
 	}
+	uint64 D3D11Buffer::GetBytes() const
+	{
+		D3D11_BUFFER_DESC desc;
+		m_pBuffer->GetDesc(&desc);
+		return desc.ByteWidth;
+	}
 	ID3D11Buffer* D3D11Buffer::GetD3D11BufferInterface()
 	{
 		return m_pBuffer;

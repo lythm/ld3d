@@ -175,7 +175,6 @@
     <ClInclude Include="..\..\include\core\DataStream_File.h" />
     <ClInclude Include="..\..\include\core\DataStream_Mem.h" />
     <ClInclude Include="..\..\include\core\DepthStencilBuffer.h" />
-    <ClInclude Include="..\..\include\core\DepthStencilState.h" />
     <ClInclude Include="..\..\include\core\DirectionalLight.h" />
     <ClInclude Include="..\..\include\core\DT_CoreApi.h" />
     <ClInclude Include="..\..\include\core\Event.h" />
@@ -208,7 +207,6 @@
     <ClInclude Include="..\..\include\core\PostEffect_FinalCompose.h" />
     <ClInclude Include="..\..\include\core\PostEffect_GaussianBlur.h" />
     <ClInclude Include="..\..\include\core\PostEffect_SSAO.h" />
-    <ClInclude Include="..\..\include\core\RasterizerState.h" />
     <ClInclude Include="..\..\include\core\RenderTarget.h" />
     <ClInclude Include="..\..\include\core\PointLight.h" />
     <ClInclude Include="..\..\include\core\PoolAllocator.h" />

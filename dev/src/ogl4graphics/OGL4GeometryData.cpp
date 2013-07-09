@@ -27,12 +27,12 @@ namespace ld3d
 		if(m_pVertexBuffer)
 		{
 			m_pVertexBuffer->Release();
-			m_pVertexBuffer = nullptr;
+			m_pVertexBuffer.reset();
 		}
 		if(m_pIndexBuffer)
 		{
 			m_pIndexBuffer->Release();
-			m_pIndexBuffer = nullptr;
+			m_pIndexBuffer.reset();
 		}
 
 		glDeleteVertexArrays(1, &m_vao);

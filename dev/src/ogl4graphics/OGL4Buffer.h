@@ -13,7 +13,7 @@ namespace ld3d
 		void*											Map(MAP_HINT hint);
 		void											Unmap();
 		void											Release();
-
+		uint64											GetBytes() const;
 		GLuint											GetBufferObject();
 	private:
 		

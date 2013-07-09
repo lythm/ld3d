@@ -17,6 +17,8 @@ namespace ld3d
 		void											Unmap();
 		void											Release();
 
+		uint64											GetBytes() const;
+
 		ID3D11Buffer*									GetD3D11BufferInterface();
 
 	private:
