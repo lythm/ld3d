@@ -86,23 +86,20 @@ namespace ld3d
 		{
 			glGenBuffers(1, &m_pbo);
 			glBindBuffer(GL_PIXEL_UNPACK_BUFFER, m_pbo);
-			glBufferData(GL_PIXEL_UNPACK_BUFFER, m_pboBytes, nullptr, GL_STATIC_DRAW );
+			glBufferData(GL_PIXEL_UNPACK_BUFFER, m_pboBytes, nullptr, GL_DYNAMIC_DRAW );
 		}
 		else
 		{
 			glBindBuffer(GL_PIXEL_UNPACK_BUFFER, m_pbo);
 		}
 
-		return glMapBufferRange(GL_PIXEL_UNPACK_BUFFER, 0, m_pboBytes, GL_MAP_WRITE_BIT);
+		return glMapBufferRange(GL_PIXEL_UNPACK_BUFFER, 0, m_pboBytes, GL_MAP_WRITE_BIT | GL_MAP_INVALIDATE_BUFFER_BIT);
 
 	}
 	void OGL4Texture::UnMap()
 	{
 		glUnmapBuffer(GL_PIXEL_UNPACK_BUFFER);
-
-
-		glActiveTexture(GL_TEXTURE0);
-
+		
 		switch(m_type)
 		{
 		case TEX_1D:
@@ -113,6 +110,7 @@ namespace ld3d
 		case TEX_2D:
 			glBindTexture(GL_TEXTURE_2D, m_texture);
 			glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, m_width, m_height, TransferFormat(m_format), TransferType(m_format), 0);
+
 			glBindTexture(GL_TEXTURE_2D, 0);
 			break;
 		case TEX_3D:

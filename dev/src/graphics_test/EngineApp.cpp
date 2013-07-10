@@ -112,7 +112,9 @@ namespace ld3d
 		
 		
 		ShaderProgram::ParameterID param = m_pProgram->FindParameterByName("base");
-		m_pProgram->SetParameterTexture(param, m_pTex);
+		//m_pProgram->SetParameterTexture(param, m_pTex);
+
+		//Sleep(1000);
 		return true;
 	}
 	void EngineApp::OnRelease()
