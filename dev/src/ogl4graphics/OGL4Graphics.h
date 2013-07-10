@@ -23,7 +23,9 @@ namespace ld3d
 		
 		RenderTexture2Ptr						CreateRenderTexture(int w, int h, G_FORMAT format);
 		GPUBufferPtr							CreateBuffer(BUFFER_TYPE type, int bytes, void* pInitData, bool dynamic);
-		TexturePtr								CreateTexture(TEXTURE_TYPE type, G_FORMAT format, int w, int h);
+		Texture2Ptr								CreateTexture1D(G_FORMAT format, int l);
+		Texture2Ptr								CreateTexture2D(G_FORMAT format, int w, int h);
+		Texture2Ptr								CreateTexture3D(G_FORMAT format, int w, int h, int d);
 
 		ShaderProgramPtr						CreateShaderProgram();
 		GeometryDataPtr							CreateGeometryData();

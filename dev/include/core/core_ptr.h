@@ -76,6 +76,7 @@ namespace ld3d
 	class RenderTarget;
 	class RenderTarget2;
 	class Texture;
+	class Texture2;
 	class GPUBuffer;
 	class Camera;
 	class RenderState;
@@ -119,6 +120,7 @@ namespace ld3d
 	typedef std::shared_ptr<RenderData>						RenderDataPtr;
 	typedef std::shared_ptr<GPUBuffer>						GPUBufferPtr;
 	typedef std::shared_ptr<Texture>						TexturePtr;
+	typedef std::shared_ptr<Texture2>						Texture2Ptr;
 	
 
 	class CoreApi;

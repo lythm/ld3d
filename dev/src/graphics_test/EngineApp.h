@@ -86,6 +86,8 @@ namespace ld3d
 		void											OnRelease();
 
 
+		GeometryDataPtr									CreateCube(float size);
+
 	private:
 		
 		void											ShowFPS();
@@ -99,6 +101,8 @@ namespace ld3d
 		GeometryDataPtr									m_pGeometry;
 
 		ShaderProgramPtr								m_pProgram;
+
+		Texture2Ptr										m_pTex;
 	};
 
 

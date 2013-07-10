@@ -6,7 +6,11 @@ namespace ld3d
 {
 	class OGL4ShaderProgram : public ShaderProgram
 	{
-
+		struct TextureLink
+		{
+			GLuint											index;
+			Texture2Ptr										pTex;
+		};
 		struct UniformBlock
 		{
 			OGL4BufferPtr									pBuffer;
@@ -43,7 +47,7 @@ namespace ld3d
 		void												SetParameterVector(ParameterID param, const math::Vector2& value);
 		void												SetParameterVector(ParameterID param, const math::Vector3& value);
 		void												SetParameterVector(ParameterID param, const math::Vector4& value);
-
+		void												SetParameterTexture(ParameterID param, Texture2Ptr pTex);
 		bool												Create();
 		void												Use();
 
@@ -51,6 +55,7 @@ namespace ld3d
 	private:
 		void												CollectUniformBlocks();
 		void												BindUniformBlocks();
+		void												BindTextures();
 	private:
 		GLuint												m_program;
 
@@ -58,6 +63,8 @@ namespace ld3d
 		std::vector<ShaderPtr>								m_shaders;
 
 		std::vector<UniformBlock>							m_uniformBlocks;
+
+		std::vector<TextureLink>							m_texLinks;
 	};
 
 }

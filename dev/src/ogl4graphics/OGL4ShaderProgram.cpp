@@ -4,7 +4,7 @@
 #include "OGL4Convert.h"
 #include "OGL4Buffer.h"
 #include <algorithm>
-
+#include "OGL4Texture.h"
 #include "OGL4ShaderCompiler.h"
 
 namespace ld3d
@@ -117,6 +117,7 @@ namespace ld3d
 		glUseProgram(m_program);
 
 		BindUniformBlocks();
+		BindTextures();
 	}
 	bool OGL4ShaderProgram::Validate()
 	{
@@ -176,7 +177,6 @@ namespace ld3d
 		m_uniformBlocks[param].pBuffer->Unmap();
 
 		return true;
-
 	}
 	void OGL4ShaderProgram::SetParameterMatrix(ParameterID param, const math::Matrix44& value)
 	{
@@ -210,5 +210,42 @@ namespace ld3d
 	void OGL4ShaderProgram::SetParameterVector(ParameterID param, const math::Vector4& value)
 	{
 		glProgramUniform4fv(m_program, (GLint)param, 1, value.v);
+	}
+	void OGL4ShaderProgram::SetParameterTexture(ParameterID param, Texture2Ptr pTex)
+	{
+		for(auto v : m_texLinks)
+		{
+			if(v.index == param)
+			{
+				v.pTex = pTex;
+				return;
+			}
+		}
+
+		TextureLink link;
+		link.index = (GLuint)param;
+		link.pTex = pTex;
+
+		m_texLinks.push_back(link);
+	}
+	void OGL4ShaderProgram::BindTextures()
+	{
+		int slot = 0;
+		for(auto v : m_texLinks)
+		{
+			if(v.pTex == nullptr)
+			{
+				continue;
+			}
+
+			glActiveTexture(GL_TEXTURE0 + slot);
+			
+			OGL4Texture* pGLTex = (OGL4Texture*)v.pTex.get();
+
+			GLenum target = OGL4Convert::TexTypeToGLTarget(pGLTex->GetType());
+			glBindTexture(target, pGLTex->GetTextureObject());
+
+			glProgramUniform1i(m_program, v.index, slot);
+		}
 	}
 }

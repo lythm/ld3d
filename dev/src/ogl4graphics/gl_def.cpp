@@ -37,8 +37,10 @@ PFNGLGETDEBUGMESSAGELOGPROC							glGetDebugMessageLog							= nullptr;
 PFNGLTEXIMAGE3DPROC									glTexImage3D									= nullptr;
 PFNGLGENERATEMIPMAPPROC								glGenerateMipmap								= nullptr;
 PFNGLACTIVETEXTUREPROC								glActiveTexture									= nullptr;
-
-
+PFNGLTEXSTORAGE1DPROC								glTexStorage1D									= nullptr;
+PFNGLTEXSTORAGE2DPROC								glTexStorage2D									= nullptr;
+PFNGLTEXSTORAGE3DPROC								glTexStorage3D									= nullptr;
+PFNGLTEXSUBIMAGE3DPROC								glTexSubImage3D									= nullptr;
 
 
 // VAO

@@ -24,7 +24,7 @@ namespace ld3d
 		{
 			return false;
 		}
-		
+
 		if(false == load_extension_info())
 		{
 			return false;
@@ -107,7 +107,7 @@ namespace ld3d
 		LOAD_API(glUnmapBuffer,											PFNGLUNMAPBUFFERPROC);
 		LOAD_API(glDeleteBuffers,										PFNGLDELETEBUFFERSPROC);
 		LOAD_API(glBindVertexBuffer,									PFNGLBINDVERTEXBUFFERPROC);
-		
+
 		LOAD_API(glVertexAttribPointer,									PFNGLVERTEXATTRIBPOINTERPROC);
 
 
@@ -179,6 +179,12 @@ namespace ld3d
 		LOAD_API(glProgramUniform4uiv,									PFNGLPROGRAMUNIFORM4UIVPROC);
 
 		LOAD_API(glProgramUniformMatrix4fv,								PFNGLPROGRAMUNIFORMMATRIX4FVPROC);
+
+		LOAD_API(glTexStorage1D,										PFNGLTEXSTORAGE1DPROC);
+		LOAD_API(glTexStorage2D,										PFNGLTEXSTORAGE2DPROC);
+		LOAD_API(glTexStorage3D,										PFNGLTEXSTORAGE3DPROC);
+
+		LOAD_API(glTexSubImage3D,										PFNGLTEXSUBIMAGE3DPROC);
 
 		return true;
 	}

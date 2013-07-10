@@ -265,18 +265,7 @@ namespace ld3d
 	{
 		return TexturePtr();
 	}
-	TexturePtr OGL4Graphics::CreateTexture(TEXTURE_TYPE type, G_FORMAT format, int w, int h)
-	{
-		OGL4TexturePtr pTex = std::make_shared<OGL4Texture>();
-		if(pTex->Create(type, format, w, h) == false)
-		{
-			pTex->Release();
-			pTex.reset();
-		}
-		return pTex;
-	}
-
-
+	
 	DepthStencilBufferPtr OGL4Graphics::CreateDepthStencilBuffer(int w, int h, G_FORMAT format)
 	{
 		return DepthStencilBufferPtr();
@@ -383,5 +372,36 @@ namespace ld3d
 	void OGL4Graphics::SetDepthStencilBuffer(DepthStencilBufferPtr pBuffer)
 	{
 
+	}
+	Texture2Ptr OGL4Graphics::CreateTexture1D(G_FORMAT format, int l)
+	{
+		OGL4TexturePtr pTex = std::make_shared<OGL4Texture>();
+		if(pTex->Create1D(format, l) == false)
+		{
+			pTex->Release();
+			pTex.reset();
+		}
+		return pTex;
+
+	}
+	Texture2Ptr OGL4Graphics::CreateTexture2D(G_FORMAT format, int w, int h)
+	{
+		OGL4TexturePtr pTex = std::make_shared<OGL4Texture>();
+		if(pTex->Create2D(format, w, h) == false)
+		{
+			pTex->Release();
+			pTex.reset();
+		}
+		return pTex;
+	}
+	Texture2Ptr OGL4Graphics::CreateTexture3D(G_FORMAT format, int w, int h, int d)
+	{
+		OGL4TexturePtr pTex = std::make_shared<OGL4Texture>();
+		if(pTex->Create3D(format, w, h, d) == false)
+		{
+			pTex->Release();
+			pTex.reset();
+		}
+		return pTex;
 	}
 }

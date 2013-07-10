@@ -46,6 +46,10 @@ extern PFNGLDELETEVERTEXARRAYSPROC						glDeleteVertexArrays;
 extern PFNGLTEXIMAGE3DPROC								glTexImage3D;
 extern PFNGLGENERATEMIPMAPPROC							glGenerateMipmap;
 extern PFNGLACTIVETEXTUREPROC							glActiveTexture;
+extern PFNGLTEXSTORAGE1DPROC							glTexStorage1D;
+extern PFNGLTEXSTORAGE2DPROC							glTexStorage2D;
+extern PFNGLTEXSTORAGE3DPROC							glTexStorage3D;
+extern PFNGLTEXSUBIMAGE3DPROC							glTexSubImage3D;
 
 
 
