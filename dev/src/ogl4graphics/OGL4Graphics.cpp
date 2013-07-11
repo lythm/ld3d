@@ -190,6 +190,8 @@ namespace ld3d
 		_ENABLE_GL_DEBUG_;
 
 
+		glEnable(GL_DEPTH_TEST);
+
 		return true;
 	}
 	void OGL4Graphics::Release()
@@ -261,9 +263,15 @@ namespace ld3d
 		return MaterialPtr();
 	}
 
-	TexturePtr OGL4Graphics::CreateTextureFromFile(const char* szFile)
+	Texture2Ptr OGL4Graphics::CreateTextureFromFile(const char* szFile)
 	{
-		return TexturePtr();
+		OGL4TexturePtr pTex = std::make_shared<OGL4Texture>();
+
+		if(pTex->CreateFromFile(szFile) == false)
+		{
+			return Texture2Ptr();
+		}
+		return pTex;
 	}
 	
 	DepthStencilBufferPtr OGL4Graphics::CreateDepthStencilBuffer(int w, int h, G_FORMAT format)

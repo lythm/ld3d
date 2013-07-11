@@ -99,9 +99,9 @@ namespace ld3d
 		
 		uint32* initData = new uint32[1024 * 1024];
 
-		memset(initData, 100, 1024 * 1024 * sizeof(uint32));
+		memset(initData, 255, 1024 * 1024 * sizeof(uint32));
 
-		m_pTex = m_pGraphics->CreateTexture2D(G_FORMAT_R8G8B8A8_UNORM, 1204 , 1024);
+		m_pTex = m_pGraphics->CreateTexture2D(G_FORMAT_R8G8B8A8_UNORM, 1024 , 1024);
 
 		void* data = m_pTex->Map();
 
@@ -110,9 +110,10 @@ namespace ld3d
 
 		m_pTex->UnMap();
 		
+		//m_pTex = m_pGraphics->CreateTextureFromFile("./assets/standard/texture/15.png");
 		
 		ShaderProgram::ParameterID param = m_pProgram->FindParameterByName("base");
-		//m_pProgram->SetParameterTexture(param, m_pTex);
+		m_pProgram->SetParameterTexture(param, m_pTex);
 
 		//Sleep(1000);
 		return true;

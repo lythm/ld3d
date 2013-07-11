@@ -13,10 +13,10 @@
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
-      <AdditionalIncludeDirectories>..\..\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\include;..\..\external\include\;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>..\..\lib\$(PlatformTarget)\</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\lib\$(PlatformTarget)\;..\..\external\lib</AdditionalLibraryDirectories>
       <ImportLibrary>..\..\lib\$(PlatformTarget)\$(Projectname).lib</ImportLibrary>
     </Link>
   </ItemDefinitionGroup>

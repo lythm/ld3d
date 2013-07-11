@@ -4,6 +4,7 @@
 
 namespace ld3d
 {
+
 	OGL4Texture::OGL4Texture(void)
 	{
 		m_pbo					= 0;
@@ -350,5 +351,25 @@ namespace ld3d
 	GLuint OGL4Texture::GetTextureObject()
 	{
 		return m_texture;
+	}
+	bool OGL4Texture::CreateFromFile(const char* szFile)
+	{
+		m_texture = SOIL_load_OGL_texture(szFile, SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_MIPMAPS);
+
+		if(m_texture == 0)
+			return false;
+
+		// todo
+		/*m_width = w;
+		m_height = h;
+		m_type = TEX_3D;;
+		m_depth = d;
+
+		m_format = OGL4Convert::TextureFormatToGL(format);
+
+		m_pboBytes = FormatSize(m_format) * m_width * m_height * m_depth;*/
+
+
+		return true;
 	}
 }

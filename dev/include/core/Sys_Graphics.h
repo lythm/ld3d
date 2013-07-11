@@ -138,6 +138,8 @@ namespace ld3d
 		virtual Texture2Ptr								CreateTexture1D(G_FORMAT format, int l)											= 0;
 		virtual Texture2Ptr								CreateTexture2D(G_FORMAT format, int w, int h)									= 0;
 		virtual Texture2Ptr								CreateTexture3D(G_FORMAT format, int w, int h, int d)							= 0;
+
+		virtual Texture2Ptr								CreateTextureFromFile(const char* szFile)										= 0;
 		/////////////////////////////////////////////////////////////////
 
 
@@ -146,7 +148,7 @@ namespace ld3d
 
 		virtual MaterialPtr								CreateMaterialFromFile(const char* szFile)										= 0;
 		
-		virtual TexturePtr								CreateTextureFromFile(const char* szFile)										= 0;
+		
 
 		virtual DepthStencilBufferPtr					CreateDepthStencilBuffer(int w, 
 																	int h, 

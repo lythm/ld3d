@@ -38,12 +38,15 @@ namespace ld3d
 
 		void									SetRenderTargets(const std::vector<RenderTarget2Ptr>& targets);
 		void									SetDepthStencilBuffer(DepthStencilBufferPtr pBuffer);
+
+		Texture2Ptr								CreateTextureFromFile(const char* szFile);
+
 		//////////////////////////
 
 
 		MaterialPtr								CreateMaterialFromFile(const char* szFile);
 
-		TexturePtr								CreateTextureFromFile(const char* szFile);
+		
 
 		DepthStencilBufferPtr					CreateDepthStencilBuffer(int w, int h, G_FORMAT format);
 

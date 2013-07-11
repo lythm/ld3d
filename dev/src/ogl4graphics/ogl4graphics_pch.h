@@ -18,6 +18,10 @@
 #include "gl_def.h"
 
 
+
+#include "soil/soil.h"
+
+
 namespace ld3d
 {
 	class OGL4Buffer;

@@ -19,6 +19,7 @@ namespace ld3d
 		bool										Create2D(G_FORMAT format, int w, int h);
 		bool										Create3D(G_FORMAT format, int w, int h, int d);
 
+		bool										CreateFromFile(const char* szFile);
 
 		void*										Map();
 		void										UnMap();
