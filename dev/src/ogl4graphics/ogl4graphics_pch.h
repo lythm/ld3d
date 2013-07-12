@@ -34,8 +34,10 @@ namespace ld3d
 	class OGL4GeometryData;
 	class OGL4RenderState;
 	class OGL4Sampler;
+	class OGL4DepthStencilBuffer;
 
 
+	typedef std::shared_ptr<OGL4DepthStencilBuffer>							OGL4DepthStencilBufferPtr;
 	typedef std::shared_ptr<OGL4Sampler>									OGL4SamplerPtr;
 
 	typedef std::shared_ptr<OGL4RenderState>								OGL4RenderStatePtr;

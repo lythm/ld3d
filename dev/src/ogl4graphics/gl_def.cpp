@@ -105,5 +105,17 @@ PFNGLPROGRAMUNIFORM4UIVPROC							glProgramUniform4uiv							= nullptr;
 
 PFNGLPROGRAMUNIFORMMATRIX4FVPROC					glProgramUniformMatrix4fv						= nullptr;
 
+
+
+// render buffer
+
+PFNGLGENRENDERBUFFERSPROC							glGenRenderbuffers								= nullptr;
+PFNGLDELETERENDERBUFFERSPROC						glDeleteRenderbuffers							= nullptr;
+PFNGLRENDERBUFFERSTORAGEPROC						glRenderbufferStorage							= nullptr;
+PFNGLBINDRENDERBUFFERPROC							glBindRenderbuffer								= nullptr;
+
+
+
+
 // wgl
 PFNWGLSWAPINTERVALEXTPROC							wglSwapIntervalEXT								= nullptr;

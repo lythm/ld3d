@@ -1,34 +1,46 @@
 #include "ogl4graphics_pch.h"
 #include "OGL4RenderTexture.h"
+#include "OGL4Texture.h"
 
 namespace ld3d
 {
 	OGL4RenderTexture::OGL4RenderTexture(void)
 	{
+		m_fbo = 0;
 	}
 
 
 	OGL4RenderTexture::~OGL4RenderTexture(void)
 	{
 	}
-	bool OGL4RenderTexture::Create(int w, int h, G_FORMAT format)
+	bool OGL4RenderTexture::Create()
 	{
 		return true;
 	}
 	void OGL4RenderTexture::Release()
 	{
+		m_texs.clear();
 	}
 		
-	int OGL4RenderTexture::GetWidth()
+	int	OGL4RenderTexture::GetTextureCount()
 	{
-		return 0;
+		return (int)m_texs.size();
 	}
-	int OGL4RenderTexture::GetHeight()
+	void OGL4RenderTexture::AddTexture(Texture2Ptr pTex)
 	{
-		return 0;
+		m_texs.push_back(pTex);
 	}
-	TexturePtr OGL4RenderTexture::AsTexture()
+
+	Texture2Ptr OGL4RenderTexture::GetTexture(int index)
 	{
-		return TexturePtr();
+		return m_texs[index];
+	}
+	void OGL4RenderTexture::SetDepthStencilBuffer(DepthStencilBufferPtr pDS)
+	{
+		m_pDS = pDS;
+	}
+	DepthStencilBufferPtr OGL4RenderTexture::GetDepthStencilBuffer()
+	{
+		return m_pDS;
 	}
 }

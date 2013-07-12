@@ -118,12 +118,15 @@ namespace ld3d
 
 		m_pSampler->SetAddressMode(SamplerState::AM_BORDER, SamplerState::AM_BORDER, SamplerState::AM_BORDER);
 		m_pSampler->SetBorderColor(math::Color4(1, 0, 0, 1));
-		
+		m_pSampler->SetFilter(SamplerState::FILTER_ANISOTROPIC);
+
 		m_pTex->SetSampler(m_pSampler);
 
 		ShaderProgram::ParameterID param = m_pProgram->FindParameterByName("base");
 		m_pProgram->SetParameterTexture(param, m_pTex);
 
+
+		DepthStencilBufferPtr pDS = m_pGraphics->CreateDepthStencilBuffer(G_FORMAT_D32_FLOAT_S8X24_UINT, 800, 600);
 		//Sleep(1000);
 		return true;
 	}
@@ -215,7 +218,7 @@ namespace ld3d
 			{math::Vector3(size, -size, size), math::Vector3(1, 0, 0), math::Vector2(0, 1),},
 		};
 
-		uint16 pIndice[] = 
+		uint32 pIndice[] = 
 		{
 			// front
 			0, 1, 2,
@@ -244,9 +247,6 @@ namespace ld3d
 
 		};
 
-		GPUBufferPtr pVB = m_pGraphics->CreateBuffer(BT_VERTEX_BUFFER, sizeof(Vertex) * 24, pVerts, false);
-		GPUBufferPtr pIB = m_pGraphics->CreateBuffer(BT_INDEX_BUFFER, sizeof(uint16) * 36, pIndice, false);
-
 		GeometryDataPtr pGeom = m_pGraphics->CreateGeometryData();
 
 		VertexLayout layout;
@@ -256,8 +256,8 @@ namespace ld3d
 
 		pGeom->BeginGeometry(PT_TRIANGLE_LIST);
 		{
-			pGeom->AttachIndexBuffer(pIB, G_FORMAT_R16_UINT);
-			pGeom->AttachVertexBuffer(pVB, layout);
+			pGeom->AllocIndexBuffer(sizeof(uint32) * 36, pIndice, false, G_FORMAT_R32_UINT);
+			pGeom->AllocVertexBuffer(sizeof(Vertex) * 24, pVerts, false, layout);
 		}
 		pGeom->EndGeometry();
 

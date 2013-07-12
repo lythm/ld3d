@@ -35,5 +35,9 @@ namespace ld3d
 		virtual void										SetSampler(SamplerStatePtr pSampler)	= 0;
 		virtual SamplerStatePtr								GetSampler()							= 0;	
 
+		virtual int											GetWidth() const						= 0;
+		virtual int											GetHeight() const						= 0;
+		virtual int											GetDepth() const						= 0;
+
 	};
 }

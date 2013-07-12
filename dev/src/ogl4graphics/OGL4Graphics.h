@@ -21,11 +21,11 @@ namespace ld3d
 		void									Release();
 		RenderWindow2Ptr						CreateRenderWindow(void* handle, int w, int h, G_FORMAT color_format, G_FORMAT ds_format, int backbufferCount, int multiSampleCount, int multiSampleQuality, bool windowed);
 		
-		RenderTexture2Ptr						CreateRenderTexture(int w, int h, G_FORMAT format);
+		RenderTexture2Ptr						CreateRenderTexture();
 		GPUBufferPtr							CreateBuffer(BUFFER_TYPE type, int bytes, void* pInitData, bool dynamic);
-		Texture2Ptr								CreateTexture1D(G_FORMAT format, int l, bool dynamic);
-		Texture2Ptr								CreateTexture2D(G_FORMAT format, int w, int h, bool dynamic);
-		Texture2Ptr								CreateTexture3D(G_FORMAT format, int w, int h, int d, bool dynamic);
+		Texture2Ptr								CreateTexture1D(G_FORMAT format, int l, int lvls, bool dynamic);
+		Texture2Ptr								CreateTexture2D(G_FORMAT format, int w, int h, int lvls, bool dynamic);
+		Texture2Ptr								CreateTexture3D(G_FORMAT format, int w, int h, int d, int lvls, bool dynamic);
 		Texture2Ptr								CreateTextureFromFile(const char* szFile, bool dynamic);
 
 		ShaderProgramPtr						CreateShaderProgram();
@@ -37,20 +37,20 @@ namespace ld3d
 
 		void									SetViewPort(int x, int y, int w, int h);
 
-		void									SetRenderTargets(const std::vector<RenderTarget2Ptr>& targets);
+		void									SetRenderTarget(RenderTarget2Ptr pTarget);
 		void									SetDepthStencilBuffer(DepthStencilBufferPtr pBuffer);
 
 		SamplerStatePtr							CreateSampler();
 
+
+		DepthStencilBufferPtr					CreateDepthStencilBuffer(G_FORMAT format, int w, int h);
+		
 		//////////////////////////
 
 
 		MaterialPtr								CreateMaterialFromFile(const char* szFile);
 
 		
-
-		DepthStencilBufferPtr					CreateDepthStencilBuffer(int w, int h, G_FORMAT format);
-
 		void									ResizeFrameBuffer(int cx, int cy);
 
 		RenderStatePtr							CreateRenderState();
@@ -69,5 +69,7 @@ namespace ld3d
 		OGL4LoaderPtr							m_pLoader;
 
 		OGL4RenderWindowPtr						m_pMainRW;
+
+		OGL4RenderWindowPtr						m_pCurrentRW;
 	};
 }

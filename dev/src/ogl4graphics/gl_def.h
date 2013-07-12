@@ -106,6 +106,12 @@ extern PFNGLPROGRAMUNIFORM4UIVPROC						glProgramUniform4uiv;
 
 
 
+// render buffer
+extern PFNGLGENRENDERBUFFERSPROC						glGenRenderbuffers;
+extern PFNGLDELETERENDERBUFFERSPROC						glDeleteRenderbuffers;
+extern PFNGLRENDERBUFFERSTORAGEPROC						glRenderbufferStorage;
+extern PFNGLBINDRENDERBUFFERPROC						glBindRenderbuffer;
+
 
 
 

@@ -15,6 +15,8 @@ namespace ld3d
 		m_format				= GL_INVALID_ENUM;
 
 		m_bDynamic				= false;
+
+		m_lvls					= 1;
 	}
 
 
@@ -32,14 +34,15 @@ namespace ld3d
 		glDeleteTextures(1, &m_texture);
 		m_texture = 0;
 	}
-	bool OGL4Texture::Create1D(G_FORMAT format, int l, bool dynamic)
+	bool OGL4Texture::Create1D(G_FORMAT format, int l, int lvls, bool dynamic)
 	{
+		m_lvls = lvls;
 		m_bDynamic = dynamic;
 		glGenTextures(1, &m_texture);
 
 		glBindTexture(GL_TEXTURE_1D, m_texture);
 
-		glTexStorage1D(GL_TEXTURE_1D, 1, OGL4Convert::TextureFormatToGL(format), l);
+		glTexStorage1D(GL_TEXTURE_1D, lvls, OGL4Convert::TextureFormatToGL(format), l);
 
 		m_width = l;
 		m_type = TEX_1D;
@@ -49,14 +52,15 @@ namespace ld3d
 		m_pboBytes = FormatSize(m_format) * m_width;
 		return true;
 	}
-	bool OGL4Texture::Create2D(G_FORMAT format, int w, int h, bool dynamic)
+	bool OGL4Texture::Create2D(G_FORMAT format, int w, int h, int lvls, bool dynamic)
 	{
+		m_lvls = lvls;
 		m_bDynamic = dynamic;
 
 		glGenTextures(1, &m_texture);
 
 		glBindTexture(GL_TEXTURE_2D, m_texture);
-		glTexStorage2D(GL_TEXTURE_2D, 1, OGL4Convert::TextureFormatToGL(format), w, h);
+		glTexStorage2D(GL_TEXTURE_2D, lvls, OGL4Convert::TextureFormatToGL(format), w, h);
 
 		m_width = w;
 		m_height = h;
@@ -68,14 +72,15 @@ namespace ld3d
 		return true;
 	}
 
-	bool OGL4Texture::Create3D(G_FORMAT format, int w, int h, int d, bool dynamic)
+	bool OGL4Texture::Create3D(G_FORMAT format, int w, int h, int d, int lvls, bool dynamic)
 	{
+		m_lvls = lvls;
 		m_bDynamic = dynamic;
 
 		glGenTextures(1, &m_texture);
 
 		glBindTexture(GL_TEXTURE_3D, m_texture);
-		glTexStorage3D(GL_TEXTURE_3D, 1, OGL4Convert::TextureFormatToGL(format), w, h, d);
+		glTexStorage3D(GL_TEXTURE_3D, lvls, OGL4Convert::TextureFormatToGL(format), w, h, d);
 
 		m_width = w;
 		m_height = h;
@@ -371,11 +376,10 @@ namespace ld3d
 
 		
 		m_type = TEX_2D;
-
-
-
+		
 		// todo
 		/*m_width = w;
+		m_lvls = 1;
 		m_height = h;
 		m_depth = d;
 
@@ -394,5 +398,17 @@ namespace ld3d
 	SamplerStatePtr OGL4Texture::GetSampler()
 	{
 		return m_pSampler;
+	}
+	int  OGL4Texture::GetWidth() const
+	{
+		return m_width;
+	}
+	int  OGL4Texture::GetHeight() const
+	{
+		return m_height;
+	}
+	int	 OGL4Texture::GetDepth() const
+	{
+		return m_depth;
 	}
 }

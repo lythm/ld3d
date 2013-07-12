@@ -18,6 +18,8 @@ namespace ld3d
 
 		void													BeginGeometry(PRIMITIVE_TYPE prim);
 
+		bool													AllocVertexBuffer(uint32 bytes, void* initData, bool dynamic, const VertexLayout& layout);
+		bool													AllocIndexBuffer(uint32 bytes, void* initData, bool dynamic, G_FORMAT format);
 		void													AttachVertexBuffer(GPUBufferPtr pBuffer, const VertexLayout& layout);
 		void													AttachIndexBuffer(GPUBufferPtr pBuffer, G_FORMAT format);
 		

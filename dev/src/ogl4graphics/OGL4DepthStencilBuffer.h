@@ -12,11 +12,10 @@ namespace ld3d
 
 		void							Release();
 
-		bool							Create();
+		bool							Create(G_FORMAT format, int w, int h);
 
+		GLuint							GetDepthStencilBufferObject();
 	private:
 		GLuint							m_buffer;
 	};
-
-
 }

@@ -145,4 +145,26 @@ namespace ld3d
 	{
 		return m_primType;
 	}
+	bool OGL4GeometryData::AllocVertexBuffer(uint32 bytes, void* initData, bool dynamic, const VertexLayout& layout)
+	{
+		OGL4BufferPtr pBuffer = std::make_shared<OGL4Buffer>();
+		if(pBuffer->Create(BT_VERTEX_BUFFER, bytes, initData, dynamic) == false)
+		{
+			return false;
+		}
+		AttachVertexBuffer(pBuffer, layout);
+
+		return true;
+	}
+	bool OGL4GeometryData::AllocIndexBuffer(uint32 bytes, void* initData, bool dynamic, G_FORMAT format)
+	{
+		OGL4BufferPtr pBuffer = std::make_shared<OGL4Buffer>();
+		if(pBuffer->Create(BT_INDEX_BUFFER, bytes, initData, dynamic) == false)
+		{
+			return false;
+		}
+
+		AttachIndexBuffer(pBuffer, format);
+		return true;
+	}
 }

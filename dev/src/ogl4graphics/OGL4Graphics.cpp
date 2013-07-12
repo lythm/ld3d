@@ -13,6 +13,7 @@
 #include "OGL4RenderState.h"
 #include <sstream>
 #include "OGL4Sampler.h"
+#include "OGL4DepthStencilBuffer.h"
 
 namespace ld3d
 {
@@ -193,6 +194,8 @@ namespace ld3d
 
 		glEnable(GL_DEPTH_TEST);
 
+		m_pCurrentRW = m_pMainRW;
+
 		return true;
 	}
 	void OGL4Graphics::Release()
@@ -274,10 +277,17 @@ namespace ld3d
 		}
 		return pTex;
 	}
-	
-	DepthStencilBufferPtr OGL4Graphics::CreateDepthStencilBuffer(int w, int h, G_FORMAT format)
+
+	DepthStencilBufferPtr OGL4Graphics::CreateDepthStencilBuffer(G_FORMAT format, int w, int h)
 	{
-		return DepthStencilBufferPtr();
+		OGL4DepthStencilBufferPtr pDS = std::make_shared<OGL4DepthStencilBuffer>();
+		if(false == pDS->Create(format, w, h))
+		{
+			pDS->Release();
+			pDS.reset();
+		}
+
+		return pDS;
 	}
 
 	void OGL4Graphics::ResizeFrameBuffer(int cx, int cy)
@@ -327,11 +337,11 @@ namespace ld3d
 		glViewport(x, y, w, h);
 	}
 
-	RenderTexture2Ptr OGL4Graphics::CreateRenderTexture(int w, int h, G_FORMAT format)
+	RenderTexture2Ptr OGL4Graphics::CreateRenderTexture()
 	{
 		OGL4RenderTexturePtr pRT = std::make_shared<OGL4RenderTexture>();
 
-		if(pRT->Create(w, h, format) == false)
+		if(pRT->Create() == false)
 		{
 			pRT->Release();
 			pRT.reset();
@@ -374,18 +384,35 @@ namespace ld3d
 
 		((OGL4ShaderProgram*)pProg.get())->Use();
 	}
-	void OGL4Graphics::SetRenderTargets(const std::vector<RenderTarget2Ptr>& targets)
+	void OGL4Graphics::SetRenderTarget(RenderTarget2Ptr pTarget)
 	{
+		if(pTarget && pTarget->GetType() == RenderTarget2::RENDER_WINDOW)
+		{
+			m_pCurrentRW = std::dynamic_pointer_cast<OGL4RenderWindow>(pTarget);
+			m_pCurrentRW->MakeCurrent();
+
+			return;
+		}
+
+		m_pCurrentRW = m_pMainRW;
+		m_pCurrentRW->MakeCurrent();
+
+		if(pTarget == nullptr)
+		{
+			return;
+		}
+
+		// render texture
 
 	}
 	void OGL4Graphics::SetDepthStencilBuffer(DepthStencilBufferPtr pBuffer)
 	{
 
 	}
-	Texture2Ptr OGL4Graphics::CreateTexture1D(G_FORMAT format, int l, bool dynamic)
+	Texture2Ptr OGL4Graphics::CreateTexture1D(G_FORMAT format, int l, int lvls, bool dynamic)
 	{
 		OGL4TexturePtr pTex = std::make_shared<OGL4Texture>();
-		if(pTex->Create1D(format, l, dynamic) == false)
+		if(pTex->Create1D(format, l, lvls, dynamic) == false)
 		{
 			pTex->Release();
 			pTex.reset();
@@ -393,20 +420,20 @@ namespace ld3d
 		return pTex;
 
 	}
-	Texture2Ptr OGL4Graphics::CreateTexture2D(G_FORMAT format, int w, int h, bool dynamic)
+	Texture2Ptr OGL4Graphics::CreateTexture2D(G_FORMAT format, int w, int h, int lvls, bool dynamic)
 	{
 		OGL4TexturePtr pTex = std::make_shared<OGL4Texture>();
-		if(pTex->Create2D(format, w, h, dynamic) == false)
+		if(pTex->Create2D(format, w, h, lvls, dynamic) == false)
 		{
 			pTex->Release();
 			pTex.reset();
 		}
 		return pTex;
 	}
-	Texture2Ptr OGL4Graphics::CreateTexture3D(G_FORMAT format, int w, int h, int d, bool dynamic)
+	Texture2Ptr OGL4Graphics::CreateTexture3D(G_FORMAT format, int w, int h, int d, int lvls, bool dynamic)
 	{
 		OGL4TexturePtr pTex = std::make_shared<OGL4Texture>();
-		if(pTex->Create3D(format, w, h, d, dynamic) == false)
+		if(pTex->Create3D(format, w, h, d, lvls, dynamic) == false)
 		{
 			pTex->Release();
 			pTex.reset();

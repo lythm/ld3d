@@ -17,9 +17,13 @@ namespace ld3d
 
 		void										SetSampler(SamplerStatePtr pSampler);
 		SamplerStatePtr								GetSampler();	
-		bool										Create1D(G_FORMAT format, int l, bool dynamic);
-		bool										Create2D(G_FORMAT format, int w, int h, bool dynamic);
-		bool										Create3D(G_FORMAT format, int w, int h, int d, bool dynamic);
+		bool										Create1D(G_FORMAT format, int l, int lvls, bool dynamic);
+		bool										Create2D(G_FORMAT format, int w, int h, int lvls, bool dynamic);
+		bool										Create3D(G_FORMAT format, int w, int h, int d, int lvls, bool dynamic);
+
+		int											GetWidth() const;
+		int											GetHeight() const;
+		int											GetDepth() const;
 
 		bool										CreateFromFile(const char* szFile, bool dynamic);
 
@@ -45,5 +49,7 @@ namespace ld3d
 		bool										m_bDynamic;
 
 		SamplerStatePtr								m_pSampler;
+
+		int											m_lvls;
 	};
 }

@@ -11,19 +11,22 @@ namespace ld3d
 		virtual ~OGL4RenderTexture(void);
 
 
-		bool														Create(int w, int h, G_FORMAT format);
+		bool														Create();
 		void														Release();
 		
-		int															GetWidth();
-		int															GetHeight();
+		int															GetTextureCount();
+		void														AddTexture(Texture2Ptr pTex);
 
-		TexturePtr													AsTexture();
+		Texture2Ptr													GetTexture(int index);
+
+		void														SetDepthStencilBuffer(DepthStencilBufferPtr pDS);
+		DepthStencilBufferPtr										GetDepthStencilBuffer();
 
 
 	private:
-		OGL4TexturePtr												m_pTex;
-		
+		std::vector<Texture2Ptr>									m_texs;
+		DepthStencilBufferPtr										m_pDS;
+
+		GLuint														m_fbo;
 	};
-
-
 }

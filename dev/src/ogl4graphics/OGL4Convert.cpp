@@ -297,6 +297,17 @@ namespace ld3d
 			return GL_RGBA32I;
 		case G_FORMAT_R32G32B32A32_UINT:
 			return GL_RGBA32UI;
+
+		// depth
+		case G_FORMAT_D32_FLOAT:
+			return GL_DEPTH_COMPONENT32F;
+		case G_FORMAT_D24_UNORM_S8_UINT:
+			return GL_DEPTH24_STENCIL8;
+		case G_FORMAT_D16_UNORM:
+			return GL_DEPTH_COMPONENT16;
+		case G_FORMAT_D32_FLOAT_S8X24_UINT:
+			return GL_DEPTH32F_STENCIL8;
+
 		default:
 			assert(0);
 			break;

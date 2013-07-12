@@ -103,7 +103,7 @@ namespace ld3d
 																	int multiSampleCount, 
 																	int multiSampleQuality, 
 																	bool windowed)														= 0;
-		virtual RenderTexture2Ptr						CreateRenderTexture(int w, int h, G_FORMAT format)								= 0;
+		virtual RenderTexture2Ptr						CreateRenderTexture()															= 0;
 		virtual void									ClearRenderTarget(int index, const math::Color4& clr)							= 0;
 		virtual void									ClearDepthStencil(CLEAR_DS_FLAG flag,
 																	float d, 
@@ -132,16 +132,18 @@ namespace ld3d
 		virtual void									SetViewPort(int x, int y, int w, int h)											= 0;
 
 
-		virtual void									SetRenderTargets(const std::vector<RenderTarget2Ptr>& targets)					= 0;
+		virtual void									SetRenderTarget(RenderTarget2Ptr pTarget)										= 0;
 		virtual void									SetDepthStencilBuffer(DepthStencilBufferPtr pBuffer)							= 0;
 
-		virtual Texture2Ptr								CreateTexture1D(G_FORMAT format, int l, bool dynamic)							= 0;
-		virtual Texture2Ptr								CreateTexture2D(G_FORMAT format, int w, int h, bool dynamic)					= 0;
-		virtual Texture2Ptr								CreateTexture3D(G_FORMAT format, int w, int h, int d, bool dynamic)				= 0;
+		virtual Texture2Ptr								CreateTexture1D(G_FORMAT format, int l, int lvls, bool dynamic)					= 0;
+		virtual Texture2Ptr								CreateTexture2D(G_FORMAT format, int w, int h, int lvls, bool dynamic)			= 0;
+		virtual Texture2Ptr								CreateTexture3D(G_FORMAT format, int w, int h, int d, int lvls, bool dynamic)	= 0;
 
 		virtual Texture2Ptr								CreateTextureFromFile(const char* szFile, bool dynamic)							= 0;
 
 		virtual SamplerStatePtr							CreateSampler()																	= 0;
+
+		virtual DepthStencilBufferPtr					CreateDepthStencilBuffer(G_FORMAT format, int w, int h)							= 0;
 		/////////////////////////////////////////////////////////////////
 
 
@@ -150,15 +152,8 @@ namespace ld3d
 
 		virtual MaterialPtr								CreateMaterialFromFile(const char* szFile)										= 0;
 		
-		
-
-		virtual DepthStencilBufferPtr					CreateDepthStencilBuffer(int w, 
-																	int h, 
-																	G_FORMAT format)													= 0;
 
 		virtual void									ResizeFrameBuffer(int cx, int cy)												= 0;
-		
-
 		
 		virtual RenderStatePtr							CreateRenderState()																= 0;
 		virtual void									SetRenderState(RenderStatePtr pState)											= 0;

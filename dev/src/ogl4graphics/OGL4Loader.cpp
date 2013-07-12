@@ -6,7 +6,7 @@
 #include <algorithm>
 
 
-#define LOAD_API(name, type)			name = (type)wglGetProcAddress(#name);assert(name != nullptr);
+#define LOAD_API(name, type)			assert(name == nullptr);name = (type)wglGetProcAddress(#name);assert(name != nullptr);
 
 namespace ld3d
 {
@@ -88,9 +88,14 @@ namespace ld3d
 	}
 	bool OGL4Loader::load_api()
 	{
+		if(glGetStringi == nullptr)
+		{
+			LOAD_API(glGetStringi,										PFNGLGETSTRINGIPROC);
+		}
+
 		LOAD_API(wglSwapIntervalEXT,									PFNWGLSWAPINTERVALEXTPROC);
 
-		LOAD_API(glGetStringi,											PFNGLGETSTRINGIPROC);
+		
 
 		LOAD_API(glGenBuffers,											PFNGLGENBUFFERSPROC);
 
@@ -195,6 +200,11 @@ namespace ld3d
 
 		LOAD_API(glBindSampler,											PFNGLBINDSAMPLERPROC);
 
+
+		LOAD_API(glGenRenderbuffers,									PFNGLGENRENDERBUFFERSPROC);
+		LOAD_API(glDeleteRenderbuffers,									PFNGLDELETERENDERBUFFERSPROC);
+		LOAD_API(glRenderbufferStorage,									PFNGLRENDERBUFFERSTORAGEPROC);
+		LOAD_API(glBindRenderbuffer,									PFNGLBINDRENDERBUFFERPROC);
 
 		return true;
 	}
