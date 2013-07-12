@@ -131,4 +131,10 @@ namespace math
 #include <math/details/xnamath/math_vector2.inl>
 #endif
 
+#ifdef _GLM_IMPL_
+#include <math/details/glm/math_vector2.inl>
+#endif
+
+
+
 #endif

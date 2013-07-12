@@ -150,6 +150,9 @@ namespace math
 #include <math/details/xnamath/math_vector3.inl>
 #endif
 
+#ifdef _GLM_IMPL_
+#include <math/details/glm/math_vector3.inl>
+#endif
 
 #endif
 

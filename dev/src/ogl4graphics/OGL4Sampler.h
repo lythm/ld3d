@@ -9,5 +9,9 @@ namespace ld3d
 	public:
 		OGL4Sampler(void);
 		virtual ~OGL4Sampler(void);
+
+
+	private:
+
 	};
 }

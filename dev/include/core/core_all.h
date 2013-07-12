@@ -1,4 +1,8 @@
 #pragma once
+#if defined(WIN32) || defined(WIN64)
+#define WIN32_LEAN_AND_MEAN
+#include <Windows.h>
+#endif
 
 #include "types\dllexport.h"
 #include "types\types.h"

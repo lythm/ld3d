@@ -28,8 +28,6 @@ namespace math
 		const Plane&		operator*=(Real s);
 		const Plane&		operator/=(Real s);
 
-		void Normalize();
-
 		union
 		{
 			struct
@@ -135,5 +133,8 @@ namespace math
 #include <math/details/xnamath/math_plane.inl>
 #endif
 
+#ifdef _GLM_IMPL_
+#include <math/details/glm/math_plane.inl>
+#endif
 
 #endif

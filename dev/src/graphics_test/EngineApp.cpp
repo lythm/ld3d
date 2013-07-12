@@ -97,7 +97,7 @@ namespace ld3d
 		m_pProgram->Validate();
 
 		
-		uint32* initData = new uint32[1024 * 1024];
+		/*uint32* initData = new uint32[1024 * 1024];
 
 		memset(initData, 255, 1024 * 1024 * sizeof(uint32));
 
@@ -108,9 +108,9 @@ namespace ld3d
 
 		memcpy(data, initData, 1024 * 1024 * sizeof(uint32));
 
-		m_pTex->UnMap();
+		m_pTex->UnMap();*/
 		
-		//m_pTex = m_pGraphics->CreateTextureFromFile("./assets/standard/texture/15.png");
+		m_pTex = m_pGraphics->CreateTextureFromFile("./assets/standard/texture/15.png");
 		
 		ShaderProgram::ParameterID param = m_pProgram->FindParameterByName("base");
 		m_pProgram->SetParameterTexture(param, m_pTex);

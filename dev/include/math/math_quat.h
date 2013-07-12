@@ -36,10 +36,17 @@ namespace math
 		Quat				operator-() const;
 
 
-		Real	x;
-		Real	y;
-		Real	z;
-		Real	w;
+		union
+		{
+			struct
+			{
+				Real		x;
+				Real		y;
+				Real		z;
+				Real		w;
+			};
+			Real			v[4];
+		};
 
 	};
 
@@ -182,6 +189,10 @@ namespace math
 
 #ifdef _XNAMATH_IMPL_
 #include <math/details/xnamath/math_quat.inl>
+#endif
+
+#ifdef _GLM_IMPL_
+#include <math/details/glm/math_quat.inl>
 #endif
 
 #endif

@@ -110,9 +110,10 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>DLL_EXPORTS;WIN32;_DEBUG;_WINDOWS;_USRDLL;D11GRAPHICS_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeaderFile>d11graphics_pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>..\..\include;.\effect11;.\effect11\inc;.\effect11\binary;.\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\include;.\effect11;.\effect11\inc;.\effect11\binary;.\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <AdditionalOptions>-Zm123 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

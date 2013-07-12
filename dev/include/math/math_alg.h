@@ -70,7 +70,6 @@ namespace math
 
 	Quat				Slerp(const Quat& q1, const Quat& q2, Real s);
 	Vector3				Cross(const Vector3& l, const Vector3& r);
-	Vector4				Cross(const Vector4& v1, const Vector4& v2, const Vector4& v3);
 
 	bool				TriAABBoxIntersectTest(const Vector3& a, const Vector3& b, const Vector3& c, const AABBox& aabb);
 
@@ -286,6 +285,9 @@ namespace math
 #include <math/details/xnamath/math_alg.inl>
 #endif
 
+#ifdef _GLM_IMPL_
+#include <math/details/glm/math_alg.inl>
+#endif
 
 
 #endif

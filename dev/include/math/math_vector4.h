@@ -144,4 +144,11 @@ namespace math
 #endif
 
 
+
+#ifdef _GLM_IMPL_
+#include <math/details/glm/math_vector4.inl>
+#endif
+
+
+
 #endif

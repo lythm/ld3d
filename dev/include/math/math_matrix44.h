@@ -20,6 +20,8 @@ namespace math
 	{
 	public:
 		Matrix44(void);
+
+		Matrix44(const Real* v);
 		Matrix44(Real _m11, Real _m12, Real _m13, Real _m14,
 			Real _m21, Real _m22, Real _m23, Real _m24,
 			Real _m31, Real _m32, Real _m33, Real _m34,
@@ -59,6 +61,7 @@ namespace math
 		void					Transpose();
 		void					Invert();
 
+		
 		union
 		{
 			struct
@@ -298,6 +301,11 @@ namespace math
 		m44 = 0;
 	}
 
+	inline 
+		Matrix44::Matrix44(const Real* v)
+	{
+		memcpy(m, v, sizeof(Real) * 16);
+	}
 	inline
 		Matrix44::Matrix44(Real _m11, Real _m12, Real _m13, Real _m14,
 		Real _m21, Real _m22, Real _m23, Real _m24,
@@ -339,6 +347,9 @@ namespace math
 #include <math/details/xnamath/math_matrix44.inl>
 #endif
 
+#ifdef _GLM_IMPL_
+#include <math/details/glm/math_matrix44.inl>
+#endif
 
 
 #endif
