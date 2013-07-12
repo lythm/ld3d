@@ -61,6 +61,7 @@
 #include "core\BBoxRenderData.h"
 #include "core/Shader.h"
 #include "core/ShaderProgram.h"
+#include "core/SamplerState.h"
 
 #include "core/GeometryData.h"
 

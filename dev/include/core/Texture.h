@@ -32,5 +32,8 @@ namespace ld3d
 		virtual void*										Map()									= 0;
 		virtual void										UnMap()									= 0;
 
+		virtual void										SetSampler(SamplerStatePtr pSampler)	= 0;
+		virtual SamplerStatePtr								GetSampler()							= 0;	
+
 	};
 }

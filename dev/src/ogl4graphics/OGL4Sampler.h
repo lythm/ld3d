@@ -11,7 +11,29 @@ namespace ld3d
 		virtual ~OGL4Sampler(void);
 
 
-	private:
+		void										SetCompareFunction(COMPARE_FUNC value);
 
+		void										SetLod(float minLod, float maxLod);
+		void										SetMipLodBias(int bias);
+		void										SetBorderColor(const math::Color4& clr);
+
+		void										SetFilter(FILTER f);
+		
+		void										SetAddressMode(ADDRESS_MODE u, ADDRESS_MODE v, ADDRESS_MODE w);
+
+		void										SetMaxAnisotropy(uint32 value);
+
+		void										Release();
+
+		bool										Create();
+
+
+		GLuint										GetSamplerObject();
+
+
+	private:
+		GLenum										AddressModeToGL(ADDRESS_MODE mode);
+	private:
+		GLuint										m_sampler;
 	};
 }

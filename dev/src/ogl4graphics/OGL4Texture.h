@@ -15,11 +15,13 @@ namespace ld3d
 		void										Release();
 
 
-		bool										Create1D(G_FORMAT format, int l);
-		bool										Create2D(G_FORMAT format, int w, int h);
-		bool										Create3D(G_FORMAT format, int w, int h, int d);
+		void										SetSampler(SamplerStatePtr pSampler);
+		SamplerStatePtr								GetSampler();	
+		bool										Create1D(G_FORMAT format, int l, bool dynamic);
+		bool										Create2D(G_FORMAT format, int w, int h, bool dynamic);
+		bool										Create3D(G_FORMAT format, int w, int h, int d, bool dynamic);
 
-		bool										CreateFromFile(const char* szFile);
+		bool										CreateFromFile(const char* szFile, bool dynamic);
 
 		void*										Map();
 		void										UnMap();
@@ -40,5 +42,8 @@ namespace ld3d
 		GLenum										m_format;
 
 		int											m_pboBytes;
+		bool										m_bDynamic;
+
+		SamplerStatePtr								m_pSampler;
 	};
 }

@@ -103,6 +103,8 @@ namespace ld3d
 		ShaderProgramPtr								m_pProgram;
 
 		Texture2Ptr										m_pTex;
+
+		SamplerStatePtr									m_pSampler;
 	};
 
 

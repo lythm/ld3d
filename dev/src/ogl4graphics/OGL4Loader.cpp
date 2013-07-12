@@ -186,6 +186,16 @@ namespace ld3d
 
 		LOAD_API(glTexSubImage3D,										PFNGLTEXSUBIMAGE3DPROC);
 
+		LOAD_API(glGenSamplers,											PFNGLGENSAMPLERSPROC);
+		LOAD_API(glDeleteSamplers,										PFNGLDELETESAMPLERSPROC);
+		LOAD_API(glSamplerParameteri,									PFNGLSAMPLERPARAMETERIPROC);
+		LOAD_API(glSamplerParameterf,									PFNGLSAMPLERPARAMETERFPROC);
+		LOAD_API(glSamplerParameteriv,									PFNGLSAMPLERPARAMETERIVPROC);
+		LOAD_API(glSamplerParameterfv,									PFNGLSAMPLERPARAMETERFVPROC);
+
+		LOAD_API(glBindSampler,											PFNGLBINDSAMPLERPROC);
+
+
 		return true;
 	}
 }

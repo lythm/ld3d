@@ -110,8 +110,17 @@ namespace ld3d
 
 		m_pTex->UnMap();*/
 		
-		m_pTex = m_pGraphics->CreateTextureFromFile("./assets/standard/texture/15.png");
+		m_pTex = m_pGraphics->CreateTextureFromFile("./assets/standard/texture/15.png", false);
 		
+
+		m_pSampler = m_pGraphics->CreateSampler();
+
+
+		m_pSampler->SetAddressMode(SamplerState::AM_BORDER, SamplerState::AM_BORDER, SamplerState::AM_BORDER);
+		m_pSampler->SetBorderColor(math::Color4(1, 0, 0, 1));
+		
+		m_pTex->SetSampler(m_pSampler);
+
 		ShaderProgram::ParameterID param = m_pProgram->FindParameterByName("base");
 		m_pProgram->SetParameterTexture(param, m_pTex);
 
@@ -120,6 +129,9 @@ namespace ld3d
 	}
 	void EngineApp::OnRelease()
 	{
+		m_pSampler->Release();
+		m_pSampler.reset();
+
 		m_pTex->Release();
 		m_pTex.reset();
 
@@ -170,9 +182,9 @@ namespace ld3d
 		{
 			// front
 			{math::Vector3(-size, size, -size), math::Vector3(0, 0, -1), math::Vector2(0, 0), },
-			{math::Vector3(size, size, -size), math::Vector3(0, 0, -1), math::Vector2(1, 0),},
-			{math::Vector3(size, -size, -size), math::Vector3(0, 0, -1), math::Vector2(1, 1),},
-			{math::Vector3(-size, -size, -size), math::Vector3(0, 0, -1), math::Vector2(0, 1),},
+			{math::Vector3(size, size, -size), math::Vector3(0, 0, -1), math::Vector2(2, 0),},
+			{math::Vector3(size, -size, -size), math::Vector3(0, 0, -1), math::Vector2(2, 2),},
+			{math::Vector3(-size, -size, -size), math::Vector3(0, 0, -1), math::Vector2(0, 2),},
 
 			// back
 			{math::Vector3(-size, size, size), math::Vector3(0, 0, 1), math::Vector2(0, 0),},

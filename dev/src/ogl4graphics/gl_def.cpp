@@ -42,6 +42,16 @@ PFNGLTEXSTORAGE2DPROC								glTexStorage2D									= nullptr;
 PFNGLTEXSTORAGE3DPROC								glTexStorage3D									= nullptr;
 PFNGLTEXSUBIMAGE3DPROC								glTexSubImage3D									= nullptr;
 
+// sampler
+PFNGLGENSAMPLERSPROC								glGenSamplers									= nullptr;
+PFNGLDELETESAMPLERSPROC								glDeleteSamplers								= nullptr;
+PFNGLSAMPLERPARAMETERIPROC							glSamplerParameteri								= nullptr;
+PFNGLSAMPLERPARAMETERFPROC							glSamplerParameterf								= nullptr;
+PFNGLSAMPLERPARAMETERIVPROC							glSamplerParameteriv							= nullptr;
+PFNGLSAMPLERPARAMETERFVPROC							glSamplerParameterfv							= nullptr;
+PFNGLBINDSAMPLERPROC								glBindSampler									= nullptr;
+
+
 
 // VAO
 PFNGLGENVERTEXARRAYSPROC							glGenVertexArrays								= nullptr;

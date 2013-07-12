@@ -55,6 +55,14 @@ extern PFNGLTEXSTORAGE2DPROC							glTexStorage2D;
 extern PFNGLTEXSTORAGE3DPROC							glTexStorage3D;
 extern PFNGLTEXSUBIMAGE3DPROC							glTexSubImage3D;
 
+// sampler
+extern PFNGLGENSAMPLERSPROC								glGenSamplers;
+extern PFNGLDELETESAMPLERSPROC							glDeleteSamplers;
+extern PFNGLSAMPLERPARAMETERIPROC						glSamplerParameteri;
+extern PFNGLSAMPLERPARAMETERFPROC						glSamplerParameterf;
+extern PFNGLSAMPLERPARAMETERIVPROC						glSamplerParameteriv;
+extern PFNGLSAMPLERPARAMETERFVPROC						glSamplerParameterfv;
+extern PFNGLBINDSAMPLERPROC								glBindSampler;
 
 
 // shader program

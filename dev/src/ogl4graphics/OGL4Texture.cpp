@@ -13,6 +13,8 @@ namespace ld3d
 		m_height				= 0;
 		m_type					= TEX_UNKNOWN;
 		m_format				= GL_INVALID_ENUM;
+
+		m_bDynamic				= false;
 	}
 
 
@@ -30,9 +32,9 @@ namespace ld3d
 		glDeleteTextures(1, &m_texture);
 		m_texture = 0;
 	}
-	bool OGL4Texture::Create1D(G_FORMAT format, int l)
+	bool OGL4Texture::Create1D(G_FORMAT format, int l, bool dynamic)
 	{
-		
+		m_bDynamic = dynamic;
 		glGenTextures(1, &m_texture);
 
 		glBindTexture(GL_TEXTURE_1D, m_texture);
@@ -47,8 +49,10 @@ namespace ld3d
 		m_pboBytes = FormatSize(m_format) * m_width;
 		return true;
 	}
-	bool OGL4Texture::Create2D(G_FORMAT format, int w, int h)
+	bool OGL4Texture::Create2D(G_FORMAT format, int w, int h, bool dynamic)
 	{
+		m_bDynamic = dynamic;
+
 		glGenTextures(1, &m_texture);
 
 		glBindTexture(GL_TEXTURE_2D, m_texture);
@@ -64,8 +68,10 @@ namespace ld3d
 		return true;
 	}
 
-	bool OGL4Texture::Create3D(G_FORMAT format, int w, int h, int d)
+	bool OGL4Texture::Create3D(G_FORMAT format, int w, int h, int d, bool dynamic)
 	{
+		m_bDynamic = dynamic;
+
 		glGenTextures(1, &m_texture);
 
 		glBindTexture(GL_TEXTURE_3D, m_texture);
@@ -83,11 +89,12 @@ namespace ld3d
 	}
 	void* OGL4Texture::Map()
 	{
+		
 		if(m_pbo == 0)
 		{
 			glGenBuffers(1, &m_pbo);
 			glBindBuffer(GL_PIXEL_UNPACK_BUFFER, m_pbo);
-			glBufferData(GL_PIXEL_UNPACK_BUFFER, m_pboBytes, nullptr, GL_DYNAMIC_DRAW );
+			glBufferData(GL_PIXEL_UNPACK_BUFFER, m_pboBytes, nullptr, m_bDynamic ? GL_DYNAMIC_DRAW : GL_STATIC_DRAW );
 		}
 		else
 		{
@@ -99,6 +106,7 @@ namespace ld3d
 	}
 	void OGL4Texture::UnMap()
 	{
+		
 		glUnmapBuffer(GL_PIXEL_UNPACK_BUFFER);
 		
 		switch(m_type)
@@ -352,17 +360,23 @@ namespace ld3d
 	{
 		return m_texture;
 	}
-	bool OGL4Texture::CreateFromFile(const char* szFile)
+	bool OGL4Texture::CreateFromFile(const char* szFile, bool dynamic)
 	{
+		m_bDynamic = dynamic;
+
 		m_texture = SOIL_load_OGL_texture(szFile, SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_MIPMAPS);
 
 		if(m_texture == 0)
 			return false;
 
+		
+		m_type = TEX_2D;
+
+
+
 		// todo
 		/*m_width = w;
 		m_height = h;
-		m_type = TEX_3D;;
 		m_depth = d;
 
 		m_format = OGL4Convert::TextureFormatToGL(format);
@@ -371,5 +385,14 @@ namespace ld3d
 
 
 		return true;
+	}
+	void OGL4Texture::SetSampler(SamplerStatePtr pSampler)
+	{
+		m_pSampler = pSampler;
+
+	}
+	SamplerStatePtr OGL4Texture::GetSampler()
+	{
+		return m_pSampler;
 	}
 }

@@ -93,7 +93,7 @@ namespace ld3d
 	class RenderTexture2;
 	class GeometryData;
 	class ShaderProgram;
-
+	class SamplerState;
 	
 	typedef std::shared_ptr<BBoxRenderData>					BBoxRenderDataPtr;
 	
@@ -121,6 +121,7 @@ namespace ld3d
 	typedef std::shared_ptr<GPUBuffer>						GPUBufferPtr;
 	typedef std::shared_ptr<Texture>						TexturePtr;
 	typedef std::shared_ptr<Texture2>						Texture2Ptr;
+	typedef std::shared_ptr<SamplerState>					SamplerStatePtr;
 	
 
 	class CoreApi;

@@ -33,6 +33,10 @@ namespace ld3d
 	class OGL4ShaderProgram;
 	class OGL4GeometryData;
 	class OGL4RenderState;
+	class OGL4Sampler;
+
+
+	typedef std::shared_ptr<OGL4Sampler>									OGL4SamplerPtr;
 
 	typedef std::shared_ptr<OGL4RenderState>								OGL4RenderStatePtr;
 	typedef std::shared_ptr<OGL4GeometryData>								OGL4GeometryDataPtr;

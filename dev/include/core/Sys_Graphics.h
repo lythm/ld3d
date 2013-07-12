@@ -135,11 +135,13 @@ namespace ld3d
 		virtual void									SetRenderTargets(const std::vector<RenderTarget2Ptr>& targets)					= 0;
 		virtual void									SetDepthStencilBuffer(DepthStencilBufferPtr pBuffer)							= 0;
 
-		virtual Texture2Ptr								CreateTexture1D(G_FORMAT format, int l)											= 0;
-		virtual Texture2Ptr								CreateTexture2D(G_FORMAT format, int w, int h)									= 0;
-		virtual Texture2Ptr								CreateTexture3D(G_FORMAT format, int w, int h, int d)							= 0;
+		virtual Texture2Ptr								CreateTexture1D(G_FORMAT format, int l, bool dynamic)							= 0;
+		virtual Texture2Ptr								CreateTexture2D(G_FORMAT format, int w, int h, bool dynamic)					= 0;
+		virtual Texture2Ptr								CreateTexture3D(G_FORMAT format, int w, int h, int d, bool dynamic)				= 0;
 
-		virtual Texture2Ptr								CreateTextureFromFile(const char* szFile)										= 0;
+		virtual Texture2Ptr								CreateTextureFromFile(const char* szFile, bool dynamic)							= 0;
+
+		virtual SamplerStatePtr							CreateSampler()																	= 0;
 		/////////////////////////////////////////////////////////////////
 
 

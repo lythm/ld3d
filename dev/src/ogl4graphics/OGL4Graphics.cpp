@@ -12,6 +12,7 @@
 #include "OGL4Convert.h"
 #include "OGL4RenderState.h"
 #include <sstream>
+#include "OGL4Sampler.h"
 
 namespace ld3d
 {
@@ -263,11 +264,11 @@ namespace ld3d
 		return MaterialPtr();
 	}
 
-	Texture2Ptr OGL4Graphics::CreateTextureFromFile(const char* szFile)
+	Texture2Ptr OGL4Graphics::CreateTextureFromFile(const char* szFile, bool dynamic)
 	{
 		OGL4TexturePtr pTex = std::make_shared<OGL4Texture>();
 
-		if(pTex->CreateFromFile(szFile) == false)
+		if(pTex->CreateFromFile(szFile, dynamic) == false)
 		{
 			return Texture2Ptr();
 		}
@@ -381,10 +382,10 @@ namespace ld3d
 	{
 
 	}
-	Texture2Ptr OGL4Graphics::CreateTexture1D(G_FORMAT format, int l)
+	Texture2Ptr OGL4Graphics::CreateTexture1D(G_FORMAT format, int l, bool dynamic)
 	{
 		OGL4TexturePtr pTex = std::make_shared<OGL4Texture>();
-		if(pTex->Create1D(format, l) == false)
+		if(pTex->Create1D(format, l, dynamic) == false)
 		{
 			pTex->Release();
 			pTex.reset();
@@ -392,24 +393,34 @@ namespace ld3d
 		return pTex;
 
 	}
-	Texture2Ptr OGL4Graphics::CreateTexture2D(G_FORMAT format, int w, int h)
+	Texture2Ptr OGL4Graphics::CreateTexture2D(G_FORMAT format, int w, int h, bool dynamic)
 	{
 		OGL4TexturePtr pTex = std::make_shared<OGL4Texture>();
-		if(pTex->Create2D(format, w, h) == false)
+		if(pTex->Create2D(format, w, h, dynamic) == false)
 		{
 			pTex->Release();
 			pTex.reset();
 		}
 		return pTex;
 	}
-	Texture2Ptr OGL4Graphics::CreateTexture3D(G_FORMAT format, int w, int h, int d)
+	Texture2Ptr OGL4Graphics::CreateTexture3D(G_FORMAT format, int w, int h, int d, bool dynamic)
 	{
 		OGL4TexturePtr pTex = std::make_shared<OGL4Texture>();
-		if(pTex->Create3D(format, w, h, d) == false)
+		if(pTex->Create3D(format, w, h, d, dynamic) == false)
 		{
 			pTex->Release();
 			pTex.reset();
 		}
 		return pTex;
+	}
+	SamplerStatePtr	OGL4Graphics::CreateSampler()
+	{
+		OGL4SamplerPtr pSampler = std::make_shared<OGL4Sampler>();
+		if(pSampler->Create() == false)
+		{
+			pSampler->Release();
+			pSampler.reset();
+		}
+		return pSampler;
 	}
 }

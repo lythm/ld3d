@@ -6,6 +6,7 @@
 #include <algorithm>
 #include "OGL4Texture.h"
 #include "OGL4ShaderCompiler.h"
+#include "OGL4Sampler.h"
 
 namespace ld3d
 {
@@ -245,6 +246,9 @@ namespace ld3d
 			GLenum target = OGL4Convert::TexTypeToGLTarget(pGLTex->GetType());
 			glBindTexture(target, pGLTex->GetTextureObject());
 
+			OGL4Sampler* pSampler = (OGL4Sampler*)pGLTex->GetSampler().get();
+			glBindSampler(slot, pSampler ? pSampler->GetSamplerObject() : 0);
+			
 			glProgramUniform1i(m_program, v.index, slot);
 		}
 	}

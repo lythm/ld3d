@@ -23,9 +23,10 @@ namespace ld3d
 		
 		RenderTexture2Ptr						CreateRenderTexture(int w, int h, G_FORMAT format);
 		GPUBufferPtr							CreateBuffer(BUFFER_TYPE type, int bytes, void* pInitData, bool dynamic);
-		Texture2Ptr								CreateTexture1D(G_FORMAT format, int l);
-		Texture2Ptr								CreateTexture2D(G_FORMAT format, int w, int h);
-		Texture2Ptr								CreateTexture3D(G_FORMAT format, int w, int h, int d);
+		Texture2Ptr								CreateTexture1D(G_FORMAT format, int l, bool dynamic);
+		Texture2Ptr								CreateTexture2D(G_FORMAT format, int w, int h, bool dynamic);
+		Texture2Ptr								CreateTexture3D(G_FORMAT format, int w, int h, int d, bool dynamic);
+		Texture2Ptr								CreateTextureFromFile(const char* szFile, bool dynamic);
 
 		ShaderProgramPtr						CreateShaderProgram();
 		GeometryDataPtr							CreateGeometryData();
@@ -39,7 +40,7 @@ namespace ld3d
 		void									SetRenderTargets(const std::vector<RenderTarget2Ptr>& targets);
 		void									SetDepthStencilBuffer(DepthStencilBufferPtr pBuffer);
 
-		Texture2Ptr								CreateTextureFromFile(const char* szFile);
+		SamplerStatePtr							CreateSampler();
 
 		//////////////////////////
 
