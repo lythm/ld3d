@@ -16,6 +16,18 @@ namespace ld3d
 		void										End();
 
 		void										Release();
+		void										Apply();
+
+
+
+
+
+		////////////////////////////
+
+
+
+
+
 
 
 		void										SetBlendFactor(const math::Vector4& val);
@@ -54,6 +66,16 @@ namespace ld3d
 		void										SetBackFaceStencilDepthFailOp(RS_STENCIL_OP op);
 		void										SetBackFaceStencilPassOp(RS_STENCIL_OP op);
 		void										SetBackFaceStencilFunc(RS_COMPARISON_FUNC val);
+
+
+		
+
+	private:
+		void										AddCommand(const std::function<void ()>& command);
+		bool										m_bRecording;
+	private:
+
+		std::vector<std::function<void ()> >		m_commands;
 	};
 }
 

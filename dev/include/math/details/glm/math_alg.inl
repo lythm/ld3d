@@ -306,8 +306,7 @@ namespace math
 		v.z =  -1.0f;
 
 
-		math::Matrix44 m = worldTM;
-		m *= ViewTM;
+		math::Matrix44 m = worldTM * ViewTM;
 		m.Invert();
 
 		Ray r;

@@ -12,7 +12,7 @@ namespace math
 	{
 
 		glm::mat4x4 v = glm::make_mat4(m) * glm::make_mat4(rhs.m);
-		memcpy(m, glm::value_ptr(glm::rowMajor4(v)), sizeof(Real) * 16);
+		memcpy(m, glm::value_ptr(v), sizeof(Real) * 16);
 
 		return *this;
 	}
@@ -21,19 +21,19 @@ namespace math
 	{
 		glm::mat4x4 v = glm::transpose(glm::make_mat4(m));
 
-		memcpy(m, glm::value_ptr(glm::rowMajor4(v)), sizeof(Real) * 16);
+		memcpy(m, glm::value_ptr(v), sizeof(Real) * 16);
 	}
 	inline
 		void Matrix44::Invert()
 	{
 		glm::mat4x4 v = glm::inverse(glm::make_mat4(m));
 
-		memcpy(m, glm::value_ptr(glm::rowMajor4(v)), sizeof(Real) * 16);
+		memcpy(m, glm::value_ptr(v), sizeof(Real) * 16);
 	}
 	inline
 		Vector3 Matrix44::GetScale() const
 	{
-		return Vector3(GetRow3(0).Length(), GetRow3(1).Length(), GetRow3(2).Length());
+		return Vector3(GetCol3(0).Length(), GetCol3(1).Length(), GetCol3(2).Length());
 	}
 	inline
 		void Matrix44::SetScale(const Vector3& s)
@@ -60,7 +60,7 @@ namespace math
 		glm::mat4 l = glm::make_mat4(lhs.m);
 		glm::mat4 r = glm::make_mat4(rhs.m);
 
-		const Real* p = glm::value_ptr(glm::rowMajor4(l * r));
+		const Real* p = glm::value_ptr(l * r);
 
 		return Matrix44(p);
 

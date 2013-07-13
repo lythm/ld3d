@@ -23,13 +23,19 @@ namespace ld3d
 
 		math::Matrix44 view;
 		math::Matrix44 proj;
-		
+		math::Matrix44 t;
 		math::Vector3 eye(20, 20, -20);
 		
 		static float radius = 0;
 		radius += 0.001;
 
-		math::TransformCoord(eye, math::MatrixRotationAxisY(radius));
+		t = math::MatrixTranslation(math::Vector3(11, 0, 0));
+		t.Invert();
+		t *= math::MatrixTranslation(math::Vector3(11, 0, 0));
+
+		t = math::MatrixRotationAxisY(radius);
+	
+		math::TransformCoord(eye, t);
 
 		view = math::MatrixLookAtLH(eye, math::Vector3(0, 0, 0), math::Vector3(0, 1, 0));
 		proj = math::MatrixPerspectiveFovLH(0.25 * 3.14, 4.0 / 3.0, 0.01, 10000);
