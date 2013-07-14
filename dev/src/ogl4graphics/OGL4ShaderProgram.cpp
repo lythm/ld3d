@@ -214,7 +214,7 @@ namespace ld3d
 	}
 	void OGL4ShaderProgram::SetParameterTexture(ParameterID param, Texture2Ptr pTex)
 	{
-		for(auto v : m_texLinks)
+		for(auto& v : m_texLinks)
 		{
 			if(v.index == param)
 			{

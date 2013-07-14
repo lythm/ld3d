@@ -14,7 +14,7 @@
 #include <sstream>
 #include "OGL4Sampler.h"
 #include "OGL4DepthStencilBuffer.h"
-
+#include "OGL4RenderTexture.h"
 namespace ld3d
 {
 
@@ -220,6 +220,7 @@ namespace ld3d
 		pGLData->Bind();
 
 		glDrawElements(pGLData->GetPrimitiveType(), count, pGLData->GetIndexType(), 0);
+
 	}
 	void OGL4Graphics::Draw(GeometryDataPtr pData, int vertexCount, int baseVertex)
 	{
@@ -386,6 +387,8 @@ namespace ld3d
 	}
 	void OGL4Graphics::SetRenderTarget(RenderTarget2Ptr pTarget)
 	{
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
 		if(pTarget && pTarget->GetType() == RenderTarget2::RENDER_WINDOW)
 		{
 			m_pCurrentRW = std::dynamic_pointer_cast<OGL4RenderWindow>(pTarget);
@@ -394,8 +397,11 @@ namespace ld3d
 			return;
 		}
 
-		m_pCurrentRW = m_pMainRW;
-		m_pCurrentRW->MakeCurrent();
+		if(m_pCurrentRW != m_pMainRW)
+		{
+			m_pCurrentRW = m_pMainRW;
+			m_pCurrentRW->MakeCurrent();
+		}
 
 		if(pTarget == nullptr)
 		{
@@ -403,12 +409,12 @@ namespace ld3d
 		}
 
 		// render texture
+		OGL4RenderTexture* pGLTarget = (OGL4RenderTexture*)pTarget.get();
+
+		glBindFramebuffer(GL_FRAMEBUFFER, pGLTarget->GetFBO());
 
 	}
-	void OGL4Graphics::SetDepthStencilBuffer(DepthStencilBufferPtr pBuffer)
-	{
-
-	}
+	
 	Texture2Ptr OGL4Graphics::CreateTexture1D(G_FORMAT format, int l, int lvls, bool dynamic)
 	{
 		OGL4TexturePtr pTex = std::make_shared<OGL4Texture>();

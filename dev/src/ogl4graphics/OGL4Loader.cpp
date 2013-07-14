@@ -206,6 +206,14 @@ namespace ld3d
 		LOAD_API(glRenderbufferStorage,									PFNGLRENDERBUFFERSTORAGEPROC);
 		LOAD_API(glBindRenderbuffer,									PFNGLBINDRENDERBUFFERPROC);
 
+		LOAD_API(glGenFramebuffers,										PFNGLGENFRAMEBUFFERSPROC);
+		LOAD_API(glDeleteFramebuffers,									PFNGLDELETEFRAMEBUFFERSPROC);
+		LOAD_API(glBindFramebuffer,										PFNGLBINDFRAMEBUFFERPROC);
+		LOAD_API(glCheckFramebufferStatus,								PFNGLCHECKFRAMEBUFFERSTATUSPROC);
+		LOAD_API(glFramebufferTexture,									PFNGLFRAMEBUFFERTEXTUREPROC);
+		LOAD_API(glFramebufferRenderbuffer,								PFNGLFRAMEBUFFERRENDERBUFFERPROC);
+
+
 		return true;
 	}
 }

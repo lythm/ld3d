@@ -133,7 +133,6 @@ namespace ld3d
 
 
 		virtual void									SetRenderTarget(RenderTarget2Ptr pTarget)										= 0;
-		virtual void									SetDepthStencilBuffer(DepthStencilBufferPtr pBuffer)							= 0;
 
 		virtual Texture2Ptr								CreateTexture1D(G_FORMAT format, int l, int lvls, bool dynamic)					= 0;
 		virtual Texture2Ptr								CreateTexture2D(G_FORMAT format, int w, int h, int lvls, bool dynamic)			= 0;

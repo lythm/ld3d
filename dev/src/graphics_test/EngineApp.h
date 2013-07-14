@@ -105,7 +105,8 @@ namespace ld3d
 		Texture2Ptr										m_pTex;
 
 		SamplerStatePtr									m_pSampler;
+
+		RenderTexture2Ptr								m_pRenderTarget;
+
 	};
-
-
 }

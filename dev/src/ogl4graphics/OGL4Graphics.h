@@ -38,10 +38,8 @@ namespace ld3d
 		void									SetViewPort(int x, int y, int w, int h);
 
 		void									SetRenderTarget(RenderTarget2Ptr pTarget);
-		void									SetDepthStencilBuffer(DepthStencilBufferPtr pBuffer);
 
 		SamplerStatePtr							CreateSampler();
-
 
 		DepthStencilBufferPtr					CreateDepthStencilBuffer(G_FORMAT format, int w, int h);
 		

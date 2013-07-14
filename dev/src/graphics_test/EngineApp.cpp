@@ -29,12 +29,7 @@ namespace ld3d
 		static float radius = 0;
 		radius += 0.001;
 
-		t = math::MatrixTranslation(math::Vector3(11, 0, 0));
-		t.Invert();
-		t *= math::MatrixTranslation(math::Vector3(11, 0, 0));
-
 		t = math::MatrixRotationAxisY(radius);
-	
 		math::TransformCoord(eye, t);
 
 		view = math::MatrixLookAtLH(eye, math::Vector3(0, 0, 0), math::Vector3(0, 1, 0));
@@ -47,9 +42,12 @@ namespace ld3d
 		param = m_pProgram->FindParameterByName("p");
 		m_pProgram->SetParameterMatrix(param, proj);
 		
+		param = m_pProgram->FindParameterByName("base");
+		m_pProgram->SetParameterTexture(param, m_pTex);
+
 		
-		
-		m_pGraphics->ClearRenderTarget(0, math::Color4(0.3, 0.5, 0.7, 1));
+		m_pGraphics->SetRenderTarget(m_pRenderTarget);
+		m_pGraphics->ClearRenderTarget(0, math::Color4(0, 0, 0.7, 1));
 		m_pGraphics->ClearDepthStencil(CLEAR_ALL, 1.0f, 0);
 
 		m_pGraphics->SetShaderProgram(m_pProgram);
@@ -57,6 +55,19 @@ namespace ld3d
 
 		m_pGraphics->DrawIndexed(m_pGeometry, 36, 0, 0);
 
+
+
+		param = m_pProgram->FindParameterByName("base");
+		m_pProgram->SetParameterTexture(param, m_pRenderTarget->GetTexture(0));
+
+		m_pGraphics->SetRenderTarget(RenderTarget2Ptr());
+
+		m_pGraphics->ClearRenderTarget(0, math::Color4(0.3, 0.5, 0.7, 1));
+		m_pGraphics->ClearDepthStencil(CLEAR_ALL, 1.0f, 0);
+
+		m_pGraphics->SetShaderProgram(m_pProgram);
+		m_pGraphics->DrawIndexed(m_pGeometry, 36, 0, 0);
+		
 		m_pGraphics->Present();
 
 		ShowFPS();
@@ -133,6 +144,15 @@ namespace ld3d
 
 
 		DepthStencilBufferPtr pDS = m_pGraphics->CreateDepthStencilBuffer(G_FORMAT_D32_FLOAT_S8X24_UINT, 800, 600);
+		Texture2Ptr pTex = m_pGraphics->CreateTexture2D(G_FORMAT_R8G8B8A8_UNORM, 800, 600, 1, false);
+		pTex->SetSampler(m_pSampler);
+
+		m_pRenderTarget = m_pGraphics->CreateRenderTexture();
+
+		m_pRenderTarget->AddTexture(pTex);
+		m_pRenderTarget->SetDepthStencilBuffer(pDS);
+
+
 		//Sleep(1000);
 		return true;
 	}

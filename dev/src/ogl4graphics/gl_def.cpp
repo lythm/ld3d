@@ -114,7 +114,13 @@ PFNGLDELETERENDERBUFFERSPROC						glDeleteRenderbuffers							= nullptr;
 PFNGLRENDERBUFFERSTORAGEPROC						glRenderbufferStorage							= nullptr;
 PFNGLBINDRENDERBUFFERPROC							glBindRenderbuffer								= nullptr;
 
-
+// fbo
+PFNGLGENFRAMEBUFFERSPROC							glGenFramebuffers								= nullptr;
+PFNGLDELETEFRAMEBUFFERSPROC							glDeleteFramebuffers							= nullptr;
+PFNGLBINDFRAMEBUFFERPROC							glBindFramebuffer								= nullptr;
+PFNGLCHECKFRAMEBUFFERSTATUSPROC						glCheckFramebufferStatus						= nullptr;
+PFNGLFRAMEBUFFERTEXTUREPROC							glFramebufferTexture							= nullptr;
+PFNGLFRAMEBUFFERRENDERBUFFERPROC					glFramebufferRenderbuffer						= nullptr;
 
 
 // wgl
