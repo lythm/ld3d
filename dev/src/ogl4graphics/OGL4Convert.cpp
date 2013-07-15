@@ -55,6 +55,9 @@ namespace ld3d
 			return GL_VERTEX_SHADER;
 		case ST_PIXEL_SHADER:
 			return GL_FRAGMENT_SHADER;
+		case ST_GEOMETRY_SHADER:
+			return GL_GEOMETRY_SHADER;
+
 		default:
 			assert(0);
 			break;
@@ -313,6 +316,140 @@ namespace ld3d
 			break;
 		}
 
+		return GL_INVALID_ENUM;
+	}
+	GLenum OGL4Convert::BlendOPToGL(RS_BLEND_OP op)
+	{
+		switch(op)
+		{
+		case RS_BLEND_OP_ADD:
+			return GL_FUNC_ADD;
+		case RS_BLEND_OP_SUBTRACT:
+			return GL_FUNC_SUBTRACT;
+		case RS_BLEND_OP_REV_SUBTRACT:
+			return GL_FUNC_REVERSE_SUBTRACT;
+		case RS_BLEND_OP_MIN:
+			return GL_MIN;
+		case RS_BLEND_OP_MAX:
+			return GL_MAX;
+		default:
+			assert(0);
+			break;
+		}
+		return GL_INVALID_ENUM;
+	}
+
+	GLenum OGL4Convert::BlendToGL(RS_BLEND val)
+	{
+		switch(val)
+		{
+		case RS_BLEND_ZERO:
+			return GL_ZERO;
+		case RS_BLEND_ONE:
+			return GL_ONE;
+		case RS_BLEND_SRC_COLOR:
+			return GL_SRC_COLOR;
+		case RS_BLEND_INV_SRC_COLOR:
+			return GL_ONE_MINUS_SRC_COLOR;
+		case RS_BLEND_SRC_ALPHA:
+			return GL_SRC_ALPHA;
+		case RS_BLEND_INV_SRC_ALPHA:
+			return GL_ONE_MINUS_SRC_ALPHA;
+		case RS_BLEND_DEST_ALPHA:
+			return GL_DST_ALPHA;
+		case RS_BLEND_INV_DEST_ALPHA:
+			return GL_ONE_MINUS_DST_ALPHA;
+		case RS_BLEND_DEST_COLOR:
+			return GL_DST_COLOR;
+		case RS_BLEND_INV_DEST_COLOR:
+			return GL_ONE_MINUS_DST_COLOR;
+		case RS_BLEND_SRC_ALPHA_SAT:
+			return GL_SRC_ALPHA_SATURATE;
+		case RS_BLEND_BLEND_FACTOR:
+			return GL_CONSTANT_COLOR;;
+		case RS_BLEND_INV_BLEND_FACTOR:
+			return GL_ONE_MINUS_CONSTANT_COLOR;
+		case RS_BLEND_SRC1_COLOR:
+			return GL_SRC1_COLOR;
+		case RS_BLEND_INV_SRC1_COLOR:
+			return GL_ONE_MINUS_SRC1_COLOR;
+		case RS_BLEND_SRC1_ALPHA:
+			return GL_SRC1_ALPHA;
+		case RS_BLEND_INV_SRC1_ALPHA:
+			return GL_ONE_MINUS_SRC1_ALPHA;
+		default:
+			assert(0);
+			break;
+		}
+
+		return GL_INVALID_ENUM;
+	}
+	GLenum OGL4Convert::FillModeToGL(RS_FILL_MODE mode)
+	{
+		switch(mode)
+		{
+		case RS_FILL_SOLID:
+			return GL_FILL;
+		case RS_FILL_WIREFRAME:
+			return GL_LINE;
+		default:
+			assert(0);
+			break;
+		}
+
+		return GL_INVALID_ENUM;
+	}
+	GLenum OGL4Convert::CompareFuncToGL(RS_COMPARISON_FUNC func)
+	{
+		switch(func)
+		{
+		case RS_COMPARISON_NEVER:
+			return GL_NEVER;
+		case RS_COMPARISON_LESS:
+			return GL_LESS;
+		case RS_COMPARISON_EQUAL:
+			return GL_EQUAL;
+		case RS_COMPARISON_LESS_EQUAL:
+			return GL_LEQUAL;
+		case RS_COMPARISON_GREATER:
+			return GL_GREATER;
+		case RS_COMPARISON_NOT_EQUAL:
+			return GL_NOTEQUAL;
+		case RS_COMPARISON_GREATER_EQUAL:
+			return GL_GEQUAL;
+		case RS_COMPARISON_ALWAYS:
+			return GL_ALWAYS;
+
+		default:
+			assert(0);
+			break;
+		}
+		return GL_INVALID_ENUM;
+	}
+	GLenum OGL4Convert::StencilOPToGL(RS_STENCIL_OP op)
+	{
+		switch(op)
+		{
+		case RS_STENCIL_OP_KEEP:
+			return GL_KEEP;
+		case RS_STENCIL_OP_ZERO:
+			return GL_ZERO;
+		case RS_STENCIL_OP_REPLACE:
+			return GL_REPLACE;
+		case RS_STENCIL_OP_INCR_SAT:
+			return GL_INCR_WRAP;
+		case RS_STENCIL_OP_DECR_SAT:
+			return GL_DECR_WRAP;
+		case RS_STENCIL_OP_INVERT:
+			return GL_INVERT;
+		case RS_STENCIL_OP_INCR:
+			return GL_INCR;
+		case RS_STENCIL_OP_DECR:
+			return GL_DECR;
+		default:
+			assert(0);
+			break;
+		}
 		return GL_INVALID_ENUM;
 	}
 }

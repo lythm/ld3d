@@ -193,7 +193,9 @@ namespace ld3d
 
 
 		glEnable(GL_DEPTH_TEST);
-
+		glEnable(GL_CULL_FACE);
+		glFrontFace(GL_CCW);
+		glCullFace(GL_BACK);
 		m_pCurrentRW = m_pMainRW;
 
 		return true;
@@ -296,14 +298,16 @@ namespace ld3d
 		m_pMainRW->Resize(cx, cy);
 	}
 
-	RenderStatePtr OGL4Graphics::CreateRenderState()
+	RenderState2Ptr OGL4Graphics::CreateRenderState()
 	{
 		OGL4RenderStatePtr pState = std::make_shared<OGL4RenderState>();
 
 		return pState;
 	}
-	void OGL4Graphics::SetRenderState(RenderStatePtr pState)
+	void OGL4Graphics::SetRenderState(RenderState2Ptr pState)
 	{
+		OGL4RenderState* pGLState = (OGL4RenderState*)pState.get();
+		pGLState->Apply();
 	}
 	RenderWindow2Ptr OGL4Graphics::CreateRenderWindow(void* handle, int w, int h, G_FORMAT color_format, G_FORMAT ds_format, int backbufferCount, int multiSampleCount, int multiSampleQuality, bool windowed)
 	{
@@ -387,13 +391,11 @@ namespace ld3d
 	}
 	void OGL4Graphics::SetRenderTarget(RenderTarget2Ptr pTarget)
 	{
-		glBindFramebuffer(GL_FRAMEBUFFER, 0);
-
 		if(pTarget && pTarget->GetType() == RenderTarget2::RENDER_WINDOW)
 		{
 			m_pCurrentRW = std::dynamic_pointer_cast<OGL4RenderWindow>(pTarget);
 			m_pCurrentRW->MakeCurrent();
-
+			glBindFramebuffer(GL_FRAMEBUFFER, 0);
 			return;
 		}
 
@@ -405,6 +407,7 @@ namespace ld3d
 
 		if(pTarget == nullptr)
 		{
+			glBindFramebuffer(GL_FRAMEBUFFER, 0);
 			return;
 		}
 

@@ -143,6 +143,9 @@ namespace ld3d
 		virtual SamplerStatePtr							CreateSampler()																	= 0;
 
 		virtual DepthStencilBufferPtr					CreateDepthStencilBuffer(G_FORMAT format, int w, int h)							= 0;
+
+		virtual RenderState2Ptr							CreateRenderState()																= 0;
+		virtual void									SetRenderState(RenderState2Ptr pState)											= 0;
 		/////////////////////////////////////////////////////////////////
 
 
@@ -154,8 +157,7 @@ namespace ld3d
 
 		virtual void									ResizeFrameBuffer(int cx, int cy)												= 0;
 		
-		virtual RenderStatePtr							CreateRenderState()																= 0;
-		virtual void									SetRenderState(RenderStatePtr pState)											= 0;
+		
 	protected:
 		Sys_Graphics2(void){}
 		virtual ~Sys_Graphics2(void){}

@@ -123,5 +123,16 @@ PFNGLFRAMEBUFFERTEXTUREPROC							glFramebufferTexture							= nullptr;
 PFNGLFRAMEBUFFERRENDERBUFFERPROC					glFramebufferRenderbuffer						= nullptr;
 
 
+
+// render state
+PFNGLBLENDCOLORPROC									glBlendColor									= nullptr;
+PFNGLBLENDEQUATIONSEPARATEPROC						glBlendEquationSeparate							= nullptr;
+PFNGLBLENDFUNCSEPARATEPROC							glBlendFuncSeparate								= nullptr;
+PFNGLSTENCILOPSEPARATEPROC							glStencilOpSeparate								= nullptr;
+PFNGLSTENCILMASKSEPARATEPROC						glStencilMaskSeparate							= nullptr;
+PFNGLSTENCILFUNCSEPARATEPROC						glStencilFuncSeparate							= nullptr;
+
+
+
 // wgl
 PFNWGLSWAPINTERVALEXTPROC							wglSwapIntervalEXT								= nullptr;

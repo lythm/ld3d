@@ -43,6 +43,10 @@ namespace ld3d
 
 		DepthStencilBufferPtr					CreateDepthStencilBuffer(G_FORMAT format, int w, int h);
 		
+
+		RenderState2Ptr							CreateRenderState();
+		void									SetRenderState(RenderState2Ptr pState);
+
 		//////////////////////////
 
 
@@ -51,8 +55,7 @@ namespace ld3d
 		
 		void									ResizeFrameBuffer(int cx, int cy);
 
-		RenderStatePtr							CreateRenderState();
-		void									SetRenderState(RenderStatePtr pState);
+		
 		
 		RenderTargetPtr							GetDefaultRenderTarget();
 		RenderTargetPtr							GetCurrentRenderTarget();

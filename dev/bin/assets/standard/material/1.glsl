@@ -19,6 +19,7 @@ void main()
 
 	gl_Position = o_pos;
 
+	//tex_coord = vec2(uv.x, 1- uv.y);
 	tex_coord = uv;
 }
 

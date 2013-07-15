@@ -1,15 +1,44 @@
-<?xml version='1.0'?>
-<material name="mat1">
-
-	<tech name="t1">
-		<pass name="p1">
-
-			<state name="fillmode">solid</state>
 
 
-			<vertex_shader src="1.vs" entry="main" profile="vs_5_0" />
-			<pixel_shader src="1.ps" entry="main" profile="ps_5_0" />
-		</pass>
-	</tech>
+SamplerState ss1
+{
+};
 
-</material>
+SamplerState ss2
+{
+};
+
+BlendState b1
+{
+};
+
+RasterizeState r1
+{
+};
+
+DepthStencilState d1
+{
+};
+
+Technique t1
+{
+	Pass p1
+	{
+		SetDepthStencilState(d1);
+		SetBlendState(b1);
+		SetRasterizerState(r1);
+
+		SetVertexShader();
+		SetPixelShader();
+		SetGeometryShader();
+	}
+	Pass p2
+	{
+	}
+}
+
+
+Technique t2
+{
+	
+}

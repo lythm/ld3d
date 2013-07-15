@@ -80,6 +80,7 @@ namespace ld3d
 	class GPUBuffer;
 	class Camera;
 	class RenderState;
+	class RenderState2;
 	class Shader;
 	class BaseCamera;
 	
@@ -111,6 +112,7 @@ namespace ld3d
 
 	typedef std::shared_ptr<RenderWindow>					RenderWindowPtr;
 	typedef std::shared_ptr<RenderState>					RenderStatePtr;
+	typedef std::shared_ptr<RenderState2>					RenderState2Ptr;
 	typedef std::shared_ptr<Shader>							ShaderPtr;
 	typedef std::shared_ptr<Camera>							CameraPtr;
 	typedef std::shared_ptr<BaseCamera>						BaseCameraPtr;

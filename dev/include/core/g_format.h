@@ -141,6 +141,7 @@ namespace ld3d
 	{
 		ST_VERTEX_SHADER,
 		ST_PIXEL_SHADER,
+		ST_GEOMETRY_SHADER,
 	};
 	enum MAP_HINT
 	{

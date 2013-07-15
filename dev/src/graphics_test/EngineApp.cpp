@@ -24,10 +24,10 @@ namespace ld3d
 		math::Matrix44 view;
 		math::Matrix44 proj;
 		math::Matrix44 t;
-		math::Vector3 eye(20, 20, -20);
+		math::Vector3 eye(0, 0, -20);
 		
 		static float radius = 0;
-		radius += 0.001;
+		//radius += 0.001;
 
 		t = math::MatrixRotationAxisY(radius);
 		math::TransformCoord(eye, t);
@@ -47,6 +47,7 @@ namespace ld3d
 
 		
 		m_pGraphics->SetRenderTarget(m_pRenderTarget);
+
 		m_pGraphics->ClearRenderTarget(0, math::Color4(0, 0, 0.7, 1));
 		m_pGraphics->ClearDepthStencil(CLEAR_ALL, 1.0f, 0);
 
@@ -59,6 +60,8 @@ namespace ld3d
 
 		param = m_pProgram->FindParameterByName("base");
 		m_pProgram->SetParameterTexture(param, m_pRenderTarget->GetTexture(0));
+
+		m_pGraphics->SetRenderState(m_pRenderState);
 
 		m_pGraphics->SetRenderTarget(RenderTarget2Ptr());
 
@@ -127,14 +130,13 @@ namespace ld3d
 
 		m_pTex->UnMap();*/
 		
-		m_pTex = m_pGraphics->CreateTextureFromFile("./assets/standard/texture/15.png", false);
+		m_pTex = m_pGraphics->CreateTextureFromFile("./assets/standard/texture/ssao_rand.jpg", false);
 		
 
 		m_pSampler = m_pGraphics->CreateSampler();
 
 
-		m_pSampler->SetAddressMode(SamplerState::AM_BORDER, SamplerState::AM_BORDER, SamplerState::AM_BORDER);
-		m_pSampler->SetBorderColor(math::Color4(1, 0, 0, 1));
+		m_pSampler->SetAddressMode(SamplerState::AM_CLAMP, SamplerState::AM_CLAMP, SamplerState::AM_CLAMP);
 		m_pSampler->SetFilter(SamplerState::FILTER_ANISOTROPIC);
 
 		m_pTex->SetSampler(m_pSampler);
@@ -143,7 +145,7 @@ namespace ld3d
 		m_pProgram->SetParameterTexture(param, m_pTex);
 
 
-		DepthStencilBufferPtr pDS = m_pGraphics->CreateDepthStencilBuffer(G_FORMAT_D32_FLOAT_S8X24_UINT, 800, 600);
+		DepthStencilBufferPtr pDS = m_pGraphics->CreateDepthStencilBuffer(G_FORMAT_D32_FLOAT, 800, 600);
 		Texture2Ptr pTex = m_pGraphics->CreateTexture2D(G_FORMAT_R8G8B8A8_UNORM, 800, 600, 1, false);
 		pTex->SetSampler(m_pSampler);
 
@@ -152,7 +154,12 @@ namespace ld3d
 		m_pRenderTarget->AddTexture(pTex);
 		m_pRenderTarget->SetDepthStencilBuffer(pDS);
 
+		m_pRenderState = m_pGraphics->CreateRenderState();
 
+		m_pRenderState->Begin();
+		m_pRenderState->SetCullMode(RS_CULL_NONE);
+		m_pRenderState->SetFrontCounterClockwise(false);
+		m_pRenderState->End();
 		//Sleep(1000);
 		return true;
 	}
@@ -211,9 +218,9 @@ namespace ld3d
 		{
 			// front
 			{math::Vector3(-size, size, -size), math::Vector3(0, 0, -1), math::Vector2(0, 0), },
-			{math::Vector3(size, size, -size), math::Vector3(0, 0, -1), math::Vector2(2, 0),},
-			{math::Vector3(size, -size, -size), math::Vector3(0, 0, -1), math::Vector2(2, 2),},
-			{math::Vector3(-size, -size, -size), math::Vector3(0, 0, -1), math::Vector2(0, 2),},
+			{math::Vector3(size, size, -size), math::Vector3(0, 0, -1), math::Vector2(1, 0),},
+			{math::Vector3(size, -size, -size), math::Vector3(0, 0, -1), math::Vector2(1, 1),},
+			{math::Vector3(-size, -size, -size), math::Vector3(0, 0, -1), math::Vector2(0, 1),},
 
 			// back
 			{math::Vector3(-size, size, size), math::Vector3(0, 0, 1), math::Vector2(0, 0),},

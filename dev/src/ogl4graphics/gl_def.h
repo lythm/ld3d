@@ -120,8 +120,13 @@ extern PFNGLCHECKFRAMEBUFFERSTATUSPROC					glCheckFramebufferStatus;
 extern PFNGLFRAMEBUFFERTEXTUREPROC						glFramebufferTexture;
 extern PFNGLFRAMEBUFFERRENDERBUFFERPROC					glFramebufferRenderbuffer;
 
-
-
+// render state
+extern PFNGLBLENDCOLORPROC								glBlendColor;
+extern PFNGLBLENDEQUATIONSEPARATEPROC					glBlendEquationSeparate;
+extern PFNGLBLENDFUNCSEPARATEPROC						glBlendFuncSeparate;
+extern PFNGLSTENCILOPSEPARATEPROC						glStencilOpSeparate;
+extern PFNGLSTENCILMASKSEPARATEPROC						glStencilMaskSeparate;
+extern PFNGLSTENCILFUNCSEPARATEPROC						glStencilFuncSeparate;
 
 
 #include "glext/wglext.h"

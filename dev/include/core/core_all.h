@@ -62,6 +62,7 @@
 #include "core/Shader.h"
 #include "core/ShaderProgram.h"
 #include "core/SamplerState.h"
+#include "core/RenderState.h"
 
 #include "core/GeometryData.h"
 

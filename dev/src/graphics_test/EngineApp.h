@@ -108,5 +108,6 @@ namespace ld3d
 
 		RenderTexture2Ptr								m_pRenderTarget;
 
+		RenderState2Ptr									m_pRenderState;
 	};
 }

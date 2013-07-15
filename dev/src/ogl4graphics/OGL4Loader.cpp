@@ -214,6 +214,9 @@ namespace ld3d
 		LOAD_API(glFramebufferRenderbuffer,								PFNGLFRAMEBUFFERRENDERBUFFERPROC);
 
 
+		LOAD_API(glBlendColor,											PFNGLBLENDCOLORPROC);
+		LOAD_API(glStencilOpSeparate,											PFNGLSTENCILOPSEPARATEPROC);
+		
 		return true;
 	}
 }

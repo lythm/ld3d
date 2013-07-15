@@ -5,7 +5,7 @@
 
 namespace ld3d
 {
-	class OGL4RenderState : public RenderState
+	class OGL4RenderState : public RenderState2
 	{
 	public:
 		OGL4RenderState(void);
@@ -19,57 +19,38 @@ namespace ld3d
 		void										Apply();
 
 
-
-
-
-		////////////////////////////
-
-
-
-
-
-
-
 		void										SetBlendFactor(const math::Vector4& val);
-		void										SetStencilRef(uint32 val);
-		
 		void										SetBlendEnable(bool bEnable);
-		void										SetSrcBlend(RS_BLEND val);
-		void										SetDestBlend(RS_BLEND val);
-		void										SetBlendOp(RS_BLEND_OP op);
-		void										SetSrcBlendAlpha(RS_BLEND val);
-		void										SetDestBlendAlpha(RS_BLEND val);
-		void										SetBlendOpAlpha(RS_BLEND_OP op);
-		void										SetBlendColorWrite(RS_COLOR_WRITE val);
-		
+
+		void										SetBlendOp(RS_BLEND_OP op, RS_BLEND_OP alpha_op);
+		void										SetBlendVariable(RS_BLEND srcRGB, RS_BLEND dstRGB, RS_BLEND srcAlpha, RS_BLEND dstAlpha);
+
+		void										SetColorWrite(RS_COLOR_WRITE val);
+
 		void										SetFillMode(RS_FILL_MODE val);
 		void										SetCullMode(RS_CULL_MODE val);
 		void										SetFrontCounterClockwise(bool val);
+
 		void										SetDepthBias(uint32 val);
 		void										SetDepthBiasClamp(float val);
 		void										SetSlopeScaledDepthBias(float val);
 		void										SetDepthClipEnable(bool val);
-		
+
 		void										SetDepthEnable(bool val);
 		void										SetDepthWriteMask(RS_DEPTH_WRITE val);
 		void										SetDepthFunc(RS_COMPARISON_FUNC val);
+
+
 		void										SetStencilEnable(bool val);
-		void										SetStencilReadMask(uint8 mask);
-		void										SetStencilWriteMask(uint8 mask);
+		void										SetFrontFaceStencilOP(RS_STENCIL_OP sfail, RS_STENCIL_OP dfaile, RS_STENCIL_OP pass);
+		void										SetBackFaceStencilOP(RS_STENCIL_OP sfail, RS_STENCIL_OP dfaile, RS_STENCIL_OP pass);
 		
-		void										SetFrontFaceStencilFailOp(RS_STENCIL_OP op);
-		void										SetFrontFaceStencilDepthFailOp(RS_STENCIL_OP op);
-		void										SetFrontFaceStencilPassOp(RS_STENCIL_OP op);
-		void										SetFrontFaceStencilFunc(RS_COMPARISON_FUNC val);
+		void										SetFrontFaceStencilWriteMask(uint8 mask);
+		void										SetBackFaceStencilWriteMask(uint8 mask);
 		
-		void										SetBackFaceStencilFailOp(RS_STENCIL_OP op);
-		void										SetBackFaceStencilDepthFailOp(RS_STENCIL_OP op);
-		void										SetBackFaceStencilPassOp(RS_STENCIL_OP op);
-		void										SetBackFaceStencilFunc(RS_COMPARISON_FUNC val);
-
-
+		void										SetFrontFaceStencilFunc(RS_COMPARISON_FUNC val, uint32 ref, uint32 mask);
+		void										SetBackFaceStencilFunc(RS_COMPARISON_FUNC val, uint32 ref, uint32 mask);
 		
-
 	private:
 		void										AddCommand(const std::function<void ()>& command);
 		bool										m_bRecording;
