@@ -3,7 +3,7 @@
 
 namespace ld3d
 {
-	class MaterialTech
+	class EXPORT_CLASS MaterialTech
 	{
 	public:
 		MaterialTech(const std::string& name);
@@ -24,6 +24,4 @@ namespace ld3d
 		std::string											m_name;
 		bool												m_valid;
 	};
-
-
 }

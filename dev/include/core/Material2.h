@@ -2,7 +2,7 @@
 
 namespace ld3d
 {
-	class Material2
+	class EXPORT_CLASS Material2
 	{
 	public:
 		Material2(Sys_GraphicsPtr pGraphics);
@@ -25,6 +25,7 @@ namespace ld3d
 		MaterialTechPtr									GetTechByName(const char* szName);
 		bool											SelectTechByName(const char* szName);
 
+		void											AddTech(MaterialTechPtr pTech);
 
 	private:
 		std::vector<MaterialTechPtr>					m_techs;
@@ -35,5 +36,7 @@ namespace ld3d
 		Sys_GraphicsPtr									m_pGraphics;
 
 		MaterialTechPtr									m_pCurrentTech;
+
+
 	};
 }

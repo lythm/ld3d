@@ -50,6 +50,7 @@
     <ClCompile Include="MaterialPass.cpp" />
     <ClCompile Include="MaterialTech.cpp" />
     <ClCompile Include="BBoxRenderData.cpp" />
+    <ClCompile Include="MaterialCompiler.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\core\ArcBall.h" />
@@ -138,6 +139,7 @@
     <ClInclude Include="..\..\include\core\DT_CoreApi.h" />
     <ClInclude Include="..\..\include\core\GeometryData.h" />
     <ClInclude Include="..\..\include\core\ShaderProgram.h" />
+    <ClInclude Include="..\..\include\core\MaterialCompiler.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

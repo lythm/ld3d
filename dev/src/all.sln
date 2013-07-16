@@ -68,6 +68,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GameStudio", "GameStudio\Ga
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "graphics_test", "graphics_test\graphics_test.vcxproj", "{4DA66194-1DC6-49A6-8C79-CF16A9694451}"
 	ProjectSection(ProjectDependencies) = postProject
+		{A2407401-1B15-44BB-B285-5878BDE949C7} = {A2407401-1B15-44BB-B285-5878BDE949C7}
 		{A6EC5DEF-1473-4BAA-8F0D-DA463A28E5F5} = {A6EC5DEF-1473-4BAA-8F0D-DA463A28E5F5}
 	EndProjectSection
 EndProject

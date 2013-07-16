@@ -20,15 +20,6 @@ namespace ld3d
 	}
 	bool Material2::LoadFromFile(const char* szFile)
 	{
-		TiXmlDocument doc;
-
-		if(doc.LoadFile(szFile) == false)
-		{
-			return false;
-		}
-
-
-
 		return true;
 	}
 	void Material2::Release()
@@ -100,5 +91,13 @@ namespace ld3d
 	MaterialTechPtr Material2::GetTechByIndex(uint32 index)
 	{
 		return m_techs[index];
+	}
+	void Material2::AddTech(MaterialTechPtr pTech)
+	{
+		if(pTech == nullptr)
+		{
+			return;
+		}
+		m_techs.push_back(pTech);
 	}
 }

@@ -3,7 +3,7 @@
 
 namespace ld3d
 {
-	class MaterialParameter
+	class EXPORT_CLASS MaterialParameter
 	{
 	public:
 
@@ -17,7 +17,7 @@ namespace ld3d
 	};
 
 	template <typename T>
-	class MaterialParameter_T: public MaterialParameter
+	class EXPORT_CLASS MaterialParameter_T: public MaterialParameter
 	{
 	public:
 		MaterialParameter_T(const std::string& name, void* val) : MaterialParameter(name)

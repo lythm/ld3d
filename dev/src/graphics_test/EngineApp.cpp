@@ -2,7 +2,12 @@
 #include "EngineApp.h"
 #include <tchar.h>
 
-
+#define GLM_FORCE_RADIANS
+#include <glm/glm.hpp>
+#include <glm/gtc/type_ptr.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtx/matrix_major_storage.hpp>
+#include <glm/gtc/quaternion.hpp>
 
 namespace ld3d
 {
@@ -24,13 +29,13 @@ namespace ld3d
 		math::Matrix44 view;
 		math::Matrix44 proj;
 		math::Matrix44 t;
-		math::Vector3 eye(0, 0, -20);
+		math::Vector3 eye(20, 20, 20);
 		
 		static float radius = 0;
-		//radius += 0.001;
+		radius += 0.001;
 
 		t = math::MatrixRotationAxisY(radius);
-		math::TransformCoord(eye, t);
+		//math::TransformCoord(eye, t);
 
 		view = math::MatrixLookAtLH(eye, math::Vector3(0, 0, 0), math::Vector3(0, 1, 0));
 		proj = math::MatrixPerspectiveFovLH(0.25 * 3.14, 4.0 / 3.0, 0.01, 10000);
@@ -59,7 +64,7 @@ namespace ld3d
 
 
 		param = m_pProgram->FindParameterByName("base");
-		m_pProgram->SetParameterTexture(param, m_pRenderTarget->GetTexture(0));
+		//m_pProgram->SetParameterTexture(param, m_pRenderTarget->GetTexture(0));
 
 		m_pGraphics->SetRenderState(m_pRenderState);
 
@@ -75,9 +80,12 @@ namespace ld3d
 
 		ShowFPS();
 	}
+
+	
 	bool EngineApp::OnInit()
 	{
 		using namespace ld3d;
+
 
 		if(false == m_mod.load_sys(L"./ogl4graphics_x64.dll"))
 		{
@@ -130,7 +138,7 @@ namespace ld3d
 
 		m_pTex->UnMap();*/
 		
-		m_pTex = m_pGraphics->CreateTextureFromFile("./assets/standard/texture/ssao_rand.jpg", false);
+		m_pTex = m_pGraphics->CreateTextureFromFile("./assets/standard/texture/15.png", false);
 		
 
 		m_pSampler = m_pGraphics->CreateSampler();
@@ -157,10 +165,16 @@ namespace ld3d
 		m_pRenderState = m_pGraphics->CreateRenderState();
 
 		m_pRenderState->Begin();
-		m_pRenderState->SetCullMode(RS_CULL_NONE);
+		m_pRenderState->SetCullMode(RS_CULL_BACK);
 		m_pRenderState->SetFrontCounterClockwise(false);
 		m_pRenderState->End();
 		//Sleep(1000);
+
+
+		MaterialCompiler cl;
+
+		Material2Ptr pMat = cl.CompileFromFile("./assets/standard/material/1.material");
+
 		return true;
 	}
 	void EngineApp::OnRelease()

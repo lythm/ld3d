@@ -60,7 +60,7 @@ namespace math
 		glm::mat4 l = glm::make_mat4(lhs.m);
 		glm::mat4 r = glm::make_mat4(rhs.m);
 
-		const Real* p = glm::value_ptr(l * r);
+		const Real* p = glm::value_ptr(r * l);
 
 		return Matrix44(p);
 

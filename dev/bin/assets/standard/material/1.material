@@ -1,32 +1,24 @@
 
-
 SamplerState ss1
 {
-};
+}
 
 SamplerState ss2
 {
-};
+	
+}
 
-BlendState b1
+RenderState rs1
 {
-};
-
-RasterizeState r1
-{
-};
-
-DepthStencilState d1
-{
-};
-
+	
+}
 Technique t1
 {
 	Pass p1
 	{
-		SetDepthStencilState(d1);
-		SetBlendState(b1);
-		SetRasterizerState(r1);
+		SetRenderState(rs1);
+
+		BindSampler("base", ss1);
 
 		SetVertexShader();
 		SetPixelShader();

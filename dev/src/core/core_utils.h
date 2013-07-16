@@ -34,4 +34,13 @@ namespace ld3d
 		CoreApi::Log(text);
 	}
 
+	inline
+		void												log(const std::string& text)
+	{
+		std::wstring log;
+		ld3d::Unicode::ANSI_2_UTF16(text, log);
+		
+		CoreApi::Log(log);
+	}
+
 }

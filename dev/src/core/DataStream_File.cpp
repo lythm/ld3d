@@ -80,6 +80,30 @@ namespace ld3d
 
 		return true;
 	}
+	bool DataStream_File::OpenStream(const char* szFile, bool read)
+	{
+		if(m_pFile != nullptr)
+		{
+			Close();
+		}
+
+		if(read)
+		{
+			m_pFile = fopen(szFile, "rb+");
+		}
+		else
+		{
+			m_pFile = fopen(szFile, "wb+");
+		}
+		if(m_pFile == NULL)
+		{
+			return false;
+		}
+
+		m_oriPos = 0;
+
+		return true;
+	}
 	bool DataStream_File::OpenStream(FILE* pFile)
 	{
 		if(pFile == nullptr)

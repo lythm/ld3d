@@ -87,6 +87,7 @@ namespace ld3d
 	class RenderWindow;
 	class RenderWindow2;
 	class Material;
+	class Material2;
 	class MaterialPass;
 	class MaterialTech;
 	class MaterialParameterManager;
@@ -98,6 +99,7 @@ namespace ld3d
 	
 	typedef std::shared_ptr<BBoxRenderData>					BBoxRenderDataPtr;
 	
+	typedef std::shared_ptr<Material2>						Material2Ptr;
 	typedef std::shared_ptr<Material>						MaterialPtr;
 	typedef std::shared_ptr<MaterialPass>					MaterialPassPtr;
 	typedef std::shared_ptr<MaterialTech>					MaterialTechPtr;

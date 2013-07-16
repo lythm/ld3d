@@ -23,8 +23,6 @@ namespace math
 	{
 		glm::mat4x4 r = glm::rotate(glm::make_mat4(MatrixIdentity().m), rad, glm::make_vec3(axis.v));
 		
-		r = glm::rowMajor4(r);
-
 		const Real* p = glm::value_ptr(r);
 
 		return Matrix44(p);
@@ -43,7 +41,7 @@ namespace math
 		glm::vec4 v1(v.x, v.y, 1, 1);
 		glm::mat4 m1 = glm::make_mat4(t.m);
 
-		v1 = v1 * m1;
+		v1 = m1 * v1;
 
 		v.x = v1.x;
 		v.y = v1.y;
@@ -56,7 +54,7 @@ namespace math
 		glm::vec4 v1(v.x, v.y, v.z, 1.0f);
 		glm::mat4 m1 = glm::make_mat4(t.m);
 
-		v1 = v1 * m1;
+		v1 = m1 * v1;
 
 		v.x = v1.x;
 		v.y = v1.y;
@@ -70,7 +68,7 @@ namespace math
 		glm::vec4 v1 = glm::make_vec4(v.v);
 		glm::mat4 m1 = glm::make_mat4(t.m);
 
-		v1 = v1 * m1;
+		v1 = m1 * v1;
 
 		v.x = v1.x;
 		v.y = v1.y;
@@ -84,7 +82,7 @@ namespace math
 		glm::vec4 v1(v.x, v.y, 0, 0);
 		glm::mat4 m1 = glm::make_mat4(t.m);
 
-		v1 = v1 * m1;
+		v1 = m1 * v1;
 
 		v.x = v1.x;
 		v.y = v1.y;
@@ -96,7 +94,7 @@ namespace math
 		glm::vec4 v1(v.x, v.y, v.z, 0);
 		glm::mat4 m1 = glm::make_mat4(t.m);
 
-		v1 = v1 * m1;
+		v1 = m1 * v1;
 
 		v.x = v1.x;
 		v.y = v1.y;
@@ -106,30 +104,35 @@ namespace math
 	inline
 		Matrix44 MatrixLookAtLH(const Vector3& eye, const Vector3& at, const Vector3& up)
 	{
-
 		using namespace glm;
 
 		vec3 e = make_vec3(eye.v);
-		
-
-		vec3 f = normalize(make_vec3((at - eye).v));
-		vec3 u = normalize(make_vec3(up.v));
-		vec3 s = normalize(cross(f, u));
-		u = cross(s, f);
+	
+		vec3 axis_z = normalize(make_vec3((at - eye).v));
+		vec3 axis_x = normalize(cross(make_vec3(up.v), axis_z));
+		vec3 axis_y = normalize(cross(axis_z, axis_x));
 
 		mat4 Result(1);
-		Result[0][0] = s.x;
-		Result[1][0] = s.y;
-		Result[2][0] = s.z;
-		Result[0][1] = u.x;
-		Result[1][1] = u.y;
-		Result[2][1] = u.z;
-		Result[0][2] = f.x;
-		Result[1][2] = f.y;
-		Result[2][2] = f.z;
-		Result[3][0] = dot(s,e);
-		Result[3][1] = dot(u, e);
-		Result[3][2] =-dot(f, e);
+		
+		Result[0][0] = axis_x.x;
+		Result[1][0] = axis_x.y;
+		Result[2][0] = axis_x.z;
+		Result[3][0] = -dot(axis_x,e);
+
+		Result[0][1] = axis_y.x;
+		Result[1][1] = axis_y.y;
+		Result[2][1] = axis_y.z;
+		Result[3][1] = -dot(axis_y, e);
+
+		Result[0][2] = axis_z.x;
+		Result[1][2] = axis_z.y;
+		Result[2][2] = axis_z.z;
+		Result[3][2] = -dot(axis_z, e);
+
+		Result[0][3] = 0;
+		Result[1][3] = 0;
+		Result[2][3] = 0;
+		Result[3][3] = 1;
 		
 		const Real* p = glm::value_ptr(Result);
 
@@ -141,26 +144,32 @@ namespace math
 		using namespace glm;
 
 		vec3 e = make_vec3(eye.v);
-		
-
-		vec3 f = normalize(make_vec3((at - eye).v));
-		vec3 u = normalize(make_vec3(up.v));
-		vec3 s = normalize(cross(f, u));
-		u = cross(s, f);
+	
+		vec3 axis_z = normalize(make_vec3((eye - at).v));
+		vec3 axis_x = normalize(cross(make_vec3(up.v), axis_z));
+		vec3 axis_y = normalize(cross(axis_z, axis_x));
 
 		mat4 Result(1);
-		Result[0][0] = s.x;
-		Result[1][0] = s.y;
-		Result[2][0] = s.z;
-		Result[0][1] = u.x;
-		Result[1][1] = u.y;
-		Result[2][1] = u.z;
-		Result[0][2] = -f.x;
-		Result[1][2] = -f.y;
-		Result[2][2] = -f.z;
-		Result[3][0] = -dot(s,e);
-		Result[3][1] = -dot(u, e);
-		Result[3][2] = dot(f, e);
+		
+		Result[0][0] = axis_x.x;
+		Result[1][0] = axis_x.y;
+		Result[2][0] = axis_x.z;
+		Result[3][0] = -dot(axis_x,e);
+
+		Result[0][1] = axis_y.x;
+		Result[1][1] = axis_y.y;
+		Result[2][1] = axis_y.z;
+		Result[3][1] = -dot(axis_y, e);
+
+		Result[0][2] = axis_z.x;
+		Result[1][2] = axis_z.y;
+		Result[2][2] = axis_z.z;
+		Result[3][2] = -dot(axis_z, e);
+
+		Result[0][3] = 0;
+		Result[1][3] = 0;
+		Result[2][3] = 0;
+		Result[3][3] = 1;
 		
 		const Real* p = glm::value_ptr(Result);
 
@@ -169,30 +178,59 @@ namespace math
 	inline
 		Matrix44 MatrixOrthoLH(Real w, Real h, Real zn, Real zf)
 	{
-		return Matrix44();
+		Matrix44 mat;
+
+		mat.m11 = 2 / w;
+		mat.m22 = 2 / h;
+		mat.m33 = 1 / (zf - zn);
+		mat.m34 = 0;
+		mat.m43 = -zn / (zf - zn);
+		mat.m44 = 1;
+		return mat;
 	}
 	inline
 		Matrix44 MatrixOrthoRH(Real w, Real h, Real zn, Real zf)
 	{
-		Matrix44 ret;
 
+		Matrix44 mat;
+
+		mat.m11 = 2 / w;
+		mat.m22 = 2 / h;
+		mat.m33 = 1 / (zn - zf);
+		mat.m34 = 0;
+		mat.m43 = zn / (zn - zf);
+		mat.m44 = 1;
+		return mat;
 		
 
-		return ret;
 	}
 	inline
 		Matrix44 MatrixPerspectiveLH(Real w, Real h, Real zn, Real zf)
 	{
-		return Matrix44();
+		
+		Matrix44 mat;
+
+		mat.m11 = 2 * zn / w;
+		mat.m22 = 2 * zn / h;
+		mat.m33 = zf / (zf - zn);
+		mat.m34 = 1;
+		mat.m43 = zn * zf / (zn - zf);
+
+		return mat;
 	}
 	inline
 		Matrix44 MatrixPerspectiveRH(Real w, Real h, Real zn, Real zf)
 	{
-		Matrix44 ret;
-
 		
+		Matrix44 mat;
 
-		return ret;
+		mat.m11 = 2 * zn / w;
+		mat.m22 = 2 * zn / h;
+		mat.m33 = zf / (zn - zf);
+		mat.m34 = -1;
+		mat.m43 = zn * zf / (zn - zf);
+
+		return mat;
 	}
 	inline
 		Matrix44 MatrixPerspectiveFovLH(Real fov, Real aspect, Real zn, Real zf)
@@ -219,9 +257,20 @@ namespace math
 	inline
 		Matrix44 MatrixPerspectiveFovRH(Real fov, Real aspect, Real zn, Real zf)
 	{
-		Matrix44 ret;
+		
+		Matrix44 mat;
+		
+		Real ys = 1.0f / tan(fov / 2.0f);
+		Real xs = ys / aspect;
+				
+		
+		mat.m11 = xs;
+		mat.m22 = ys;
+		mat.m33 = zf / (zn - zf);
+		mat.m34 = -1;
+		mat.m43 = zn * zf / (zn - zf);
 
-		return ret;
+		return mat;
 	}
 	inline
 		Matrix44 MatrixRotationRollPitchYaw(float Pitch, float Yaw, float Roll)
@@ -230,7 +279,7 @@ namespace math
 
 		glm::mat4 m = glm::mat4_cast(q);
 
-		return Matrix44(glm::value_ptr(glm::rowMajor4(m)));
+		return Matrix44(glm::value_ptr(m));
 
 	}
 	inline

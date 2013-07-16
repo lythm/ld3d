@@ -2,7 +2,7 @@
 
 namespace ld3d
 {
-	class MaterialPass
+	class EXPORT_CLASS MaterialPass
 	{
 	public:
 		MaterialPass();

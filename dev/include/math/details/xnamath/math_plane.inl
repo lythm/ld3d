@@ -25,13 +25,5 @@ namespace math
 
 		XMStoreFloat4((XMFLOAT4*) this, r);
 	}
-	inline
-		void Plane::Normalize()
-	{
-		XMVECTOR p = XMLoadFloat4((const XMFLOAT4*)this);
-
-		XMVECTOR r = XMPlaneNormalize(p);
-
-		XMStoreFloat4((XMFLOAT4*) this, r);
-	}
+	
 }
