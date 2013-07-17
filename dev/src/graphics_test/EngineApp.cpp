@@ -175,6 +175,7 @@ namespace ld3d
 
 		Material2Ptr pMat = cl.CompileFromFile("./assets/standard/material/1.material");
 
+
 		return true;
 	}
 	void EngineApp::OnRelease()

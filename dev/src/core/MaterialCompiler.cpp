@@ -5,9 +5,27 @@
 
 namespace ld3d
 {
-	static std::string keywords[] = 
+	static std::string sampler_variable_list[] = 
 	{
-		"technique", "pass", "RenderState", "SamplerState",
+		"address_u",
+		"address_v",
+		"address_w",
+	};
+
+	static std::string render_state_variable_list[]=
+	{
+		"cullmode",
+		"fillmode",
+
+	};
+
+	static std::string function_list[] = 
+	{
+		"setvertexshader",
+		"setpixelshader",
+		"setgeometryshader",
+		"setrenderstate",
+		"bindsampler",
 	};
 
 	MaterialCompiler::MaterialCompiler(void)
@@ -54,11 +72,34 @@ namespace ld3d
 	{
 		Clear();
 
+		m_lexer.Reset(src);
+
 		InitParser();
 		m_file = filename;
 		m_src = src;
 
 		ConstructLineInfo();
+
+
+		MaterialLexer::MaterialToken token = m_lexer.NextToken();
+
+		while(true)
+		{
+			switch(token)
+			{
+			case MaterialLexer::token_semi:
+				m_lexer.NextToken();
+				break;
+			default:
+				break;
+			}
+		}
+
+
+
+
+
+
 
 		int pos = 0;
 		while(pos >= 0)
@@ -74,11 +115,27 @@ namespace ld3d
 			}
 		}
 
-		return Material2Ptr();
+		return GenerateMaterial();
 	}
-	
-	
-
+	bool MaterialCompiler::IsComment(int offset)
+	{
+		int pos = offset;
+		
+		for(int i = 0; i < 2; ++i, ++pos)
+		{
+			if(pos >= m_src.length())
+			{
+				return false;
+			}
+						
+			if(Char(pos) != '/')
+			{
+				return false;
+			}
+		}
+		
+		return true;
+	}
 	bool MaterialCompiler::IsToken(const std::string& token, int offset)
 	{
 		int pos = offset;
@@ -111,16 +168,32 @@ namespace ld3d
 	int MaterialCompiler::SkipWhite(int offset)
 	{
 		int pos = offset;
-		while(Char(pos) == ' ' || Char(pos) == '\n' || Char(pos) == '\r' || Char(pos) ==  '\t')
+		while(pos < m_src.length() &&(Char(pos) == ' ' || Char(pos) == '\n' || Char(pos) == '\r' || Char(pos) ==  '\t'))
 		{
-			if(pos == m_src.length())
-			{
-				return ret_eof;
-			}
+			
 			pos++;
 		}
-
+		if(pos == m_src.length())
+		{
+			return ret_eof;
+		}
 		return pos;
+	}
+	int	MaterialCompiler::DiscardLine(int offset)
+	{
+		int line, col;
+		bool ret = PosToLineCol(offset, line, col);
+		if(ret == false)
+		{
+			return ret_failed;
+		}
+		
+		if(line == m_lines.size() - 1)
+		{
+			return ret_eof;
+		}
+
+		return m_lines[line + 1].start;
 	}
 	int	MaterialCompiler::ExpectNewLine(int offset)
 	{
@@ -151,33 +224,36 @@ namespace ld3d
 
 		return ret_failed;
 	}
-	int	MaterialCompiler::ExpectLeftBrace(int offset)
+	int MaterialCompiler::ExpectLeftParentheses(int offset)
 	{
-		std::string token;
-		int pos = ExpectToken(offset, token);
+		return ExpectTokenAs(offset, "(");
+	}
+	int	MaterialCompiler::ExpectRightParentheses(int offset)
+	{
+		return ExpectTokenAs(offset, ")");
+	}
+	int	MaterialCompiler::ExpectTokenAs(int offset, const std::string& token)
+	{
+		std::string t;
+		int pos = ExpectToken(offset, t);
 		if(pos < 0)
 		{
 			return pos;
 		}
-		if(token != "{")
+		if(IsToken(t, token) == false)
 		{
 			return ret_failed;
 		}
+		
 		return pos;
+	}
+	int	MaterialCompiler::ExpectLeftBrace(int offset)
+	{
+		return ExpectTokenAs(offset, "{");
 	}
 	int MaterialCompiler::ExpectRightBrace(int offset)
 	{
-		std::string token;
-		int pos = ExpectToken(offset, token);
-		if(pos < 0)
-		{
-			return pos;
-		}
-		if(token != "}")
-		{
-			return ret_failed;
-		}
-		return pos;
+		return ExpectTokenAs(offset, "}");
 	}
 	bool MaterialCompiler::ConstructLineInfo()
 	{
@@ -223,7 +299,6 @@ namespace ld3d
 		m_curPos = 0;
 		m_file = "";
 		m_parser.clear();
-		
 	}
 	bool MaterialCompiler::PosToLineCol(int pos, int& line, int& col)
 	{
@@ -246,7 +321,8 @@ namespace ld3d
 	}
 	std::string MaterialCompiler::LogPrefix(int pos)
 	{
-		int line, col;
+		int line , col;
+		line = col = -1;
 		PosToLineCol(pos, line, col);
 		if(m_file.length() == 0)
 		{
@@ -267,14 +343,29 @@ namespace ld3d
 	}
 	int	MaterialCompiler::ExpectToken(int offset, std::string& token)
 	{
-		int pos = SkipWhite(offset);
-
-
-		if(pos == ret_eof)
+		// skip white and comment
+		int pos = offset;
+		while(true)
 		{
-			return ret_eof;
-		}
+			pos = SkipWhite(pos);
+			if(pos == ret_eof)
+			{
+				return ret_eof;
+			}
 
+			if(IsComment(pos) == false)
+			{
+				break;
+			}
+
+			pos = DiscardLine(pos);
+			if(pos < 0)
+			{
+				return pos;
+			}
+		}
+		
+		// brace
 		if(Char(pos) == '{' || Char(pos) == '}')
 		{
 			token = Char(pos);
@@ -417,6 +508,8 @@ namespace ld3d
 	}
 	int MaterialCompiler::ParseTech(int offset)
 	{
+		TechniqueInfo info;
+		
 		std::string id = "";
 		int pos = ExpectToken(offset, id);
 		if(pos == ret_eof)
@@ -436,6 +529,9 @@ namespace ld3d
 			return ret_failed;
 		}
 
+		info.m_name = id;
+
+
 		pos = ExpectLeftBrace(pos);
 		if(pos < 0)
 		{
@@ -444,7 +540,30 @@ namespace ld3d
 		}
 		// parse members
 
-		pos = ParsePass(pos);
+		while(true)
+		{
+			std::string token = "";
+			pos = ExpectToken(pos, token);
+			if(pos < 0)
+			{
+				Print("'pass or }' expected, not found.");
+				return pos;
+			}
+		
+			if(IsToken(token, "pass") == false)
+			{
+				pos -= token.length();
+				break;
+			}
+			PassInfo pass;
+			pos = ParsePass(pos, pass);
+			if(pos < 0)
+			{
+				return pos;
+			}
+
+			info.m_passes.push_back(pass);
+		}
 
 		pos = ExpectRightBrace(pos);
 		if(pos < 0)
@@ -453,8 +572,7 @@ namespace ld3d
 			return pos;
 		}
 
-		TechniqueInfo info;
-		info.m_name = id;
+		
 
 		m_techs.push_back(info);
 		return pos;
@@ -468,9 +586,45 @@ namespace ld3d
 		}
 		return ret;
 	}
-	int MaterialCompiler::ParsePass(int offset)
+	int MaterialCompiler::ParsePass(int offset, PassInfo& info)
 	{
-		return -1;
+		std::string id = "";
+		int pos = ExpectToken(offset, id);
+		if(pos == ret_eof)
+		{
+			Print("Pass name expected, not found.");
+			return ret_eof;
+		}
+		if(pos == ret_failed)
+		{
+			Print("Invalid Pass name: " + id);
+			return ret_failed;
+		}
+
+		if(HasDefined(id))
+		{
+			Print(id + " already defined.");
+			return ret_failed;
+		}
+
+		pos = ExpectLeftBrace(pos);
+		if(pos < 0)
+		{
+			Print("'{' expected, not found.");
+			return pos;
+		}
+		// parse members
+
+
+		pos = ExpectRightBrace(pos);
+		if(pos < 0)
+		{
+			Print("'}' expected, not found.");
+			return pos;
+		}
+
+		info.m_name = id;
+		return pos;
 	}
 	bool MaterialCompiler::HasDefined(const std::string& name)
 	{
@@ -499,6 +653,15 @@ namespace ld3d
 		}
 
 		return false;
+	}
+
+	bool MaterialCompiler::IsToken(const std::string& token, const std::string& expecting)
+	{
+		return ToLower(token) == ToLower(expecting);
+	}
+	Material2Ptr MaterialCompiler::GenerateMaterial()
+	{
+		return Material2Ptr();
 	}
 }
 

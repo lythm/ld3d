@@ -195,6 +195,7 @@
     <ClInclude Include="..\..\include\core\Material.h" />
     <ClInclude Include="..\..\include\core\Material2.h" />
     <ClInclude Include="..\..\include\core\MaterialCompiler.h" />
+    <ClInclude Include="..\..\include\core\MaterialLexer.h" />
     <ClInclude Include="..\..\include\core\MaterialParameter.h" />
     <ClInclude Include="..\..\include\core\MaterialPass.h" />
     <ClInclude Include="..\..\include\core\MaterialTech.h" />
@@ -276,6 +277,7 @@
     <ClCompile Include="LightManager.cpp" />
     <ClCompile Include="Material2.cpp" />
     <ClCompile Include="MaterialCompiler.cpp" />
+    <ClCompile Include="MaterialLexer.cpp" />
     <ClCompile Include="MaterialParameter.cpp" />
     <ClCompile Include="MaterialParameterManager.cpp" />
     <ClCompile Include="MaterialPass.cpp" />

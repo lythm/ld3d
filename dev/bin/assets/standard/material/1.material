@@ -1,6 +1,9 @@
 
+
 SamplerState ss1
 {
+	// a = 1;
+	// b = 2;
 }
 
 SamplerState ss2
@@ -16,13 +19,13 @@ Technique t1
 {
 	Pass p1
 	{
-		SetRenderState(rs1);
+		//SetRenderState(rs1);
 
-		BindSampler("base", ss1);
+		//BindSampler("base", ss1);
 
-		SetVertexShader();
-		SetPixelShader();
-		SetGeometryShader();
+		//SetVertexShader();
+		//SetPixelShader();
+		//SetGeometryShader();
 	}
 	Pass p2
 	{
