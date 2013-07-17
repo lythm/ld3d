@@ -197,6 +197,7 @@
     <ClInclude Include="..\..\include\core\MaterialCompiler.h" />
     <ClInclude Include="..\..\include\core\MaterialLexer.h" />
     <ClInclude Include="..\..\include\core\MaterialParameter.h" />
+    <ClInclude Include="..\..\include\core\MaterialParser.h" />
     <ClInclude Include="..\..\include\core\MaterialPass.h" />
     <ClInclude Include="..\..\include\core\MaterialTech.h" />
     <ClInclude Include="..\..\include\core\Mesh.h" />
@@ -280,6 +281,7 @@
     <ClCompile Include="MaterialLexer.cpp" />
     <ClCompile Include="MaterialParameter.cpp" />
     <ClCompile Include="MaterialParameterManager.cpp" />
+    <ClCompile Include="MaterialParser.cpp" />
     <ClCompile Include="MaterialPass.cpp" />
     <ClCompile Include="MaterialTech.cpp" />
     <ClCompile Include="Mesh.cpp" />

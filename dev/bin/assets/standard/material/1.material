@@ -1,15 +1,17 @@
-
+# material script
 
 SamplerState ss1
 {
-	// a = 1;
-	// b = 2;
+	a = 1;
+	b = 2;
+	c = 1;
 }
 
 SamplerState ss2
 {
-	
-}
+	a = 2;
+	b = 3;
+};;;
 
 RenderState rs1
 {
@@ -19,21 +21,27 @@ Technique t1
 {
 	Pass p1
 	{
-		//SetRenderState(rs1);
+		SetRenderState(rs1);
 
-		//BindSampler("base", ss1);
+		BindSampler("base", ss1);
 
-		//SetVertexShader();
-		//SetPixelShader();
-		//SetGeometryShader();
-	}
+		SetVertexShader();
+		SetPixelShader();
+		SetGeometryShader();
+	};;
 	Pass p2
 	{
-	}
+	};
 }
 
 
 Technique t2
 {
+	Pass p1
+	{
+	};
+	Pass p2
+	{
+	};
 	
-}
+};

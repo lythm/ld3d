@@ -171,7 +171,7 @@ namespace ld3d
 		//Sleep(1000);
 
 
-		MaterialCompiler cl;
+		material_script::Compiler cl;
 
 		Material2Ptr pMat = cl.CompileFromFile("./assets/standard/material/1.material");
 

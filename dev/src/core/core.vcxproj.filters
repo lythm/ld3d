@@ -52,6 +52,7 @@
     <ClCompile Include="BBoxRenderData.cpp" />
     <ClCompile Include="MaterialCompiler.cpp" />
     <ClCompile Include="MaterialLexer.cpp" />
+    <ClCompile Include="MaterialParser.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\core\ArcBall.h" />
@@ -142,6 +143,7 @@
     <ClInclude Include="..\..\include\core\ShaderProgram.h" />
     <ClInclude Include="..\..\include\core\MaterialCompiler.h" />
     <ClInclude Include="..\..\include\core\MaterialLexer.h" />
+    <ClInclude Include="..\..\include\core\MaterialParser.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
