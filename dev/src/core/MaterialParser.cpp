@@ -6,27 +6,51 @@ namespace ld3d
 {
 	namespace material_script
 	{
-		Parser::Parser(void)
+		
+		Parser::Parser(std::function<void (const std::string&)> logger)
 		{
+			m_logger = logger;
 			_reset("");
+
 		}
 
 		Parser::~Parser(void)
 		{
 
 		}
-		bool Parser::Parse(const std::string& src)
+
+		bool Parser::Parse(const std::string& src, const std::vector<std::string>& const_list)
 		{
 			_reset(src);
 
-			ObjectMetaData root;
-			root.type = "";
-			root.value = "";
-			root.parent = nullptr;
+			m_root.type = "__root__";
+			m_root.value = "";
+			m_root.parent = nullptr;
+
+
+			for(auto v : const_list)
+			{
+				ObjectMetaData consts;
+				consts.line = -1;
+				consts.type = "__constant__";
+				consts.parent = &m_root;
+				consts.value = v;
+				m_root.members.push_back(consts);
+			}
+			
+			TypeInfo passType;
+			passType.name = "SamplerState";
+			passType.value_type = "__string__";
+			passType.members.push_back(std::make_pair("__assign__", "AddressModeU"));
+			passType.members.push_back(std::make_pair("__assign__", "AddressModeV"));
+			passType.members.push_back(std::make_pair("__assign__", "AddressModeW"));
+			passType.members.push_back(std::make_pair("__function_call__", "SetVertexShader"));
+
+			m_typeInfoList.push_back(passType);
 
 			Token token = m_lexer.NextToken();
 
-			while(true)
+			while(NoError())
 			{
 				switch(token.type)
 				{
@@ -35,26 +59,37 @@ namespace ld3d
 					break;
 
 				case Token::token_id:
-					token = _parse_identifier(root);
+					token = _parse_identifier(m_root);
 					break;
 				case Token::token_eof:
-					return true;
+					return ParseObjectTree(&m_root);
 				default:
-					_log(token.line, "unexpected token: '" + token.str + "'");
+					_error(token.line, "unexpected token: '" + token.str + "'");
 					token = m_lexer.NextToken();
 					break;
 				}
 			}
 
-			return true;
+			_error(-1, "====== failed. ======");
+			return false;
 		}
 		void Parser::_reset(const std::string& src)
 		{
+			m_root.members.clear();
+			m_bNoError = true;
 			m_lexer.Reset(src);
+
+			m_builtInTypeInfoList.clear();
+			_init_built_in_type_info();
 		}
-		void Parser::_log(int line, const std::string& msg)
+		void Parser::_error(int line, const std::string& msg)
 		{
-			log("[" + std::to_string(line + 1) + "]: " + msg);
+			if(m_logger)
+			{
+				m_logger("(" + std::to_string(line + 1) + "): " + msg);
+			}
+
+			m_bNoError = false;
 		}
 		Token Parser::_parse_identifier(ObjectMetaData& obj)
 		{
@@ -64,13 +99,17 @@ namespace ld3d
 			if(next_token.type == Token::token_id)
 			{
 				ObjectMetaData child;
-				child.type = token.str;
-				child.value = next_token.str;
-				child.parent = &obj;
+
+				if(_create_object(child, token.str, next_token.str, &obj) == false)
+				{
+					_error(token.line, "undefined symbol: " + token.str);
+					return next_token;
+				}
+				child.line = next_token.line;
 
 				if(_already_defined(child.value, obj))
 				{
-					_log_already_defined(next_token.line, child);
+					_error_already_defined(next_token.line, child);
 					return m_lexer.NextToken();;
 				}
 
@@ -83,25 +122,38 @@ namespace ld3d
 			{
 				if(next_token.str == "(")
 				{
+					if(_validate_member(obj.typeinfo, "__function_call__", token.str) == false)
+					{
+						_error(token.line, "undefined symbol: " + token.str);
+						return next_token;
+					}
+
 					ObjectMetaData child;
 					child.type = "__function_call__";
 					child.value = token.str;
 					child.parent = &obj;
+					child.line = next_token.line;
 					next_token = _parse_function_call(child);
 					obj.members.push_back(child);
 					return next_token;
 				}
 				if(next_token.str == "=")
 				{
+					if(_validate_member(obj.typeinfo, "__assign__", token.str) == false)
+					{
+						_error(token.line, "undefined symbol: " + token.str);
+						return next_token;
+					}
 					ObjectMetaData child;
 					child.type = "__assign__";
 					child.value = token.str;
 					child.parent = &obj;
+					child.line = next_token.line;
 
 					if(_already_defined(child.value, obj))
 					{
 						
-						_log_already_defined(next_token.line, child);
+						_error_already_defined(next_token.line, child);
 						return m_lexer.NextToken();;
 					}
 
@@ -113,11 +165,11 @@ namespace ld3d
 
 			if(token.type == Token::token_eof)
 			{
-				_log(token.line, "unexpected end of file.");
+				_error(token.line, "unexpected end of file.");
 				return token;
 			}
 
-			_log(next_token.line, "unexpected token: '" + next_token.str + "'");
+			_error(next_token.line, "unexpected token: '" + next_token.str + "'");
 			return next_token;
 		}
 		Token Parser::_parse_misc()
@@ -133,7 +185,7 @@ namespace ld3d
 				return token;
 			}
 
-			_log(token.line, "unexpected token: '" + token.str + "'");
+			_error(token.line, "unexpected token: '" + token.str + "'");
 			
 			return m_lexer.NextToken();
 		}
@@ -173,10 +225,10 @@ namespace ld3d
 			
 			if(token.type == Token::token_eof)
 			{
-				_log(token.line, "unexpected end of file.");
+				_error(token.line, "unexpected end of file.");
 				return token;
 			}
-			_log(token.line, "unexpected token: '" + token.str + "'");
+			_error(token.line, "unexpected token: '" + token.str + "'");
 			return token;
 		}
 		Token Parser::_parse_function_call(ObjectMetaData& obj)
@@ -206,6 +258,13 @@ namespace ld3d
 
 				if(token.type == Token::token_id)
 				{
+					const ObjectMetaData* ref = _find_obj_ref(token.str, obj);
+					if(ref == nullptr)
+					{
+						_error(token.line, "undefine symbol: " + token.str);
+						return token;
+					}
+
 					param.type = "__object__";
 				}
 				if(token.type == Token::token_number)
@@ -220,7 +279,7 @@ namespace ld3d
 				}
 				param.value = token.str;
 				param.parent = &obj;
-					
+				param.line = token.line;	
 				obj.members.push_back(param);
 
 
@@ -236,20 +295,48 @@ namespace ld3d
 				}
 			}
 
-			_log(token.line, "unexpected token: '" + token.str + "'");
+			_error(token.line, "unexpected token: '" + token.str + "'");
 			return token;
 		}
 		Token Parser::_parse_expr_assign(ObjectMetaData& obj)
 		{
 			Token token = m_lexer.NextToken();
 			
+			if(token.type == Token::token_id)
+			{
+				const ObjectMetaData* ref = _find_obj_ref(token.str, obj);
+				if(ref == nullptr)
+				{
+					_error(token.line, "undefine symbol: " + token.str);
+					return token;
+				}
+				ObjectMetaData value;
+				value.type = "__object__";
+				value.value = token.str;
+				value.parent = &obj;
+				value.line = token.line;	
+				obj.members.push_back(value);
+
+				token = m_lexer.NextToken();
+			}
 			if(token.type == Token::token_number)
 			{
 				ObjectMetaData value;
 				value.type = "__number__";
 				value.value = token.str;
 				value.parent = &obj;
+				value.line = token.line;	
+				obj.members.push_back(value);
 
+				token = m_lexer.NextToken();
+			}
+			if(token.type == Token::token_string)
+			{
+				ObjectMetaData value;
+				value.type = "__string__";
+				value.value = token.str;
+				value.parent = &obj;
+				value.line = token.line;	
 				obj.members.push_back(value);
 
 				token = m_lexer.NextToken();
@@ -265,11 +352,11 @@ namespace ld3d
 			
 			if(token.type == Token::token_eof)
 			{
-				_log(token.line, "unexpected end of file.");
+				_error(token.line, "unexpected end of file.");
 				return token;
 			}
 
-			_log(token.line, "';' expected.");
+			_error(token.line, "';' expected.");
 			return token;
 		}
 		bool Parser::_already_defined(const std::string& value, const ObjectMetaData& scope)
@@ -284,7 +371,25 @@ namespace ld3d
 
 			return false;
 		}
-		void Parser::_log_already_defined(int line, const ObjectMetaData& obj)
+		const ObjectMetaData* Parser::_find_obj_ref(const std::string& name, const ObjectMetaData& scope)
+		{
+			const ObjectMetaData* parent = &scope;
+
+			while(parent)
+			{
+				for(const auto & v : parent->members)
+				{
+					if(_stricmp(v.value.c_str(), name.c_str()) == 0)
+					{
+						return &v;
+					}
+				}
+				parent = parent->parent;
+			}
+
+			return nullptr;
+		}
+		void Parser::_error_already_defined(int line, const ObjectMetaData& obj)
 		{
 			std::string log = obj.value;
 
@@ -299,7 +404,76 @@ namespace ld3d
 				node = node->parent;
 			}
 
-			_log(line, "object '" + log + "' already defined.");
+			_error(line, "object '" + log + "' already defined.");
+		}
+
+		bool Parser::NoError()
+		{
+			return m_bNoError;
+		}
+		ObjectMetaData*	Parser::GetObjectTree()
+		{
+			return &m_root;
+		}
+		bool Parser::ParseObjectTree(ObjectMetaData* root)
+		{
+			
+			if(root->members.size() == 0)
+			{
+				return true;
+			}
+
+			for(auto& v : root->members)
+			{
+				if(false == ParseObjectTree(&v))
+				{
+					return false;
+				}
+			}
+
+			return true;
+		}
+		bool Parser::_create_object(ObjectMetaData& obj, const std::string& type, const std::string& name, ObjectMetaData* parent)
+		{
+			for(const auto & v : m_typeInfoList)
+			{
+				if(_stricmp(v.name.c_str(), type.c_str()) == 0)
+				{
+					obj.parent = parent;
+					obj.line = -1;
+					obj.type = type;
+					obj.typeinfo = v;
+					obj.value = name;
+
+					
+					return true;
+				}
+			}
+
+			return false;
+		}
+		void Parser::_init_built_in_type_info()
+		{
+			TypeInfo t;
+			t.name = "__assign__";
+			t.value_type = "__string__";
+			m_builtInTypeInfoList.push_back(t);
+
+		}
+		bool Parser::_validate_member(const TypeInfo& parent, const std::string& type, const std::string& name)
+		{
+			for(auto v : parent.members)
+			{
+				if(_stricmp(v.first.c_str(), type.c_str()) == 0)
+				{
+					if(_stricmp(v.second.c_str(), name.c_str()) == 0)
+					{
+						return true;
+					}
+				}
+			}
+
+			return false;
 		}
 	}
 }

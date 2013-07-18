@@ -16,7 +16,13 @@ namespace ld3d
 			Material2Ptr											CompileFromStream(DataStream* pStream, const std::string& filename = "");
 			Material2Ptr											Compile(const std::string& src, const std::string& filename = "");
 
-					
+
+
+		private:
+			void													_log(const std::string& msg);
+
+			Material2Ptr											GenerateMaterial();
+
 		private:
 			std::string												m_file;
 			Parser													m_parser;

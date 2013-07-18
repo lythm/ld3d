@@ -2,9 +2,10 @@
 
 SamplerState ss1
 {
-	a = 1;
-	b = 2;
-	c = 1;
+	AddressModeU = 0;
+	AddressModeV = 0;
+	AddressModeW = 0;
+	SetVertexShader();
 }
 
 SamplerState ss2

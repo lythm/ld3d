@@ -8,30 +8,7 @@ namespace ld3d
 {
 	namespace material_script
 	{
-		static std::string sampler_variable_list[] = 
-		{
-			"address_u",
-			"address_v",
-			"address_w",
-		};
-
-		static std::string render_state_variable_list[]=
-		{
-			"cullmode",
-			"fillmode",
-
-		};
-
-		static std::string function_list[] = 
-		{
-			"setvertexshader",
-			"setpixelshader",
-			"setgeometryshader",
-			"setrenderstate",
-			"bindsampler",
-		};
-
-		Compiler::Compiler(void)
+		Compiler::Compiler(void) : m_parser(std::bind(&Compiler::_log, this, std::placeholders::_1))
 		{
 		}
 
@@ -63,8 +40,21 @@ namespace ld3d
 		}
 		Material2Ptr Compiler::Compile(const std::string& src, const std::string& filename)
 		{
-			m_parser.Parse(src);
+			m_file = filename;
 
+			std::vector<std::string> const_list;
+			const_list.push_back("wireframe");
+
+
+			m_parser.Parse(src, const_list);
+			return GenerateMaterial();
+		}
+		void Compiler::_log(const std::string& msg)
+		{
+			log(m_file + msg);
+		}
+		Material2Ptr Compiler::GenerateMaterial()
+		{
 			return Material2Ptr();
 		}
 	}
