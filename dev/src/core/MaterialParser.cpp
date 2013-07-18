@@ -1,12 +1,16 @@
 #include "core_pch.h"
 #include "..\..\include\core\MaterialParser.h"
 #include "core_utils.h"
+#include "core/SamplerStateParser.h"
+#include "core/RenderStateParser.h"
+#include "core/TechniqueParser.h"
+#include "core/PassParser.h"
 
 namespace ld3d
 {
 	namespace material_script
 	{
-		
+
 		MaterialParser::MaterialParser(std::function<void (const std::string&)> logger)
 		{
 			m_logger = logger;
@@ -37,7 +41,7 @@ namespace ld3d
 				consts.value = v;
 				m_root.members.push_back(consts);
 			}
-			
+
 			TypeInfo passType;
 			passType.name = "SamplerState";
 			passType.value_type = "__string__";
@@ -152,7 +156,7 @@ namespace ld3d
 
 					if(_already_defined(child.value, obj))
 					{
-						
+
 						_error_already_defined(next_token.line, child);
 						return m_lexer.NextToken();;
 					}
@@ -178,22 +182,18 @@ namespace ld3d
 
 			if(token.str == ";")
 			{
-				while(token.str == ";")
-				{
-					token = m_lexer.NextToken();
-				}
-				return token;
+				return m_lexer.SkipToken(token);
 			}
 
 			_error(token.line, "unexpected token: '" + token.str + "'");
-			
+
 			return m_lexer.NextToken();
 		}
 
 		Token MaterialParser::_parse_object(ObjectMetaData& obj)
 		{
 			Token token = m_lexer.NextToken();
-			
+
 			if(token.str == "{")
 			{
 				token = m_lexer.NextToken();
@@ -218,11 +218,11 @@ namespace ld3d
 						}
 						return token;
 					}
-					
+
 					break;
 				}
 			}
-			
+
 			if(token.type == Token::token_eof)
 			{
 				_error(token.line, "unexpected end of file.");
@@ -253,7 +253,7 @@ namespace ld3d
 
 					return token;
 				}
-				
+
 				ObjectMetaData param;
 
 				if(token.type == Token::token_id)
@@ -270,12 +270,12 @@ namespace ld3d
 				if(token.type == Token::token_number)
 				{
 					param.type = "__number__";
-					
+
 				}
 				if(token.type == Token::token_string)
 				{
 					param.type = "__string__";
-					
+
 				}
 				param.value = token.str;
 				param.parent = &obj;
@@ -301,7 +301,7 @@ namespace ld3d
 		Token MaterialParser::_parse_expr_assign(ObjectMetaData& obj)
 		{
 			Token token = m_lexer.NextToken();
-			
+
 			if(token.type == Token::token_id)
 			{
 				const ObjectMetaData* ref = _find_obj_ref(token.str, obj);
@@ -349,7 +349,7 @@ namespace ld3d
 				}
 				return token;
 			}
-			
+
 			if(token.type == Token::token_eof)
 			{
 				_error(token.line, "unexpected end of file.");
@@ -417,7 +417,7 @@ namespace ld3d
 		}
 		bool MaterialParser::ParseObjectTree(ObjectMetaData* root)
 		{
-			
+
 			if(root->members.size() == 0)
 			{
 				return true;
@@ -445,7 +445,7 @@ namespace ld3d
 					obj.typeinfo = v;
 					obj.value = name;
 
-					
+
 					return true;
 				}
 			}
@@ -474,6 +474,143 @@ namespace ld3d
 			}
 
 			return false;
+		}
+
+		bool MaterialParser::Parse(Lexer* pLexer)
+		{
+			Token token = pLexer->NextToken();
+
+			while(NoError())
+			{
+				switch(token.type)
+				{
+				case Token::token_misc:
+					token = _parse_misc();
+					break;
+
+				case Token::token_id:
+					token = _parse_identifier(m_root);
+					break;
+				case Token::token_eof:
+					return ParseObjectTree(&m_root);
+				default:
+					_error(token.line, "unexpected token: '" + token.str + "'");
+					token = pLexer->NextToken();
+					break;
+				}
+			}
+
+			_error(-1, "====== failed. ======");
+			return false;
+		}
+	}
+
+	namespace material_script
+	{
+		MaterialParser2::MaterialParser2(BaseParser* parent, std::function<void (const std::string&)> logger) : BaseParser(parent, logger)
+		{
+		}
+		MaterialParser2::~MaterialParser2()
+		{
+
+		}
+		bool MaterialParser2::Parse(Lexer* lexer)
+		{
+			Token token = lexer->NextToken();
+
+			while(true)
+			{
+				switch(token.type)
+				{
+				case Token::token_misc:
+					if(token.str != ";")
+					{
+						Error(token.line, "unexpected token: '" + token.str + "'");
+						return false;
+					}
+					
+					token = lexer->SkipToken(token);
+					break;
+
+				case Token::token_id:
+					if(false == ParseIdentifier(lexer))
+					{
+						return false;
+					}
+
+					token = lexer->CurToken();
+					break;
+				case Token::token_eof:
+					return true;
+				default:
+					Error(token.line, "unexpected token: '" + token.str + "'");
+					token = lexer->NextToken();
+					break;
+				}
+			}
+
+			Error(-1, "====== failed. ======");
+			return false;
+		}
+		bool MaterialParser2::ParseIdentifier(Lexer* lexer)
+		{
+			Token token						= lexer->CurToken();
+
+			if(token.str == "SamplerState")
+			{
+				SamplerStateParserPtr pParser = std::make_shared<SamplerStateParser>(this, m_logger);
+
+				if(pParser->Parse(lexer) == false)
+				{
+					return false;
+				}
+
+				m_members.push_back(pParser);
+
+			}
+
+
+			if(token.str == "RenderState")
+			{
+				RenderStateParserPtr pParser = std::make_shared<RenderStateParser>(this, m_logger);
+
+				if(pParser->Parse(lexer) == false)
+				{
+					return false;
+				}
+
+				m_members.push_back(pParser);
+
+			}
+
+
+			if(token.str == "Technique")
+			{
+				TechniqueParserPtr pParser = std::make_shared<TechniqueParser>(this, m_logger);
+
+				if(pParser->Parse(lexer) == false)
+				{
+					return false;
+				}
+
+				m_members.push_back(pParser);
+
+			}
+
+
+			if(token.str == "Pass")
+			{
+				PassParserPtr pParser = std::make_shared<PassParser>(this, m_logger);
+
+				if(pParser->Parse(lexer) == false)
+				{
+					return false;
+				}
+
+				m_members.push_back(pParser);
+
+			}
+			return true;
 		}
 	}
 }

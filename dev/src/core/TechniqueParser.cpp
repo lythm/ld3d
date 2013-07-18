@@ -5,7 +5,8 @@ namespace ld3d
 {
 	namespace material_script
 	{
-		TechniqueParser::TechniqueParser(void)
+		
+		TechniqueParser::TechniqueParser(BaseParser* parent, std::function<void (const std::string&)> logger) : BaseParser(parent, logger)
 		{
 		}
 
@@ -13,6 +14,9 @@ namespace ld3d
 		TechniqueParser::~TechniqueParser(void)
 		{
 		}
-
+		bool TechniqueParser::Parse(Lexer* lexer)
+		{
+			return false;
+		}
 	}
 }

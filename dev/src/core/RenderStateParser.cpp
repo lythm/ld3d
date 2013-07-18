@@ -5,7 +5,8 @@ namespace ld3d
 {
 	namespace material_script
 	{
-		RenderStateParser::RenderStateParser(void)
+		
+		RenderStateParser::RenderStateParser(BaseParser* parent, std::function<void (const std::string&)> logger) : BaseParser(parent, logger)
 		{
 		}
 
@@ -13,6 +14,9 @@ namespace ld3d
 		RenderStateParser::~RenderStateParser(void)
 		{
 		}
-
+		bool RenderStateParser::Parse(Lexer* lexer)
+		{
+			return false;
+		}
 	}
 }

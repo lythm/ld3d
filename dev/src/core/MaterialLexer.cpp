@@ -189,5 +189,15 @@ namespace ld3d
 		{
 			return _pos_2_line(m_curPos - 1);
 		}
+		Token Lexer::SkipToken(Token tok)
+		{
+			Token token = CurToken();
+
+			while(token.str == tok.str && token.type == tok.type)
+			{
+				token = NextToken();
+			}
+			return token;
+		}
 	}
 }

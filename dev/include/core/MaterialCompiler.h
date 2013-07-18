@@ -25,7 +25,6 @@ namespace ld3d
 
 		private:
 			std::string												m_file;
-			MaterialParser											m_parser;
 		};
 	}
 }

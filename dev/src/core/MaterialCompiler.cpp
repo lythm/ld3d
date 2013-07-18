@@ -8,7 +8,7 @@ namespace ld3d
 {
 	namespace material_script
 	{
-		Compiler::Compiler(void) : m_parser(std::bind(&Compiler::_log, this, std::placeholders::_1))
+		Compiler::Compiler(void)
 		{
 		}
 
@@ -42,11 +42,20 @@ namespace ld3d
 		{
 			m_file = filename;
 
-			std::vector<std::string> const_list;
-			const_list.push_back("wireframe");
+			Lexer lexer(src);
+			
+
+			MaterialParser2 parser(nullptr, std::bind(&Compiler::_log, this, std::placeholders::_1));
+
+			if(false == parser.Parse(&lexer))
+			{
+				return Material2Ptr();
+			}
 
 
-			m_parser.Parse(src, const_list);
+
+		//	pParser->Parse();
+
 			return GenerateMaterial();
 		}
 		void Compiler::_log(const std::string& msg)

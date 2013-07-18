@@ -1,14 +1,21 @@
 #pragma once
 
+#include "core/MaterialBaseParser.h"
+
 namespace ld3d
 {
 	namespace material_script
 	{
-		class SamplerStateParser
+		class SamplerStateParser : public BaseParser
 		{
 		public:
-			SamplerStateParser(void);
+			SamplerStateParser(BaseParser* parent, std::function<void (const std::string&)> logger = std::function<void (const std::string&)>());
 			virtual ~SamplerStateParser(void);
+
+			bool												Parse(Lexer* lexer);
+
+		private:
+			bool												ParseState(Lexer* lexer);
 		};
 
 

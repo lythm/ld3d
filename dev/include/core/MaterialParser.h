@@ -3,6 +3,9 @@
 #include "core/MaterialLexer.h"
 #include <map>
 
+#include "core/MaterialBaseParser.h"
+
+
 namespace ld3d
 {
 	namespace material_script
@@ -42,6 +45,9 @@ namespace ld3d
 			MaterialParser(std::function<void (const std::string&)> logger = std::function<void (const std::string&)>());
 			virtual ~MaterialParser(void);
 
+			
+
+			bool												Parse(Lexer* pLexer);
 			bool												Parse(const std::string& src, 
 																	const std::vector<std::string>& const_list = std::vector<std::string>());
 
@@ -82,6 +88,22 @@ namespace ld3d
 
 			std::vector<TypeInfo>								m_typeInfoList;
 			std::vector<TypeInfo>								m_builtInTypeInfoList;
+		};
+
+		class MaterialParser2 : public BaseParser
+		{
+		public:
+			MaterialParser2(BaseParser* parent, std::function<void (const std::string&)> logger = std::function<void (const std::string&)>());
+			virtual ~MaterialParser2();
+
+			bool												Parse(Lexer* lexer);
+
+		private:
+			bool												ParseIdentifier(Lexer* lexer);
+
+			bool												ParseSamplerState(Lexer* lexer);
+
+			
 		};
 	}
 }

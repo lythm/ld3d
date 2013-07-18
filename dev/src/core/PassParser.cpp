@@ -5,13 +5,18 @@ namespace ld3d
 {
 	namespace material_script
 	{
-		PassParser::PassParser(void)
+		
+		PassParser::PassParser(BaseParser* parent, std::function<void (const std::string&)> logger) : BaseParser(parent, logger)
 		{
 		}
 
 
 		PassParser::~PassParser(void)
 		{
+		}
+		bool PassParser::Parse(Lexer* lexer)
+		{
+			return false;
 		}
 
 	}

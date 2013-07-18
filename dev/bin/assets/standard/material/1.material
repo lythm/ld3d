@@ -5,7 +5,7 @@ SamplerState ss1
 	AddressModeU = 0;
 	AddressModeV = 0;
 	AddressModeW = 0;
-	SetVertexShader();
+
 }
 
 SamplerState ss2

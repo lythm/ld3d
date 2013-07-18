@@ -46,6 +46,7 @@ namespace ld3d
 
 			Token										CurToken();
 
+			Token										SkipToken(Token tok);
 		private:
 			Token										_get_token();
 			int											_get_char();

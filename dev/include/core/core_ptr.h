@@ -163,9 +163,9 @@ namespace ld3d
 	class Asset;
 	class AssetManager;
 	
-	typedef std::shared_ptr<SoundAsset>					SoundAssetPtr;
+	typedef std::shared_ptr<SoundAsset>						SoundAssetPtr;
 	typedef std::shared_ptr<TextureAsset>					TextureAssetPtr;
-	typedef std::shared_ptr<Asset>						AssetPtr;
+	typedef std::shared_ptr<Asset>							AssetPtr;
 	typedef std::shared_ptr<AssetManager>					AssetManagerPtr;
 
 
@@ -184,6 +184,25 @@ namespace ld3d
 
 
 	class DT_CoreApi;
-	typedef std::shared_ptr<DT_CoreApi>					DT_CoreApiPtr;
+	typedef std::shared_ptr<DT_CoreApi>						DT_CoreApiPtr;
+
+
+	namespace material_script
+	{
+		class MaterialParser;
+		class SamplerStateParser;
+		class RenderStateParser;
+		class TechniqueParser;
+		class PassParser;
+		class BaseParser;
+
+		typedef std::shared_ptr<MaterialParser>				MaterialParserPtr;
+		typedef std::shared_ptr<SamplerStateParser>			SamplerStateParserPtr;
+		typedef std::shared_ptr<RenderStateParser>			RenderStateParserPtr;
+		typedef std::shared_ptr<TechniqueParser>			TechniqueParserPtr;
+		typedef std::shared_ptr<PassParser>					PassParserPtr;
+		typedef std::shared_ptr<BaseParser>					BaseParserPtr;
+
+	}
 
 }
