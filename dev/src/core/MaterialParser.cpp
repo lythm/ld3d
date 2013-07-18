@@ -7,19 +7,19 @@ namespace ld3d
 	namespace material_script
 	{
 		
-		Parser::Parser(std::function<void (const std::string&)> logger)
+		MaterialParser::MaterialParser(std::function<void (const std::string&)> logger)
 		{
 			m_logger = logger;
 			_reset("");
 
 		}
 
-		Parser::~Parser(void)
+		MaterialParser::~MaterialParser(void)
 		{
 
 		}
 
-		bool Parser::Parse(const std::string& src, const std::vector<std::string>& const_list)
+		bool MaterialParser::Parse(const std::string& src, const std::vector<std::string>& const_list)
 		{
 			_reset(src);
 
@@ -73,7 +73,7 @@ namespace ld3d
 			_error(-1, "====== failed. ======");
 			return false;
 		}
-		void Parser::_reset(const std::string& src)
+		void MaterialParser::_reset(const std::string& src)
 		{
 			m_root.members.clear();
 			m_bNoError = true;
@@ -82,7 +82,7 @@ namespace ld3d
 			m_builtInTypeInfoList.clear();
 			_init_built_in_type_info();
 		}
-		void Parser::_error(int line, const std::string& msg)
+		void MaterialParser::_error(int line, const std::string& msg)
 		{
 			if(m_logger)
 			{
@@ -91,7 +91,7 @@ namespace ld3d
 
 			m_bNoError = false;
 		}
-		Token Parser::_parse_identifier(ObjectMetaData& obj)
+		Token MaterialParser::_parse_identifier(ObjectMetaData& obj)
 		{
 			Token token = m_lexer.CurToken();
 			Token next_token				= m_lexer.NextToken();
@@ -172,7 +172,7 @@ namespace ld3d
 			_error(next_token.line, "unexpected token: '" + next_token.str + "'");
 			return next_token;
 		}
-		Token Parser::_parse_misc()
+		Token MaterialParser::_parse_misc()
 		{
 			Token token = m_lexer.CurToken();
 
@@ -190,7 +190,7 @@ namespace ld3d
 			return m_lexer.NextToken();
 		}
 
-		Token Parser::_parse_object(ObjectMetaData& obj)
+		Token MaterialParser::_parse_object(ObjectMetaData& obj)
 		{
 			Token token = m_lexer.NextToken();
 			
@@ -231,7 +231,7 @@ namespace ld3d
 			_error(token.line, "unexpected token: '" + token.str + "'");
 			return token;
 		}
-		Token Parser::_parse_function_call(ObjectMetaData& obj)
+		Token MaterialParser::_parse_function_call(ObjectMetaData& obj)
 		{
 			Token token = m_lexer.NextToken();
 
@@ -298,7 +298,7 @@ namespace ld3d
 			_error(token.line, "unexpected token: '" + token.str + "'");
 			return token;
 		}
-		Token Parser::_parse_expr_assign(ObjectMetaData& obj)
+		Token MaterialParser::_parse_expr_assign(ObjectMetaData& obj)
 		{
 			Token token = m_lexer.NextToken();
 			
@@ -359,7 +359,7 @@ namespace ld3d
 			_error(token.line, "';' expected.");
 			return token;
 		}
-		bool Parser::_already_defined(const std::string& value, const ObjectMetaData& scope)
+		bool MaterialParser::_already_defined(const std::string& value, const ObjectMetaData& scope)
 		{
 			for(const auto & v : scope.members)
 			{
@@ -371,7 +371,7 @@ namespace ld3d
 
 			return false;
 		}
-		const ObjectMetaData* Parser::_find_obj_ref(const std::string& name, const ObjectMetaData& scope)
+		const ObjectMetaData* MaterialParser::_find_obj_ref(const std::string& name, const ObjectMetaData& scope)
 		{
 			const ObjectMetaData* parent = &scope;
 
@@ -389,7 +389,7 @@ namespace ld3d
 
 			return nullptr;
 		}
-		void Parser::_error_already_defined(int line, const ObjectMetaData& obj)
+		void MaterialParser::_error_already_defined(int line, const ObjectMetaData& obj)
 		{
 			std::string log = obj.value;
 
@@ -407,15 +407,15 @@ namespace ld3d
 			_error(line, "object '" + log + "' already defined.");
 		}
 
-		bool Parser::NoError()
+		bool MaterialParser::NoError()
 		{
 			return m_bNoError;
 		}
-		ObjectMetaData*	Parser::GetObjectTree()
+		ObjectMetaData*	MaterialParser::GetObjectTree()
 		{
 			return &m_root;
 		}
-		bool Parser::ParseObjectTree(ObjectMetaData* root)
+		bool MaterialParser::ParseObjectTree(ObjectMetaData* root)
 		{
 			
 			if(root->members.size() == 0)
@@ -433,7 +433,7 @@ namespace ld3d
 
 			return true;
 		}
-		bool Parser::_create_object(ObjectMetaData& obj, const std::string& type, const std::string& name, ObjectMetaData* parent)
+		bool MaterialParser::_create_object(ObjectMetaData& obj, const std::string& type, const std::string& name, ObjectMetaData* parent)
 		{
 			for(const auto & v : m_typeInfoList)
 			{
@@ -452,7 +452,7 @@ namespace ld3d
 
 			return false;
 		}
-		void Parser::_init_built_in_type_info()
+		void MaterialParser::_init_built_in_type_info()
 		{
 			TypeInfo t;
 			t.name = "__assign__";
@@ -460,7 +460,7 @@ namespace ld3d
 			m_builtInTypeInfoList.push_back(t);
 
 		}
-		bool Parser::_validate_member(const TypeInfo& parent, const std::string& type, const std::string& name)
+		bool MaterialParser::_validate_member(const TypeInfo& parent, const std::string& type, const std::string& name)
 		{
 			for(auto v : parent.members)
 			{

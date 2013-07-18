@@ -53,6 +53,11 @@
     <ClCompile Include="MaterialCompiler.cpp" />
     <ClCompile Include="MaterialLexer.cpp" />
     <ClCompile Include="MaterialParser.cpp" />
+    <ClCompile Include="SamplerStateParser.cpp" />
+    <ClCompile Include="RenderStateParser.cpp" />
+    <ClCompile Include="TechniqueParser.cpp" />
+    <ClCompile Include="PassParser.cpp" />
+    <ClCompile Include="MaterialBaseParser.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\core\ArcBall.h" />
@@ -144,6 +149,11 @@
     <ClInclude Include="..\..\include\core\MaterialCompiler.h" />
     <ClInclude Include="..\..\include\core\MaterialLexer.h" />
     <ClInclude Include="..\..\include\core\MaterialParser.h" />
+    <ClInclude Include="..\..\include\core\SamplerStateParser.h" />
+    <ClInclude Include="..\..\include\core\RenderStateParser.h" />
+    <ClInclude Include="..\..\include\core\TechniqueParser.h" />
+    <ClInclude Include="..\..\include\core\PassParser.h" />
+    <ClInclude Include="..\..\include\core\MaterialBaseParser.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

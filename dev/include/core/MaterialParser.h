@@ -35,12 +35,12 @@ namespace ld3d
 			int													line;
 		};
 
-		class EXPORT_CLASS Parser
+		class EXPORT_CLASS MaterialParser
 		{
 		public:
 
-			Parser(std::function<void (const std::string&)> logger = std::function<void (const std::string&)>());
-			virtual ~Parser(void);
+			MaterialParser(std::function<void (const std::string&)> logger = std::function<void (const std::string&)>());
+			virtual ~MaterialParser(void);
 
 			bool												Parse(const std::string& src, 
 																	const std::vector<std::string>& const_list = std::vector<std::string>());

@@ -194,6 +194,7 @@
     <ClInclude Include="..\..\include\core\LightManager.h" />
     <ClInclude Include="..\..\include\core\Material.h" />
     <ClInclude Include="..\..\include\core\Material2.h" />
+    <ClInclude Include="..\..\include\core\MaterialBaseParser.h" />
     <ClInclude Include="..\..\include\core\MaterialCompiler.h" />
     <ClInclude Include="..\..\include\core\MaterialLexer.h" />
     <ClInclude Include="..\..\include\core\MaterialParameter.h" />
@@ -205,11 +206,13 @@
     <ClInclude Include="..\..\include\core\MeshSerializer_XML.h" />
     <ClInclude Include="..\..\include\core\MeshUtil.h" />
     <ClInclude Include="..\..\include\core\ObjectPool.h" />
+    <ClInclude Include="..\..\include\core\PassParser.h" />
     <ClInclude Include="..\..\include\core\PostEffectManager.h" />
     <ClInclude Include="..\..\include\core\PostEffect_BilateralBlur.h" />
     <ClInclude Include="..\..\include\core\PostEffect_FinalCompose.h" />
     <ClInclude Include="..\..\include\core\PostEffect_GaussianBlur.h" />
     <ClInclude Include="..\..\include\core\PostEffect_SSAO.h" />
+    <ClInclude Include="..\..\include\core\RenderStateParser.h" />
     <ClInclude Include="..\..\include\core\RenderTarget.h" />
     <ClInclude Include="..\..\include\core\PointLight.h" />
     <ClInclude Include="..\..\include\core\PoolAllocator.h" />
@@ -220,6 +223,7 @@
     <ClInclude Include="..\..\include\core\RenderManager.h" />
     <ClInclude Include="..\..\include\core\RenderWindow.h" />
     <ClInclude Include="..\..\include\core\SamplerState.h" />
+    <ClInclude Include="..\..\include\core\SamplerStateParser.h" />
     <ClInclude Include="..\..\include\core\Scene.h" />
     <ClInclude Include="..\..\include\core\SceneSerializer.h" />
     <ClInclude Include="..\..\include\core\Serializer.h" />
@@ -238,6 +242,7 @@
     <ClInclude Include="..\..\include\core\Sys_Physics.h" />
     <ClInclude Include="..\..\include\core\Sys_Sound.h" />
     <ClInclude Include="..\..\include\core\Sys_Time.h" />
+    <ClInclude Include="..\..\include\core\TechniqueParser.h" />
     <ClInclude Include="..\..\include\core\Texture.h" />
     <ClInclude Include="..\..\include\core\TimerManager.h" />
     <ClInclude Include="..\..\include\core\VertexFormat.h" />
@@ -277,6 +282,7 @@
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="LightManager.cpp" />
     <ClCompile Include="Material2.cpp" />
+    <ClCompile Include="MaterialBaseParser.cpp" />
     <ClCompile Include="MaterialCompiler.cpp" />
     <ClCompile Include="MaterialLexer.cpp" />
     <ClCompile Include="MaterialParameter.cpp" />
@@ -287,6 +293,7 @@
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="MeshSerializer_XML.cpp" />
     <ClCompile Include="MeshUtil.cpp" />
+    <ClCompile Include="PassParser.cpp" />
     <ClCompile Include="PointLight.cpp" />
     <ClCompile Include="PoolAllocator.cpp" />
     <ClCompile Include="PostEffectManager.cpp" />
@@ -297,6 +304,8 @@
     <ClCompile Include="PostEffect_SSAO.cpp" />
     <ClCompile Include="PostEffect.cpp" />
     <ClCompile Include="RenderManager.cpp" />
+    <ClCompile Include="RenderStateParser.cpp" />
+    <ClCompile Include="SamplerStateParser.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneSerializer.cpp" />
     <ClCompile Include="SkyLight.cpp" />
@@ -304,6 +313,7 @@
     <ClCompile Include="StdAllocator.cpp" />
     <ClCompile Include="SubMesh.cpp" />
     <ClCompile Include="SysManager.cpp" />
+    <ClCompile Include="TechniqueParser.cpp" />
     <ClCompile Include="Time64.cpp" />
     <ClCompile Include="TimerManager.cpp" />
     <ClCompile Include="ViewFrustum.cpp" />
