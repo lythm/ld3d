@@ -56,7 +56,7 @@ namespace ld3d
 			{
 				m_curToken.str = m_lastChar;
 
-				while(isalnum(m_lastChar = _get_char()))
+				while(isalnum(m_lastChar = _get_char()) || m_lastChar == '_')
 				{
 					m_curToken.str += m_lastChar;
 				}
@@ -72,7 +72,7 @@ namespace ld3d
 				do
 				{
 					m_curToken.str += m_lastChar;
-					if(m_lastChar == ',')
+					if(m_lastChar == '.')
 					{
 						dotted = true;
 					}

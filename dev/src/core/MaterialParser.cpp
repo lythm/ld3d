@@ -556,7 +556,7 @@ namespace ld3d
 		{
 			Token token						= lexer->CurToken();
 
-			if(token.str == "SamplerState")
+			if(str_i_cmp(token.str, "SamplerState"))
 			{
 				SamplerStateParserPtr pParser = std::make_shared<SamplerStateParser>(this, m_logger);
 
@@ -566,11 +566,11 @@ namespace ld3d
 				}
 
 				m_members.push_back(pParser);
-
+				return true;
 			}
 
 
-			if(token.str == "RenderState")
+			if(str_i_cmp(token.str, "RenderState"))
 			{
 				RenderStateParserPtr pParser = std::make_shared<RenderStateParser>(this, m_logger);
 
@@ -580,11 +580,11 @@ namespace ld3d
 				}
 
 				m_members.push_back(pParser);
-
+				return true;
 			}
 
 
-			if(token.str == "Technique")
+			if(str_i_cmp(token.str, "Technique"))
 			{
 				TechniqueParserPtr pParser = std::make_shared<TechniqueParser>(this, m_logger);
 
@@ -594,23 +594,10 @@ namespace ld3d
 				}
 
 				m_members.push_back(pParser);
-
+				return true;
 			}
-
-
-			if(token.str == "Pass")
-			{
-				PassParserPtr pParser = std::make_shared<PassParser>(this, m_logger);
-
-				if(pParser->Parse(lexer) == false)
-				{
-					return false;
-				}
-
-				m_members.push_back(pParser);
-
-			}
-			return true;
+			Error(token.line, "unexpected token: '" + token.str + "'");
+			return false;
 		}
 	}
 }

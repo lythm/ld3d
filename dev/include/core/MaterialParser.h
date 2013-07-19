@@ -101,9 +101,7 @@ namespace ld3d
 		private:
 			bool												ParseIdentifier(Lexer* lexer);
 
-			bool												ParseSamplerState(Lexer* lexer);
-
-			
+					
 		};
 	}
 }

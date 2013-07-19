@@ -11,6 +11,10 @@ namespace ld3d
 			virtual ~TechniqueParser(void);
 
 			bool												Parse(Lexer* lexer);
+
+
+		private:
+			bool												ParsePass(Lexer* lexer);
 		};
 
 

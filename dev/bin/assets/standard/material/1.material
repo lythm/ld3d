@@ -1,26 +1,57 @@
 # material script
 
-SamplerState ss1
-{
-	AddressModeU = 0;
-	AddressModeV = 0;
-	AddressModeW = 0;
 
+SamplerState s1
+{
+	# address mode
+	# values:
+	#	{REPEAT, MIRROR, CLAMP, BORDER}
+	
+	AddressModeU = REPEAT;
+	AddressModeV = MIRROR;
+	AddressModeW = BORDER;
+	
+
+	# filter
+	# values:
+	#	{	
+	#		MIN_MAG_MIP_POINT, 
+	#		MIN_MAG_POINT_MIP_LINEAR, 
+	#		MIN_POINT_MAG_LINEAR_MIP_POINT, 
+	#		MIN_POINT_MAG_MIP_LINEAR, 
+	#		MIN_LINEAR_MAG_MIP_POINT, 
+	#		MIN_LINEAR_MAG_POINT_MIP_LINEAR,
+	#		MIN_MAG_LINEAR_MIP_POINT,
+	#		MIN_MAG_MIP_LINEAR,
+	#		ANISOTROPIC
+	#	}
+	Filter = MIN_MAG_MIP_LINEAR;
+
+	# minmaxlod
+	# values:
+	#	float
+	MinLod = 0.0;
+	MaxLod = 1.0;
+
+	# max anisotropy
+	# values:
+	#	int
+	MaxAnisotropy = 0;
+
+	# border color
+	# values:
+	#	RGBA
+	BorderColor = {1, 1, 1, 1};
 }
-
-SamplerState ss2
-{
-	a = 2;
-	b = 3;
-};;;
 
 RenderState rs1
 {
-	
+	BlendEnable = true;
+	Func = 1;
 }
 Technique t1
 {
-	Pass p1
+	pass p1
 	{
 		SetRenderState(rs1);
 

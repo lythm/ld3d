@@ -70,10 +70,11 @@ namespace ld3d
 		glSamplerParameterf(m_sampler, GL_TEXTURE_MIN_LOD, minLod);
 		glSamplerParameterf(m_sampler, GL_TEXTURE_MAX_LOD, minLod);
 	}
-	void OGL4Sampler::SetMipLodBias(int bias)
-	{
-		glSamplerParameteri(m_sampler, GL_TEXTURE_COMPARE_MODE, bias);
-	}
+	//void OGL4Sampler::SetMipLodBias(int bias)
+	//{
+	//	assert(0);
+	//	//glSamplerParameteri(m_sampler, GL_TEXTURE_COMPARE_MODE, bias);
+	//}
 	void OGL4Sampler::SetBorderColor(const math::Color4& clr)
 	{
 		glSamplerParameterfv(m_sampler, GL_TEXTURE_BORDER_COLOR, clr.v);

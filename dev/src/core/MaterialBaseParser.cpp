@@ -22,7 +22,7 @@ namespace ld3d
 				m_logger("(" + std::to_string(line + 1) + "): " + msg);
 			}
 
-		//	m_bNoError = false;
+			//	m_bNoError = false;
 		}
 		BaseParser* BaseParser::Parent()
 		{
@@ -32,11 +32,11 @@ namespace ld3d
 		{
 			return m_name;
 		}
-		bool BaseParser::FindSymbol(const std::string& name, bool curScope)
+		BaseParserPtr BaseParser::FindSymbol(const std::string& name, bool curScope)
 		{
 			if(m_parent == nullptr)
 			{
-				return false;
+				return BaseParserPtr();
 			}
 			if(curScope)
 			{
@@ -44,11 +44,302 @@ namespace ld3d
 				{
 					if(v->Name() == name)
 					{
-						return true;
+						return v;
 					}
 				}
+				return false;
 			}
+
+			BaseParser* pNode = m_parent;
+
+			while(pNode)
+			{
+				for(auto v : pNode->m_members)
+				{
+					if(v->Name() == name)
+					{
+						return v;
+					}
+				}
+				pNode = pNode->Parent();
+			}
+
 			return false;
+		}
+		bool BaseParser::str_i_cmp(const std::string& s1, const std::string& s2)
+		{
+			return _stricmp(s1.c_str(), s2.c_str()) == 0;
+		}
+		bool BaseParser::EnumValue(const std::string& value, uint32& e, std::pair<std::string, uint32> list[])
+		{
+			for(int i = 0; list[i] != std::pair<std::string, uint32>(); ++i)
+			{
+				if(str_i_cmp(value, list[i].first))
+				{
+					e = list[i].second;
+					return true;
+				}
+			}
+
+			return false;
+		}
+		bool BaseParser::ValidateEnumValue(const std::string& value, char* list[])
+		{
+			for(int i = 0; list[i] != 0; ++i)
+			{
+				if(str_i_cmp(value, list[i]))
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+		bool BaseParser::IsNumber(const std::string& value)
+		{
+			int dot = 0;
+			for(auto v : value)
+			{
+				if(isdigit(v) == 0 && v != '.')
+				{
+					return false;
+				}
+
+				if(v == '.')
+				{
+					++dot;
+				}
+			}
+
+			if(dot > 1)
+			{
+				return false;
+			}
+
+			return true;
+		}
+
+		bool BaseParser::IsInt(const std::string& value)
+		{
+			for(auto v : value)
+			{
+				if(isdigit(v) == 0)
+				{
+					return false;
+				}
+			}
+
+			return true;
+		}
+		bool BaseParser::IsVec4(const std::string& value)
+		{
+			Lexer lexer(value);
+
+			Token token = lexer.NextToken();
+			if(token.str != "{")
+			{
+				return false;
+			}
+
+			token = lexer.NextToken();
+			if(token.type != Token::token_number)
+			{
+				return false;
+			}
+
+			token = lexer.NextToken();
+			if(token.str != ",")
+			{
+				return false;
+			}
+
+			token = lexer.NextToken();
+			if(token.type != Token::token_number)
+			{
+				return false;
+			}
+
+			token = lexer.NextToken();
+			if(token.str != ",")
+			{
+				return false;
+			}
+
+			token = lexer.NextToken();
+			if(token.type != Token::token_number)
+			{
+				return false;
+			}
+
+			token = lexer.NextToken();
+			if(token.str != ",")
+			{
+				return false;
+			}
+
+			token = lexer.NextToken();
+			if(token.type != Token::token_number)
+			{
+				return false;
+			}
+
+			token = lexer.NextToken();
+			if(token.str != "}")
+			{
+				return false;
+			}
+
+			return true;
+		}
+		bool BaseParser::ParseVec4(const std::string& str, math::Vector4& value)
+		{
+			Lexer lexer(str);
+
+			Token token = lexer.NextToken();
+			if(token.str != "{")
+			{
+				return false;
+			}
+
+			token = lexer.NextToken();
+			if(token.type != Token::token_number)
+			{
+				return false;
+			}
+
+			value.x = token.num;
+
+			token = lexer.NextToken();
+			if(token.str != ",")
+			{
+				return false;
+			}
+
+			token = lexer.NextToken();
+			if(token.type != Token::token_number)
+			{
+				return false;
+			}
+			value.y = token.num;
+
+			token = lexer.NextToken();
+			if(token.str != ",")
+			{
+				return false;
+			}
+
+			token = lexer.NextToken();
+			if(token.type != Token::token_number)
+			{
+				return false;
+			}
+			value.z = token.num;
+
+			token = lexer.NextToken();
+			if(token.str != ",")
+			{
+				return false;
+			}
+
+			token = lexer.NextToken();
+			if(token.type != Token::token_number)
+			{
+				return false;
+			}
+			value.w = token.num;
+
+			token = lexer.NextToken();
+			if(token.str != "}")
+			{
+				return false;
+			}
+
+			return true;
+		}
+		bool BaseParser::ParseVec4(Lexer* lexer, std::string& value)
+		{
+			Token token = lexer->CurToken();
+
+			value = "";
+
+			if(token.str != "{")
+			{
+				return false;
+			}
+			value += "{";
+
+			token = lexer->NextToken();
+
+			// v1
+			if(token.type != Token::token_number)
+			{
+				return false;
+			}
+			value += token.str;
+
+			token = lexer->NextToken();
+			if(token.str != ",")
+			{
+				return false;
+			}
+
+			value += token.str;
+
+			token = lexer->NextToken();
+			// v2
+			if(token.type != Token::token_number)
+			{
+				return false;
+			}
+			value += token.str;
+
+			token = lexer->NextToken();
+
+			if(token.str != ",")
+			{
+				return false;
+			}
+
+			value += token.str;
+
+			token = lexer->NextToken();
+
+			// v3
+			if(token.type != Token::token_number)
+			{
+				return false;
+			}
+			value += token.str;
+
+			token = lexer->NextToken();
+
+			if(token.str != ",")
+			{
+				return false;
+			}
+
+			value += token.str;
+
+			token = lexer->NextToken();
+
+			// v4
+			if(token.type != Token::token_number)
+			{
+				return false;
+			}
+			value += token.str;
+
+			token = lexer->NextToken();
+
+			if(token.str != "}")
+			{
+				return false;
+			}
+
+			value += "}";
+
+			token = lexer->NextToken();
+			return true;
 		}
 	}
 }

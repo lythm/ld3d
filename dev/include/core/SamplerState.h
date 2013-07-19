@@ -43,7 +43,7 @@ namespace ld3d
 		virtual void										SetCompareFunction(COMPARE_FUNC value)																		= 0;
 
 		virtual void										SetLod(float minLod, float maxLod)																			= 0;
-		virtual void										SetMipLodBias(int bias)																						= 0;
+		//virtual void										SetMipLodBias(int bias)																						= 0;
 		virtual void										SetBorderColor(const math::Color4& clr)																		= 0;
 
 		virtual void										SetFilter(FILTER f)																							= 0;
@@ -57,6 +57,4 @@ namespace ld3d
 		SamplerState(void){}
 		virtual ~SamplerState(void){}
 	};
-
-
 }

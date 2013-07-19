@@ -1,6 +1,6 @@
 #include "core_pch.h"
 #include "..\..\include\core\TechniqueParser.h"
-
+#include "core/PassParser.h"
 namespace ld3d
 {
 	namespace material_script
@@ -16,7 +16,88 @@ namespace ld3d
 		}
 		bool TechniqueParser::Parse(Lexer* lexer)
 		{
-			return false;
+			Token token = lexer->NextToken();
+
+			if(token.str == "}")
+			{
+				return true;
+			}
+
+			if(token.type != Token::token_id)
+			{
+				Error(token.line, "unexpected token: '" + token.str + "'");
+				return false;
+			}
+			
+			m_name = token.str;
+			
+			if(FindSymbol(m_name, true) != nullptr)
+			{
+				Error(token.line, "object '" + m_name + "' already defined.");
+				return false;
+			}
+
+			token = lexer->NextToken();
+
+			if(token.str != "{")
+			{
+				Error(token.line, "unexpected token: '" + token.str + "'");
+				return false;
+			}
+
+			token = lexer->NextToken();
+
+			while(true)
+			{
+				if(ParsePass(lexer) == false)
+				{
+					return false;
+				}
+
+				if(lexer->CurToken().str == "}")
+				{
+					break;
+				}
+			}
+
+			token = lexer->NextToken();
+			if(token.str == ";")
+			{
+				lexer->SkipToken(token);
+			}
+
+			return true;
+		}
+		bool TechniqueParser::ParsePass(Lexer* lexer)
+		{
+			Token token = lexer->CurToken();
+			if(token.str == "}")
+			{
+				return true;
+			}
+
+			if(token.type != Token::token_id)
+			{
+				Error(token.line, "unexpected token: '" + token.str + "'");
+				return false;
+			}
+			if(str_i_cmp(token.str, "Pass") == false)
+			{
+				Error(token.line, "unexpected token: '" + token.str + "'");
+				return false;
+			}
+			token = lexer->NextToken();
+			
+			PassParserPtr pPassParser = std::make_shared<PassParser>(this, m_logger);
+
+			if(pPassParser->Parse(lexer) == false)
+			{
+				return false;
+			}
+
+			m_members.push_back(pPassParser);
+
+			return true;
 		}
 	}
 }

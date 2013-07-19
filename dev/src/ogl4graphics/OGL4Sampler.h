@@ -14,7 +14,7 @@ namespace ld3d
 		void										SetCompareFunction(COMPARE_FUNC value);
 
 		void										SetLod(float minLod, float maxLod);
-		void										SetMipLodBias(int bias);
+		//void										SetMipLodBias(int bias);
 		void										SetBorderColor(const math::Color4& clr);
 
 		void										SetFilter(FILTER f);

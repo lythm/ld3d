@@ -14,6 +14,10 @@ namespace ld3d
 
 			bool												Parse(Lexer* lexer);
 
+		private:
+			bool												SetState(int line, const std::string& name, const std::string& value);
+			bool												ParseState(Lexer* lexer);
+
 		};
 
 
