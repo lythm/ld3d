@@ -12,7 +12,7 @@ namespace ld3d
 
 			bool												Parse(Lexer* lexer);
 
-
+			MaterialTechPtr										CreateObject(Sys_Graphics2Ptr pGraphics);
 		private:
 			bool												ParsePass(Lexer* lexer);
 		};

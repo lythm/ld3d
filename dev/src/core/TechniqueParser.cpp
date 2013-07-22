@@ -99,5 +99,9 @@ namespace ld3d
 
 			return true;
 		}
+		MaterialTechPtr TechniqueParser::CreateObject(Sys_Graphics2Ptr pGraphics)
+		{
+			return MaterialTechPtr();
+		}
 	}
 }

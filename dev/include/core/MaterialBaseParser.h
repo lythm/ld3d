@@ -22,13 +22,18 @@ namespace ld3d
 
 			bool												str_i_cmp(const std::string& s1, const std::string& s2);
 
-			bool												EnumValue(const std::string& value, uint32& e, std::pair<std::string, uint32> list[]);
+			
 			bool												ValidateEnumValue(const std::string& value, char* list[]);
 			bool												IsNumber(const std::string& value);
 			bool												IsInt(const std::string& value);
 			bool												IsVec4(const std::string& value);
 			bool												ParseVec4(const std::string& str, math::Vector4& value);
 			bool												ParseVec4(Lexer* lexer, std::string& value);
+			bool												ParseEnum(const std::string& value, uint32& e, std::pair<std::string, uint32> list[]);
+			bool												ParseBool(const std::string& value, bool& ret);
+			bool												ParseNumber(const std::string& value, double& ret);
+			bool												ParseInt(const std::string& value, int& ret);
+			bool												ParseFloat(const std::string& value, float& ret);
 		protected:
 			std::function<void (const std::string&)>			m_logger;
 			BaseParser*											m_parent;

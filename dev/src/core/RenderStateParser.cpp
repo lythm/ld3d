@@ -1,5 +1,7 @@
 #include "core_pch.h"
 #include "..\..\include\core\RenderStateParser.h"
+#include "core/Sys_Graphics.h"
+#include "core/RenderState.h"
 
 namespace ld3d
 {
@@ -12,6 +14,9 @@ namespace ld3d
 			"DepthClipEnable", "DepthEnable", "DepthWriteMask", "DepthFunc",  
 			"StencilEnable", "FrontFaceStencilFailOP", "FrontFaceStencilDepthFailOP", "FrontFaceStencilPassOP", "FrontFaceStencilFunc",
 			"BackFaceStencilFailOP", "BackFaceStencilDepthFailOP", "BackFaceStencilPassOP", "BackFaceStencilFunc",
+			"FrontFaceStencilWriteMask", "FrontFaceStencilReadMask",
+			"BackFaceStencilWriteMask", "BackFaceStencilReadMask",
+			"FrontFaceStencilRef", "BackFaceStencilRef",
 		};
 
 		static std::pair<std::string, uint32> BlendEnum[] = 
@@ -110,6 +115,40 @@ namespace ld3d
 
 		RenderStateParser::RenderStateParser(BaseParser* parent, std::function<void (const std::string&)> logger) : BaseParser(parent, logger)
 		{
+			_BlendFactor						= math::Vector4(0, 0, 0, 1);
+			_BlendEnable						= false;
+			_BlendAlphaOP						= RS_BLEND_OP_ADD;
+			_BlendRGBOP							= RS_BLEND_OP_ADD;
+			_BlendSrcRGB						= RS_BLEND_ONE;
+			_BlendDstRGB						= RS_BLEND_ONE;;
+			_BlendSrcAlpha						= RS_BLEND_ONE;;
+			_BlendDstAlpha						= RS_BLEND_ONE;;
+			_ColorWrite							= RS_COLOR_WRITE_ENABLE_ALL;
+			_FillMode							= RS_FILL_SOLID;
+			_CullMode							= RS_CULL_NONE;
+			_FrontFaceCounterClockWise			= false;
+			_DepthClipEnable					= false;
+			_DepthEnable						= true;
+			_DepthWriteMask						= RS_DEPTH_WRITE_MASK_ALL;
+			_DepthFunc							= RS_COMPARISON_LESS_EQUAL;
+			_StencilEnable						= false;
+			_FrontFaceStencilFailOP				= RS_STENCIL_OP_KEEP;
+			_FrontFaceStencilDepthFailOP		= RS_STENCIL_OP_KEEP;
+			_FrontFaceStencilPassOP				= RS_STENCIL_OP_KEEP;
+			_FrontFaceStencilFunc				= RS_COMPARISON_ALWAYS;
+
+			_BackFaceStencilFailOP				= RS_STENCIL_OP_KEEP;
+			_BackFaceStencilDepthFailOP			= RS_STENCIL_OP_KEEP;
+			_BackFaceStencilPassOP				= RS_STENCIL_OP_KEEP;
+			_BackFaceStencilFunc				= RS_COMPARISON_ALWAYS;
+
+			_FrontFaceStencilWriteMask			= 255;
+			_FrontFaceStencilReadMask			= 255;
+			_BackFaceStencilWriteMask			= 255;
+			_BackFaceStencilReadMask			= 255;
+
+			_FrontFaceStencilRef				= 0;
+			_BackFaceStencilRef					= 0;
 		}
 
 		RenderStateParser::~RenderStateParser(void)
@@ -241,7 +280,323 @@ namespace ld3d
 				return false;
 			}
 
-			return true;
+			//"BlendFactor", 
+			if(str_i_cmp(name, "BlendFactor"))
+			{
+				if(ParseVec4(value, _BlendFactor))
+				{
+					return true;
+				}
+			}
+
+			//"BlendEnable", 
+			if(str_i_cmp(name, "BlendEnable"))
+			{
+				if(ParseBool(value, _BlendEnable))
+				{
+					return true;
+				}
+			}
+
+			//"BlendAlphaOP"
+			if(str_i_cmp(name, "BlendAlphaOP"))
+			{
+				if(ParseEnum(value, (uint32&)_BlendAlphaOP, BlendOPEnum))
+				{
+					return true;
+				}
+			}
+			
+			//"BlendRGBOP"
+			if(str_i_cmp(name, "BlendRGBOP"))
+			{
+				if(ParseEnum(value, (uint32&)_BlendRGBOP, BlendOPEnum))
+				{
+					return true;
+				}
+			}
+
+			//"BlendSrcRGB"
+			if(str_i_cmp(name, "BlendSrcRGB"))
+			{
+				if(ParseEnum(value, (uint32&)_BlendSrcRGB, BlendEnum))
+				{
+					return true;
+				}
+			}
+			
+			//"BlendDstRGB"
+			if(str_i_cmp(name, "BlendDstRGB"))
+			{
+				if(ParseEnum(value, (uint32&)_BlendDstRGB, BlendEnum))
+				{
+					return true;
+				}
+			}
+
+			//"BlendSrcAlpha"
+			if(str_i_cmp(name, "BlendSrcAlpha"))
+			{
+				if(ParseEnum(value, (uint32&)_BlendSrcAlpha, BlendEnum))
+				{
+					return true;
+				}
+			}
+			//"BlendDstAlpha",
+			if(str_i_cmp(name, "BlendDstAlpha"))
+			{
+				if(ParseEnum(value, (uint32&)_BlendDstAlpha, BlendEnum))
+				{
+					return true;
+				}
+			}
+			//"ColorWrite"
+			if(str_i_cmp(name, "ColorWrite"))
+			{
+				if(ParseEnum(value, (uint32&)_ColorWrite, ColorWriteEnum))
+				{
+					return true;
+				}
+			}
+
+
+			//"FillMode"
+			if(str_i_cmp(name, "FillMode"))
+			{
+				if(ParseEnum(value, (uint32&)_FillMode, FillModeEnum))
+				{
+					return true;
+				}
+			}
+			
+			//"CullMode" 
+			if(str_i_cmp(name, "CullMode"))
+			{
+				if(ParseEnum(value, (uint32&)_CullMode, CullModeEnum))
+				{
+					return true;
+				}
+			}
+			
+			//"FrontFaceCounterClockWise"
+			if(str_i_cmp(name, "FrontFaceCounterClockWise"))
+			{
+				if(ParseBool(value, _FrontFaceCounterClockWise))
+				{
+					return true;
+				}
+			}
+			
+			//"DepthBias"
+			/*if(str_i_cmp(name, "DepthBias"))
+			{
+				if(ParseBool(value, DepthBias))
+				{
+					return true;
+				}
+			}*/
+			
+			//, "DepthBiasClamp", "SlopScaledDepthBias",
+
+
+			//"DepthClipEnable"
+			if(str_i_cmp(name, "DepthClipEnable"))
+			{
+				if(ParseBool(value, _DepthClipEnable))
+				{
+					return true;
+				}
+			}
+			
+			//"DepthEnable"
+			if(str_i_cmp(name, "DepthEnable"))
+			{
+				if(ParseBool(value, _DepthEnable))
+				{
+					return true;
+				}
+			}
+			//"DepthWriteMask"
+			if(str_i_cmp(name, "DepthWriteMask"))
+			{
+				if(ParseEnum(value, (uint32&)_DepthWriteMask, DepthWriteEnum))
+				{
+					return true;
+				}
+			}
+			
+			//"DepthFunc"
+			if(str_i_cmp(name, "DepthFunc"))
+			{
+				if(ParseEnum(value, (uint32&)_DepthFunc, CompFuncEnum))
+				{
+					return true;
+				}
+			}
+			//"StencilEnable"
+			if(str_i_cmp(name, "StencilEnable"))
+			{
+				if(ParseBool(value, _StencilEnable))
+				{
+					return true;
+				}
+			}
+			//"FrontFaceStencilFailOP"
+			if(str_i_cmp(name, "FrontFaceStencilFailOP"))
+			{
+				if(ParseEnum(value, (uint32&)_FrontFaceStencilFailOP, StencilOPEnum))
+				{
+					return true;
+				}
+			}
+			//"FrontFaceStencilDepthFailOP"
+			if(str_i_cmp(name, "FrontFaceStencilDepthFailOP"))
+			{
+				if(ParseEnum(value, (uint32&)_FrontFaceStencilDepthFailOP, StencilOPEnum))
+				{
+					return true;
+				}
+			}
+			//"FrontFaceStencilPassOP"
+			if(str_i_cmp(name, "FrontFaceStencilPassOP"))
+			{
+				if(ParseEnum(value, (uint32&)_FrontFaceStencilPassOP, StencilOPEnum))
+				{
+					return true;
+				}
+			}
+			//"FrontFaceStencilFunc"
+			if(str_i_cmp(name, "FrontFaceStencilFunc"))
+			{
+				if(ParseEnum(value, (uint32&)_FrontFaceStencilFunc, CompFuncEnum))
+				{
+					return true;
+				}
+			}
+			
+			//"BackFaceStencilFailOP"
+			if(str_i_cmp(name, "BackFaceStencilFailOP"))
+			{
+				if(ParseEnum(value, (uint32&)_BackFaceStencilFailOP, StencilOPEnum))
+				{
+					return true;
+				}
+			}
+			//"BackFaceStencilDepthFailOP"
+			if(str_i_cmp(name, "BackFaceStencilDepthFailOP"))
+			{
+				if(ParseEnum(value, (uint32&)_BackFaceStencilDepthFailOP, StencilOPEnum))
+				{
+					return true;
+				}
+			}
+			//"BackFaceStencilPassOP"
+			if(str_i_cmp(name, "BackFaceStencilPassOP"))
+			{
+				if(ParseEnum(value, (uint32&)_BackFaceStencilPassOP, StencilOPEnum))
+				{
+					return true;
+				}
+			}
+			//"BackFaceStencilFunc",
+			if(str_i_cmp(name, "BackFaceStencilFunc"))
+			{
+				if(ParseEnum(value, (uint32&)_BackFaceStencilFunc, CompFuncEnum))
+				{
+					return true;
+				}
+			}
+
+			//"FrontFaceStencilWriteMask"
+			if(str_i_cmp(name, "FrontFaceStencilWriteMask"))
+			{
+				if(ParseInt(value, _FrontFaceStencilWriteMask))
+				{
+					return true;
+				}
+			}
+			//"FrontFaceStencilReadMask"
+			if(str_i_cmp(name, "FrontFaceStencilReadMask"))
+			{
+				if(ParseInt(value, _FrontFaceStencilReadMask))
+				{
+					return true;
+				}
+			}
+
+			//"BackFaceStencilWriteMask"
+			if(str_i_cmp(name, "BackFaceStencilWriteMask"))
+			{
+				if(ParseInt(value, _BackFaceStencilWriteMask))
+				{
+					return true;
+				}
+			}
+			//"BackFaceStencilReadMask"
+			if(str_i_cmp(name, "BackFaceStencilReadMask"))
+			{
+				if(ParseInt(value, _BackFaceStencilReadMask))
+				{
+					return true;
+				}
+			}
+
+
+			// "FrontFaceStencilRef"
+			if(str_i_cmp(name, "FrontFaceStencilRef"))
+			{
+				if(ParseInt(value, _FrontFaceStencilRef))
+				{
+					return true;
+				}
+			}
+			
+			//"BackFaceStencilRef"
+			if(str_i_cmp(name, "BackFaceStencilRef"))
+			{
+				if(ParseInt(value, _BackFaceStencilRef))
+				{
+					return true;
+				}
+			}
+
+			Error(line, "invalid value: '" + value + "'");
+			return false;
+		}
+		RenderState2Ptr	RenderStateParser::CreateObject(Sys_Graphics2Ptr pGraphics)
+		{
+			RenderState2Ptr pState = pGraphics->CreateRenderState();
+
+			pState->Begin();
+			{
+				pState->SetBlendFactor(_BlendFactor);
+				pState->SetBlendEnable(_BlendEnable);
+				pState->SetBlendOp(_BlendRGBOP, _BlendAlphaOP);
+				pState->SetBlendVariable(_BlendSrcRGB, _BlendDstRGB, _BlendSrcAlpha, _BlendDstAlpha);
+
+				pState->SetColorWrite(_ColorWrite);
+				pState->SetFillMode(_FillMode);
+				pState->SetCullMode(_CullMode);
+				pState->SetFrontCounterClockwise(_FrontFaceCounterClockWise);
+				//pState->SetDepthBias(uint32 val);
+				//pState->SetDepthBiasClamp(float val);
+				//pState->SetSlopeScaledDepthBias(float val);
+				pState->SetDepthClipEnable(_DepthClipEnable);
+				pState->SetDepthEnable(_DepthEnable);
+				pState->SetDepthWriteMask(_DepthWriteMask);
+				pState->SetDepthFunc(_DepthFunc);
+				pState->SetStencilEnable(_StencilEnable);
+				pState->SetFrontFaceStencilOP(_FrontFaceStencilFailOP, _FrontFaceStencilDepthFailOP, _FrontFaceStencilPassOP);
+				pState->SetBackFaceStencilOP(_BackFaceStencilFailOP, _BackFaceStencilDepthFailOP, _BackFaceStencilPassOP);
+				pState->SetFrontFaceStencilWriteMask(_FrontFaceStencilWriteMask);
+				pState->SetBackFaceStencilWriteMask(_BackFaceStencilWriteMask);
+				pState->SetFrontFaceStencilFunc(_FrontFaceStencilFunc, _FrontFaceStencilRef, _FrontFaceStencilReadMask);
+				pState->SetBackFaceStencilFunc(_BackFaceStencilFunc, _BackFaceStencilRef, _BackFaceStencilReadMask);
+
+			}
+			pState->End();
+
+			return pState;
 		}
 	}
 }

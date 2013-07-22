@@ -70,7 +70,7 @@ namespace ld3d
 		{
 			return _stricmp(s1.c_str(), s2.c_str()) == 0;
 		}
-		bool BaseParser::EnumValue(const std::string& value, uint32& e, std::pair<std::string, uint32> list[])
+		bool BaseParser::ParseEnum(const std::string& value, uint32& e, std::pair<std::string, uint32> list[])
 		{
 			for(int i = 0; list[i] != std::pair<std::string, uint32>(); ++i)
 			{
@@ -339,6 +339,51 @@ namespace ld3d
 			value += "}";
 
 			token = lexer->NextToken();
+			return true;
+		}
+		bool BaseParser::ParseBool(const std::string& value, bool& ret)
+		{
+			if(str_i_cmp(value, "true"))
+			{
+				ret = true;
+				return true;
+			}
+			if(str_i_cmp(value, "false"))
+			{
+				ret = false;
+				return true;
+			}
+
+			return false;
+		}
+		bool BaseParser::ParseNumber(const std::string& value, double& ret)
+		{
+			if(IsNumber(value) == false)
+			{
+				return false;
+			}
+
+			ret = strtod(value.c_str(), nullptr);
+			return true;
+		}
+		bool BaseParser::ParseFloat(const std::string& value, float& ret)
+		{
+			double d = -1;
+			if(ParseNumber(value, d))
+			{
+				ret = (float)d;
+				return true;
+			}
+
+			return false;
+		}
+		bool BaseParser::ParseInt(const std::string& value, int& ret)
+		{
+			if(IsInt(value) == false)
+			{
+				return false;
+			}
+			ret = strtol(value.c_str(), nullptr, 10);
 			return true;
 		}
 	}

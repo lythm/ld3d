@@ -1,7 +1,7 @@
 # material script
 
 
-SamplerState s1
+SamplerState ss1
 {
 	# address mode
 	# values:
@@ -47,7 +47,7 @@ SamplerState s1
 RenderState rs1
 {
 	BlendEnable = true;
-	Func = 1;
+	FillMode = wireframe;
 }
 Technique t1
 {
@@ -57,9 +57,9 @@ Technique t1
 
 		BindSampler("base", ss1);
 
-		SetVertexShader();
-		SetPixelShader();
-		SetGeometryShader();
+		SetVertexShader("1.glsl");
+		SetPixelShader("2.glsl");
+		SetGeometryShader("1.glsl");
 	};;
 	Pass p2
 	{

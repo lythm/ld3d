@@ -178,7 +178,7 @@ namespace ld3d
 
 			if(str_i_cmp(name, "AddressModeU"))
 			{
-				if(EnumValue(value, (UINT32&)_AddressModeU, AddressModeEnum))
+				if(ParseEnum(value, (uint32&)_AddressModeU, AddressModeEnum))
 				{
 					return true;
 				}
@@ -186,7 +186,7 @@ namespace ld3d
 			}
 			if(str_i_cmp(name, "AddressModeV"))
 			{
-				if(EnumValue(value, (UINT32&)_AddressModeV, AddressModeEnum))
+				if(ParseEnum(value, (uint32&)_AddressModeV, AddressModeEnum))
 				{
 					return true;
 				}
@@ -195,7 +195,7 @@ namespace ld3d
 
 			if(str_i_cmp(name, "AddressModeW"))
 			{
-				if(EnumValue(value, (UINT32&)_AddressModeW, AddressModeEnum))
+				if(ParseEnum(value, (uint32&)_AddressModeW, AddressModeEnum))
 				{
 					return true;
 				}
@@ -205,7 +205,7 @@ namespace ld3d
 
 			if(str_i_cmp(name, "Filter"))
 			{
-				if(EnumValue(value, (uint32&)_Filter, FilterEnum))
+				if(ParseEnum(value, (uint32&)_Filter, FilterEnum))
 				{
 					return true;
 				}
@@ -213,21 +213,19 @@ namespace ld3d
 
 			if(str_i_cmp(name, "MinLod"))
 			{
-				if(IsNumber(value) == true)
+				if(ParseFloat(value, _MinLod) == true)
 				{
-					
-					_MinLod = strtod(value.c_str(), nullptr);
 					return true;
 				}
 			}
 
 			if(str_i_cmp(name, "MaxLod"))
 			{
-				if(IsNumber(value) == true)
+				if(ParseFloat(value, _MaxLod) == true)
 				{
-					_MaxLod = strtod(value.c_str(), nullptr);
 					return true;
 				}
+
 			}
 
 			/*if(str_i_cmp(name, "MipLodBias"))
@@ -241,9 +239,8 @@ namespace ld3d
 
 			if(str_i_cmp(name, "MaxAnisotropy"))
 			{
-				if(IsInt(value))
+				if(ParseInt(value, (int&)_MaxAnisotropy))
 				{
-					_MaxAnisotropy = strtol(value.c_str(), nullptr, 10);
 					return true;
 				}
 			}
