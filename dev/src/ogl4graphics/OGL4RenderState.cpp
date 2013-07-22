@@ -166,6 +166,11 @@ namespace ld3d
 	}
 	void OGL4RenderState::AddCommand(const std::function<void ()>& command)
 	{
+		if(command == false)
+		{
+			return;
+		}
 		m_bRecording ? m_commands.push_back(command) : 0;
+	
 	}
 }

@@ -3,67 +3,85 @@
 
 #include "core\Sys_Graphics.h"
 #include "core\RenderState.h"
-#include "core/Shader.h"
-#include "core\GPUBuffer.h"
+#include "core/SamplerState.h"
+
 
 namespace ld3d
 {
-	MaterialPass::MaterialPass()
+	MaterialPass::MaterialPass(const std::string& name, Sys_Graphics2Ptr pGraphics)
 	{
-		
+		m_name = name;
+		m_pGraphics = pGraphics;
 	}
 
 
 	MaterialPass::~MaterialPass(void)
 	{
 	}
-	bool MaterialPass::Create(Sys_GraphicsPtr pGraphics)
-	{	
-		m_pGraphics = pGraphics;
-
-		m_pRenderState = m_pGraphics->CreateRenderState();
-
-		return true;
-	}
+	
 	void MaterialPass::Apply()
 	{
 		m_pGraphics->SetRenderState(m_pRenderState);
 
+		m_pGraphics->SetShaderProgram(m_pProgram);
+
 	}
-	RenderStatePtr MaterialPass::GetRenderState()
+	RenderState2Ptr MaterialPass::GetRenderState()
 	{
 		return m_pRenderState;
 	}
 	
 	void MaterialPass::Release()
 	{
-		if(m_pVSParameterBlock)
-		{
-			m_pVSParameterBlock->Release();
-			m_pVSParameterBlock.reset();
-		}
-
-		if(m_pPSParameterBlock)
-		{
-			m_pPSParameterBlock->Release();
-			m_pPSParameterBlock.reset();
-		}
-
 		if(m_pRenderState)
 		{
 			m_pRenderState->Release();
 			m_pRenderState.reset();
 		}
 
-		
-
+		for(auto v : m_Samplers)
+		{
+			v->Release();
+		}
+		m_Samplers.clear();
+		if(m_pProgram)
+		{
+			m_pProgram->Release();
+			m_pProgram.reset();
+		}
 	}
 	bool MaterialPass::Validate()
 	{
-		return true;
+		return m_pProgram->Validate();
 	}
-	bool MaterialPass::Parse()
+	void MaterialPass::AttachProgram(ShaderProgramPtr pProgram)
 	{
-		return true;
+		m_pProgram = pProgram;
+	}
+	void MaterialPass::AttachRenderState(RenderState2Ptr pState)
+	{
+		m_pRenderState = pState;
+	}
+	void MaterialPass::AddSamplerLink(const std::string& tex, SamplerStatePtr pSampler)
+	{
+		if(pSampler == nullptr || m_pProgram == nullptr)
+		{
+			return;
+		}
+
+		ShaderProgram::ParameterID param = m_pProgram->FindParameterByName(tex.c_str());
+		
+		m_pProgram->SetParameterSampler(param, pSampler);
+
+		m_Samplers.push_back(pSampler);
+	}
+	const std::string MaterialPass::GetName() const
+	{
+		return m_name;
+	}
+	ShaderProgramPtr MaterialPass::GetProgram()
+	{
+		return m_pProgram;
 	}
 }
+

@@ -57,8 +57,4 @@ namespace ld3d
 	{
 		return m_valid;
 	}
-	bool MaterialTech::Parse()
-	{
-		return true;
-	}
 }

@@ -10,7 +10,7 @@ namespace ld3d
 		virtual ~OGL4ShaderCompiler(void);
 
 		static OGL4ShaderPtr								CreateShaderFromFile(SHADER_TYPE type, const boost::filesystem::path& path);
-		static OGL4ShaderPtr								CreateShaderFromSource(SHADER_TYPE type, const std::string& source);
+		static OGL4ShaderPtr								CreateShaderFromSource(SHADER_TYPE type, const std::string& source, const boost::filesystem::path& file = "");
 
 	private:
 		static std::string									LoadShaderSource(const boost::filesystem::path& path);
@@ -23,8 +23,7 @@ namespace ld3d
 
 		static std::string									ClearVersionComment(const std::string& source);
 
-		
+		static void											PrintShaderLog(std::string log, const boost::filesystem::path& file);
+	
 	};
-
-
 }

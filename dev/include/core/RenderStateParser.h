@@ -12,7 +12,7 @@ namespace ld3d
 			RenderStateParser(BaseParser* parent, std::function<void (const std::string&)> logger = std::function<void (const std::string&)>());
 			virtual ~RenderStateParser(void);
 
-			bool												Parse(Lexer* lexer);
+			bool												Parse(Lexer* lexer, const boost::filesystem::path& dir = "./");
 
 			RenderState2Ptr										CreateObject(Sys_Graphics2Ptr pGraphics);
 		private:

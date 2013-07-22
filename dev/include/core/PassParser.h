@@ -12,22 +12,22 @@ namespace ld3d
 			PassParser(BaseParser* parent, std::function<void (const std::string&)> logger = std::function<void (const std::string&)>());
 			virtual ~PassParser(void);
 
-			bool												Parse(Lexer* lexer);
+			bool												Parse(Lexer* lexer, const boost::filesystem::path& dir = "./");
 
 			MaterialPassPtr										CreateObject(Sys_Graphics2Ptr pGraphics);
 		private:
 			bool												ParseFunctionCall(Lexer* lexer);
 			bool												SetState(const std::vector<Token>& func);
 		private:
-			std::string											_VertexShader;
-			std::string											_PixelShader;
-			std::string											_GeometryShader;
+			boost::filesystem::path								_VertexShader;
+			boost::filesystem::path								_PixelShader;
+			boost::filesystem::path								_GeometryShader;
 
 			std::string											_RenderState;
 			std::vector<SamplerLink>							_SamplerLink;
 
+			boost::filesystem::path								m_rootDir;
+
 		};
-
-
 	}
 }

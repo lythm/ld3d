@@ -21,8 +21,6 @@ namespace ld3d
 			{
 				m_logger("(" + std::to_string(line + 1) + "): " + msg);
 			}
-
-			//	m_bNoError = false;
 		}
 		BaseParser* BaseParser::Parent()
 		{

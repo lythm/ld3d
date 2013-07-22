@@ -5,9 +5,16 @@ namespace ld3d
 	template <typename F>
 	struct scope_exit 
 	{
-		scope_exit(F f) : f(f) {}
-		~scope_exit() { f(); }
+		scope_exit(F f) : f(f),m_cancel(false) {}
+		void cancel()
+		{
+
+		}
+		~scope_exit() { m_cancel ? 0 : f(); }
 		F f;
+
+	private:
+		bool			m_cancel;
 	};
 
 	template <typename F>

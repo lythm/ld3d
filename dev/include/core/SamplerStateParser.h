@@ -13,7 +13,7 @@ namespace ld3d
 			SamplerStateParser(BaseParser* parent, std::function<void (const std::string&)> logger = std::function<void (const std::string&)>());
 			virtual ~SamplerStateParser(void);
 
-			bool												Parse(Lexer* lexer);
+			bool												Parse(Lexer* lexer, const boost::filesystem::path& dir = "./");
 
 			SamplerStatePtr										CreateObject(Sys_Graphics2Ptr pGraphics);
 		private:

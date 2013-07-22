@@ -9,7 +9,6 @@ namespace ld3d
 		MaterialTech(const std::string& name);
 		virtual ~MaterialTech(void);
 
-		bool												Parse();
 		void												Release();
 		uint32												GetPassCount();
 		MaterialPassPtr										GetPassByIndex(uint32 index);

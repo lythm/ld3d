@@ -11,7 +11,7 @@ namespace ld3d
 			BaseParser(BaseParser* parent, std::function<void (const std::string&)> logger = std::function<void (const std::string&)>());
 			virtual ~BaseParser(void);
 
-			virtual bool										Parse(Lexer* lexer)											= 0;
+			virtual bool										Parse(Lexer* lexer, const boost::filesystem::path& dir = "./")											= 0;
 			//virtual bool										Generate()													= 0;
 
 			void												Error(int line, const std::string& msg);

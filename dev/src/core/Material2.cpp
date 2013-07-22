@@ -4,24 +4,22 @@
 #include "MaterialParameterManager.h"
 #include "core\MaterialTech.h"
 #include "core\MaterialPass.h"
+#include "core/MaterialParameter.h"
 
 namespace ld3d
 {
-	Material2::Material2(Sys_GraphicsPtr pGraphics)
+	Material2::Material2(Sys_Graphics2Ptr pGraphics)
 	{
 		m_pGraphics = pGraphics;
 
-		m_pParamManager = alloc_object<MaterialParameterManager>();
+		m_pParamManager = std::make_shared<MaterialParameterManager>();
 	}
 
 
 	Material2::~Material2(void)
 	{
 	}
-	bool Material2::LoadFromFile(const char* szFile)
-	{
-		return true;
-	}
+	
 	void Material2::Release()
 	{
 		m_pParamManager.reset();
@@ -31,6 +29,7 @@ namespace ld3d
 			m_techs[i]->Release();
 		}
 		m_techs.clear();
+		m_pCurrentTech.reset();
 	}
 	uint32 Material2::Begin()
 	{
@@ -51,17 +50,49 @@ namespace ld3d
 	}
 	MaterialParameterPtr Material2::GetParameterByName(const char* szName)
 	{
-		return m_pParamManager->GetParameterByName(szName);
+		MaterialParameterPtr pParam = m_pParamManager->GetParameterByName(szName);
+		if(pParam)
+		{
+			return pParam;
+		}
+
+		std::vector<MaterialParameter::ParamInfo> params;
+
+		for(size_t i = 0; i < m_techs.size(); ++i)
+		{
+			for(size_t ii = 0; ii < m_techs[i]->GetPassCount(); ++ii)
+			{
+				MaterialPassPtr pPass = m_techs[i]->GetPassByIndex(ii);
+				ShaderProgramPtr pProgram = pPass->GetProgram();
+
+				ShaderProgram::ParameterID id = pProgram->FindParameterByName(szName);
+				if(id >= 0)
+				{
+					params.push_back(MaterialParameter::ParamInfo(pProgram, id));
+					continue;
+				}
+
+				id = pProgram->FindParameterBlockByName(szName);
+				if(id >= 0)
+				{
+					params.push_back(MaterialParameter::ParamInfo(pProgram, id));
+					continue;
+				}
+			}
+		}
+
+		if(params.size() == 0)
+		{
+			return nullptr;
+		}
+
+		pParam = std::make_shared<MaterialParameter>(szName, params);
+		m_pParamManager->AddParameter(pParam);
+
+		return pParam;
 	}
-	uint32 Material2::GetParameterCount()
-	{
-		return m_pParamManager->GetParameterCount();
-	}
-	MaterialParameterPtr Material2::GetPatameterByIndex(uint32 index)
-	{
-		return m_pParamManager->GetParameterByIndex(index);
-	}
-	bool Material2::SelectTechByName(const char* szName)
+	
+	bool Material2::SetCurrentTech(const char* szName)
 	{
 		MaterialTechPtr pFind = GetTechByName(szName);
 		if(pFind == nullptr)
@@ -99,5 +130,10 @@ namespace ld3d
 			return;
 		}
 		m_techs.push_back(pTech);
+
+		if(m_pCurrentTech == nullptr)
+		{
+			m_pCurrentTech = pTech;
+		}
 	}
 }

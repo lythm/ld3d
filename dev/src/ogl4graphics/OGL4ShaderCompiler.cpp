@@ -57,11 +57,11 @@ namespace ld3d
 
 		source = ClearVersionComment(source);
 
-		return CreateShaderFromSource(type, source);
+		return CreateShaderFromSource(type, source, path);
 
 
 	}
-	OGL4ShaderPtr OGL4ShaderCompiler::CreateShaderFromSource(SHADER_TYPE type, const std::string& source)
+	OGL4ShaderPtr OGL4ShaderCompiler::CreateShaderFromSource(SHADER_TYPE type, const std::string& source, const boost::filesystem::path& file)
 	{
 		GLenum gltype = OGL4Convert::ShaderTypeToGL(type);
 		
@@ -75,8 +75,8 @@ namespace ld3d
 
 		char szInfo[1024];
 		glGetShaderInfoLog(shader, 1024, nullptr, szInfo); 
-		g_log(szInfo);
 
+		PrintShaderLog(szInfo, file);
 
 		GLint ret = GL_FALSE;
 		glGetShaderiv(shader, GL_COMPILE_STATUS, &ret);
@@ -176,5 +176,21 @@ namespace ld3d
 		std::string result = std::regex_replace(source, rv, fmt);
 
 		return first + "\n" + result;
+	}
+	
+	void OGL4ShaderCompiler::PrintShaderLog(std::string log, const boost::filesystem::path& file)
+	{
+		if(log == "")
+		{
+			return;
+		}
+		std::regex r("\n");
+		std::sregex_token_iterator first(log.begin(), log.end(), r, -1);
+		std::sregex_token_iterator last;
+		
+		for(auto it = first; it != last; ++it)
+		{
+			g_log(file.string() + ":" + it->str() + "\n");
+		}
 	}
 }

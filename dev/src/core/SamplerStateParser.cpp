@@ -50,7 +50,7 @@ namespace ld3d
 		SamplerStateParser::~SamplerStateParser(void)
 		{
 		}
-		bool SamplerStateParser::Parse(Lexer* lexer)
+		bool SamplerStateParser::Parse(Lexer* lexer, const boost::filesystem::path& dir)
 		{
 			Token token = lexer->NextToken();
 
@@ -266,7 +266,7 @@ namespace ld3d
 			pSampler->SetLod(_MinLod, _MaxLod);
 			pSampler->SetMaxAnisotropy(_MaxAnisotropy);
 
-			return SamplerStatePtr();
+			return pSampler;
 		}
 	}
 }

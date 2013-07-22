@@ -51,6 +51,7 @@
 #include "core\Material.h"
 #include "core/Material2.h"
 #include "core/MaterialCompiler.h"
+#include "core/MaterialParameter.h"
 
 #include "core\GPUBuffer.h"
 #include "core\VertexFormat.h"

@@ -35,23 +35,22 @@ namespace ld3d
 		radius += 0.001;
 
 		t = math::MatrixRotationAxisY(radius);
-		//math::TransformCoord(eye, t);
+		math::TransformCoord(eye, t);
 
 		view = math::MatrixLookAtLH(eye, math::Vector3(0, 0, 0), math::Vector3(0, 1, 0));
 		proj = math::MatrixPerspectiveFovLH(0.25 * 3.14, 4.0 / 3.0, 0.01, 10000);
 		
-		ShaderProgram::ParameterID param = m_pProgram->FindParameterByName("v");
-		m_pProgram->SetParameterMatrix(param, view);
+		MaterialParameterPtr pParam = m_pMaterial->GetParameterByName("v");
+		pParam->SetParameterMatrix(view);
 
+		pParam = m_pMaterial->GetParameterByName("p");
+		pParam->SetParameterMatrix(proj);
 
-		param = m_pProgram->FindParameterByName("p");
-		m_pProgram->SetParameterMatrix(param, proj);
+		pParam = m_pMaterial->GetParameterByName("base");
+		pParam->SetParameterTexture(m_pTex);
+
 		
-		param = m_pProgram->FindParameterByName("base");
-		m_pProgram->SetParameterTexture(param, m_pTex);
-
-		
-		m_pGraphics->SetRenderTarget(m_pRenderTarget);
+	/*	m_pGraphics->SetRenderTarget(m_pRenderTarget);
 
 		m_pGraphics->ClearRenderTarget(0, math::Color4(0, 0, 0.7, 1));
 		m_pGraphics->ClearDepthStencil(CLEAR_ALL, 1.0f, 0);
@@ -59,23 +58,25 @@ namespace ld3d
 		m_pGraphics->SetShaderProgram(m_pProgram);
 
 
-		m_pGraphics->DrawIndexed(m_pGeometry, 36, 0, 0);
+		m_pGraphics->DrawIndexed(m_pGeometry, 36, 0, 0);*/
 
 
 
-		param = m_pProgram->FindParameterByName("base");
+		//param = m_pProgram->FindParameterByName("base");
 		//m_pProgram->SetParameterTexture(param, m_pRenderTarget->GetTexture(0));
 
-		m_pGraphics->SetRenderState(m_pRenderState);
-
-		m_pGraphics->SetRenderTarget(RenderTarget2Ptr());
 
 		m_pGraphics->ClearRenderTarget(0, math::Color4(0.3, 0.5, 0.7, 1));
 		m_pGraphics->ClearDepthStencil(CLEAR_ALL, 1.0f, 0);
 
-		m_pGraphics->SetShaderProgram(m_pProgram);
-		m_pGraphics->DrawIndexed(m_pGeometry, 36, 0, 0);
-		
+		int n = m_pMaterial->Begin();
+		for(int i = 0; i < n; ++i)
+		{
+			m_pMaterial->ApplyPass(i);
+			m_pGraphics->DrawIndexed(m_pGeometry, 36, 0, 0);
+		}
+		m_pMaterial->End();
+
 		m_pGraphics->Present();
 
 		ShowFPS();
@@ -115,80 +116,38 @@ namespace ld3d
 		
 		m_pGeometry = CreateCube(10);
 
-		m_pProgram = m_pGraphics->CreateShaderProgram();
-
-		m_pProgram->AttachShaderFromFile(ST_VERTEX_SHADER, "./assets/standard/material/1.glsl");
-		m_pProgram->AttachShaderFromFile(ST_PIXEL_SHADER, "./assets/standard/material/2.glsl");
-
-		m_pProgram->Link();
-
-		m_pProgram->Validate();
-
-		
-		/*uint32* initData = new uint32[1024 * 1024];
-
-		memset(initData, 255, 1024 * 1024 * sizeof(uint32));
-
-		m_pTex = m_pGraphics->CreateTexture2D(G_FORMAT_R8G8B8A8_UNORM, 1024 , 1024);
-
-		void* data = m_pTex->Map();
-
-
-		memcpy(data, initData, 1024 * 1024 * sizeof(uint32));
-
-		m_pTex->UnMap();*/
-		
 		m_pTex = m_pGraphics->CreateTextureFromFile("./assets/standard/texture/15.png", false);
 		
 
-		m_pSampler = m_pGraphics->CreateSampler();
-
-
-		m_pSampler->SetAddressMode(SamplerState::AM_CLAMP, SamplerState::AM_CLAMP, SamplerState::AM_CLAMP);
-		m_pSampler->SetFilter(SamplerState::FILTER_ANISOTROPIC);
-
-		m_pTex->SetSampler(m_pSampler);
-
-		ShaderProgram::ParameterID param = m_pProgram->FindParameterByName("base");
-		m_pProgram->SetParameterTexture(param, m_pTex);
-
-
 		DepthStencilBufferPtr pDS = m_pGraphics->CreateDepthStencilBuffer(G_FORMAT_D32_FLOAT, 800, 600);
 		Texture2Ptr pTex = m_pGraphics->CreateTexture2D(G_FORMAT_R8G8B8A8_UNORM, 800, 600, 1, false);
-		pTex->SetSampler(m_pSampler);
 
 		m_pRenderTarget = m_pGraphics->CreateRenderTexture();
 
 		m_pRenderTarget->AddTexture(pTex);
 		m_pRenderTarget->SetDepthStencilBuffer(pDS);
 
-		m_pRenderState = m_pGraphics->CreateRenderState();
-
-		m_pRenderState->Begin();
-		m_pRenderState->SetCullMode(RS_CULL_BACK);
-		m_pRenderState->SetFrontCounterClockwise(false);
-		m_pRenderState->End();
-		//Sleep(1000);
-
-
 		material_script::Compiler cl;
+		m_pMaterial = cl.CompileFromFile(m_pGraphics, "./assets/standard/material/1.material");
 
-		Material2Ptr pMat = cl.CompileFromFile("./assets/standard/material/1.material");
-
+		MaterialParameterPtr pParam = m_pMaterial->GetParameterByName("base");
+		pParam->SetParameterTexture(m_pTex);
 
 		return true;
 	}
 	void EngineApp::OnRelease()
 	{
-		m_pSampler->Release();
-		m_pSampler.reset();
+		if(m_pMaterial)
+		{
+			m_pMaterial->Release();
+			m_pMaterial.reset();
+		}
 
 		m_pTex->Release();
 		m_pTex.reset();
 
 		m_pGeometry->Release();
 		m_pGeometry.reset();
-
 
 		m_pGraphics->Release();
 		m_pGraphics.reset();
@@ -233,9 +192,9 @@ namespace ld3d
 		{
 			// front
 			{math::Vector3(-size, size, -size), math::Vector3(0, 0, -1), math::Vector2(0, 0), },
-			{math::Vector3(size, size, -size), math::Vector3(0, 0, -1), math::Vector2(1, 0),},
-			{math::Vector3(size, -size, -size), math::Vector3(0, 0, -1), math::Vector2(1, 1),},
-			{math::Vector3(-size, -size, -size), math::Vector3(0, 0, -1), math::Vector2(0, 1),},
+			{math::Vector3(size, size, -size), math::Vector3(0, 0, -1), math::Vector2(2, 0),},
+			{math::Vector3(size, -size, -size), math::Vector3(0, 0, -1), math::Vector2(2, 2),},
+			{math::Vector3(-size, -size, -size), math::Vector3(0, 0, -1), math::Vector2(0, 2),},
 
 			// back
 			{math::Vector3(-size, size, size), math::Vector3(0, 0, 1), math::Vector2(0, 0),},

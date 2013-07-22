@@ -189,14 +189,12 @@ namespace ld3d
 
 	namespace material_script
 	{
-		class MaterialParser;
 		class SamplerStateParser;
 		class RenderStateParser;
 		class TechniqueParser;
 		class PassParser;
 		class BaseParser;
 
-		typedef std::shared_ptr<MaterialParser>				MaterialParserPtr;
 		typedef std::shared_ptr<SamplerStateParser>			SamplerStateParserPtr;
 		typedef std::shared_ptr<RenderStateParser>			RenderStateParserPtr;
 		typedef std::shared_ptr<TechniqueParser>			TechniqueParserPtr;

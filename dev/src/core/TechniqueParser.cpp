@@ -1,6 +1,9 @@
 #include "core_pch.h"
 #include "..\..\include\core\TechniqueParser.h"
 #include "core/PassParser.h"
+#include "core/MaterialTech.h"
+#include "core/MaterialPass.h"
+
 namespace ld3d
 {
 	namespace material_script
@@ -14,8 +17,9 @@ namespace ld3d
 		TechniqueParser::~TechniqueParser(void)
 		{
 		}
-		bool TechniqueParser::Parse(Lexer* lexer)
+		bool TechniqueParser::Parse(Lexer* lexer, const boost::filesystem::path& dir)
 		{
+			m_rootDir = dir;
 			Token token = lexer->NextToken();
 
 			if(token.str == "}")
@@ -90,7 +94,7 @@ namespace ld3d
 			
 			PassParserPtr pPassParser = std::make_shared<PassParser>(this, m_logger);
 
-			if(pPassParser->Parse(lexer) == false)
+			if(pPassParser->Parse(lexer, m_rootDir) == false)
 			{
 				return false;
 			}
@@ -101,7 +105,25 @@ namespace ld3d
 		}
 		MaterialTechPtr TechniqueParser::CreateObject(Sys_Graphics2Ptr pGraphics)
 		{
-			return MaterialTechPtr();
+			MaterialTechPtr pTech = std::make_shared<MaterialTech>(m_name);
+
+			for(auto v : m_members)
+			{
+				PassParserPtr pParser = std::dynamic_pointer_cast<PassParser>(v);
+				
+				MaterialPassPtr pPass = pParser->CreateObject(pGraphics);
+				if(pPass == nullptr)
+				{
+					Error(0, "failed to create pass: '" + pParser->Name() + "'");
+
+					pTech->Release();
+					return nullptr;
+				}
+
+				pTech->AddPass(pParser->CreateObject(pGraphics));
+			}
+
+			return pTech;
 		}
 	}
 }

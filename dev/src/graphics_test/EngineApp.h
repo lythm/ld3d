@@ -100,14 +100,10 @@ namespace ld3d
 
 		GeometryDataPtr									m_pGeometry;
 
-		ShaderProgramPtr								m_pProgram;
-
 		Texture2Ptr										m_pTex;
-
-		SamplerStatePtr									m_pSampler;
 
 		RenderTexture2Ptr								m_pRenderTarget;
 
-		RenderState2Ptr									m_pRenderState;
+		Material2Ptr									m_pMaterial;
 	};
 }

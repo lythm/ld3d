@@ -215,8 +215,13 @@ namespace ld3d
 
 
 		LOAD_API(glBlendColor,											PFNGLBLENDCOLORPROC);
-		LOAD_API(glStencilOpSeparate,											PFNGLSTENCILOPSEPARATEPROC);
-		
+		LOAD_API(glStencilOpSeparate,									PFNGLSTENCILOPSEPARATEPROC);
+
+		LOAD_API(glBlendEquationSeparate,								PFNGLBLENDEQUATIONSEPARATEPROC);
+		LOAD_API(glBlendFuncSeparate,									PFNGLBLENDFUNCSEPARATEPROC);
+		LOAD_API(glStencilMaskSeparate,									PFNGLSTENCILMASKSEPARATEPROC);
+		LOAD_API(glStencilFuncSeparate,									PFNGLSTENCILFUNCSEPARATEPROC);
+
 		return true;
 	}
 }

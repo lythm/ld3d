@@ -4,39 +4,34 @@ namespace ld3d
 {
 	class EXPORT_CLASS Material2
 	{
+		
 	public:
-		Material2(Sys_GraphicsPtr pGraphics);
+		Material2(Sys_Graphics2Ptr pGraphics);
 		virtual ~Material2(void);
 
-		bool											LoadFromFile(const char* szFile);
-		void											Release();
+		void															Release();
 
+		uint32															Begin();
+		void															ApplyPass(uint32 index);
+		void															End();
 
-		uint32											Begin();
-		void											ApplyPass(uint32 index);
-		void											End();
+		MaterialParameterPtr											GetParameterByName(const char* szName);
+				
+		uint32															GetTechCount();
+		MaterialTechPtr													GetTechByIndex(uint32 index);
+		MaterialTechPtr													GetTechByName(const char* szName);
 
-		MaterialParameterPtr							GetParameterByName(const char* szName);
-		uint32											GetParameterCount();
-		MaterialParameterPtr							GetPatameterByIndex(uint32 index);
-		
-		uint32											GetTechCount();
-		MaterialTechPtr									GetTechByIndex(uint32 index);
-		MaterialTechPtr									GetTechByName(const char* szName);
-		bool											SelectTechByName(const char* szName);
+		bool															SetCurrentTech(const char* szName);
 
-		void											AddTech(MaterialTechPtr pTech);
+		void															AddTech(MaterialTechPtr pTech);
 
 	private:
-		std::vector<MaterialTechPtr>					m_techs;
+		std::vector<MaterialTechPtr>									m_techs;
 		
+		MaterialParameterManagerPtr										m_pParamManager;
 
-		MaterialParameterManagerPtr						m_pParamManager;
+		Sys_Graphics2Ptr												m_pGraphics;
 
-		Sys_GraphicsPtr									m_pGraphics;
-
-		MaterialTechPtr									m_pCurrentTech;
-
-
+		MaterialTechPtr													m_pCurrentTech;
 	};
 }

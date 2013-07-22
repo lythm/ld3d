@@ -154,7 +154,7 @@ namespace ld3d
 		RenderStateParser::~RenderStateParser(void)
 		{
 		}
-		bool RenderStateParser::Parse(Lexer* lexer)
+		bool RenderStateParser::Parse(Lexer* lexer, const boost::filesystem::path& dir)
 		{
 			Token token = lexer->NextToken();
 

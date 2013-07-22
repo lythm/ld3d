@@ -41,6 +41,10 @@ namespace ld3d
 	}
 	MaterialParameterPtr MaterialParameterManager::GetParameterByName(const std::string& name)
 	{
+		if(Exist(name) == false)
+		{
+			return MaterialParameterPtr();
+		}
 		return m_parameterMap[name];
 	}
 }

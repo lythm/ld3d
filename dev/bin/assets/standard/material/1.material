@@ -8,8 +8,8 @@ SamplerState ss1
 	#	{REPEAT, MIRROR, CLAMP, BORDER}
 	
 	AddressModeU = REPEAT;
-	AddressModeV = MIRROR;
-	AddressModeW = BORDER;
+	AddressModeV = REPEAT;
+	AddressModeW = REPEAT;
 	
 
 	# filter
@@ -41,13 +41,14 @@ SamplerState ss1
 	# border color
 	# values:
 	#	RGBA
-	BorderColor = {1, 1, 1, 1};
+	BorderColor = {1, 0, 0, 1};
 }
 
 RenderState rs1
 {
-	BlendEnable = true;
-	FillMode = wireframe;
+	BlendEnable = false;
+	FillMode = solid;
+	cullmode = back;
 }
 Technique t1
 {
@@ -59,21 +60,7 @@ Technique t1
 
 		SetVertexShader("1.glsl");
 		SetPixelShader("2.glsl");
-		SetGeometryShader("1.glsl");
+		#SetGeometryShader("1.glsl");
 	};;
-	Pass p2
-	{
-	};
 }
 
-
-Technique t2
-{
-	Pass p1
-	{
-	};
-	Pass p2
-	{
-	};
-	
-};

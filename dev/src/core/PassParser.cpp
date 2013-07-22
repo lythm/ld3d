@@ -2,7 +2,8 @@
 #include "..\..\include\core\PassParser.h"
 #include "core/MaterialPass.h"
 #include "core/Sys_Graphics.h"
-
+#include "core/SamplerStateParser.h"
+#include "core/RenderStateParser.h"
 namespace ld3d
 {
 	namespace material_script
@@ -20,8 +21,10 @@ namespace ld3d
 		PassParser::~PassParser(void)
 		{
 		}
-		bool PassParser::Parse(Lexer* lexer)
+		bool PassParser::Parse(Lexer* lexer, const boost::filesystem::path& dir)
 		{
+			m_rootDir = dir;
+
 			Token token = lexer->CurToken();
 
 			if(token.type != Token::token_id)
@@ -168,7 +171,14 @@ namespace ld3d
 					return false;
 				}
 
-				_VertexShader = func[1].str;
+				_VertexShader = m_rootDir / func[1].str;
+
+				if(false == boost::filesystem::exists(_VertexShader))
+				{
+					Error(func[0].line, "SetVertexShader: file not found: '" + _VertexShader.string() + "'");
+					return false;
+				}
+
 				return true;
 			}
 			//"SetGeometryShader"
@@ -186,7 +196,15 @@ namespace ld3d
 					return false;
 				}
 
-				_GeometryShader = func[1].str;
+				_GeometryShader = m_rootDir / func[1].str;
+
+				if(false == boost::filesystem::exists(_GeometryShader))
+				{
+					Error(func[0].line, "SetGeometryShader: file not found: '" + _GeometryShader.string() + "'");
+					return false;
+				}
+
+				
 				return true;
 			}
 
@@ -206,7 +224,13 @@ namespace ld3d
 					return false;
 				}
 
-				_PixelShader = func[1].str;
+				_PixelShader = m_rootDir / func[1].str;
+				if(false == boost::filesystem::exists(_PixelShader))
+				{
+					Error(func[0].line, "SetPixelShader: file not found: '" + _PixelShader.string() + "'");
+					return false;
+				}
+				
 				return true;
 			}
 			//"SetRenderState"
@@ -259,7 +283,6 @@ namespace ld3d
 				}
 
 				_SamplerLink.push_back(SamplerLink(func[1].str, func[2].str));
-				_VertexShader = func[1].str;
 				return true;
 			}
 			
@@ -267,7 +290,68 @@ namespace ld3d
 		}
 		MaterialPassPtr	PassParser::CreateObject(Sys_Graphics2Ptr pGraphics)
 		{
-			return MaterialPassPtr();
+			ShaderProgramPtr pProgram = pGraphics->CreateShaderProgram();
+
+			if(pProgram->AttachShaderFromFile(ST_VERTEX_SHADER, _VertexShader.string().c_str()) == false)
+			{
+				Error(0, "failed to create vertex shader: '" + _VertexShader.string() + "'");
+				pProgram->Release();
+				return nullptr;
+			}
+
+			if(pProgram->AttachShaderFromFile(ST_PIXEL_SHADER, _PixelShader.string().c_str()) == false)
+			{
+				Error(0, "Failed to create pixel shader: '" + _PixelShader.string() + "'");
+				pProgram->Release();
+				return nullptr;
+			}
+
+			if(_GeometryShader != "" && pProgram->AttachShaderFromFile(ST_GEOMETRY_SHADER, _GeometryShader.string().c_str()) == false)
+			{
+				Error(0, "Failed to create geometry shader: '" + _GeometryShader.string() + "'");
+				pProgram->Release();
+				return nullptr;
+			}
+
+			if(false == pProgram->Link())
+			{
+				pProgram->Release();
+				return nullptr;
+			}
+
+			MaterialPassPtr pPass = std::make_shared<MaterialPass>(m_name, pGraphics);
+			pPass->AttachProgram(pProgram);
+
+			for(auto v : _SamplerLink)
+			{
+				SamplerStateParserPtr pParser = std::dynamic_pointer_cast<SamplerStateParser>(FindSymbol(v.second, false));
+				if(pParser == nullptr)
+				{
+					assert(0);
+					continue;
+				}
+				
+				if(pProgram->FindParameterByName(v.first.c_str()) == -1)
+				{
+					Error(0, "sampler name not found: '" + v.first + "'");
+					continue;
+				}
+
+				pPass->AddSamplerLink(v.first, pParser->CreateObject(pGraphics));
+			}
+			
+			RenderStateParserPtr pRSParser = std::dynamic_pointer_cast<RenderStateParser>(FindSymbol(_RenderState, false));
+			if(pRSParser)
+			{
+				pPass->AttachRenderState(pRSParser->CreateObject(pGraphics));
+			}
+			else
+			{
+				pPass->AttachRenderState(pGraphics->CreateRenderState());
+			}
+
+			return pPass;
 		}
 	}
 }
+

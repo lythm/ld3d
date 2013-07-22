@@ -33,6 +33,7 @@ namespace ld3d
 		virtual void												SetParameterVector(ParameterID param, const math::Vector4& value)		= 0;
 		virtual void												SetParameterTexture(ParameterID param, Texture2Ptr pTex)				= 0;
 
+		virtual void												SetParameterSampler(ParameterID param, SamplerStatePtr pSampler)		= 0;
 		
 	protected:
 		ShaderProgram(void){}

@@ -307,7 +307,7 @@ namespace ld3d
 	void OGL4Graphics::SetRenderState(RenderState2Ptr pState)
 	{
 		OGL4RenderState* pGLState = (OGL4RenderState*)pState.get();
-		pGLState->Apply();
+		pGLState? pGLState->Apply() : 0;
 	}
 	RenderWindow2Ptr OGL4Graphics::CreateRenderWindow(void* handle, int w, int h, G_FORMAT color_format, G_FORMAT ds_format, int backbufferCount, int multiSampleCount, int multiSampleQuality, bool windowed)
 	{

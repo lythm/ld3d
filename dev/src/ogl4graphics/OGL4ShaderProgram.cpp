@@ -247,9 +247,33 @@ namespace ld3d
 			glBindTexture(target, pGLTex->GetTextureObject());
 
 			OGL4Sampler* pSampler = (OGL4Sampler*)pGLTex->GetSampler().get();
+
+			if(pSampler == nullptr)
+			{
+				pSampler = (OGL4Sampler*)v.pSampler.get();
+			}
+
 			glBindSampler(slot, pSampler ? pSampler->GetSamplerObject() : 0);
 			
 			glProgramUniform1i(m_program, v.index, slot);
 		}
+	}
+	void OGL4ShaderProgram::SetParameterSampler(ParameterID param, SamplerStatePtr pSampler)
+	{
+		for(auto& v : m_texLinks)
+		{
+			if(v.index == param)
+			{
+				v.pSampler = pSampler;
+				return;
+			}
+		}
+
+		TextureLink link;
+		link.index = (GLuint)param;
+		link.pTex = nullptr;
+		link.pSampler = pSampler;
+
+		m_texLinks.push_back(link);
 	}
 }
