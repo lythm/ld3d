@@ -209,7 +209,7 @@ namespace ld3d
 	{
 		return m_pObjectManager;
 	}
-	Sys_GraphicsPtr	CoreApi::GetSysGraphics()
+	Sys_Graphics2Ptr	CoreApi::GetSysGraphics()
 	{
 		return m_pSysGraphics;
 	}

@@ -154,6 +154,7 @@
     <ClInclude Include="..\..\include\core\TechniqueParser.h" />
     <ClInclude Include="..\..\include\core\PassParser.h" />
     <ClInclude Include="..\..\include\core\MaterialBaseParser.h" />
+    <ClInclude Include="..\..\include\core\RenderTexture.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

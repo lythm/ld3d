@@ -93,6 +93,7 @@ namespace ld3d
 	class MaterialParameterManager;
 	class MaterialParameter;
 	
+	class RenderData2;
 	class RenderTexture2;
 	class GeometryData;
 	class ShaderProgram;
@@ -124,6 +125,7 @@ namespace ld3d
 	typedef std::shared_ptr<RenderTarget>					RenderTargetPtr;
 	typedef std::shared_ptr<RenderTarget2>					RenderTarget2Ptr;
 	typedef std::shared_ptr<RenderData>						RenderDataPtr;
+	typedef std::shared_ptr<RenderData2>					RenderData2Ptr;
 	typedef std::shared_ptr<GPUBuffer>						GPUBufferPtr;
 	typedef std::shared_ptr<Texture>						TexturePtr;
 	typedef std::shared_ptr<Texture2>						Texture2Ptr;
@@ -158,7 +160,7 @@ namespace ld3d
 	typedef std::shared_ptr<SoundChannel>					SoundChannelPtr;
 
 	template <typename T> class Asset_T;
-	typedef Asset_T<Texture>								TextureAsset;
+	typedef Asset_T<Texture2>								TextureAsset;
 	typedef Asset_T<Sound>									SoundAsset;
 	class Asset;
 	class AssetManager;

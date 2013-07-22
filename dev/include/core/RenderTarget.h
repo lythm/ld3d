@@ -33,7 +33,7 @@ namespace ld3d
 		
 
 		TARGET_TYPE												GetType(){return m_type;}
-	protected:
+
 
 		RenderTarget2(TARGET_TYPE type){m_type = type;}
 		virtual ~RenderTarget2(void){}

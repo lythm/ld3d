@@ -27,10 +27,10 @@ namespace ld3d
 		float							m_angle;
 		float							m_range;
 
-		GPUBufferPtr					m_pVB;
+		GeometryDataPtr					m_pGeometry;
 		int								m_nVerts;
 
-		MaterialPtr						m_pMaterial;
+		Material2Ptr					m_pMaterial;
 
 		math::Matrix44					m_modifiedTM;
 

@@ -1,9 +1,10 @@
 #include "core_pch.h"
 #include "..\..\include\core\PostEffect_GaussianBlur.h"
 #include "core\RenderManager.h"
-#include "core\Material.h"
+#include "core\Material2.h"
 #include "core\VertexFormat.h"
-#include "core\RenderTarget.h"
+#include "core\RenderTexture.h"
+#include "core/MaterialParameter.h"
 
 namespace ld3d
 {
@@ -25,32 +26,26 @@ namespace ld3d
 		{
 			return false;
 		}
-		VertexElement vf[] = 
-		{
-			VertexElement(0, VertexElement::POSITION,G_FORMAT_R32G32B32_FLOAT),
-		};
-		VertexFormat format;
-
-		format.SetElement(vf, 1);
-
-		m_pMaterial->SetVertexFormat(format);
-
-	
+		
+		m_pParamInputSize = m_pMaterial->GetParameterByName("g_input_size");
+		m_pParamInputTex = m_pMaterial->GetParameterByName("tex_input");
 		return true;
-
 	}
-	void PostEffect_GaussianBlur::Render(RenderManagerPtr pRenderer, RenderTargetPtr pInput, RenderTargetPtr pOutput)
+	void PostEffect_GaussianBlur::Render(RenderManagerPtr pRenderer, RenderTexture2Ptr pInput, RenderTexture2Ptr pOutput)
 	{
 		pRenderer->SetRenderTarget(pOutput);
-		pRenderer->ClearRenderTarget(pOutput, 0, math::Color4(0, 0, 0,0));
+		pRenderer->ClearRenderTarget(0, math::Color4(0, 0, 0,0));
 		
-		m_pMaterial->SetTextureByName("tex_input", pInput->AsTexture(0));
-		m_pMaterial->SetVectorByName("g_input_size", math::Vector2(pRenderer->GetFrameBufferWidth(), pRenderer->GetFrameBufferHeight()));
-
+		m_pParamInputSize->SetParameterVector(math::Vector2(pRenderer->GetFrameBufferWidth(), pRenderer->GetFrameBufferHeight()));
+		m_pParamInputTex->SetParameterTexture(pInput->GetTexture(0));
+		
 		pRenderer->DrawFullScreenQuad(m_pMaterial);
 	}
 	void PostEffect_GaussianBlur::Release()
 	{
+		m_pParamInputSize	= nullptr;
+		m_pParamInputTex	= nullptr;
+
 		if(m_pMaterial)
 		{
 			m_pMaterial->Release();

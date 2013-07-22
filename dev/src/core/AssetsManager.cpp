@@ -16,7 +16,7 @@ namespace ld3d
 	AssetManager::~AssetManager(void)
 	{
 	}
-	bool AssetManager::Initialize(Sys_GraphicsPtr pGraphics, Sys_SoundPtr pSound)
+	bool AssetManager::Initialize(Sys_Graphics2Ptr pGraphics, Sys_SoundPtr pSound)
 	{
 		m_pGraphics				= pGraphics;
 		m_pSound				= pSound;
@@ -89,13 +89,13 @@ namespace ld3d
 	}
 	AssetPtr AssetManager::LoadTexture(const boost::filesystem::path& file)
 	{
-		TexturePtr pTex = m_pGraphics->CreateTextureFromFile(file.string().c_str());
+		Texture2Ptr pTex = m_pGraphics->CreateTextureFromFile(file.string().c_str(), false);
 		if(pTex == nullptr)
 		{
 			return TextureAssetPtr();
 		}
 
-		AssetPtr pAsset = alloc_object<TextureAsset, TexturePtr>(pTex);
+		AssetPtr pAsset = alloc_object<TextureAsset, Texture2Ptr>(pTex);
 
 		return pAsset;
 

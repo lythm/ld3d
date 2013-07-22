@@ -19,4 +19,18 @@ namespace ld3d
 		virtual bool											IsDeferred(){return false;}
 
 	};
+
+	class EXPORT_CLASS RenderData2
+	{
+	public:
+		RenderData2(void){}
+
+		virtual ~RenderData2(void){}
+
+		GeometryDataPtr											pGeometry;
+		Material2Ptr											pMaterial;
+		math::Matrix44											worldMatrix;
+		bool													dr;
+
+	};
 }

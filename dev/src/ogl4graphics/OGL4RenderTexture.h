@@ -1,6 +1,6 @@
 #pragma once
 
-#include "core/RenderWindow.h"
+#include "core/RenderTexture.h"
 
 namespace ld3d
 {

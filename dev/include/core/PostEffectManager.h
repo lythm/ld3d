@@ -9,35 +9,37 @@ namespace ld3d
 		PostEffectManager(void);
 		virtual ~PostEffectManager(void);
 
-		bool										Initialize(RenderManagerPtr pRenderManager);
-		void										Release();
+		bool													Initialize(RenderManagerPtr pRenderManager);
+		void													Release();
 
-		void										Render();
+		void													Render();
 
-		RenderTargetPtr								GetInput();
-		RenderTargetPtr								GetOutput();
+		RenderTexture2Ptr										GetInput();
+		RenderTexture2Ptr											GetOutput();
 
-		int											GetEffectCount();
+		int														GetEffectCount();
 
-		void										Resize(int cx, int cy);
+		void													Resize(int cx, int cy);
 
-		void										RenderToFrameBuffer();
+		void													RenderToFrameBuffer();
 
-		void										AddEffect(PostEffectPtr pEffect);
+		void													AddEffect(PostEffectPtr pEffect);
 	private:
-		bool										CreateRT(int w, int h);
+		bool													CreateRT(int w, int h);
 	private:
-		void										SwapRenderTarget();
+		void													SwapRenderTarget();
 
 	private:
-		RenderTargetPtr								m_pOutput;
-		RenderTargetPtr								m_pInput;
+		RenderTexture2Ptr											m_pOutput;
+		RenderTexture2Ptr											m_pInput;
 
-		std::vector<PostEffectPtr>					m_effects;
+		std::vector<PostEffectPtr>								m_effects;
 
-		RenderManagerPtr								m_pRenderManager;
+		RenderManagerPtr											m_pRenderManager;
 
-		MaterialPtr									m_pFinalMaterial;
+		Material2Ptr												m_pFinalMaterial;
+
+		MaterialParameterPtr										m_pParamOutput;
 	};
 
 

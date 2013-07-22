@@ -2,12 +2,12 @@
 #include "..\..\include\core\PostEffectManager.h"
 #include "core\PostEffect.h"
 #include "core\RenderManager.h"
-#include "core\RenderTarget.h"
-#include "core\Material.h"
+#include "core\Material2.h"
 #include "core\VertexFormat.h"
-
+#include "core/RenderTexture.h"
 #include "core\PostEffect_SSAO.h"
 #include "core_utils.h"
+#include "core/MaterialParameter.h"
 
 namespace ld3d
 {
@@ -37,16 +37,12 @@ namespace ld3d
 			return false;
 		}
 
-		VertexElement vf[] = 
+		m_pParamOutput = m_pFinalMaterial->GetParameterByName("post_output");
+
+		if(m_pParamOutput == nullptr)
 		{
-			VertexElement(0, VertexElement::POSITION,G_FORMAT_R32G32B32_FLOAT),
-		};
-		VertexFormat format;
-
-		format.SetElement(vf, 1);
-
-		m_pFinalMaterial->SetVertexFormat(format);
-
+			return false;
+		}
 
 		/*std::shared_ptr<PostEffect_SSAO> pSSAO = alloc_object<PostEffect_SSAO>();
 		pSSAO->Initialize(m_pRenderManager);
@@ -92,16 +88,16 @@ namespace ld3d
 	}
 	void PostEffectManager::SwapRenderTarget()
 	{
-		RenderTargetPtr pTmp;
+		RenderTexture2Ptr pTmp;
 		pTmp = m_pInput;
 		m_pInput = m_pOutput;
 		m_pOutput = pTmp;
 	}
-	RenderTargetPtr PostEffectManager::GetInput()
+	RenderTexture2Ptr PostEffectManager::GetInput()
 	{
 		return m_pInput;
 	}
-	RenderTargetPtr PostEffectManager::GetOutput()
+	RenderTexture2Ptr PostEffectManager::GetOutput()
 	{
 		return m_pOutput;
 	}
@@ -132,14 +128,14 @@ namespace ld3d
 		}
 
 		G_FORMAT formats[1] = {G_FORMAT_R8G8B8A8_UNORM,};
-		m_pInput = m_pRenderManager->CreateRenderTarget(1, w, h, formats);
+		m_pInput = m_pRenderManager->CreateRenderTexture(1, w, h, formats);
 
 		if(m_pInput == nullptr)
 		{
 			return false;
 		}
 
-		m_pOutput = m_pRenderManager->CreateRenderTarget(1, w, h, formats);
+		m_pOutput = m_pRenderManager->CreateRenderTexture(1, w, h, formats);
 
 		if(m_pOutput == nullptr)
 		{
@@ -150,10 +146,10 @@ namespace ld3d
 	}
 	void PostEffectManager::RenderToFrameBuffer()
 	{
-		m_pRenderManager->SetRenderTarget(RenderTargetPtr());
-		m_pRenderManager->ClearRenderTarget(RenderTargetPtr(), 0, m_pRenderManager->GetClearColor());
+		m_pRenderManager->SetRenderTarget(nullptr);
+		m_pRenderManager->ClearRenderTarget(0, m_pRenderManager->GetClearColor());
 
-		m_pFinalMaterial->SetTextureByName("post_output", m_pOutput->AsTexture(0));
+		m_pParamOutput->SetParameterTexture(m_pOutput->GetTexture(0));
 
 		m_pRenderManager->DrawFullScreenQuad(m_pFinalMaterial);
 	}
@@ -162,3 +158,4 @@ namespace ld3d
 		m_effects.push_back(pEffect);
 	}
 }
+

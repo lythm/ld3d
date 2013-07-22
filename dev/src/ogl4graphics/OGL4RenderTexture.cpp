@@ -25,7 +25,7 @@ namespace ld3d
 		m_fbo = 0;
 		m_texs.clear();
 	}
-		
+
 	int	OGL4RenderTexture::GetTextureCount()
 	{
 		return (int)m_texs.size();

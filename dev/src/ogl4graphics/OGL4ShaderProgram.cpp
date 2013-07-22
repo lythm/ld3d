@@ -27,6 +27,8 @@ namespace ld3d
 		}
 		m_uniformBlocks.clear();
 
+		m_texLinks.clear();
+
 		for(auto v : m_shaders)
 		{
 			glDetachShader(m_program, ((OGL4Shader*)v.get())->GetShaderObject());

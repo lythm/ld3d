@@ -49,20 +49,10 @@ namespace ld3d
 
 		//////////////////////////
 
-
-		MaterialPtr								CreateMaterialFromFile(const char* szFile);
-
-		
 		void									ResizeFrameBuffer(int cx, int cy);
 
-		
-		
-		RenderTargetPtr							GetDefaultRenderTarget();
-		RenderTargetPtr							GetCurrentRenderTarget();
 		int										GetFrameBufferWidth();
 		int										GetFrameBufferHeight();
-
-		
 
 	private:
 		GraphicsSetting							m_setting;

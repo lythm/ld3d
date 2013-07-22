@@ -4,7 +4,7 @@
 #include "core\Material.h"
 #include "core\Sys_Graphics.h"
 #include "core\Texture.h"
-#include "core\RenderTarget.h"
+#include "core\RenderTexture.h"
 
 
 namespace ld3d
@@ -28,15 +28,7 @@ namespace ld3d
 		
 		m_pMaterial = pRenderManager->CreateMaterialFromFile("./assets/standard/material/dr_render_ssao.fx");
 
-		VertexElement vf[] = 
-		{
-			VertexElement(0, VertexElement::POSITION,G_FORMAT_R32G32B32_FLOAT),
-		};
-		VertexFormat format;
-
-		format.SetElement(vf, 1);
-
-		m_pMaterial->SetVertexFormat(format);
+		
 
 		m_pSSAORandomTex = pRenderManager->CreateTextureFromFile("./assets/standard/texture/ssao_rand.jpg");
 		
@@ -47,7 +39,7 @@ namespace ld3d
 
 		int h = pRenderManager->GetFrameBufferHeight();
 		G_FORMAT rt_format[1] = {G_FORMAT_R8G8B8A8_UNORM,};
-		m_pGBlurTarget = pRenderManager->CreateRenderTarget(1, w , h , rt_format);
+		m_pGBlurTarget = pRenderManager->CreateRenderTexture(1, w , h , rt_format);
 
 		if(m_pGBlurTarget == nullptr)
 		{
@@ -61,7 +53,6 @@ namespace ld3d
 			return false;
 		}
 		
-		m_pGBlurMaterial->SetVertexFormat(format);
 		return true;
 	}
 	void PostEffect_SSAO::Release()
@@ -88,10 +79,10 @@ namespace ld3d
 		}
 	}
 
-	void PostEffect_SSAO::Render(RenderManagerPtr pRenderer, RenderTargetPtr pInput, RenderTargetPtr pOutput)
+	void PostEffect_SSAO::Render(RenderManagerPtr pRenderer, RenderTexture2Ptr pInput, RenderTexture2Ptr pOutput)
 	{
 		pRenderer->SetRenderTarget(m_pGBlurTarget);
-		pRenderer->ClearRenderTarget(m_pGBlurTarget, 0, math::Color4(0, 0, 0,0));
+		pRenderer->ClearRenderTarget(0, math::Color4(0, 0, 0,0));
 
 		m_pMaterial->SetGBuffer(pRenderer->GetGBuffer());
 		m_pMaterial->SetVectorByName("g_screen_size", math::Vector2(pRenderer->GetFrameBufferWidth(), pRenderer->GetFrameBufferHeight()));

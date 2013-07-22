@@ -49,8 +49,6 @@ namespace ld3d
 																	unsigned int offset, 
 																	unsigned int stride)							= 0;
 
-		virtual MaterialPtr								CreateMaterialFromFile(const char* szFile)						= 0;
-		
 		virtual TexturePtr								CreateTextureFromFile(const char* szFile)					= 0;
 
 		virtual void									SetRenderTarget(RenderTargetPtr pRT)					= 0;
@@ -151,9 +149,6 @@ namespace ld3d
 
 		virtual int										GetFrameBufferWidth()															= 0;
 		virtual int										GetFrameBufferHeight()															= 0;
-
-		virtual MaterialPtr								CreateMaterialFromFile(const char* szFile)										= 0;
-		
 
 		virtual void									ResizeFrameBuffer(int cx, int cy)												= 0;
 		

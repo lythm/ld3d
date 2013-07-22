@@ -28,7 +28,7 @@ namespace ld3d
 
 		AssetManagerPtr									GetAssetManager();
 		GameObjectManagerPtr							GetGameObjectManager();
-		Sys_GraphicsPtr									GetSysGraphics();
+		Sys_Graphics2Ptr								GetSysGraphics();
 		Sys_InputPtr									GetSysInput();
 		Sys_SoundPtr									GetSysSound();
 		Sys_TimePtr										GetSysTime();
@@ -80,7 +80,7 @@ namespace ld3d
 		float											m_lastFrameTime;
 
 		SysManagerPtr									m_pSysManager;
-		Sys_GraphicsPtr									m_pSysGraphics;
+		Sys_Graphics2Ptr								m_pSysGraphics;
 		Sys_InputPtr									m_pSysInput;
 		Sys_SoundPtr									m_pSysSound;
 		Sys_TimePtr										m_pSysTime;

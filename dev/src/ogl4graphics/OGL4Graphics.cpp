@@ -265,11 +265,7 @@ namespace ld3d
 		}
 		return pBuffer;
 	}
-	MaterialPtr	OGL4Graphics::CreateMaterialFromFile(const char* szFile)
-	{
-		return MaterialPtr();
-	}
-
+	
 	Texture2Ptr OGL4Graphics::CreateTextureFromFile(const char* szFile, bool dynamic)
 	{
 		OGL4TexturePtr pTex = std::make_shared<OGL4Texture>();
@@ -321,14 +317,7 @@ namespace ld3d
 		return pWnd;
 	}
 
-	RenderTargetPtr	OGL4Graphics::GetDefaultRenderTarget()
-	{
-		return RenderTargetPtr();
-	}
-	RenderTargetPtr	OGL4Graphics::GetCurrentRenderTarget()
-	{
-		return RenderTargetPtr();
-	}
+	
 	int	OGL4Graphics::GetFrameBufferWidth()
 	{
 		return 0;

@@ -221,6 +221,7 @@
     <ClInclude Include="..\..\include\core\RenderData.h" />
     <ClInclude Include="..\..\include\core\RenderState.h" />
     <ClInclude Include="..\..\include\core\RenderManager.h" />
+    <ClInclude Include="..\..\include\core\RenderTexture.h" />
     <ClInclude Include="..\..\include\core\RenderWindow.h" />
     <ClInclude Include="..\..\include\core\SamplerState.h" />
     <ClInclude Include="..\..\include\core\SamplerStateParser.h" />
