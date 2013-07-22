@@ -2,13 +2,6 @@
 #include "EngineApp.h"
 #include <tchar.h>
 
-#define GLM_FORCE_RADIANS
-#include <glm/glm.hpp>
-#include <glm/gtc/type_ptr.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtx/matrix_major_storage.hpp>
-#include <glm/gtc/quaternion.hpp>
-
 namespace ld3d
 {
 	void _log(const std::wstring& str)
