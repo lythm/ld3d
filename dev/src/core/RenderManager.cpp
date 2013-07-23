@@ -249,10 +249,10 @@ namespace ld3d
 		m_pGraphics->SetRenderTarget(pOutput);
 		m_pGraphics->ClearRenderTarget(0, m_clearClr);
 
-		UpdateDRBuffer(m_pScreenQuadMaterial);
-		UpdateMatrixBlock(m_pScreenQuadMaterial, math::MatrixIdentity());
+		//UpdateDRBuffer(m_pScreenQuadMaterial);
+		//UpdateMatrixBlock(m_pScreenQuadMaterial, math::MatrixIdentity());
 
-		DrawFullScreenQuad(m_pScreenQuadMaterial);
+		//DrawFullScreenQuad(m_pScreenQuadMaterial);
 	}
 	void RenderManager::RenderForward()
 	{
@@ -274,9 +274,9 @@ namespace ld3d
 		SetViewMatrix(view);
 		SetProjMatrix(proj);
 
-		//DR_G_Pass();
-	//	DR_Light_Pass();
-	//	DR_Merge_Pass();
+		DR_G_Pass();
+		//DR_Light_Pass();
+		DR_Merge_Pass();
 		
 		RenderForward();
 
@@ -461,7 +461,7 @@ namespace ld3d
 		for(int i = 0; i < c; ++i)
 		{
 			TexturePtr pTex = m_pGraphics->CreateTexture2D(format[i], w, h, 1, false);
-			pRT->AddTexture(pTex);
+			pRT->AttachTexture(pTex);
 		}
 
 		return pRT;

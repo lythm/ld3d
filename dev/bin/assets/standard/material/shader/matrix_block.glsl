@@ -1,6 +1,6 @@
 #version 330
 
-uniform _MATRIX
+layout(row_major) uniform _MATRIX
 {
 	mat4	MATRIX_WORLD;	
 	mat4	MATRIX_VIEW;	

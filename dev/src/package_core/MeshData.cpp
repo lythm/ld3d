@@ -83,7 +83,7 @@ namespace ld3d
 
 		return true;
 	}
-	void MeshData::SetMeshAsset(const std::wstring& asset)
+	bool MeshData::SetMeshAsset(const std::wstring& asset)
 	{
 		m_meshAsset = asset;
 	
@@ -94,14 +94,23 @@ namespace ld3d
 
 		if(m_meshAsset == L"_cube_")
 		{
-			MaterialPtr pMaterial = m_pManager->GetRenderManager()->CreateMaterialFromFile("./assets/standard/material/editor_shape.fx");
+			MaterialPtr pMaterial = m_pManager->GetRenderManager()->CreateMaterialFromFile("./assets/standard/material/editor_shape.material");
+			
+			if(pMaterial == nullptr)
+			{
+				return false;
+			}
 			MeshPtr pMesh = MeshUtil::CreateCube(1, pMaterial);
 			m_pMesh = pMesh;
 			ResetMeshRenderer();
 		}
 		else if(m_meshAsset == L"_sphere_")
 		{
-			MaterialPtr pMaterial = m_pManager->GetRenderManager()->CreateMaterialFromFile("./assets/standard/material/editor_shape.fx");
+			MaterialPtr pMaterial = m_pManager->GetRenderManager()->CreateMaterialFromFile("./assets/standard/material/editor_shape.material");
+			if(pMaterial == nullptr)
+			{
+				return false;
+			}
 			MeshPtr pMesh = MeshUtil::CreateSphere(1, 50, 50, pMaterial);
 			m_pMesh = pMesh;
 			ResetMeshRenderer();
@@ -109,7 +118,11 @@ namespace ld3d
 		else if(m_meshAsset == L"_cone_")
 		{
 			
-			MaterialPtr pMaterial = m_pManager->GetRenderManager()->CreateMaterialFromFile("./assets/standard/material/editor_shape.fx");
+			MaterialPtr pMaterial = m_pManager->GetRenderManager()->CreateMaterialFromFile("./assets/standard/material/editor_shape.material");
+			if(pMaterial == nullptr)
+			{
+				return false;
+			}
 			MeshPtr pMesh = MeshUtil::CreateCone(1, 30, 50, pMaterial);
 			m_pMesh = pMesh;
 			ResetMeshRenderer();
@@ -117,7 +130,11 @@ namespace ld3d
 		else if(m_meshAsset == L"_plane_")
 		{
 						
-			MaterialPtr pMaterial = m_pManager->GetRenderManager()->CreateMaterialFromFile("./assets/standard/material/editor_shape.fx");
+			MaterialPtr pMaterial = m_pManager->GetRenderManager()->CreateMaterialFromFile("./assets/standard/material/editor_shape.material");
+			if(pMaterial == nullptr)
+			{
+				return false;
+			}
 			MeshPtr pMesh = MeshUtil::CreatePlane(100, pMaterial);
 			m_pMesh = pMesh;
 			ResetMeshRenderer();
@@ -127,6 +144,8 @@ namespace ld3d
 			// load mesh assets
 			LoadMesh(m_meshAsset);
 		}
+
+		return true;
 	}
 	const std::wstring& MeshData::GetMeshAsset()
 	{

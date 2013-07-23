@@ -15,13 +15,12 @@ namespace ld3d
 		void														Release();
 		
 		int															GetTextureCount();
-		void														AddTexture(TexturePtr pTex);
+		void														AttachTexture(TexturePtr pTex);
 
 		TexturePtr													GetTexture(int index);
 
-		void														SetDepthStencilBuffer(DepthStencilBufferPtr pDS);
+		void														AttachDepthStencilBuffer(DepthStencilBufferPtr pDS);
 		DepthStencilBufferPtr										GetDepthStencilBuffer();
-
 
 		GLuint														GetFBO();
 	private:

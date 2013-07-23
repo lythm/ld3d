@@ -17,7 +17,7 @@ namespace ld3d
 		bool						OnAttach();
 		void						OnDetach();
 
-		void						SetMeshAsset(const std::wstring& asset);
+		bool						SetMeshAsset(const std::wstring& asset);
 		const std::wstring&			GetMeshAsset();
 
 

@@ -1,11 +1,11 @@
 #pragma once
 
 
-#include "core\ExtPackage.h"
+#include "core\Package.h"
 
 namespace ld3d
 {
-	class VoxelPackage : public ExtPackage
+	class VoxelPackage : public Package
 	{
 	public:
 		VoxelPackage(GameObjectManagerPtr pManager);

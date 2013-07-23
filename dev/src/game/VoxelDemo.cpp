@@ -20,7 +20,7 @@ bool VoxelDemo::Init(ld3d::CoreApiPtr pCore)
 		
 	m_pCore->AddEventHandler(EV_WINMSG, boost::bind(&VoxelDemo::OnMsg, this, _1));
 
-	m_pCore->LoadPackage(L"./extensions/ext_voxel_x64.dll");
+	m_pCore->LoadPackage(L"./extensions/package_voxel_x64.dll");
 
 	m_pCore->GetRenderManager()->SetGlobalAmbient(math::Color4(0, 0.1f, 0.2f, 1.0f));
 	m_pCore->GetRenderManager()->SetClearColor(math::Color4(0.3f, 0.2f, 0.3f, 1));
@@ -50,7 +50,7 @@ bool VoxelDemo::Init(ld3d::CoreApiPtr pCore)
 	//m_pCore->CreatGameObjectFromTemplate(L"Plane", L"Plane");
 
 
-	//GameObjectPtr pCube = m_pCore->CreatGameObjectFromTemplate(L"Sphere", L"Cube");
+	GameObjectPtr pCube = m_pCore->CreatGameObjectFromTemplate(L"Cube", L"Cube");
 	//pCube->Translate(0, 1, 0);
 	////GameObjectPtr pLight = m_pCore->CreatGameObjectFromTemplate(L"SkyLight", L"light");
 	//GameObjectPtr pLight = m_pCore->CreatGameObjectFromTemplate(L"SkyLight", L"light");

@@ -28,13 +28,13 @@
 #include "Tpl_DirLight.h"
 #include "Tpl_Camera.h"
 
-EXPORT_C_API ld3d::ExtPackage* CreatePackage(ld3d::GameObjectManagerPtr pManager)
+EXPORT_C_API ld3d::Package* CreatePackage(ld3d::GameObjectManagerPtr pManager)
 {
 	return new ld3d::CorePackage(pManager);
 }
 
 
-EXPORT_C_API void DestroyPackage(ld3d::ExtPackage* pPackage)
+EXPORT_C_API void DestroyPackage(ld3d::Package* pPackage)
 {
 	delete (ld3d::CorePackage*)pPackage;
 }

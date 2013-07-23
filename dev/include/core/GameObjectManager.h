@@ -1,6 +1,6 @@
 #pragma once
 
-#include "core\ExtPackage.h"
+#include "core\Package.h"
 
 #include <boost\enable_shared_from_this.hpp>
 #include "core\EventDispatcher.h"
@@ -15,16 +15,16 @@ namespace ld3d
 		{
 		public:
 			PackageMod();
-			typedef ExtPackage*					(*Fn_CreatePackage)(GameObjectManagerPtr);
-			typedef void						(*Fn_DestroyPackage)(ExtPackage*);
+			typedef Package*					(*Fn_CreatePackage)(GameObjectManagerPtr);
+			typedef void						(*Fn_DestroyPackage)(Package*);
 
 			bool								load_package(const wchar_t* file, GameObjectManagerPtr pManager);
 			void								delete_package();
 
-			ExtPackage*							GetPackage();
+			Package*							GetPackage();
 
 		private:
-			ExtPackage*							m_pPackage;
+			Package*							m_pPackage;
 			HMODULE								m_hLib;
 			std::wstring						m_file;
 		};
@@ -46,10 +46,10 @@ namespace ld3d
 		GameObjectComponentPtr												CreateComponent(const std::wstring& name);
 
 		int																	GetPackageCount();
-		ExtPackage*															GetPackageByIndex(int index);
+		Package*															GetPackageByIndex(int index);
 
-		bool																RegisterPackage(ExtPackage* pPack);
-		bool																RegisterComponentClass(ExtPackage::ComponentClass* c);
+		bool																RegisterPackage(Package* pPack);
+		bool																RegisterComponentClass(Package::ComponentClass* c);
 
 		RenderManagerPtr													GetRenderManager();
 
@@ -90,7 +90,7 @@ namespace ld3d
 
 	private:
 		std::unordered_map<std::wstring, GameObjectTemplate*>				m_templates;
-		std::unordered_map<std::wstring, ExtPackage::ComponentClass*>		m_componentClasses;
+		std::unordered_map<std::wstring, Package::ComponentClass*>		m_componentClasses;
 
 		std::vector<PackageMod>												m_packages;
 		CoreApiPtr															m_pCore;

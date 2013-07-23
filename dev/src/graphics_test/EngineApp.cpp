@@ -117,8 +117,8 @@ namespace ld3d
 
 		m_pRenderTarget = m_pGraphics->CreateRenderTexture();
 
-		m_pRenderTarget->AddTexture(pTex);
-		m_pRenderTarget->SetDepthStencilBuffer(pDS);
+		m_pRenderTarget->AttachTexture(pTex);
+		m_pRenderTarget->AttachDepthStencilBuffer(pDS);
 
 		material_script::Compiler cl;
 		m_pMaterial = cl.CompileFromFile(m_pGraphics, "./assets/standard/material/1.material");

@@ -22,12 +22,12 @@ namespace ld3d
 
 		m_componentClasses.clear();
 #ifdef _WIN64
-		if(false == LoadPackage(L"./ext_core_x64.dll"))
+		if(false == LoadPackage(L"./package_core_x64.dll"))
 		{
 			return false;
 		}
 #else
-		if(false == LoadPackage(L"./ext_core_x86.dll"))
+		if(false == LoadPackage(L"./package_core_x86.dll"))
 		{
 			return false;
 		}
@@ -123,11 +123,11 @@ namespace ld3d
 	{
 		return (int)m_packages.size();
 	}
-	ExtPackage* GameObjectManager::GetPackageByIndex(int index)
+	Package* GameObjectManager::GetPackageByIndex(int index)
 	{
 		return m_packages[index].GetPackage();
 	}
-	bool GameObjectManager::RegisterComponentClass(ExtPackage::ComponentClass* c)
+	bool GameObjectManager::RegisterComponentClass(Package::ComponentClass* c)
 	{
 		if(m_componentClasses.find(c->m_name) != m_componentClasses.end())
 		{
@@ -138,11 +138,11 @@ namespace ld3d
 		log(L"Component registered: " + c->m_name);
 		return true;
 	}
-	bool GameObjectManager::RegisterPackage(ExtPackage* pPack)
+	bool GameObjectManager::RegisterPackage(Package* pPack)
 	{
 		for(int i = 0; i < pPack->GetClassCount(); ++i)
 		{
-			ExtPackage::ComponentClass* c = pPack->GetClassByIndex(i);
+			Package::ComponentClass* c = pPack->GetClassByIndex(i);
 			RegisterComponentClass(c);
 		}
 
@@ -187,7 +187,7 @@ namespace ld3d
 		m_pPackage			= nullptr;
 		m_hLib				= nullptr;
 	}
-	ExtPackage* GameObjectManager::PackageMod::GetPackage()
+	Package* GameObjectManager::PackageMod::GetPackage()
 	{
 		return m_pPackage;
 	}

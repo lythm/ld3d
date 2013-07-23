@@ -150,7 +150,8 @@ namespace ld3d
 		m_pRenderManager->SetRenderTarget(nullptr);
 		m_pRenderManager->ClearRenderTarget(0, m_pRenderManager->GetClearColor());
 
-		m_pParamOutput->SetParameterTexture(m_pOutput->GetTexture(0));
+		//m_pParamOutput->SetParameterTexture(m_pOutput->GetTexture(0));
+		m_pParamOutput->SetParameterTexture(m_pInput->GetTexture(0));
 
 		m_pRenderManager->DrawFullScreenQuad(m_pFinalMaterial);
 	}

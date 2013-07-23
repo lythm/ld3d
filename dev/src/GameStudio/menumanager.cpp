@@ -49,7 +49,7 @@ void MenuManager::Install_Menu_GameObject(QMenu* pMenu)
 
 	for(size_t i = 0; i < pManager->GetPackageCount(); ++i)
 	{
-		ExtPackage* pPack = pManager->GetPackageByIndex(i);
+		Package* pPack = pManager->GetPackageByIndex(i);
 		for(size_t ii = 0; ii < pPack->GetTemplateCount(); ++ii)
 		{
 			GameObjectTemplate* pTpl = pPack->GetTemplateByIndex(ii);
@@ -129,16 +129,16 @@ void MenuManager::Install_Menu_Component(QMenu* pMenu)
 {
 	using namespace ld3d;
 
-	std::unordered_map<std::wstring, std::vector<ld3d::ExtPackage::ComponentClass*> >	comMap;
+	std::unordered_map<std::wstring, std::vector<ld3d::Package::ComponentClass*> >	comMap;
 
 	GameObjectManagerPtr pManager = m_pEditor->GetGameEngine()->GetCoreApi()->GetGameObjectManager();
 
 	for(size_t i = 0; i < pManager->GetPackageCount(); ++i)
 	{
-		ExtPackage* pPack = pManager->GetPackageByIndex(i);
+		Package* pPack = pManager->GetPackageByIndex(i);
 		for(size_t ii = 0; ii < pPack->GetClassCount(); ++ii)
 		{
-			ExtPackage::ComponentClass* pClass = pPack->GetClassByIndex(ii);
+			Package::ComponentClass* pClass = pPack->GetClassByIndex(ii);
 
 			if(pClass->m_name == L"PropertyManager")
 			{

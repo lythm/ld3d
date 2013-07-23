@@ -23,14 +23,26 @@ namespace ld3d
 	{
 		glDeleteFramebuffers(1, &m_fbo);
 		m_fbo = 0;
+
+		for(auto v : m_texs)
+		{
+			v->Release();
+		}
+
 		m_texs.clear();
+
+		if(m_pDS)
+		{
+			m_pDS->Release();
+			m_pDS.reset();
+		}
 	}
 
 	int	OGL4RenderTexture::GetTextureCount()
 	{
 		return (int)m_texs.size();
 	}
-	void OGL4RenderTexture::AddTexture(TexturePtr pTex)
+	void OGL4RenderTexture::AttachTexture(TexturePtr pTex)
 	{
 		if(pTex == nullptr)
 		{
@@ -51,7 +63,7 @@ namespace ld3d
 	{
 		return m_texs[index];
 	}
-	void OGL4RenderTexture::SetDepthStencilBuffer(DepthStencilBufferPtr pDS)
+	void OGL4RenderTexture::AttachDepthStencilBuffer(DepthStencilBufferPtr pDS)
 	{
 
 		glBindFramebuffer(GL_FRAMEBUFFER, m_fbo);

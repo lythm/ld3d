@@ -4,7 +4,7 @@ namespace ld3d
 {
 	class GameObjectTemplate;
 
-	class ExtPackage
+	class Package
 	{
 	public:
 
@@ -44,8 +44,8 @@ namespace ld3d
 		virtual void										Release()										= 0;
 
 	protected:
-		ExtPackage(void){}
-		virtual ~ExtPackage(void){}
+		Package(void){}
+		virtual ~Package(void){}
 	private:
 
 	};

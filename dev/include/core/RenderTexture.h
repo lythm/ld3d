@@ -10,11 +10,11 @@ namespace ld3d
 		virtual void														Release()													= 0;
 
 		virtual int															GetTextureCount()											= 0;
-		virtual void														AddTexture(TexturePtr pTex)								= 0;
+		virtual void														AttachTexture(TexturePtr pTex)								= 0;
 
 		virtual TexturePtr													GetTexture(int index)										= 0;
 
-		virtual void														SetDepthStencilBuffer(DepthStencilBufferPtr pDS)			= 0;
+		virtual void														AttachDepthStencilBuffer(DepthStencilBufferPtr pDS)			= 0;
 		virtual DepthStencilBufferPtr										GetDepthStencilBuffer()										= 0;
 
 	protected:

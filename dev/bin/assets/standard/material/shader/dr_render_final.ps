@@ -15,4 +15,6 @@ void main()
 	uv.y = gl_FragCoord.y / size.y;
 
 	final_color = texture2D(final_image, uv);
+
+	//final_color = vec4(1, 1, final_color.x, 1);
 }

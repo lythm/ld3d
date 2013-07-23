@@ -30,17 +30,15 @@ namespace ld3d
 		void													SwapRenderTarget();
 
 	private:
-		RenderTexturePtr											m_pOutput;
-		RenderTexturePtr											m_pInput;
+		RenderTexturePtr										m_pOutput;
+		RenderTexturePtr										m_pInput;
 
 		std::vector<PostEffectPtr>								m_effects;
 
-		RenderManagerPtr											m_pRenderManager;
+		RenderManagerPtr										m_pRenderManager;
 
 		MaterialPtr												m_pFinalMaterial;
 
-		MaterialParameterPtr										m_pParamOutput;
+		MaterialParameterPtr									m_pParamOutput;
 	};
-
-
 }

@@ -1,10 +1,10 @@
 #pragma once
 
-#include "core\ExtPackage.h"
+#include "core\Package.h"
 
 namespace ld3d
 {
-	class CorePackage : public ExtPackage
+	class CorePackage : public Package
 	{
 	public:
 		CorePackage(GameObjectManagerPtr pManager);
