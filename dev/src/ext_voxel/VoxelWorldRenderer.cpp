@@ -39,7 +39,7 @@ namespace ld3d
 		
 
 		m_pRenderData = m_pManager->alloc_object<VoxelWorldRenderData>();
-		if(m_pRenderData->Initialize(m_pManager->GetRenderManager()->GetSysGraphics()) == false)
+		if(m_pRenderData->Initialize(m_pManager->GetRenderManager()) == false)
 		{
 			return false;
 		}
@@ -70,11 +70,11 @@ namespace ld3d
 	{
 		if(m_bShowBound)
 		{
-			m_pBBoxRD->SetWorldMatrix(m_pObject->GetWorldTransform());
+			/*m_pBBoxRD->SetWorldMatrix(m_pObject->GetWorldTransform());
 			m_pBBoxRD->SetBBox(math::AABBox(
 				math::Vector3(0, 0, 0),
 				math::Vector3(m_pWorld->GetWorldSizeX(), m_pWorld->GetWorldSizeY(), m_pWorld->GetWorldSizeZ())));
-			m_pManager->GetRenderManager()->AddRenderData(m_pBBoxRD);
+			m_pManager->GetRenderManager()->AddRenderData(m_pBBoxRD);*/
 		}
 
 		std::shared_ptr<Event_FrustumCull> e = std::dynamic_pointer_cast<Event_FrustumCull>(pEvent);
@@ -87,7 +87,7 @@ namespace ld3d
 		}
 		m_pRenderData->PrepareRenderList(pList);
 
-		m_pManager->GetRenderManager()->AddRenderData(m_pRenderData);
+		m_pManager->GetRenderManager()->AddRenderData(m_pRenderData->GetRenderData());
 
 	}
 	const bool&	VoxelWorldRenderer::GetShowBound()

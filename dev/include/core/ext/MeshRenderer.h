@@ -10,68 +10,31 @@ namespace ld3d
 
 	class EXPORT_CLASS MeshRenderer : public GameObjectComponent
 	{
-		class SubMeshRenderData : public RenderData
-		{
-		public:
-			SubMeshRenderData(GameObjectPtr pGameObject);
-			virtual ~SubMeshRenderData();
-
-			void											Render_Depth(Sys_GraphicsPtr pSysGraphics);
-			void											Render(Sys_GraphicsPtr pSysGraphics, MaterialPtr pMaterial = MaterialPtr());
-			MaterialPtr										GetMaterial();
-			math::Matrix44									GetWorldMatrix();
-
-			void											Create(SubMeshPtr pSub, GPUBufferPtr pIndexBuffer, GPUBufferPtr pVertexBuffer);
-			bool											IsDeferred();
-		private:
-			GameObjectPtr									m_pGameObject;
-
-			MaterialPtr										m_pMaterial;
-			GPUBufferPtr									m_pIndexBuffer;
-			GPUBufferPtr									m_pVertexBuffer;
-			int												m_vertexStride;
-			int												m_vertexOffset;
-			int												m_indexCount;
-			int												m_startIndex;
-			int												m_baseVertex;
-			int												m_iDepthPass;
-			bool											m_indexed;
-			PRIMITIVE_TYPE									m_primType;
-			int												m_vertexCount;
-
-			VertexFormat									m_vertexFormat;
-			G_FORMAT										m_indexFormat;
-		};
 	public:
 		MeshRenderer(GameObjectManagerPtr pManager);
 		virtual ~MeshRenderer(void);
 
-		void							Update(float dt);
+		void													Update(float dt);
 
-		void							Reset(MeshDataPtr pMD);
-		const bool&						IsDeferred();
-		void							SetDeferred(const bool& b);
+		void													Reset(MeshDataPtr pMD);
+		const bool&												IsDeferred();
+		void													SetDeferred(const bool& b);
 
-		RenderManagerPtr				GetRenderManager(){return m_pRenderManager;}
+		RenderManagerPtr										GetRenderManager(){return m_pRenderManager;}
 
 	private:
-		bool							OnAttach();
-		void							OnDetach();
+		bool													OnAttach();
+		void													OnDetach();
 
-		void							on_event_frustum_cull(EventPtr pEvent);
+		void													on_event_frustum_cull(EventPtr pEvent);
 	private:
 
-		EventDispatcher::EventHandlerHandle				m_hFrustumCull;
+		EventDispatcher::EventHandlerHandle						m_hFrustumCull;
 
-		RenderManagerPtr				m_pRenderManager;
+		RenderManagerPtr										m_pRenderManager;
 
-		GPUBufferPtr					m_pIndexBuffer;
-		GPUBufferPtr					m_pVertexBuffer;
-
-		typedef std::shared_ptr<SubMeshRenderData>				SubMeshRenderDataPtr;
-		std::vector<SubMeshRenderDataPtr>	m_Subsets;
-
-		bool							m_deferred;
+		std::vector<RenderData2Ptr>								m_Subsets;
+		bool													m_deferred;
 	};
 
 }

@@ -2,7 +2,7 @@
 #include "..\..\include\core\BBoxRenderData.h"
 #include "core\Sys_Graphics.h"
 #include "core\VertexFormat.h"
-#include "core\Material.h"
+#include "core\Material2.h"
 #include "core\GPUBuffer.h"
 
 namespace ld3d
@@ -50,7 +50,7 @@ namespace ld3d
 
 	}
 
-	void BBoxRenderData::Render(Sys_GraphicsPtr pSysGraphics, MaterialPtr pMaterial)
+	/*void BBoxRenderData::Render(Sys_GraphicsPtr pSysGraphics, MaterialPtr pMaterial)
 	{
 		MaterialPtr pMat = pMaterial == nullptr ? m_pMaterial : pMaterial;
 
@@ -72,9 +72,9 @@ namespace ld3d
 		}
 
 		pMat->End();
-	}
+	}*/
 	
-	MaterialPtr BBoxRenderData::GetMaterial()
+	Material2Ptr BBoxRenderData::GetMaterial()
 	{
 		return m_pMaterial;
 	}

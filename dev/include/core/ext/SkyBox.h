@@ -6,14 +6,6 @@ namespace ld3d
 {
 	class SkyBox : public GameObjectComponent
 	{
-		class SkyBoxRenderData : public RenderData
-		{
-		public:
-
-		private:
-
-			GPUBufferPtr								m_pVB;
-		};
 	public:
 		SkyBox(GameObjectManagerPtr pManager);
 		virtual ~SkyBox(void);

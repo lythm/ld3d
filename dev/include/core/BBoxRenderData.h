@@ -4,7 +4,7 @@
 
 namespace ld3d
 {
-	class EXPORT_CLASS BBoxRenderData : public RenderData
+	class EXPORT_CLASS BBoxRenderData
 	{
 	public:
 		BBoxRenderData(void);
@@ -13,8 +13,8 @@ namespace ld3d
 		bool													Initialize(Sys_Graphics2Ptr pGraphics);
 		void													Release();
 
-		void													Render(Sys_GraphicsPtr pSysGraphics, MaterialPtr pMaterial = MaterialPtr());
-		MaterialPtr												GetMaterial();
+//		void													Render(Sys_GraphicsPtr pSysGraphics, MaterialPtr pMaterial = MaterialPtr());
+		Material2Ptr												GetMaterial();
 		math::Matrix44											GetWorldMatrix();
 		bool													IsDeferred();
 
@@ -25,7 +25,7 @@ namespace ld3d
 		void													_fill_vb();
 	private:
 		GPUBufferPtr											m_pVertexBuffer;
-		MaterialPtr												m_pMaterial;
+		Material2Ptr												m_pMaterial;
 		math::AABBox											m_bbox;
 		math::Matrix44											m_world;
 	};

@@ -1,7 +1,6 @@
 #include "core_pch.h"
 #include "..\..\include\core\MeshUtil.h"
 #include "core\Mesh.h"
-#include "core\Material.h"
 #include "core\VertexFormat.h"
 #include "core\SubMesh.h"
 #include "core_utils.h"

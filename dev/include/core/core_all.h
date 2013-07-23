@@ -48,7 +48,6 @@
 #include "core\BaseCamera.h"
 #include "core\Texture.h"
 
-#include "core\Material.h"
 #include "core/Material2.h"
 #include "core/MaterialCompiler.h"
 #include "core/MaterialParameter.h"

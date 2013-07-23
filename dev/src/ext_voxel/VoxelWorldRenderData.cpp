@@ -21,22 +21,28 @@ namespace ld3d
 	VoxelWorldRenderData::~VoxelWorldRenderData(void)
 	{
 	}
-	bool VoxelWorldRenderData::Initialize(Sys_GraphicsPtr pGraphics)
+	bool VoxelWorldRenderData::Initialize(RenderManagerPtr pRS)
 	{
-		m_pGraphics = pGraphics;
-		m_pMaterial = pGraphics->CreateMaterialFromFile("./assets/standard/material/voxel_world.fx");
+		m_pRenderData = std::make_shared<RenderData2>();
+
+		m_pRenderData->fr_draw = std::bind(&VoxelWorldRenderData::Render, this, std::placeholders::_1);
+		m_pRenderData->dr_draw = std::bind(&VoxelWorldRenderData::Render, this, std::placeholders::_1);
+		m_pRenderData->dr = false;
+
+		m_pRenderManager = pRS;
+		m_pGraphics = pRS->GetSysGraphics();
+		m_pMaterial = m_pRenderManager->CreateMaterialFromFile("./assets/standard/material/voxel_world.fx");
 		if(m_pMaterial == nullptr)
 		{
 			return false;
 		}
 
-		VertexFormat vf;
-		vf.AddElement(VertexElement(0, VertexElement::POSITION, G_FORMAT_R32G32B32_FLOAT));
-		vf.AddElement(VertexElement(0, VertexElement::NORMAL, G_FORMAT_R32G32B32_FLOAT));
-		vf.AddElement(VertexElement(0, VertexElement::COLOR, G_FORMAT_R8G8B8A8_UNORM));
-		m_pMaterial->SetVertexFormat(vf);
+		m_vertexLayout.AddAttribute(G_FORMAT_R32G32B32_FLOAT);
+		m_vertexLayout.AddAttribute(G_FORMAT_R32G32B32_FLOAT);
+		m_vertexLayout.AddAttribute(G_FORMAT_R8G8B8A8_UNORM);
+		
 
-		m_pVertexBuffer = pGraphics->CreateBuffer(BT_VERTEX_BUFFER, m_nVBBytes, nullptr, true);
+		m_pVertexBuffer = m_pGraphics->CreateBuffer(BT_VERTEX_BUFFER, m_nVBBytes, nullptr, true);
 		if(m_pVertexBuffer == nullptr)
 		{
 			return false;
@@ -66,14 +72,14 @@ namespace ld3d
 		m_pGraphics.reset();
 	}
 
-	void VoxelWorldRenderData::Render(Sys_GraphicsPtr pSysGraphics, MaterialPtr pMaterial)
+	void VoxelWorldRenderData::Render(RenderManagerPtr pManager)
 	{
 
 		if(m_pRenderList == nullptr)
 		{
 			return;
 		}
-		MaterialPtr pMat = pMaterial == nullptr ? m_pMaterial : pMaterial;
+		Material2Ptr pMat = m_pMaterial;
 
 		VoxelWorldChunk* pChunk = m_pRenderList;
 		
@@ -106,7 +112,7 @@ namespace ld3d
 			if(bytesLeft <= sizeof(VoxelVertex) * pChunk->vertex_count)
 			{
 				m_pVertexBuffer->Unmap();
-				_draw(pSysGraphics, pMat);
+				_draw(m_pGraphics, pMat);
 
 				data = (uint8*)m_pVertexBuffer->Map(MAP_DISCARD);
 				m_nVBOffset = 0;
@@ -125,7 +131,7 @@ namespace ld3d
 
 		m_pVertexBuffer->Unmap();
 
-		_draw(pSysGraphics, pMat);
+		_draw(m_pGraphics, pMat);
 
 		m_pRenderList = nullptr;
 
@@ -204,33 +210,25 @@ namespace ld3d
 
 		m_pRenderList = nullptr;*/
 	}
-	void VoxelWorldRenderData::_draw(Sys_GraphicsPtr pSysGraphics, MaterialPtr pMaterial)
+	void VoxelWorldRenderData::_draw(Sys_Graphics2Ptr pSysGraphics, Material2Ptr pMaterial)
 	{
 		if(m_nVertexCount == 0)
 		{
 			return;
 		}
 
-		pSysGraphics->SetVertexBuffer(m_pVertexBuffer, m_nVBOffset, m_nVertexStride);
-		pSysGraphics->SetPrimitiveType(PT_TRIANGLE_LIST);
-
-		pMaterial->ApplyVertexFormat();
-
-		int nPass = 0;
-
-		pMaterial->Begin(nPass);
+		int nPass = pMaterial->Begin();
 
 		for(int i = 0; i < nPass; ++i)
 		{
-			
 			pMaterial->ApplyPass(i);
 
-			pSysGraphics->Draw(m_nVertexCount, 0);
+			pSysGraphics->Draw(PT_TRIANGLE_LIST, m_pVertexBuffer, m_nVertexCount, 0, m_nVBOffset, m_vertexLayout);
 		}
 
 		pMaterial->End();
 	}
-	MaterialPtr VoxelWorldRenderData::GetMaterial()
+	Material2Ptr VoxelWorldRenderData::GetMaterial()
 	{
 		return m_pMaterial;
 	}
@@ -245,6 +243,10 @@ namespace ld3d
 	void VoxelWorldRenderData::PrepareRenderList(VoxelWorldChunk* pList)
 	{
 		m_pRenderList = pList;
+	}
+	RenderData2Ptr VoxelWorldRenderData::GetRenderData()
+	{
+		return m_pRenderData;
 	}
 
 }

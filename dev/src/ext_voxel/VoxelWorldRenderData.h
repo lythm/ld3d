@@ -3,30 +3,31 @@
 namespace ld3d
 {
 	struct VoxelWorldChunk;
-	class VoxelWorldRenderData : public RenderData
+	class VoxelWorldRenderData
 	{
 	public:
 		VoxelWorldRenderData(void);
 		virtual ~VoxelWorldRenderData(void);
 
-		bool													Initialize(Sys_GraphicsPtr pGraphics);
+		bool													Initialize(RenderManagerPtr pRS);
 		void													Release();
 
-		void													Render(Sys_GraphicsPtr pSysGraphics, MaterialPtr pMaterial = MaterialPtr());
-		MaterialPtr												GetMaterial();
+		void													Render(RenderManagerPtr pManager);
+		Material2Ptr												GetMaterial();
 		math::Matrix44											GetWorldMatrix();
 		bool													IsDeferred();
 
 		void													PrepareRenderList(VoxelWorldChunk* pList);
 
+		RenderData2Ptr											GetRenderData();
 	private:
-		void													_draw(Sys_GraphicsPtr pSysGraphics, MaterialPtr pMaterial);
+		void													_draw(Sys_Graphics2Ptr pSysGraphics, Material2Ptr pMaterial);
 	private:
 		GPUBufferPtr											m_pVertexBuffer;
 		GPUBufferPtr											m_pIndexBuffer;
-		MaterialPtr												m_pMaterial;
+		Material2Ptr											m_pMaterial;
 
-		Sys_GraphicsPtr											m_pGraphics;
+		Sys_Graphics2Ptr										m_pGraphics;
 
 		uint32													m_nVBBytes;
 		uint32													m_nVBCurrent;
@@ -36,5 +37,10 @@ namespace ld3d
 
 		VoxelWorldChunk*										m_pRenderList;
 
+		RenderData2Ptr											m_pRenderData;
+
+		RenderManagerPtr										m_pRenderManager;
+
+		VertexLayout											m_vertexLayout;
 	};
 }

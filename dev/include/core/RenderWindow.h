@@ -4,19 +4,6 @@
 
 namespace ld3d
 {
-	class RenderWindow
-	{
-	public:
-
-		virtual int															GetWidth()													= 0;
-		virtual int															GetHeight()													= 0;
-		virtual void														Release()													= 0;
-	protected:
-		RenderWindow(void){}
-		virtual ~RenderWindow(void){}
-	};
-
-
 	class RenderWindow2 : public RenderTarget2
 	{
 	public:

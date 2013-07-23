@@ -3,7 +3,6 @@
 #include "core\Light.h"
 #include "core_utils.h"
 #include "core\Sys_Graphics.h"
-#include "core\Material.h"
 #include "core\RenderManager.h"
 
 namespace ld3d

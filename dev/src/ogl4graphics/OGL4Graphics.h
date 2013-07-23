@@ -37,8 +37,8 @@ namespace ld3d
 		void									Draw(GeometryDataPtr pData, int vertexCount, int baseVertex);
 		void									DrawIndexed(GeometryDataPtr pData, int count, int startindex, int basevertex);
 
-		void									Draw(GeometryDataPtr pData, int vertexCount, int baseVertex, int bufferOffset, const VertexLayout& layout);
-		void									DrawIndexed(GeometryDataPtr pData, int count, int startindex, int basevertex, int vbOffset, const VertexLayout& layout);
+		void									Draw(PRIMITIVE_TYPE prim, GPUBufferPtr pVertexBuffer, int vertexCount, int baseVertex, int bufferOffset, const VertexLayout& layout);
+		void									DrawIndexed(PRIMITIVE_TYPE prim, GPUBufferPtr pVertexBuffer, GPUBufferPtr pIndexBuffer, G_FORMAT indexType, int count, int startindex, int basevertex, int vbOffset, const VertexLayout& layout);
 
 		void									SetViewPort(int x, int y, int w, int h);
 

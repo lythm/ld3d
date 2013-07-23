@@ -6,7 +6,6 @@
 #include "core\Sys_Graphics.h"
 #include "core\Mesh.h"
 #include "core\GPUBuffer.h"
-#include "core\Material.h"
 #include "core\SubMesh.h"
 #include "core\ext\PropertyManager.h"
 
@@ -41,7 +40,6 @@ namespace ld3d
 	}
 	void MeshRenderer::Update(float dt)
 	{
-		
 	}
 	
 	bool MeshRenderer::OnAttach()
@@ -75,23 +73,19 @@ namespace ld3d
 
 		m_pRenderManager.reset();
 
-		if(m_pIndexBuffer)
+		for(auto v: m_Subsets)
 		{
-			m_pIndexBuffer->Release();
-			m_pIndexBuffer.reset();
+			v->geometry->Release();
+			v->material->Release();
 		}
-		if(m_pVertexBuffer)
-		{
-			m_pVertexBuffer->Release();
-			m_pVertexBuffer.reset();
-		}
-
 		m_Subsets.clear();
 	}
 	void MeshRenderer::on_event_frustum_cull(EventPtr pEvent)
 	{
+		const math::Matrix44& world = m_pObject->GetWorldTransform();
 		for(size_t i = 0; i < m_Subsets.size(); ++i)
 		{
+			m_Subsets[i]->world_matrix = world;
 			m_pRenderManager->AddRenderData(m_Subsets[i]);
 		}
 	}
@@ -108,132 +102,51 @@ namespace ld3d
 			return;
 		}
 
-		if(m_pIndexBuffer)
+		for(auto v: m_Subsets)
 		{
-			m_pIndexBuffer->Release();
-			m_pIndexBuffer.reset();
+			v->geometry->Release();
+			v->material->Release();
 		}
-		if(m_pVertexBuffer)
-		{
-			m_pVertexBuffer->Release();
-			m_pVertexBuffer.reset();
-		}
-
+		
 		m_Subsets.clear();
 
-
-		if(pMesh->GetIndexData() != nullptr)
-		{
-			m_pIndexBuffer = m_pRenderManager->GetSysGraphics()->CreateBuffer(BT_INDEX_BUFFER, pMesh->GetIndexDataBytes(), pMesh->GetIndexData(), false);
-		}
-		m_pVertexBuffer = m_pRenderManager->GetSysGraphics()->CreateBuffer(BT_VERTEX_BUFFER, pMesh->GetVertexDataBytes(), pMesh->GetVertexData(), false);
-
+		void* indexData = pMesh->GetIndexData();
+		void* vertexData = pMesh->GetVertexData();
+		
 		for(int i = 0; i < pMesh->GetSubMeshCount(); ++i)
 		{
 			SubMeshPtr pSub = pMesh->GetSubMesh(i);
 
-			SubMeshRenderDataPtr pSR = m_pManager->alloc_object<SubMeshRenderData>(GetGameObject());
-			pSR->Create(pSub, m_pIndexBuffer, m_pVertexBuffer);
-			m_Subsets.push_back(pSR);
-		}
-	}
+			RenderData2Ptr pRD = m_pManager->alloc_object<RenderData2>();
+
+			pRD->geometry = m_pRenderManager->CreateGeometryData();
 
 
-	MeshRenderer::SubMeshRenderData::SubMeshRenderData(GameObjectPtr pGameObject)
-	{
-		m_pGameObject	= pGameObject;
-		m_iDepthPass	= -1;;
-
-		m_indexCount					= 0;
-		m_baseVertex					= 0;
-		m_vertexOffset					= 0;
-		m_vertexStride					= 0;
-		m_startIndex					= 0;
-
-	}
-	MeshRenderer::SubMeshRenderData::~SubMeshRenderData()
-	{
-		m_pGameObject.reset();
-	}
-	void MeshRenderer::SubMeshRenderData::Create(SubMeshPtr pSub, GPUBufferPtr pIndexBuffer, GPUBufferPtr pVertexBuffer)
-	{
-		m_pIndexBuffer					= pIndexBuffer;
-		m_pVertexBuffer					= pVertexBuffer;
-		m_pMaterial						= pSub->GetMaterial();
-		m_indexCount					= pSub->GetIndexCount();
-		m_baseVertex					= 0;
-		m_vertexOffset					= pSub->GetVertexDataOffset();
-		m_vertexStride					= pSub->GetVertexStride();
-		m_startIndex					= 0;
-		m_vertexCount					= pSub->GetVertexCount();
-		m_iDepthPass					= m_pMaterial->FindPass("DEPTH_PASS");
-		m_primType						= pSub->GetPrimitiveType();
-		m_indexed						= pSub->IsIndexed();
-		m_vertexFormat					= pSub->GetVertexFormat();
-		m_indexFormat					= pSub->GetIndexFormat();
-	}
-	void MeshRenderer::SubMeshRenderData::Render(Sys_GraphicsPtr pSysGraphics, MaterialPtr pMaterial)
-	{
-		pSysGraphics->SetVertexBuffer(m_pVertexBuffer, m_vertexOffset, m_vertexStride);
-		pSysGraphics->SetPrimitiveType(m_primType);
-
-		m_indexed ? pSysGraphics->SetIndexBuffer(m_pIndexBuffer, m_indexFormat) : 0;
-
-		MaterialPtr pMat = pMaterial == nullptr ? m_pMaterial : pMaterial;
-
-		pMat->ApplyVertexFormat();
-
-		int nPass = 0;
-
-		pMat->Begin(nPass);
-
-		for(int i = 0; i < nPass; ++i)
-		{
-			if(m_iDepthPass == i)
+			pRD->geometry->BeginGeometry(pSub->GetPrimitiveType());
 			{
-				continue;
+				pRD->geometry->AllocVertexBuffer(pSub->GetVertexDataBytes(), 
+							(uint8*)vertexData + pSub->GetVertexDataOffset(), 
+							false, 
+							pSub->GetVertexFormat());
+
+				if(indexData)
+				{
+					pRD->geometry->AllocIndexBuffer(pSub->GetIndexDataBytes(), 
+							(uint8*)indexData + pSub->GetIndexDataOffset(), 
+							false,
+							pSub->GetIndexFormat());
+				}
 			}
-			pMat->ApplyPass(i);
+			pRD->geometry->EndGeometry();
 
-			m_indexed ? 
-				pSysGraphics->DrawIndexed(m_indexCount, m_startIndex, m_baseVertex) :
-				pSysGraphics->Draw(m_vertexCount, m_baseVertex);
+			pRD->base_vertex = 0;
+			pRD->vertex_count = pSub->GetVertexCount();
+			pRD->index_count = pSub->GetIndexCount();
+			pRD->material = pSub->GetMaterial();
+			pRD->dr = m_deferred;
+			pRD->world_matrix = m_pObject->GetWorldTransform();
+			pRD->start_index = 0;
+			m_Subsets.push_back(pRD);
 		}
-
-		pMat->End();
 	}
-	void MeshRenderer::SubMeshRenderData::Render_Depth(Sys_GraphicsPtr pSysGraphics)
-	{
-		pSysGraphics->SetVertexBuffer(m_pVertexBuffer, m_vertexOffset, m_vertexStride);
-		pSysGraphics->SetPrimitiveType(m_primType);
-
-		m_pMaterial->ApplyVertexFormat();
-		m_indexed ? pSysGraphics->SetIndexBuffer(m_pIndexBuffer, G_FORMAT_R16_UINT) : 0;
-
-		int nPass = 0;
-
-		m_pMaterial->Begin(nPass);
-
-		m_pMaterial->ApplyPass(m_iDepthPass);
-
-		m_indexed ? 
-			pSysGraphics->DrawIndexed(m_indexCount, m_startIndex, m_baseVertex) :
-			pSysGraphics->Draw(m_vertexCount, m_baseVertex);
-
-
-		m_pMaterial->End();
-	}
-	MaterialPtr MeshRenderer::SubMeshRenderData::GetMaterial()
-	{
-		return m_pMaterial;
-	}
-	math::Matrix44 MeshRenderer::SubMeshRenderData::GetWorldMatrix()
-	{
-		return m_pGameObject->GetWorldTransform();
-	}
-	bool MeshRenderer::SubMeshRenderData::IsDeferred()
-	{
-		return true;
-	}
-
 }

@@ -215,24 +215,79 @@ namespace ld3d
 		}
 	}
 
-	void OGL4Graphics::Draw(GeometryDataPtr pData, int vertexCount, int baseVertex, int bufferOffset, const VertexLayout& layout)
+	void OGL4Graphics::Draw(PRIMITIVE_TYPE prim, GPUBufferPtr pVertexBuffer, int vertexCount, int baseVertex, int bufferOffset, const VertexLayout& layout)
 	{
-		OGL4GeometryData* pGLData = (OGL4GeometryData*)pData.get();
+		OGL4Buffer* pBuffer = (OGL4Buffer*)pVertexBuffer.get();
 
-		pGLData->SetVertexBufferOffset(bufferOffset, layout);
+		unsigned int stride = layout.VertexStride();
 
-		pGLData->Bind();
+		glBindBuffer(GL_ARRAY_BUFFER, pBuffer->GetBufferObject());
 
-		glDrawArrays(pGLData->GetPrimitiveType(), baseVertex, vertexCount);
+		unsigned int offset = 0;
+		for(unsigned int i = 0; i < layout.AttrCount(); ++i)
+		{
+			glEnableVertexAttribArray(i);
+
+			G_FORMAT type = layout.AttrType(i);
+
+			unsigned int value_count = 0;
+			GLenum gltype = GL_INVALID_ENUM;
+
+			assert(OGL4Convert::FormatToGLVertexAttr(type, value_count, gltype));
+
+			glVertexAttribPointer(i, value_count, gltype, false, stride, (GLvoid*)(bufferOffset + offset));
+
+			offset += layout.TypeBytes(type);
+		}
+
+		glDrawArrays(prim, baseVertex, vertexCount);
 	}
-	void OGL4Graphics::DrawIndexed(GeometryDataPtr pData, int count, int startindex, int basevertex, int vbOffset, const VertexLayout& layout)
+	void OGL4Graphics::DrawIndexed(PRIMITIVE_TYPE prim, GPUBufferPtr pVertexBuffer,GPUBufferPtr pIndexBuffer, G_FORMAT indexType, int count, int startindex, int basevertex, int vbOffset, const VertexLayout& layout)
 	{
-		OGL4GeometryData* pGLData = (OGL4GeometryData*)pData.get();
+		OGL4Buffer* pVB = (OGL4Buffer*)pVertexBuffer.get();
 
-		pGLData->SetVertexBufferOffset(vbOffset, layout);
-		pGLData->Bind();
+		unsigned int stride = layout.VertexStride();
 
-		glDrawElements(pGLData->GetPrimitiveType(), count, pGLData->GetIndexType(), 0);
+		glBindBuffer(GL_ARRAY_BUFFER, pVB->GetBufferObject());
+
+		unsigned int offset = 0;
+		for(unsigned int i = 0; i < layout.AttrCount(); ++i)
+		{
+			glEnableVertexAttribArray(i);
+
+			G_FORMAT type = layout.AttrType(i);
+
+			unsigned int value_count = 0;
+			GLenum gltype = GL_INVALID_ENUM;
+
+			assert(OGL4Convert::FormatToGLVertexAttr(type, value_count, gltype));
+
+			glVertexAttribPointer(i, value_count, gltype, false, stride, (GLvoid*)(vbOffset + offset));
+
+			offset += layout.TypeBytes(type);
+		}
+
+		OGL4Buffer* pIB = (OGL4Buffer*)pIndexBuffer.get();
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, pIB->GetBufferObject());
+
+
+		GLenum glType = GL_INVALID_ENUM;
+		switch(indexType)
+		{
+		case G_FORMAT_R32_UINT:
+			glType = GL_UNSIGNED_INT;
+			break;
+		case G_FORMAT_R16_UINT:
+			glType = GL_UNSIGNED_SHORT;
+			break;
+		default:
+			assert(0);
+			glType = GL_UNSIGNED_SHORT;
+			break;
+		}
+
+
+		glDrawElements(prim, count, glType, 0);
 	}
 
 	void OGL4Graphics::DrawIndexed(GeometryDataPtr pData, int count, int startindex, int basevertex)

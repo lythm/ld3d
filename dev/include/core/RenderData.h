@@ -4,33 +4,33 @@
 
 namespace ld3d
 {
-	class EXPORT_CLASS RenderData
-	{
-	public:
-
-		RenderData(void){}
-
-		virtual ~RenderData(void){}
-
-
-		virtual void											Render(Sys_GraphicsPtr pSysGraphics, MaterialPtr pMaterial = MaterialPtr())	= 0;
-		virtual MaterialPtr										GetMaterial()																= 0;
-		virtual math::Matrix44									GetWorldMatrix()															= 0;
-		virtual bool											IsDeferred(){return false;}
-
-	};
-
 	class EXPORT_CLASS RenderData2
 	{
 	public:
-		RenderData2(void){}
+		RenderData2(void)
+		{
+			dr						= false;
+			base_vertex				= 0;
+			vertex_count			= 0;
+			index_count				= 0;
+			start_index				= 0;
+			world_matrix.MakeIdentity();
+		}
 
 		virtual ~RenderData2(void){}
 
-		GeometryDataPtr											pGeometry;
-		Material2Ptr											pMaterial;
-		math::Matrix44											worldMatrix;
+		GeometryDataPtr											geometry;
+		Material2Ptr											material;
+		math::Matrix44											world_matrix;
 		bool													dr;
 
+
+		int														base_vertex;
+		int														vertex_count;
+		int														index_count;
+		int														start_index;
+
+		std::function<void (RenderManagerPtr)>					fr_draw;
+		std::function<void (RenderManagerPtr)>					dr_draw;
 	};
 }

@@ -243,7 +243,7 @@ namespace ld3d
 			m_pRenderManager->Render(pCamera);
 		}
 	}
-	void CoreApi::AddRenderData(RenderDataPtr pData)
+	void CoreApi::AddRenderData(RenderData2Ptr pData)
 	{
 		if(m_pRenderManager)
 		{

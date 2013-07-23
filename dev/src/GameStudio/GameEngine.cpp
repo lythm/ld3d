@@ -132,7 +132,7 @@ void GameEngine::Update()
 }
 void GameEngine::Render()
 {
-	m_bShowGrid ? m_pCore->AddRenderData(m_pGrid) : 0;
+	m_bShowGrid ? m_pCore->AddRenderData(m_pGrid->GetRenderData()) : 0;
 
 	m_pCore->Render();
 	m_pCore->Present();
@@ -140,7 +140,7 @@ void GameEngine::Render()
 }
 void GameEngine::Render(ld3d::CameraPtr pCamera)
 {
-	m_bShowGrid ? m_pCore->AddRenderData(m_pGrid) : 0;
+	m_bShowGrid ? m_pCore->AddRenderData(m_pGrid->GetRenderData()) : 0;
 
 	m_pCore->Render(pCamera);
 	m_pCore->Present();

@@ -26,7 +26,6 @@ namespace ld3d
 	
 
 	class Sys_Input;
-	class Sys_Graphics;
 	class Sys_Graphics2;
 	class Sys_Sound;
 	class Sys_Physics;
@@ -42,7 +41,6 @@ namespace ld3d
 	typedef std::shared_ptr<Sys_Input>						Sys_InputPtr;
 	typedef std::shared_ptr<Sys_Sound>						Sys_SoundPtr;
 
-	typedef std::shared_ptr<Sys_Graphics>					Sys_GraphicsPtr;
 	typedef std::shared_ptr<Sys_Graphics2>					Sys_Graphics2Ptr;
 
 	class LightManager;
@@ -72,21 +70,15 @@ namespace ld3d
 
 	class BBoxRenderData;
 	class DepthStencilBuffer;
-	class RenderData;
-	class RenderTarget;
 	class RenderTarget2;
-	class Texture;
 	class Texture2;
 	class GPUBuffer;
 	class Camera;
-	class RenderState;
 	class RenderState2;
 	class Shader;
 	class BaseCamera;
 	
-	class RenderWindow;
 	class RenderWindow2;
-	class Material;
 	class Material2;
 	class MaterialPass;
 	class MaterialTech;
@@ -103,7 +95,6 @@ namespace ld3d
 	
 
 	typedef std::shared_ptr<Material2>						Material2Ptr;
-	typedef std::shared_ptr<Material>						MaterialPtr;
 	typedef std::shared_ptr<MaterialPass>					MaterialPassPtr;
 	typedef std::shared_ptr<MaterialTech>					MaterialTechPtr;
 	typedef std::shared_ptr<MaterialParameterManager>		MaterialParameterManagerPtr;
@@ -115,19 +106,14 @@ namespace ld3d
 	typedef std::shared_ptr<RenderTexture2>					RenderTexture2Ptr;
 	typedef std::shared_ptr<RenderWindow2>					RenderWindow2Ptr;
 
-	typedef std::shared_ptr<RenderWindow>					RenderWindowPtr;
-	typedef std::shared_ptr<RenderState>					RenderStatePtr;
 	typedef std::shared_ptr<RenderState2>					RenderState2Ptr;
 	typedef std::shared_ptr<Shader>							ShaderPtr;
 	typedef std::shared_ptr<Camera>							CameraPtr;
 	typedef std::shared_ptr<BaseCamera>						BaseCameraPtr;
 	typedef std::shared_ptr<DepthStencilBuffer>				DepthStencilBufferPtr;
-	typedef std::shared_ptr<RenderTarget>					RenderTargetPtr;
 	typedef std::shared_ptr<RenderTarget2>					RenderTarget2Ptr;
-	typedef std::shared_ptr<RenderData>						RenderDataPtr;
 	typedef std::shared_ptr<RenderData2>					RenderData2Ptr;
 	typedef std::shared_ptr<GPUBuffer>						GPUBufferPtr;
-	typedef std::shared_ptr<Texture>						TexturePtr;
 	typedef std::shared_ptr<Texture2>						Texture2Ptr;
 	typedef std::shared_ptr<SamplerState>					SamplerStatePtr;
 	

@@ -43,7 +43,6 @@ namespace ld3d
 		bool										Initialize(Sys_Graphics2Ptr pGraphics, EventDispatcherPtr pED);
 		void										Release();
 		void										AddRenderData(RenderData2Ptr pData);
-		void										AddRenderData(RenderDataPtr pData);
 		void										Clear();
 		void										Render(const math::Matrix44& view, const math::Matrix44& proj);
 		void										Render();

@@ -185,9 +185,7 @@ namespace ld3d
 			m_pABuffer.reset();
 		}
 	}
-	void RenderManager::AddRenderData(RenderDataPtr pData)
-	{
-	}
+	
 	void RenderManager::AddRenderData(RenderData2Ptr pData)
 	{
 		if(pData->dr)
@@ -216,16 +214,35 @@ namespace ld3d
 
 		for(size_t i = 0; i < m_deferredQueue.size(); ++i)
 		{
-			UpdateMatrixBlock(m_deferredQueue[i]->pMaterial, m_deferredQueue[i]->worldMatrix);
+			UpdateMatrixBlock(m_deferredQueue[i]->material, m_deferredQueue[i]->world_matrix);
 			DR_DrawRenderData(m_deferredQueue[i]);
 		}
 	}
 	void RenderManager::DR_DrawRenderData(RenderData2Ptr pData)
 	{
-
+		if(pData->dr_draw)
+		{
+			pData->dr_draw(shared_from_this());
+			return;
+		}
 	}
 	void RenderManager::FR_DrawRenderData(RenderData2Ptr pData)
 	{
+		if(pData->fr_draw)
+		{
+			pData->fr_draw(shared_from_this());
+			return;
+		}
+
+		int nPass = pData->material->Begin();
+		for(int i = 0; i < nPass; ++i)
+		{
+			pData->material->ApplyPass(i);
+			pData->geometry->GetIndexBuffer() ? 
+				m_pGraphics->DrawIndexed(pData->geometry, pData->index_count, pData->start_index, pData->base_vertex) :
+				m_pGraphics->Draw(pData->geometry, pData->vertex_count, pData->base_vertex);
+		}
+		pData->material->End();
 	}
 	void RenderManager::DR_Merge_Pass()
 	{
@@ -243,14 +260,14 @@ namespace ld3d
 	{
 		for(size_t i = 0; i < m_forwardQueue.size(); ++i)
 		{
-			UpdateMatrixBlock(m_forwardQueue[i]->pMaterial, m_forwardQueue[i]->worldMatrix);
+			UpdateMatrixBlock(m_forwardQueue[i]->material, m_forwardQueue[i]->world_matrix);
 			
 			FR_DrawRenderData(m_forwardQueue[i]);
 		}
 
 		for(size_t i = 0; i < m_transparentQueue.size(); ++i)
 		{
-			UpdateMatrixBlock(m_transparentQueue[i]->pMaterial, m_transparentQueue[i]->worldMatrix);
+			UpdateMatrixBlock(m_transparentQueue[i]->material, m_transparentQueue[i]->world_matrix);
 			FR_DrawRenderData(m_transparentQueue[i]);
 		}
 	}
