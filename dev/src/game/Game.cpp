@@ -27,28 +27,28 @@ bool Game::Initialize(ld3d::CoreApiPtr pCore)
 {
 	m_pGraphcicsTest = new GraphicsTest;
 
-	if(m_pGraphcicsTest->Init(pCore) == false)
+	/*if(m_pGraphcicsTest->Init(pCore) == false)
 	{
 		return false;
-	}
-	/*m_pDemo = new VoxelDemo;
+	}*/
+	m_pDemo = new VoxelDemo;
 
 	if(m_pDemo->Init(pCore) == false)
 	{
 		return false;
 	}
-	*/
+	
 	return true;
 }
 void Game::Release()
 {
 
-	m_pGraphcicsTest->Release();
-	//m_pDemo->Release();
+	//m_pGraphcicsTest->Release();
+	m_pDemo->Release();
 }
 bool Game::Update()
 {
-	m_pGraphcicsTest->Update();
+	m_pDemo->Update();
 	
 	return true;
 }

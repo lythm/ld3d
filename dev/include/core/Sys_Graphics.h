@@ -13,7 +13,7 @@ namespace ld3d
 		virtual bool									Initialize(const GraphicsSetting& setting)										= 0;
 		virtual void									Release()																		= 0;
 		
-		virtual RenderWindowPtr						CreateRenderWindow(void* handle, 
+		virtual RenderWindowPtr							CreateRenderWindow(void* handle, 
 																	int w, 
 																	int h, 
 																	G_FORMAT color_format, 
@@ -79,14 +79,11 @@ namespace ld3d
 
 		virtual RenderStatePtr							CreateRenderState()																= 0;
 		virtual void									SetRenderState(RenderStatePtr pState)											= 0;
-		/////////////////////////////////////////////////////////////////
-
-
+		
 		virtual int										GetFrameBufferWidth()															= 0;
 		virtual int										GetFrameBufferHeight()															= 0;
 
-		virtual void									ResizeFrameBuffer(int cx, int cy)												= 0;
-		
+		virtual void									OnResizeRenderWindow(int cx, int cy)											= 0;
 		
 	protected:
 		Sys_Graphics(void){}

@@ -135,7 +135,7 @@ void GameStudio::on_mdiArea_subWindowActivated(QMdiSubWindow* pSub)
 {
 	if(pSub )
 	{
-		logInfo(pSub->windowTitle());
+	//	logInfo(pSub->windowTitle());
 	}
 }
 void GameStudio::on_actionSave_Project_triggered()

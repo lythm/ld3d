@@ -7,6 +7,7 @@ uniform sampler2D base;
 
 void main()
 {
+
 	o_color = texture2D(base, tex_coord.st);
 }
 

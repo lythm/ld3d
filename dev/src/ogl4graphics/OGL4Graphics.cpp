@@ -364,9 +364,9 @@ namespace ld3d
 		return pDS;
 	}
 
-	void OGL4Graphics::ResizeFrameBuffer(int cx, int cy)
+	void OGL4Graphics::OnResizeRenderWindow(int cx, int cy)
 	{
-		m_pMainRW->Resize(cx, cy);
+		m_pCurrentRW->OnResize(cx, cy);
 	}
 
 	RenderStatePtr OGL4Graphics::CreateRenderState()
@@ -395,11 +395,19 @@ namespace ld3d
 	
 	int	OGL4Graphics::GetFrameBufferWidth()
 	{
-		return 0;
+		if(m_pCurrentRT)
+		{
+			return m_pCurrentRT->GetTexture(0)->GetWidth();
+		}
+		return m_pCurrentRW->GetWidth();
 	}
 	int	OGL4Graphics::GetFrameBufferHeight()
 	{
-		return 0;
+			if(m_pCurrentRT)
+		{
+			return m_pCurrentRT->GetTexture(0)->GetHeight();
+		}
+		return m_pCurrentRW->GetHeight();
 	}
 	void OGL4Graphics::SetViewPort(int x, int y, int w, int h)
 	{
@@ -472,14 +480,14 @@ namespace ld3d
 		if(pTarget == nullptr)
 		{
 			glBindFramebuffer(GL_FRAMEBUFFER, 0);
+			m_pCurrentRT = nullptr;
 			return;
 		}
 
 		// render texture
-		OGL4RenderTexture* pGLTarget = (OGL4RenderTexture*)pTarget.get();
+		m_pCurrentRT = std::dynamic_pointer_cast<OGL4RenderTexture>(pTarget);
 
-		glBindFramebuffer(GL_FRAMEBUFFER, pGLTarget->GetFBO());
-
+		glBindFramebuffer(GL_FRAMEBUFFER, m_pCurrentRT->GetFBO());
 	}
 	
 	TexturePtr OGL4Graphics::CreateTexture1D(G_FORMAT format, int l, int lvls, bool dynamic)

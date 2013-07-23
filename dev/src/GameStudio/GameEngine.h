@@ -17,7 +17,7 @@ public:
 	void									ShowGrid(bool bShow);
 	bool									GridVisible();
 
-	void									Resize(int w, int h);
+	void									OnResize(int w, int h);
 
 	ld3d::GameObjectPtr						RootObject();
 

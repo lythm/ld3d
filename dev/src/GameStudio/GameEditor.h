@@ -21,9 +21,6 @@ public:
 	bool														OpenScene(boost::filesystem::path path);
 	bool														SaveScene();
 	bool														SaveScene(boost::filesystem::path path);
-	void														Resize(int w, int h);
-
-
 
 	void														Update();
 

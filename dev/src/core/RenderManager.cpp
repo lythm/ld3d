@@ -76,8 +76,6 @@ namespace ld3d
 		m_clearDepth					= 1.0f;
 		m_clearStencil					= 0;
 		m_globalAmbientColor			= math::Color4(0.3f, 0.3f, 0.3f, 1.0f);
-
-
 	}
 
 
@@ -120,7 +118,7 @@ namespace ld3d
 			return false;
 		}
 
-		m_pScreenQuadMaterial = CreateMaterialFromFile("./assets/standard/material/dr_render_merge.fx");
+		//m_pScreenQuadMaterial = CreateMaterialFromFile("./assets/standard/material/dr_render_merge.fx");
 
 		return true;
 	}
@@ -188,14 +186,14 @@ namespace ld3d
 	
 	void RenderManager::AddRenderData(RenderDataPtr pData)
 	{
-		if(pData->dr)
+		/*if(pData->dr)
 		{
 			m_deferredQueue.push_back(pData);
 		}
 		else
-		{
+		{*/
 			m_forwardQueue.push_back(pData);
-		}
+		//}
 	}
 	void RenderManager::Clear()
 	{
@@ -276,13 +274,13 @@ namespace ld3d
 		SetViewMatrix(view);
 		SetProjMatrix(proj);
 
-		DR_G_Pass();
-		DR_Light_Pass();
-		DR_Merge_Pass();
+		//DR_G_Pass();
+	//	DR_Light_Pass();
+	//	DR_Merge_Pass();
 		
 		RenderForward();
 
-		RenderPostEffects();
+	//	RenderPostEffects();
 		
 		RenderFinal();
 	}
@@ -296,7 +294,7 @@ namespace ld3d
 		m_pEventDispatcher->DispatchEvent(pEvent);
 
 
-		RenderShadowMaps();
+		//RenderShadowMaps();
 
 		Render(pCamera->GetViewMatrix(), pCamera->GetProjMatrix());
 
@@ -344,7 +342,7 @@ namespace ld3d
 	{
 		m_clearStencil = s;
 	}
-	void RenderManager::ResizeFrameBuffer(int cx, int cy)
+	void RenderManager::OnResizeRenderWindow(int cx, int cy)
 	{
 		if(cx == 0 || cy == 0)
 		{
@@ -353,7 +351,7 @@ namespace ld3d
 
 		m_pGraphics->SetRenderTarget(nullptr);
 
-		m_pGraphics->ResizeFrameBuffer(cx, cy);
+		m_pGraphics->OnResizeRenderWindow(cx, cy);
 		
 
 		CreateGBuffer(cx, cy);
@@ -466,7 +464,6 @@ namespace ld3d
 			pRT->AddTexture(pTex);
 		}
 
-
 		return pRT;
 	}
 	int	RenderManager::GetFrameBufferWidth()
@@ -515,11 +512,11 @@ namespace ld3d
 	{
 		m_matrixBlock.MATRIX_WORLD				= world;
 		m_matrixBlock.MATRIX_VIEW				= m_viewMatrix;
-		m_matrixBlock.MATRIX_PROJECT			= m_projMatrix;
+		m_matrixBlock.MATRIX_PROJ				= m_projMatrix;
 
 		m_matrixBlock.MATRIX_I_WORLD			= math::MatrixInverse(world);
 		m_matrixBlock.MATRIX_I_VIEW				= math::MatrixInverse(m_viewMatrix);
-		m_matrixBlock.MATRIX_I_PROJECT			= math::MatrixInverse(m_projMatrix);
+		m_matrixBlock.MATRIX_I_PROJ				= math::MatrixInverse(m_projMatrix);
 
 		m_matrixBlock.MATRIX_WV					= world * m_viewMatrix;
 		m_matrixBlock.MATRIX_WVP				= world * m_viewMatrix * m_projMatrix;

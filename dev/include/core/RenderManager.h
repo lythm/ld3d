@@ -10,11 +10,11 @@ namespace ld3d
 		{
 			math::Matrix44							MATRIX_WORLD;
 			math::Matrix44							MATRIX_VIEW;
-			math::Matrix44							MATRIX_PROJECT;
+			math::Matrix44							MATRIX_PROJ;
 
 			math::Matrix44							MATRIX_I_WORLD;
 			math::Matrix44							MATRIX_I_VIEW;
-			math::Matrix44							MATRIX_I_PROJECT;
+			math::Matrix44							MATRIX_I_PROJ;
 
 			math::Matrix44							MATRIX_WV;
 			math::Matrix44							MATRIX_WVP;
@@ -55,13 +55,13 @@ namespace ld3d
 		const math::Matrix44&						GetViewMatrix();
 		const math::Matrix44&						GetProjMatrix();
 		
-		Sys_GraphicsPtr							GetSysGraphics();
+		Sys_GraphicsPtr								GetSysGraphics();
 
 		void										SetClearColor(const math::Color4& clr);
 		void										SetClearDepth(float d);
 		void										SetClearStencil(int s);
 		const math::Color4&							GetClearColor();
-		void										ResizeFrameBuffer(int cx, int cy);
+		void										OnResizeRenderWindow(int cx, int cy);
 
 		void										AddLight(LightPtr pLight);
 		void										RemoveLight(LightPtr pLight);
@@ -83,7 +83,7 @@ namespace ld3d
 		int											GetFrameBufferWidth();
 		int											GetFrameBufferHeight();
 
-		MaterialPtr								CreateMaterialFromFile(const char* szFile);
+		MaterialPtr									CreateMaterialFromFile(const char* szFile);
 		TexturePtr									CreateTextureFromFile(const char* szFile);
 
 		void										AddPostEffect(PostEffectPtr pEffect);
@@ -117,8 +117,8 @@ namespace ld3d
 		std::vector<RenderDataPtr>					m_forwardQueue;
 		std::vector<RenderDataPtr>					m_deferredQueue;
 		std::vector<RenderDataPtr>					m_transparentQueue;
-		
-		Sys_GraphicsPtr							m_pGraphics;
+			
+		Sys_GraphicsPtr								m_pGraphics;
 
 		math::Color4								m_clearClr;
 		float										m_clearDepth;
@@ -131,9 +131,9 @@ namespace ld3d
 
 		LightManagerPtr								m_pLightManager;
 
-		MaterialPtr								m_pLightMaterial;
+		MaterialPtr									m_pLightMaterial;
 
-		MaterialPtr								m_pScreenQuadMaterial;
+		MaterialPtr									m_pScreenQuadMaterial;
 
 		math::Color4								m_globalAmbientColor;
 

@@ -32,7 +32,7 @@ bool GameEngine::Initialize(QWidget* pTarget)
 
 #ifdef _WIN64
 	SysSetting setting;
-	setting.graphics.sysMod = L"./d11graphics_x64.dll";
+	setting.graphics.sysMod = L"./ogl4graphics_x64.dll";
 	setting.graphics.backBufferCount = 2;
 	setting.graphics.depthStencilFormat = G_FORMAT_D24_UNORM_S8_UINT;
 	setting.graphics.frameBufferFormat = G_FORMAT_R8G8B8A8_UNORM;
@@ -78,6 +78,8 @@ bool GameEngine::Initialize(QWidget* pTarget)
 #endif
 	if(false == m_pCore->Initialize(setting, &g_Allocator))
 	{
+		m_pCore->Release();
+		m_pCore = nullptr;
 		return false;
 	}
 
@@ -128,6 +130,11 @@ ld3d::CoreApiPtr GameEngine::GetCoreApi()
 
 void GameEngine::Update()
 {
+	if(m_pCore == nullptr)
+	{
+		return;
+	}
+
 	m_pCore->Update();
 }
 void GameEngine::Render()
@@ -140,15 +147,24 @@ void GameEngine::Render()
 }
 void GameEngine::Render(ld3d::CameraPtr pCamera)
 {
+	if(m_pCore == nullptr)
+	{
+		return;
+	}
+
 	m_bShowGrid ? m_pCore->AddRenderData(m_pGrid->GetRenderData()) : 0;
 
 	m_pCore->Render(pCamera);
 	m_pCore->Present();
 	m_pCore->ClearRenderQueue();
 }
-void GameEngine::Resize(int w, int h)
+void GameEngine::OnResize(int w, int h)
 {
-	m_pCore->GetRenderManager()->ResizeFrameBuffer(w, h);
+	if(m_pCore == nullptr)
+	{
+		return;
+	}
+	m_pCore->GetRenderManager()->OnResizeRenderWindow(w, h);
 	m_pCore->GetSysGraphics()->SetViewPort(0, 0, w, h);
 }
 void GameEngine::ShowGrid(bool bShow)

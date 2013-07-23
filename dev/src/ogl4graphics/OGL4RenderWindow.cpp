@@ -113,7 +113,7 @@ namespace ld3d
 		wglMakeCurrent(NULL, NULL);
 		wglMakeCurrent(m_hDC, m_hRC);
 	}
-	void OGL4RenderWindow::Resize(int cx, int cy)
+	void OGL4RenderWindow::OnResize(int cx, int cy)
 	{
 		m_width = cx;
 		m_height = cy;

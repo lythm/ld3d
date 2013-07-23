@@ -17,9 +17,7 @@ bool VoxelDemo::Init(ld3d::CoreApiPtr pCore)
 	using namespace ld3d;
 
 	m_pCore = pCore;
-
-	
-	
+		
 	m_pCore->AddEventHandler(EV_WINMSG, boost::bind(&VoxelDemo::OnMsg, this, _1));
 
 	m_pCore->LoadPackage(L"./extensions/ext_voxel_x64.dll");
@@ -33,7 +31,7 @@ bool VoxelDemo::Init(ld3d::CoreApiPtr pCore)
 
 	m_pCore->AddCamera(m_pCamera);
 
-	DataStream_File file;
+	/*DataStream_File file;
 	if(false == file.OpenStream(L"./projects/2/2.scene"))
 	{
 		return false;
@@ -44,7 +42,11 @@ bool VoxelDemo::Init(ld3d::CoreApiPtr pCore)
 		return false;
 	}
 
-	m_pCore->CreateGameObjectComponent(L"VoxelWorld");
+	m_pCore->CreateGameObjectComponent(L"VoxelWorld");*/
+	
+	
+	
+	
 	//m_pCore->CreatGameObjectFromTemplate(L"Plane", L"Plane");
 
 

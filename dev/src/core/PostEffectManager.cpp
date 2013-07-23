@@ -31,13 +31,13 @@ namespace ld3d
 			return false;
 		}
 		
-		m_pFinalMaterial = pRenderManager->CreateMaterialFromFile("./assets/standard/material/dr_render_final.fx");
+		m_pFinalMaterial = pRenderManager->CreateMaterialFromFile("./assets/standard/material/dr_render_final.material");
 		if(m_pFinalMaterial == nullptr)
 		{
 			return false;
 		}
 
-		m_pParamOutput = m_pFinalMaterial->GetParameterByName("post_output");
+		m_pParamOutput = m_pFinalMaterial->GetParameterByName("final_image");
 
 		if(m_pParamOutput == nullptr)
 		{
@@ -79,6 +79,7 @@ namespace ld3d
 	}
 	void PostEffectManager::Render()
 	{
+		return;
 		for(size_t i = 0; i < m_effects.size(); ++i)
 		{
 			m_effects[i]->Render(m_pRenderManager, m_pInput, m_pOutput);

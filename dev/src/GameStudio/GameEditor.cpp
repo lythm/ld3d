@@ -90,15 +90,6 @@ void GameEditor::Update()
 		m_pEngine->Render(m_pCamera);
 	}
 }
-void GameEditor::Resize(int w, int h)
-{
-	if(w <= 0 || h <=0 || m_pEngine == nullptr)
-	{
-		return;
-	}
-
-	m_pEngine->Resize(w, h);
-}
 bool GameEditor::OpenProject(boost::filesystem::path path)
 {
 	ClearHierarchyView();
@@ -108,7 +99,10 @@ bool GameEditor::OpenProject(boost::filesystem::path path)
 		m_pProject->Close();
 	}
 
-	ResetEngine();
+	if(false == ResetEngine())
+	{
+		return false;
+	}
 
 	m_pProject = alloc_shared<Project>(m_pEngine);
 	
@@ -162,7 +156,7 @@ void GameEditor::on_resize(QResizeEvent* e)
 	m_pCamera->SetViewPort(size.width(), size.height());
 	if(m_pEngine)
 	{
-		m_pEngine->Resize(size.width(), size.height());
+		m_pEngine->OnResize(size.width(), size.height());
 	}
 }
 void GameEditor::on_mouse_move(QMouseEvent* e)

@@ -20,7 +20,7 @@ namespace ld3d
 
 		bool									Initialize(const GraphicsSetting& setting);
 		void									Release();
-		RenderWindowPtr						CreateRenderWindow(void* handle, int w, int h, G_FORMAT color_format, G_FORMAT ds_format, int backbufferCount, int multiSampleCount, int multiSampleQuality, bool windowed);
+		RenderWindowPtr							CreateRenderWindow(void* handle, int w, int h, G_FORMAT color_format, G_FORMAT ds_format, int backbufferCount, int multiSampleCount, int multiSampleQuality, bool windowed);
 		
 		RenderTexturePtr						CreateRenderTexture();
 		GPUBufferPtr							CreateBuffer(BUFFER_TYPE type, int bytes, void* pInitData, bool dynamic);
@@ -51,13 +51,10 @@ namespace ld3d
 
 		RenderStatePtr							CreateRenderState();
 		void									SetRenderState(RenderStatePtr pState);
-
-		//////////////////////////
-
-		void									ResizeFrameBuffer(int cx, int cy);
-
 		int										GetFrameBufferWidth();
 		int										GetFrameBufferHeight();
+	
+		void									OnResizeRenderWindow(int cx, int cy);
 
 	private:
 		GraphicsSetting							m_setting;
@@ -67,5 +64,7 @@ namespace ld3d
 		OGL4RenderWindowPtr						m_pMainRW;
 
 		OGL4RenderWindowPtr						m_pCurrentRW;
+
+		OGL4RenderTexturePtr					m_pCurrentRT;
 	};
 }

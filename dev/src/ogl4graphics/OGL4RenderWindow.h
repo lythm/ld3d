@@ -15,7 +15,7 @@ namespace ld3d
 		int															GetHeight();
 		void														Release();
 
-		void														Resize(int cx, int cy);
+		void														OnResize(int cx, int cy);
 		void														Present();
 
 		HGLRC														GetContext();
