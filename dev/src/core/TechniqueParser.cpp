@@ -103,7 +103,7 @@ namespace ld3d
 
 			return true;
 		}
-		MaterialTechPtr TechniqueParser::CreateObject(Sys_Graphics2Ptr pGraphics)
+		MaterialTechPtr TechniqueParser::CreateObject(Sys_GraphicsPtr pGraphics)
 		{
 			MaterialTechPtr pTech = std::make_shared<MaterialTech>(m_name);
 

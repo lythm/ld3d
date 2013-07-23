@@ -1,5 +1,5 @@
 #include "core_pch.h"
-#include "..\..\include\core\Material2.h"
+#include "..\..\include\core\Material.h"
 #include "core_utils.h"
 #include "MaterialParameterManager.h"
 #include "core\MaterialTech.h"
@@ -8,7 +8,7 @@
 
 namespace ld3d
 {
-	Material2::Material2(Sys_Graphics2Ptr pGraphics)
+	Material::Material(Sys_GraphicsPtr pGraphics)
 	{
 		m_pGraphics = pGraphics;
 
@@ -16,11 +16,11 @@ namespace ld3d
 	}
 
 
-	Material2::~Material2(void)
+	Material::~Material(void)
 	{
 	}
 	
-	void Material2::Release()
+	void Material::Release()
 	{
 		m_pParamManager.reset();
 
@@ -31,7 +31,7 @@ namespace ld3d
 		m_techs.clear();
 		m_pCurrentTech.reset();
 	}
-	uint32 Material2::Begin()
+	uint32 Material::Begin()
 	{
 		if(m_pCurrentTech == nullptr)
 		{
@@ -39,16 +39,16 @@ namespace ld3d
 		}
 		return m_pCurrentTech->GetPassCount();
 	}
-	void Material2::ApplyPass(uint32 index)
+	void Material::ApplyPass(uint32 index)
 	{
 		MaterialPassPtr pPass = m_pCurrentTech->GetPassByIndex(index);
 		
 		pPass->Apply();
 	}
-	void Material2::End()
+	void Material::End()
 	{
 	}
-	MaterialParameterPtr Material2::GetParameterByName(const char* szName)
+	MaterialParameterPtr Material::GetParameterByName(const char* szName)
 	{
 		MaterialParameterPtr pParam = m_pParamManager->GetParameterByName(szName);
 		if(pParam)
@@ -62,7 +62,7 @@ namespace ld3d
 		{
 			for(size_t ii = 0; ii < m_techs[i]->GetPassCount(); ++ii)
 			{
-				MaterialPassPtr pPass = m_techs[i]->GetPassByIndex(ii);
+				MaterialPassPtr pPass = m_techs[i]->GetPassByIndex((uint32)ii);
 				ShaderProgramPtr pProgram = pPass->GetProgram();
 
 				ShaderProgram::ParameterID id = pProgram->FindParameterByName(szName);
@@ -92,7 +92,7 @@ namespace ld3d
 		return pParam;
 	}
 	
-	bool Material2::SetCurrentTech(const char* szName)
+	bool Material::SetCurrentTech(const char* szName)
 	{
 		MaterialTechPtr pFind = GetTechByName(szName);
 		if(pFind == nullptr)
@@ -103,7 +103,7 @@ namespace ld3d
 
 		return true;
 	}
-	MaterialTechPtr Material2::GetTechByName(const char* szName)
+	MaterialTechPtr Material::GetTechByName(const char* szName)
 	{
 		for(size_t i = 0; i < m_techs.size(); ++i)
 		{
@@ -115,15 +115,15 @@ namespace ld3d
 
 		return MaterialTechPtr();
 	}
-	uint32 Material2::GetTechCount()
+	uint32 Material::GetTechCount()
 	{
 		return (uint32)m_techs.size();
 	}
-	MaterialTechPtr Material2::GetTechByIndex(uint32 index)
+	MaterialTechPtr Material::GetTechByIndex(uint32 index)
 	{
 		return m_techs[index];
 	}
-	void Material2::AddTech(MaterialTechPtr pTech)
+	void Material::AddTech(MaterialTechPtr pTech)
 	{
 		if(pTech == nullptr)
 		{

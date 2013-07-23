@@ -33,6 +33,6 @@ namespace ld3d
 
 		math::Matrix44			m_modifiedWorldTM;
 
-		Material2Ptr			m_pMaterial;
+		MaterialPtr			m_pMaterial;
 	};
 }

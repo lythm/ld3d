@@ -25,13 +25,13 @@ namespace ld3d
 		math::Vector3 eye(20, 20, 20);
 		
 		static float radius = 0;
-		radius += 0.001;
+		radius += 0.001f;
 
 		t = math::MatrixRotationAxisY(radius);
 		math::TransformCoord(eye, t);
 
 		view = math::MatrixLookAtLH(eye, math::Vector3(0, 0, 0), math::Vector3(0, 1, 0));
-		proj = math::MatrixPerspectiveFovLH(0.25 * 3.14, 4.0 / 3.0, 0.01, 10000);
+		proj = math::MatrixPerspectiveFovLH(0.25f * 3.14f, 4.0f / 3.0f, 0.01f, 10000);
 		
 		MaterialParameterPtr pParam = m_pMaterial->GetParameterByName("v");
 		pParam->SetParameterMatrix(view);
@@ -59,7 +59,7 @@ namespace ld3d
 		//m_pProgram->SetParameterTexture(param, m_pRenderTarget->GetTexture(0));
 
 
-		m_pGraphics->ClearRenderTarget(0, math::Color4(0.3, 0.5, 0.7, 1));
+		m_pGraphics->ClearRenderTarget(0, math::Color4(0.3f, 0.5f, 0.7f, 1));
 		m_pGraphics->ClearDepthStencil(CLEAR_ALL, 1.0f, 0);
 
 		int n = m_pMaterial->Begin();
@@ -113,7 +113,7 @@ namespace ld3d
 		
 
 		DepthStencilBufferPtr pDS = m_pGraphics->CreateDepthStencilBuffer(G_FORMAT_D32_FLOAT, 800, 600);
-		Texture2Ptr pTex = m_pGraphics->CreateTexture2D(G_FORMAT_R8G8B8A8_UNORM, 800, 600, 1, false);
+		TexturePtr pTex = m_pGraphics->CreateTexture2D(G_FORMAT_R8G8B8A8_UNORM, 800, 600, 1, false);
 
 		m_pRenderTarget = m_pGraphics->CreateRenderTexture();
 

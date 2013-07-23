@@ -25,7 +25,7 @@ namespace ld3d
 		int										GetVertexCount();
 		int										GetVertexStride();
 
-		Material2Ptr								GetMaterial();
+		MaterialPtr								GetMaterial();
 		int										GetPrimitiveCount();
 		PRIMITIVE_TYPE							GetPrimitiveType();
 		bool									IsIndexed();

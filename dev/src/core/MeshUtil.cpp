@@ -17,7 +17,7 @@ namespace ld3d
 	MeshUtil::~MeshUtil(void)
 	{
 	}
-	MeshPtr MeshUtil::CreateCone(float range, float angle, float slice, Material2Ptr pMat)
+	MeshPtr MeshUtil::CreateCone(float range, float angle, float slice, MaterialPtr pMat)
 	{
 		MeshPtr pMesh = alloc_object<Mesh>();
 
@@ -32,7 +32,7 @@ namespace ld3d
 			math::Vector3 normal;
 		};
 
-		int nVerts = slice * 6;
+		int nVerts = int(slice * 6);
 		Vertex* pVerts = (Vertex*)mem_alloc(sizeof(Vertex) * nVerts);
 
 		int n = 0;
@@ -89,7 +89,7 @@ namespace ld3d
 			n++ ;
 		}
 
-		std::vector<Material2Ptr> mats;
+		std::vector<MaterialPtr> mats;
 		mats.push_back(pMat);
 
 		if(false == pMesh->Create(0, nullptr, sizeof(Vertex) * nVerts, pVerts, mats))
@@ -106,7 +106,7 @@ namespace ld3d
 		mem_free(pVerts);
 		return pMesh;
 	}
-	MeshPtr MeshUtil::CreatePlane(float size, Material2Ptr pMat)
+	MeshPtr MeshUtil::CreatePlane(float size, MaterialPtr pMat)
 	{
 		MeshPtr pMesh = alloc_object<Mesh>();
 
@@ -136,7 +136,7 @@ namespace ld3d
 		
 		};
 
-		std::vector<Material2Ptr> mats;
+		std::vector<MaterialPtr> mats;
 		mats.push_back(pMat);
 
 		if(false == pMesh->Create(0, nullptr, sizeof(Vertex) * 6, pVerts, mats))
@@ -151,7 +151,7 @@ namespace ld3d
 		
 		return pMesh;
 	}
-	MeshPtr MeshUtil::CreateCube(float size, Material2Ptr pMat)
+	MeshPtr MeshUtil::CreateCube(float size, MaterialPtr pMat)
 	{
 		MeshPtr pMesh = alloc_object<Mesh>();
 
@@ -234,7 +234,7 @@ namespace ld3d
 		};
 		
 
-		std::vector<Material2Ptr> mats;
+		std::vector<MaterialPtr> mats;
 		mats.push_back(pMat);
 
 		if(false == pMesh->Create(sizeof(uint16) * 36, pIndice, sizeof(Vertex) * 24, pVerts, mats))
@@ -249,7 +249,7 @@ namespace ld3d
 		
 		return pMesh;
 	}
-	MeshPtr MeshUtil::CreateSphere(float radius, float slice, float stack, Material2Ptr pMat)
+	MeshPtr MeshUtil::CreateSphere(float radius, float slice, float stack, MaterialPtr pMat)
 	{
 		MeshPtr pMesh = alloc_object<Mesh>();
 
@@ -279,7 +279,7 @@ namespace ld3d
 		
 		mem_free(pPos);
 
-		std::vector<Material2Ptr> mats;
+		std::vector<MaterialPtr> mats;
 		mats.push_back(pMat);
 
 		if(false == pMesh->Create(0, NULL, sizeof(Vertex) * NumVertices, pVerts, mats))
@@ -353,7 +353,7 @@ namespace ld3d
 		float radius = tanf(math::D2R(angle)) * range;
 		
 	
-		nVerts = slice * 6;
+		nVerts = int(slice * 6);
 		math::Vector3* pVerts = (math::Vector3*)mem_alloc(sizeof(math::Vector3) * nVerts);
 
 		int n = 0;

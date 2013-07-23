@@ -8,7 +8,7 @@
 
 namespace ld3d
 {
-	MaterialPass::MaterialPass(const std::string& name, Sys_Graphics2Ptr pGraphics)
+	MaterialPass::MaterialPass(const std::string& name, Sys_GraphicsPtr pGraphics)
 	{
 		m_name = name;
 		m_pGraphics = pGraphics;
@@ -26,7 +26,7 @@ namespace ld3d
 		m_pGraphics->SetShaderProgram(m_pProgram);
 
 	}
-	RenderState2Ptr MaterialPass::GetRenderState()
+	RenderStatePtr MaterialPass::GetRenderState()
 	{
 		return m_pRenderState;
 	}
@@ -58,7 +58,7 @@ namespace ld3d
 	{
 		m_pProgram = pProgram;
 	}
-	void MaterialPass::AttachRenderState(RenderState2Ptr pState)
+	void MaterialPass::AttachRenderState(RenderStatePtr pState)
 	{
 		m_pRenderState = pState;
 	}

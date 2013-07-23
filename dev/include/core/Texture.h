@@ -4,12 +4,12 @@
 
 namespace ld3d
 {
-	class EXPORT_CLASS Texture2
+	class EXPORT_CLASS Texture
 	{
 	public:
 		
-		Texture2(void){}
-		virtual ~Texture2(void){}
+		Texture(void){}
+		virtual ~Texture(void){}
 
 		virtual TEXTURE_TYPE								GetType()								= 0;
 

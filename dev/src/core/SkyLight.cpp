@@ -2,7 +2,7 @@
 #include "..\..\include\core\SkyLight.h"
 #include "core\Sys_Graphics.h"
 #include "core\GPUBuffer.h"
-#include "core\Material2.h"
+#include "core\Material.h"
 #include "core\RenderManager.h"
 #include "core/MaterialParameter.h"
 #include "core/RenderTexture.h"

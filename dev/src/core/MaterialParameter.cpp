@@ -82,7 +82,7 @@ namespace ld3d
 			v.first->SetParameterVector(v.second, value);
 		}
 	}
-	void MaterialParameter::SetParameterTexture(Texture2Ptr pTex)
+	void MaterialParameter::SetParameterTexture(TexturePtr pTex)
 	{
 		for(auto v : m_params)
 		{

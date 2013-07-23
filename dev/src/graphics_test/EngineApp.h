@@ -75,7 +75,7 @@ namespace ld3d
 			}
 		};
 
-		typedef Sys_Mod_T<Sys_Graphics2>				Sys_GraphicsMod;
+		typedef Sys_Mod_T<Sys_Graphics>				Sys_GraphicsMod;
 
 
 		EngineApp(void);
@@ -96,14 +96,14 @@ namespace ld3d
 	private:
 
 		Sys_GraphicsMod									m_mod;
-		Sys_Graphics2Ptr								m_pGraphics;
+		Sys_GraphicsPtr								m_pGraphics;
 
 		GeometryDataPtr									m_pGeometry;
 
-		Texture2Ptr										m_pTex;
+		TexturePtr										m_pTex;
 
-		RenderTexture2Ptr								m_pRenderTarget;
+		RenderTexturePtr								m_pRenderTarget;
 
-		Material2Ptr									m_pMaterial;
+		MaterialPtr									m_pMaterial;
 	};
 }

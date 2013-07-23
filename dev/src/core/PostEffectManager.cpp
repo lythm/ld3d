@@ -2,7 +2,7 @@
 #include "..\..\include\core\PostEffectManager.h"
 #include "core\PostEffect.h"
 #include "core\RenderManager.h"
-#include "core\Material2.h"
+#include "core\Material.h"
 #include "core\VertexFormat.h"
 #include "core/RenderTexture.h"
 #include "core\PostEffect_SSAO.h"
@@ -88,16 +88,16 @@ namespace ld3d
 	}
 	void PostEffectManager::SwapRenderTarget()
 	{
-		RenderTexture2Ptr pTmp;
+		RenderTexturePtr pTmp;
 		pTmp = m_pInput;
 		m_pInput = m_pOutput;
 		m_pOutput = pTmp;
 	}
-	RenderTexture2Ptr PostEffectManager::GetInput()
+	RenderTexturePtr PostEffectManager::GetInput()
 	{
 		return m_pInput;
 	}
-	RenderTexture2Ptr PostEffectManager::GetOutput()
+	RenderTexturePtr PostEffectManager::GetOutput()
 	{
 		return m_pOutput;
 	}

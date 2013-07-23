@@ -102,7 +102,7 @@ namespace ld3d
 		{
 			if(pCom == m_components[i])
 			{
-				index = i;
+				index = (int)i;
 				break;
 			}
 		}

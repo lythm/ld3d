@@ -26,7 +26,7 @@ namespace ld3d
 		void										SetParameterVector(const math::Vector2& value);
 		void										SetParameterVector(const math::Vector3& value);
 		void										SetParameterVector(const math::Vector4& value);
-		void										SetParameterTexture(Texture2Ptr pTex);
+		void										SetParameterTexture(TexturePtr pTex);
 
 		void										SetParameterSampler(SamplerStatePtr pSampler);
 

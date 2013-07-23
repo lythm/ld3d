@@ -106,7 +106,7 @@ namespace ld3d
 			}
 		}
 		
-		uint32 pos = pStream->Pos();
+		uint64 pos = pStream->Pos();
 		pStream->Seek(chunk_count_pos);
 		pStream->WriteInt32(chunk_count);
 		pStream->Seek(pos);

@@ -14,7 +14,7 @@ namespace ld3d
 
 			bool												Parse(Lexer* lexer, const boost::filesystem::path& dir = "./");
 
-			RenderState2Ptr										CreateObject(Sys_Graphics2Ptr pGraphics);
+			RenderStatePtr										CreateObject(Sys_GraphicsPtr pGraphics);
 		private:
 			bool												SetState(int line, const std::string& name, const std::string& value);
 			bool												ParseState(Lexer* lexer);

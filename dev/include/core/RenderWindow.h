@@ -4,7 +4,7 @@
 
 namespace ld3d
 {
-	class RenderWindow2 : public RenderTarget2
+	class RenderWindow : public RenderTarget
 	{
 	public:
 
@@ -12,8 +12,8 @@ namespace ld3d
 		virtual int															GetHeight()													= 0;
 		virtual void														Release()													= 0;
 	protected:
-		RenderWindow2(void) : RenderTarget2(RENDER_WINDOW){}
-		virtual ~RenderWindow2(void){}
+		RenderWindow(void) : RenderTarget(RENDER_WINDOW){}
+		virtual ~RenderWindow(void){}
 	};
 
 	

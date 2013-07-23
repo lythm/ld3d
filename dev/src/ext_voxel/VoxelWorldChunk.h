@@ -28,9 +28,9 @@ namespace ld3d
 			uint32 c_y = (key >> 8) & 0x000000ff;
 			uint32 c_z = key & 0x000000ff;
 
-			float x = c_x * VOXEL_WORLD_CHUNK_SIZE * VOXEL_WORLD_BLOCK_SIZE;
-			float y = c_y * VOXEL_WORLD_CHUNK_SIZE * VOXEL_WORLD_BLOCK_SIZE;
-			float z = c_z * VOXEL_WORLD_CHUNK_SIZE * VOXEL_WORLD_BLOCK_SIZE;
+			float x = float(c_x * VOXEL_WORLD_CHUNK_SIZE * VOXEL_WORLD_BLOCK_SIZE);
+			float y = float(c_y * VOXEL_WORLD_CHUNK_SIZE * VOXEL_WORLD_BLOCK_SIZE);
+			float z = float(c_z * VOXEL_WORLD_CHUNK_SIZE * VOXEL_WORLD_BLOCK_SIZE);
 
 			return math::Vector3(x, y, z);
 		}

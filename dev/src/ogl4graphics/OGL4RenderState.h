@@ -5,7 +5,7 @@
 
 namespace ld3d
 {
-	class OGL4RenderState : public RenderState2
+	class OGL4RenderState : public RenderState
 	{
 	public:
 		OGL4RenderState(void);

@@ -4,7 +4,7 @@
 
 namespace ld3d
 {
-	class OGL4RenderTexture : public RenderTexture2
+	class OGL4RenderTexture : public RenderTexture
 	{
 	public:
 		OGL4RenderTexture(void);
@@ -15,9 +15,9 @@ namespace ld3d
 		void														Release();
 		
 		int															GetTextureCount();
-		void														AddTexture(Texture2Ptr pTex);
+		void														AddTexture(TexturePtr pTex);
 
-		Texture2Ptr													GetTexture(int index);
+		TexturePtr													GetTexture(int index);
 
 		void														SetDepthStencilBuffer(DepthStencilBufferPtr pDS);
 		DepthStencilBufferPtr										GetDepthStencilBuffer();
@@ -25,7 +25,7 @@ namespace ld3d
 
 		GLuint														GetFBO();
 	private:
-		std::vector<Texture2Ptr>									m_texs;
+		std::vector<TexturePtr>									m_texs;
 		DepthStencilBufferPtr										m_pDS;
 
 		GLuint														m_fbo;

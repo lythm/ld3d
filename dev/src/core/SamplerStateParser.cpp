@@ -256,7 +256,7 @@ namespace ld3d
 			Error(line, "invalid value: '" + value + "'");
 			return false;
 		}
-		SamplerStatePtr	SamplerStateParser::CreateObject(Sys_Graphics2Ptr pGraphics)
+		SamplerStatePtr	SamplerStateParser::CreateObject(Sys_GraphicsPtr pGraphics)
 		{
 			SamplerStatePtr pSampler = pGraphics->CreateSampler();
 

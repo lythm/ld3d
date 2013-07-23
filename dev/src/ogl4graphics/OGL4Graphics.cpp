@@ -134,13 +134,13 @@ namespace ld3d
 
 
 }
-EXPORT_C_API ld3d::Sys_Graphics2* CreateSys(const std::function<void (const std::wstring& log)>& logger)
+EXPORT_C_API ld3d::Sys_Graphics* CreateSys(const std::function<void (const std::wstring& log)>& logger)
 {
 	ld3d::g_logger = logger;
 	return new ld3d::OGL4Graphics;
 }
 
-EXPORT_C_API void DestroySys(ld3d::Sys_Graphics2* pSys)
+EXPORT_C_API void DestroySys(ld3d::Sys_Graphics* pSys)
 {
 	delete (ld3d::OGL4Graphics*)pSys;
 }
@@ -341,13 +341,13 @@ namespace ld3d
 		return pBuffer;
 	}
 	
-	Texture2Ptr OGL4Graphics::CreateTextureFromFile(const char* szFile, bool dynamic)
+	TexturePtr OGL4Graphics::CreateTextureFromFile(const char* szFile, bool dynamic)
 	{
 		OGL4TexturePtr pTex = std::make_shared<OGL4Texture>();
 
 		if(pTex->CreateFromFile(szFile, dynamic) == false)
 		{
-			return Texture2Ptr();
+			return TexturePtr();
 		}
 		return pTex;
 	}
@@ -369,24 +369,24 @@ namespace ld3d
 		m_pMainRW->Resize(cx, cy);
 	}
 
-	RenderState2Ptr OGL4Graphics::CreateRenderState()
+	RenderStatePtr OGL4Graphics::CreateRenderState()
 	{
 		OGL4RenderStatePtr pState = std::make_shared<OGL4RenderState>();
 
 		return pState;
 	}
-	void OGL4Graphics::SetRenderState(RenderState2Ptr pState)
+	void OGL4Graphics::SetRenderState(RenderStatePtr pState)
 	{
 		OGL4RenderState* pGLState = (OGL4RenderState*)pState.get();
 		pGLState? pGLState->Apply() : 0;
 	}
-	RenderWindow2Ptr OGL4Graphics::CreateRenderWindow(void* handle, int w, int h, G_FORMAT color_format, G_FORMAT ds_format, int backbufferCount, int multiSampleCount, int multiSampleQuality, bool windowed)
+	RenderWindowPtr OGL4Graphics::CreateRenderWindow(void* handle, int w, int h, G_FORMAT color_format, G_FORMAT ds_format, int backbufferCount, int multiSampleCount, int multiSampleQuality, bool windowed)
 	{
 		OGL4RenderWindowPtr pWnd = std::make_shared<OGL4RenderWindow>();
 		if(pWnd->Create(handle, w, h, color_format, ds_format) == false)
 		{
 			pWnd.reset();
-			return RenderWindow2Ptr();
+			return RenderWindowPtr();
 		}
 
 		return pWnd;
@@ -406,7 +406,7 @@ namespace ld3d
 		glViewport(x, y, w, h);
 	}
 
-	RenderTexture2Ptr OGL4Graphics::CreateRenderTexture()
+	RenderTexturePtr OGL4Graphics::CreateRenderTexture()
 	{
 		OGL4RenderTexturePtr pRT = std::make_shared<OGL4RenderTexture>();
 
@@ -453,9 +453,9 @@ namespace ld3d
 
 		((OGL4ShaderProgram*)pProg.get())->Use();
 	}
-	void OGL4Graphics::SetRenderTarget(RenderTarget2Ptr pTarget)
+	void OGL4Graphics::SetRenderTarget(RenderTargetPtr pTarget)
 	{
-		if(pTarget && pTarget->GetType() == RenderTarget2::RENDER_WINDOW)
+		if(pTarget && pTarget->GetType() == RenderTarget::RENDER_WINDOW)
 		{
 			m_pCurrentRW = std::dynamic_pointer_cast<OGL4RenderWindow>(pTarget);
 			m_pCurrentRW->MakeCurrent();
@@ -482,7 +482,7 @@ namespace ld3d
 
 	}
 	
-	Texture2Ptr OGL4Graphics::CreateTexture1D(G_FORMAT format, int l, int lvls, bool dynamic)
+	TexturePtr OGL4Graphics::CreateTexture1D(G_FORMAT format, int l, int lvls, bool dynamic)
 	{
 		OGL4TexturePtr pTex = std::make_shared<OGL4Texture>();
 		if(pTex->Create1D(format, l, lvls, dynamic) == false)
@@ -493,7 +493,7 @@ namespace ld3d
 		return pTex;
 
 	}
-	Texture2Ptr OGL4Graphics::CreateTexture2D(G_FORMAT format, int w, int h, int lvls, bool dynamic)
+	TexturePtr OGL4Graphics::CreateTexture2D(G_FORMAT format, int w, int h, int lvls, bool dynamic)
 	{
 		OGL4TexturePtr pTex = std::make_shared<OGL4Texture>();
 		if(pTex->Create2D(format, w, h, lvls, dynamic) == false)
@@ -503,7 +503,7 @@ namespace ld3d
 		}
 		return pTex;
 	}
-	Texture2Ptr OGL4Graphics::CreateTexture3D(G_FORMAT format, int w, int h, int d, int lvls, bool dynamic)
+	TexturePtr OGL4Graphics::CreateTexture3D(G_FORMAT format, int w, int h, int d, int lvls, bool dynamic)
 	{
 		OGL4TexturePtr pTex = std::make_shared<OGL4Texture>();
 		if(pTex->Create3D(format, w, h, d, lvls, dynamic) == false)

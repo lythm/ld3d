@@ -23,7 +23,7 @@ namespace ld3d
 	}
 	bool VoxelWorldRenderData::Initialize(RenderManagerPtr pRS)
 	{
-		m_pRenderData = std::make_shared<RenderData2>();
+		m_pRenderData = std::make_shared<RenderData>();
 
 		m_pRenderData->fr_draw = std::bind(&VoxelWorldRenderData::Render, this, std::placeholders::_1);
 		m_pRenderData->dr_draw = std::bind(&VoxelWorldRenderData::Render, this, std::placeholders::_1);
@@ -79,7 +79,7 @@ namespace ld3d
 		{
 			return;
 		}
-		Material2Ptr pMat = m_pMaterial;
+		MaterialPtr pMat = m_pMaterial;
 
 		VoxelWorldChunk* pChunk = m_pRenderList;
 		
@@ -210,7 +210,7 @@ namespace ld3d
 
 		m_pRenderList = nullptr;*/
 	}
-	void VoxelWorldRenderData::_draw(Sys_Graphics2Ptr pSysGraphics, Material2Ptr pMaterial)
+	void VoxelWorldRenderData::_draw(Sys_GraphicsPtr pSysGraphics, MaterialPtr pMaterial)
 	{
 		if(m_nVertexCount == 0)
 		{
@@ -228,7 +228,7 @@ namespace ld3d
 
 		pMaterial->End();
 	}
-	Material2Ptr VoxelWorldRenderData::GetMaterial()
+	MaterialPtr VoxelWorldRenderData::GetMaterial()
 	{
 		return m_pMaterial;
 	}
@@ -244,7 +244,7 @@ namespace ld3d
 	{
 		m_pRenderList = pList;
 	}
-	RenderData2Ptr VoxelWorldRenderData::GetRenderData()
+	RenderDataPtr VoxelWorldRenderData::GetRenderData()
 	{
 		return m_pRenderData;
 	}

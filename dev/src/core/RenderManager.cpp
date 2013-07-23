@@ -2,7 +2,7 @@
 #include "..\..\include\core\RenderManager.h"
 #include "core\RenderData.h"
 #include "core\Sys_Graphics.h"
-#include "core\Material2.h"
+#include "core\Material.h"
 #include "core\g_format.h"
 #include "core\RenderTarget.h"
 #include "core_utils.h"
@@ -19,7 +19,7 @@
 
 namespace ld3d
 {
-	bool RenderManager::ScreenQuad::Init(Sys_Graphics2Ptr pGraphics)
+	bool RenderManager::ScreenQuad::Init(Sys_GraphicsPtr pGraphics)
 	{
 		math::Vector3 verts[] = 
 		{
@@ -50,7 +50,7 @@ namespace ld3d
 			m_pGeometryData.reset();
 		}
 	}
-	void RenderManager::ScreenQuad::Render(Sys_Graphics2Ptr pGraphics, Material2Ptr pMaterial)
+	void RenderManager::ScreenQuad::Render(Sys_GraphicsPtr pGraphics, MaterialPtr pMaterial)
 	{
 		int nPass = 0;
 
@@ -85,7 +85,7 @@ namespace ld3d
 	{
 	}
 
-	bool RenderManager::Initialize(Sys_Graphics2Ptr pGraphics, EventDispatcherPtr pED)
+	bool RenderManager::Initialize(Sys_GraphicsPtr pGraphics, EventDispatcherPtr pED)
 	{
 		m_pGraphics = pGraphics;
 		m_pEventDispatcher = pED;
@@ -186,7 +186,7 @@ namespace ld3d
 		}
 	}
 	
-	void RenderManager::AddRenderData(RenderData2Ptr pData)
+	void RenderManager::AddRenderData(RenderDataPtr pData)
 	{
 		if(pData->dr)
 		{
@@ -218,7 +218,7 @@ namespace ld3d
 			DR_DrawRenderData(m_deferredQueue[i]);
 		}
 	}
-	void RenderManager::DR_DrawRenderData(RenderData2Ptr pData)
+	void RenderManager::DR_DrawRenderData(RenderDataPtr pData)
 	{
 		if(pData->dr_draw)
 		{
@@ -226,7 +226,7 @@ namespace ld3d
 			return;
 		}
 	}
-	void RenderManager::FR_DrawRenderData(RenderData2Ptr pData)
+	void RenderManager::FR_DrawRenderData(RenderDataPtr pData)
 	{
 		if(pData->fr_draw)
 		{
@@ -246,7 +246,7 @@ namespace ld3d
 	}
 	void RenderManager::DR_Merge_Pass()
 	{
-		RenderTexture2Ptr pOutput = m_pPostEffectManager->GetInput();
+		RenderTexturePtr pOutput = m_pPostEffectManager->GetInput();
 
 		m_pGraphics->SetRenderTarget(pOutput);
 		m_pGraphics->ClearRenderTarget(0, m_clearClr);
@@ -324,7 +324,7 @@ namespace ld3d
 		m_projMatrix = proj;
 	}
 	
-	Sys_Graphics2Ptr RenderManager::GetSysGraphics()
+	Sys_GraphicsPtr RenderManager::GetSysGraphics()
 	{
 		return m_pGraphics;
 	}
@@ -416,11 +416,11 @@ namespace ld3d
 
 		return true;
 	}
-	RenderTexture2Ptr RenderManager::GetGBuffer()
+	RenderTexturePtr RenderManager::GetGBuffer()
 	{
 		return m_pGBuffer;
 	}
-	RenderTexture2Ptr RenderManager::GetABuffer()
+	RenderTexturePtr RenderManager::GetABuffer()
 	{
 		return m_pABuffer;
 	}
@@ -432,7 +432,7 @@ namespace ld3d
 	{
 		return m_projMatrix;
 	}
-	void RenderManager::DrawFullScreenQuad(Material2Ptr pMaterial)
+	void RenderManager::DrawFullScreenQuad(MaterialPtr pMaterial)
 	{
 		m_pScreenQuad->Render(m_pGraphics, pMaterial);
 	}
@@ -444,7 +444,7 @@ namespace ld3d
 	{
 		m_globalAmbientColor = clr;
 	}
-	void RenderManager::SetRenderTarget(RenderTarget2Ptr pRT)
+	void RenderManager::SetRenderTarget(RenderTargetPtr pRT)
 	{
 		m_pGraphics->SetRenderTarget(pRT);
 	}
@@ -456,13 +456,13 @@ namespace ld3d
 	{
 		m_pGraphics->ClearDepthStencil(flag, d, s);
 	}
-	RenderTexture2Ptr RenderManager::CreateRenderTexture(int c, int w, int h, G_FORMAT format[])
+	RenderTexturePtr RenderManager::CreateRenderTexture(int c, int w, int h, G_FORMAT format[])
 	{
-		RenderTexture2Ptr pRT = m_pGraphics->CreateRenderTexture();
+		RenderTexturePtr pRT = m_pGraphics->CreateRenderTexture();
 
 		for(int i = 0; i < c; ++i)
 		{
-			Texture2Ptr pTex = m_pGraphics->CreateTexture2D(format[i], w, h, 1, false);
+			TexturePtr pTex = m_pGraphics->CreateTexture2D(format[i], w, h, 1, false);
 			pRT->AddTexture(pTex);
 		}
 
@@ -485,13 +485,13 @@ namespace ld3d
 	{
 		m_pPostEffectManager->RenderToFrameBuffer();
 	}
-	Material2Ptr RenderManager::CreateMaterialFromFile(const char* szFile)
+	MaterialPtr RenderManager::CreateMaterialFromFile(const char* szFile)
 	{
 		using namespace material_script;
 		Compiler cl;
 		return cl.CompileFromFile(m_pGraphics, szFile);
 	}
-	Texture2Ptr RenderManager::CreateTextureFromFile(const char* szFile)
+	TexturePtr RenderManager::CreateTextureFromFile(const char* szFile)
 	{
 		return m_pGraphics->CreateTextureFromFile(szFile, false);
 	}
@@ -511,7 +511,7 @@ namespace ld3d
 	{
 		return m_pGraphics->CreateGeometryData();
 	}
-	void RenderManager::UpdateMatrixBlock(Material2Ptr pMaterial, const math::Matrix44& world)
+	void RenderManager::UpdateMatrixBlock(MaterialPtr pMaterial, const math::Matrix44& world)
 	{
 		m_matrixBlock.MATRIX_WORLD				= world;
 		m_matrixBlock.MATRIX_VIEW				= m_viewMatrix;
@@ -534,7 +534,7 @@ namespace ld3d
 			pParam->SetParameterBlock(&m_matrixBlock, sizeof(MATRIX_BLOCK));
 		}
 	}
-	void RenderManager::UpdateDRBuffer(Material2Ptr pMaterial)
+	void RenderManager::UpdateDRBuffer(MaterialPtr pMaterial)
 	{
 
 	}

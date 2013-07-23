@@ -78,7 +78,7 @@ namespace ld3d
 		return m_vertexStride;
 	}
 
-	Material2Ptr SubMesh::GetMaterial()
+	MaterialPtr SubMesh::GetMaterial()
 	{
 		return m_pMesh->GetMaterialByIndex(m_materialIndex);
 	}

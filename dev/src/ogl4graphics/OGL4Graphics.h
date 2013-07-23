@@ -5,7 +5,7 @@
 
 namespace ld3d
 {
-	class OGL4Graphics : public Sys_Graphics2
+	class OGL4Graphics : public Sys_Graphics
 	{
 	public:
 		OGL4Graphics(void);
@@ -20,14 +20,14 @@ namespace ld3d
 
 		bool									Initialize(const GraphicsSetting& setting);
 		void									Release();
-		RenderWindow2Ptr						CreateRenderWindow(void* handle, int w, int h, G_FORMAT color_format, G_FORMAT ds_format, int backbufferCount, int multiSampleCount, int multiSampleQuality, bool windowed);
+		RenderWindowPtr						CreateRenderWindow(void* handle, int w, int h, G_FORMAT color_format, G_FORMAT ds_format, int backbufferCount, int multiSampleCount, int multiSampleQuality, bool windowed);
 		
-		RenderTexture2Ptr						CreateRenderTexture();
+		RenderTexturePtr						CreateRenderTexture();
 		GPUBufferPtr							CreateBuffer(BUFFER_TYPE type, int bytes, void* pInitData, bool dynamic);
-		Texture2Ptr								CreateTexture1D(G_FORMAT format, int l, int lvls, bool dynamic);
-		Texture2Ptr								CreateTexture2D(G_FORMAT format, int w, int h, int lvls, bool dynamic);
-		Texture2Ptr								CreateTexture3D(G_FORMAT format, int w, int h, int d, int lvls, bool dynamic);
-		Texture2Ptr								CreateTextureFromFile(const char* szFile, bool dynamic);
+		TexturePtr								CreateTexture1D(G_FORMAT format, int l, int lvls, bool dynamic);
+		TexturePtr								CreateTexture2D(G_FORMAT format, int w, int h, int lvls, bool dynamic);
+		TexturePtr								CreateTexture3D(G_FORMAT format, int w, int h, int d, int lvls, bool dynamic);
+		TexturePtr								CreateTextureFromFile(const char* szFile, bool dynamic);
 
 		ShaderProgramPtr						CreateShaderProgram();
 		GeometryDataPtr							CreateGeometryData();
@@ -42,15 +42,15 @@ namespace ld3d
 
 		void									SetViewPort(int x, int y, int w, int h);
 
-		void									SetRenderTarget(RenderTarget2Ptr pTarget);
+		void									SetRenderTarget(RenderTargetPtr pTarget);
 
 		SamplerStatePtr							CreateSampler();
 
 		DepthStencilBufferPtr					CreateDepthStencilBuffer(G_FORMAT format, int w, int h);
 		
 
-		RenderState2Ptr							CreateRenderState();
-		void									SetRenderState(RenderState2Ptr pState);
+		RenderStatePtr							CreateRenderState();
+		void									SetRenderState(RenderStatePtr pState);
 
 		//////////////////////////
 

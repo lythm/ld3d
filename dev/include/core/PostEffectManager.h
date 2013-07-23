@@ -14,8 +14,8 @@ namespace ld3d
 
 		void													Render();
 
-		RenderTexture2Ptr										GetInput();
-		RenderTexture2Ptr											GetOutput();
+		RenderTexturePtr										GetInput();
+		RenderTexturePtr											GetOutput();
 
 		int														GetEffectCount();
 
@@ -30,14 +30,14 @@ namespace ld3d
 		void													SwapRenderTarget();
 
 	private:
-		RenderTexture2Ptr											m_pOutput;
-		RenderTexture2Ptr											m_pInput;
+		RenderTexturePtr											m_pOutput;
+		RenderTexturePtr											m_pInput;
 
 		std::vector<PostEffectPtr>								m_effects;
 
 		RenderManagerPtr											m_pRenderManager;
 
-		Material2Ptr												m_pFinalMaterial;
+		MaterialPtr												m_pFinalMaterial;
 
 		MaterialParameterPtr										m_pParamOutput;
 	};

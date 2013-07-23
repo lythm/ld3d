@@ -13,12 +13,12 @@ public:
 
 	bool									IsDeferred();
 
-	ld3d::RenderData2Ptr					GetRenderData();
+	ld3d::RenderDataPtr					GetRenderData();
 private:
 	int										m_size;
 	int										m_gridSize;
 	
 	ld3d::CoreApiPtr						m_pCore;
-	ld3d::RenderData2Ptr					m_pRD;
+	ld3d::RenderDataPtr					m_pRD;
 };
 

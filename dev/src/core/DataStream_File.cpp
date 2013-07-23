@@ -27,7 +27,7 @@ namespace ld3d
 	
 	void DataStream_File::Seek(uint64 offset)
 	{
-		fseek(m_pFile, (long)offset + m_oriPos, SEEK_SET);
+		fseek(m_pFile, (long)(offset + m_oriPos), SEEK_SET);
 
 	}
 	void DataStream_File::Close()

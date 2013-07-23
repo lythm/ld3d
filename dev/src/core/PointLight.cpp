@@ -4,7 +4,7 @@
 #include "core\Sys_Graphics.h"
 #include "core/GeometryData.h"
 #include "core_utils.h"
-#include "core\Material2.h"
+#include "core\Material.h"
 #include "core\RenderManager.h"
 #include "core/MaterialParameter.h"
 
@@ -104,7 +104,7 @@ namespace ld3d
 		
 		pRenderManager->ClearDepthBuffer(CLEAR_STENCIL, 1.0f, 0);
 		
-		Sys_Graphics2Ptr pGraphics = pRenderManager->GetSysGraphics();
+		Sys_GraphicsPtr pGraphics = pRenderManager->GetSysGraphics();
 
 
 		int nPass = m_pMaterial->Begin();

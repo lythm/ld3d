@@ -67,7 +67,7 @@ namespace ld3d
 
 		typedef Sys_Mod_T<Sys_Input>			Sys_InputMod;
 
-		typedef Sys_Mod_T<Sys_Graphics2>			Sys_GraphicsMod;
+		typedef Sys_Mod_T<Sys_Graphics>			Sys_GraphicsMod;
 
 		typedef Sys_Mod_T<Sys_Sound>			Sys_SoundMod;
 
@@ -82,7 +82,7 @@ namespace ld3d
 		bool									Initialize();
 		void									Release();
 
-		Sys_Graphics2Ptr						LoadSysGraphics(const wchar_t* szFile);
+		Sys_GraphicsPtr						LoadSysGraphics(const wchar_t* szFile);
 		Sys_InputPtr							LoadSysInput(const wchar_t* szFile);
 		Sys_SoundPtr							LoadSysSound(const wchar_t * szFile);
 		Sys_NetworkPtr							LoadSysNetwork(const wchar_t* szFile);
@@ -90,7 +90,7 @@ namespace ld3d
 		Sys_NetworkPtr							GetSys_Network();
 		Sys_SoundPtr							GetSys_Sound();
 		Sys_InputPtr							GetSysInput();
-		Sys_Graphics2Ptr							GetSysGraphics();
+		Sys_GraphicsPtr							GetSysGraphics();
 
 		void									Update();
 

@@ -1,7 +1,7 @@
 #include "core_pch.h"
 #include "..\..\include\core\PostEffect_GaussianBlur.h"
 #include "core\RenderManager.h"
-#include "core\Material2.h"
+#include "core\Material.h"
 #include "core\VertexFormat.h"
 #include "core\RenderTexture.h"
 #include "core/MaterialParameter.h"
@@ -31,12 +31,12 @@ namespace ld3d
 		m_pParamInputTex = m_pMaterial->GetParameterByName("tex_input");
 		return true;
 	}
-	void PostEffect_GaussianBlur::Render(RenderManagerPtr pRenderer, RenderTexture2Ptr pInput, RenderTexture2Ptr pOutput)
+	void PostEffect_GaussianBlur::Render(RenderManagerPtr pRenderer, RenderTexturePtr pInput, RenderTexturePtr pOutput)
 	{
 		pRenderer->SetRenderTarget(pOutput);
 		pRenderer->ClearRenderTarget(0, math::Color4(0, 0, 0,0));
 		
-		m_pParamInputSize->SetParameterVector(math::Vector2(pRenderer->GetFrameBufferWidth(), pRenderer->GetFrameBufferHeight()));
+		m_pParamInputSize->SetParameterVector(math::Vector2((Real)pRenderer->GetFrameBufferWidth(), (Real)pRenderer->GetFrameBufferHeight()));
 		m_pParamInputTex->SetParameterTexture(pInput->GetTexture(0));
 		
 		pRenderer->DrawFullScreenQuad(m_pMaterial);

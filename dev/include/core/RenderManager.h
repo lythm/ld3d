@@ -28,9 +28,9 @@ namespace ld3d
 		{
 		public:
 			
-			bool									Init(Sys_Graphics2Ptr pGraphics);
+			bool									Init(Sys_GraphicsPtr pGraphics);
 			void									Release();
-			void									Render(Sys_Graphics2Ptr pGraphics, Material2Ptr pMaterial);
+			void									Render(Sys_GraphicsPtr pGraphics, MaterialPtr pMaterial);
 		private:
 			GeometryDataPtr							m_pGeometryData;
 		};
@@ -40,9 +40,9 @@ namespace ld3d
 		RenderManager(void);
 		virtual ~RenderManager(void);
 
-		bool										Initialize(Sys_Graphics2Ptr pGraphics, EventDispatcherPtr pED);
+		bool										Initialize(Sys_GraphicsPtr pGraphics, EventDispatcherPtr pED);
 		void										Release();
-		void										AddRenderData(RenderData2Ptr pData);
+		void										AddRenderData(RenderDataPtr pData);
 		void										Clear();
 		void										Render(const math::Matrix44& view, const math::Matrix44& proj);
 		void										Render();
@@ -55,7 +55,7 @@ namespace ld3d
 		const math::Matrix44&						GetViewMatrix();
 		const math::Matrix44&						GetProjMatrix();
 		
-		Sys_Graphics2Ptr							GetSysGraphics();
+		Sys_GraphicsPtr							GetSysGraphics();
 
 		void										SetClearColor(const math::Color4& clr);
 		void										SetClearDepth(float d);
@@ -67,24 +67,24 @@ namespace ld3d
 		void										RemoveLight(LightPtr pLight);
 		int											GetLightCount();
 
-		RenderTexture2Ptr							GetGBuffer();
-		RenderTexture2Ptr							GetABuffer();
+		RenderTexturePtr							GetGBuffer();
+		RenderTexturePtr							GetABuffer();
 
-		void										DrawFullScreenQuad(Material2Ptr pMaterial);
+		void										DrawFullScreenQuad(MaterialPtr pMaterial);
 
 		const math::Color4&							GetGlobalAmbient();
 		void										SetGlobalAmbient(const math::Color4& clr);
 
-		RenderTexture2Ptr							CreateRenderTexture(int c, int w, int h, G_FORMAT format[]);
-		void										SetRenderTarget(RenderTarget2Ptr pRT);
+		RenderTexturePtr							CreateRenderTexture(int c, int w, int h, G_FORMAT format[]);
+		void										SetRenderTarget(RenderTargetPtr pRT);
 		void										ClearRenderTarget(int index, const math::Color4 & clr);
 		void										ClearDepthBuffer(CLEAR_DS_FLAG flag, float d, int s);
 
 		int											GetFrameBufferWidth();
 		int											GetFrameBufferHeight();
 
-		Material2Ptr								CreateMaterialFromFile(const char* szFile);
-		Texture2Ptr									CreateTextureFromFile(const char* szFile);
+		MaterialPtr								CreateMaterialFromFile(const char* szFile);
+		TexturePtr									CreateTextureFromFile(const char* szFile);
 
 		void										AddPostEffect(PostEffectPtr pEffect);
 
@@ -93,8 +93,8 @@ namespace ld3d
 
 		GeometryDataPtr								CreateGeometryData();
 
-		void										UpdateMatrixBlock(Material2Ptr pMaterial, const math::Matrix44& world);
-		void										UpdateDRBuffer(Material2Ptr pMaterial);
+		void										UpdateMatrixBlock(MaterialPtr pMaterial, const math::Matrix44& world);
+		void										UpdateDRBuffer(MaterialPtr pMaterial);
 	private:
 		bool										CreateABuffer(int w, int h);
 		bool										CreateGBuffer(int w, int h);
@@ -107,33 +107,33 @@ namespace ld3d
 		void										RenderForward();
 		void										RenderShadowMaps();
 
-		void										DR_DrawRenderData(RenderData2Ptr pData);
-		void										FR_DrawRenderData(RenderData2Ptr pData);
+		void										DR_DrawRenderData(RenderDataPtr pData);
+		void										FR_DrawRenderData(RenderDataPtr pData);
 		
 	private:
 		math::Matrix44								m_viewMatrix;
 		math::Matrix44								m_projMatrix;
 
-		std::vector<RenderData2Ptr>					m_forwardQueue;
-		std::vector<RenderData2Ptr>					m_deferredQueue;
-		std::vector<RenderData2Ptr>					m_transparentQueue;
+		std::vector<RenderDataPtr>					m_forwardQueue;
+		std::vector<RenderDataPtr>					m_deferredQueue;
+		std::vector<RenderDataPtr>					m_transparentQueue;
 		
-		Sys_Graphics2Ptr							m_pGraphics;
+		Sys_GraphicsPtr							m_pGraphics;
 
 		math::Color4								m_clearClr;
 		float										m_clearDepth;
 		int											m_clearStencil;
 
-		RenderTexture2Ptr							m_pGBuffer;
-		RenderTexture2Ptr							m_pABuffer;
+		RenderTexturePtr							m_pGBuffer;
+		RenderTexturePtr							m_pABuffer;
 
 		ScreenQuadPtr								m_pScreenQuad;
 
 		LightManagerPtr								m_pLightManager;
 
-		Material2Ptr								m_pLightMaterial;
+		MaterialPtr								m_pLightMaterial;
 
-		Material2Ptr								m_pScreenQuadMaterial;
+		MaterialPtr								m_pScreenQuadMaterial;
 
 		math::Color4								m_globalAmbientColor;
 

@@ -71,7 +71,7 @@ namespace ld3d
 		m_pSysManager = alloc_object<SysManager>();
 		m_pSysGraphics = m_pSysManager->LoadSysGraphics(setting.graphics.sysMod.c_str());
 		
-		if(m_pSysGraphics == Sys_Graphics2Ptr())
+		if(m_pSysGraphics == Sys_GraphicsPtr())
 		{
 			return false;
 		}
@@ -209,7 +209,7 @@ namespace ld3d
 	{
 		return m_pObjectManager;
 	}
-	Sys_Graphics2Ptr	CoreApi::GetSysGraphics()
+	Sys_GraphicsPtr	CoreApi::GetSysGraphics()
 	{
 		return m_pSysGraphics;
 	}
@@ -243,7 +243,7 @@ namespace ld3d
 			m_pRenderManager->Render(pCamera);
 		}
 	}
-	void CoreApi::AddRenderData(RenderData2Ptr pData)
+	void CoreApi::AddRenderData(RenderDataPtr pData)
 	{
 		if(m_pRenderManager)
 		{

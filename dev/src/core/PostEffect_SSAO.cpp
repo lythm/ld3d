@@ -1,7 +1,7 @@
 #include "core_pch.h"
 #include "core\PostEffect_SSAO.h"
 #include "core\RenderManager.h"
-#include "core\Material2.h"
+#include "core\Material.h"
 #include "core\Sys_Graphics.h"
 #include "core\Texture.h"
 #include "core\RenderTexture.h"
@@ -80,7 +80,7 @@ namespace ld3d
 		}
 	}
 
-	void PostEffect_SSAO::Render(RenderManagerPtr pRenderer, RenderTexture2Ptr pInput, RenderTexture2Ptr pOutput)
+	void PostEffect_SSAO::Render(RenderManagerPtr pRenderer, RenderTexturePtr pInput, RenderTexturePtr pOutput)
 	{
 		pRenderer->SetRenderTarget(m_pGBlurTarget);
 		pRenderer->ClearRenderTarget(0, math::Color4(0, 0, 0,0));
@@ -88,7 +88,7 @@ namespace ld3d
 		pRenderer->UpdateDRBuffer(m_pMaterial);
 
 		MaterialParameterPtr pParam = m_pMaterial->GetParameterByName("g_screen_size");
-		pParam->SetParameterVector(math::Vector2(pRenderer->GetFrameBufferWidth(), pRenderer->GetFrameBufferHeight()));
+		pParam->SetParameterVector(math::Vector2((Real)pRenderer->GetFrameBufferWidth(), (Real)pRenderer->GetFrameBufferHeight()));
 
 		pParam = m_pMaterial->GetParameterByName("g_scale");
 		pParam->SetParameterFloat(m_scale);
@@ -116,7 +116,7 @@ namespace ld3d
 		pParam->SetParameterTexture(m_pGBlurTarget->GetTexture(0));
 
 		 pParam = m_pMaterial->GetParameterByName("g_input_size");
-		pParam->SetParameterVector(math::Vector2(pRenderer->GetFrameBufferWidth(), pRenderer->GetFrameBufferHeight()));
+		pParam->SetParameterVector(math::Vector2((Real)pRenderer->GetFrameBufferWidth(), (Real)pRenderer->GetFrameBufferHeight()));
 		
 		pParam = m_pMaterial->GetParameterByName("tex_input");
 		pParam->SetParameterTexture(pInput->GetTexture(0));

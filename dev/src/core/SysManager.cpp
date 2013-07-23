@@ -12,11 +12,11 @@ namespace ld3d
 	{
 	}
 
-	Sys_Graphics2Ptr	SysManager::LoadSysGraphics(const wchar_t* szFile)
+	Sys_GraphicsPtr	SysManager::LoadSysGraphics(const wchar_t* szFile)
 	{
 		if(m_graphicsMod.load_sys(szFile) == false)
 		{
-			return Sys_Graphics2Ptr();
+			return Sys_GraphicsPtr();
 		}
 	
 		return m_graphicsMod.pSys;
@@ -37,7 +37,7 @@ namespace ld3d
 		return m_inputMod.pSys;
 	}
 
-	Sys_Graphics2Ptr	SysManager::GetSysGraphics()
+	Sys_GraphicsPtr	SysManager::GetSysGraphics()
 	{
 		return m_graphicsMod.pSys;
 	}

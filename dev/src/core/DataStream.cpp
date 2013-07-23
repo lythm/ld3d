@@ -34,7 +34,7 @@ namespace ld3d
 	}
 	void DataStream::WriteString(const std::wstring& str)
 	{
-		uint16 len = str.length();
+		uint16 len = (uint16)str.length();
 		const wchar_t* buffer = str.c_str();
 
 		Write(&len, sizeof(uint16));
@@ -63,7 +63,7 @@ namespace ld3d
 	}
 	void DataStream::WriteString(const std::string& str)
 	{
-		uint16 len = str.length();
+		uint16 len = (uint16)str.length();
 		const char* buffer = str.c_str();
 
 		Write(&len, sizeof(uint16));

@@ -117,7 +117,7 @@ namespace ld3d
 		{
 			SubMeshPtr pSub = pMesh->GetSubMesh(i);
 
-			RenderData2Ptr pRD = m_pManager->alloc_object<RenderData2>();
+			RenderDataPtr pRD = m_pManager->alloc_object<RenderData>();
 
 			pRD->geometry = m_pRenderManager->CreateGeometryData();
 

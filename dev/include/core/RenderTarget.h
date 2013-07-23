@@ -2,7 +2,7 @@
 
 namespace ld3d
 {
-	class RenderTarget2
+	class RenderTarget
 	{
 	public:
 		enum TARGET_TYPE
@@ -16,8 +16,8 @@ namespace ld3d
 		TARGET_TYPE												GetType(){return m_type;}
 
 
-		RenderTarget2(TARGET_TYPE type){m_type = type;}
-		virtual ~RenderTarget2(void){}
+		RenderTarget(TARGET_TYPE type){m_type = type;}
+		virtual ~RenderTarget(void){}
 
 	protected:
 		TARGET_TYPE												m_type;

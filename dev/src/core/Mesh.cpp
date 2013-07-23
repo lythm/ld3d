@@ -1,6 +1,6 @@
 #include "core_pch.h"
 #include "..\..\include\core\Mesh.h"
-#include "core\Material2.h"
+#include "core\Material.h"
 #include "core_utils.h"
 
 namespace ld3d
@@ -31,7 +31,7 @@ namespace ld3d
 	{
 		return m_pVertexData;
 	}
-	Material2Ptr Mesh::GetMaterialByIndex(int index)
+	MaterialPtr Mesh::GetMaterialByIndex(int index)
 	{
 		return m_materialList[index];
 	}
@@ -39,7 +39,7 @@ namespace ld3d
 	{
 		return (int)m_materialList.size();
 	}
-	bool Mesh::Create(int indexBufferSize, void* pIndexBuffer, int vertexBufferSize, void* pVertexBuffer, const std::vector<Material2Ptr>& materialList)
+	bool Mesh::Create(int indexBufferSize, void* pIndexBuffer, int vertexBufferSize, void* pVertexBuffer, const std::vector<MaterialPtr>& materialList)
 	{
 		if(pIndexBuffer != nullptr)
 		{

@@ -44,7 +44,6 @@
     <ClCompile Include="RenderManager.cpp" />
     <ClCompile Include="Frame.cpp" />
     <ClCompile Include="PostEffect_FXAA.cpp" />
-    <ClCompile Include="Material2.cpp" />
     <ClCompile Include="MaterialParameterManager.cpp" />
     <ClCompile Include="MaterialParameter.cpp" />
     <ClCompile Include="MaterialPass.cpp" />
@@ -58,6 +57,7 @@
     <ClCompile Include="TechniqueParser.cpp" />
     <ClCompile Include="PassParser.cpp" />
     <ClCompile Include="MaterialBaseParser.cpp" />
+    <ClCompile Include="Material.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\core\ArcBall.h" />
@@ -119,7 +119,6 @@
     <ClInclude Include="..\..\include\core\PostEffect_SSAO.h" />
     <ClInclude Include="..\..\include\core\PostEffect_BilateralBlur.h" />
     <ClInclude Include="..\..\include\core\PostEffect_GaussianBlur.h" />
-    <ClInclude Include="..\..\include\core\Material.h" />
     <ClInclude Include="..\..\include\core\Font.h" />
     <ClInclude Include="..\..\include\core\Sound.h" />
     <ClInclude Include="..\..\include\core\SoundChannel.h" />
@@ -131,9 +130,7 @@
     <ClInclude Include="..\..\include\core\RenderManager.h" />
     <ClInclude Include="Frame.h" />
     <ClInclude Include="PostEffect_FXAA.h" />
-    <ClInclude Include="..\..\include\core\Material2.h" />
     <ClInclude Include="..\..\include\core\BaseMaterial.h" />
-    <ClInclude Include="..\..\include\core\BlendState.h" />
     <ClInclude Include="..\..\include\core\SamplerState.h" />
     <ClInclude Include="..\..\include\core\RenderWindow.h" />
     <ClInclude Include="MaterialParameterManager.h" />
@@ -155,6 +152,7 @@
     <ClInclude Include="..\..\include\core\PassParser.h" />
     <ClInclude Include="..\..\include\core\MaterialBaseParser.h" />
     <ClInclude Include="..\..\include\core\RenderTexture.h" />
+    <ClInclude Include="..\..\include\core\Material.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

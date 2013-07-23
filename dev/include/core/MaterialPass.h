@@ -8,18 +8,18 @@ namespace ld3d
 	{
 	public:
 
-		MaterialPass(const std::string& name, Sys_Graphics2Ptr pGraphics);
+		MaterialPass(const std::string& name, Sys_GraphicsPtr pGraphics);
 		virtual ~MaterialPass(void);
 
 		virtual void											Apply();
 		void													Release();
 
-		RenderState2Ptr											GetRenderState();
+		RenderStatePtr											GetRenderState();
 
 		bool													Validate();
 
 		void													AttachProgram(ShaderProgramPtr pProgram);
-		void													AttachRenderState(RenderState2Ptr pState);
+		void													AttachRenderState(RenderStatePtr pState);
 		void													AddSamplerLink(const std::string& tex, SamplerStatePtr pSampler);
 
 		const std::string										GetName() const;
@@ -31,8 +31,8 @@ namespace ld3d
 		void													ApplySamplers();
 	private:
 
-		RenderState2Ptr											m_pRenderState;
-		Sys_Graphics2Ptr										m_pGraphics;
+		RenderStatePtr											m_pRenderState;
+		Sys_GraphicsPtr										m_pGraphics;
 
 		ShaderProgramPtr										m_pProgram;
 		std::vector<SamplerStatePtr>							m_Samplers;

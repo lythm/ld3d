@@ -13,21 +13,21 @@ namespace ld3d
 		void													Release();
 
 		void													Render(RenderManagerPtr pManager);
-		Material2Ptr												GetMaterial();
+		MaterialPtr												GetMaterial();
 		math::Matrix44											GetWorldMatrix();
 		bool													IsDeferred();
 
 		void													PrepareRenderList(VoxelWorldChunk* pList);
 
-		RenderData2Ptr											GetRenderData();
+		RenderDataPtr											GetRenderData();
 	private:
-		void													_draw(Sys_Graphics2Ptr pSysGraphics, Material2Ptr pMaterial);
+		void													_draw(Sys_GraphicsPtr pSysGraphics, MaterialPtr pMaterial);
 	private:
 		GPUBufferPtr											m_pVertexBuffer;
 		GPUBufferPtr											m_pIndexBuffer;
-		Material2Ptr											m_pMaterial;
+		MaterialPtr											m_pMaterial;
 
-		Sys_Graphics2Ptr										m_pGraphics;
+		Sys_GraphicsPtr										m_pGraphics;
 
 		uint32													m_nVBBytes;
 		uint32													m_nVBCurrent;
@@ -37,7 +37,7 @@ namespace ld3d
 
 		VoxelWorldChunk*										m_pRenderList;
 
-		RenderData2Ptr											m_pRenderData;
+		RenderDataPtr											m_pRenderData;
 
 		RenderManagerPtr										m_pRenderManager;
 

@@ -101,7 +101,7 @@ namespace ld3d
 	}
 	int PropertyManager::GetPropertySetCount()
 	{
-		return m_PropSets.size();
+		return (int)m_PropSets.size();
 	}
 	PropertySetPtr PropertyManager::GetPropertySet(int index)
 	{

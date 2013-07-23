@@ -288,7 +288,7 @@ namespace ld3d
 			
 			return false;
 		}
-		MaterialPassPtr	PassParser::CreateObject(Sys_Graphics2Ptr pGraphics)
+		MaterialPassPtr	PassParser::CreateObject(Sys_GraphicsPtr pGraphics)
 		{
 			ShaderProgramPtr pProgram = pGraphics->CreateShaderProgram();
 

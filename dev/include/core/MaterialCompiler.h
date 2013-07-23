@@ -12,9 +12,9 @@ namespace ld3d
 			Compiler(void);
 			virtual ~Compiler(void);
 
-			Material2Ptr											CompileFromFile(Sys_Graphics2Ptr pGraphics, const boost::filesystem::path& strFile);
-			Material2Ptr											CompileFromStream(Sys_Graphics2Ptr pGraphics, DataStream* pStream, const boost::filesystem::path& filename = "");
-			Material2Ptr											Compile(Sys_Graphics2Ptr pGraphics, const std::string& src, const boost::filesystem::path& filename = "");
+			MaterialPtr											CompileFromFile(Sys_GraphicsPtr pGraphics, const boost::filesystem::path& strFile);
+			MaterialPtr											CompileFromStream(Sys_GraphicsPtr pGraphics, DataStream* pStream, const boost::filesystem::path& filename = "");
+			MaterialPtr											Compile(Sys_GraphicsPtr pGraphics, const std::string& src, const boost::filesystem::path& filename = "");
 
 
 

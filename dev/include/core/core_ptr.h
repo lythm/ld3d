@@ -26,7 +26,7 @@ namespace ld3d
 	
 
 	class Sys_Input;
-	class Sys_Graphics2;
+	class Sys_Graphics;
 	class Sys_Sound;
 	class Sys_Physics;
 	class Sys_Time;
@@ -41,7 +41,7 @@ namespace ld3d
 	typedef std::shared_ptr<Sys_Input>						Sys_InputPtr;
 	typedef std::shared_ptr<Sys_Sound>						Sys_SoundPtr;
 
-	typedef std::shared_ptr<Sys_Graphics2>					Sys_Graphics2Ptr;
+	typedef std::shared_ptr<Sys_Graphics>					Sys_GraphicsPtr;
 
 	class LightManager;
 	class Light;
@@ -70,23 +70,23 @@ namespace ld3d
 
 	class BBoxRenderData;
 	class DepthStencilBuffer;
-	class RenderTarget2;
-	class Texture2;
+	class RenderTarget;
+	class Texture;
 	class GPUBuffer;
 	class Camera;
-	class RenderState2;
+	class RenderState;
 	class Shader;
 	class BaseCamera;
 	
-	class RenderWindow2;
-	class Material2;
+	class RenderWindow;
+	class Material;
 	class MaterialPass;
 	class MaterialTech;
 	class MaterialParameterManager;
 	class MaterialParameter;
 	
-	class RenderData2;
-	class RenderTexture2;
+	class RenderData;
+	class RenderTexture;
 	class GeometryData;
 	class ShaderProgram;
 	class SamplerState;
@@ -94,7 +94,7 @@ namespace ld3d
 	typedef std::shared_ptr<BBoxRenderData>					BBoxRenderDataPtr;
 	
 
-	typedef std::shared_ptr<Material2>						Material2Ptr;
+	typedef std::shared_ptr<Material>						MaterialPtr;
 	typedef std::shared_ptr<MaterialPass>					MaterialPassPtr;
 	typedef std::shared_ptr<MaterialTech>					MaterialTechPtr;
 	typedef std::shared_ptr<MaterialParameterManager>		MaterialParameterManagerPtr;
@@ -103,18 +103,18 @@ namespace ld3d
 	
 	typedef std::shared_ptr<ShaderProgram>					ShaderProgramPtr;
 	typedef std::shared_ptr<GeometryData>					GeometryDataPtr;
-	typedef std::shared_ptr<RenderTexture2>					RenderTexture2Ptr;
-	typedef std::shared_ptr<RenderWindow2>					RenderWindow2Ptr;
+	typedef std::shared_ptr<RenderTexture>					RenderTexturePtr;
+	typedef std::shared_ptr<RenderWindow>					RenderWindowPtr;
 
-	typedef std::shared_ptr<RenderState2>					RenderState2Ptr;
+	typedef std::shared_ptr<RenderState>					RenderStatePtr;
 	typedef std::shared_ptr<Shader>							ShaderPtr;
 	typedef std::shared_ptr<Camera>							CameraPtr;
 	typedef std::shared_ptr<BaseCamera>						BaseCameraPtr;
 	typedef std::shared_ptr<DepthStencilBuffer>				DepthStencilBufferPtr;
-	typedef std::shared_ptr<RenderTarget2>					RenderTarget2Ptr;
-	typedef std::shared_ptr<RenderData2>					RenderData2Ptr;
+	typedef std::shared_ptr<RenderTarget>					RenderTargetPtr;
+	typedef std::shared_ptr<RenderData>					RenderDataPtr;
 	typedef std::shared_ptr<GPUBuffer>						GPUBufferPtr;
-	typedef std::shared_ptr<Texture2>						Texture2Ptr;
+	typedef std::shared_ptr<Texture>						TexturePtr;
 	typedef std::shared_ptr<SamplerState>					SamplerStatePtr;
 	
 
@@ -146,7 +146,7 @@ namespace ld3d
 	typedef std::shared_ptr<SoundChannel>					SoundChannelPtr;
 
 	template <typename T> class Asset_T;
-	typedef Asset_T<Texture2>								TextureAsset;
+	typedef Asset_T<Texture>								TextureAsset;
 	typedef Asset_T<Sound>									SoundAsset;
 	class Asset;
 	class AssetManager;

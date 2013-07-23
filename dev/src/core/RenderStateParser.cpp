@@ -563,9 +563,9 @@ namespace ld3d
 			Error(line, "invalid value: '" + value + "'");
 			return false;
 		}
-		RenderState2Ptr	RenderStateParser::CreateObject(Sys_Graphics2Ptr pGraphics)
+		RenderStatePtr	RenderStateParser::CreateObject(Sys_GraphicsPtr pGraphics)
 		{
-			RenderState2Ptr pState = pGraphics->CreateRenderState();
+			RenderStatePtr pState = pGraphics->CreateRenderState();
 
 			pState->Begin();
 			{

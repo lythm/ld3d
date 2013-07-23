@@ -9,7 +9,7 @@ namespace ld3d
 		struct TextureLink
 		{
 			GLuint											index;
-			Texture2Ptr										pTex;
+			TexturePtr										pTex;
 			SamplerStatePtr									pSampler;
 		};
 		struct UniformBlock
@@ -48,7 +48,7 @@ namespace ld3d
 		void												SetParameterVector(ParameterID param, const math::Vector2& value);
 		void												SetParameterVector(ParameterID param, const math::Vector3& value);
 		void												SetParameterVector(ParameterID param, const math::Vector4& value);
-		void												SetParameterTexture(ParameterID param, Texture2Ptr pTex);
+		void												SetParameterTexture(ParameterID param, TexturePtr pTex);
 
 		void												SetParameterSampler(ParameterID param, SamplerStatePtr pSampler);
 				

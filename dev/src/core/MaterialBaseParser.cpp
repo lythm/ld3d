@@ -205,7 +205,7 @@ namespace ld3d
 				return false;
 			}
 
-			value.x = token.num;
+			value.x = (Real)token.num;
 
 			token = lexer.NextToken();
 			if(token.str != ",")
@@ -218,7 +218,7 @@ namespace ld3d
 			{
 				return false;
 			}
-			value.y = token.num;
+			value.y = (Real)token.num;
 
 			token = lexer.NextToken();
 			if(token.str != ",")
@@ -231,7 +231,7 @@ namespace ld3d
 			{
 				return false;
 			}
-			value.z = token.num;
+			value.z = (Real)token.num;
 
 			token = lexer.NextToken();
 			if(token.str != ",")
@@ -244,7 +244,7 @@ namespace ld3d
 			{
 				return false;
 			}
-			value.w = token.num;
+			value.w = (Real)token.num;
 
 			token = lexer.NextToken();
 			if(token.str != "}")

@@ -2,7 +2,7 @@
 
 namespace ld3d
 {
-	class RenderState2
+	class RenderState
 	{
 	public:
 		virtual void										Begin()													= 0;
@@ -55,8 +55,8 @@ namespace ld3d
 																		uint32 mask)								= 0;
 		
 	protected:
-		RenderState2(void){}
-		virtual ~RenderState2(void){}
+		RenderState(void){}
+		virtual ~RenderState(void){}
 	};
 	
 }

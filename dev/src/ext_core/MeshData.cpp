@@ -94,14 +94,14 @@ namespace ld3d
 
 		if(m_meshAsset == L"_cube_")
 		{
-			Material2Ptr pMaterial = m_pManager->GetRenderManager()->CreateMaterialFromFile("./assets/standard/material/editor_shape.fx");
+			MaterialPtr pMaterial = m_pManager->GetRenderManager()->CreateMaterialFromFile("./assets/standard/material/editor_shape.fx");
 			MeshPtr pMesh = MeshUtil::CreateCube(1, pMaterial);
 			m_pMesh = pMesh;
 			ResetMeshRenderer();
 		}
 		else if(m_meshAsset == L"_sphere_")
 		{
-			Material2Ptr pMaterial = m_pManager->GetRenderManager()->CreateMaterialFromFile("./assets/standard/material/editor_shape.fx");
+			MaterialPtr pMaterial = m_pManager->GetRenderManager()->CreateMaterialFromFile("./assets/standard/material/editor_shape.fx");
 			MeshPtr pMesh = MeshUtil::CreateSphere(1, 50, 50, pMaterial);
 			m_pMesh = pMesh;
 			ResetMeshRenderer();
@@ -109,7 +109,7 @@ namespace ld3d
 		else if(m_meshAsset == L"_cone_")
 		{
 			
-			Material2Ptr pMaterial = m_pManager->GetRenderManager()->CreateMaterialFromFile("./assets/standard/material/editor_shape.fx");
+			MaterialPtr pMaterial = m_pManager->GetRenderManager()->CreateMaterialFromFile("./assets/standard/material/editor_shape.fx");
 			MeshPtr pMesh = MeshUtil::CreateCone(1, 30, 50, pMaterial);
 			m_pMesh = pMesh;
 			ResetMeshRenderer();
@@ -117,7 +117,7 @@ namespace ld3d
 		else if(m_meshAsset == L"_plane_")
 		{
 						
-			Material2Ptr pMaterial = m_pManager->GetRenderManager()->CreateMaterialFromFile("./assets/standard/material/editor_shape.fx");
+			MaterialPtr pMaterial = m_pManager->GetRenderManager()->CreateMaterialFromFile("./assets/standard/material/editor_shape.fx");
 			MeshPtr pMesh = MeshUtil::CreatePlane(100, pMaterial);
 			m_pMesh = pMesh;
 			ResetMeshRenderer();

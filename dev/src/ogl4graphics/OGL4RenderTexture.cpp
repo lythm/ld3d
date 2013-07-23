@@ -30,7 +30,7 @@ namespace ld3d
 	{
 		return (int)m_texs.size();
 	}
-	void OGL4RenderTexture::AddTexture(Texture2Ptr pTex)
+	void OGL4RenderTexture::AddTexture(TexturePtr pTex)
 	{
 		if(pTex == nullptr)
 		{
@@ -40,14 +40,14 @@ namespace ld3d
 		glBindFramebuffer(GL_FRAMEBUFFER, m_fbo);
 		
 		OGL4Texture* pGLTex = (OGL4Texture*)pTex.get();
-		glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + m_texs.size(), pGLTex->GetTextureObject(), 0);
+		glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + (int)m_texs.size(), pGLTex->GetTextureObject(), 0);
 
 		m_texs.push_back(pTex);
 
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
 
-	Texture2Ptr OGL4RenderTexture::GetTexture(int index)
+	TexturePtr OGL4RenderTexture::GetTexture(int index)
 	{
 		return m_texs[index];
 	}

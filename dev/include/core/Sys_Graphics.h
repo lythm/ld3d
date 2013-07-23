@@ -6,14 +6,14 @@
 #include "core/VertexFormat.h"
 namespace ld3d
 {
-	class Sys_Graphics2
+	class Sys_Graphics
 	{
 	public:
 
 		virtual bool									Initialize(const GraphicsSetting& setting)										= 0;
 		virtual void									Release()																		= 0;
 		
-		virtual RenderWindow2Ptr						CreateRenderWindow(void* handle, 
+		virtual RenderWindowPtr						CreateRenderWindow(void* handle, 
 																	int w, 
 																	int h, 
 																	G_FORMAT color_format, 
@@ -22,7 +22,7 @@ namespace ld3d
 																	int multiSampleCount, 
 																	int multiSampleQuality, 
 																	bool windowed)														= 0;
-		virtual RenderTexture2Ptr						CreateRenderTexture()															= 0;
+		virtual RenderTexturePtr						CreateRenderTexture()															= 0;
 		virtual void									ClearRenderTarget(int index, const math::Color4& clr)							= 0;
 		virtual void									ClearDepthStencil(CLEAR_DS_FLAG flag,
 																	float d, 
@@ -65,20 +65,20 @@ namespace ld3d
 		virtual void									SetViewPort(int x, int y, int w, int h)											= 0;
 
 
-		virtual void									SetRenderTarget(RenderTarget2Ptr pTarget)										= 0;
+		virtual void									SetRenderTarget(RenderTargetPtr pTarget)										= 0;
 
-		virtual Texture2Ptr								CreateTexture1D(G_FORMAT format, int l, int lvls, bool dynamic)					= 0;
-		virtual Texture2Ptr								CreateTexture2D(G_FORMAT format, int w, int h, int lvls, bool dynamic)			= 0;
-		virtual Texture2Ptr								CreateTexture3D(G_FORMAT format, int w, int h, int d, int lvls, bool dynamic)	= 0;
+		virtual TexturePtr								CreateTexture1D(G_FORMAT format, int l, int lvls, bool dynamic)					= 0;
+		virtual TexturePtr								CreateTexture2D(G_FORMAT format, int w, int h, int lvls, bool dynamic)			= 0;
+		virtual TexturePtr								CreateTexture3D(G_FORMAT format, int w, int h, int d, int lvls, bool dynamic)	= 0;
 
-		virtual Texture2Ptr								CreateTextureFromFile(const char* szFile, bool dynamic)							= 0;
+		virtual TexturePtr								CreateTextureFromFile(const char* szFile, bool dynamic)							= 0;
 
 		virtual SamplerStatePtr							CreateSampler()																	= 0;
 
 		virtual DepthStencilBufferPtr					CreateDepthStencilBuffer(G_FORMAT format, int w, int h)							= 0;
 
-		virtual RenderState2Ptr							CreateRenderState()																= 0;
-		virtual void									SetRenderState(RenderState2Ptr pState)											= 0;
+		virtual RenderStatePtr							CreateRenderState()																= 0;
+		virtual void									SetRenderState(RenderStatePtr pState)											= 0;
 		/////////////////////////////////////////////////////////////////
 
 
@@ -89,7 +89,7 @@ namespace ld3d
 		
 		
 	protected:
-		Sys_Graphics2(void){}
-		virtual ~Sys_Graphics2(void){}
+		Sys_Graphics(void){}
+		virtual ~Sys_Graphics(void){}
 	};
 }

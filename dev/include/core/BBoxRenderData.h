@@ -10,11 +10,11 @@ namespace ld3d
 		BBoxRenderData(void);
 		virtual ~BBoxRenderData(void);
 
-		bool													Initialize(Sys_Graphics2Ptr pGraphics);
+		bool													Initialize(Sys_GraphicsPtr pGraphics);
 		void													Release();
 
 //		void													Render(Sys_GraphicsPtr pSysGraphics, MaterialPtr pMaterial = MaterialPtr());
-		Material2Ptr												GetMaterial();
+		MaterialPtr												GetMaterial();
 		math::Matrix44											GetWorldMatrix();
 		bool													IsDeferred();
 
@@ -25,7 +25,7 @@ namespace ld3d
 		void													_fill_vb();
 	private:
 		GPUBufferPtr											m_pVertexBuffer;
-		Material2Ptr												m_pMaterial;
+		MaterialPtr												m_pMaterial;
 		math::AABBox											m_bbox;
 		math::Matrix44											m_world;
 	};

@@ -17,7 +17,7 @@ namespace ld3d
 		{
 		}
 		
-		Material2Ptr Compiler::CompileFromStream(Sys_Graphics2Ptr pGraphics, DataStream* pStream, const boost::filesystem::path& filename)
+		MaterialPtr Compiler::CompileFromStream(Sys_GraphicsPtr pGraphics, DataStream* pStream, const boost::filesystem::path& filename)
 		{
 			uint64 size = pStream->Size();
 			char* szSrc = new char[size + 1];
@@ -28,17 +28,17 @@ namespace ld3d
 
 			return Compile(pGraphics, szSrc, filename);
 		}
-		Material2Ptr Compiler::CompileFromFile(Sys_Graphics2Ptr pGraphics, const boost::filesystem::path& strFile)
+		MaterialPtr Compiler::CompileFromFile(Sys_GraphicsPtr pGraphics, const boost::filesystem::path& strFile)
 		{
 			DataStream_File file;
 			if(false == file.OpenStream(strFile.c_str()))
 			{
-				return Material2Ptr();
+				return MaterialPtr();
 			}
 
 			return CompileFromStream(pGraphics, &file, strFile);
 		}
-		Material2Ptr Compiler::Compile(Sys_Graphics2Ptr pGraphics, const std::string& src, const boost::filesystem::path& filename)
+		MaterialPtr Compiler::Compile(Sys_GraphicsPtr pGraphics, const std::string& src, const boost::filesystem::path& filename)
 		{
 			m_file = filename;
 
@@ -48,7 +48,7 @@ namespace ld3d
 
 			if(false == parser.Parse(&lexer, m_file == "" ? "./" : m_file.parent_path()))
 			{
-				return Material2Ptr();
+				return MaterialPtr();
 			}
 			
 			return parser.CreateObject(pGraphics);

@@ -12,7 +12,7 @@ namespace ld3d
 
 			bool												Parse(Lexer* lexer, const boost::filesystem::path& dir = "./");
 
-			MaterialTechPtr										CreateObject(Sys_Graphics2Ptr pGraphics);
+			MaterialTechPtr										CreateObject(Sys_GraphicsPtr pGraphics);
 		private:
 			bool												ParsePass(Lexer* lexer);
 			boost::filesystem::path								m_rootDir;

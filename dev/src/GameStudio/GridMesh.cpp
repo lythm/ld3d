@@ -16,14 +16,14 @@ bool GridMesh::Init(ld3d::CoreApiPtr pCore, int size, int grid_size)
 {
 	using namespace ld3d;
 
-	m_pRD = std::make_shared<RenderData2>();
+	m_pRD = std::make_shared<RenderData>();
 
 
 	m_pCore = pCore;
 	m_size = size;
 	m_gridSize = grid_size;
 	
-	Sys_Graphics2Ptr pGraphics =pCore->GetSysGraphics();
+	Sys_GraphicsPtr pGraphics =pCore->GetSysGraphics();
 	
 	RenderManagerPtr pRenderManager = pCore->GetRenderManager();
 
@@ -138,7 +138,7 @@ bool GridMesh::IsDeferred()
 	return false;
 }
 
-ld3d::RenderData2Ptr GridMesh::GetRenderData()
+ld3d::RenderDataPtr GridMesh::GetRenderData()
 {
 	return m_pRD;
 }

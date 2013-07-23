@@ -165,25 +165,15 @@ namespace ld3d
 		}
 		int Lexer::_pos_2_line(int pos)
 		{
-			if(pos == -1)
-			{
-				return -1;
-			}
-
-			if(pos >= m_src.length())
-			{
-				return m_lines.size() - 1;
-			}
-
 			for(size_t i = 0; i < m_lines.size(); ++i)
 			{
 				if(pos >= m_lines[i].start && (pos - m_lines[i].start) <= m_lines[i].len)
 				{
-					return i;
+					return (int)i;
 				}
 			}
 
-			return -1;
+			return (int)(m_lines.size() - 1);
 		}
 		int Lexer::_current_line()
 		{

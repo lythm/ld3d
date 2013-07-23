@@ -12,11 +12,11 @@ namespace ld3d
 
 
 		bool									Initialize(RenderManagerPtr pRenderManager);
-		void									Render(RenderManagerPtr pRenderer, RenderTexture2Ptr pInput, RenderTexture2Ptr pOutput);
+		void									Render(RenderManagerPtr pRenderer, RenderTexturePtr pInput, RenderTexturePtr pOutput);
 		void									Release();
 
 	private:
-		Material2Ptr								m_pMaterial;
+		MaterialPtr								m_pMaterial;
 		RenderManagerPtr							m_pRenderManager;
 
 		MaterialParameterPtr						m_pParamInputTex;

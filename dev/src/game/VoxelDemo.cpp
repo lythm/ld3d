@@ -24,11 +24,11 @@ bool VoxelDemo::Init(ld3d::CoreApiPtr pCore)
 
 	m_pCore->LoadPackage(L"./extensions/ext_voxel_x64.dll");
 
-	m_pCore->GetRenderManager()->SetGlobalAmbient(math::Color4(0, 0.1, 0.2, 1.0));
-	m_pCore->GetRenderManager()->SetClearColor(math::Color4(0.3, 0.2, 0.3, 1));
+	m_pCore->GetRenderManager()->SetGlobalAmbient(math::Color4(0, 0.1f, 0.2f, 1.0f));
+	m_pCore->GetRenderManager()->SetClearColor(math::Color4(0.3f, 0.2f, 0.3f, 1));
 
 	m_pCamera = m_pCore->GetGameObjectManager()->alloc_object<ld3d::Camera>();
-	m_pCamera->PerspectiveFovLH(0.25 * 3.14, 4.0 / 3.0, 0.01, 10000);
+	m_pCamera->PerspectiveFovLH(0.25f * 3.14f, 4.0f / 3.0f, 0.01f, 10000);
 	m_pCamera->LookAtLH(math::Vector3(2, 2, 2), math::Vector3(0, 0, 0), math::Vector3(0, 1, 0));
 
 	m_pCore->AddCamera(m_pCamera);

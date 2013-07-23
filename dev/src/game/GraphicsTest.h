@@ -15,7 +15,7 @@ public:
 
 private:
 	ld3d::CoreApiPtr							m_pCore;
-	ld3d::Sys_Graphics2Ptr						m_pGraphics;
+	ld3d::Sys_GraphicsPtr						m_pGraphics;
 
 };
 

@@ -2,7 +2,7 @@
 #include "..\..\include\core\BBoxRenderData.h"
 #include "core\Sys_Graphics.h"
 #include "core\VertexFormat.h"
-#include "core\Material2.h"
+#include "core\Material.h"
 #include "core\GPUBuffer.h"
 
 namespace ld3d
@@ -15,7 +15,7 @@ namespace ld3d
 	BBoxRenderData::~BBoxRenderData(void)
 	{
 	}
-	bool BBoxRenderData::Initialize(Sys_Graphics2Ptr pGraphics)
+	bool BBoxRenderData::Initialize(Sys_GraphicsPtr pGraphics)
 	{
 		/*m_pMaterial = pGraphics->CreateMaterialFromFile("./assets/standard/material/editor_grid.fx");
 		if(m_pMaterial == nullptr)
@@ -74,7 +74,7 @@ namespace ld3d
 		pMat->End();
 	}*/
 	
-	Material2Ptr BBoxRenderData::GetMaterial()
+	MaterialPtr BBoxRenderData::GetMaterial()
 	{
 		return m_pMaterial;
 	}

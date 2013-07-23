@@ -4,10 +4,10 @@
 
 namespace ld3d
 {
-	class EXPORT_CLASS RenderData2
+	class EXPORT_CLASS RenderData
 	{
 	public:
-		RenderData2(void)
+		RenderData(void)
 		{
 			dr						= false;
 			base_vertex				= 0;
@@ -17,10 +17,10 @@ namespace ld3d
 			world_matrix.MakeIdentity();
 		}
 
-		virtual ~RenderData2(void){}
+		virtual ~RenderData(void){}
 
 		GeometryDataPtr											geometry;
-		Material2Ptr											material;
+		MaterialPtr												material;
 		math::Matrix44											world_matrix;
 		bool													dr;
 

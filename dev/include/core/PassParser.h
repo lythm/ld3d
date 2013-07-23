@@ -14,7 +14,7 @@ namespace ld3d
 
 			bool												Parse(Lexer* lexer, const boost::filesystem::path& dir = "./");
 
-			MaterialPassPtr										CreateObject(Sys_Graphics2Ptr pGraphics);
+			MaterialPassPtr										CreateObject(Sys_GraphicsPtr pGraphics);
 		private:
 			bool												ParseFunctionCall(Lexer* lexer);
 			bool												SetState(const std::vector<Token>& func);

@@ -31,7 +31,7 @@ namespace ld3d
 		virtual void												SetParameterVector(ParameterID param, const math::Vector2& value)		= 0;
 		virtual void												SetParameterVector(ParameterID param, const math::Vector3& value)		= 0;
 		virtual void												SetParameterVector(ParameterID param, const math::Vector4& value)		= 0;
-		virtual void												SetParameterTexture(ParameterID param, Texture2Ptr pTex)				= 0;
+		virtual void												SetParameterTexture(ParameterID param, TexturePtr pTex)				= 0;
 
 		virtual void												SetParameterSampler(ParameterID param, SamplerStatePtr pSampler)		= 0;
 		

@@ -121,7 +121,7 @@ namespace ld3d
 	}
 	int GameObjectManager::GetPackageCount()
 	{
-		return m_packages.size();
+		return (int)m_packages.size();
 	}
 	ExtPackage* GameObjectManager::GetPackageByIndex(int index)
 	{

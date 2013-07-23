@@ -33,7 +33,7 @@ namespace ld3d
 
 		RenderManagerPtr										m_pRenderManager;
 
-		std::vector<RenderData2Ptr>								m_Subsets;
+		std::vector<RenderDataPtr>								m_Subsets;
 		bool													m_deferred;
 	};
 

@@ -4,7 +4,7 @@
 
 namespace ld3d
 {
-	class OGL4RenderWindow : public RenderWindow2
+	class OGL4RenderWindow : public RenderWindow
 	{
 	public:
 		OGL4RenderWindow(void);

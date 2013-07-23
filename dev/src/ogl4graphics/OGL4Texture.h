@@ -4,7 +4,7 @@
 
 namespace ld3d
 {
-	class OGL4Texture : public Texture2
+	class OGL4Texture : public Texture
 	{
 	public:
 		OGL4Texture(void);

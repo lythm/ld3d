@@ -82,7 +82,7 @@ namespace ld3d
 		AssetManager(void);
 		virtual ~AssetManager(void);
 
-		bool								Initialize(Sys_Graphics2Ptr pGraphics, Sys_SoundPtr pSound);
+		bool								Initialize(Sys_GraphicsPtr pGraphics, Sys_SoundPtr pSound);
 		void								Release();
 
 		AssetPtr							LoadAsset(const boost::filesystem::path& file);
@@ -97,7 +97,7 @@ namespace ld3d
 		AssetPtr							LoadSound(const boost::filesystem::path& file, bool sound3d = true);
 		AssetPtr							LoadTexture(const boost::filesystem::path& file);
 	private:
-		Sys_Graphics2Ptr					m_pGraphics;
+		Sys_GraphicsPtr					m_pGraphics;
 		Sys_SoundPtr						m_pSound;
 		
 

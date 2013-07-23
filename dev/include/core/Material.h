@@ -2,12 +2,12 @@
 
 namespace ld3d
 {
-	class EXPORT_CLASS Material2
+	class EXPORT_CLASS Material
 	{
 		
 	public:
-		Material2(Sys_Graphics2Ptr pGraphics);
-		virtual ~Material2(void);
+		Material(Sys_GraphicsPtr pGraphics);
+		virtual ~Material(void);
 
 		void															Release();
 
@@ -30,7 +30,7 @@ namespace ld3d
 		
 		MaterialParameterManagerPtr										m_pParamManager;
 
-		Sys_Graphics2Ptr												m_pGraphics;
+		Sys_GraphicsPtr												m_pGraphics;
 
 		MaterialTechPtr													m_pCurrentTech;
 	};

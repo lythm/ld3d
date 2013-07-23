@@ -11,7 +11,7 @@ namespace ld3d
 		virtual ~PostEffect_SSAO(void);
 
 		
-		void									Render(RenderManagerPtr pRenderer, RenderTexture2Ptr pInput, RenderTexture2Ptr pOutput);
+		void									Render(RenderManagerPtr pRenderer, RenderTexturePtr pInput, RenderTexturePtr pOutput);
 		bool									Initialize(RenderManagerPtr pRenderManager);
 		void									Release();
 
@@ -28,10 +28,10 @@ namespace ld3d
 
 		
 	private:
-		Material2Ptr								m_pMaterial;
-		Material2Ptr								m_pGBlurMaterial;
+		MaterialPtr								m_pMaterial;
+		MaterialPtr								m_pGBlurMaterial;
 
-		Texture2Ptr								m_pSSAORandomTex;
+		TexturePtr								m_pSSAORandomTex;
 
 		float									m_randomTexSize;
 		float									m_sampleRad;
@@ -39,7 +39,7 @@ namespace ld3d
 		float									m_scale;
 		float									m_bias;
 		bool									m_bBlur;
-		RenderTexture2Ptr						m_pGBlurTarget;
+		RenderTexturePtr						m_pGBlurTarget;
 
 	};
 }

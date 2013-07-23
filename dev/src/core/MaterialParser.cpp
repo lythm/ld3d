@@ -5,7 +5,7 @@
 #include "core/RenderStateParser.h"
 #include "core/TechniqueParser.h"
 #include "core/PassParser.h"
-#include "core/Material2.h"
+#include "core/Material.h"
 namespace ld3d
 {
 	
@@ -104,9 +104,9 @@ namespace ld3d
 			Error(token.line, "unexpected token: '" + token.str + "'");
 			return false;
 		}
-		Material2Ptr MaterialParser::CreateObject(Sys_Graphics2Ptr pGraphics)
+		MaterialPtr MaterialParser::CreateObject(Sys_GraphicsPtr pGraphics)
 		{
-			Material2Ptr pMaterial = std::make_shared<Material2>(pGraphics);
+			MaterialPtr pMaterial = std::make_shared<Material>(pGraphics);
 			for(auto v : m_members)
 			{
 				TechniqueParserPtr pParse = std::dynamic_pointer_cast<TechniqueParser>(v);
