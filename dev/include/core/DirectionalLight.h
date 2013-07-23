@@ -21,8 +21,8 @@ namespace ld3d
 		math::Vector3						m_dir;
 		math::Color4						m_diff;
 
-		MaterialPtr							m_pMaterial;
+		Material2Ptr							m_pMaterial;
 
-		RenderTargetPtr						m_pShadowMap;
+		RenderTexture2Ptr						m_pShadowMap;
 	};
 }

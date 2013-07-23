@@ -3,7 +3,7 @@
 #include "math/math_all.h"
 
 #include "core/g_format.h"
-
+#include "core/VertexFormat.h"
 namespace ld3d
 {
 	class Sys_Graphics
@@ -20,6 +20,8 @@ namespace ld3d
 		virtual void									DrawIndexed(int count, 
 																	int startindex,
 																	int basevertex)									= 0;
+
+
 		virtual void									SetPrimitiveType(PRIMITIVE_TYPE pt)							= 0;
 		
 		virtual int										GetFrameBufferWidth()										= 0;
@@ -126,7 +128,17 @@ namespace ld3d
 																	int count, 
 																	int startindex,
 																	int basevertex)														= 0;
-
+		virtual void									Draw(GeometryDataPtr pData, 
+																	int vertexCount, 
+																	int baseVertex, 
+																	int bufferOffset, 
+																	const VertexLayout& layout)											= 0;
+		virtual void									DrawIndexed(GeometryDataPtr pData, 
+																	int count, 
+																	int startindex, 
+																	int basevertex, 
+																	int vbOffset, 
+																	const VertexLayout& layout)											= 0;
 		virtual void									SetViewPort(int x, int y, int w, int h)											= 0;
 
 

@@ -14,10 +14,10 @@ namespace ld3d
 		int											GetVertexDataBytes();
 		void*										GetIndexData();
 		void*										GetVertexData();
-		MaterialPtr									GetMaterialByIndex(int index);
+		Material2Ptr								GetMaterialByIndex(int index);
 		int											GetMaterialCount();
 
-		bool										Create(int indexBufferSize, void* pIndexBuffer, int vertexBufferSize, void* pVertexBuffer, const std::vector<MaterialPtr>& materialList);
+		bool										Create(int indexBufferSize, void* pIndexBuffer, int vertexBufferSize, void* pVertexBuffer, const std::vector<Material2Ptr>& materialList);
 		void										AddSubMesh(SubMeshPtr pSub);
 
 		int											GetSubMeshCount();
@@ -30,8 +30,9 @@ namespace ld3d
 		void*										m_pVertexData;
 		int											m_vertexDataBytes;
 		
-		std::vector<MaterialPtr>					m_materialList;
+		std::vector<Material2Ptr>					m_materialList;
 		std::vector<SubMeshPtr>						m_submeshList;
+
 	};
 }
 

@@ -215,6 +215,26 @@ namespace ld3d
 		}
 	}
 
+	void OGL4Graphics::Draw(GeometryDataPtr pData, int vertexCount, int baseVertex, int bufferOffset, const VertexLayout& layout)
+	{
+		OGL4GeometryData* pGLData = (OGL4GeometryData*)pData.get();
+
+		pGLData->SetVertexBufferOffset(bufferOffset, layout);
+
+		pGLData->Bind();
+
+		glDrawArrays(pGLData->GetPrimitiveType(), baseVertex, vertexCount);
+	}
+	void OGL4Graphics::DrawIndexed(GeometryDataPtr pData, int count, int startindex, int basevertex, int vbOffset, const VertexLayout& layout)
+	{
+		OGL4GeometryData* pGLData = (OGL4GeometryData*)pData.get();
+
+		pGLData->SetVertexBufferOffset(vbOffset, layout);
+		pGLData->Bind();
+
+		glDrawElements(pGLData->GetPrimitiveType(), count, pGLData->GetIndexType(), 0);
+	}
+
 	void OGL4Graphics::DrawIndexed(GeometryDataPtr pData, int count, int startindex, int basevertex)
 	{
 		OGL4GeometryData* pGLData = (OGL4GeometryData*)pData.get();

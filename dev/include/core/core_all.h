@@ -57,6 +57,7 @@
 #include "core\VertexFormat.h"
 #include "core\RenderTarget.h"
 #include "core\RenderWindow.h"
+#include "core/RenderTexture.h"
 #include "core\DepthStencilBuffer.h"
 #include "core\RenderData.h"
 #include "core\RenderManager.h"

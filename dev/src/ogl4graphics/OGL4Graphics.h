@@ -2,6 +2,7 @@
 
 #include "core\Sys_Graphics.h"
 
+
 namespace ld3d
 {
 	class OGL4Graphics : public Sys_Graphics2
@@ -32,8 +33,12 @@ namespace ld3d
 		GeometryDataPtr							CreateGeometryData();
 
 		void									SetShaderProgram(ShaderProgramPtr pProg);
+
 		void									Draw(GeometryDataPtr pData, int vertexCount, int baseVertex);
 		void									DrawIndexed(GeometryDataPtr pData, int count, int startindex, int basevertex);
+
+		void									Draw(GeometryDataPtr pData, int vertexCount, int baseVertex, int bufferOffset, const VertexLayout& layout);
+		void									DrawIndexed(GeometryDataPtr pData, int count, int startindex, int basevertex, int vbOffset, const VertexLayout& layout);
 
 		void									SetViewPort(int x, int y, int w, int h);
 

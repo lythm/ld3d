@@ -14,7 +14,7 @@ namespace ld3d
 	SubMesh::~SubMesh(void)
 	{
 	}
-	void SubMesh::Create(MeshPtr pMesh, int indexOffset, int indexCount, int vertexOffset, int vertexCount, int vertexStride, int matIndex, int primCount, PRIMITIVE_TYPE primType, const VertexFormat& vf, G_FORMAT indexFormat)
+	void SubMesh::Create(MeshPtr pMesh, int indexOffset, int indexCount, int vertexOffset, int vertexCount, int vertexStride, int matIndex, int primCount, PRIMITIVE_TYPE primType, const VertexLayout& vf, G_FORMAT indexFormat)
 	{
 		m_pMesh						= pMesh;
 
@@ -30,16 +30,16 @@ namespace ld3d
 		m_indexed					= pMesh->GetIndexData() == NULL ? false : true;
 		m_primitiveType				= primType;
 
-		m_vertexFormat				= vf;
+		m_vertexLayout				= vf;
 		m_indexFormat				= indexFormat;
 	}
 	G_FORMAT SubMesh::GetIndexFormat()
 	{
 		return m_indexFormat;
 	}
-	const VertexFormat& SubMesh::GetVertexFormat()
+	const VertexLayout& SubMesh::GetVertexFormat()
 	{
-		return m_vertexFormat;
+		return m_vertexLayout;
 	}
 	void* SubMesh::GetIndexData()
 	{
@@ -78,7 +78,7 @@ namespace ld3d
 		return m_vertexStride;
 	}
 
-	MaterialPtr SubMesh::GetMaterial()
+	Material2Ptr SubMesh::GetMaterial()
 	{
 		return m_pMesh->GetMaterialByIndex(m_materialIndex);
 	}

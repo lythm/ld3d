@@ -10,7 +10,7 @@ namespace ld3d
 		BBoxRenderData(void);
 		virtual ~BBoxRenderData(void);
 
-		bool													Initialize(Sys_GraphicsPtr pGraphics);
+		bool													Initialize(Sys_Graphics2Ptr pGraphics);
 		void													Release();
 
 		void													Render(Sys_GraphicsPtr pSysGraphics, MaterialPtr pMaterial = MaterialPtr());

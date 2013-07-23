@@ -7,6 +7,7 @@
 #include "core\Material2.h"
 #include "core\RenderManager.h"
 #include "core/GeometryData.h"
+#include "core/MaterialParameter.h"
 
 namespace ld3d
 {
@@ -91,10 +92,8 @@ namespace ld3d
 		const math::Matrix44& proj = pRenderManager->GetProjMatrix();
 		const math::Matrix44& world = GetWorldTM();
 
-		m_pMaterial->SetWorldMatrix(world);
-		m_pMaterial->SetViewMatrix(view);
-		m_pMaterial->SetProjMatrix(proj);
-
+		pRenderManager->UpdateMatrixBlock(m_pMaterial, world);
+		
 		using namespace math;
 
 		struct SpotLightParam
@@ -114,9 +113,11 @@ namespace ld3d
 
 		l.theta = cosf(math::D2R(GetAngle()));
 
-		m_pMaterial->SetCBByName("light", &l, sizeof(SpotLightParam));
-		m_pMaterial->SetGBuffer(pRenderManager->GetGBuffer());
-		
+		MaterialParameterPtr pParam = m_pMaterial->GetParameterByName("light");
+		pParam->SetParameterBlock(&l, sizeof(SpotLightParam));
+	
+		pRenderManager->UpdateDRBuffer(m_pMaterial);
+				
 		Sys_Graphics2Ptr pGraphics = pRenderManager->GetSysGraphics();
 
 		pGraphics->ClearDepthStencil(CLEAR_STENCIL, 1, 0);

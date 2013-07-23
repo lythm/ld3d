@@ -1,9 +1,11 @@
 #include "core_pch.h"
 #include "..\..\include\core\DirectionalLight.h"
 #include "core\Sys_Graphics.h"
-#include "core\GPUBuffer.h"
-#include "core\Material.h"
+
+#include "core\Material2.h"
 #include "core\RenderManager.h"
+#include "core/MaterialParameter.h"
+#include "core/GeometryData.h"
 
 namespace ld3d
 {
@@ -20,11 +22,7 @@ namespace ld3d
 	{
 		m_pMaterial = pRenderManager->CreateMaterialFromFile("./assets/standard/material/dr_render_directional_light.fx");
 
-		VertexFormat vf;
-		vf.AddElement(VertexElement(0, VertexElement::POSITION, G_FORMAT_R32G32B32_FLOAT));
-		m_pMaterial->SetVertexFormat(vf);
-
-		if(m_pMaterial == MaterialPtr())
+		if(m_pMaterial == nullptr)
 		{
 			return false;
 		}
@@ -49,11 +47,8 @@ namespace ld3d
 		const math::Matrix44& proj = pRenderer->GetProjMatrix();
 
 
-		m_pMaterial->SetWorldMatrix(math::MatrixIdentity());
-		m_pMaterial->SetViewMatrix(view);
-		m_pMaterial->SetProjMatrix(proj);
-
-
+		pRenderer->UpdateMatrixBlock(m_pMaterial, math::MatrixIdentity());
+		
 		const math::Matrix44& tm = GetWorldTM();
 
 		math::Vector3 d = tm.GetRow3(2);
@@ -73,8 +68,10 @@ namespace ld3d
 
 		l.c = math::Vector3(diffClr.r, diffClr.g, diffClr.b);
 
-		m_pMaterial->SetCBByName("light", &l, sizeof(DirLightParam));
-		m_pMaterial->SetGBuffer(pRenderer->GetGBuffer());
+		MaterialParameterPtr pParam = m_pMaterial->GetParameterByName("light");
+		pParam->SetParameterBlock(&l, sizeof(DirLightParam));
+
+		pRenderer->UpdateDRBuffer(m_pMaterial);
 				
 		pRenderer->DrawFullScreenQuad(m_pMaterial);
 	}

@@ -2,10 +2,12 @@
 #include "..\..\include\core\PointLight.h"
 #include "core\MeshUtil.h"
 #include "core\Sys_Graphics.h"
-#include "core\GPUBuffer.h"
+#include "core/GeometryData.h"
 #include "core_utils.h"
-#include "core\Material.h"
+#include "core\Material2.h"
 #include "core\RenderManager.h"
+#include "core/MaterialParameter.h"
+
 namespace ld3d
 {
 	PointLight::PointLight(void) : Light(LT_POINTLIGHT)
@@ -41,23 +43,27 @@ namespace ld3d
 	bool PointLight::Create(RenderManagerPtr pRenderManager)
 	{
 		math::Vector3* pPos = MeshUtil::CreateSphere(1, 15, 15, m_nVerts);
-		m_pVB = pRenderManager->CreateBuffer(BT_VERTEX_BUFFER, m_nVerts * sizeof(math::Vector3), pPos, false);
+		m_pGeometry = pRenderManager->CreateGeometryData();
+
+		VertexLayout layout;
+		layout.AddAttribute(G_FORMAT_R32G32B32_FLOAT);
+
+		m_pGeometry->BeginGeometry(PT_TRIANGLE_STRIP);
+		{
+			m_pGeometry->AllocVertexBuffer(m_nVerts * sizeof(math::Vector3), pPos, false, layout);
+		}
+		m_pGeometry->EndGeometry();
+
+		
 		mem_free(pPos);
 
-		if(m_pVB == GPUBufferPtr())
-		{
-			return false;
-		}
-
+		
 		m_pMaterial = pRenderManager->CreateMaterialFromFile("./assets/standard/material/dr_render_point_light.fx");
-		if(m_pMaterial == MaterialPtr())
+		if(m_pMaterial == nullptr)
 		{
 			return false;
 		}
-		VertexFormat vf;
-		vf.AddElement(VertexElement(0, VertexElement::POSITION, G_FORMAT_R32G32B32_FLOAT));
-		m_pMaterial->SetVertexFormat(vf);
-
+		
 		return true;
 	}
 	
@@ -79,9 +85,12 @@ namespace ld3d
 		l.color = math::Vector3(diffClr.r, diffClr.g, diffClr.b);
 		l.radius = GetRadius();
 		
+		MaterialParameterPtr pParam = m_pMaterial->GetParameterByName("light");
 
-		m_pMaterial->SetCBByName("light", &l, sizeof(PointLightParam));
-		m_pMaterial->SetGBuffer(pRenderManager->GetGBuffer());
+		pParam->SetParameterBlock(&l, sizeof(PointLightParam));
+
+		pRenderManager->UpdateDRBuffer(m_pMaterial);
+
 		DrawLightVolumn(pRenderManager);
 	}
 	void PointLight::DrawLightVolumn(RenderManagerPtr pRenderManager)
@@ -90,24 +99,19 @@ namespace ld3d
 		const math::Matrix44& proj = pRenderManager->GetProjMatrix();
 		const math::Matrix44& world = GetWorldTM();
 
-		m_pMaterial->SetWorldMatrix(world);
-		m_pMaterial->SetViewMatrix(view);
-		m_pMaterial->SetProjMatrix(proj);
+		pRenderManager->UpdateMatrixBlock(m_pMaterial, world);
+		
+		
+		pRenderManager->ClearDepthBuffer(CLEAR_STENCIL, 1.0f, 0);
+		
+		Sys_Graphics2Ptr pGraphics = pRenderManager->GetSysGraphics();
 
-		m_pMaterial->ApplyVertexFormat();
-		
-		pRenderManager->ClearDepthBuffer(DepthStencilBufferPtr(), CLEAR_STENCIL, 1.0f, 0);
-		
-		Sys_GraphicsPtr pGraphics = pRenderManager->GetSysGraphics();
-		pGraphics->SetVertexBuffer(m_pVB, 0, sizeof(math::Vector3));
-		pGraphics->SetPrimitiveType(PT_TRIANGLE_STRIP);
-		
-		int nPass = 0;
-		m_pMaterial->Begin(nPass);
+
+		int nPass = m_pMaterial->Begin();
 		for(int i = 0; i < nPass; ++i)
 		{
 			m_pMaterial->ApplyPass(i);
-			pGraphics->Draw(m_nVerts, 0);
+			pGraphics->Draw(m_pGeometry, m_nVerts, 0);
 		}
 		m_pMaterial->End();
 	}
@@ -119,10 +123,10 @@ namespace ld3d
 			m_pMaterial->Release();
 			m_pMaterial.reset();
 		}
-		if(m_pVB)
+		if(m_pGeometry)
 		{
-			m_pVB->Release();
-			m_pVB.reset();
+			m_pGeometry->Release();
+			m_pGeometry.reset();
 		}
 	}
 	const math::Matrix44& PointLight::GetWorldTM()

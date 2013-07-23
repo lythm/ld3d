@@ -18,15 +18,13 @@ namespace ld3d
 	MeshUtil::~MeshUtil(void)
 	{
 	}
-	MeshPtr MeshUtil::CreateCone(float range, float angle, float slice, MaterialPtr pMat)
+	MeshPtr MeshUtil::CreateCone(float range, float angle, float slice, Material2Ptr pMat)
 	{
 		MeshPtr pMesh = alloc_object<Mesh>();
 
-		VertexFormat format;
-		format.AddElement(VertexElement(0, VertexElement::POSITION, G_FORMAT_R32G32B32_FLOAT));
-		format.AddElement(VertexElement(0, VertexElement::NORMAL, G_FORMAT_R32G32B32_FLOAT));
-
-		pMat->SetVertexFormat(format);
+		VertexLayout format;
+		format.AddAttribute(G_FORMAT_R32G32B32_FLOAT);
+		format.AddAttribute(G_FORMAT_R32G32B32_FLOAT);
 
 		float radius = tanf(math::D2R(angle)) * range;
 		struct Vertex
@@ -92,7 +90,7 @@ namespace ld3d
 			n++ ;
 		}
 
-		std::vector<MaterialPtr> mats;
+		std::vector<Material2Ptr> mats;
 		mats.push_back(pMat);
 
 		if(false == pMesh->Create(0, nullptr, sizeof(Vertex) * nVerts, pVerts, mats))
@@ -109,15 +107,13 @@ namespace ld3d
 		mem_free(pVerts);
 		return pMesh;
 	}
-	MeshPtr MeshUtil::CreatePlane(float size, MaterialPtr pMat)
+	MeshPtr MeshUtil::CreatePlane(float size, Material2Ptr pMat)
 	{
 		MeshPtr pMesh = alloc_object<Mesh>();
 
-		VertexFormat format;
-		format.AddElement(VertexElement(0, VertexElement::POSITION, G_FORMAT_R32G32B32_FLOAT));
-		format.AddElement(VertexElement(0, VertexElement::NORMAL, G_FORMAT_R32G32B32_FLOAT));
-
-		pMat->SetVertexFormat(format);
+		VertexLayout format;
+		format.AddAttribute(G_FORMAT_R32G32B32_FLOAT);
+		format.AddAttribute(G_FORMAT_R32G32B32_FLOAT);
 
 		struct Vertex
 		{
@@ -141,7 +137,7 @@ namespace ld3d
 		
 		};
 
-		std::vector<MaterialPtr> mats;
+		std::vector<Material2Ptr> mats;
 		mats.push_back(pMat);
 
 		if(false == pMesh->Create(0, nullptr, sizeof(Vertex) * 6, pVerts, mats))
@@ -156,16 +152,14 @@ namespace ld3d
 		
 		return pMesh;
 	}
-	MeshPtr MeshUtil::CreateCube(float size, MaterialPtr pMat)
+	MeshPtr MeshUtil::CreateCube(float size, Material2Ptr pMat)
 	{
 		MeshPtr pMesh = alloc_object<Mesh>();
 
 
-		VertexFormat format;
-		format.AddElement(VertexElement(0, VertexElement::POSITION, G_FORMAT_R32G32B32_FLOAT));
-		format.AddElement(VertexElement(0, VertexElement::NORMAL, G_FORMAT_R32G32B32_FLOAT));
-
-		pMat->SetVertexFormat(format);
+		VertexLayout format;
+		format.AddAttribute(G_FORMAT_R32G32B32_FLOAT);
+		format.AddAttribute(G_FORMAT_R32G32B32_FLOAT);
 
 		struct Vertex
 		{
@@ -241,7 +235,7 @@ namespace ld3d
 		};
 		
 
-		std::vector<MaterialPtr> mats;
+		std::vector<Material2Ptr> mats;
 		mats.push_back(pMat);
 
 		if(false == pMesh->Create(sizeof(uint16) * 36, pIndice, sizeof(Vertex) * 24, pVerts, mats))
@@ -256,16 +250,15 @@ namespace ld3d
 		
 		return pMesh;
 	}
-	MeshPtr MeshUtil::CreateSphere(float radius, float slice, float stack, MaterialPtr pMat)
+	MeshPtr MeshUtil::CreateSphere(float radius, float slice, float stack, Material2Ptr pMat)
 	{
 		MeshPtr pMesh = alloc_object<Mesh>();
 
 		
-		VertexFormat format;
-		format.AddElement(VertexElement(0, VertexElement::POSITION, G_FORMAT_R32G32B32_FLOAT));
-		format.AddElement(VertexElement(0, VertexElement::NORMAL, G_FORMAT_R32G32B32_FLOAT));
+		VertexLayout format;
+		format.AddAttribute(G_FORMAT_R32G32B32_FLOAT);
+		format.AddAttribute(G_FORMAT_R32G32B32_FLOAT);
 
-		pMat->SetVertexFormat(format);
 
 		int NumVertices = 0;
 		math::Vector3* pPos = CreateSphere(radius, slice, stack, NumVertices);
@@ -287,7 +280,7 @@ namespace ld3d
 		
 		mem_free(pPos);
 
-		std::vector<MaterialPtr> mats;
+		std::vector<Material2Ptr> mats;
 		mats.push_back(pMat);
 
 		if(false == pMesh->Create(0, NULL, sizeof(Vertex) * NumVertices, pVerts, mats))

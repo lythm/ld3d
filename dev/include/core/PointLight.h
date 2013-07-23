@@ -28,11 +28,11 @@ namespace ld3d
 		float					m_radius;
 		float					m_fallout;
 		
-		GPUBufferPtr			m_pVB;
+		GeometryDataPtr			m_pGeometry;
 		int						m_nVerts;
 
 		math::Matrix44			m_modifiedWorldTM;
 
-		MaterialPtr				m_pMaterial;
+		Material2Ptr			m_pMaterial;
 	};
 }

@@ -71,7 +71,7 @@ namespace ld3d
 		m_pSysManager = alloc_object<SysManager>();
 		m_pSysGraphics = m_pSysManager->LoadSysGraphics(setting.graphics.sysMod.c_str());
 		
-		if(m_pSysGraphics == Sys_GraphicsPtr())
+		if(m_pSysGraphics == Sys_Graphics2Ptr())
 		{
 			return false;
 		}

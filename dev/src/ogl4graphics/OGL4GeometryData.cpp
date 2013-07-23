@@ -88,10 +88,10 @@ namespace ld3d
 	{
 		return m_pVertexBuffer;
 	}
-	void OGL4GeometryData::SetVertexBufferOffset(unsigned int offset)
+	void OGL4GeometryData::SetVertexBufferOffset(unsigned int offset, const VertexLayout& layout)
 	{
 		m_vbOffset = offset;
-		SetVertexLayout(m_layout);
+		SetVertexLayout(layout);
 	}
 	void OGL4GeometryData::BeginGeometry(PRIMITIVE_TYPE prim)
 	{

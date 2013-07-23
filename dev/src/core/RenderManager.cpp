@@ -14,7 +14,8 @@
 #include "core\Event.h"
 #include "core/GeometryData.h"
 #include "core/RenderTexture.h"
-
+#include "core/MaterialParameter.h"
+#include "core/MaterialCompiler.h"
 
 namespace ld3d
 {
@@ -76,6 +77,7 @@ namespace ld3d
 		m_clearStencil					= 0;
 		m_globalAmbientColor			= math::Color4(0.3f, 0.3f, 0.3f, 1.0f);
 
+
 	}
 
 
@@ -118,7 +120,7 @@ namespace ld3d
 			return false;
 		}
 
-		m_pScreenQuadMaterial = pGraphics->CreateMaterialFromFile("./assets/standard/material/dr_render_merge.fx");
+		m_pScreenQuadMaterial = CreateMaterialFromFile("./assets/standard/material/dr_render_merge.fx");
 
 		return true;
 	}
@@ -214,7 +216,7 @@ namespace ld3d
 
 		for(size_t i = 0; i < m_deferredQueue.size(); ++i)
 		{
-			SetSemanticsValue(m_deferredQueue[i]);
+			UpdateMatrixBlock(m_deferredQueue[i]->pMaterial, m_deferredQueue[i]->worldMatrix);
 			DR_DrawRenderData(m_deferredQueue[i]);
 		}
 	}
@@ -232,11 +234,8 @@ namespace ld3d
 		m_pGraphics->SetRenderTarget(pOutput);
 		m_pGraphics->ClearRenderTarget(0, m_clearClr);
 
-		m_pScreenQuadMaterial->SetGBuffer(m_pGBuffer);
-		m_pScreenQuadMaterial->SetABuffer(m_pABuffer);
-		m_pScreenQuadMaterial->SetProjMatrix(m_projMatrix);
-		m_pScreenQuadMaterial->SetViewMatrix(m_viewMatrix);
-		m_pScreenQuadMaterial->SetWorldMatrix(math::MatrixIdentity());
+		UpdateDRBuffer(m_pScreenQuadMaterial);
+		UpdateMatrixBlock(m_pScreenQuadMaterial, math::MatrixIdentity());
 
 		DrawFullScreenQuad(m_pScreenQuadMaterial);
 	}
@@ -244,14 +243,14 @@ namespace ld3d
 	{
 		for(size_t i = 0; i < m_forwardQueue.size(); ++i)
 		{
-			SetSemanticsValue(m_forwardQueue[i]);
+			UpdateMatrixBlock(m_forwardQueue[i]->pMaterial, m_forwardQueue[i]->worldMatrix);
 			
 			FR_DrawRenderData(m_forwardQueue[i]);
 		}
 
 		for(size_t i = 0; i < m_transparentQueue.size(); ++i)
 		{
-			SetSemanticsValue(m_transparentQueue[i]);
+			UpdateMatrixBlock(m_transparentQueue[i]->pMaterial, m_transparentQueue[i]->worldMatrix);
 			FR_DrawRenderData(m_transparentQueue[i]);
 		}
 	}
@@ -307,14 +306,7 @@ namespace ld3d
 	{
 		m_projMatrix = proj;
 	}
-	void RenderManager::SetSemanticsValue(RenderData2Ptr pData)
-	{
-		Material2Ptr pMaterial = pData->pMaterial;
-		math::Matrix44& world = pData->worldMatrix
-		pMaterial->SetProjMatrix(m_projMatrix);
-		pMaterial->SetViewMatrix(m_viewMatrix);
-		pMaterial->SetWorldMatrix(world);
-	}
+	
 	Sys_Graphics2Ptr RenderManager::GetSysGraphics()
 	{
 		return m_pGraphics;
@@ -478,7 +470,9 @@ namespace ld3d
 	}
 	Material2Ptr RenderManager::CreateMaterialFromFile(const char* szFile)
 	{
-		return m_pGraphics->CreateMaterialFromFile(szFile);
+		using namespace material_script;
+		Compiler cl;
+		return cl.CompileFromFile(m_pGraphics, szFile);
 	}
 	Texture2Ptr RenderManager::CreateTextureFromFile(const char* szFile)
 	{
@@ -499,5 +493,32 @@ namespace ld3d
 	GeometryDataPtr RenderManager::CreateGeometryData()
 	{
 		return m_pGraphics->CreateGeometryData();
+	}
+	void RenderManager::UpdateMatrixBlock(Material2Ptr pMaterial, const math::Matrix44& world)
+	{
+		m_matrixBlock.MATRIX_WORLD				= world;
+		m_matrixBlock.MATRIX_VIEW				= m_viewMatrix;
+		m_matrixBlock.MATRIX_PROJECT			= m_projMatrix;
+
+		m_matrixBlock.MATRIX_I_WORLD			= math::MatrixInverse(world);
+		m_matrixBlock.MATRIX_I_VIEW				= math::MatrixInverse(m_viewMatrix);
+		m_matrixBlock.MATRIX_I_PROJECT			= math::MatrixInverse(m_projMatrix);
+
+		m_matrixBlock.MATRIX_WV					= world * m_viewMatrix;
+		m_matrixBlock.MATRIX_WVP				= world * m_viewMatrix * m_projMatrix;
+
+		m_matrixBlock.MATRIX_I_WV				= math::MatrixInverse(m_matrixBlock.MATRIX_WV);	
+		m_matrixBlock.MATRIX_I_WVP				= math::MatrixInverse(m_matrixBlock.MATRIX_WVP);
+		m_matrixBlock.MATRIX_I_VP				= math::MatrixInverse(m_viewMatrix * m_projMatrix);
+
+		MaterialParameterPtr pParam = pMaterial->GetParameterByName("_MATRIX");
+		if(pParam)
+		{
+			pParam->SetParameterBlock(&m_matrixBlock, sizeof(MATRIX_BLOCK));
+		}
+	}
+	void RenderManager::UpdateDRBuffer(Material2Ptr pMaterial)
+	{
+
 	}
 }

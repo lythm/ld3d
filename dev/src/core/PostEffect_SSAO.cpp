@@ -1,11 +1,11 @@
 #include "core_pch.h"
 #include "core\PostEffect_SSAO.h"
 #include "core\RenderManager.h"
-#include "core\Material.h"
+#include "core\Material2.h"
 #include "core\Sys_Graphics.h"
 #include "core\Texture.h"
 #include "core\RenderTexture.h"
-
+#include "core\materialparameter.h"
 
 namespace ld3d
 {
@@ -32,7 +32,8 @@ namespace ld3d
 
 		m_pSSAORandomTex = pRenderManager->CreateTextureFromFile("./assets/standard/texture/ssao_rand.jpg");
 		
-		m_pMaterial->SetTextureByName("tex_ssao_rand", m_pSSAORandomTex);
+		MaterialParameterPtr pParam = m_pMaterial->GetParameterByName("tex_ssao_rand");
+		pParam->SetParameterTexture(m_pSSAORandomTex);
 
 
 		int w = pRenderManager->GetFrameBufferWidth();
@@ -84,25 +85,43 @@ namespace ld3d
 		pRenderer->SetRenderTarget(m_pGBlurTarget);
 		pRenderer->ClearRenderTarget(0, math::Color4(0, 0, 0,0));
 
-		m_pMaterial->SetGBuffer(pRenderer->GetGBuffer());
-		m_pMaterial->SetVectorByName("g_screen_size", math::Vector2(pRenderer->GetFrameBufferWidth(), pRenderer->GetFrameBufferHeight()));
+		pRenderer->UpdateDRBuffer(m_pMaterial);
 
-		m_pMaterial->SetFloatByName("g_scale", m_scale);
-		m_pMaterial->SetFloatByName("g_random_size", m_randomTexSize);
-		m_pMaterial->SetFloatByName("g_sample_rad", m_sampleRad);
-		m_pMaterial->SetFloatByName("g_bias", m_bias);
-		m_pMaterial->SetFloatByName("g_intensity", m_intensity);
+		MaterialParameterPtr pParam = m_pMaterial->GetParameterByName("g_screen_size");
+		pParam->SetParameterVector(math::Vector2(pRenderer->GetFrameBufferWidth(), pRenderer->GetFrameBufferHeight()));
 
+		pParam = m_pMaterial->GetParameterByName("g_scale");
+		pParam->SetParameterFloat(m_scale);
+
+		pParam = m_pMaterial->GetParameterByName("g_random_size");
+		pParam->SetParameterFloat(m_randomTexSize);
+
+		pParam = m_pMaterial->GetParameterByName("g_sample_rad");
+		pParam->SetParameterFloat(m_sampleRad);
+
+		pParam = m_pMaterial->GetParameterByName("g_bias");
+		pParam->SetParameterFloat(m_bias);
+		
+		pParam = m_pMaterial->GetParameterByName("g_intensity");
+		pParam->SetParameterFloat(m_intensity);
 
 		pRenderer->DrawFullScreenQuad(m_pMaterial);
 
 		pRenderer->SetRenderTarget(pOutput);
-		pRenderer->ClearRenderTarget(pOutput, 0, math::Color4(0, 0, 0,0));
+		pRenderer->ClearRenderTarget(0, math::Color4(0, 0, 0,0));
 		
-		m_pGBlurMaterial->SetGBuffer(pRenderer->GetGBuffer());
-		m_pGBlurMaterial->SetTextureByName("tex_ao", m_pGBlurTarget->AsTexture(0));
-		m_pGBlurMaterial->SetVectorByName("g_input_size", math::Vector2(pRenderer->GetFrameBufferWidth(), pRenderer->GetFrameBufferHeight()));
-		m_pGBlurMaterial->SetTextureByName("tex_input", pInput->AsTexture(0));
+		pRenderer->UpdateDRBuffer(m_pGBlurMaterial);
+		
+		pParam = m_pMaterial->GetParameterByName("tex_ao");
+		pParam->SetParameterTexture(m_pGBlurTarget->GetTexture(0));
+
+		 pParam = m_pMaterial->GetParameterByName("g_input_size");
+		pParam->SetParameterVector(math::Vector2(pRenderer->GetFrameBufferWidth(), pRenderer->GetFrameBufferHeight()));
+		
+		pParam = m_pMaterial->GetParameterByName("tex_input");
+		pParam->SetParameterTexture(pInput->GetTexture(0));
+
+		
 		pRenderer->DrawFullScreenQuad(m_pGBlurMaterial);
 	}
 	const float& PostEffect_SSAO::GetBias()

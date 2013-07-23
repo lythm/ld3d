@@ -6,6 +6,23 @@ namespace ld3d
 {
 	class EXPORT_CLASS RenderManager : public std::enable_shared_from_this<RenderManager>
 	{
+		struct MATRIX_BLOCK
+		{
+			math::Matrix44							MATRIX_WORLD;
+			math::Matrix44							MATRIX_VIEW;
+			math::Matrix44							MATRIX_PROJECT;
+
+			math::Matrix44							MATRIX_I_WORLD;
+			math::Matrix44							MATRIX_I_VIEW;
+			math::Matrix44							MATRIX_I_PROJECT;
+
+			math::Matrix44							MATRIX_WV;
+			math::Matrix44							MATRIX_WVP;
+			
+			math::Matrix44							MATRIX_I_WV;
+			math::Matrix44							MATRIX_I_WVP;
+			math::Matrix44							MATRIX_I_VP;
+		};
 		
 		class ScreenQuad
 		{
@@ -47,8 +64,6 @@ namespace ld3d
 		const math::Color4&							GetClearColor();
 		void										ResizeFrameBuffer(int cx, int cy);
 
-		void										SetSemanticsValue(RenderData2Ptr pData);
-
 		void										AddLight(LightPtr pLight);
 		void										RemoveLight(LightPtr pLight);
 		int											GetLightCount();
@@ -78,6 +93,9 @@ namespace ld3d
 		void										RemoveCamera(CameraPtr pCamera);
 
 		GeometryDataPtr								CreateGeometryData();
+
+		void										UpdateMatrixBlock(Material2Ptr pMaterial, const math::Matrix44& world);
+		void										UpdateDRBuffer(Material2Ptr pMaterial);
 	private:
 		bool										CreateABuffer(int w, int h);
 		bool										CreateGBuffer(int w, int h);
@@ -125,5 +143,7 @@ namespace ld3d
 		std::list<CameraPtr>						m_cameras;
 
 		EventDispatcherPtr							m_pEventDispatcher;
+
+		MATRIX_BLOCK								m_matrixBlock;
 	};
 }

@@ -26,8 +26,7 @@ namespace ld3d
 		GPUBufferPtr											GetIndexBuffer();
 		GPUBufferPtr											GetVertexBuffer();
 
-		void													SetVertexBufferOffset(unsigned int offset);
-		void													SetVertexLayout(const VertexLayout& layout);
+		void													SetVertexBufferOffset(unsigned int offset, const VertexLayout& layout);
 
 		void													EndGeometry();
 
@@ -40,6 +39,10 @@ namespace ld3d
 		void													Bind();
 		GLenum													GetIndexType() const;
 		GLenum													GetPrimitiveType() const;
+		
+		void													SetVertexLayout(const VertexLayout& layout);
+
+	private:
 		
 	private:
 		GLuint													m_vao;

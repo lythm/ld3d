@@ -11,7 +11,7 @@ namespace ld3d
 		virtual ~SubMesh(void);
 
 
-		void									Create(MeshPtr pMesh, int indexOffset, int indexCount, int vertexOffset, int vertexCount, int vertexStride, int matIndex, int primCount, PRIMITIVE_TYPE primType, const VertexFormat& vf, G_FORMAT indexFormat);
+		void									Create(MeshPtr pMesh, int indexOffset, int indexCount, int vertexOffset, int vertexCount, int vertexStride, int matIndex, int primCount, PRIMITIVE_TYPE primType, const VertexLayout& vf, G_FORMAT indexFormat);
 
 		void*									GetIndexData();
 		void*									GetVertexData();
@@ -25,12 +25,12 @@ namespace ld3d
 		int										GetVertexCount();
 		int										GetVertexStride();
 
-		MaterialPtr								GetMaterial();
+		Material2Ptr								GetMaterial();
 		int										GetPrimitiveCount();
 		PRIMITIVE_TYPE							GetPrimitiveType();
 		bool									IsIndexed();
 
-		const VertexFormat&						GetVertexFormat();
+		const VertexLayout&						GetVertexFormat();
 		G_FORMAT								GetIndexFormat();
 	private:
 
@@ -47,11 +47,7 @@ namespace ld3d
 		PRIMITIVE_TYPE							m_primitiveType;
 		bool									m_indexed;
 
-		VertexFormat							m_vertexFormat;
-
+		VertexLayout							m_vertexLayout;
 		G_FORMAT								m_indexFormat;
-		
 	};
-
-
 }

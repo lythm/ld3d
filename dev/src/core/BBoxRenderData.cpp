@@ -15,9 +15,9 @@ namespace ld3d
 	BBoxRenderData::~BBoxRenderData(void)
 	{
 	}
-	bool BBoxRenderData::Initialize(Sys_GraphicsPtr pGraphics)
+	bool BBoxRenderData::Initialize(Sys_Graphics2Ptr pGraphics)
 	{
-		m_pMaterial = pGraphics->CreateMaterialFromFile("./assets/standard/material/editor_grid.fx");
+		/*m_pMaterial = pGraphics->CreateMaterialFromFile("./assets/standard/material/editor_grid.fx");
 		if(m_pMaterial == nullptr)
 		{
 			return false;
@@ -31,7 +31,7 @@ namespace ld3d
 		if(m_pVertexBuffer == nullptr)
 		{
 			return false;
-		}
+		}*/
 		return true;
 	}
 	void BBoxRenderData::Release()
