@@ -118,8 +118,12 @@ namespace ld3d
 			return false;
 		}
 
-		//m_pScreenQuadMaterial = CreateMaterialFromFile("./assets/standard/material/dr_render_merge.fx");
+		m_pScreenQuadMaterial = CreateMaterialFromFile("./assets/standard/material/dr_render_merge.material");
 
+		if(m_pScreenQuadMaterial == nullptr)
+		{
+			return false;
+		}
 		return true;
 	}
 	bool RenderManager::CreateGBuffer(int w, int h)
@@ -186,14 +190,14 @@ namespace ld3d
 	
 	void RenderManager::AddRenderData(RenderDataPtr pData)
 	{
-		/*if(pData->dr)
+		if(pData->dr)
 		{
 			m_deferredQueue.push_back(pData);
 		}
 		else
-		{*/
+		{
 			m_forwardQueue.push_back(pData);
-		//}
+		}
 	}
 	void RenderManager::Clear()
 	{
@@ -223,6 +227,16 @@ namespace ld3d
 			pData->dr_draw(shared_from_this());
 			return;
 		}
+
+		int nPass = pData->material->Begin();
+		for(int i = 0; i < nPass; ++i)
+		{
+			pData->material->ApplyPass(i);
+			pData->geometry->GetIndexBuffer() ? 
+				m_pGraphics->DrawIndexed(pData->geometry, pData->index_count, pData->start_index, pData->base_vertex) :
+				m_pGraphics->Draw(pData->geometry, pData->vertex_count, pData->base_vertex);
+		}
+		pData->material->End();
 	}
 	void RenderManager::FR_DrawRenderData(RenderDataPtr pData)
 	{
@@ -249,10 +263,10 @@ namespace ld3d
 		m_pGraphics->SetRenderTarget(pOutput);
 		m_pGraphics->ClearRenderTarget(0, m_clearClr);
 
-		//UpdateDRBuffer(m_pScreenQuadMaterial);
-		//UpdateMatrixBlock(m_pScreenQuadMaterial, math::MatrixIdentity());
+		UpdateDRBuffer(m_pScreenQuadMaterial);
+		UpdateMatrixBlock(m_pScreenQuadMaterial, math::MatrixIdentity());
 
-		//DrawFullScreenQuad(m_pScreenQuadMaterial);
+		DrawFullScreenQuad(m_pScreenQuadMaterial);
 	}
 	void RenderManager::RenderForward()
 	{
@@ -275,12 +289,12 @@ namespace ld3d
 		SetProjMatrix(proj);
 
 		DR_G_Pass();
-		//DR_Light_Pass();
+		DR_Light_Pass();
 		DR_Merge_Pass();
 		
 		RenderForward();
 
-	//	RenderPostEffects();
+		RenderPostEffects();
 		
 		RenderFinal();
 	}
@@ -533,6 +547,35 @@ namespace ld3d
 	}
 	void RenderManager::UpdateDRBuffer(MaterialPtr pMaterial)
 	{
+		MaterialParameterPtr pParam = pMaterial->GetParameterByName("_DR_A_BUFFER");
+		if(pParam)
+		{
+			pParam->SetParameterTexture(m_pABuffer->GetTexture(0));
+		}
 
+
+		pParam = pMaterial->GetParameterByName("_DR_G_BUFFER[0]");
+
+		if(pParam == nullptr)
+		{
+			return;
+		}
+
+		if(pParam)
+		{
+			pParam->SetParameterTexture(m_pGBuffer->GetTexture(0));
+		}
+
+		pParam = pMaterial->GetParameterByName("_DR_G_BUFFER[1]");
+		if(pParam)
+		{
+			pParam->SetParameterTexture(m_pGBuffer->GetTexture(1));
+		}
+
+		pParam = pMaterial->GetParameterByName("_DR_G_BUFFER[2]");
+		if(pParam)
+		{
+			pParam->SetParameterTexture(m_pGBuffer->GetTexture(2));
+		}
 	}
 }

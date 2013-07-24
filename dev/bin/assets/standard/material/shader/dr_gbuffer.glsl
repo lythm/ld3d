@@ -3,12 +3,12 @@
 // layout(location = 0) out float	G_BUFFER_0;
 // layout(location = 1) out vec2	G_BUFFER_1;
 // layout(location = 2) out vec4	G_BUFFER_2;
-void dr_gbuffer_compose(float depth, vec2 normal_xy, vec3 diffuse, float specular)
-{
-	G_BUFFER_0 = depth;
-	G_BUFFER_1 = normal_xy;
-	G_BUFFER_2 = vec4(diffuse, specular);
-}
+//void dr_gbuffer_compose(float depth, vec2 normal_xy, vec3 diffuse, float specular)
+//{
+//	G_BUFFER_0 = depth;
+//	G_BUFFER_1 = normal_xy;
+//	G_BUFFER_2 = vec4(diffuse, specular);
+//}
 
 float dr_gbuffer_get_depth(sampler2D g[3], vec2 uv)
 {

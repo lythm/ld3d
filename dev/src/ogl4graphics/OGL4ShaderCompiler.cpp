@@ -5,6 +5,7 @@
 
 #include <regex>
 
+#include <boost/lexical_cast.hpp>
 
 namespace ld3d
 {
@@ -46,22 +47,34 @@ namespace ld3d
 	{
 	
 		std::string source = LoadShaderSource(path.string());
+		
+		
 		if(source == "")
 		{
 			return OGL4ShaderPtr();
 		}
 		
-		std::vector<boost::filesystem::path> inc_list;
-		inc_list.push_back(path.filename());
+
+
+		std::vector<IncludeInfo> inc_list;
+		IncludeInfo inc;
+		inc.file = path;
+		inc.lines = GetSourceLines(source);
+
+		inc_list.push_back(inc);
 		source = ProcessInclude(path.parent_path(), source, inc_list);
+		
+		inc_list.push_back(inc);
+		inc_list.erase(inc_list.begin());
+
 
 		source = ClearVersionComment(source);
 
-		return CreateShaderFromSource(type, source, path);
+		return CreateShaderFromSource(type, source, inc_list);
 
 
 	}
-	OGL4ShaderPtr OGL4ShaderCompiler::CreateShaderFromSource(SHADER_TYPE type, const std::string& source, const boost::filesystem::path& file)
+	OGL4ShaderPtr OGL4ShaderCompiler::CreateShaderFromSource(SHADER_TYPE type, const std::string& source, const std::vector<IncludeInfo>& inc_list)
 	{
 		GLenum gltype = OGL4Convert::ShaderTypeToGL(type);
 		
@@ -76,7 +89,7 @@ namespace ld3d
 		char szInfo[1024];
 		glGetShaderInfoLog(shader, 1024, nullptr, szInfo); 
 
-		PrintShaderLog(szInfo, file);
+		PrintShaderLog(szInfo, inc_list);
 
 		GLint ret = GL_FALSE;
 		glGetShaderiv(shader, GL_COMPILE_STATUS, &ret);
@@ -89,9 +102,9 @@ namespace ld3d
 		OGL4ShaderPtr pShader = std::make_shared<OGL4Shader>(type, shader);
 		return pShader;
 	}
-	std::string OGL4ShaderCompiler::ProcessInclude(const boost::filesystem::path& basePath, const std::string& source, std::vector<boost::filesystem::path>& inc_list)
+	std::string OGL4ShaderCompiler::ProcessInclude(const boost::filesystem::path& basePath, const std::string& source, std::vector<IncludeInfo>& inc_list)
 	{
-		std::vector<boost::filesystem::path> include_list = ExtractIncludeList(source);
+		std::vector<IncludeInfo> include_list = ExtractIncludeList(source);
 
 		if(include_list.size() == 0)
 		{
@@ -104,7 +117,7 @@ namespace ld3d
 			bool included = false;
 			for(auto v : inc_list)
 			{
-				if((basePath / v) == (basePath / include_list[i]))
+				if((basePath / v.file.filename()) == (basePath / include_list[i].file.filename()))
 				{
 					included = true;
 					break;
@@ -115,17 +128,21 @@ namespace ld3d
 			{
 				continue;
 			}
+			
+			std::string inc_source = LoadShaderSource(basePath / include_list[i].file.filename());
+			
+			include_list[i].lines = GetSourceLines(inc_source);
+			
+			ret += ProcessInclude(basePath, inc_source, inc_list) + "\n";
+			
 			inc_list.push_back(include_list[i]);
-
-			std::string inc_source = LoadShaderSource(basePath / include_list[i]);
-			ret += ProcessInclude(basePath, inc_source, inc_list);
 		}
 
 		ret += source;
 
 		return ret;
 	}
-	std::vector<boost::filesystem::path> OGL4ShaderCompiler::ExtractIncludeList(const std::string& source)
+	std::vector<OGL4ShaderCompiler::IncludeInfo> OGL4ShaderCompiler::ExtractIncludeList(const std::string& source)
 	{
 		std::regex r("#pragma include .*");
 
@@ -140,7 +157,7 @@ namespace ld3d
 			result.push_back(rit->str());
 		}
 
-		std::vector<boost::filesystem::path> inc_list;
+		std::vector<IncludeInfo> inc_list;
 		for(auto v : result)
 		{
 			std::regex r("\".*\"");
@@ -152,7 +169,9 @@ namespace ld3d
 			{
 				continue;
 			}
-			std::string inc = rit->str().substr(1, rit->str().length() - 2);
+			IncludeInfo inc;
+			inc.file = rit->str().substr(1, rit->str().length() - 2);
+			inc.lines = 0;
 			
 			inc_list.push_back(inc);
 		}
@@ -175,10 +194,10 @@ namespace ld3d
 
 		std::string result = std::regex_replace(source, rv, fmt);
 
-		return first + "\n" + result;
+		return first + result;
 	}
 	
-	void OGL4ShaderCompiler::PrintShaderLog(std::string log, const boost::filesystem::path& file)
+	void OGL4ShaderCompiler::PrintShaderLog(std::string log, const std::vector<IncludeInfo>& inc_list)
 	{
 		if(log == "")
 		{
@@ -190,7 +209,55 @@ namespace ld3d
 		
 		for(auto it = first; it != last; ++it)
 		{
-			g_log(file.string() + ":" + it->str() + "\n");
+			std::string msg = AdjustLog(it->str(), inc_list);
+
+			g_log(msg + "\n");
 		}
+	}
+	int OGL4ShaderCompiler::GetSourceLines(const std::string& src)
+	{
+		std::regex r("\n");
+		std::sregex_token_iterator first(src.begin(), src.end(), r, -1);
+		std::sregex_token_iterator last;
+		
+		int lines = 0;
+		for(auto it = first; it != last; ++it)
+		{
+			++lines;
+		}
+
+		return lines + 1;
+	}
+	std::string OGL4ShaderCompiler::AdjustLog(const std::string& log, const std::vector<IncludeInfo>& inc_list)
+	{
+		std::regex r("\\([0-9]+\\)");
+		std::sregex_iterator first(log.begin(), log.end(), r);
+		std::sregex_iterator last;
+
+		std::string s = first->str();
+
+		std::regex rn("[0-9]+");
+		std::sregex_iterator rn_first(s.begin(), s.end(), rn);
+		std::sregex_iterator rn_last;
+
+		s = rn_first->str();
+
+		int line = strtol(s.c_str(), nullptr, 10);
+
+		std::string result;
+
+		int totals = 0;
+
+		for(size_t i = 0; i < inc_list.size(); ++i)
+		{
+			if(line <= inc_list[i].lines)
+			{
+				result = inc_list[i].file.string() + "(" + boost::lexical_cast<std::string>(line) + "):";
+				break;
+			}
+			line -= inc_list[i].lines;
+		}
+
+		return result + log.substr(s.length() + 5);
 	}
 }
