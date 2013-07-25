@@ -121,7 +121,7 @@ PFNGLBINDFRAMEBUFFERPROC							glBindFramebuffer								= nullptr;
 PFNGLCHECKFRAMEBUFFERSTATUSPROC						glCheckFramebufferStatus						= nullptr;
 PFNGLFRAMEBUFFERTEXTUREPROC							glFramebufferTexture							= nullptr;
 PFNGLFRAMEBUFFERRENDERBUFFERPROC					glFramebufferRenderbuffer						= nullptr;
-
+PFNGLDRAWBUFFERSPROC								glDrawBuffers									= nullptr;
 
 
 // render state

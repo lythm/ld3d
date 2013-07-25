@@ -33,7 +33,15 @@ namespace ld3d
 	{
 		m_pRenderManager = m_pManager->GetRenderManager();
 		m_pLight = m_pManager->alloc_object<SkyLight>();
-		m_pLight->Create(m_pRenderManager);
+		if(false == m_pLight->Create(m_pRenderManager))
+		{
+			m_pLight->Release();
+			m_pLight.reset();
+			return false;
+		}
+	
+
+
 
 		m_pRenderManager->AddLight(m_pLight);
 

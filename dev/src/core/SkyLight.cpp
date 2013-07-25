@@ -22,7 +22,7 @@ namespace ld3d
 	{
 		m_pRenderManager = pRenderManager;
 
-		m_pMaterial = pRenderManager->CreateMaterialFromFile("./assets/standard/material/dr_render_directional_light.fx");
+		m_pMaterial = pRenderManager->CreateMaterialFromFile("./assets/standard/material/dr_render_directional_light.material");
 		
 		if(m_pMaterial == nullptr)
 		{

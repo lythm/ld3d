@@ -29,6 +29,11 @@ struct SpotLight
 	float	cos_theta;
 };
 
+float saturate(float v)
+{
+	return clamp(v, 0.0, 1.0);
+}
+
 float rgb_2_il(vec3 clr)
 {
     return dot(clr, vec3(0.2126f, 0.7152f, 0.0722f));
@@ -47,7 +52,8 @@ float dr_light_specular_il(vec3 n, vec3 l, float power)
 
 LightResult dr_light_dir(vec3 n, DirectionalLight light, mat4 wv)
 {
-	vec3 l = -mul(light.dir, (mat3)wv);
+	vec3 l = (-vec4(light.dir, 0) * wv).xyz;
+//	vec3 l = -(light.dir * mat3(wv));
 
 	float il = saturate(dot(l, n)) * light.intensity;
 	
@@ -65,7 +71,7 @@ LightResult dr_light_dir(vec3 n, DirectionalLight light, mat4 wv)
 
 LightResult dr_light_point(vec3 p, vec3 n, PointLight light, mat4 wv)
 {
-	vec3 center = mul(vec4(0, 0, 0, 1), wv).xyz;
+	vec3 center = (vec4(0, 0, 0, 1) * wv).xyz;
 	
 	vec3 l = center - p;
 	float d = length(l);
@@ -92,8 +98,8 @@ LightResult dr_light_point(vec3 p, vec3 n, PointLight light, mat4 wv)
 
 LightResult dr_light_spot(vec3 p, vec3 n, SpotLight light, mat4 wv)
 {
-	vec3 o = mul(vec4(0,0,0,1), wv).xyz;
-	vec3 ld = mul(vec4(0, 0, 1, 0), wv).xyz;
+	vec3 o = (vec4(0,0,0,1) * wv).xyz;
+	vec3 ld = (vec4(0, 0, 1, 0) * wv).xyz;
 
 	vec3 l = o - p;
 	float d = length(l);

@@ -222,6 +222,8 @@ namespace ld3d
 		LOAD_API(glStencilMaskSeparate,									PFNGLSTENCILMASKSEPARATEPROC);
 		LOAD_API(glStencilFuncSeparate,									PFNGLSTENCILFUNCSEPARATEPROC);
 
+		LOAD_API(glDrawBuffers,									PFNGLDRAWBUFFERSPROC);
+
 		return true;
 	}
 }

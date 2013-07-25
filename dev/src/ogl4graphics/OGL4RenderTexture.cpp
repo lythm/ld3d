@@ -5,6 +5,25 @@
 
 namespace ld3d
 {
+	static GLenum s_draw_buffers[] = 
+	{ 
+		GL_COLOR_ATTACHMENT0, 
+		GL_COLOR_ATTACHMENT1, 
+		GL_COLOR_ATTACHMENT2, 
+		GL_COLOR_ATTACHMENT3, 
+		GL_COLOR_ATTACHMENT4, 
+		GL_COLOR_ATTACHMENT5, 
+		GL_COLOR_ATTACHMENT6, 
+		GL_COLOR_ATTACHMENT7, 
+		GL_COLOR_ATTACHMENT8, 
+		GL_COLOR_ATTACHMENT9, 
+		GL_COLOR_ATTACHMENT10, 
+		GL_COLOR_ATTACHMENT11, 
+		GL_COLOR_ATTACHMENT12, 
+		GL_COLOR_ATTACHMENT13, 
+		GL_COLOR_ATTACHMENT14, 
+		GL_COLOR_ATTACHMENT15, 
+	};
 	OGL4RenderTexture::OGL4RenderTexture(void)
 	{
 		m_fbo = 0;
@@ -50,7 +69,7 @@ namespace ld3d
 		}
 
 		glBindFramebuffer(GL_FRAMEBUFFER, m_fbo);
-		
+
 		OGL4Texture* pGLTex = (OGL4Texture*)pTex.get();
 		glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + (int)m_texs.size(), pGLTex->GetTextureObject(), 0);
 
@@ -67,7 +86,7 @@ namespace ld3d
 	{
 
 		glBindFramebuffer(GL_FRAMEBUFFER, m_fbo);
-		
+
 		OGL4DepthStencilBuffer* pGLTex = (OGL4DepthStencilBuffer*)pDS.get();
 		glFramebufferRenderbuffer(GL_FRAMEBUFFER, pGLTex->GetAttachPoint(),  GL_RENDERBUFFER, pGLTex->GetDepthStencilBufferObject());
 
@@ -82,5 +101,10 @@ namespace ld3d
 	GLuint OGL4RenderTexture::GetFBO()
 	{
 		return m_fbo;
+	}
+	void OGL4RenderTexture::Bind()
+	{
+		glBindFramebuffer(GL_FRAMEBUFFER, m_fbo);
+		glDrawBuffers(m_texs.size(), s_draw_buffers);
 	}
 }

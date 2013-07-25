@@ -19,6 +19,29 @@
 
 namespace ld3d
 {
+	class RenderManager_DebugPanel
+	{
+	public:
+
+		RenderManager_DebugPanel(RenderManagerPtr pManager)
+		{
+			m_pRenderManager = pManager;
+
+
+		}
+
+
+		void											Draw()
+		{
+		}
+	private:
+		GeometryDataPtr									m_pGeom;
+		MaterialPtr										m_pMaterial;
+		RenderManagerPtr								m_pRenderManager;
+	};
+}
+namespace ld3d
+{
 	bool RenderManager::ScreenQuad::Init(Sys_GraphicsPtr pGraphics)
 	{
 		math::Vector3 verts[] = 
@@ -124,6 +147,13 @@ namespace ld3d
 		{
 			return false;
 		}
+
+		m_pDrawTextureMaterial = CreateMaterialFromFile("./assets/standard/material/dr_render_final.material");
+		if(m_pDrawTextureMaterial == nullptr)
+		{
+			return false;
+
+		}
 		return true;
 	}
 	bool RenderManager::CreateGBuffer(int w, int h)
@@ -208,11 +238,10 @@ namespace ld3d
 	void RenderManager::DR_G_Pass()
 	{
 		m_pGraphics->SetRenderTarget(m_pGBuffer);
-		m_pGraphics->ClearRenderTarget(0, math::Color4(0, 0, 0, 1));
+		m_pGraphics->ClearRenderTarget(0, math::Color4(1, 0, 0, 0));
 		m_pGraphics->ClearRenderTarget(1, math::Color4(0, 0, 0, 0));
 		m_pGraphics->ClearRenderTarget(2, math::Color4(0, 0, 0, 1));
 		m_pGraphics->ClearDepthStencil(CLEAR_ALL, 1.0f, 0);
-
 
 		for(size_t i = 0; i < m_deferredQueue.size(); ++i)
 		{
@@ -297,6 +326,9 @@ namespace ld3d
 		RenderPostEffects();
 		
 		RenderFinal();
+
+
+	//	Draw_Texture(m_pABuffer->GetTexture(0));
 	}
 	void RenderManager::Render(CameraPtr pCamera)
 	{
@@ -577,5 +609,12 @@ namespace ld3d
 		{
 			pParam->SetParameterTexture(m_pGBuffer->GetTexture(2));
 		}
+	}
+	void RenderManager::Draw_Texture(TexturePtr pTex)
+	{
+		MaterialParameterPtr pParam = m_pDrawTextureMaterial->GetParameterByName("final_image");
+		pParam->SetParameterTexture(pTex);
+
+		DrawFullScreenQuad(m_pDrawTextureMaterial);
 	}
 }

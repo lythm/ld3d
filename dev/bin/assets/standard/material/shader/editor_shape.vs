@@ -12,5 +12,5 @@ void main()
 {
 	gl_Position = vec4(pos.xyz, 1) * MATRIX_WVP;
 
-	p_normal = (vec4(normal.xyz, 0) * MATRIX_WVP).xyz;
+	p_normal = (vec4(normal.xyz, 0) * MATRIX_WV).xyz;
 }

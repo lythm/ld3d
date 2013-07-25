@@ -119,6 +119,7 @@ extern PFNGLBINDFRAMEBUFFERPROC							glBindFramebuffer;
 extern PFNGLCHECKFRAMEBUFFERSTATUSPROC					glCheckFramebufferStatus;
 extern PFNGLFRAMEBUFFERTEXTUREPROC						glFramebufferTexture;
 extern PFNGLFRAMEBUFFERRENDERBUFFERPROC					glFramebufferRenderbuffer;
+extern PFNGLDRAWBUFFERSPROC								glDrawBuffers;
 
 // render state
 extern PFNGLBLENDCOLORPROC								glBlendColor;

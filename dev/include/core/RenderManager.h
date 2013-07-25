@@ -36,6 +36,7 @@ namespace ld3d
 		};
 
 		typedef std::shared_ptr<ScreenQuad>			ScreenQuadPtr;
+
 	public:
 		RenderManager(void);
 		virtual ~RenderManager(void);
@@ -110,6 +111,7 @@ namespace ld3d
 		void										DR_DrawRenderData(RenderDataPtr pData);
 		void										FR_DrawRenderData(RenderDataPtr pData);
 		
+		void										Draw_Texture(TexturePtr pTex);
 	private:
 		math::Matrix44								m_viewMatrix;
 		math::Matrix44								m_projMatrix;
@@ -144,5 +146,7 @@ namespace ld3d
 		EventDispatcherPtr							m_pEventDispatcher;
 
 		MATRIX_BLOCK								m_matrixBlock;
+
+		MaterialPtr									m_pDrawTextureMaterial;
 	};
 }

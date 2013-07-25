@@ -17,7 +17,13 @@ namespace ld3d
 		GameObjectPtr pObj = m_pManager->CreateGameObject(L"Sky Light");
 
 		GameObjectComponentPtr pLight = m_pManager->CreateComponent(L"SkyLight");
-		pObj->AddComponent(pLight);
+		
+		if(false == pObj->AddComponent(pLight))
+		{
+			pObj->Clear();
+			pObj.reset();
+			return GameObjectPtr();
+		}
 
 		return pObj;
 	}

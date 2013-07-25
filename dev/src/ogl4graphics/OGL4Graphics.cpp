@@ -487,7 +487,8 @@ namespace ld3d
 		// render texture
 		m_pCurrentRT = std::dynamic_pointer_cast<OGL4RenderTexture>(pTarget);
 
-		glBindFramebuffer(GL_FRAMEBUFFER, m_pCurrentRT->GetFBO());
+		m_pCurrentRT->Bind();
+
 	}
 	
 	TexturePtr OGL4Graphics::CreateTexture1D(G_FORMAT format, int l, int lvls, bool dynamic)

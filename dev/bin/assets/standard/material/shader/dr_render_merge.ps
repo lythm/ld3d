@@ -18,7 +18,8 @@ void main()
 
 	vec4 l = texture(_DR_A_BUFFER, uv);
 
-	f_color.xyz = l.xyz * d.xyz + (l.w * d.xyz) * d.w;
+	//f_color.xyz = l.xyz * d.xyz + (l.w * d.xyz) * d.w;
 	f_color.w = 1;
 
+	f_color.xyz = vec3(d.y, l.x , l.y);
 }
