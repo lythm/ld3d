@@ -85,7 +85,7 @@ namespace ld3d
 		MaterialParameterPtr pParam = m_pMaterial->GetParameterByName("light");
 		pParam->SetParameterBlock(&l, sizeof(DirLightParam));
 
-		pRenderer->UpdateDRBuffer(m_pMaterial);
+		pRenderer->SetGBuffer(m_pMaterial);
 				
 		
 		pRenderer->DrawFullScreenQuad(m_pMaterial);

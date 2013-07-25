@@ -85,7 +85,7 @@ namespace ld3d
 		pRenderer->SetRenderTarget(m_pGBlurTarget);
 		pRenderer->ClearRenderTarget(0, math::Color4(0, 0, 0,0));
 
-		pRenderer->UpdateDRBuffer(m_pMaterial);
+		pRenderer->SetDRBuffer(m_pMaterial);
 
 		MaterialParameterPtr pParam = m_pMaterial->GetParameterByName("g_screen_size");
 		pParam->SetParameterVector(math::Vector2((Real)pRenderer->GetFrameBufferWidth(), (Real)pRenderer->GetFrameBufferHeight()));
@@ -110,7 +110,7 @@ namespace ld3d
 		pRenderer->SetRenderTarget(pOutput);
 		pRenderer->ClearRenderTarget(0, math::Color4(0, 0, 0,0));
 		
-		pRenderer->UpdateDRBuffer(m_pGBlurMaterial);
+		pRenderer->SetGBuffer(m_pGBlurMaterial);
 		
 		pParam = m_pMaterial->GetParameterByName("tex_ao");
 		pParam->SetParameterTexture(m_pGBlurTarget->GetTexture(0));

@@ -27,7 +27,7 @@ bool VoxelDemo::Init(ld3d::CoreApiPtr pCore)
 
 	m_pCamera = m_pCore->GetGameObjectManager()->alloc_object<ld3d::Camera>();
 	m_pCamera->PerspectiveFovLH(0.25f * 3.14f, 4.0f / 3.0f, 0.01f, 10000);
-	m_pCamera->LookAtLH(math::Vector3(2, 2, 2), math::Vector3(0, 0, 0), math::Vector3(0, 1, 0));
+	m_pCamera->LookAtLH(math::Vector3(0, 2, -2), math::Vector3(0, 0, 0), math::Vector3(0, 1, 0));
 
 	m_pCore->AddCamera(m_pCamera);
 
@@ -50,12 +50,12 @@ bool VoxelDemo::Init(ld3d::CoreApiPtr pCore)
 	//m_pCore->CreatGameObjectFromTemplate(L"Plane", L"Plane");
 
 
-	GameObjectPtr pCube = m_pCore->CreatGameObjectFromTemplate(L"Cube", L"Cube");
+	GameObjectPtr pCube = m_pCore->CreatGameObjectFromTemplate(L"Sphere", L"Cube");
 
 	pCube->Translate(0, 0, 0);
 	GameObjectPtr pLight = m_pCore->CreatGameObjectFromTemplate(L"DirectionalLight", L"light");
 
-	pLight->SetTranslation(5, 5, 5);
+	pLight->SetTranslation(0, 5, -5);
 	pLight->LookAt(pCube);
 
 	//

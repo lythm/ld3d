@@ -95,7 +95,9 @@ namespace ld3d
 		GeometryDataPtr								CreateGeometryData();
 
 		void										UpdateMatrixBlock(MaterialPtr pMaterial, const math::Matrix44& world);
-		void										UpdateDRBuffer(MaterialPtr pMaterial);
+		void										SetDRBuffer(MaterialPtr pMaterial);
+		void										SetABuffer(MaterialPtr pMaterial);
+		void										SetGBuffer(MaterialPtr pMaterial);
 	private:
 		bool										CreateABuffer(int w, int h);
 		bool										CreateGBuffer(int w, int h);

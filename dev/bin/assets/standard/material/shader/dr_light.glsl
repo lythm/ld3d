@@ -1,5 +1,6 @@
 #version 330
 
+layout(row_major) uniform;
 
 float g_specular_pow = 100;
 
@@ -52,12 +53,11 @@ float dr_light_specular_il(vec3 n, vec3 l, float power)
 
 LightResult dr_light_dir(vec3 n, DirectionalLight light, mat4 wv)
 {
+	
 	vec3 l = (-vec4(light.dir, 0) * wv).xyz;
-//	vec3 l = -(light.dir * mat3(wv));
 
 	float il = saturate(dot(l, n)) * light.intensity;
 	
-
 	float s = dr_light_specular_il(n, l, g_specular_pow);
 
 	s = s * light.intensity;

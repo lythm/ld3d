@@ -22,7 +22,8 @@ vec3 dr_gbuffer_get_normal(sampler2D g[3], vec2 uv)
 	
 	normal.xy = texture(g[1], uv).xy;
 	normal.z = -sqrt(1-dot(normal.xy, normal.xy));
-	return normalize(normal);
+	//return normalize(normal);
+	return normal;
 }
 
 vec4 dr_gbuffer_get_albedo(sampler2D g[3], vec2 uv)

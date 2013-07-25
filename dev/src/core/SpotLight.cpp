@@ -116,7 +116,7 @@ namespace ld3d
 		MaterialParameterPtr pParam = m_pMaterial->GetParameterByName("light");
 		pParam->SetParameterBlock(&l, sizeof(SpotLightParam));
 	
-		pRenderManager->UpdateDRBuffer(m_pMaterial);
+		pRenderManager->SetGBuffer(m_pMaterial);
 				
 		Sys_GraphicsPtr pGraphics = pRenderManager->GetSysGraphics();
 

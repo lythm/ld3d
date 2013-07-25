@@ -19,29 +19,6 @@
 
 namespace ld3d
 {
-	class RenderManager_DebugPanel
-	{
-	public:
-
-		RenderManager_DebugPanel(RenderManagerPtr pManager)
-		{
-			m_pRenderManager = pManager;
-
-
-		}
-
-
-		void											Draw()
-		{
-		}
-	private:
-		GeometryDataPtr									m_pGeom;
-		MaterialPtr										m_pMaterial;
-		RenderManagerPtr								m_pRenderManager;
-	};
-}
-namespace ld3d
-{
 	bool RenderManager::ScreenQuad::Init(Sys_GraphicsPtr pGraphics)
 	{
 		math::Vector3 verts[] = 
@@ -239,7 +216,7 @@ namespace ld3d
 	{
 		m_pGraphics->SetRenderTarget(m_pGBuffer);
 		m_pGraphics->ClearRenderTarget(0, math::Color4(1, 0, 0, 0));
-		m_pGraphics->ClearRenderTarget(1, math::Color4(0, 0, 0, 0));
+		m_pGraphics->ClearRenderTarget(1, math::Color4(1, 0, 0, 0));
 		m_pGraphics->ClearRenderTarget(2, math::Color4(0, 0, 0, 1));
 		m_pGraphics->ClearDepthStencil(CLEAR_ALL, 1.0f, 0);
 
@@ -292,7 +269,7 @@ namespace ld3d
 		m_pGraphics->SetRenderTarget(pOutput);
 		m_pGraphics->ClearRenderTarget(0, m_clearClr);
 
-		UpdateDRBuffer(m_pScreenQuadMaterial);
+		SetDRBuffer(m_pScreenQuadMaterial);
 		UpdateMatrixBlock(m_pScreenQuadMaterial, math::MatrixIdentity());
 
 		DrawFullScreenQuad(m_pScreenQuadMaterial);
@@ -328,7 +305,8 @@ namespace ld3d
 		RenderFinal();
 
 
-	//	Draw_Texture(m_pABuffer->GetTexture(0));
+		Draw_Texture(m_pABuffer->GetTexture(0));
+		//Draw_Texture(m_pPostEffectManager->GetOutput()->GetTexture(0));
 	}
 	void RenderManager::Render(CameraPtr pCamera)
 	{
@@ -577,38 +555,31 @@ namespace ld3d
 			pParam->SetParameterBlock(&m_matrixBlock, sizeof(MATRIX_BLOCK));
 		}
 	}
-	void RenderManager::UpdateDRBuffer(MaterialPtr pMaterial)
+	void RenderManager::SetDRBuffer(MaterialPtr pMaterial)
+	{
+		SetABuffer(pMaterial);
+		SetGBuffer(pMaterial);
+	
+	}
+	void RenderManager::SetABuffer(MaterialPtr pMaterial)
 	{
 		MaterialParameterPtr pParam = pMaterial->GetParameterByName("_DR_A_BUFFER");
-		if(pParam)
-		{
-			pParam->SetParameterTexture(m_pABuffer->GetTexture(0));
-		}
+		pParam ? pParam->SetParameterTexture(m_pABuffer->GetTexture(0)) : 0 ;
+	}
+	void RenderManager::SetGBuffer(MaterialPtr pMaterial)
+	{
+		MaterialParameterPtr pParam = pMaterial->GetParameterByName("_DR_G_BUFFER[0]");
+		
+		pParam ? pParam->SetParameterTexture(m_pGBuffer->GetTexture(0)) : 0;
 
-
-		pParam = pMaterial->GetParameterByName("_DR_G_BUFFER[0]");
-
-		if(pParam == nullptr)
-		{
-			return;
-		}
-
-		if(pParam)
-		{
-			pParam->SetParameterTexture(m_pGBuffer->GetTexture(0));
-		}
 
 		pParam = pMaterial->GetParameterByName("_DR_G_BUFFER[1]");
-		if(pParam)
-		{
-			pParam->SetParameterTexture(m_pGBuffer->GetTexture(1));
-		}
+
+		pParam ? pParam->SetParameterTexture(m_pGBuffer->GetTexture(1)) : 0;
+		
 
 		pParam = pMaterial->GetParameterByName("_DR_G_BUFFER[2]");
-		if(pParam)
-		{
-			pParam->SetParameterTexture(m_pGBuffer->GetTexture(2));
-		}
+		pParam ? pParam->SetParameterTexture(m_pGBuffer->GetTexture(2)): 0;
 	}
 	void RenderManager::Draw_Texture(TexturePtr pTex)
 	{

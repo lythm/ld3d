@@ -89,7 +89,7 @@ namespace ld3d
 
 		pParam->SetParameterBlock(&l, sizeof(PointLightParam));
 
-		pRenderManager->UpdateDRBuffer(m_pMaterial);
+		pRenderManager->SetGBuffer(m_pMaterial);
 
 		DrawLightVolumn(pRenderManager);
 	}

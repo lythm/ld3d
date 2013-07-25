@@ -69,9 +69,9 @@ namespace ld3d
 		l.c = math::Vector3(diffClr.r, diffClr.g, diffClr.b);
 
 		MaterialParameterPtr pParam = m_pMaterial->GetParameterByName("light");
-		pParam->SetParameterBlock(&l, sizeof(DirLightParam));
+		pParam ? pParam->SetParameterBlock(&l, sizeof(DirLightParam)) : 0;
 
-		pRenderer->UpdateDRBuffer(m_pMaterial);
+		pRenderer->SetGBuffer(m_pMaterial);
 				
 		pRenderer->DrawFullScreenQuad(m_pMaterial);
 	}

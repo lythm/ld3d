@@ -2,8 +2,9 @@
 
 #pragma include "dr_gbuffer.glsl"
 
-uniform sampler2D _DR_G_BUFFER[3];
 uniform sampler2D _DR_A_BUFFER;
+uniform sampler2D _DR_G_BUFFER[3];
+
 
 out vec4 f_color;
 
@@ -18,8 +19,9 @@ void main()
 
 	vec4 l = texture(_DR_A_BUFFER, uv);
 
-	//f_color.xyz = l.xyz * d.xyz + (l.w * d.xyz) * d.w;
+	f_color.xyz = l.xyz * d.xyz + (l.w * d.xyz) * d.w;
 	f_color.w = 1;
-
-	f_color.xyz = vec3(d.y, l.x , l.y);
+	
+	//l = l * 0.5;
+	f_color.xyz = l.xyz;
 }
