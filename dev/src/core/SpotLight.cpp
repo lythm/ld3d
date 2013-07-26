@@ -92,7 +92,7 @@ namespace ld3d
 		const math::Matrix44& proj = pRenderManager->GetProjMatrix();
 		const math::Matrix44& world = GetWorldTM();
 
-		pRenderManager->UpdateMatrixBlock(m_pMaterial, world);
+		pRenderManager->SetMatrixBlock(m_pMaterial, world);
 		
 		using namespace math;
 

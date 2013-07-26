@@ -100,10 +100,10 @@ namespace ld3d
 
 	void EngineApp::ShowFPS()
 	{
-		static int tick = m_pCore->GetSysTime()->Tick();
+		static uint64 tick = m_pCore->GetSysTime()->Tick();
 
 		static int frames = 0;
-		int dt = m_pCore->GetSysTime()->Tick() - tick;
+		uint64 dt = m_pCore->GetSysTime()->Tick() - tick;
 
 		int iv = 100;
 		if(dt >= iv)

@@ -105,6 +105,6 @@ namespace ld3d
 	void OGL4RenderTexture::Bind()
 	{
 		glBindFramebuffer(GL_FRAMEBUFFER, m_fbo);
-		glDrawBuffers(m_texs.size(), s_draw_buffers);
+		glDrawBuffers((GLsizei)m_texs.size(), s_draw_buffers);
 	}
 }

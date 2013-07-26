@@ -216,13 +216,13 @@ namespace ld3d
 	{
 		m_pGraphics->SetRenderTarget(m_pGBuffer);
 		m_pGraphics->ClearRenderTarget(0, math::Color4(1, 0, 0, 0));
-		m_pGraphics->ClearRenderTarget(1, math::Color4(1, 0, 0, 0));
+		m_pGraphics->ClearRenderTarget(1, math::Color4(0, 0, 0, 0));
 		m_pGraphics->ClearRenderTarget(2, math::Color4(0, 0, 0, 1));
 		m_pGraphics->ClearDepthStencil(CLEAR_ALL, 1.0f, 0);
 
 		for(size_t i = 0; i < m_deferredQueue.size(); ++i)
 		{
-			UpdateMatrixBlock(m_deferredQueue[i]->material, m_deferredQueue[i]->world_matrix);
+			SetMatrixBlock(m_deferredQueue[i]->material, m_deferredQueue[i]->world_matrix);
 			DR_DrawRenderData(m_deferredQueue[i]);
 		}
 	}
@@ -270,7 +270,7 @@ namespace ld3d
 		m_pGraphics->ClearRenderTarget(0, m_clearClr);
 
 		SetDRBuffer(m_pScreenQuadMaterial);
-		UpdateMatrixBlock(m_pScreenQuadMaterial, math::MatrixIdentity());
+		SetMatrixBlock(m_pScreenQuadMaterial, math::MatrixIdentity());
 
 		DrawFullScreenQuad(m_pScreenQuadMaterial);
 	}
@@ -278,14 +278,14 @@ namespace ld3d
 	{
 		for(size_t i = 0; i < m_forwardQueue.size(); ++i)
 		{
-			UpdateMatrixBlock(m_forwardQueue[i]->material, m_forwardQueue[i]->world_matrix);
+			SetMatrixBlock(m_forwardQueue[i]->material, m_forwardQueue[i]->world_matrix);
 			
 			FR_DrawRenderData(m_forwardQueue[i]);
 		}
 
 		for(size_t i = 0; i < m_transparentQueue.size(); ++i)
 		{
-			UpdateMatrixBlock(m_transparentQueue[i]->material, m_transparentQueue[i]->world_matrix);
+			SetMatrixBlock(m_transparentQueue[i]->material, m_transparentQueue[i]->world_matrix);
 			FR_DrawRenderData(m_transparentQueue[i]);
 		}
 	}
@@ -304,8 +304,7 @@ namespace ld3d
 		
 		RenderFinal();
 
-
-		Draw_Texture(m_pABuffer->GetTexture(0));
+		//Draw_Texture(m_pABuffer->GetTexture(0));
 		//Draw_Texture(m_pPostEffectManager->GetOutput()->GetTexture(0));
 	}
 	void RenderManager::Render(CameraPtr pCamera)
@@ -532,7 +531,7 @@ namespace ld3d
 	{
 		return m_pGraphics->CreateGeometryData();
 	}
-	void RenderManager::UpdateMatrixBlock(MaterialPtr pMaterial, const math::Matrix44& world)
+	void RenderManager::SetMatrixBlock(MaterialPtr pMaterial, const math::Matrix44& world)
 	{
 		m_matrixBlock.MATRIX_WORLD				= world;
 		m_matrixBlock.MATRIX_VIEW				= m_viewMatrix;
@@ -568,18 +567,16 @@ namespace ld3d
 	}
 	void RenderManager::SetGBuffer(MaterialPtr pMaterial)
 	{
-		MaterialParameterPtr pParam = pMaterial->GetParameterByName("_DR_G_BUFFER[0]");
-		
+		MaterialParameterPtr pParam = pMaterial->GetParameterByName("_DR_G_BUFFER_0");
 		pParam ? pParam->SetParameterTexture(m_pGBuffer->GetTexture(0)) : 0;
-
-
-		pParam = pMaterial->GetParameterByName("_DR_G_BUFFER[1]");
+		
+		pParam = pMaterial->GetParameterByName("_DR_G_BUFFER_1");
 
 		pParam ? pParam->SetParameterTexture(m_pGBuffer->GetTexture(1)) : 0;
 		
-
-		pParam = pMaterial->GetParameterByName("_DR_G_BUFFER[2]");
-		pParam ? pParam->SetParameterTexture(m_pGBuffer->GetTexture(2)): 0;
+		pParam = pMaterial->GetParameterByName("_DR_G_BUFFER_2");
+		pParam ? pParam->SetParameterTexture(m_pGBuffer->GetTexture(2)) : 0;
+		
 	}
 	void RenderManager::Draw_Texture(TexturePtr pTex)
 	{

@@ -4,7 +4,7 @@
 #pragma include "dr_light.glsl"
 #pragma include "matrix_block.glsl"
 
-uniform sampler2D _DR_G_BUFFER[3];
+uniform sampler2D _DR_G_BUFFER_1;
 
 layout(row_major) uniform;
 
@@ -20,12 +20,12 @@ out vec4 f_color;
 
 void main()
 {
-	vec2 dim = textureSize(_DR_G_BUFFER[0], 0);
+	vec2 dim = textureSize(_DR_G_BUFFER_1, 0);
 
 	vec2 uv = gl_FragCoord.xy / dim;
 
-	vec3 n = dr_gbuffer_get_normal(_DR_G_BUFFER, uv);
-	
+	vec3 n = dr_gbuffer_get_normal(_DR_G_BUFFER_1, uv);
+
 	DirectionalLight l;
 	
 	l.dir = dir;
@@ -38,5 +38,4 @@ void main()
 	f_color.xyz = ret.diffuse;
 	f_color.w = rgb_2_il(ret.specular);
 
-	
 }

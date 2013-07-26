@@ -404,9 +404,9 @@ namespace ld3d
 	{
 		uint32 c_x, c_y, c_z;
 
-		c_x = pChunk->chunk_coord().x;
-		c_y = pChunk->chunk_coord().y;
-		c_z = pChunk->chunk_coord().z;
+		c_x = (uint32)pChunk->chunk_coord().x;
+		c_y = (uint32)pChunk->chunk_coord().y;
+		c_z = (uint32)pChunk->chunk_coord().z;
 
 
 		std::vector<VoxelFace> mesh;
@@ -679,7 +679,7 @@ namespace ld3d
 		if(mesh.size() != 0)
 		{
 			pChunk->vertex_buffer = new VoxelVertex[mesh.size() * 6];
-			pChunk->vertex_count = mesh.size() * 6;
+			pChunk->vertex_count = (int)mesh.size() * 6;
 		
 			VoxelVertex* pData = pChunk->vertex_buffer;
 			

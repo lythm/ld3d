@@ -50,7 +50,7 @@ bool VoxelDemo::Init(ld3d::CoreApiPtr pCore)
 	//m_pCore->CreatGameObjectFromTemplate(L"Plane", L"Plane");
 
 
-	GameObjectPtr pCube = m_pCore->CreatGameObjectFromTemplate(L"Sphere", L"Cube");
+	GameObjectPtr pCube = m_pCore->CreatGameObjectFromTemplate(L"Cube", L"Cube");
 
 	pCube->Translate(0, 0, 0);
 	GameObjectPtr pLight = m_pCore->CreatGameObjectFromTemplate(L"DirectionalLight", L"light");
@@ -105,7 +105,7 @@ void VoxelDemo::OnMsg(ld3d::EventPtr pEvent)
 				Matrix44 view = m_pCamera->GetViewMatrix();
 				Vector3 axis_x = m_pCamera->GetAxisX();
 
-				m_pCamera->SetViewMatrix(MatrixRotationAxisY(-dx * 0.01) * MatrixRotationAxis(-axis_x, dy * 0.01) * view);
+				m_pCamera->SetViewMatrix(MatrixRotationAxisY(-dx * 0.01f) * MatrixRotationAxis(-axis_x, dy * 0.01f) * view);
 			}
 
 			lastx = x;
@@ -122,7 +122,7 @@ void VoxelDemo::OnMsg(ld3d::EventPtr pEvent)
 			Matrix44 view = m_pCamera->GetViewMatrix();
 			Vector3 axis_z = m_pCamera->GetAxisZ();
 
-			m_pCamera->SetViewMatrix( MatrixTranslation(0.01 * zDelta * axis_z) * view);
+			m_pCamera->SetViewMatrix( MatrixTranslation(0.01f * zDelta * axis_z) * view);
 
 			view = m_pCamera->GetViewMatrix();
 			math::Vector3 eye(0, 0, 0);

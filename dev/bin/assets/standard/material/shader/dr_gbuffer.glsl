@@ -10,25 +10,24 @@
 //	G_BUFFER_2 = vec4(diffuse, specular);
 //}
 
-float dr_gbuffer_get_depth(sampler2D g[3], vec2 uv)
+float dr_gbuffer_get_depth(sampler2D g, vec2 uv)
 {
-	float d = texture(g[0], uv).r;
+	float d = texture(g, uv).r;
 	return d;
 }
 
-vec3 dr_gbuffer_get_normal(sampler2D g[3], vec2 uv)
+vec3 dr_gbuffer_get_normal(sampler2D g, vec2 uv)
 {
 	vec3 normal;
 	
-	normal.xy = texture(g[1], uv).xy;
+	normal.xy = texture(g, uv).xy;
 	normal.z = -sqrt(1-dot(normal.xy, normal.xy));
-	//return normalize(normal);
-	return normal;
+	return normalize(normal);
 }
 
-vec4 dr_gbuffer_get_albedo(sampler2D g[3], vec2 uv)
+vec4 dr_gbuffer_get_albedo(sampler2D g, vec2 uv)
 {
-	vec4 c = texture(g[2], uv);
+	vec4 c = texture(g, uv);
 	return c;
 }
 

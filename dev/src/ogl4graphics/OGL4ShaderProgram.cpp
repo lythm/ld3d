@@ -258,6 +258,7 @@ namespace ld3d
 			glBindSampler(slot, pSampler ? pSampler->GetSamplerObject() : 0);
 			
 			glProgramUniform1i(m_program, v.index, slot);
+			slot++;
 		}
 	}
 	void OGL4ShaderProgram::SetParameterSampler(ParameterID param, SamplerStatePtr pSampler)

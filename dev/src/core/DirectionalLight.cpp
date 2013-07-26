@@ -47,7 +47,7 @@ namespace ld3d
 		const math::Matrix44& proj = pRenderer->GetProjMatrix();
 
 
-		pRenderer->UpdateMatrixBlock(m_pMaterial, math::MatrixIdentity());
+		pRenderer->SetMatrixBlock(m_pMaterial, math::MatrixIdentity());
 		
 		const math::Matrix44& tm = GetWorldTM();
 
