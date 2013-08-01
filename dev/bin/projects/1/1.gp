@@ -1,8 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project>
-    <scene>1.scene</scene>
-    <clear_color>0.000, 0.200, 0.300, 1.000</clear_color>
-    <camera>
-        <eye_pos>-150.000, 150.000, -150.000</eye_pos>
-        <focus_pos>0.000, 0.000, 0.000</focus_pos>
-    </camera>
+	<scene></scene>
+	<clear_color>0, 0, 0</clear_color>
+	<camera>
+		<eye_pos>0, 0, -100</eye_pos>
+		<focus_pos>0, 0, 0</focus_pos>
+	</camera>
 </project>

@@ -101,7 +101,7 @@ bool GridMesh::Init(ld3d::CoreApiPtr pCore, int size, int grid_size)
 	
 	pIB->Unmap();
 
-	m_pRD->material = pRenderManager->CreateMaterialFromFile("./assets/standard/material/editor_grid.fx");
+	m_pRD->material = pRenderManager->CreateMaterialFromFile("./assets/standard/material/editor_grid.material");
 	m_pRD->geometry = pRenderManager->CreateGeometryData();
 	
 	VertexLayout layout;

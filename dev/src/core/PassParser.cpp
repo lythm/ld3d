@@ -171,6 +171,12 @@ namespace ld3d
 					return false;
 				}
 
+				if(func[1].str == "")
+				{
+					_VertexShader = "";
+					return true;
+				}
+
 				_VertexShader = m_rootDir / func[1].str;
 
 				if(false == boost::filesystem::exists(_VertexShader))
@@ -194,6 +200,12 @@ namespace ld3d
 				{
 					Error(func[0].line, "SetGeometryShader: arg 0: invalid type, should be string.");
 					return false;
+				}
+
+				if(func[1].str == "")
+				{
+					_GeometryShader = "";
+					return true;
 				}
 
 				_GeometryShader = m_rootDir / func[1].str;
@@ -222,6 +234,12 @@ namespace ld3d
 				{
 					Error(func[0].line, "SetPixelShader: arg 0: invalid type, should be string.");
 					return false;
+				}
+
+				if(func[1].str == "")
+				{
+					_PixelShader = "";
+					return true;
 				}
 
 				_PixelShader = m_rootDir / func[1].str;
@@ -292,14 +310,14 @@ namespace ld3d
 		{
 			ShaderProgramPtr pProgram = pGraphics->CreateShaderProgram();
 
-			if(pProgram->AttachShaderFromFile(ST_VERTEX_SHADER, _VertexShader.string().c_str()) == false)
+			if(_VertexShader != "" && pProgram->AttachShaderFromFile(ST_VERTEX_SHADER, _VertexShader.string().c_str()) == false)
 			{
 				Error(0, "failed to create vertex shader: '" + _VertexShader.string() + "'");
 				pProgram->Release();
 				return nullptr;
 			}
 
-			if(pProgram->AttachShaderFromFile(ST_PIXEL_SHADER, _PixelShader.string().c_str()) == false)
+			if(_PixelShader != "" && pProgram->AttachShaderFromFile(ST_PIXEL_SHADER, _PixelShader.string().c_str()) == false)
 			{
 				Error(0, "Failed to create pixel shader: '" + _PixelShader.string() + "'");
 				pProgram->Release();

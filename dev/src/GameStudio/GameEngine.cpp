@@ -88,10 +88,10 @@ bool GameEngine::Initialize(QWidget* pTarget)
 
 
 #ifdef _WIN64
-	m_pCore->GetGameObjectManager()->LoadPackage(L"./extensions/ext_voxel_x64.dll");
+	m_pCore->GetGameObjectManager()->LoadPackage(L"./extensions/package_voxel_x64.dll");
 
 #else
-	m_pCore->GetGameObjectManager()->LoadPackage(L"./extensions/ext_voxel_x86.dll");
+	m_pCore->GetGameObjectManager()->LoadPackage(L"./extensions/package_voxel_x86.dll");
 #endif
 	
 	m_pRenderManager->SetClearColor(math::Color4(0.3f, 0.2f, 0.4f, 1.0f));
