@@ -1,16 +1,13 @@
 #pragma once
 
-#include <string>
-#include <Windows.h>
-
-
+#include "GameManager.h"
 namespace ld3d
 {
-	class WinApp
+	class MainApp
 	{
 	public:
-		WinApp(void);
-		virtual ~WinApp(void);
+		MainApp(void);
+		virtual ~MainApp(void);
 
 		bool													Initialize(HINSTANCE hInst, const std::wstring& title, int w, int h);
 
@@ -18,6 +15,8 @@ namespace ld3d
 
 		void													Run();
 	protected:
+
+		void													ShowFPS();
 
 		void													SetTitle(const wchar_t* szTitle);
 		void													ExitApp();
@@ -27,7 +26,7 @@ namespace ld3d
 		virtual void											OnRelease();
 
 
-		virtual void											HandleMessage(MSG& msg){}
+		virtual void											HandleMessage(MSG& msg);
 
 		void													AdjustWindow(int Width, int Height );
 
@@ -58,6 +57,8 @@ namespace ld3d
 
 		static bool												m_bActive;
 
+		GameManagerPtr											m_pGameManager;
+		CoreApiPtr												m_pCore;
 	};
 
 
