@@ -15,6 +15,18 @@ typedef unsigned __int64								uint64;
 typedef __int64											int64;
 #endif
 
-#ifdef __MAC__
+#ifdef __APPLE__
+#include <TargetConditionals.h>
+    #if TARGET_IPHONE_SIMULATOR
+
+    #elif TARGET_OS_IPHONE
+        // iOS device
+    #elif TARGET_OS_MAC
+
+        typedef long long                                   int64;
+        typedef unsigned long long                          uint64;
+    #else
+        #error "unknown mac os"
+    #endif
 
 #endif

@@ -2,6 +2,9 @@
 
 #include "types/types.h"
 #include <string>
+#include <stdio.h>
+#include <wchar.h>
+
 
 namespace ld3d
 {
@@ -82,7 +85,7 @@ namespace ld3d
 		std::wstring				AsWString() const
 		{
 			wchar_t buffer[100];
-			_swprintf(buffer, L"%d.%d.%d.%d", V1(), V2(), V3(), V4());
+			swprintf(buffer, 100, L"%d.%d.%d.%d", V1(), V2(), V3(), V4());
 			return buffer;
 		}
 
