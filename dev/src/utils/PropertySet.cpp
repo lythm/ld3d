@@ -1,5 +1,5 @@
 #include "utils_pch.h"
-#include "..\..\include\utils\PropertySet.h"
+#include "utils/PropertySet.h"
 
 namespace ld3d
 {

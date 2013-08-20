@@ -1,5 +1,5 @@
 #include "utils_pch.h"
-#include "..\..\include\utils\PerlinNoise.h"
+#include "utils/PerlinNoise.h"
 
 #include <stdlib.h>
 #include <stdio.h>

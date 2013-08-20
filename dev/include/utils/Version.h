@@ -1,6 +1,6 @@
 #pragma once
 
-#include "types\types.h"
+#include "types/types.h"
 #include <string>
 
 namespace ld3d
@@ -75,14 +75,14 @@ namespace ld3d
 		std::string					AsString() const
 		{
 			char buffer[100];
-			sprintf_s(buffer, 100, "%d.%d.%d.%d", V1(), V2(), V3(), V4());
+			sprintf(buffer, "%d.%d.%d.%d", V1(), V2(), V3(), V4());
 			return buffer;
 		}
 
 		std::wstring				AsWString() const
 		{
 			wchar_t buffer[100];
-			swprintf_s(buffer, 100, L"%d.%d.%d.%d", V1(), V2(), V3(), V4());
+			_swprintf(buffer, L"%d.%d.%d.%d", V1(), V2(), V3(), V4());
 			return buffer;
 		}
 

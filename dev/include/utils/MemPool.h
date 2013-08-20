@@ -1,9 +1,9 @@
 #pragma once
 
-#include "types\types.h"
+#include "types/types.h"
 #include <vector>
-#include <boost\function.hpp>
-#include <boost\bind.hpp>
+#include <boost/function.hpp>
+#include <boost/bind.hpp>
 
 
 

@@ -1,5 +1,5 @@
 #include "utils_pch.h"
-#include "..\..\include\utils\MiniDump.h"
+#include "utils/MiniDump.h"
 
 #if 0
 
