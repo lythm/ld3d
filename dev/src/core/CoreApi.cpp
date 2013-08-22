@@ -217,6 +217,8 @@ namespace ld3d
 	{
 		return m_pSysInput;
 	}
+    
+#ifdef _WIN32
 	void CoreApi::HandleMessage(MSG& msg)
 	{
 		std::shared_ptr<Event_WindowMessage> pEvent = alloc_object<Event_WindowMessage>(msg);
@@ -229,6 +231,7 @@ namespace ld3d
 			m_pSysInput->HandleMessage(msg);
 		}
 	}
+#endif
 	void CoreApi::Render()
 	{
 		if(m_pRenderManager)
