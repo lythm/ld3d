@@ -2,7 +2,7 @@
 
 namespace ld3d
 {
-	typedef enum G_FORMAT
+	enum G_FORMAT
 	{
 		G_FORMAT_UNKNOWN                      = 0,
 		G_FORMAT_R32G32B32A32_TYPELESS        = 1,

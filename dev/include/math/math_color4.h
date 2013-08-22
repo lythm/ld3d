@@ -43,10 +43,15 @@ namespace math
 	inline
 		unsigned long	Color4::AsULong() const
 	{
-		return (unsigned long(r * 255) << 16) | 
-			(unsigned long(g * 255) << 8) |
-			(unsigned long(b * 255) ) |
-			(unsigned long(a * 255) << 24);
+        return ((unsigned long)(r * 255) << 16) |
+        ((unsigned long)(g * 255) << 8) |
+        ((unsigned long)(b * 255) ) |
+        ((unsigned long)(a * 255) << 24);
+        
+		//return (unsigned long(r * 255) << 16) |
+		//	(unsigned long(g * 255) << 8) |
+		//	(unsigned long(b * 255) ) |
+		//	(unsigned long(a * 255) << 24);
 	}
 
 	inline

@@ -22,8 +22,10 @@ namespace ld3d
 		void											Update();
 		
 		void											Release();
+        
+#ifdef _WIN32
 		void											HandleMessage(MSG& msg);
-		
+#endif
 		TimerManagerPtr									GetTimerManager();
 
 		AssetManagerPtr									GetAssetManager();

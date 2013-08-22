@@ -415,7 +415,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				EXECUTABLE_PREFIX = lib;
-				HEADER_SEARCH_PATHS = ../../../include/;
+				HEADER_SEARCH_PATHS = (
+					../../../include/,
+					/usr/local/include/,
+					../../../external/include/,
+				);
+				LIBRARY_SEARCH_PATHS = /usr/local/lib/;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -424,7 +429,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				EXECUTABLE_PREFIX = lib;
-				HEADER_SEARCH_PATHS = ../../../include/;
+				HEADER_SEARCH_PATHS = (
+					../../../include/,
+					/usr/local/include/,
+					../../../external/include/,
+				);
+				LIBRARY_SEARCH_PATHS = /usr/local/lib/;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
