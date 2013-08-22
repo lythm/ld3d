@@ -46,8 +46,8 @@ namespace ld3d
 		HINSTANCE												m_hInst;
 		HWND													m_hWnd;
 
-		std::string											m_wndClass;
-		std::string											m_wndTitle;
+		std::string												m_wndClass;
+		std::string												m_wndTitle;
 
 		int														m_width;
 		int														m_height;
