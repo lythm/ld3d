@@ -1,8 +1,8 @@
 #include "core_ext_pch.h"
-#include "..\..\include\core\ext\Light_Point.h"
-#include "core\PointLight.h"
-#include "core\RenderManager.h"
-#include "core\GameObject.h"
+#include "core/ext/Light_Point.h"
+#include "core/PointLight.h"
+#include "core/RenderManager.h"
+#include "core/GameObject.h"
 #include "CorePackage.h"
 
 namespace ld3d

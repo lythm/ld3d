@@ -1,5 +1,5 @@
 #include "core_pch.h"
-#include "..\..\include\core\ViewFrustum.h"
+#include "core/ViewFrustum.h"
 
 
 namespace ld3d

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "core\Sys_Sound.h"
+#include "core/Sys_Sound.h"
 
 namespace ld3d
 {

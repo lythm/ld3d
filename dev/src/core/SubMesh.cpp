@@ -1,6 +1,6 @@
 #include "core_pch.h"
-#include "..\..\include\core\SubMesh.h"
-#include "core\Mesh.h"
+#include "core/SubMesh.h"
+#include "core/Mesh.h"
 
 
 namespace ld3d

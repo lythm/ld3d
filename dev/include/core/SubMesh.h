@@ -1,6 +1,6 @@
 #pragma once
 
-#include "core\VertexFormat.h"
+#include "core/VertexFormat.h"
 
 namespace ld3d
 {

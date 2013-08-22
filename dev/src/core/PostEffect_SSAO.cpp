@@ -1,11 +1,11 @@
 #include "core_pch.h"
-#include "core\PostEffect_SSAO.h"
-#include "core\RenderManager.h"
-#include "core\Material.h"
-#include "core\Sys_Graphics.h"
-#include "core\Texture.h"
-#include "core\RenderTexture.h"
-#include "core\materialparameter.h"
+#include "core/PostEffect_SSAO.h"
+#include "core/RenderManager.h"
+#include "core/Material.h"
+#include "core/Sys_Graphics.h"
+#include "core/Texture.h"
+#include "core/RenderTexture.h"
+#include "core/materialparameter.h"
 
 namespace ld3d
 {

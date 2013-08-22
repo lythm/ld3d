@@ -1,5 +1,5 @@
 #pragma once
-#include "core\Light.h"
+#include "core/Light.h"
 
 namespace ld3d
 {

@@ -1,8 +1,8 @@
 #include "core_pch.h"
-#include "..\..\include\core\GameObject.h"
-#include "core\GameObjectComponent.h"
+#include "core/GameObject.h"
+#include "core/GameObjectComponent.h"
 #include "core_utils.h"
-#include "core\EventDispatcher.h"
+#include "core/EventDispatcher.h"
 
 namespace ld3d
 {

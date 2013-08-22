@@ -1,10 +1,10 @@
 #include "core_pch.h"
-#include "..\..\include\core\AssetsManager.h"
-#include "core\Texture.h"
-#include "core\Sys_Graphics.h"
+#include "core/AssetsManager.h"
+#include "core/Texture.h"
+#include "core/Sys_Graphics.h"
 #include "core_utils.h"
-#include "core\Sys_Sound.h"
-#include "core\Sound.h"
+#include "core/Sys_Sound.h"
+#include "core/Sound.h"
 
 namespace ld3d
 {

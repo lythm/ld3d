@@ -1,6 +1,6 @@
 #pragma once
 
-#include "core\Sys_Graphics.h"
+#include "core/Sys_Graphics.h"
 
 
 namespace ld3d

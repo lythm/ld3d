@@ -1,6 +1,6 @@
 #include "core_pch.h"
-#include "..\..\include\core\MaterialTech.h"
-#include "core\MaterialPass.h"
+#include "core/MaterialTech.h"
+#include "core/MaterialPass.h"
 
 namespace ld3d
 {

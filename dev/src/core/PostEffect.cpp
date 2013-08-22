@@ -1,5 +1,5 @@
 #include "core_pch.h"
-#include "..\..\include\core\PostEffect.h"
+#include "core/PostEffect.h"
 
 namespace ld3d
 {

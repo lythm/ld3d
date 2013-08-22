@@ -1,6 +1,6 @@
 #include "core_pch.h"
 #include "MaterialParameterManager.h"
-#include "core\MaterialParameter.h"
+#include "core/MaterialParameter.h"
 namespace ld3d
 {
 	MaterialParameterManager::MaterialParameterManager(void)

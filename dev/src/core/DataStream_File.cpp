@@ -1,5 +1,5 @@
 #include "core_pch.h"
-#include "..\..\include\core\DataStream_File.h"
+#include "core/DataStream_File.h"
 
 
 namespace ld3d

@@ -1,5 +1,5 @@
 #include "core_ext_pch.h"
-#include "..\..\include\core\ext\WorldMeshRenderer.h"
+#include "core/ext/WorldMeshRenderer.h"
 #include "CorePackage.h"
 
 namespace ld3d

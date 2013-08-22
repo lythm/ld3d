@@ -1,5 +1,5 @@
 #include "core_pch.h"
-#include "..\..\include\core\SamplerStateParser.h"
+#include "core/SamplerStateParser.h"
 #include "core/Sys_Graphics.h"
 namespace ld3d
 {

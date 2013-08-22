@@ -1,5 +1,5 @@
 #include "core_pch.h"
-#include "..\..\include\core\Camera.h"
+#include "core/Camera.h"
 
 
 namespace ld3d

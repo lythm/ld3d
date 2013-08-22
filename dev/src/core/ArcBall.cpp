@@ -1,5 +1,5 @@
 #include "core_pch.h"
-#include "..\..\include\core\ArcBall.h"
+#include "core/ArcBall.h"
 
 namespace ld3d
 {

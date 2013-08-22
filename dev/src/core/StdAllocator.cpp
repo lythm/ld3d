@@ -1,5 +1,5 @@
 #include "core_pch.h"
-#include "..\..\include\core\StdAllocator.h"
+#include "core/StdAllocator.h"
 
 namespace ld3d
 {

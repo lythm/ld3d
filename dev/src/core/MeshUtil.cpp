@@ -1,11 +1,11 @@
 #include "core_pch.h"
-#include "..\..\include\core\MeshUtil.h"
-#include "core\Mesh.h"
-#include "core\VertexFormat.h"
-#include "core\SubMesh.h"
+#include "core/MeshUtil.h"
+#include "core/Mesh.h"
+#include "core/VertexFormat.h"
+#include "core/SubMesh.h"
 #include "core_utils.h"
-#include "core\Sys_Graphics.h"
-#include "core\GPUBuffer.h"
+#include "core/Sys_Graphics.h"
+#include "core/GPUBuffer.h"
 
 namespace ld3d
 {

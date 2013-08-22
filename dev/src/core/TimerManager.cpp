@@ -1,6 +1,6 @@
 #include "core_pch.h"
-#include "..\..\include\core\TimerManager.h"
-#include "core\Sys_Time.h"
+#include "core/TimerManager.h"
+#include "core/Sys_Time.h"
 #include "core_utils.h"
 
 namespace ld3d

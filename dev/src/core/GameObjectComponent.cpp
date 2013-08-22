@@ -1,7 +1,7 @@
 #include "core_pch.h"
-#include "..\..\include\core\GameObjectComponent.h"
+#include "core/GameObjectComponent.h"
 #include "core_utils.h"
-#include "core\DataStream.h"
+#include "core/DataStream.h"
 
 namespace ld3d
 {

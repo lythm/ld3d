@@ -1,9 +1,9 @@
 #include "core_pch.h"
-#include "..\..\include\core\BBoxRenderData.h"
-#include "core\Sys_Graphics.h"
-#include "core\VertexFormat.h"
-#include "core\Material.h"
-#include "core\GPUBuffer.h"
+#include "core/BBoxRenderData.h"
+#include "core/Sys_Graphics.h"
+#include "core/VertexFormat.h"
+#include "core/Material.h"
+#include "core/GPUBuffer.h"
 
 namespace ld3d
 {

@@ -1,5 +1,5 @@
 #include "core_ext_pch.h"
-#include "..\..\include\core\ext\CameraController_Orbit.h"
+#include "core/ext/CameraController_Orbit.h"
 
 namespace ld3d
 {

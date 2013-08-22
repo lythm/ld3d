@@ -1,11 +1,11 @@
 #include "voxel_pch.h"
-#include "ext_voxel\VoxelWorldGenerator.h"
+#include "ext_voxel/VoxelWorldGenerator.h"
 #include "VoxelWorldChunk.h"
 #include "VoxelPool.h"
 #include "VoxelWorldDataSet.h"
-#include "ext_voxel\VoxelWorld.h"
+#include "ext_voxel/VoxelWorld.h"
 
-#include <boost\random.hpp>
+#include <boost/random.hpp>
 
 namespace ld3d
 {

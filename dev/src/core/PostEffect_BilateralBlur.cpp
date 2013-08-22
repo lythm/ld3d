@@ -1,5 +1,5 @@
 #include "core_pch.h"
-#include "..\..\include\core\PostEffect_BilateralBlur.h"
+#include "core/PostEffect_BilateralBlur.h"
 
 namespace ld3d
 {

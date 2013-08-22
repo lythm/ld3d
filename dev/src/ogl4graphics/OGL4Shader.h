@@ -1,6 +1,6 @@
 #pragma once
 
-#include "core\Shader.h"
+#include "core/Shader.h"
 
 namespace ld3d
 {

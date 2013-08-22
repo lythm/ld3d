@@ -1,5 +1,5 @@
 #include "core_pch.h"
-#include "..\..\include\core\MaterialCompiler.h"
+#include "core/MaterialCompiler.h"
 #include "core_utils.h"
 #include "core/DataStream_File.h"
 

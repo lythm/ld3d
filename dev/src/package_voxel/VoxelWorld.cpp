@@ -1,5 +1,5 @@
 #include "voxel_pch.h"
-#include "..\..\include\ext_voxel\VoxelWorld.h"
+#include "ext_voxel/VoxelWorld.h"
 #include "VoxelWorldChunk.h"
 #include "VoxelWorldDataSet.h"
 

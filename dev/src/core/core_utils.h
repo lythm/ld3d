@@ -1,7 +1,7 @@
 #pragma once
 
-#include "core\CoreApi.h"
-#include "core\Allocator.h"
+#include "core/CoreApi.h"
+#include "core/Allocator.h"
 
 namespace ld3d
 {

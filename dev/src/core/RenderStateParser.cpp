@@ -1,5 +1,5 @@
 #include "core_pch.h"
-#include "..\..\include\core\RenderStateParser.h"
+#include "core/RenderStateParser.h"
 #include "core/Sys_Graphics.h"
 #include "core/RenderState.h"
 

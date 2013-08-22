@@ -1,5 +1,5 @@
 #include "core_ext_pch.h"
-#include "..\..\include\core\ext\RigidBody.h"
+#include "core/ext/RigidBody.h"
 
 namespace ld3d
 {

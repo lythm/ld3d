@@ -1,5 +1,5 @@
 #include "core_pch.h"
-#include "core\SysManager.h"
+#include "core/SysManager.h"
 
 namespace ld3d
 {

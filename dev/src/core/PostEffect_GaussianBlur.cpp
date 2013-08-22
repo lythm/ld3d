@@ -1,9 +1,9 @@
 #include "core_pch.h"
-#include "..\..\include\core\PostEffect_GaussianBlur.h"
-#include "core\RenderManager.h"
-#include "core\Material.h"
-#include "core\VertexFormat.h"
-#include "core\RenderTexture.h"
+#include "core/PostEffect_GaussianBlur.h"
+#include "core/RenderManager.h"
+#include "core/Material.h"
+#include "core/VertexFormat.h"
+#include "core/RenderTexture.h"
 #include "core/MaterialParameter.h"
 
 namespace ld3d

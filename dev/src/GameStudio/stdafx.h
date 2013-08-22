@@ -3,13 +3,13 @@
 #include <string>
 #include <iostream>
 
-#include "types\dllexport.h"
-#include "types\types.h"
+#include "types/dllexport.h"
+#include "types/types.h"
 
-#include "utils\utils_all.h"
+#include "utils/utils_all.h"
 
-#include "core\core_all.h"
-#include "ext_voxel\voxel_all.h"
+#include "core/core_all.h"
+#include "ext_voxel/voxel_all.h"
 
 
 #ifdef min

@@ -1,7 +1,7 @@
 #pragma once
 
 
-#include "core\GameInterface.h"
+#include "core/GameInterface.h"
 
 
 namespace ld3d

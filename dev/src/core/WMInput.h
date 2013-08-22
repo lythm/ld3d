@@ -1,6 +1,6 @@
 #pragma once
 
-#include "core\Sys_Input.h"
+#include "core/Sys_Input.h"
 
 
 namespace ld3d

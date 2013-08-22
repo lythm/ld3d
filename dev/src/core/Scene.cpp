@@ -1,10 +1,10 @@
 #include "core_pch.h"
-#include "..\..\include\core\Scene.h"
-#include "core\GameObject.h"
-#include "core\GameObjectManager.h"
+#include "core/Scene.h"
+#include "core/GameObject.h"
+#include "core/GameObjectManager.h"
 #include "core_utils.h"
-#include "core\DataStream.h"
-#include "core\GameObjectComponent.h"
+#include "core/DataStream.h"
+#include "core/GameObjectComponent.h"
 
 namespace ld3d
 {

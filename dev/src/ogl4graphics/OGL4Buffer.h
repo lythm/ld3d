@@ -1,5 +1,5 @@
 #pragma once
-#include "core\GPUBuffer.h"
+#include "core/GPUBuffer.h"
 
 namespace ld3d
 {

@@ -1,5 +1,5 @@
 #include "core_pch.h"
-#include "..\..\include\core\PassParser.h"
+#include "core/PassParser.h"
 #include "core/MaterialPass.h"
 #include "core/Sys_Graphics.h"
 #include "core/SamplerStateParser.h"

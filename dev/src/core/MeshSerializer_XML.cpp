@@ -1,5 +1,5 @@
 #include "core_pch.h"
-#include "..\..\include\core\MeshSerializer_XML.h"
+#include "core/MeshSerializer_XML.h"
 
 namespace ld3d
 {

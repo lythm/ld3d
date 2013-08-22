@@ -1,6 +1,6 @@
 #pragma once
 
-#include "core\GameObjectComponent.h"
+#include "core/GameObjectComponent.h"
 
 
 namespace ld3d

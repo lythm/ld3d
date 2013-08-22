@@ -1,5 +1,5 @@
 #pragma once
-#include "core\viewfrustum.h"
+#include "core/viewfrustum.h"
 
 namespace ld3d
 {

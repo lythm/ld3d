@@ -1,10 +1,10 @@
 #pragma once
 
-#include "core\GameObjectComponent.h"
-#include "core\allocator.h"
-#include "core\coreapi.h"
+#include "core/GameObjectComponent.h"
+#include "core/allocator.h"
+#include "core/coreapi.h"
 
-#include <boost\function.hpp>
+#include <boost/function.hpp>
 
 namespace ld3d
 {

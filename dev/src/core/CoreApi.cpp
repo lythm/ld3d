@@ -1,24 +1,24 @@
 #include "core_pch.h"
-#include "..\..\include\core\CoreApi.h"
+#include "core/CoreApi.h"
 
-#include "core\SysManager.h"
-#include "core\Sys_Graphics.h"
-#include "core\Sys_Network.h"
-#include "core\GameObjectManager.h"
-#include "core\RenderManager.h"
-#include "core\AssetsManager.h"
-#include "core\TimerManager.h"
+#include "core/SysManager.h"
+#include "core/Sys_Graphics.h"
+#include "core/Sys_Network.h"
+#include "core/GameObjectManager.h"
+#include "core/RenderManager.h"
+#include "core/AssetsManager.h"
+#include "core/TimerManager.h"
 
 
-#include "core\Event.h"
-#include "core\PoolAllocator.h"
-#include "core\StdAllocator.h"
-#include "core\Scene.h"
+#include "core/Event.h"
+#include "core/PoolAllocator.h"
+#include "core/StdAllocator.h"
+#include "core/Scene.h"
 
-#include "core\GameObject.h"
+#include "core/GameObject.h"
 
 #include "WMInput.h"
-#include "core\Sys_Sound.h"
+#include "core/Sys_Sound.h"
 #include "core_utils.h"
 
 #include "Time64.h"

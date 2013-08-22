@@ -1,8 +1,8 @@
 #include "voxel_pch.h"
 #include "VoxelWorldTemplate.h"
-#include "ext_voxel\VoxelWorld.h"
-#include "ext_voxel\VoxelWorldRenderer.h"
-#include "ext_voxel\VoxelWorldGenerator.h"
+#include "ext_voxel/VoxelWorld.h"
+#include "ext_voxel/VoxelWorldRenderer.h"
+#include "ext_voxel/VoxelWorldGenerator.h"
 
 namespace ld3d
 {

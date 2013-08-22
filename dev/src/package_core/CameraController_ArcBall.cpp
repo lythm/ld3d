@@ -1,5 +1,5 @@
 #include "core_ext_pch.h"
-#include "..\..\include\core\CameraController_ArcBall.h"
+#include "core/CameraController_ArcBall.h"
 
 namespace ld3d
 {

@@ -1,6 +1,6 @@
 #include "core_ext_pch.h"
-#include "..\..\include\core\ext\PropertyManager.h"
-#include "core\GameObject.h"
+#include "core/ext/PropertyManager.h"
+#include "core/GameObject.h"
 #include "CorePackage.h"
 
 namespace ld3d

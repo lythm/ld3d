@@ -1,5 +1,5 @@
 #include "core_ext_pch.h"
-#include "..\..\include\core\ext\Sky.h"
+#include "core/ext/Sky.h"
 
 namespace ld3d
 {

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "core\CoreApi.h"
+#include "core/CoreApi.h"
 
 namespace ld3d
 {

@@ -1,9 +1,9 @@
 #pragma once
 
-#include "core\GameObjectComponent.h"
-#include "core\RenderData.h"
-#include "core\g_format.h"
-#include "core\VertexFormat.h"
+#include "core/GameObjectComponent.h"
+#include "core/RenderData.h"
+#include "core/g_format.h"
+#include "core/VertexFormat.h"
 
 namespace ld3d
 {

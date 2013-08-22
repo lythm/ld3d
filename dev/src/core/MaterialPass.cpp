@@ -1,8 +1,8 @@
 #include "core_pch.h"
-#include "..\..\include\core\MaterialPass.h"
+#include "core/MaterialPass.h"
 
-#include "core\Sys_Graphics.h"
-#include "core\RenderState.h"
+#include "core/Sys_Graphics.h"
+#include "core/RenderState.h"
 #include "core/SamplerState.h"
 
 

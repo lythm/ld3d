@@ -1,6 +1,6 @@
 #pragma once
-#include <types\dllexport.h>
-#include "types\types.h"
+#include <types/dllexport.h>
+#include "types/types.h"
 
 namespace ld3d
 {

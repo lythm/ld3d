@@ -1,7 +1,7 @@
 #pragma once
 
-#include "ext_voxel\Voxel.h"
-#include "core\ObjectPool.h"
+#include "ext_voxel/Voxel.h"
+#include "core/ObjectPool.h"
 
 
 namespace ld3d

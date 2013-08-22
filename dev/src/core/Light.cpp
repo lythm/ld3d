@@ -1,5 +1,5 @@
 #include "core_pch.h"
-#include "..\..\include\core\Light.h"
+#include "core/Light.h"
 
 namespace ld3d
 {

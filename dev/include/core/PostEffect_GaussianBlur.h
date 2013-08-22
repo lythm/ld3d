@@ -1,6 +1,6 @@
 #pragma once
 
-#include "core\PostEffect.h"
+#include "core/PostEffect.h"
 
 namespace ld3d
 {

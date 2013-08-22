@@ -1,5 +1,5 @@
 #include "core_pch.h"
-#include "..\..\include\core\MaterialLexer.h"
+#include "core/MaterialLexer.h"
 
 namespace ld3d
 {

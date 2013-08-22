@@ -1,9 +1,9 @@
 #include "core_pch.h"
-#include "..\..\include\core\Material.h"
+#include "core/Material.h"
 #include "core_utils.h"
 #include "MaterialParameterManager.h"
-#include "core\MaterialTech.h"
-#include "core\MaterialPass.h"
+#include "core/MaterialTech.h"
+#include "core/MaterialPass.h"
 #include "core/MaterialParameter.h"
 
 namespace ld3d

@@ -1,5 +1,5 @@
 #include "core_pch.h"
-#include "..\..\include\core\SceneSerializer.h"
+#include "core/SceneSerializer.h"
 
 namespace ld3d
 {

@@ -14,15 +14,15 @@
 #include <unordered_map>
 #include <vector>
 #include <csignal>
-#include <core\core_ptr.h>
+#include <core/core_ptr.h>
 
 #include <vector>
-#include <boost\filesystem.hpp>
-#include <boost\signal.hpp>
+#include <boost/filesystem.hpp>
+#include <boost/signal.hpp>
 
 #include <string>
-#include <math\math_all.h>
+#include <math/math_all.h>
 
-#include <core\g_format.h>
+#include <core/g_format.h>
 
-#include <core\property_types.h>
+#include <core/property_types.h>

@@ -2,11 +2,11 @@
 
 #include "VoxelPackage.h"
 
-#include "ext_voxel\VoxelWorld.h"
-#include "ext_voxel\VoxelWorldRenderer.h"
-#include "ext_voxel\VoxelObject.h"
-#include "ext_voxel\VoxelObjectRenderer.h"
-#include "ext_voxel\VoxelWorldGenerator.h"
+#include "ext_voxel/VoxelWorld.h"
+#include "ext_voxel/VoxelWorldRenderer.h"
+#include "ext_voxel/VoxelObject.h"
+#include "ext_voxel/VoxelObjectRenderer.h"
+#include "ext_voxel/VoxelWorldGenerator.h"
 
 
 #include "VoxelWorldTemplate.h"

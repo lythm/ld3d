@@ -1,11 +1,11 @@
 #include "core_pch.h"
-#include "..\..\include\core\PointLight.h"
-#include "core\MeshUtil.h"
-#include "core\Sys_Graphics.h"
+#include "core/PointLight.h"
+#include "core/MeshUtil.h"
+#include "core/Sys_Graphics.h"
 #include "core/GeometryData.h"
 #include "core_utils.h"
-#include "core\Material.h"
-#include "core\RenderManager.h"
+#include "core/Material.h"
+#include "core/RenderManager.h"
 #include "core/MaterialParameter.h"
 
 namespace ld3d

@@ -1,5 +1,5 @@
 #include "core_ext_pch.h"
-#include "..\..\include\core\ext\SoundEmitter.h"
+#include "core/ext/SoundEmitter.h"
 
 
 

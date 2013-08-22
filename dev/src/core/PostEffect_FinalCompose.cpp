@@ -1,5 +1,5 @@
 #include "core_pch.h"
-#include "..\..\include\core\PostEffect_FinalCompose.h"
+#include "core/PostEffect_FinalCompose.h"
 
 namespace ld3d
 {

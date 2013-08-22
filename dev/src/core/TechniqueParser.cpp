@@ -1,5 +1,5 @@
 #include "core_pch.h"
-#include "..\..\include\core\TechniqueParser.h"
+#include "core/TechniqueParser.h"
 #include "core/PassParser.h"
 #include "core/MaterialTech.h"
 #include "core/MaterialPass.h"

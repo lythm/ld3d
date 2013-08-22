@@ -1,6 +1,6 @@
 #include "core_pch.h"
-#include "..\..\include\core\EventDispatcher.h"
-#include "core\Event.h"
+#include "core/EventDispatcher.h"
+#include "core/Event.h"
 #include "core_utils.h"
 namespace ld3d
 {

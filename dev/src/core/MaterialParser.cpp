@@ -1,5 +1,5 @@
 #include "core_pch.h"
-#include "..\..\include\core\MaterialParser.h"
+#include "core/MaterialParser.h"
 #include "core_utils.h"
 #include "core/SamplerStateParser.h"
 #include "core/RenderStateParser.h"

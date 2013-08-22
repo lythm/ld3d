@@ -1,7 +1,7 @@
 #include "core_ext_pch.h"
-#include "..\..\include\core\ext\Light_Sky.h"
+#include "core/ext/Light_Sky.h"
 
-#include "core\SkyLight.h"
+#include "core/SkyLight.h"
 
 #include "CorePackage.h"
 namespace ld3d

@@ -1,7 +1,7 @@
 #include "core_ext_pch.h"
-#include "..\..\include\core\ext\PostEffectList.h"
+#include "core/ext/PostEffectList.h"
 
-#include "core\ext\PropertyManager.h"
+#include "core/ext/PropertyManager.h"
 
 
 namespace ld3d

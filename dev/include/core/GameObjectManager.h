@@ -1,9 +1,9 @@
 #pragma once
 
-#include "core\Package.h"
+#include "core/Package.h"
 
-#include <boost\enable_shared_from_this.hpp>
-#include "core\EventDispatcher.h"
+#include <boost/enable_shared_from_this.hpp>
+#include "core/EventDispatcher.h"
 #include "core/CoreApi.h"
 namespace ld3d
 {

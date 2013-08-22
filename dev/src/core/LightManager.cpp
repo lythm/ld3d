@@ -1,9 +1,9 @@
 #include "core_pch.h"
-#include "..\..\include\core\LightManager.h"
-#include "core\Light.h"
+#include "core/LightManager.h"
+#include "core/Light.h"
 #include "core_utils.h"
-#include "core\Sys_Graphics.h"
-#include "core\RenderManager.h"
+#include "core/Sys_Graphics.h"
+#include "core/RenderManager.h"
 
 namespace ld3d
 {

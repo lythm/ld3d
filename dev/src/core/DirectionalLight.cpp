@@ -1,9 +1,9 @@
 #include "core_pch.h"
-#include "..\..\include\core\DirectionalLight.h"
-#include "core\Sys_Graphics.h"
+#include "core/DirectionalLight.h"
+#include "core/Sys_Graphics.h"
 
-#include "core\Material.h"
-#include "core\RenderManager.h"
+#include "core/Material.h"
+#include "core/RenderManager.h"
 #include "core/MaterialParameter.h"
 #include "core/GeometryData.h"
 

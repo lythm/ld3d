@@ -1,10 +1,10 @@
 #include "core_pch.h"
-#include "..\..\include\core\GameObjectManager.h"
-#include "core\GameObject.h"
+#include "core/GameObjectManager.h"
+#include "core/GameObject.h"
 
 #include "core_utils.h"
 
-#include "core\GameObjectTemplate.h"
+#include "core/GameObjectTemplate.h"
 
 namespace ld3d
 {

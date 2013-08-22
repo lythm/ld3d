@@ -1,6 +1,6 @@
 #include "core_ext_pch.h"
-#include "..\..\include\core\ext\Light_Spot.h"
-#include "core\SpotLight.h"
+#include "core/ext/Light_Spot.h"
+#include "core/SpotLight.h"
 #include "CorePackage.h"
 
 namespace ld3d

@@ -1,17 +1,17 @@
 #include "core_ext_pch.h"
-#include "..\..\include\core\ext\MeshRenderer.h"
-#include "core\GameObject.h"
-#include "core\ext\MeshData.h"
-#include "core\RenderManager.h"
-#include "core\Sys_Graphics.h"
-#include "core\Mesh.h"
-#include "core\GPUBuffer.h"
-#include "core\SubMesh.h"
-#include "core\ext\PropertyManager.h"
+#include "core/ext/MeshRenderer.h"
+#include "core/GameObject.h"
+#include "core/ext/MeshData.h"
+#include "core/RenderManager.h"
+#include "core/Sys_Graphics.h"
+#include "core/Mesh.h"
+#include "core/GPUBuffer.h"
+#include "core/SubMesh.h"
+#include "core/ext/PropertyManager.h"
 
 #include "CorePackage.h"
 
-#include "core\Event.h"
+#include "core/Event.h"
 
 
 namespace ld3d

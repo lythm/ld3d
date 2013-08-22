@@ -1,8 +1,8 @@
 #pragma once
-#include "core\EventDispatcher.h"
-#include "core\Allocator.h"
-#include "core\StdAllocator.h"
-#include "core\g_format.h"
+#include "core/EventDispatcher.h"
+#include "core/Allocator.h"
+#include "core/StdAllocator.h"
+#include "core/g_format.h"
 
 
 namespace ld3d

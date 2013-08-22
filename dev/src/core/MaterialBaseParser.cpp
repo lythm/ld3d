@@ -1,5 +1,5 @@
 #include "core_pch.h"
-#include "..\..\include\core\MaterialBaseParser.h"
+#include "core/MaterialBaseParser.h"
 
 namespace ld3d
 {

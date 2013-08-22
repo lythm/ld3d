@@ -1,6 +1,6 @@
 #include "core_pch.h"
-#include "..\..\include\core\GameObjectTemplate.h"
-#include "core\DataStream_Mem.h"
+#include "core/GameObjectTemplate.h"
+#include "core/DataStream_Mem.h"
 #include "core_utils.h"
 
 namespace ld3d
