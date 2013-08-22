@@ -1,0 +1,455 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		07AF188F17C5F51A0053C45D /* ArcBall.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07AF188A17C5F51A0053C45D /* ArcBall.cpp */; };
+		07AF189017C5F51A0053C45D /* AssetsManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07AF188B17C5F51A0053C45D /* AssetsManager.cpp */; };
+		07AF189117C5F51A0053C45D /* BaseCamera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07AF188C17C5F51A0053C45D /* BaseCamera.cpp */; };
+		07AF189217C5F51A0053C45D /* BBoxRenderData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07AF188D17C5F51A0053C45D /* BBoxRenderData.cpp */; };
+		07AF189317C5F51A0053C45D /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07AF188E17C5F51A0053C45D /* Camera.cpp */; };
+		07AF18CD17C5F5830053C45D /* core_pch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07AF189417C5F5830053C45D /* core_pch.cpp */; };
+		07AF18CE17C5F5830053C45D /* core_pch.h in Headers */ = {isa = PBXBuildFile; fileRef = 07AF189517C5F5830053C45D /* core_pch.h */; };
+		07AF18CF17C5F5830053C45D /* core_utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07AF189617C5F5830053C45D /* core_utils.cpp */; };
+		07AF18D017C5F5830053C45D /* core_utils.h in Headers */ = {isa = PBXBuildFile; fileRef = 07AF189717C5F5830053C45D /* core_utils.h */; };
+		07AF18D117C5F5830053C45D /* CoreApi.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07AF189817C5F5830053C45D /* CoreApi.cpp */; };
+		07AF18D217C5F5830053C45D /* DataStream_File.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07AF189917C5F5830053C45D /* DataStream_File.cpp */; };
+		07AF18D317C5F5830053C45D /* DataStream_Mem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07AF189A17C5F5830053C45D /* DataStream_Mem.cpp */; };
+		07AF18D417C5F5830053C45D /* DataStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07AF189B17C5F5830053C45D /* DataStream.cpp */; };
+		07AF18D517C5F5830053C45D /* DirectionalLight.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07AF189C17C5F5830053C45D /* DirectionalLight.cpp */; };
+		07AF18D617C5F5830053C45D /* EventDispatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07AF189D17C5F5830053C45D /* EventDispatcher.cpp */; };
+		07AF18D717C5F5830053C45D /* Frame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07AF189E17C5F5830053C45D /* Frame.cpp */; };
+		07AF18D817C5F5830053C45D /* Frame.h in Headers */ = {isa = PBXBuildFile; fileRef = 07AF189F17C5F5830053C45D /* Frame.h */; };
+		07AF18D917C5F5830053C45D /* GameObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07AF18A017C5F5830053C45D /* GameObject.cpp */; };
+		07AF18DA17C5F5830053C45D /* GameObjectComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07AF18A117C5F5830053C45D /* GameObjectComponent.cpp */; };
+		07AF18DB17C5F5830053C45D /* GameObjectManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07AF18A217C5F5830053C45D /* GameObjectManager.cpp */; };
+		07AF18DC17C5F5830053C45D /* GameObjectTemplate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07AF18A317C5F5830053C45D /* GameObjectTemplate.cpp */; };
+		07AF18DD17C5F5830053C45D /* Light.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07AF18A417C5F5830053C45D /* Light.cpp */; };
+		07AF18DE17C5F5830053C45D /* LightManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07AF18A517C5F5830053C45D /* LightManager.cpp */; };
+		07AF18DF17C5F5830053C45D /* Material.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07AF18A617C5F5830053C45D /* Material.cpp */; };
+		07AF18E017C5F5830053C45D /* MaterialBaseParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07AF18A717C5F5830053C45D /* MaterialBaseParser.cpp */; };
+		07AF18E117C5F5830053C45D /* MaterialCompiler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07AF18A817C5F5830053C45D /* MaterialCompiler.cpp */; };
+		07AF18E217C5F5830053C45D /* MaterialLexer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07AF18A917C5F5830053C45D /* MaterialLexer.cpp */; };
+		07AF18E317C5F5830053C45D /* MaterialParameter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07AF18AA17C5F5830053C45D /* MaterialParameter.cpp */; };
+		07AF18E417C5F5830053C45D /* MaterialParameterManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07AF18AB17C5F5830053C45D /* MaterialParameterManager.cpp */; };
+		07AF18E517C5F5830053C45D /* MaterialParameterManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 07AF18AC17C5F5830053C45D /* MaterialParameterManager.h */; };
+		07AF18E617C5F5830053C45D /* MaterialParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07AF18AD17C5F5830053C45D /* MaterialParser.cpp */; };
+		07AF18E717C5F5830053C45D /* MaterialPass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07AF18AE17C5F5830053C45D /* MaterialPass.cpp */; };
+		07AF18E817C5F5830053C45D /* MaterialTech.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07AF18AF17C5F5830053C45D /* MaterialTech.cpp */; };
+		07AF18E917C5F5830053C45D /* Mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07AF18B017C5F5830053C45D /* Mesh.cpp */; };
+		07AF18EA17C5F5830053C45D /* MeshSerializer_XML.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07AF18B117C5F5830053C45D /* MeshSerializer_XML.cpp */; };
+		07AF18EB17C5F5830053C45D /* MeshUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07AF18B217C5F5830053C45D /* MeshUtil.cpp */; };
+		07AF18EC17C5F5830053C45D /* PassParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07AF18B317C5F5830053C45D /* PassParser.cpp */; };
+		07AF18ED17C5F5830053C45D /* PointLight.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07AF18B417C5F5830053C45D /* PointLight.cpp */; };
+		07AF18EE17C5F5830053C45D /* PoolAllocator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07AF18B517C5F5830053C45D /* PoolAllocator.cpp */; };
+		07AF18EF17C5F5830053C45D /* PostEffect_BilateralBlur.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07AF18B617C5F5830053C45D /* PostEffect_BilateralBlur.cpp */; };
+		07AF18F017C5F5830053C45D /* PostEffect_FinalCompose.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07AF18B717C5F5830053C45D /* PostEffect_FinalCompose.cpp */; };
+		07AF18F117C5F5830053C45D /* PostEffect_FXAA.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07AF18B817C5F5830053C45D /* PostEffect_FXAA.cpp */; };
+		07AF18F217C5F5830053C45D /* PostEffect_FXAA.h in Headers */ = {isa = PBXBuildFile; fileRef = 07AF18B917C5F5830053C45D /* PostEffect_FXAA.h */; };
+		07AF18F317C5F5830053C45D /* PostEffect_GaussianBlur.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07AF18BA17C5F5830053C45D /* PostEffect_GaussianBlur.cpp */; };
+		07AF18F417C5F5830053C45D /* PostEffect_SSAO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07AF18BB17C5F5830053C45D /* PostEffect_SSAO.cpp */; };
+		07AF18F517C5F5830053C45D /* PostEffect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07AF18BC17C5F5830053C45D /* PostEffect.cpp */; };
+		07AF18F617C5F5830053C45D /* PostEffectManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07AF18BD17C5F5830053C45D /* PostEffectManager.cpp */; };
+		07AF18F717C5F5830053C45D /* RenderManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07AF18BE17C5F5830053C45D /* RenderManager.cpp */; };
+		07AF18F817C5F5830053C45D /* RenderStateParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07AF18BF17C5F5830053C45D /* RenderStateParser.cpp */; };
+		07AF18F917C5F5830053C45D /* SamplerStateParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07AF18C017C5F5830053C45D /* SamplerStateParser.cpp */; };
+		07AF18FA17C5F5830053C45D /* Scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07AF18C117C5F5830053C45D /* Scene.cpp */; };
+		07AF18FB17C5F5830053C45D /* SceneSerializer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07AF18C217C5F5830053C45D /* SceneSerializer.cpp */; };
+		07AF18FC17C5F5830053C45D /* SkyLight.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07AF18C317C5F5830053C45D /* SkyLight.cpp */; };
+		07AF18FD17C5F5830053C45D /* SpotLight.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07AF18C417C5F5830053C45D /* SpotLight.cpp */; };
+		07AF18FE17C5F5830053C45D /* StdAllocator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07AF18C517C5F5830053C45D /* StdAllocator.cpp */; };
+		07AF18FF17C5F5830053C45D /* SubMesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07AF18C617C5F5830053C45D /* SubMesh.cpp */; };
+		07AF190017C5F5830053C45D /* SysManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07AF18C717C5F5830053C45D /* SysManager.cpp */; };
+		07AF190117C5F5830053C45D /* TechniqueParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07AF18C817C5F5830053C45D /* TechniqueParser.cpp */; };
+		07AF190217C5F5830053C45D /* Time64.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07AF18C917C5F5830053C45D /* Time64.cpp */; };
+		07AF190317C5F5830053C45D /* Time64.h in Headers */ = {isa = PBXBuildFile; fileRef = 07AF18CA17C5F5830053C45D /* Time64.h */; };
+		07AF190417C5F5830053C45D /* TimerManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07AF18CB17C5F5830053C45D /* TimerManager.cpp */; };
+		07AF190517C5F5830053C45D /* ViewFrustum.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07AF18CC17C5F5830053C45D /* ViewFrustum.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		07AF188317C5F4F30053C45D /* libcore_osx.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libcore_osx.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		07AF188A17C5F51A0053C45D /* ArcBall.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ArcBall.cpp; path = ../ArcBall.cpp; sourceTree = "<group>"; };
+		07AF188B17C5F51A0053C45D /* AssetsManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AssetsManager.cpp; path = ../AssetsManager.cpp; sourceTree = "<group>"; };
+		07AF188C17C5F51A0053C45D /* BaseCamera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BaseCamera.cpp; path = ../BaseCamera.cpp; sourceTree = "<group>"; };
+		07AF188D17C5F51A0053C45D /* BBoxRenderData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BBoxRenderData.cpp; path = ../BBoxRenderData.cpp; sourceTree = "<group>"; };
+		07AF188E17C5F51A0053C45D /* Camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Camera.cpp; path = ../Camera.cpp; sourceTree = "<group>"; };
+		07AF189417C5F5830053C45D /* core_pch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = core_pch.cpp; path = ../core_pch.cpp; sourceTree = "<group>"; };
+		07AF189517C5F5830053C45D /* core_pch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = core_pch.h; path = ../core_pch.h; sourceTree = "<group>"; };
+		07AF189617C5F5830053C45D /* core_utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = core_utils.cpp; path = ../core_utils.cpp; sourceTree = "<group>"; };
+		07AF189717C5F5830053C45D /* core_utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = core_utils.h; path = ../core_utils.h; sourceTree = "<group>"; };
+		07AF189817C5F5830053C45D /* CoreApi.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CoreApi.cpp; path = ../CoreApi.cpp; sourceTree = "<group>"; };
+		07AF189917C5F5830053C45D /* DataStream_File.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DataStream_File.cpp; path = ../DataStream_File.cpp; sourceTree = "<group>"; };
+		07AF189A17C5F5830053C45D /* DataStream_Mem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DataStream_Mem.cpp; path = ../DataStream_Mem.cpp; sourceTree = "<group>"; };
+		07AF189B17C5F5830053C45D /* DataStream.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DataStream.cpp; path = ../DataStream.cpp; sourceTree = "<group>"; };
+		07AF189C17C5F5830053C45D /* DirectionalLight.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DirectionalLight.cpp; path = ../DirectionalLight.cpp; sourceTree = "<group>"; };
+		07AF189D17C5F5830053C45D /* EventDispatcher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = EventDispatcher.cpp; path = ../EventDispatcher.cpp; sourceTree = "<group>"; };
+		07AF189E17C5F5830053C45D /* Frame.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Frame.cpp; path = ../Frame.cpp; sourceTree = "<group>"; };
+		07AF189F17C5F5830053C45D /* Frame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Frame.h; path = ../Frame.h; sourceTree = "<group>"; };
+		07AF18A017C5F5830053C45D /* GameObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GameObject.cpp; path = ../GameObject.cpp; sourceTree = "<group>"; };
+		07AF18A117C5F5830053C45D /* GameObjectComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GameObjectComponent.cpp; path = ../GameObjectComponent.cpp; sourceTree = "<group>"; };
+		07AF18A217C5F5830053C45D /* GameObjectManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GameObjectManager.cpp; path = ../GameObjectManager.cpp; sourceTree = "<group>"; };
+		07AF18A317C5F5830053C45D /* GameObjectTemplate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GameObjectTemplate.cpp; path = ../GameObjectTemplate.cpp; sourceTree = "<group>"; };
+		07AF18A417C5F5830053C45D /* Light.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Light.cpp; path = ../Light.cpp; sourceTree = "<group>"; };
+		07AF18A517C5F5830053C45D /* LightManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LightManager.cpp; path = ../LightManager.cpp; sourceTree = "<group>"; };
+		07AF18A617C5F5830053C45D /* Material.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Material.cpp; path = ../Material.cpp; sourceTree = "<group>"; };
+		07AF18A717C5F5830053C45D /* MaterialBaseParser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MaterialBaseParser.cpp; path = ../MaterialBaseParser.cpp; sourceTree = "<group>"; };
+		07AF18A817C5F5830053C45D /* MaterialCompiler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MaterialCompiler.cpp; path = ../MaterialCompiler.cpp; sourceTree = "<group>"; };
+		07AF18A917C5F5830053C45D /* MaterialLexer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MaterialLexer.cpp; path = ../MaterialLexer.cpp; sourceTree = "<group>"; };
+		07AF18AA17C5F5830053C45D /* MaterialParameter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MaterialParameter.cpp; path = ../MaterialParameter.cpp; sourceTree = "<group>"; };
+		07AF18AB17C5F5830053C45D /* MaterialParameterManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MaterialParameterManager.cpp; path = ../MaterialParameterManager.cpp; sourceTree = "<group>"; };
+		07AF18AC17C5F5830053C45D /* MaterialParameterManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MaterialParameterManager.h; path = ../MaterialParameterManager.h; sourceTree = "<group>"; };
+		07AF18AD17C5F5830053C45D /* MaterialParser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MaterialParser.cpp; path = ../MaterialParser.cpp; sourceTree = "<group>"; };
+		07AF18AE17C5F5830053C45D /* MaterialPass.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MaterialPass.cpp; path = ../MaterialPass.cpp; sourceTree = "<group>"; };
+		07AF18AF17C5F5830053C45D /* MaterialTech.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MaterialTech.cpp; path = ../MaterialTech.cpp; sourceTree = "<group>"; };
+		07AF18B017C5F5830053C45D /* Mesh.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Mesh.cpp; path = ../Mesh.cpp; sourceTree = "<group>"; };
+		07AF18B117C5F5830053C45D /* MeshSerializer_XML.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MeshSerializer_XML.cpp; path = ../MeshSerializer_XML.cpp; sourceTree = "<group>"; };
+		07AF18B217C5F5830053C45D /* MeshUtil.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MeshUtil.cpp; path = ../MeshUtil.cpp; sourceTree = "<group>"; };
+		07AF18B317C5F5830053C45D /* PassParser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PassParser.cpp; path = ../PassParser.cpp; sourceTree = "<group>"; };
+		07AF18B417C5F5830053C45D /* PointLight.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PointLight.cpp; path = ../PointLight.cpp; sourceTree = "<group>"; };
+		07AF18B517C5F5830053C45D /* PoolAllocator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PoolAllocator.cpp; path = ../PoolAllocator.cpp; sourceTree = "<group>"; };
+		07AF18B617C5F5830053C45D /* PostEffect_BilateralBlur.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PostEffect_BilateralBlur.cpp; path = ../PostEffect_BilateralBlur.cpp; sourceTree = "<group>"; };
+		07AF18B717C5F5830053C45D /* PostEffect_FinalCompose.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PostEffect_FinalCompose.cpp; path = ../PostEffect_FinalCompose.cpp; sourceTree = "<group>"; };
+		07AF18B817C5F5830053C45D /* PostEffect_FXAA.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PostEffect_FXAA.cpp; path = ../PostEffect_FXAA.cpp; sourceTree = "<group>"; };
+		07AF18B917C5F5830053C45D /* PostEffect_FXAA.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PostEffect_FXAA.h; path = ../PostEffect_FXAA.h; sourceTree = "<group>"; };
+		07AF18BA17C5F5830053C45D /* PostEffect_GaussianBlur.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PostEffect_GaussianBlur.cpp; path = ../PostEffect_GaussianBlur.cpp; sourceTree = "<group>"; };
+		07AF18BB17C5F5830053C45D /* PostEffect_SSAO.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PostEffect_SSAO.cpp; path = ../PostEffect_SSAO.cpp; sourceTree = "<group>"; };
+		07AF18BC17C5F5830053C45D /* PostEffect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PostEffect.cpp; path = ../PostEffect.cpp; sourceTree = "<group>"; };
+		07AF18BD17C5F5830053C45D /* PostEffectManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PostEffectManager.cpp; path = ../PostEffectManager.cpp; sourceTree = "<group>"; };
+		07AF18BE17C5F5830053C45D /* RenderManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RenderManager.cpp; path = ../RenderManager.cpp; sourceTree = "<group>"; };
+		07AF18BF17C5F5830053C45D /* RenderStateParser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RenderStateParser.cpp; path = ../RenderStateParser.cpp; sourceTree = "<group>"; };
+		07AF18C017C5F5830053C45D /* SamplerStateParser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SamplerStateParser.cpp; path = ../SamplerStateParser.cpp; sourceTree = "<group>"; };
+		07AF18C117C5F5830053C45D /* Scene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Scene.cpp; path = ../Scene.cpp; sourceTree = "<group>"; };
+		07AF18C217C5F5830053C45D /* SceneSerializer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SceneSerializer.cpp; path = ../SceneSerializer.cpp; sourceTree = "<group>"; };
+		07AF18C317C5F5830053C45D /* SkyLight.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SkyLight.cpp; path = ../SkyLight.cpp; sourceTree = "<group>"; };
+		07AF18C417C5F5830053C45D /* SpotLight.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SpotLight.cpp; path = ../SpotLight.cpp; sourceTree = "<group>"; };
+		07AF18C517C5F5830053C45D /* StdAllocator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = StdAllocator.cpp; path = ../StdAllocator.cpp; sourceTree = "<group>"; };
+		07AF18C617C5F5830053C45D /* SubMesh.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SubMesh.cpp; path = ../SubMesh.cpp; sourceTree = "<group>"; };
+		07AF18C717C5F5830053C45D /* SysManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SysManager.cpp; path = ../SysManager.cpp; sourceTree = "<group>"; };
+		07AF18C817C5F5830053C45D /* TechniqueParser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TechniqueParser.cpp; path = ../TechniqueParser.cpp; sourceTree = "<group>"; };
+		07AF18C917C5F5830053C45D /* Time64.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Time64.cpp; path = ../Time64.cpp; sourceTree = "<group>"; };
+		07AF18CA17C5F5830053C45D /* Time64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Time64.h; path = ../Time64.h; sourceTree = "<group>"; };
+		07AF18CB17C5F5830053C45D /* TimerManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TimerManager.cpp; path = ../TimerManager.cpp; sourceTree = "<group>"; };
+		07AF18CC17C5F5830053C45D /* ViewFrustum.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ViewFrustum.cpp; path = ../ViewFrustum.cpp; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		07AF188017C5F4F30053C45D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		07AF187A17C5F4F30053C45D = {
+			isa = PBXGroup;
+			children = (
+				07AF189417C5F5830053C45D /* core_pch.cpp */,
+				07AF189517C5F5830053C45D /* core_pch.h */,
+				07AF189617C5F5830053C45D /* core_utils.cpp */,
+				07AF189717C5F5830053C45D /* core_utils.h */,
+				07AF189817C5F5830053C45D /* CoreApi.cpp */,
+				07AF189917C5F5830053C45D /* DataStream_File.cpp */,
+				07AF189A17C5F5830053C45D /* DataStream_Mem.cpp */,
+				07AF189B17C5F5830053C45D /* DataStream.cpp */,
+				07AF189C17C5F5830053C45D /* DirectionalLight.cpp */,
+				07AF189D17C5F5830053C45D /* EventDispatcher.cpp */,
+				07AF189E17C5F5830053C45D /* Frame.cpp */,
+				07AF189F17C5F5830053C45D /* Frame.h */,
+				07AF18A017C5F5830053C45D /* GameObject.cpp */,
+				07AF18A117C5F5830053C45D /* GameObjectComponent.cpp */,
+				07AF18A217C5F5830053C45D /* GameObjectManager.cpp */,
+				07AF18A317C5F5830053C45D /* GameObjectTemplate.cpp */,
+				07AF18A417C5F5830053C45D /* Light.cpp */,
+				07AF18A517C5F5830053C45D /* LightManager.cpp */,
+				07AF18A617C5F5830053C45D /* Material.cpp */,
+				07AF18A717C5F5830053C45D /* MaterialBaseParser.cpp */,
+				07AF18A817C5F5830053C45D /* MaterialCompiler.cpp */,
+				07AF18A917C5F5830053C45D /* MaterialLexer.cpp */,
+				07AF18AA17C5F5830053C45D /* MaterialParameter.cpp */,
+				07AF18AB17C5F5830053C45D /* MaterialParameterManager.cpp */,
+				07AF18AC17C5F5830053C45D /* MaterialParameterManager.h */,
+				07AF18AD17C5F5830053C45D /* MaterialParser.cpp */,
+				07AF18AE17C5F5830053C45D /* MaterialPass.cpp */,
+				07AF18AF17C5F5830053C45D /* MaterialTech.cpp */,
+				07AF18B017C5F5830053C45D /* Mesh.cpp */,
+				07AF18B117C5F5830053C45D /* MeshSerializer_XML.cpp */,
+				07AF18B217C5F5830053C45D /* MeshUtil.cpp */,
+				07AF18B317C5F5830053C45D /* PassParser.cpp */,
+				07AF18B417C5F5830053C45D /* PointLight.cpp */,
+				07AF18B517C5F5830053C45D /* PoolAllocator.cpp */,
+				07AF18B617C5F5830053C45D /* PostEffect_BilateralBlur.cpp */,
+				07AF18B717C5F5830053C45D /* PostEffect_FinalCompose.cpp */,
+				07AF18B817C5F5830053C45D /* PostEffect_FXAA.cpp */,
+				07AF18B917C5F5830053C45D /* PostEffect_FXAA.h */,
+				07AF18BA17C5F5830053C45D /* PostEffect_GaussianBlur.cpp */,
+				07AF18BB17C5F5830053C45D /* PostEffect_SSAO.cpp */,
+				07AF18BC17C5F5830053C45D /* PostEffect.cpp */,
+				07AF18BD17C5F5830053C45D /* PostEffectManager.cpp */,
+				07AF18BE17C5F5830053C45D /* RenderManager.cpp */,
+				07AF18BF17C5F5830053C45D /* RenderStateParser.cpp */,
+				07AF18C017C5F5830053C45D /* SamplerStateParser.cpp */,
+				07AF18C117C5F5830053C45D /* Scene.cpp */,
+				07AF18C217C5F5830053C45D /* SceneSerializer.cpp */,
+				07AF18C317C5F5830053C45D /* SkyLight.cpp */,
+				07AF18C417C5F5830053C45D /* SpotLight.cpp */,
+				07AF18C517C5F5830053C45D /* StdAllocator.cpp */,
+				07AF18C617C5F5830053C45D /* SubMesh.cpp */,
+				07AF18C717C5F5830053C45D /* SysManager.cpp */,
+				07AF18C817C5F5830053C45D /* TechniqueParser.cpp */,
+				07AF18C917C5F5830053C45D /* Time64.cpp */,
+				07AF18CA17C5F5830053C45D /* Time64.h */,
+				07AF18CB17C5F5830053C45D /* TimerManager.cpp */,
+				07AF18CC17C5F5830053C45D /* ViewFrustum.cpp */,
+				07AF188A17C5F51A0053C45D /* ArcBall.cpp */,
+				07AF188B17C5F51A0053C45D /* AssetsManager.cpp */,
+				07AF188C17C5F51A0053C45D /* BaseCamera.cpp */,
+				07AF188D17C5F51A0053C45D /* BBoxRenderData.cpp */,
+				07AF188E17C5F51A0053C45D /* Camera.cpp */,
+				07AF188417C5F4F30053C45D /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		07AF188417C5F4F30053C45D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				07AF188317C5F4F30053C45D /* libcore_osx.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		07AF188117C5F4F30053C45D /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				07AF18CE17C5F5830053C45D /* core_pch.h in Headers */,
+				07AF18D017C5F5830053C45D /* core_utils.h in Headers */,
+				07AF18D817C5F5830053C45D /* Frame.h in Headers */,
+				07AF18E517C5F5830053C45D /* MaterialParameterManager.h in Headers */,
+				07AF18F217C5F5830053C45D /* PostEffect_FXAA.h in Headers */,
+				07AF190317C5F5830053C45D /* Time64.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		07AF188217C5F4F30053C45D /* core_osx */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 07AF188717C5F4F30053C45D /* Build configuration list for PBXNativeTarget "core_osx" */;
+			buildPhases = (
+				07AF187F17C5F4F30053C45D /* Sources */,
+				07AF188017C5F4F30053C45D /* Frameworks */,
+				07AF188117C5F4F30053C45D /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = core_osx;
+			productName = core_osx;
+			productReference = 07AF188317C5F4F30053C45D /* libcore_osx.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		07AF187B17C5F4F30053C45D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0460;
+				ORGANIZATIONNAME = ld3d;
+			};
+			buildConfigurationList = 07AF187E17C5F4F30053C45D /* Build configuration list for PBXProject "core_osx" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 07AF187A17C5F4F30053C45D;
+			productRefGroup = 07AF188417C5F4F30053C45D /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				07AF188217C5F4F30053C45D /* core_osx */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		07AF187F17C5F4F30053C45D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				07AF188F17C5F51A0053C45D /* ArcBall.cpp in Sources */,
+				07AF189017C5F51A0053C45D /* AssetsManager.cpp in Sources */,
+				07AF189117C5F51A0053C45D /* BaseCamera.cpp in Sources */,
+				07AF189217C5F51A0053C45D /* BBoxRenderData.cpp in Sources */,
+				07AF189317C5F51A0053C45D /* Camera.cpp in Sources */,
+				07AF18CD17C5F5830053C45D /* core_pch.cpp in Sources */,
+				07AF18CF17C5F5830053C45D /* core_utils.cpp in Sources */,
+				07AF18D117C5F5830053C45D /* CoreApi.cpp in Sources */,
+				07AF18D217C5F5830053C45D /* DataStream_File.cpp in Sources */,
+				07AF18D317C5F5830053C45D /* DataStream_Mem.cpp in Sources */,
+				07AF18D417C5F5830053C45D /* DataStream.cpp in Sources */,
+				07AF18D517C5F5830053C45D /* DirectionalLight.cpp in Sources */,
+				07AF18D617C5F5830053C45D /* EventDispatcher.cpp in Sources */,
+				07AF18D717C5F5830053C45D /* Frame.cpp in Sources */,
+				07AF18D917C5F5830053C45D /* GameObject.cpp in Sources */,
+				07AF18DA17C5F5830053C45D /* GameObjectComponent.cpp in Sources */,
+				07AF18DB17C5F5830053C45D /* GameObjectManager.cpp in Sources */,
+				07AF18DC17C5F5830053C45D /* GameObjectTemplate.cpp in Sources */,
+				07AF18DD17C5F5830053C45D /* Light.cpp in Sources */,
+				07AF18DE17C5F5830053C45D /* LightManager.cpp in Sources */,
+				07AF18DF17C5F5830053C45D /* Material.cpp in Sources */,
+				07AF18E017C5F5830053C45D /* MaterialBaseParser.cpp in Sources */,
+				07AF18E117C5F5830053C45D /* MaterialCompiler.cpp in Sources */,
+				07AF18E217C5F5830053C45D /* MaterialLexer.cpp in Sources */,
+				07AF18E317C5F5830053C45D /* MaterialParameter.cpp in Sources */,
+				07AF18E417C5F5830053C45D /* MaterialParameterManager.cpp in Sources */,
+				07AF18E617C5F5830053C45D /* MaterialParser.cpp in Sources */,
+				07AF18E717C5F5830053C45D /* MaterialPass.cpp in Sources */,
+				07AF18E817C5F5830053C45D /* MaterialTech.cpp in Sources */,
+				07AF18E917C5F5830053C45D /* Mesh.cpp in Sources */,
+				07AF18EA17C5F5830053C45D /* MeshSerializer_XML.cpp in Sources */,
+				07AF18EB17C5F5830053C45D /* MeshUtil.cpp in Sources */,
+				07AF18EC17C5F5830053C45D /* PassParser.cpp in Sources */,
+				07AF18ED17C5F5830053C45D /* PointLight.cpp in Sources */,
+				07AF18EE17C5F5830053C45D /* PoolAllocator.cpp in Sources */,
+				07AF18EF17C5F5830053C45D /* PostEffect_BilateralBlur.cpp in Sources */,
+				07AF18F017C5F5830053C45D /* PostEffect_FinalCompose.cpp in Sources */,
+				07AF18F117C5F5830053C45D /* PostEffect_FXAA.cpp in Sources */,
+				07AF18F317C5F5830053C45D /* PostEffect_GaussianBlur.cpp in Sources */,
+				07AF18F417C5F5830053C45D /* PostEffect_SSAO.cpp in Sources */,
+				07AF18F517C5F5830053C45D /* PostEffect.cpp in Sources */,
+				07AF18F617C5F5830053C45D /* PostEffectManager.cpp in Sources */,
+				07AF18F717C5F5830053C45D /* RenderManager.cpp in Sources */,
+				07AF18F817C5F5830053C45D /* RenderStateParser.cpp in Sources */,
+				07AF18F917C5F5830053C45D /* SamplerStateParser.cpp in Sources */,
+				07AF18FA17C5F5830053C45D /* Scene.cpp in Sources */,
+				07AF18FB17C5F5830053C45D /* SceneSerializer.cpp in Sources */,
+				07AF18FC17C5F5830053C45D /* SkyLight.cpp in Sources */,
+				07AF18FD17C5F5830053C45D /* SpotLight.cpp in Sources */,
+				07AF18FE17C5F5830053C45D /* StdAllocator.cpp in Sources */,
+				07AF18FF17C5F5830053C45D /* SubMesh.cpp in Sources */,
+				07AF190017C5F5830053C45D /* SysManager.cpp in Sources */,
+				07AF190117C5F5830053C45D /* TechniqueParser.cpp in Sources */,
+				07AF190217C5F5830053C45D /* Time64.cpp in Sources */,
+				07AF190417C5F5830053C45D /* TimerManager.cpp in Sources */,
+				07AF190517C5F5830053C45D /* ViewFrustum.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		07AF188517C5F4F30053C45D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		07AF188617C5F4F30053C45D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		07AF188817C5F4F30053C45D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EXECUTABLE_PREFIX = lib;
+				HEADER_SEARCH_PATHS = ../../../include/;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		07AF188917C5F4F30053C45D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EXECUTABLE_PREFIX = lib;
+				HEADER_SEARCH_PATHS = ../../../include/;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		07AF187E17C5F4F30053C45D /* Build configuration list for PBXProject "core_osx" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				07AF188517C5F4F30053C45D /* Debug */,
+				07AF188617C5F4F30053C45D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		07AF188717C5F4F30053C45D /* Build configuration list for PBXNativeTarget "core_osx" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				07AF188817C5F4F30053C45D /* Debug */,
+				07AF188917C5F4F30053C45D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 07AF187B17C5F4F30053C45D /* Project object */;
+}

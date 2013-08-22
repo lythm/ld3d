@@ -5,10 +5,10 @@
 #include <Windows.h>
 #endif
 
-#include <types\types.h>
-#include <types\dllexport.h>
+#include <types/types.h>
+#include <types/dllexport.h>
 
-#include <utils\utils_all.h>
+#include <utils/utils_all.h>
 #include <memory>
 #include <functional>
 #include <unordered_map>
