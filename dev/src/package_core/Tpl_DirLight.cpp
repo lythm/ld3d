@@ -4,7 +4,7 @@
 
 namespace ld3d
 {
-	Tpl_DirLight::Tpl_DirLight(GameObjectManagerPtr pManager, const std::wstring& name) : GameObjectTemplate(pManager, name, L"Light")
+	Tpl_DirLight::Tpl_DirLight(GameObjectManagerPtr pManager, const std::string& name) : GameObjectTemplate(pManager, name, "Light")
 	{
 	}
 
@@ -14,9 +14,9 @@ namespace ld3d
 	}
 	GameObjectPtr Tpl_DirLight::CreateGameObject()
 	{
-		GameObjectPtr pObj = m_pManager->CreateGameObject(L"Directional Light");
+		GameObjectPtr pObj = m_pManager->CreateGameObject("Directional Light");
 
-		GameObjectComponentPtr pLight = m_pManager->CreateComponent(L"DirectionalLight");
+		GameObjectComponentPtr pLight = m_pManager->CreateComponent("DirectionalLight");
 		pObj->AddComponent(pLight);
 
 		return pObj;

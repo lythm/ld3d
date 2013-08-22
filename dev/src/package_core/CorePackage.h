@@ -10,7 +10,7 @@ namespace ld3d
 		CorePackage(GameObjectManagerPtr pManager);
 		virtual ~CorePackage(void);
 
-		const wchar_t*						GetPackageName();
+		const char*							GetPackageName();
 		int									GetClassCount();
 		ComponentClass*						GetClassByIndex(int index);
 

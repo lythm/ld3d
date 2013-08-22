@@ -57,110 +57,110 @@ namespace ld3d
 	}
 	void CorePackage::RegisterTemplates()
 	{
-		GameObjectTemplate* pTpl = new Tpl_Cube(m_pManager, L"Cube");
+		GameObjectTemplate* pTpl = new Tpl_Cube(m_pManager, "Cube");
 		m_tpls.push_back(pTpl);
 
-		pTpl = new Tpl_Plane(m_pManager, L"Plane");
+		pTpl = new Tpl_Plane(m_pManager, "Plane");
 		m_tpls.push_back(pTpl);
 
-		pTpl = new Tpl_Sphere(m_pManager, L"Sphere");
+		pTpl = new Tpl_Sphere(m_pManager, "Sphere");
 		m_tpls.push_back(pTpl);
 
-		pTpl = new Tpl_Cone(m_pManager, L"Cone");
+		pTpl = new Tpl_Cone(m_pManager, "Cone");
 		m_tpls.push_back(pTpl);
 
-		pTpl = new Tpl_PointLight(m_pManager, L"PointLight");
+		pTpl = new Tpl_PointLight(m_pManager, "PointLight");
 		m_tpls.push_back(pTpl);
 
-		pTpl = new Tpl_SpotLight(m_pManager, L"SpotLight");
+		pTpl = new Tpl_SpotLight(m_pManager, "SpotLight");
 		m_tpls.push_back(pTpl);
 
-		pTpl = new Tpl_DirLight(m_pManager, L"DirectionalLight");
+		pTpl = new Tpl_DirLight(m_pManager, "DirectionalLight");
 		m_tpls.push_back(pTpl);
 
-		pTpl = new Tpl_SkyLight(m_pManager, L"SkyLight");
+		pTpl = new Tpl_SkyLight(m_pManager, "SkyLight");
 		m_tpls.push_back(pTpl);
 
-		pTpl = new Tpl_Camera(m_pManager, L"Camera");
+		pTpl = new Tpl_Camera(m_pManager, "Camera");
 		m_tpls.push_back(pTpl);
 
 	}
 	void CorePackage::RegisterClasses()
 	{
-		m_classes.push_back(ComponentClass(L"MeshData",
-					L"Mesh",
-					L"Mesh Data",
+		m_classes.push_back(ComponentClass("MeshData",
+					"Mesh",
+					"Mesh Data",
 					&Create_Component<MeshData>));
 
-		m_classes.push_back(ComponentClass(L"MeshRenderer",
-					L"Mesh",
-					L"Mesh Renderer",
+		m_classes.push_back(ComponentClass("MeshRenderer",
+					"Mesh",
+					"Mesh Renderer",
 					&Create_Component<MeshRenderer>));
 
-		m_classes.push_back(ComponentClass(L"PropertyManager",
-					L"Misc",
-					L"Property Manager",
+		m_classes.push_back(ComponentClass("PropertyManager",
+					"Misc",
+					"Property Manager",
 					&Create_Component<PropertyManager>));
 
-		/*m_classes.push_back(ComponentClass(L"WorldMeshRenderer",
-					L"Mesh",
-					L"World Mesh Renderer",
+		/*m_classes.push_back(ComponentClass("WorldMeshRenderer",
+					"Mesh",
+					"World Mesh Renderer",
 					&Package::Create_WorldMeshRenderer));
 					*/
 
-		m_classes.push_back(ComponentClass(L"DirectionalLight",
-					L"Light",
-					L"Directional Light",
+		m_classes.push_back(ComponentClass("DirectionalLight",
+					"Light",
+					"Directional Light",
 					&Create_Component<Light_Dir>));
 
-		m_classes.push_back(ComponentClass(L"PointLight",
-					L"Light",
-					L"Point Light",
+		m_classes.push_back(ComponentClass("PointLight",
+					"Light",
+					"Point Light",
 					&Create_Component<Light_Point>));
 
-		m_classes.push_back(ComponentClass(L"SpotLight",
-					L"Light",
-					L"Spot Light",
+		m_classes.push_back(ComponentClass("SpotLight",
+					"Light",
+					"Spot Light",
 					&Create_Component<Light_Spot>));
 
-		m_classes.push_back(ComponentClass(L"SkyLight",
-					L"Light",
-					L"Sky Light",
+		m_classes.push_back(ComponentClass("SkyLight",
+					"Light",
+					"Sky Light",
 					&Create_Component<Light_Sky>));
 
-		m_classes.push_back(ComponentClass(L"SkyBox",
-					L"Sky",
-					L"SkyBox",
+		m_classes.push_back(ComponentClass("SkyBox",
+					"Sky",
+					"SkyBox",
 					&Create_Component<SkyBox>));
 
-		m_classes.push_back(ComponentClass(L"Camera",
-					L"Camera",
-					L"Camera",
+		m_classes.push_back(ComponentClass("Camera",
+					"Camera",
+					"Camera",
 					&Create_Component<CameraData>));
 
-		m_classes.push_back(ComponentClass(L"Sky",
-					L"Rendering",
-					L"Sky",
+		m_classes.push_back(ComponentClass("Sky",
+					"Rendering",
+					"Sky",
 					&Create_Component<Sky>));
 
-		m_classes.push_back(ComponentClass(L"PostEffectList",
-					L"Camera",
-					L"PostEffectList",
+		m_classes.push_back(ComponentClass("PostEffectList",
+					"Camera",
+					"PostEffectList",
 					&Create_Component<PostEffectList>));
 
-		m_classes.push_back(ComponentClass(L"LuaBehavior",
-					L"Script",
-					L"Lua script Behavior",
+		m_classes.push_back(ComponentClass("LuaBehavior",
+					"Script",
+					"Lua script Behavior",
 					&Create_Component<LuaBehavior>));
 
-		m_classes.push_back(ComponentClass(L"SoundEmitter",
-					L"Sound",
-					L"Sound Emitter",
+		m_classes.push_back(ComponentClass("SoundEmitter",
+					"Sound",
+					"Sound Emitter",
 					&Create_Component<SoundEmitter>));
 
-		m_classes.push_back(ComponentClass(L"SoundListener",
-					L"Sound",
-					L"Sound Listener",
+		m_classes.push_back(ComponentClass("SoundListener",
+					"Sound",
+					"Sound Listener",
 					&Create_Component<SoundListener>));
 
 	}
@@ -177,9 +177,9 @@ namespace ld3d
 		}
 		m_tpls.clear();
 	}
-	const wchar_t* CorePackage::GetPackageName()
+	const char* CorePackage::GetPackageName()
 	{
-		return L"Core";
+		return "Core";
 	}
 	
 	int CorePackage::GetClassCount()

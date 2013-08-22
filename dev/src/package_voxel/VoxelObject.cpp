@@ -3,7 +3,7 @@
 
 namespace ld3d
 {
-	VoxelObject::VoxelObject(GameObjectManagerPtr pManager) : GameObjectComponent(L"VoxelObject", pManager)
+	VoxelObject::VoxelObject(GameObjectManagerPtr pManager) : GameObjectComponent("VoxelObject", pManager)
 	{
 	}
 
@@ -17,9 +17,9 @@ namespace ld3d
 	}
 	bool VoxelObject::OnAttach()
 	{
-		PropertyManagerPtr pPM = std::dynamic_pointer_cast<PropertyManager>(m_pObject->GetComponent(L"PropertyManager"));
+		PropertyManagerPtr pPM = std::dynamic_pointer_cast<PropertyManager>(m_pObject->GetComponent("PropertyManager"));
 
-		pPM->Begin(L"VoxelObject");
+		pPM->Begin("VoxelObject");
 		{
 			
 		}

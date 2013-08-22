@@ -4,7 +4,7 @@
 
 namespace ld3d
 {
-	SkyBox::SkyBox(GameObjectManagerPtr pManager) : GameObjectComponent(L"SkyBox", pManager)
+	SkyBox::SkyBox(GameObjectManagerPtr pManager) : GameObjectComponent("SkyBox", pManager)
 	{
 		SetVersion(g_packageVersion);
 	}
@@ -20,9 +20,9 @@ namespace ld3d
 	bool SkyBox::OnAttach()
 	{
 	
-		PropertyManagerPtr pPM = std::dynamic_pointer_cast<PropertyManager>(m_pObject->GetComponent(L"PropertyManager"));
+		PropertyManagerPtr pPM = std::dynamic_pointer_cast<PropertyManager>(m_pObject->GetComponent("PropertyManager"));
 
-		pPM->Begin(L"SkyBox");
+		pPM->Begin("SkyBox");
 		{
 		}
 		pPM->End();

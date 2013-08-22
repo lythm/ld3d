@@ -26,7 +26,6 @@ namespace ld3d
 		uint64								Size();
 		uint64								Pos();
 
-		bool								OpenStream(const wchar_t* szFile, bool read = true);
 		bool								OpenStream(const char* szFile, bool read = true);
 		bool								OpenStream(FILE* pFile);
 	private:

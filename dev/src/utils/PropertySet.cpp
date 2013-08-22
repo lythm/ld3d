@@ -3,7 +3,7 @@
 
 namespace ld3d
 {
-	PropertySet::PropertySet(const std::wstring& name)
+	PropertySet::PropertySet(const std::string& name)
 	{
 		m_name = name;
 	}
@@ -25,12 +25,12 @@ namespace ld3d
 		m_props.clear();
 		m_nameTable.clear();
 	}
-	Property* PropertySet::getProperty(const wchar_t* szName)
+	Property* PropertySet::getProperty(const char* szName)
 	{
 		size_t i = m_nameTable[szName];
 		return m_props[i].get();
 	}
-	bool PropertySet::hasProperty(const wchar_t* szName)
+	bool PropertySet::hasProperty(const char* szName)
 	{
 		return m_nameTable.find(szName) != m_nameTable.end();
 	}

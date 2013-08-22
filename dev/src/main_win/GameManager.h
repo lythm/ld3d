@@ -16,7 +16,7 @@ namespace ld3d
 		GameManager(void);
 		virtual ~GameManager(void);
 
-		bool									Initialize(const std::wstring& file);
+		bool									Initialize(const std::string& file);
 		void									Release();
 
 		GameInterface*							GetGame();
@@ -25,7 +25,7 @@ namespace ld3d
 		
 		
 		HMODULE									m_hLib;
-		std::wstring							m_filename;
+		std::string							m_filename;
 		GameInterface*							m_pGame;
 	};
 

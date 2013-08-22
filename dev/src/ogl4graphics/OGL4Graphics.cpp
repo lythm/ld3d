@@ -18,9 +18,9 @@
 namespace ld3d
 {
 
-	std::function<void (const std::wstring& log)>			g_logger;
+	std::function<void (const std::string& log)>			g_logger;
 
-	void g_log(const std::wstring& str)
+	void g_log(const std::string& str)
 	{
 		if(g_logger == nullptr)
 		{
@@ -29,16 +29,7 @@ namespace ld3d
 
 		g_logger(str);
 	}
-	void g_log(const std::string& str)
-	{
-		if(g_logger == nullptr)
-		{
-			return;
-		}
-		std::wstring log;
-		ld3d::Unicode::ANSI_2_UTF16(str, log);
-		g_logger(log);
-	}
+	
 
 #ifdef _DEBUG
 	void APIENTRY _DebugCallback(GLenum source, 
@@ -134,7 +125,7 @@ namespace ld3d
 
 
 }
-EXPORT_C_API ld3d::Sys_Graphics* CreateSys(const std::function<void (const std::wstring& log)>& logger)
+EXPORT_C_API ld3d::Sys_Graphics* CreateSys(const std::function<void (const std::string& log)>& logger)
 {
 	ld3d::g_logger = logger;
 	return new ld3d::OGL4Graphics;

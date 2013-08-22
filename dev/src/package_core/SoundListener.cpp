@@ -4,7 +4,7 @@
 namespace ld3d
 {
 
-	SoundListener::SoundListener(GameObjectManagerPtr pManager) : GameObjectComponent(L"SoundListener", pManager)
+	SoundListener::SoundListener(GameObjectManagerPtr pManager) : GameObjectComponent("SoundListener", pManager)
 	{
 		SetVersion(g_packageVersion);
 	}
@@ -33,9 +33,9 @@ namespace ld3d
 	
 	bool SoundListener::OnAttach()
 	{
-		PropertyManagerPtr pPM = std::dynamic_pointer_cast<PropertyManager>(m_pObject->GetComponent(L"PropertyManager"));
+		PropertyManagerPtr pPM = std::dynamic_pointer_cast<PropertyManager>(m_pObject->GetComponent("PropertyManager"));
 
-		pPM->Begin(L"SoundListener");
+		pPM->Begin("SoundListener");
 		{
 		}
 		pPM->End();

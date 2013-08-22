@@ -31,7 +31,7 @@ namespace ld3d
 		MaterialPtr Compiler::CompileFromFile(Sys_GraphicsPtr pGraphics, const boost::filesystem::path& strFile)
 		{
 			DataStream_File file;
-			if(false == file.OpenStream(strFile.c_str()))
+			if(false == file.OpenStream(strFile.string().c_str()))
 			{
 				return MaterialPtr();
 			}

@@ -124,7 +124,7 @@ void GameStudio::on_actionNew_Project_triggered()
 		
 	if(m_pEditor->NewProject(dlg.ProjectFilePath()) == false)
 	{
-		QMessageBox::critical(this, "Failed", "Failed to create new project: " + QString::fromStdWString(dlg.ProjectFilePath().wstring()));
+		QMessageBox::critical(this, "Failed", "Failed to create new project: " + QString::fromStdString(dlg.ProjectFilePath().string()));
 		return;
 	}
 	
@@ -272,7 +272,7 @@ bool GameStudio::SaveScene()
 {
 	if(m_pEditor->SaveScene() == false)
 	{
-		QMessageBox::critical(this, "Failed", "Failed to save scene: " + QString::fromStdWString(m_pEditor->GetSceneFile().wstring()));
+		QMessageBox::critical(this, "Failed", "Failed to save scene: " + QString::fromStdString(m_pEditor->GetSceneFile().string()));
 		return false;
 	}
 	logInfo("Scene Saved.");

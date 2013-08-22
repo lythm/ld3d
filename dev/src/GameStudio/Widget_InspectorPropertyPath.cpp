@@ -71,7 +71,7 @@ boost::filesystem::path	Widget_InspectorPropertyPath::GetValue()
 }
 void Widget_InspectorPropertyPath::SetValue(const boost::filesystem::path& value)
 {
-	QString str = QString::fromStdWString(value.wstring());
+	QString str = QString::fromStdString(value.string());
 	m_pValue->setText(str);
 }
 void Widget_InspectorPropertyPath::on_value_changed()

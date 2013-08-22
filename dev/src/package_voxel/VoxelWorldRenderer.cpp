@@ -7,7 +7,7 @@
 
 namespace ld3d
 {
-	VoxelWorldRenderer::VoxelWorldRenderer(GameObjectManagerPtr pManager) : GameObjectComponent(L"VoxelWorldRenderer", pManager)
+	VoxelWorldRenderer::VoxelWorldRenderer(GameObjectManagerPtr pManager) : GameObjectComponent("VoxelWorldRenderer", pManager)
 	{
 		m_bShowBound = false;
 		SetVersion(g_packageVersion);
@@ -25,12 +25,12 @@ namespace ld3d
 	
 	bool VoxelWorldRenderer::OnAttach()
 	{
-		PropertyManagerPtr pPM = std::dynamic_pointer_cast<PropertyManager>(m_pObject->GetComponent(L"PropertyManager"));
+		PropertyManagerPtr pPM = std::dynamic_pointer_cast<PropertyManager>(m_pObject->GetComponent("PropertyManager"));
 
-		pPM->Begin(L"VoxelWorldRenderer");
+		pPM->Begin("VoxelWorldRenderer");
 		{
 			pPM->RegisterProperty<bool, VoxelWorldRenderer>(this,
-				L"Show Bound",
+				"Show Bound",
 				&VoxelWorldRenderer::GetShowBound,
 				&VoxelWorldRenderer::SetShowBound);
 		}
@@ -46,7 +46,7 @@ namespace ld3d
 
 		m_hFrustumCull = m_pManager->AddEventHandler(EV_FRUSTUM_CULL, boost::bind(&VoxelWorldRenderer::on_event_frustumcull, this, _1));
 
-		m_pWorld = std::dynamic_pointer_cast<VoxelWorld>(m_pObject->GetComponent(L"VoxelWorld"));
+		m_pWorld = std::dynamic_pointer_cast<VoxelWorld>(m_pObject->GetComponent("VoxelWorld"));
 
 		m_pBBoxRD = m_pManager->alloc_object<BBoxRenderData>();
 		if(m_pBBoxRD->Initialize(m_pManager->GetRenderManager()->GetSysGraphics()) == false)

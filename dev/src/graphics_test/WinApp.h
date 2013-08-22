@@ -12,14 +12,14 @@ namespace ld3d
 		WinApp(void);
 		virtual ~WinApp(void);
 
-		bool													Initialize(HINSTANCE hInst, const std::wstring& title, int w, int h);
+		bool													Initialize(HINSTANCE hInst, const std::string& title, int w, int h);
 
 		void													Release();
 
 		void													Run();
 	protected:
 
-		void													SetTitle(const wchar_t* szTitle);
+		void													SetTitle(const char* szTitle);
 		void													ExitApp();
 		
 		virtual void											OnUpdate();
@@ -47,8 +47,8 @@ namespace ld3d
 		HINSTANCE												m_hInst;
 		HWND													m_hWnd;
 
-		std::wstring											m_wndClass;
-		std::wstring											m_wndTitle;
+		std::string											m_wndClass;
+		std::string											m_wndTitle;
 
 		int														m_width;
 		int														m_height;

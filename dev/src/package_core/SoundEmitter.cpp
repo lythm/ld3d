@@ -6,7 +6,7 @@
 namespace ld3d
 {
 
-	SoundEmitter::SoundEmitter(GameObjectManagerPtr pManager):GameObjectComponent(L"SoundEmitter", pManager)
+	SoundEmitter::SoundEmitter(GameObjectManagerPtr pManager):GameObjectComponent("SoundEmitter", pManager)
 	{
 		m_bStreamed = false;
 		SetVersion(g_packageVersion);
@@ -46,12 +46,12 @@ namespace ld3d
 
 		m_pChannel->Play(true);
 
-		PropertyManagerPtr pPM = std::dynamic_pointer_cast<PropertyManager>(m_pObject->GetComponent(L"PropertyManager"));
+		PropertyManagerPtr pPM = std::dynamic_pointer_cast<PropertyManager>(m_pObject->GetComponent("PropertyManager"));
 
-		pPM->Begin(L"SoundEmitter");
+		pPM->Begin("SoundEmitter");
 		{
 			pPM->RegisterProperty<bool, SoundEmitter>(this,
-					L"Streamed",
+					"Streamed",
 					&SoundEmitter::GetStreamed,
 					&SoundEmitter::SetStreamed);
 

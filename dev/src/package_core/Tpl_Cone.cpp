@@ -3,7 +3,7 @@
 
 namespace ld3d
 {
-	Tpl_Cone::Tpl_Cone(GameObjectManagerPtr pManager, const std::wstring& name) : GameObjectTemplate(pManager, name, L"Geometry")
+	Tpl_Cone::Tpl_Cone(GameObjectManagerPtr pManager, const std::string& name) : GameObjectTemplate(pManager, name, "Geometry")
 	{
 	}
 
@@ -13,14 +13,14 @@ namespace ld3d
 	}
 	GameObjectPtr Tpl_Cone::CreateGameObject()
 	{
-		GameObjectPtr pObj = m_pManager->CreateGameObject(L"Cone");
+		GameObjectPtr pObj = m_pManager->CreateGameObject("Cone");
 		
-		MeshDataPtr pMD = std::dynamic_pointer_cast<MeshData>(m_pManager->CreateComponent(L"MeshData"));
-		pMD->SetMeshAsset(L"_cone_");
+		MeshDataPtr pMD = std::dynamic_pointer_cast<MeshData>(m_pManager->CreateComponent("MeshData"));
+		pMD->SetMeshAsset("_cone_");
 
 		pObj->AddComponent(pMD);
 
-		MeshRendererPtr pMR = std::dynamic_pointer_cast<MeshRenderer>(m_pManager->CreateComponent(L"MeshRenderer"));
+		MeshRendererPtr pMR = std::dynamic_pointer_cast<MeshRenderer>(m_pManager->CreateComponent("MeshRenderer"));
 		pObj->AddComponent(pMR);
 
 		return pObj;

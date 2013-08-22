@@ -5,7 +5,7 @@
 
 namespace ld3d
 {
-	PropertyManager::PropertyManager(GameObjectManagerPtr pManager) : GameObjectComponent(L"PropertyManager", pManager)
+	PropertyManager::PropertyManager(GameObjectManagerPtr pManager) : GameObjectComponent("PropertyManager", pManager)
 	{
 		m_pCurrentOwner = PropertySetPtr();
 
@@ -17,7 +17,7 @@ namespace ld3d
 	{
 		m_PropSets.clear();
 	}
-	void PropertyManager::ClearPropertySet(const std::wstring & name)
+	void PropertyManager::ClearPropertySet(const std::string & name)
 	{
 		PropertySetPtr pSet = FindPropertySet(name);
 		if(pSet == nullptr)
@@ -27,7 +27,7 @@ namespace ld3d
 
 		pSet->clearProperties();
 	}
-	PropertySetPtr PropertyManager::FindPropertySet(const std::wstring& name)
+	PropertySetPtr PropertyManager::FindPropertySet(const std::string& name)
 	{
 		for(size_t i = 0; i < m_PropSets.size(); ++i)
 		{
@@ -38,7 +38,7 @@ namespace ld3d
 		}
 		return PropertySetPtr();
 	}
-	Property* PropertyManager::FindProperty(const std::wstring& set, const std::wstring& name)
+	Property* PropertyManager::FindProperty(const std::string& set, const std::string& name)
 	{
 		PropertySetPtr pSet = FindPropertySet(set);
 		if(pSet == nullptr)
@@ -48,7 +48,7 @@ namespace ld3d
 
 		return pSet->getProperty(name.c_str());
 	}
-	PropertySetPtr PropertyManager::Begin(const std::wstring& name)
+	PropertySetPtr PropertyManager::Begin(const std::string& name)
 	{
 		PropertySetPtr pSet = FindPropertySet(name);
 		if(pSet == nullptr)
@@ -77,15 +77,15 @@ namespace ld3d
 	{
 		m_pCurrentOwner = PropertySetPtr();
 
-		Begin(L"General");
+		Begin("General");
 		{
-			RegisterProperty<std::wstring, GameObject>(m_pObject.get(), 
-				L"Name", 
+			RegisterProperty<std::string, GameObject>(m_pObject.get(), 
+				"Name", 
 				&GameObject::GetName,
 				&GameObject::SetName);
 
 			RegisterProperty<math::Matrix44, GameObject>(m_pObject.get(),
-				L"Transform", 
+				"Transform", 
 				&GameObject::GetLocalTransform,
 				&GameObject::SetLocalTransform);
 		}

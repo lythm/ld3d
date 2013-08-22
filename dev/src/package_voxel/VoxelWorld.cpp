@@ -5,7 +5,7 @@
 
 namespace ld3d
 {
-	VoxelWorld::VoxelWorld(GameObjectManagerPtr pManager) : GameObjectComponent(L"VoxelWorld", pManager)
+	VoxelWorld::VoxelWorld(GameObjectManagerPtr pManager) : GameObjectComponent("VoxelWorld", pManager)
 	{
 		m_voxelSize				= 1;
 		m_worldSizeX			= 10;
@@ -30,27 +30,27 @@ namespace ld3d
 	bool VoxelWorld::OnAttach()
 	{
 
-		PropertyManagerPtr pPM = std::dynamic_pointer_cast<PropertyManager>(m_pObject->GetComponent(L"PropertyManager"));
+		PropertyManagerPtr pPM = std::dynamic_pointer_cast<PropertyManager>(m_pObject->GetComponent("PropertyManager"));
 
-		pPM->Begin(L"VoxelWorld");
+		pPM->Begin("VoxelWorld");
 		{
 			pPM->RegisterProperty<int, VoxelWorld>(this,
-				L"Voxel Size",
+				"Voxel Size",
 				&VoxelWorld::GetVoxelSize,
 				&VoxelWorld::SetVoxelSize);
 
 			pPM->RegisterProperty<int, VoxelWorld>(this,
-				L"World Size X",
+				"World Size X",
 				&VoxelWorld::GetWorldSizeX,
 				&VoxelWorld::SetWorldSizeX);
 
 			pPM->RegisterProperty<int, VoxelWorld>(this,
-				L"World Size Y",
+				"World Size Y",
 				&VoxelWorld::GetWorldSizeY,
 				&VoxelWorld::SetWorldSizeY);
 
 			pPM->RegisterProperty<int, VoxelWorld>(this,
-				L"World Size Z",
+				"World Size Z",
 				&VoxelWorld::GetWorldSizeZ,
 				&VoxelWorld::SetWorldSizeZ);
 

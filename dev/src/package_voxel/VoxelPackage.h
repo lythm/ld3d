@@ -13,7 +13,7 @@ namespace ld3d
 
 		
 
-		const wchar_t*						GetPackageName();
+		const char*							GetPackageName();
 		int									GetClassCount();
 		ComponentClass*						GetClassByIndex(int index);
 

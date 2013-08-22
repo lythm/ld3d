@@ -7,7 +7,7 @@
 namespace ld3d
 {
 
-	Light_Sky::Light_Sky(GameObjectManagerPtr pManager) : GameObjectComponent(L"SkyLight", pManager)
+	Light_Sky::Light_Sky(GameObjectManagerPtr pManager) : GameObjectComponent("SkyLight", pManager)
 	{
 		SetVersion(g_packageVersion);
 	}
@@ -45,27 +45,27 @@ namespace ld3d
 
 		m_pRenderManager->AddLight(m_pLight);
 
-		PropertyManagerPtr pPM = std::dynamic_pointer_cast<PropertyManager>(m_pObject->GetComponent(L"PropertyManager"));
+		PropertyManagerPtr pPM = std::dynamic_pointer_cast<PropertyManager>(m_pObject->GetComponent("PropertyManager"));
 
-		pPM->Begin(L"SkyLight");
+		pPM->Begin("SkyLight");
 		{
 			pPM->RegisterProperty<bool, SkyLight>(m_pLight.get(), 
-				L"Cast Shadow", 
+				"Cast Shadow", 
 				&SkyLight::GetCastShadow,
 				&SkyLight::SetCastShadow);
 
 			pPM->RegisterProperty<math::Color4, SkyLight>(m_pLight.get(), 
-				L"Diffuse Color", 
+				"Diffuse Color", 
 				&SkyLight::GetDiffuseColor,
 				&SkyLight::SetDiffuseColor);
 
 			pPM->RegisterProperty<float, SkyLight>(m_pLight.get(), 
-				L"Intensity", 
+				"Intensity", 
 				&SkyLight::GetIntensity,
 				&SkyLight::SetIntensity);
 
 			pPM->RegisterProperty<bool, SkyLight>(m_pLight.get(), 
-				L"Enabled", 
+				"Enabled", 
 				&SkyLight::GetEnabled,
 				&SkyLight::SetEnabled);
 

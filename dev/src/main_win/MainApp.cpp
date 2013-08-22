@@ -26,11 +26,11 @@ namespace ld3d
 	{
 		return m_hWnd;
 	}
-	bool MainApp::Initialize(HINSTANCE hInst, const std::wstring& title, int w, int h)
+	bool MainApp::Initialize(HINSTANCE hInst, const std::string& title, int w, int h)
 	{
 		m_hInst = hInst;
 		m_wndTitle = title;
-		m_wndClass = title + L"_WndClass";
+		m_wndClass = title + "_WndClass";
 
 
 		m_clientWidth = w;
@@ -52,18 +52,26 @@ namespace ld3d
 		wcex.hCursor		= LoadCursor(NULL, IDC_ARROW);
 		wcex.hbrBackground	= (HBRUSH)GetStockObject(BLACK_BRUSH);
 		wcex.lpszMenuName	= NULL;
-		wcex.lpszClassName	= m_wndClass.c_str();
-		wcex.hIconSm		= NULL;
+		
+		std::wstring utf16_class;
 
+		ld3d::Unicode::UTF8_2_UTF16(m_wndClass, utf16_class);
+		
+		wcex.lpszClassName	= utf16_class.c_str();
+		wcex.hIconSm		= NULL;
+		
 
 		if(FALSE == RegisterClassEx(&wcex))
 		{
 			return false;
 		}
 
+		std::wstring utf16_title;
 
-		m_hWnd = CreateWindow(m_wndClass.c_str(), 
-			m_wndTitle.c_str(), 
+		ld3d::Unicode::UTF8_2_UTF16(m_wndTitle, utf16_title);
+		
+		m_hWnd = CreateWindow(utf16_class.c_str(), 
+			utf16_title.c_str(), 
 			(WS_OVERLAPPED | WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU), 
 			CW_USEDEFAULT, 
 			0, 
@@ -181,7 +189,7 @@ namespace ld3d
 	{
 		m_pGameManager = std::make_shared<GameManager>();
 
-		if(false == m_pGameManager->Initialize(L"./game_x64.dll"))
+		if(false == m_pGameManager->Initialize("./game_x64.dll"))
 		{
 			return false;
 		}
@@ -192,7 +200,7 @@ namespace ld3d
 		SysSetting setting;
 		
 
-		setting.graphics.sysMod = L"./d11graphics_x64.dll";
+		setting.graphics.sysMod = "./d11graphics_x64.dll";
 		setting.graphics.backBufferCount = 2;
 		setting.graphics.depthStencilFormat = G_FORMAT_D24_UNORM_S8_UINT;
 		setting.graphics.frameBufferFormat = G_FORMAT_R8G8B8A8_UNORM;
@@ -204,14 +212,14 @@ namespace ld3d
 		setting.input.wnd = GetWnd();
 		setting.graphics.wnd = GetWnd();
 
-		setting.input.sysMod = L"";
+		setting.input.sysMod = "";
 
 		setting.sound.maxChannels = 100;
-		setting.sound.sysMod = L"./fmod_sound_x64.dll";
+		setting.sound.sysMod = "./fmod_sound_x64.dll";
 
-		setting.physics.sysMod = L"";
+		setting.physics.sysMod = "";
 
-		setting.network.sysMod = L"./network_x64.dll";
+		setting.network.sysMod = "./network_x64.dll";
 
 		m_pGameManager->GetGame()->AdjustSysSetting(setting);
 		
@@ -252,9 +260,9 @@ namespace ld3d
 
 
 
-	void MainApp::SetTitle(const wchar_t* szTitle)
+	void MainApp::SetTitle(const char* szTitle)
 	{
-		SetWindowText(m_hWnd, szTitle);
+		SetWindowTextA(m_hWnd, szTitle);
 	}
 	void MainApp::ExitApp()
 	{
@@ -292,10 +300,10 @@ namespace ld3d
 		if(dt >= iv)
 		{
 
-			wchar_t buffer[100];
+			char buffer[100];
 
 			float fps = float(frames * 1000) / float(dt);
-			swprintf(buffer, 100, L"fps : %.3f - %fms", fps, 1000.0f / fps);
+			sprintf(buffer, "fps : %.3f - %fms", fps, 1000.0f / fps);
 
 			SetTitle(buffer);
 
@@ -329,7 +337,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	using namespace ld3d;
 	MainApp app;
 
-	if(false == app.Initialize(hInstance, L"Main Window", 800, 600))
+	if(false == app.Initialize(hInstance, "Main Window", 800, 600))
 	{
 		return -1;
 	}

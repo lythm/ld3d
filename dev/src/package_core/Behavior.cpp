@@ -4,7 +4,7 @@
 
 namespace ld3d
 {
-	Behavior::Behavior(GameObjectManagerPtr pManager):GameObjectComponent(L"Behavior", pManager)
+	Behavior::Behavior(GameObjectManagerPtr pManager):GameObjectComponent("Behavior", pManager)
 	{
 		SetVersion(g_packageVersion);
 	}

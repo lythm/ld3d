@@ -3,7 +3,7 @@
 
 namespace ld3d
 {
-	Sky::Sky(GameObjectManagerPtr pManager) : GameObjectComponent(L"Sky", pManager)
+	Sky::Sky(GameObjectManagerPtr pManager) : GameObjectComponent("Sky", pManager)
 	{
 		SetVersion(g_packageVersion);
 	}
@@ -15,9 +15,9 @@ namespace ld3d
 	
 	bool Sky::OnAttach()
 	{
-		PropertyManagerPtr pPM = std::dynamic_pointer_cast<PropertyManager>(m_pObject->GetComponent(L"PropertyManager"));
+		PropertyManagerPtr pPM = std::dynamic_pointer_cast<PropertyManager>(m_pObject->GetComponent("PropertyManager"));
 
-		pPM->Begin(L"Sky");
+		pPM->Begin("Sky");
 		{
 			
 

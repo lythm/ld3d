@@ -14,7 +14,7 @@ namespace ld3d
 	Scene::Scene(GameObjectManagerPtr pManager)
 	{
 		m_pObjectManager = pManager;
-		m_pRoot = m_pObjectManager->CreateGameObject(L"_root");
+		m_pRoot = m_pObjectManager->CreateGameObject("_root");
 	}
 
 
@@ -28,7 +28,7 @@ namespace ld3d
 	void Scene::Reset()
 	{
 		m_pRoot->Clear();
-		m_pRoot = m_pObjectManager->CreateGameObject(L"_root_");
+		m_pRoot = m_pObjectManager->CreateGameObject("_root_");
 	}
 	void Scene::Release()
 	{
@@ -52,9 +52,9 @@ namespace ld3d
 
 		if(Version(v) != g_scene_file_version)
 		{
-			log(L"invalid scene file version:");
-			log(L"should be:" + g_scene_file_version.AsWString());
-			log(L"file version:" + Version(v).AsWString());
+			log("invalid scene file version:");
+			log("should be:" + g_scene_file_version.AsString());
+			log("file version:" + Version(v).AsString());
 
 			return false;
 		}
@@ -63,7 +63,7 @@ namespace ld3d
 	}
 	bool Scene::SerializeObject(GameObjectPtr pObj, DataStream* pStream)
 	{
-		const std::wstring& name = pObj->GetName();
+		const std::string& name = pObj->GetName();
 		pStream->WriteString(name);
 
 		const math::Matrix44& local = pObj->GetLocalTransform();
@@ -76,7 +76,7 @@ namespace ld3d
 		{
 			GameObjectComponentPtr pCom = pObj->GetComponent(i);
 			
-			if(pCom->GetName() == L"PropertyManager")
+			if(pCom->GetName() == "PropertyManager")
 			{
 				continue;
 			}
@@ -85,7 +85,7 @@ namespace ld3d
 			
 			if(false == pCom->Serialize(pStream))
 			{
-				log(L"failed to save component: " + pCom->GetName());
+				log("failed to save component: " + pCom->GetName());
 				return false;
 			}
 		}
@@ -117,7 +117,7 @@ namespace ld3d
 	}
 	bool Scene::UnSerializeObject(GameObjectPtr pObj, DataStream* pStream)
 	{
-		std::wstring name;
+		std::string name;
 		pStream->ReadString(name);
 		pObj->SetName(name);
 
@@ -130,21 +130,21 @@ namespace ld3d
 
 		for(uint16 i = 0; i < nCom; ++i)
 		{
-			std::wstring comName;
+			std::string comName;
 			pStream->ReadString(comName);
 
 			
 			GameObjectComponentPtr pCom = m_pObjectManager->CreateComponent(comName);
 			if(pCom == nullptr)
 			{
-				log(L"failed to create component: " + comName);
+				log("failed to create component: " + comName);
 				return false;
 			}
 			pObj->AddComponent(pCom);
 
 			if(false == pCom->UnSerialize(pStream))
 			{
-				log(L"failed to load component: " + comName);
+				log("failed to load component: " + comName);
 				return false;
 			}
 
@@ -154,7 +154,7 @@ namespace ld3d
 		nChild = pStream->ReadInt16();
 		for(uint16 i = 0; i < nChild; ++i)
 		{
-			GameObjectPtr pChild = m_pObjectManager->CreateGameObject(L"");
+			GameObjectPtr pChild = m_pObjectManager->CreateGameObject("");
 			if(false == UnSerializeObject(pChild, pStream))
 			{
 				pChild->Clear();

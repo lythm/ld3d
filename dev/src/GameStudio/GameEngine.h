@@ -22,9 +22,9 @@ public:
 	ld3d::GameObjectPtr						RootObject();
 
 	void									CreateObject_Empty();
-	ld3d::GameObjectPtr						CreateObject(const std::wstring& name);
-	ld3d::GameObjectPtr						CreateObjectFromTpl(const std::wstring& name, const std::wstring& tpl);
-	ld3d::GameObjectComponentPtr			CreateGameObjectComponent(const std::wstring& name);
+	ld3d::GameObjectPtr						CreateObject(const std::string& name);
+	ld3d::GameObjectPtr						CreateObjectFromTpl(const std::string& name, const std::string& tpl);
+	ld3d::GameObjectComponentPtr			CreateGameObjectComponent(const std::string& name);
 
 private:
 	ld3d::CoreApiPtr						m_pCore;

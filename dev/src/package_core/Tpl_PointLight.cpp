@@ -5,7 +5,7 @@
 
 namespace ld3d
 {
-	Tpl_PointLight::Tpl_PointLight(GameObjectManagerPtr pManager, const std::wstring& name) : GameObjectTemplate(pManager, name, L"Light")
+	Tpl_PointLight::Tpl_PointLight(GameObjectManagerPtr pManager, const std::string& name) : GameObjectTemplate(pManager, name, "Light")
 	{
 	}
 
@@ -15,9 +15,9 @@ namespace ld3d
 	}
 	GameObjectPtr Tpl_PointLight::CreateGameObject()
 	{
-		GameObjectPtr pObj = m_pManager->CreateGameObject(L"Point Light");
+		GameObjectPtr pObj = m_pManager->CreateGameObject("Point Light");
 
-		GameObjectComponentPtr pLight = m_pManager->CreateComponent(L"PointLight");
+		GameObjectComponentPtr pLight = m_pManager->CreateComponent("PointLight");
 		pObj->AddComponent(pLight);
 
 		return pObj;

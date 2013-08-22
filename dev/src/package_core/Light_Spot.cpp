@@ -5,7 +5,7 @@
 
 namespace ld3d
 {
-	Light_Spot::Light_Spot(GameObjectManagerPtr pManager) : GameObjectComponent(L"SpotLight", pManager)
+	Light_Spot::Light_Spot(GameObjectManagerPtr pManager) : GameObjectComponent("SpotLight", pManager)
 	{
 		SetVersion(g_packageVersion);
 	}
@@ -36,36 +36,36 @@ namespace ld3d
 		m_pLight->Create(m_pRenderManager);
 		m_pRenderManager->AddLight(m_pLight);
 
-		PropertyManagerPtr pPM = std::dynamic_pointer_cast<PropertyManager>(m_pObject->GetComponent(L"PropertyManager"));
-		pPM->Begin(L"SpotLight");
+		PropertyManagerPtr pPM = std::dynamic_pointer_cast<PropertyManager>(m_pObject->GetComponent("PropertyManager"));
+		pPM->Begin("SpotLight");
 		{
 			pPM->RegisterProperty<bool, SpotLight>(m_pLight.get(), 
-												L"Cast Shadow", 
+												"Cast Shadow", 
 												&SpotLight::GetCastShadow,
 												&SpotLight::SetCastShadow);
 
 			pPM->RegisterProperty<math::Color4, SpotLight>(m_pLight.get(), 
-												L"Diffuse Color", 
+												"Diffuse Color", 
 												&SpotLight::GetDiffuseColor,
 												&SpotLight::SetDiffuseColor);
 
 			pPM->RegisterProperty<float, SpotLight>(m_pLight.get(), 
-												L"Intensity", 
+												"Intensity", 
 												&SpotLight::GetIntensity,
 												&SpotLight::SetIntensity);
 
 			pPM->RegisterProperty<float, SpotLight>(m_pLight.get(), 
-												L"Angle", 
+												"Angle", 
 												&SpotLight::GetAngle,
 												&SpotLight::SetAngle);
 
 			pPM->RegisterProperty<float, SpotLight>(m_pLight.get(), 
-												L"Range", 
+												"Range", 
 												&SpotLight::GetRange,
 												&SpotLight::SetRange);
 
 			pPM->RegisterProperty<bool, SpotLight>(m_pLight.get(), 
-												L"Enabled", 
+												"Enabled", 
 												&SpotLight::GetEnabled,
 												&SpotLight::SetEnabled);
 		}

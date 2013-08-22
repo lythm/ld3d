@@ -45,13 +45,13 @@ void Form_Inspector::SetObject(ld3d::GameObject* pObj)
 		return;
 	}
 
-	PropertyManagerPtr pPM = std::dynamic_pointer_cast<PropertyManager>(pObj->GetComponent(L"PropertyManager"));
+	PropertyManagerPtr pPM = std::dynamic_pointer_cast<PropertyManager>(pObj->GetComponent("PropertyManager"));
 
 	for(int i = 0; i < pPM->GetPropertySetCount(); ++i)
 	{
 		PropertySetPtr pO = pPM->GetPropertySet(i);
 
-		Widget_InspectorPanel* pPanel = m_pInspector->AddPanel(QString::fromStdWString(pO->getName()));
+		Widget_InspectorPanel* pPanel = m_pInspector->AddPanel(QString::fromStdString(pO->getName()));
 
 		for(size_t ii = 0; ii < pO->getPropertyCount(); ++ii)
 		{
@@ -71,7 +71,7 @@ Widget_InspectorProperty* Form_Inspector::AddProperty(Widget_InspectorPanel* pPa
 	{
 	case property_type_filepath:
 		{
-			pProp = pPanel->AddPathProperty(QString::fromStdWString(p->getName()), ((StringProperty*)p)->Get());
+			pProp = pPanel->AddPathProperty(QString::fromStdString(p->getName()), ((StringProperty*)p)->Get());
 		}
 		break;
 	case property_type_matrix44:
@@ -84,23 +84,23 @@ Widget_InspectorProperty* Form_Inspector::AddProperty(Widget_InspectorPanel* pPa
 		break;
 	case property_type_string:
 		{
-			pProp = pPanel->AddStringProperty(QString::fromStdWString(p->getName()), QString::fromStdWString(((StringProperty*)p)->Get()));
+			pProp = pPanel->AddStringProperty(QString::fromStdString(p->getName()), QString::fromStdString(((StringProperty*)p)->Get()));
 		}
 		break;
 	case property_type_bool:
 		{
-			pProp = pPanel->AddBoolProperty(QString::fromStdWString(p->getName()), ((BoolProperty*)p)->Get());
+			pProp = pPanel->AddBoolProperty(QString::fromStdString(p->getName()), ((BoolProperty*)p)->Get());
 		}
 		break;
 	case property_type_int:
 		{
-			pProp = pPanel->AddIntProperty(QString::fromStdWString(p->getName()), ((IntProperty*)p)->Get());
+			pProp = pPanel->AddIntProperty(QString::fromStdString(p->getName()), ((IntProperty*)p)->Get());
 
 		}
 		break;
 	case property_type_float:
 		{
-			pProp = pPanel->AddDoubleProperty(QString::fromStdWString(p->getName()), ((FloatProperty*)p)->Get());
+			pProp = pPanel->AddDoubleProperty(QString::fromStdString(p->getName()), ((FloatProperty*)p)->Get());
 		}
 		break;
 	case property_type_color:
@@ -108,7 +108,7 @@ Widget_InspectorProperty* Form_Inspector::AddProperty(Widget_InspectorPanel* pPa
 			math::Color4 clr = ((ColorProperty*)p)->Get();
 
 			QColor value(clr.r * 255, clr.g * 255, clr.b * 255, clr.a * 255);
-			pProp = pPanel->AddColorProperty(QString::fromStdWString(p->getName()), value);
+			pProp = pPanel->AddColorProperty(QString::fromStdString(p->getName()), value);
 		}
 		break;
 	case property_type_signal:
@@ -163,9 +163,9 @@ void Form_Inspector::on_property_changed(Widget_InspectorProperty* prop)
 		{
 			StringProperty* p = (StringProperty*)prop->GetUserData();
 			QString value = ((Widget_InspectorPropertyString*)prop)->GetValue();
-			p->Set(value.toStdWString());
+			p->Set(value.toStdString());
 
-			value = QString::fromStdWString(p->Get());
+			value = QString::fromStdString(p->Get());
 			((Widget_InspectorPropertyString*)prop)->SetValue(value);
 
 		}

@@ -7,10 +7,10 @@
 namespace ld3d
 {
 
-	std::function<void (const std::wstring& log)>			g_logger;
+	std::function<void (const std::string& log)>			g_logger;
 }
 
-EXPORT_C_API ld3d::Sys_Sound* CreateSys(const std::function<void (const std::wstring& log)>& logger)
+EXPORT_C_API ld3d::Sys_Sound* CreateSys(const std::function<void (const std::string& log)>& logger)
 {
 	ld3d::g_logger = logger;
 	return new ld3d::FMSoundSystem;
@@ -24,7 +24,7 @@ EXPORT_C_API void DestroySys(ld3d::Sys_Sound* pSys)
 
 namespace ld3d
 {
-	void g_log(const std::wstring& str)
+	void g_log(const std::string& str)
 	{
 		if(g_logger)
 		{

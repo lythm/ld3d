@@ -14,9 +14,9 @@ namespace ld3d
 	GameManager::~GameManager(void)
 	{
 	}
-	bool GameManager::Initialize(const std::wstring& file)
+	bool GameManager::Initialize(const std::string& file)
 	{
-		m_hLib = ::LoadLibrary(file.c_str());
+		m_hLib = ::LoadLibraryA(file.c_str());
 
 		if(m_hLib == NULL)
 		{

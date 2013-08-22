@@ -6,7 +6,7 @@
 
 namespace ld3d
 {
-	GameObject::GameObject(const std::wstring& name)
+	GameObject::GameObject(const std::string& name)
 	{
 		m_name							= name;
 		m_LocalTransform.MakeIdentity();
@@ -24,7 +24,7 @@ namespace ld3d
 	}
 	GameObject::GameObject()
 	{
-		m_name							= L"GameObject";
+		m_name							= "GameObject";
 		m_LocalTransform.MakeIdentity();
 
 		m_pParent						= GameObjectPtr();
@@ -119,7 +119,7 @@ namespace ld3d
 			m_components[i]->Update(dt);
 		}
 	}
-	GameObjectComponentPtr GameObject::GetComponent(const std::wstring& name)
+	GameObjectComponentPtr GameObject::GetComponent(const std::string& name)
 	{
 		for(size_t i = 0; i < m_components.size(); ++i)
 		{
@@ -400,15 +400,15 @@ namespace ld3d
 	{
 		return m_pParent;
 	}
-	const std::wstring& GameObject::GetName() const
+	const std::string& GameObject::GetName() const
 	{
 		return m_name;
 	}
-	void GameObject::SetName(const std::wstring& name)
+	void GameObject::SetName(const std::string& name)
 	{
 		m_name = name;
 	}
-	std::wstring* GameObject::GetNamePtr()
+	std::string* GameObject::GetNamePtr()
 	{
 		return &m_name;
 	}

@@ -10,18 +10,18 @@ namespace ld3d
 		template<typename Sys>
 		struct Sys_Mod_T
 		{
-			typedef Sys*					(*Fn_CreateSys)(const std::function<void (const std::wstring& log)>& logger);
+			typedef Sys*					(*Fn_CreateSys)(const std::function<void (const std::string& log)>& logger);
 			typedef void					(*Fn_DestroySys)(Sys*);
 
 			std::shared_ptr<Sys>			pSys;
 
 			HMODULE							hLib;
-			std::wstring					filename;
+			std::string					filename;
 
 
-			bool							load_sys(const wchar_t* file)
+			bool							load_sys(const char* file)
 			{
-				hLib = ::LoadLibrary(file);
+				hLib = ::LoadLibraryA(file);
 				if(hLib == NULL)
 				{
 					return false;
@@ -82,10 +82,10 @@ namespace ld3d
 		bool									Initialize();
 		void									Release();
 
-		Sys_GraphicsPtr						LoadSysGraphics(const wchar_t* szFile);
-		Sys_InputPtr							LoadSysInput(const wchar_t* szFile);
-		Sys_SoundPtr							LoadSysSound(const wchar_t * szFile);
-		Sys_NetworkPtr							LoadSysNetwork(const wchar_t* szFile);
+		Sys_GraphicsPtr							LoadSysGraphics(const char* szFile);
+		Sys_InputPtr							LoadSysInput(const char* szFile);
+		Sys_SoundPtr							LoadSysSound(const char* szFile);
+		Sys_NetworkPtr							LoadSysNetwork(const char* szFile);
 
 		Sys_NetworkPtr							GetSys_Network();
 		Sys_SoundPtr							GetSys_Sound();

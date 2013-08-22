@@ -11,7 +11,7 @@
 
 namespace ld3d
 {
-	void _log(const std::wstring& str);
+	void _log(const std::string& str);
 
 	class EngineApp : public WinApp
 	{
@@ -20,18 +20,18 @@ namespace ld3d
 		template<typename Sys>
 		struct Sys_Mod_T
 		{
-			typedef Sys*					(*Fn_CreateSys)(const std::function<void (const std::wstring& log)>& logger);
+			typedef Sys*					(*Fn_CreateSys)(const std::function<void (const std::string& log)>& logger);
 			typedef void					(*Fn_DestroySys)(Sys*);
 
 			std::shared_ptr<Sys>			pSys;
 
 			HMODULE							hLib;
-			std::wstring					filename;
+			std::string					filename;
 
 
-			bool							load_sys(const wchar_t* file)
+			bool							load_sys(const char* file)
 			{
-				hLib = ::LoadLibrary(file);
+				hLib = ::LoadLibraryA(file);
 				if(hLib == NULL)
 				{
 					return false;

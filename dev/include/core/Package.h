@@ -10,9 +10,9 @@ namespace ld3d
 
 		struct ComponentClass
 		{
-			ComponentClass(const std::wstring& name, 
-								const std::wstring& catalog, 
-								const std::wstring& desc, 
+			ComponentClass(const std::string& name, 
+								const std::string& catalog, 
+								const std::string& desc, 
 								std::function<GameObjectComponentPtr (GameObjectManagerPtr)> creator,
 								bool bExclusive = true)
 			{
@@ -27,14 +27,14 @@ namespace ld3d
 
 			}
 		
-			std::wstring									m_name;
-			std::wstring									m_catalog;
-			std::wstring									m_desc;
+			std::string									m_name;
+			std::string									m_catalog;
+			std::string									m_desc;
 			std::function<GameObjectComponentPtr (GameObjectManagerPtr)>		m_creator;
 			bool											m_bExclusive;
 		};
 
-		virtual const wchar_t*								GetPackageName()								= 0;
+		virtual const char*									GetPackageName()								= 0;
 		virtual int											GetClassCount()									= 0;
 		virtual ComponentClass*								GetClassByIndex(int index)						= 0;
 

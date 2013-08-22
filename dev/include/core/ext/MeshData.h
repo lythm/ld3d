@@ -17,8 +17,8 @@ namespace ld3d
 		bool						OnAttach();
 		void						OnDetach();
 
-		bool						SetMeshAsset(const std::wstring& asset);
-		const std::wstring&			GetMeshAsset();
+		bool						SetMeshAsset(const std::string& asset);
+		const std::string&			GetMeshAsset();
 
 
 		bool						OnSerialize(DataStream* pStream);
@@ -26,11 +26,11 @@ namespace ld3d
 
 
 	private:
-		bool						LoadMesh(const std::wstring& asset);
+		bool						LoadMesh(const std::string& asset);
 		void						ResetMeshRenderer();
 	private:
 		MeshPtr						m_pMesh;
 
-		std::wstring				m_meshAsset;
+		std::string				m_meshAsset;
 	};
 }

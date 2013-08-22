@@ -25,7 +25,7 @@ void Project::Close()
 }
 bool Project::Save(const boost::filesystem::path& file)
 {
-	QFile qfile(QString::fromStdWString(file.wstring()));
+	QFile qfile(QString::fromStdString(file.string()));
 
 	SCOPE_EXIT(qfile.close());
 
@@ -41,7 +41,7 @@ bool Project::Save(const boost::filesystem::path& file)
 
 		writer.writeStartElement("project");
 		{
-			writer.writeTextElement("scene", QString::fromStdWString(m_pScene->GetFileName().wstring()));
+			writer.writeTextElement("scene", QString::fromStdString(m_pScene->GetFileName().string()));
 
 			writer.writeTextElement("clear_color", "0, 0, 0");
 
@@ -65,7 +65,7 @@ bool Project::Save(const boost::filesystem::path& file)
 }
 bool Project::Open(const boost::filesystem::path& file)
 {
-	QFile qfile(QString::fromStdWString(file.wstring()));
+	QFile qfile(QString::fromStdString(file.string()));
 
 	SCOPE_EXIT(qfile.close());
 
@@ -236,22 +236,22 @@ bool Project::CreateNewProject(const boost::filesystem::path& root)
 
 
 
-	if(false == CopyDirectory(init / path(L"assets"), tar / path(L"assets")))
+	if(false == CopyDirectory(init / path("assets"), tar / path("assets")))
 	{
 		return false;
 	}
 
-	if(false == create_directory(tar / path(L"temp")))
+	if(false == create_directory(tar / path("temp")))
 	{
 		return false;
 	}
 
-	if(false == create_directory(tar / path(L"packages")))
+	if(false == create_directory(tar / path("packages")))
 	{
 		return false;
 	}
 
-	if(false == create_directory(tar / path(L"log")))
+	if(false == create_directory(tar / path("log")))
 	{
 		return false;
 	}
@@ -264,15 +264,15 @@ boost::filesystem::path Project::RootPath()
 }
 void Project::RestoreProjectRoot()
 {
-	QString dir = QString::fromStdWString(RootPath().wstring());
+	QString dir = QString::fromStdString(RootPath().string());
 
 	QDir::setCurrent(dir);
 }
 boost::filesystem::path	Project::RelativeToRoot(const boost::filesystem::path& path)
 {
-	QDir root(QString::fromStdWString(RootPath().wstring()));
+	QDir root(QString::fromStdString(RootPath().string()));
 
-	QString s = root.relativeFilePath(QString::fromStdWString(path.wstring()));
+	QString s = root.relativeFilePath(QString::fromStdString(path.string()));
 
 	return s.toStdWString();
 }
@@ -287,7 +287,7 @@ bool Project::Save()
 
 bool Project::HasSceneFileSpecified()
 {
-	return m_pScene->GetFileName().wstring() != L"";
+	return m_pScene->GetFileName().string() != "";
 }
 
 bool Project::NewScene()

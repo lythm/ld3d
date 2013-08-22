@@ -3,7 +3,7 @@
 
 namespace ld3d
 {
-	LuaBehavior::LuaBehavior(GameObjectManagerPtr pManager) : GameObjectComponent(L"LuaBehavior", pManager)
+	LuaBehavior::LuaBehavior(GameObjectManagerPtr pManager) : GameObjectComponent("LuaBehavior", pManager)
 	{
 		SetVersion(g_packageVersion);
 	}
@@ -18,9 +18,9 @@ namespace ld3d
 	}
 	bool LuaBehavior::OnAttach()
 	{
-		PropertyManagerPtr pPM = std::dynamic_pointer_cast<PropertyManager>(m_pObject->GetComponent(L"PropertyManager"));
+		PropertyManagerPtr pPM = std::dynamic_pointer_cast<PropertyManager>(m_pObject->GetComponent("PropertyManager"));
 
-		pPM->Begin(L"LuaBehavior");
+		pPM->Begin("LuaBehavior");
 		{
 			
 

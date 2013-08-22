@@ -56,30 +56,7 @@ namespace ld3d
 	{
 		return ftell(m_pFile) - m_oriPos;
 	}
-	bool DataStream_File::OpenStream(const wchar_t* szFile, bool read)
-	{
-		if(m_pFile != nullptr)
-		{
-			Close();
-		}
-
-		if(read)
-		{
-			m_pFile = _wfopen(szFile, L"rb+");
-		}
-		else
-		{
-			m_pFile = _wfopen(szFile, L"wb+");
-		}
-		if(m_pFile == NULL)
-		{
-			return false;
-		}
-
-		m_oriPos = 0;
-
-		return true;
-	}
+	
 	bool DataStream_File::OpenStream(const char* szFile, bool read)
 	{
 		if(m_pFile != nullptr)

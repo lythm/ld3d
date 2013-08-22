@@ -20,7 +20,7 @@ bool VoxelDemo::Init(ld3d::CoreApiPtr pCore)
 		
 	m_pCore->AddEventHandler(EV_WINMSG, boost::bind(&VoxelDemo::OnMsg, this, _1));
 
-	m_pCore->LoadPackage(L"./extensions/package_voxel_x64.dll");
+	m_pCore->LoadPackage("./extensions/package_voxel_x64.dll");
 
 	m_pCore->GetRenderManager()->SetGlobalAmbient(math::Color4(0, 0.1f, 0.2f, 1.0f));
 	m_pCore->GetRenderManager()->SetClearColor(math::Color4(0.3f, 0.2f, 0.3f, 1));
@@ -32,7 +32,7 @@ bool VoxelDemo::Init(ld3d::CoreApiPtr pCore)
 	m_pCore->AddCamera(m_pCamera);
 
 	/*DataStream_File file;
-	if(false == file.OpenStream(L"./projects/2/2.scene"))
+	if(false == file.OpenStream("./projects/2/2.scene"))
 	{
 		return false;
 	}
@@ -42,28 +42,28 @@ bool VoxelDemo::Init(ld3d::CoreApiPtr pCore)
 		return false;
 	}
 
-	m_pCore->CreateGameObjectComponent(L"VoxelWorld");*/
+	m_pCore->CreateGameObjectComponent("VoxelWorld");*/
 	
 	
 	
 	
-	//m_pCore->CreatGameObjectFromTemplate(L"Plane", L"Plane");
+	//m_pCore->CreatGameObjectFromTemplate("Plane", "Plane");
 
 
-	GameObjectPtr pCube = m_pCore->CreatGameObjectFromTemplate(L"Cube", L"Cube");
+	GameObjectPtr pCube = m_pCore->CreatGameObjectFromTemplate("Cube", "Cube");
 
 	pCube->Translate(0, 0, 0);
-	GameObjectPtr pLight = m_pCore->CreatGameObjectFromTemplate(L"DirectionalLight", L"light");
+	GameObjectPtr pLight = m_pCore->CreatGameObjectFromTemplate("DirectionalLight", "light");
 
 	pLight->SetTranslation(0, 5, -5);
 	pLight->LookAt(pCube);
 
 	//
-	//pLight = m_pCore->CreatGameObjectFromTemplate(L"PointLight", L"pl");
+	//pLight = m_pCore->CreatGameObjectFromTemplate("PointLight", "pl");
 	//pLight->SetTranslation(0, 5, 0);
 
 
-	//pLight = m_pCore->CreatGameObjectFromTemplate(L"SpotLight", L"pl");
+	//pLight = m_pCore->CreatGameObjectFromTemplate("SpotLight", "pl");
 	//pLight->SetTranslation(5, 5, -5);
 
 	//pLight->LookAt(pCube);

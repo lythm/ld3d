@@ -7,7 +7,7 @@
 
 namespace ld3d
 {
-	Light_Dir::Light_Dir(GameObjectManagerPtr pManager) : GameObjectComponent(L"DirectionalLight", pManager)
+	Light_Dir::Light_Dir(GameObjectManagerPtr pManager) : GameObjectComponent("DirectionalLight", pManager)
 	{
 		SetVersion(g_packageVersion);
 	}
@@ -38,27 +38,27 @@ namespace ld3d
 
 		m_pRenderManager->AddLight(m_pLight);
 
-		PropertyManagerPtr pPM = std::dynamic_pointer_cast<PropertyManager>(m_pObject->GetComponent(L"PropertyManager"));
+		PropertyManagerPtr pPM = std::dynamic_pointer_cast<PropertyManager>(m_pObject->GetComponent("PropertyManager"));
 		
-		pPM->Begin(L"DirectionalLight");
+		pPM->Begin("DirectionalLight");
 		{
 			pPM->RegisterProperty<bool, DirectionalLight>(m_pLight.get(), 
-												L"Cast Shadow", 
+												"Cast Shadow", 
 												&DirectionalLight::GetCastShadow,
 												&DirectionalLight::SetCastShadow);
 
 			pPM->RegisterProperty<math::Color4, DirectionalLight>(m_pLight.get(), 
-												L"Diffuse Color", 
+												"Diffuse Color", 
 												&DirectionalLight::GetDiffuseColor,
 												&DirectionalLight::SetDiffuseColor);
 
 			pPM->RegisterProperty<float, DirectionalLight>(m_pLight.get(), 
-				L"Intensity", 
+				"Intensity", 
 				&DirectionalLight::GetIntensity,
 				&DirectionalLight::SetIntensity);
 
 			pPM->RegisterProperty<bool, DirectionalLight>(m_pLight.get(), 
-				L"Enabled", 
+				"Enabled", 
 				&DirectionalLight::GetEnabled,
 				&DirectionalLight::SetEnabled);
 

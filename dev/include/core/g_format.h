@@ -267,7 +267,7 @@ namespace ld3d
 	};
 	struct GraphicsSetting
 	{
-		std::wstring		sysMod;
+		std::string		sysMod;
 		void*				wnd;
 		bool				windowed;
 		int					frameBufferWidth;
@@ -282,21 +282,21 @@ namespace ld3d
 
 	struct SoundSetting
 	{
-		std::wstring		sysMod;
+		std::string		sysMod;
 		int					maxChannels;
 	};
 	struct InputSetting
 	{
-		std::wstring		sysMod;
+		std::string		sysMod;
 		void*				wnd;
 	};
 	struct PhysicsSetting
 	{
-		std::wstring		sysMod;
+		std::string		sysMod;
 	};
 	struct NetworkSettting
 	{
-		std::wstring		sysMod;
+		std::string		sysMod;
 	};
 	struct SysSetting
 	{

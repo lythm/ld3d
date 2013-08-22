@@ -6,7 +6,7 @@ namespace ld3d
 	class EXPORT_CLASS GameObject : public std::enable_shared_from_this<GameObject>
 	{
 	public:
-		GameObject(const std::wstring& name);
+		GameObject(const std::string& name);
 		GameObject();
 		virtual ~GameObject(void);
 		
@@ -16,7 +16,7 @@ namespace ld3d
 		bool										AddComponent(GameObjectComponentPtr pCom);
 		void										RemoveComponent(GameObjectComponentPtr pCom);
 		void										RemoveComponent(int index);
-		GameObjectComponentPtr						GetComponent(const std::wstring& name);
+		GameObjectComponentPtr						GetComponent(const std::string& name);
 		int											GetComponentCount();
 		GameObjectComponentPtr						GetComponent(int index);
 
@@ -76,9 +76,9 @@ namespace ld3d
 		void										SetPrevNode(GameObjectPtr pNode);
 		void										SetNextNode(GameObjectPtr pNode);
 
-		std::wstring*								GetNamePtr();
-		const std::wstring&							GetName() const;
-		void										SetName(const std::wstring& name);
+		std::string*								GetNamePtr();
+		const std::string&							GetName() const;
+		void										SetName(const std::string& name);
 		// world transform operation
 		const math::Matrix44&						GetWorldTransform();
 
@@ -105,7 +105,7 @@ namespace ld3d
 
 		std::vector<GameObjectComponentPtr>			m_components;
 
-		std::wstring								m_name;
+		std::string									m_name;
 
 		void*										m_pPrivateData;
 

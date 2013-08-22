@@ -6,7 +6,7 @@
 
 namespace ld3d
 {
-	VoxelWorldTemplate::VoxelWorldTemplate(GameObjectManagerPtr pManager, const std::wstring& name) : GameObjectTemplate(pManager, name, L"Voxel")
+	VoxelWorldTemplate::VoxelWorldTemplate(GameObjectManagerPtr pManager, const std::string& name) : GameObjectTemplate(pManager, name, "Voxel")
 	{
 		
 	}
@@ -17,7 +17,7 @@ namespace ld3d
 	
 	GameObjectPtr VoxelWorldTemplate::CreateGameObject()
 	{
-		GameObjectPtr pObj = m_pManager->CreateGameObject(L"VoxelWorld");
+		GameObjectPtr pObj = m_pManager->CreateGameObject("VoxelWorld");
 
 		VoxelWorldPtr pWorld = m_pManager->alloc_object<VoxelWorld>(m_pManager);
 

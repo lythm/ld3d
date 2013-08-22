@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "winapp.h"
 #include <tchar.h>
+#include "utils/utils_all.h"
 
 namespace ld3d
 {
@@ -27,11 +28,11 @@ namespace ld3d
 	{
 		return m_hWnd;
 	}
-	bool WinApp::Initialize(HINSTANCE hInst, const std::wstring& title, int w, int h)
+	bool WinApp::Initialize(HINSTANCE hInst, const std::string& title, int w, int h)
 	{
 		m_hInst = hInst;
 		m_wndTitle = title;
-		m_wndClass = title + L"_WndClass";
+		m_wndClass = title + "_WndClass";
 
 
 		m_clientWidth = w;
@@ -53,18 +54,27 @@ namespace ld3d
 		wcex.hCursor		= LoadCursor(NULL, IDC_ARROW);
 		wcex.hbrBackground	= (HBRUSH)GetStockObject(BLACK_BRUSH);
 		wcex.lpszMenuName	= NULL;
-		wcex.lpszClassName	= m_wndClass.c_str();
+		
+		std::wstring utf16_class;
+
+		ld3d::Unicode::UTF8_2_UTF16(m_wndClass, utf16_class);
+		
+		wcex.lpszClassName	= utf16_class.c_str();
 		wcex.hIconSm		= NULL;
 
+		
 
 		if(FALSE == RegisterClassEx(&wcex))
 		{
 			return false;
 		}
 
+		std::wstring utf16_title;
 
-		m_hWnd = CreateWindow(m_wndClass.c_str(), 
-			m_wndTitle.c_str(), 
+		ld3d::Unicode::UTF8_2_UTF16(m_wndTitle, utf16_title);
+
+		m_hWnd = CreateWindow(utf16_class.c_str(), 
+			utf16_title.c_str(), 
 			(WS_OVERLAPPED | WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU), 
 			CW_USEDEFAULT, 
 			0, 
@@ -185,9 +195,9 @@ namespace ld3d
 
 
 
-	void WinApp::SetTitle(const wchar_t* szTitle)
+	void WinApp::SetTitle(const char* szTitle)
 	{
-		SetWindowText(m_hWnd, szTitle);
+		SetWindowTextA(m_hWnd, szTitle);
 	}
 	void WinApp::ExitApp()
 	{

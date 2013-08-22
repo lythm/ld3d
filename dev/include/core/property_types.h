@@ -44,7 +44,7 @@ namespace ld3d
 
 
 	// general
-	typedef Property_T<std::wstring>				StringProperty;
+	typedef Property_T<std::string>				StringProperty;
 	typedef Property_T<bool>						BoolProperty;
 	typedef Property_T<int>							IntProperty;
 	typedef Property_T<float>						FloatProperty;

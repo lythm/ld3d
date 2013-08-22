@@ -11,7 +11,7 @@
 #include <unordered_map>
 #include <vector>
 
-#include <boost/signal.hpp>
+#include <boost/signals2.hpp>
 
 #include <boost/filesystem.hpp>
 #include "core/core_ptr.h"

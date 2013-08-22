@@ -7,7 +7,7 @@
 
 namespace ld3d
 {
-	Light_Point::Light_Point(GameObjectManagerPtr pManager) : GameObjectComponent(L"PointLight", pManager)
+	Light_Point::Light_Point(GameObjectManagerPtr pManager) : GameObjectComponent("PointLight", pManager)
 	{
 		SetVersion(g_packageVersion);
 	}
@@ -39,33 +39,33 @@ namespace ld3d
 
 		m_pRenderManager->AddLight(m_pLight);
 
-		PropertyManagerPtr pPM = std::dynamic_pointer_cast<PropertyManager>(m_pObject->GetComponent(L"PropertyManager"));
+		PropertyManagerPtr pPM = std::dynamic_pointer_cast<PropertyManager>(m_pObject->GetComponent("PropertyManager"));
 		
-		pPM->Begin(L"PointLight");
+		pPM->Begin("PointLight");
 		{
 			pPM->RegisterProperty<bool, PointLight>(m_pLight.get(), 
-												L"Cast Shadow", 
+												"Cast Shadow", 
 												&PointLight::GetCastShadow,
 												&PointLight::SetCastShadow);
 
 			pPM->RegisterProperty<math::Color4, PointLight>(m_pLight.get(), 
-												L"Diffuse Color", 
+												"Diffuse Color", 
 												&PointLight::GetDiffuseColor,
 												&PointLight::SetDiffuseColor);
 
 			
 			pPM->RegisterProperty<float, PointLight>(m_pLight.get(), 
-												L"Radius", 
+												"Radius", 
 												&PointLight::GetRadius,
 												&PointLight::SetRadius);
 
 			pPM->RegisterProperty<float, PointLight>(m_pLight.get(), 
-												L"Intensity", 
+												"Intensity", 
 												&PointLight::GetIntensity,
 												&PointLight::SetIntensity);
 
 			pPM->RegisterProperty<bool, PointLight>(m_pLight.get(), 
-												L"Enabled", 
+												"Enabled", 
 												&PointLight::GetEnabled,
 												&PointLight::SetEnabled);
 

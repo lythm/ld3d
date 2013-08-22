@@ -6,7 +6,7 @@ namespace ld3d
 	class EXPORT_CLASS GameObjectComponent: public std::enable_shared_from_this<GameObjectComponent>
 	{
 	public:
-		GameObjectComponent(const std::wstring& name, GameObjectManagerPtr pManager);
+		GameObjectComponent(const std::string& name, GameObjectManagerPtr pManager);
 		GameObjectComponent(GameObjectManagerPtr pManager);
 		virtual ~GameObjectComponent(void);
 		
@@ -21,9 +21,9 @@ namespace ld3d
 		virtual bool												OnSerialize(DataStream* pStream);
 		virtual bool												OnUnSerialize(DataStream* pStream, const Version& version);
 		
-		const std::wstring&											GetName();
+		const std::string&											GetName();
 
-		void														SetName(const std::wstring& name);
+		void														SetName(const std::string& name);
 
 		GameObjectPtr												GetGameObject();
 
@@ -46,7 +46,7 @@ namespace ld3d
 		
 	protected:
 		GameObjectPtr												m_pObject;
-		std::wstring												m_name;
+		std::string												m_name;
 		GameObjectManagerPtr										m_pManager;
 		bool														m_bExclusive;
 		Version														m_version;

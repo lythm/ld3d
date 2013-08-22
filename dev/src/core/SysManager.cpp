@@ -12,7 +12,7 @@ namespace ld3d
 	{
 	}
 
-	Sys_GraphicsPtr	SysManager::LoadSysGraphics(const wchar_t* szFile)
+	Sys_GraphicsPtr	SysManager::LoadSysGraphics(const char* szFile)
 	{
 		if(m_graphicsMod.load_sys(szFile) == false)
 		{
@@ -21,7 +21,7 @@ namespace ld3d
 	
 		return m_graphicsMod.pSys;
 	}
-	Sys_InputPtr SysManager::LoadSysInput(const wchar_t* szFile)
+	Sys_InputPtr SysManager::LoadSysInput(const char* szFile)
 	{
 		if(m_inputMod.load_sys(szFile) == false)
 		{
@@ -42,7 +42,7 @@ namespace ld3d
 		return m_graphicsMod.pSys;
 	}
 
-	Sys_SoundPtr SysManager::LoadSysSound(const wchar_t * szFile)
+	Sys_SoundPtr SysManager::LoadSysSound(const char * szFile)
 	{
 		if(m_soundMod.load_sys(szFile) == false)
 		{
@@ -55,7 +55,7 @@ namespace ld3d
 		return m_soundMod.pSys;
 	}
 
-	Sys_NetworkPtr SysManager::LoadSysNetwork(const wchar_t* szFile)
+	Sys_NetworkPtr SysManager::LoadSysNetwork(const char* szFile)
 	{
 		if(m_networkMod.load_sys(szFile) == false)
 		{

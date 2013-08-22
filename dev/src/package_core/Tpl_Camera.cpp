@@ -4,7 +4,7 @@
 
 namespace ld3d
 {
-	Tpl_Camera::Tpl_Camera(GameObjectManagerPtr pManager, const std::wstring& name) : GameObjectTemplate(pManager, name, L"Camera")
+	Tpl_Camera::Tpl_Camera(GameObjectManagerPtr pManager, const std::string& name) : GameObjectTemplate(pManager, name, "Camera")
 	{
 	}
 
@@ -14,9 +14,9 @@ namespace ld3d
 	}
 	GameObjectPtr Tpl_Camera::CreateGameObject()
 	{
-		GameObjectPtr pObj = m_pManager->CreateGameObject(L"Camera");
+		GameObjectPtr pObj = m_pManager->CreateGameObject("Camera");
 		
-		CameraDataPtr pMD = std::dynamic_pointer_cast<CameraData>(m_pManager->CreateComponent(L"Camera"));
+		CameraDataPtr pMD = std::dynamic_pointer_cast<CameraData>(m_pManager->CreateComponent("Camera"));
 	
 		pObj->AddComponent(pMD);
 

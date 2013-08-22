@@ -34,9 +34,9 @@ namespace ld3d
 		{
 			if(it->second->Ready())
 			{
-				wchar_t buffer[100];
-				swprintf_s(buffer, 100, L"%d", it->second->Ref());
-				log(L"asset leak: " + it->first + L" ref: " + buffer);
+				char buffer[100];
+				sprintf(buffer, "%d", it->second->Ref());
+				log("asset leak: " + it->first + " ref: " + buffer);
 				it->second->Release();
 			}
 		}
@@ -62,7 +62,7 @@ namespace ld3d
 		}
 		pAsset = loader(file);
 
-		m_assets[file.wstring()] = pAsset;
+		m_assets[file.string()] = pAsset;
 		return pAsset;
 	}
 
@@ -102,7 +102,7 @@ namespace ld3d
 	}
 	AssetPtr AssetManager::FindAsset(const boost::filesystem::path& file)
 	{
-		AssetMap::iterator it = m_assets.find(file.wstring());
+		AssetMap::iterator it = m_assets.find(file.string());
 		if(it != m_assets.end())
 		{
 			if(it->second->Ready())
@@ -119,7 +119,7 @@ namespace ld3d
 		{
 			return AssetLoader();
 		}
-		AssetLoaderMap::iterator it = m_loaders.find(path.extension().wstring());
+		AssetLoaderMap::iterator it = m_loaders.find(path.extension().string());
 
 		if(it != m_loaders.end())
 		{
@@ -129,15 +129,15 @@ namespace ld3d
 	}
 	bool AssetManager::RegisterAssetLoader(const boost::filesystem::path& ext, AssetLoader loader)
 	{
-		AssetLoaderMap::iterator it = m_loaders.find(ext.wstring());
+		AssetLoaderMap::iterator it = m_loaders.find(ext.string());
 
 		if(it != m_loaders.end())
 		{
-			log(L"Asset loader already exists: " + it->first);
+			log("Asset loader already exists: " + it->first);
 			return false;
 		}
 
-		m_loaders[ext.wstring()] = loader;
+		m_loaders[ext.string()] = loader;
 
 		return true;
 	}

@@ -9,7 +9,7 @@
 
 namespace ld3d
 {
-	VoxelWorldGenerator::VoxelWorldGenerator(GameObjectManagerPtr pManager) : GameObjectComponent(L"VoxelWorldGenerator", pManager)
+	VoxelWorldGenerator::VoxelWorldGenerator(GameObjectManagerPtr pManager) : GameObjectComponent("VoxelWorldGenerator", pManager)
 	{
 		m_smooth = 0.6f;
 	}
@@ -31,13 +31,13 @@ namespace ld3d
 	}
 	void VoxelWorldGenerator::RebuildWorld()
 	{
-		VoxelWorldPtr pWorld = std::dynamic_pointer_cast<VoxelWorld>(GetGameObject()->GetComponent(L"VoxelWorld"));
+		VoxelWorldPtr pWorld = std::dynamic_pointer_cast<VoxelWorld>(GetGameObject()->GetComponent("VoxelWorld"));
 
 		if(pWorld == nullptr)
 		{
 			return;
 		}
-		m_pManager->Log(L"Rebuilding Voxel world...");
+		m_pManager->Log("Rebuilding Voxel world...");
 
 		int tick = GetTickCount();
 
@@ -53,9 +53,9 @@ namespace ld3d
 		pWorld->SetDataSet(pDataSet);
 
 		tick = GetTickCount() - tick;
-		wchar_t szBuffer[512];
+		char szBuffer[512];
 
-		swprintf(szBuffer, L"Voxel world rebuilt.(%d triangles in %.4fs)", pDataSet->GetFaceCount(), float(tick) / 1000.0f);
+		sprintf(szBuffer, "Voxel world rebuilt.(%d triangles in %.4fs)", pDataSet->GetFaceCount(), float(tick) / 1000.0f);
 
 		m_pManager->Log(szBuffer);
 		
@@ -64,7 +64,7 @@ namespace ld3d
 	{
 		RebuildWorld();
 		static bool b = false;
-		m_pManager->GetDTCoreApi()->Inspector_SetPropertyVisible(L"VoxelWorldGenerator", L"Smooth", b);
+		m_pManager->GetDTCoreApi()->Inspector_SetPropertyVisible("VoxelWorldGenerator", "Smooth", b);
 		m_pManager->GetDTCoreApi()->Inspector_AdjustLayout();
 
 		b = !b;
@@ -75,17 +75,17 @@ namespace ld3d
 	}
 	bool VoxelWorldGenerator::OnAttach()
 	{
-		PropertyManagerPtr pPM = std::dynamic_pointer_cast<PropertyManager>(m_pObject->GetComponent(L"PropertyManager"));
+		PropertyManagerPtr pPM = std::dynamic_pointer_cast<PropertyManager>(m_pObject->GetComponent("PropertyManager"));
 
-		pPM->Begin(L"VoxelWorldGenerator");
+		pPM->Begin("VoxelWorldGenerator");
 		{
 			pPM->RegisterProperty<float, VoxelWorldGenerator>(this,
-				L"Smooth",
+				"Smooth",
 				&VoxelWorldGenerator::GetSmooth,
 				&VoxelWorldGenerator::SetSmooth);
 
 			pPM->RegisterProperty<prop_signal, VoxelWorldGenerator>(this,
-				L"Generate",
+				"Generate",
 				&VoxelWorldGenerator::_dummy,
 				&VoxelWorldGenerator::OnSignaleGenerate);
 

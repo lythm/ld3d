@@ -33,21 +33,9 @@ namespace ld3d
 	{
 		return std::allocate_shared<T, std_allocator_adapter<T> >(CoreApi::GetAllocator(), p1, p2);
 	}
-
-	inline
-		void												log(const std::wstring& text)
-	{
-		CoreApi::Log(text);
-	}
-
 	inline
 		void												log(const std::string& text)
 	{
-		std::wstring log;
-		ld3d::Unicode::ANSI_2_UTF16(text, log);
-		
-		CoreApi::Log(log);
+		CoreApi::Log(text);
 	}
-
-
 }

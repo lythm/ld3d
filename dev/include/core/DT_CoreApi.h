@@ -6,7 +6,7 @@ namespace ld3d
 	{
 	public:
 
-		virtual void										Inspector_SetPropertyVisible(const std::wstring& set, const std::wstring& name, bool visible)							= 0;
+		virtual void										Inspector_SetPropertyVisible(const std::string& set, const std::string& name, bool visible)							= 0;
 		virtual void										Inspector_AdjustLayout()																								= 0;
 
 

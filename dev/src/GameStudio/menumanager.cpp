@@ -43,7 +43,7 @@ void MenuManager::Install_Menu_GameObject(QMenu* pMenu)
 	pMenu->addSeparator();
 	
 
-	std::unordered_map<std::wstring, std::vector<ld3d::GameObjectTemplate*> >			tplMap;
+	std::unordered_map<std::string, std::vector<ld3d::GameObjectTemplate*> >			tplMap;
 
 	GameObjectManagerPtr pManager = m_pEditor->GetGameEngine()->GetCoreApi()->GetGameObjectManager();
 
@@ -65,13 +65,13 @@ void MenuManager::Install_Menu_GameObject(QMenu* pMenu)
 			continue;
 		}
 		
-		QString subName = QString::fromStdWString(v.first);
+		QString subName = QString::fromStdString(v.first);
 		QMenu* pSub = pMenu->addMenu(subName);
 
 		
 		for(size_t i = 0; i < v.second.size(); ++i)
 		{
-			QString name = QString::fromStdWString(v.second[i]->GetName());
+			QString name = QString::fromStdString(v.second[i]->GetName());
 
 			QAction* pAction = pSub->addAction(name);
 			pAction->setData(qVariantFromValue((void*)v.second[i]));
@@ -129,7 +129,7 @@ void MenuManager::Install_Menu_Component(QMenu* pMenu)
 {
 	using namespace ld3d;
 
-	std::unordered_map<std::wstring, std::vector<ld3d::Package::ComponentClass*> >	comMap;
+	std::unordered_map<std::string, std::vector<ld3d::Package::ComponentClass*> >	comMap;
 
 	GameObjectManagerPtr pManager = m_pEditor->GetGameEngine()->GetCoreApi()->GetGameObjectManager();
 
@@ -140,11 +140,11 @@ void MenuManager::Install_Menu_Component(QMenu* pMenu)
 		{
 			Package::ComponentClass* pClass = pPack->GetClassByIndex(ii);
 
-			if(pClass->m_name == L"PropertyManager")
+			if(pClass->m_name == "PropertyManager")
 			{
 				continue;
 			}
-			if(pClass->m_catalog == L"DT")
+			if(pClass->m_catalog == "DT")
 			{
 				continue;
 			}
@@ -159,13 +159,13 @@ void MenuManager::Install_Menu_Component(QMenu* pMenu)
 			continue;
 		}
 		
-		QString subName = QString::fromStdWString(v.first);
+		QString subName = QString::fromStdString(v.first);
 		QMenu* pSub = pMenu->addMenu(subName);
 
 		
 		for(size_t i = 0; i < v.second.size(); ++i)
 		{
-			QString name = QString::fromStdWString(v.second[i]->m_name);
+			QString name = QString::fromStdString(v.second[i]->m_name);
 
 			QAction* pAction = pSub->addAction(name);
 			pAction->setData(qVariantFromValue((void*)v.second[i]));

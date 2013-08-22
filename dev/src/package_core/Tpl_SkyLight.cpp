@@ -4,7 +4,7 @@
 
 namespace ld3d
 {
-	Tpl_SkyLight::Tpl_SkyLight(GameObjectManagerPtr pManager, const std::wstring& name) : GameObjectTemplate(pManager, name, L"Light")
+	Tpl_SkyLight::Tpl_SkyLight(GameObjectManagerPtr pManager, const std::string& name) : GameObjectTemplate(pManager, name, "Light")
 	{
 	}
 
@@ -14,9 +14,9 @@ namespace ld3d
 	}
 	GameObjectPtr Tpl_SkyLight::CreateGameObject()
 	{
-		GameObjectPtr pObj = m_pManager->CreateGameObject(L"Sky Light");
+		GameObjectPtr pObj = m_pManager->CreateGameObject("Sky Light");
 
-		GameObjectComponentPtr pLight = m_pManager->CreateComponent(L"SkyLight");
+		GameObjectComponentPtr pLight = m_pManager->CreateComponent("SkyLight");
 		
 		if(false == pObj->AddComponent(pLight))
 		{

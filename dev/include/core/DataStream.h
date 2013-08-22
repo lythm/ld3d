@@ -16,11 +16,11 @@ namespace ld3d
 		virtual uint64								Pos()											= 0;
 		
 		
-		void										ReadString(std::wstring& str);
-		void										WriteString(const std::wstring& str);
-
 		void										ReadString(std::string& str);
 		void										WriteString(const std::string& str);
+
+		void										ReadString(std::wstring& str);
+		void										WriteString(const std::wstring& str);
 
 		uint8										ReadInt8();
 		void										WriteInt8(uint8 v);

@@ -5,7 +5,7 @@
 
 namespace ld3d
 {
-	GameObjectTemplate::GameObjectTemplate(GameObjectManagerPtr pManager, const std::wstring& name, const std::wstring& catalog)
+	GameObjectTemplate::GameObjectTemplate(GameObjectManagerPtr pManager, const std::string& name, const std::string& catalog)
 	{
 		m_pManager = pManager;
 		m_name = name;
@@ -17,19 +17,19 @@ namespace ld3d
 	{
 		m_pManager.reset();
 	}
-	const std::wstring& GameObjectTemplate::GetName()
+	const std::string& GameObjectTemplate::GetName()
 	{
 		return m_name;
 	}
-	void GameObjectTemplate::SetName(const std::wstring& name)
+	void GameObjectTemplate::SetName(const std::string& name)
 	{
 		m_name = name;
 	}
-	void GameObjectTemplate::SetCataLog(const std::wstring& catalog)
+	void GameObjectTemplate::SetCataLog(const std::string& catalog)
 	{
 		m_catalog = catalog;
 	}
-	const std::wstring& GameObjectTemplate::GetCataLog()
+	const std::string& GameObjectTemplate::GetCataLog()
 	{
 		return m_catalog;
 	}

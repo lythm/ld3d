@@ -16,7 +16,7 @@ public:
 	static ProjectPtr								project;
 	static Form_Log*								form_log;
 
-	static void										log_info(const std::wstring& str);
+	static void										log_info(const std::string& str);
 	static boost::filesystem::path					project_root();
 
 

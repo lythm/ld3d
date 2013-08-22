@@ -74,9 +74,9 @@ namespace ld3d
 	};
 	class EXPORT_CLASS AssetManager
 	{
-		typedef std::unordered_map<std::wstring, AssetPtr>								AssetMap;
+		typedef std::unordered_map<std::string, AssetPtr>								AssetMap;
 		typedef std::function<AssetPtr (const boost::filesystem::path& file)>			AssetLoader;
-		typedef std::unordered_map<std::wstring, AssetLoader>							AssetLoaderMap;
+		typedef std::unordered_map<std::string, AssetLoader>							AssetLoaderMap;
 
 	public:
 		AssetManager(void);

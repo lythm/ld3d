@@ -18,7 +18,7 @@
 
 #include <vector>
 #include <boost/filesystem.hpp>
-#include <boost/signal.hpp>
+#include <boost/signals2.hpp>
 
 #include <string>
 #include <math/math_all.h>

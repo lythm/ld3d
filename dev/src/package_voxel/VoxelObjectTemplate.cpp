@@ -5,7 +5,7 @@
 
 namespace ld3d
 {
-	VoxelObjectTemplate::VoxelObjectTemplate(GameObjectManagerPtr pManager, const std::wstring& name) : GameObjectTemplate(pManager, name, L"Voxel")
+	VoxelObjectTemplate::VoxelObjectTemplate(GameObjectManagerPtr pManager, const std::string& name) : GameObjectTemplate(pManager, name, "Voxel")
 	{
 		
 	}
@@ -16,13 +16,13 @@ namespace ld3d
 	
 	GameObjectPtr VoxelObjectTemplate::CreateGameObject()
 	{
-		GameObjectPtr pObj = m_pManager->CreateGameObject(L"VoxelObject");
+		GameObjectPtr pObj = m_pManager->CreateGameObject("VoxelObject");
 
-		GameObjectComponentPtr pCom = m_pManager->CreateComponent(L"VoxelObject");
+		GameObjectComponentPtr pCom = m_pManager->CreateComponent("VoxelObject");
 
 		pObj->AddComponent(pCom);
 
-		pCom = m_pManager->CreateComponent(L"VoxelObjectRenderer");
+		pCom = m_pManager->CreateComponent("VoxelObjectRenderer");
 		pObj->AddComponent(pCom);
 
 		return pObj;

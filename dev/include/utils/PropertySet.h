@@ -35,7 +35,7 @@ namespace ld3d
 	template <>
 	PropType PropTypeId<float>::m_type				= property_type_float;
 	template <>
-	PropType PropTypeId<std::wstring>::m_type		= property_type_string;
+	PropType PropTypeId<std::string>::m_type		= property_type_string;
 	template <>
 	PropType PropTypeId<void*>::m_type				= property_type_pointer;
 
@@ -45,7 +45,7 @@ namespace ld3d
 
 
 	public:
-		Property(const std::wstring& szName, PropType type = property_type_unknown, void* data = nullptr)
+		Property(const std::string& szName, PropType type = property_type_unknown, void* data = nullptr)
 		{
 			m_type						= type;
 			m_name						= szName;
@@ -57,15 +57,15 @@ namespace ld3d
 
 		PropType					getType() const{return m_type;}
 		void						setType(PropType t){m_type = t;}
-		const std::wstring&			getName() const{return m_name;}
-		void						setName(const std::wstring& name){m_name = name;}
+		const std::string&			getName() const{return m_name;}
+		void						setName(const std::string& name){m_name = name;}
 		void						setData(void* pData){m_data = pData;}
 		void*						getData(){return m_data;}
 
 	private:
 
 		PropType					m_type;
-		std::wstring				m_name;
+		std::string				m_name;
 		void*						m_data;
 	};
 
@@ -76,7 +76,7 @@ namespace ld3d
 		typedef boost::function<void (const T&)>				Setter_T;
 		typedef boost::function<const T& ()>					Getter_T;
 
-		Property_T(const std::wstring& szName, PropType type = property_type_unknown, void* data = nullptr, Setter_T setter = Setter_T(), Getter_T getter = Getter_T()) : Property(szName, type, data)
+		Property_T(const std::string& szName, PropType type = property_type_unknown, void* data = nullptr, Setter_T setter = Setter_T(), Getter_T getter = Getter_T()) : Property(szName, type, data)
 		{
 			m_setter = setter;
 			m_getter = getter;
@@ -108,25 +108,25 @@ namespace ld3d
 	{
 
 	public:
-		PropertySet(const std::wstring& name);
+		PropertySet(const std::string& name);
 		virtual ~PropertySet(void);
 
 		bool								addProperty(std::shared_ptr<Property> p);
 		unsigned long						getPropertyCount();
 		Property*							getProperty(int iProp);
 
-		Property*							getProperty(const wchar_t* szName);
+		Property*							getProperty(const char* szName);
 		void								clearProperties();
 
-		bool								hasProperty(const wchar_t* szName);
+		bool								hasProperty(const char* szName);
 
-		const std::wstring&					getName(){return m_name;}
+		const std::string&					getName(){return m_name;}
 	private:
 		std::vector<std::shared_ptr<Property> >
 			m_props;
 
-		std::map<const wchar_t*, size_t>	m_nameTable;
+		std::map<const char*, size_t>		m_nameTable;
 
-		std::wstring						m_name;
+		std::string							m_name;
 	};
 }

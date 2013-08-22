@@ -34,7 +34,7 @@ QVariant HierarchyModel::data(const QModelIndex &index, int role) const
 	{
 		return QVariant();
 	}
-	QString name = QString::fromStdWString(pObj->GetName());
+	QString name = QString::fromStdString(pObj->GetName());
 
 	return name;
 }
@@ -152,7 +152,7 @@ bool HierarchyModel::setData(const QModelIndex &index, const QVariant &value, in
 
     ld3d::GameObject*  item = getItem(index);
 
-    item->SetName(value.toString().toStdWString());
+    item->SetName(value.toString().toStdString());
 
     emit dataChanged(index, index);
 

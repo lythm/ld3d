@@ -18,7 +18,7 @@ namespace ld3d
 			typedef Package*					(*Fn_CreatePackage)(GameObjectManagerPtr);
 			typedef void						(*Fn_DestroyPackage)(Package*);
 
-			bool								load_package(const wchar_t* file, GameObjectManagerPtr pManager);
+			bool								load_package(const char* file, GameObjectManagerPtr pManager);
 			void								delete_package();
 
 			Package*							GetPackage();
@@ -26,7 +26,7 @@ namespace ld3d
 		private:
 			Package*							m_pPackage;
 			HMODULE								m_hLib;
-			std::wstring						m_file;
+			std::string							m_file;
 		};
 
 	public:
@@ -36,14 +36,14 @@ namespace ld3d
 		bool																Initialize(CoreApiPtr pCore);
 		void																Release();
 
-		bool																LoadPackage(const std::wstring& name);
+		bool																LoadPackage(const std::string& name);
 
-		GameObjectPtr														CreateGameObject(const std::wstring& name);
-		GameObjectPtr														CreateObjectFromTemplate(const std::wstring& tpl);
+		GameObjectPtr														CreateGameObject(const std::string& name);
+		GameObjectPtr														CreateObjectFromTemplate(const std::string& tpl);
 
 		bool																RegisterTemplate(GameObjectTemplate* pTpl);
 
-		GameObjectComponentPtr												CreateComponent(const std::wstring& name);
+		GameObjectComponentPtr												CreateComponent(const std::string& name);
 
 		int																	GetPackageCount();
 		Package*															GetPackageByIndex(int index);
@@ -56,13 +56,13 @@ namespace ld3d
 		Allocator*															GetAllocator();
 		CoreApiPtr															GetCoreApi();
 
-		GameObjectTemplate*													FindTemplate(const std::wstring& name);
+		GameObjectTemplate*													FindTemplate(const std::string& name);
 
 		bool																LoadAndRegisterTemplate(DataStreamPtr pStream);
 
 		Sys_SoundPtr														GetSysSound();
 
-		void																Log(const std::wstring& text);
+		void																Log(const std::string& text);
 
 		AssetManagerPtr														GetAssetManager();
 
@@ -89,8 +89,8 @@ namespace ld3d
 
 
 	private:
-		std::unordered_map<std::wstring, GameObjectTemplate*>				m_templates;
-		std::unordered_map<std::wstring, Package::ComponentClass*>		m_componentClasses;
+		std::unordered_map<std::string, GameObjectTemplate*>				m_templates;
+		std::unordered_map<std::string, Package::ComponentClass*>		m_componentClasses;
 
 		std::vector<PackageMod>												m_packages;
 		CoreApiPtr															m_pCore;

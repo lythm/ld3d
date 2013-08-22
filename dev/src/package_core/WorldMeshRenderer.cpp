@@ -5,7 +5,7 @@
 namespace ld3d
 {
 
-	WorldMeshRenderer::WorldMeshRenderer(GameObjectManagerPtr pManager) : GameObjectComponent(L"WorldMeshRenderer", pManager)
+	WorldMeshRenderer::WorldMeshRenderer(GameObjectManagerPtr pManager) : GameObjectComponent("WorldMeshRenderer", pManager)
 	{
 		SetVersion(g_packageVersion);
 	}

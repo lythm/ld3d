@@ -16,8 +16,8 @@ namespace ld3d
 		PropertyManager(GameObjectManagerPtr pManager);
 		virtual ~PropertyManager(void);
 
-		PropertySetPtr						Begin(const std::wstring& name);
-		PropertySetPtr						FindPropertySet(const std::wstring& name);
+		PropertySetPtr						Begin(const std::string& name);
+		PropertySetPtr						FindPropertySet(const std::string& name);
 		void								AddProperty(std::shared_ptr<Property> pProp);
 		void								End();
 
@@ -26,12 +26,12 @@ namespace ld3d
 		int									GetPropertySetCount();
 		PropertySetPtr						GetPropertySet(int index);
 
-		void								ClearPropertySet(const std::wstring & name);
+		void								ClearPropertySet(const std::string & name);
 
-		Property*							FindProperty(const std::wstring& set, const std::wstring& name);
+		Property*							FindProperty(const std::string& set, const std::string& name);
 
 		template<typename T>
-		bool								RegisterProperty(const std::wstring& name, 
+		bool								RegisterProperty(const std::string& name, 
 			boost::function<const T& ()> getter,
 			boost::function<void (const T&)> setter = boost::function<void (const T&)>())
 		{
@@ -47,7 +47,7 @@ namespace ld3d
 
 		template<typename T, typename TObject>
 		bool								RegisterProperty(TObject* pObj, 
-			const std::wstring& name, 
+			const std::string& name, 
 			boost::function<const T& (TObject*)> getter,
 			boost::function<void (TObject*, const T&)> setter =  boost::function<void (TObject*, const T&)>())
 		{

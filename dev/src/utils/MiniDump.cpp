@@ -18,7 +18,7 @@ namespace ld3d
 
 	BOOL PreventSetUnhandledExceptionFilter()
 	{
-		HMODULE hKernel32 = LoadLibrary(L"kernel32.dll");
+		HMODULE hKernel32 = LoadLibrary("kernel32.dll");
 		if (hKernel32 == NULL) return FALSE;
 		void *pOrgEntry = GetProcAddress(hKernel32, "SetUnhandledExceptionFilter");
 		if(pOrgEntry  == NULL) return FALSE;
@@ -47,7 +47,7 @@ namespace ld3d
 											CONST PMINIDUMP_CALLBACK_INFORMATION CallbackParam);
 
 	LPTOP_LEVEL_EXCEPTION_FILTER				MiniDump::s_PrevFilter			= NULL;
-	std::wstring								MiniDump::m_strFilePrefix		= L"";
+	std::string								MiniDump::m_strFilePrefix		= "";
 	MiniDump::MiniDump(void)
 	{
 	}
@@ -56,7 +56,7 @@ namespace ld3d
 	{
 	}
 
-	void MiniDump::Begin(const std::wstring& strFilePrefix)
+	void MiniDump::Begin(const std::string& strFilePrefix)
 	{
 		//SetErrorMode(SEM_FAILCRITICALERRORS) ; 
 		s_PrevFilter = SetUnhandledExceptionFilter(UnHandledExceptionFilter) ; 

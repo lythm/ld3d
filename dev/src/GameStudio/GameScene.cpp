@@ -16,7 +16,7 @@ GameScene::~GameScene(void)
 }
 bool GameScene::New()
 {
-	m_filepath = L"";
+	m_filepath = "";
 
 	if(m_pCore->GetRenderManager()->GetLightCount() == 0)
 	{
@@ -33,7 +33,7 @@ bool GameScene::Load(boost::filesystem::path file)
 	using namespace ld3d;
 
 	DataStream_File stream;
-	if(false == stream.OpenStream(file.wstring().c_str()))
+	if(false == stream.OpenStream(file.string().c_str()))
 	{
 		return false;
 	}
@@ -61,7 +61,7 @@ bool GameScene::Save(boost::filesystem::path file)
 
 	using namespace ld3d;
 	DataStream_File stream;
-	if(false == stream.OpenStream(file.wstring().c_str(), false))
+	if(false == stream.OpenStream(file.string().c_str(), false))
 	{
 		return false;
 	}
@@ -81,7 +81,7 @@ const boost::filesystem::path& GameScene::GetFileName()
 }
 void GameScene::Close()
 {
-	m_filepath = L"";
+	m_filepath = "";
 	if(m_pCore && m_pCore->GetScene())
 	{
 		m_pCore->GetScene()->Reset();
@@ -94,7 +94,7 @@ void GameScene::AddDefaultLight()
 	using namespace ld3d;
 	using namespace ld3d;
 
-	GameObjectPtr pObj = m_pEngine->CreateObjectFromTpl(L"Default Light", L"SkyLight");
+	GameObjectPtr pObj = m_pEngine->CreateObjectFromTpl("Default Light", "SkyLight");
 	pObj->SetTranslation(1, 1, 1);
 	pObj->LookAt(math::Vector3(0, 0, 0));
 

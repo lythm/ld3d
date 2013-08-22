@@ -5,21 +5,21 @@ namespace ld3d
 	class EXPORT_CLASS GameObjectTemplate
 	{
 	public:
-		GameObjectTemplate(GameObjectManagerPtr pManager, const std::wstring& name, const std::wstring& catalog = std::wstring(L"Misc"));
+		GameObjectTemplate(GameObjectManagerPtr pManager, const std::string& name, const std::string& catalog = std::string("Misc"));
 		virtual ~GameObjectTemplate(void);
 
-		const std::wstring&						GetName();
-		const std::wstring&						GetCataLog();
+		const std::string&						GetName();
+		const std::string&						GetCataLog();
 
-		void									SetName(const std::wstring& name);
-		void									SetCataLog(const std::wstring& catalog);
+		void									SetName(const std::string& name);
+		void									SetCataLog(const std::string& catalog);
 
 		virtual GameObjectPtr					CreateGameObject()						= 0;
 		virtual void							Release()								= 0;
 	protected:
 
 		GameObjectManagerPtr					m_pManager;
-		std::wstring							m_name;
-		std::wstring							m_catalog;
+		std::string							m_name;
+		std::string							m_catalog;
 	};
 }

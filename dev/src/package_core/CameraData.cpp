@@ -3,7 +3,7 @@
 
 namespace ld3d
 {
-	CameraData::CameraData(GameObjectManagerPtr pManager) : GameObjectComponent(L"Camera", pManager)
+	CameraData::CameraData(GameObjectManagerPtr pManager) : GameObjectComponent("Camera", pManager)
 	{
 		SetVersion(g_packageVersion);
 	}
@@ -22,12 +22,12 @@ namespace ld3d
 		
 		m_pManager->GetRenderManager()->AddCamera(m_pCamera);
 
-		PropertyManagerPtr pPM = std::dynamic_pointer_cast<PropertyManager>(m_pObject->GetComponent(L"PropertyManager"));
+		PropertyManagerPtr pPM = std::dynamic_pointer_cast<PropertyManager>(m_pObject->GetComponent("PropertyManager"));
 		
-		pPM->Begin(L"Camera");
+		pPM->Begin("Camera");
 		{
 			pPM->RegisterProperty<int, Camera>(m_pCamera.get(),
-									L"Rendering Order",
+									"Rendering Order",
 									&Camera::GetOrder,
 									&Camera::SetOrder);
 

@@ -5,7 +5,7 @@
 
 namespace ld3d
 {
-	GameObjectComponent::GameObjectComponent(const std::wstring& name, GameObjectManagerPtr pManager)
+	GameObjectComponent::GameObjectComponent(const std::string& name, GameObjectManagerPtr pManager)
 	{
 		SetName(name);	
 		m_pManager = pManager;
@@ -19,7 +19,7 @@ namespace ld3d
 	GameObjectComponent::~GameObjectComponent(void)
 	{
 		m_pObject.reset();
-		m_name = L"";
+		m_name = "";
 	}
 	void GameObjectComponent::Update(float dt)
 	{
@@ -37,7 +37,7 @@ namespace ld3d
 		m_pObject.reset();
 		m_pManager.reset();
 	}
-	const std::wstring& GameObjectComponent::GetName()
+	const std::string& GameObjectComponent::GetName()
 	{
 		return m_name;
 	}
@@ -48,7 +48,7 @@ namespace ld3d
 	void GameObjectComponent::OnDetach()
 	{
 	}
-	void GameObjectComponent::SetName(const std::wstring& name)
+	void GameObjectComponent::SetName(const std::string& name)
 	{
 		m_name = name;
 	}

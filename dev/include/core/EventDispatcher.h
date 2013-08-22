@@ -1,6 +1,6 @@
 #pragma once
 
-#include <boost/signal.hpp>
+#include <boost/signals2.hpp>
 
 namespace ld3d
 {
@@ -10,9 +10,9 @@ namespace ld3d
 
 		typedef std::function<void (EventPtr)>											EventHandler;
 
-		typedef boost::signal<void (EventPtr)>											Signal;
+		typedef boost::signals2::signal<void (EventPtr)>								Signal;
 
-		typedef boost::signals::connection												EventHandlerHandle;
+		typedef boost::signals2::connection												EventHandlerHandle;
 
 		typedef std::unordered_map<uint32, std::shared_ptr<Signal> >					HandlerMap;
 

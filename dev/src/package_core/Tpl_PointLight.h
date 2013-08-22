@@ -6,7 +6,7 @@ namespace ld3d
 	class Tpl_PointLight : public GameObjectTemplate
 	{
 	public:
-		Tpl_PointLight(GameObjectManagerPtr pManager, const std::wstring& name);
+		Tpl_PointLight(GameObjectManagerPtr pManager, const std::string& name);
 		virtual ~Tpl_PointLight(void);
 
 		GameObjectPtr					CreateGameObject();

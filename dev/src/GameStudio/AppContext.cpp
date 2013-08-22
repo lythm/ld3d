@@ -18,13 +18,13 @@ AppContext::AppContext(void)
 AppContext::~AppContext(void)
 {
 }
-void AppContext::log_info(const std::wstring& str)
+void AppContext::log_info(const std::string& str)
 {
 	if(form_log == nullptr)
 	{
 		return;
 	}
-	form_log->logInfo(QString::fromStdWString(str));
+	form_log->logInfo(QString::fromStdString(str));
 }
 boost::filesystem::path AppContext::project_root()
 {

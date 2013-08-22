@@ -7,7 +7,7 @@
 namespace ld3d
 {
 
-	PostEffectList::PostEffectList(GameObjectManagerPtr pManager) : GameObjectComponent(L"PostEffectList", pManager)
+	PostEffectList::PostEffectList(GameObjectManagerPtr pManager) : GameObjectComponent("PostEffectList", pManager)
 	{
 		SetVersion(g_packageVersion);
 	}
@@ -29,27 +29,27 @@ namespace ld3d
 		m_pGBlur->Initialize(m_pManager->GetRenderManager());
 		//m_pManager->GetRenderManager()->AddPostEffect(m_pGBlur);
 
-		PropertyManagerPtr pPM = std::dynamic_pointer_cast<PropertyManager>(m_pObject->GetComponent(L"PropertyManager"));
+		PropertyManagerPtr pPM = std::dynamic_pointer_cast<PropertyManager>(m_pObject->GetComponent("PropertyManager"));
 
-		pPM->Begin(L"PostEffectList");
+		pPM->Begin("PostEffectList");
 		{
 			pPM->RegisterProperty<float, PostEffect_SSAO>(m_pSSAO.get(), 
-				L"Bias", 
+				"Bias", 
 				&PostEffect_SSAO::GetBias,
 				&PostEffect_SSAO::SetBias);
 
 			pPM->RegisterProperty<float, PostEffect_SSAO>(m_pSSAO.get(), 
-				L"Scale", 
+				"Scale", 
 				&PostEffect_SSAO::GetScale,
 				&PostEffect_SSAO::SetScale);
 
 			pPM->RegisterProperty<float, PostEffect_SSAO>(m_pSSAO.get(), 
-				L"Sample Rad", 
+				"Sample Rad", 
 				&PostEffect_SSAO::GetSampleRad,
 				&PostEffect_SSAO::SetSampleRad);
 
 			pPM->RegisterProperty<float, PostEffect_SSAO>(m_pSSAO.get(), 
-				L"Intensity", 
+				"Intensity", 
 				&PostEffect_SSAO::GetIntensity,
 				&PostEffect_SSAO::SetIntensity);
 		}

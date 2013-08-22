@@ -31,33 +31,33 @@ namespace ld3d
 		
 		m_pManager = pManager;
 
-		m_classes.push_back(ComponentClass(L"VoxelWorld",
-							L"Voxel",
-							L"Voxel World",
+		m_classes.push_back(ComponentClass("VoxelWorld",
+							"Voxel",
+							"Voxel World",
 							&Create_Component<VoxelWorld>));
-		m_classes.push_back(ComponentClass(L"VoxelWorldGenerator",
-							L"Voxel",
-							L"Voxel World Generator",
+		m_classes.push_back(ComponentClass("VoxelWorldGenerator",
+							"Voxel",
+							"Voxel World Generator",
 							&Create_Component<VoxelWorldGenerator>));
-		m_classes.push_back(ComponentClass(L"VoxelWorldRenderer",
-							L"Voxel",
-							L"Voxel World Renderer",
+		m_classes.push_back(ComponentClass("VoxelWorldRenderer",
+							"Voxel",
+							"Voxel World Renderer",
 							&Create_Component<VoxelWorldRenderer>));
 
-		m_classes.push_back(ComponentClass(L"VoxelObject",
-							L"Voxel",
-							L"Voxel Object",
+		m_classes.push_back(ComponentClass("VoxelObject",
+							"Voxel",
+							"Voxel Object",
 							&Create_Component<VoxelObject>));
-		m_classes.push_back(ComponentClass(L"VoxelObjectRenderer",
-							L"Voxel",
-							L"Voxel Object Renderer",
+		m_classes.push_back(ComponentClass("VoxelObjectRenderer",
+							"Voxel",
+							"Voxel Object Renderer",
 							&Create_Component<VoxelObjectRenderer>));
 
 		// templates
-		GameObjectTemplate* pTpl = new VoxelWorldTemplate(m_pManager, L"VoxelWorld");
+		GameObjectTemplate* pTpl = new VoxelWorldTemplate(m_pManager, "VoxelWorld");
 		m_tpls.push_back(pTpl);
 
-		pTpl = new VoxelObjectTemplate(m_pManager, L"VoxelObject");
+		pTpl = new VoxelObjectTemplate(m_pManager, "VoxelObject");
 		m_tpls.push_back(pTpl);
 	}
 
@@ -75,9 +75,9 @@ namespace ld3d
 		}
 		m_tpls.clear();
 	}
-	const wchar_t* VoxelPackage::GetPackageName()
+	const char* VoxelPackage::GetPackageName()
 	{
-		return L"Voxel";
+		return "Voxel";
 	}
 	
 	int VoxelPackage::GetClassCount()

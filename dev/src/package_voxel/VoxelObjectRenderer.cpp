@@ -4,7 +4,7 @@
 
 namespace ld3d
 {
-	VoxelObjectRenderer::VoxelObjectRenderer(GameObjectManagerPtr pManager) : GameObjectComponent(L"VoxelObjectRenderer", pManager)
+	VoxelObjectRenderer::VoxelObjectRenderer(GameObjectManagerPtr pManager) : GameObjectComponent("VoxelObjectRenderer", pManager)
 	{
 		SetVersion(g_packageVersion);
 	}
@@ -20,9 +20,9 @@ namespace ld3d
 			
 	bool VoxelObjectRenderer::OnAttach()
 	{
-		PropertyManagerPtr pPM = std::dynamic_pointer_cast<PropertyManager>(m_pObject->GetComponent(L"PropertyManager"));
+		PropertyManagerPtr pPM = std::dynamic_pointer_cast<PropertyManager>(m_pObject->GetComponent("PropertyManager"));
 
-		pPM->Begin(L"VoxelObjectRenderer");
+		pPM->Begin("VoxelObjectRenderer");
 		{
 			
 		}

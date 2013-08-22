@@ -11,7 +11,7 @@ namespace ld3d
 	class EXPORT_CLASS CoreApi : public std::enable_shared_from_this<CoreApi>
 	{
 	public:
-		typedef std::function<void (const std::wstring& log)>			Logger;
+		typedef std::function<void (const std::string& log)>			Logger;
 
 		CoreApi(void);
 		virtual ~CoreApi(void);
@@ -30,7 +30,7 @@ namespace ld3d
 
 		AssetManagerPtr									GetAssetManager();
 		GameObjectManagerPtr							GetGameObjectManager();
-		Sys_GraphicsPtr								GetSysGraphics();
+		Sys_GraphicsPtr									GetSysGraphics();
 		Sys_InputPtr									GetSysInput();
 		Sys_SoundPtr									GetSysSound();
 		Sys_TimePtr										GetSysTime();
@@ -46,10 +46,10 @@ namespace ld3d
 
 		RenderManagerPtr								GetRenderManager();
 
-		bool											LoadPackage(const std::wstring& packageFile);
-		GameObjectPtr									CreateGameObject(const std::wstring& name);
-		GameObjectComponentPtr							CreateGameObjectComponent(const std::wstring& name);
-		GameObjectPtr									CreatGameObjectFromTemplate(const std::wstring& tpl, const std::wstring& name);
+		bool											LoadPackage(const std::string& packageFile);
+		GameObjectPtr									CreateGameObject(const std::string& name);
+		GameObjectComponentPtr							CreateGameObjectComponent(const std::string& name);
+		GameObjectPtr									CreatGameObjectFromTemplate(const std::string& tpl, const std::string& name);
 		GameObjectPtr									Root();
 
 		void											DispatchEvent(EventPtr pEvent);
@@ -63,7 +63,7 @@ namespace ld3d
 
 		static Allocator*								GetAllocator();
 
-		static void										Log(const std::wstring& text);
+		static void										Log(const std::string& text);
 		static void										SetLogger(Logger logger);
 
 	private:

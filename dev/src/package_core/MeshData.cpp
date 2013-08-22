@@ -13,7 +13,7 @@
 namespace ld3d
 {
 
-	MeshData::MeshData(GameObjectManagerPtr pManager) : GameObjectComponent(L"MeshData", pManager)
+	MeshData::MeshData(GameObjectManagerPtr pManager) : GameObjectComponent("MeshData", pManager)
 	{
 		m_pMesh = MeshPtr();
 		SetVersion(g_packageVersion);
@@ -61,7 +61,7 @@ namespace ld3d
 		{
 			return;
 		}
-		MeshRendererPtr pMR = std::dynamic_pointer_cast<MeshRenderer>(m_pObject->GetComponent(L"MeshRenderer"));
+		MeshRendererPtr pMR = std::dynamic_pointer_cast<MeshRenderer>(m_pObject->GetComponent("MeshRenderer"));
 		if(pMR)
 		{
 			pMR->Reset(std::dynamic_pointer_cast<MeshData>(shared_from_this()));
@@ -71,11 +71,11 @@ namespace ld3d
 	{
 		ResetMeshRenderer();
 
-		PropertyManagerPtr pPM = std::dynamic_pointer_cast<PropertyManager>(m_pObject->GetComponent(L"PropertyManager"));
-		pPM->Begin(L"MeshData");
+		PropertyManagerPtr pPM = std::dynamic_pointer_cast<PropertyManager>(m_pObject->GetComponent("PropertyManager"));
+		pPM->Begin("MeshData");
 
-		pPM->RegisterProperty<std::wstring, MeshData>(this,
-			L"MeshAsset", 
+		pPM->RegisterProperty<std::string, MeshData>(this,
+			"MeshAsset", 
 			&MeshData::GetMeshAsset,
 			&MeshData::SetMeshAsset);
 
@@ -83,7 +83,7 @@ namespace ld3d
 
 		return true;
 	}
-	bool MeshData::SetMeshAsset(const std::wstring& asset)
+	bool MeshData::SetMeshAsset(const std::string& asset)
 	{
 		m_meshAsset = asset;
 	
@@ -92,7 +92,7 @@ namespace ld3d
 			m_pMesh->Destroy();	
 		}
 
-		if(m_meshAsset == L"_cube_")
+		if(m_meshAsset == "_cube_")
 		{
 			MaterialPtr pMaterial = m_pManager->GetRenderManager()->CreateMaterialFromFile("./assets/standard/material/editor_shape.material");
 			
@@ -104,7 +104,7 @@ namespace ld3d
 			m_pMesh = pMesh;
 			ResetMeshRenderer();
 		}
-		else if(m_meshAsset == L"_sphere_")
+		else if(m_meshAsset == "_sphere_")
 		{
 			MaterialPtr pMaterial = m_pManager->GetRenderManager()->CreateMaterialFromFile("./assets/standard/material/editor_shape.material");
 			if(pMaterial == nullptr)
@@ -115,7 +115,7 @@ namespace ld3d
 			m_pMesh = pMesh;
 			ResetMeshRenderer();
 		}
-		else if(m_meshAsset == L"_cone_")
+		else if(m_meshAsset == "_cone_")
 		{
 			
 			MaterialPtr pMaterial = m_pManager->GetRenderManager()->CreateMaterialFromFile("./assets/standard/material/editor_shape.material");
@@ -127,7 +127,7 @@ namespace ld3d
 			m_pMesh = pMesh;
 			ResetMeshRenderer();
 		}
-		else if(m_meshAsset == L"_plane_")
+		else if(m_meshAsset == "_plane_")
 		{
 						
 			MaterialPtr pMaterial = m_pManager->GetRenderManager()->CreateMaterialFromFile("./assets/standard/material/editor_shape.material");
@@ -147,12 +147,12 @@ namespace ld3d
 
 		return true;
 	}
-	const std::wstring& MeshData::GetMeshAsset()
+	const std::string& MeshData::GetMeshAsset()
 	{
 		return m_meshAsset;
 	}
 
-	bool MeshData::LoadMesh(const std::wstring& asset)
+	bool MeshData::LoadMesh(const std::string& asset)
 	{
 		return true;
 	}

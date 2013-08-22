@@ -22,12 +22,12 @@ namespace ld3d
 
 		m_componentClasses.clear();
 #ifdef _WIN64
-		if(false == LoadPackage(L"./package_core_x64.dll"))
+		if(false == LoadPackage("./package_core_x64.dll"))
 		{
 			return false;
 		}
 #else
-		if(false == LoadPackage(L"./package_core_x86.dll"))
+		if(false == LoadPackage("./package_core_x86.dll"))
 		{
 			return false;
 		}
@@ -59,7 +59,7 @@ namespace ld3d
 
 		return RegisterTemplate(pTemplate);*/
 	}
-	GameObjectPtr GameObjectManager::CreateObjectFromTemplate(const std::wstring& tpl)
+	GameObjectPtr GameObjectManager::CreateObjectFromTemplate(const std::string& tpl)
 	{
 		GameObjectTemplate* pTpl = FindTemplate(tpl);
 
@@ -72,18 +72,18 @@ namespace ld3d
 	}
 	bool GameObjectManager::RegisterTemplate(GameObjectTemplate* pTpl)
 	{
-		std::wstring name = pTpl->GetName();
+		std::string name = pTpl->GetName();
 		
 		if(m_templates.find(name) != m_templates.end())
 		{
 			return false;
 		}
 		m_templates[name] = pTpl;
-		log(L"Template registered: " + name);
+		log("Template registered: " + name);
 		return true;
 	}
 	
-	GameObjectComponentPtr GameObjectManager::CreateComponent(const std::wstring& name)
+	GameObjectComponentPtr GameObjectManager::CreateComponent(const std::string& name)
 	{
 		if(m_componentClasses.find(name) == m_componentClasses.end())
 		{
@@ -93,12 +93,12 @@ namespace ld3d
 		return m_componentClasses[name]->m_creator(shared_from_this());
 	}
 	
-	GameObjectPtr GameObjectManager::CreateGameObject(const std::wstring& name)
+	GameObjectPtr GameObjectManager::CreateGameObject(const std::string& name)
 	{
 		GameObjectPtr pObj = alloc_object<GameObject>();
 		pObj->SetName(name);
 
-		GameObjectComponentPtr pPM = CreateComponent(L"PropertyManager");
+		GameObjectComponentPtr pPM = CreateComponent("PropertyManager");
 
 		pObj->AddComponent(pPM);
 
@@ -106,7 +106,7 @@ namespace ld3d
 	}
 	
 	
-	bool GameObjectManager::LoadPackage(const std::wstring& name)
+	bool GameObjectManager::LoadPackage(const std::string& name)
 	{
 		PackageMod mod;
 		if(false == mod.load_package(name.c_str(), shared_from_this()))
@@ -115,7 +115,7 @@ namespace ld3d
 		}
 		
 		RegisterPackage(mod.GetPackage());
-		log(std::wstring(L"Package loaded: ") + mod.GetPackage()->GetPackageName());
+		log(std::string("Package loaded: ") + mod.GetPackage()->GetPackageName());
 		m_packages.push_back(mod);
 		return true;
 	}
@@ -135,7 +135,7 @@ namespace ld3d
 		}
 		m_componentClasses[c->m_name] = c;
 
-		log(L"Component registered: " + c->m_name);
+		log("Component registered: " + c->m_name);
 		return true;
 	}
 	bool GameObjectManager::RegisterPackage(Package* pPack)
@@ -166,9 +166,9 @@ namespace ld3d
 	{
 		return m_pCore;
 	}
-	GameObjectTemplate* GameObjectManager::FindTemplate(const std::wstring& name)
+	GameObjectTemplate* GameObjectManager::FindTemplate(const std::string& name)
 	{
-		std::unordered_map<std::wstring, GameObjectTemplate*>::iterator it = m_templates.find(name);
+		std::unordered_map<std::string, GameObjectTemplate*>::iterator it = m_templates.find(name);
 
 		if(it == m_templates.end())
 		{
@@ -191,9 +191,9 @@ namespace ld3d
 	{
 		return m_pPackage;
 	}
-	bool GameObjectManager::PackageMod::load_package(const wchar_t* file, GameObjectManagerPtr pManager)
+	bool GameObjectManager::PackageMod::load_package(const char* file, GameObjectManagerPtr pManager)
 	{
-		m_hLib = ::LoadLibrary(file);
+		m_hLib = ::LoadLibraryA(file);
 		if(m_hLib == NULL)
 		{
 			return false;
@@ -233,7 +233,7 @@ namespace ld3d
 		FreeLibrary(m_hLib);
 		m_hLib = NULL;
 	}
-	void GameObjectManager::Log(const std::wstring& text)
+	void GameObjectManager::Log(const std::string& text)
 	{
 		log(text);
 	}

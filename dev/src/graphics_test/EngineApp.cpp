@@ -4,9 +4,9 @@
 
 namespace ld3d
 {
-	void _log(const std::wstring& str)
+	void _log(const std::string& str)
 	{
-		OutputDebugString(str.c_str());
+		OutputDebugStringA(str.c_str());
 	}
 	EngineApp::EngineApp(void)
 	{
@@ -81,7 +81,7 @@ namespace ld3d
 		using namespace ld3d;
 
 
-		if(false == m_mod.load_sys(L"./ogl4graphics_x64.dll"))
+		if(false == m_mod.load_sys("./ogl4graphics_x64.dll"))
 		{
 			return false;
 		}
@@ -89,7 +89,7 @@ namespace ld3d
 		m_pGraphics = m_mod.pSys;
 
 		GraphicsSetting setting;
-		setting.sysMod = L"./ogl4graphics_x64.dll";
+		setting.sysMod = "./ogl4graphics_x64.dll";
 		setting.backBufferCount = 2;
 		setting.depthStencilFormat = G_FORMAT_D24_UNORM_S8_UINT;
 		setting.frameBufferFormat = G_FORMAT_R8G8B8A8_UNORM;
@@ -157,10 +157,10 @@ namespace ld3d
 		if(dt >= iv)
 		{
 
-			wchar_t buffer[100];
+			char buffer[100];
 
 			float fps = float(frames * 1000) / float(dt);
-			swprintf(buffer, 100, L"fps : %.3f - %fms", fps, 1000.0f / fps);
+			sprintf(buffer, "fps : %.3f - %fms", fps, 1000.0f / fps);
 
 			SetTitle(buffer);
 
@@ -285,7 +285,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	using namespace ld3d;
 	EngineApp app;
 
-	if(false == app.Initialize(hInstance, L"Main Window", 800, 600))
+	if(false == app.Initialize(hInstance, "Main Window", 800, 600))
 	{
 		return -1;
 	}

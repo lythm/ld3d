@@ -261,14 +261,14 @@ namespace ld3d
 	{
 		return m_pRenderManager;
 	}
-	GameObjectPtr CoreApi::CreateGameObject(const std::wstring& name)
+	GameObjectPtr CoreApi::CreateGameObject(const std::string& name)
 	{
 		GameObjectPtr pObj = m_pObjectManager->CreateGameObject(name);
 		pObj->LinkTo(m_pScene->Root());
 
 		return pObj;
 	}
-	GameObjectPtr CoreApi::CreatGameObjectFromTemplate(const std::wstring& tpl, const std::wstring& name)
+	GameObjectPtr CoreApi::CreatGameObjectFromTemplate(const std::string& tpl, const std::string& name)
 	{
 		GameObjectPtr pObj = m_pObjectManager->CreateObjectFromTemplate(tpl);
 
@@ -276,7 +276,7 @@ namespace ld3d
 		{
 			return GameObjectPtr();
 		}
-		if(name != L"")
+		if(name != "")
 		{
 			pObj->SetName(name);
 		}
@@ -289,7 +289,7 @@ namespace ld3d
 	{
 		return m_pScene->Root();
 	}
-	GameObjectComponentPtr CoreApi::CreateGameObjectComponent(const std::wstring& name)
+	GameObjectComponentPtr CoreApi::CreateGameObjectComponent(const std::string& name)
 	{
 		return m_pObjectManager->CreateComponent(name);
 	}
@@ -324,23 +324,25 @@ namespace ld3d
 	{
 		m_pScene->Reset();
 	}
-	void CoreApi::Log(const std::wstring& text)
+	void CoreApi::Log(const std::string& text)
 	{
 		if(s_logger)
 		{
 			s_logger(text);
 		}
 
+#ifdef _WIN32
 #ifdef _DEBUG
-		OutputDebugString(text.c_str());
-		OutputDebugString(L"\r\n");
+		OutputDebugStringA(text.c_str());
+		OutputDebugStringA("\r\n");
+#endif
 #endif
 	}
 	void CoreApi::SetLogger(Logger logger)
 	{
 		s_logger = logger;
 	}
-	bool CoreApi::LoadPackage(const std::wstring& packageFile)
+	bool CoreApi::LoadPackage(const std::string& packageFile)
 	{
 		return m_pObjectManager->LoadPackage(packageFile);
 	}

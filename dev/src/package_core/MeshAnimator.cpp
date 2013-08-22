@@ -4,7 +4,7 @@
 namespace ld3d
 {
 
-	MeshAnimator::MeshAnimator(GameObjectManagerPtr pManager):GameObjectComponent(L"MeshAnimator", pManager)
+	MeshAnimator::MeshAnimator(GameObjectManagerPtr pManager):GameObjectComponent("MeshAnimator", pManager)
 	{
 	}
 
