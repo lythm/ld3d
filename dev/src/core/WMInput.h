@@ -2,7 +2,7 @@
 
 #include "core/Sys_Input.h"
 
-
+#if defined(_WIN64) || defined(_WIN32)
 namespace ld3d
 {
 	class WMInput : public Sys_Input
@@ -30,3 +30,5 @@ namespace ld3d
 
 
 }
+
+#endif

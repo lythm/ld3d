@@ -1,5 +1,6 @@
 #pragma once
 
+
 namespace ld3d
 {
 	class GameObjectTemplate;
@@ -53,6 +54,10 @@ namespace ld3d
 	template <typename T>
 	inline GameObjectComponentPtr Create_Component(GameObjectManagerPtr pManager)
 	{
+#ifdef __APPLE__
+        return std::make_shared<T>(pManager);
+#else
 		return pManager->alloc_object<T>(pManager);
+#endif
 	}
 }

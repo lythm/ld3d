@@ -40,7 +40,7 @@ namespace ld3d
 
 
 
-				return pSys;
+				return pSys != nullptr;
 			}
 
 			void							delete_sys(Sys* pSys)

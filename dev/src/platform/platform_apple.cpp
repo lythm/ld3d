@@ -61,13 +61,13 @@ namespace ld3d
 	}
 	void os_kill_process(uint64 pid)
 	{
-		kill(pid,9);		
+		kill((pid_t)pid,9);
 	}
 
-	int32 os_int32_interlocked_add(volatile long* v, long a)
-	{
-		return __sync_add_and_fetch(v, a);
-	}
+//	int32 os_int32_interlocked_add(volatile long* v, long a)
+//	{
+//		return __sync_add_and_fetch(v, a);
+//	}
 
 
 

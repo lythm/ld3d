@@ -2,6 +2,12 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:ogl4graphics/ogl4graphics_osx/ogl4graphics_osx.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:platform/platform_osx/platform_osx.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:core/core_osx/core_osx.xcodeproj">
    </FileRef>
    <FileRef

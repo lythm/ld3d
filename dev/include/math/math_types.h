@@ -2,7 +2,7 @@
 #define __MATH_TYPES_H__
 #pragma once
 
-//#include <math>
+#include <math.h>
 #include <limits>
 
 #ifdef MATH_PI

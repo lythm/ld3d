@@ -42,3 +42,6 @@
 
 #define _DLL_API									extern"C"
 #define _DLL_CLASS
+
+#define _stricmp                                    strcasecmp
+#define stricmp                                     strcasecmp

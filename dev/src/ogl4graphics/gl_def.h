@@ -1,9 +1,11 @@
 #pragma once
 
-#define WIN32_LEAN_AND_MEAN
-#include <Windows.h>
-
+#ifdef __APPLE__
+#include <OpenGL/OpenGL.h>
+#else
 #include <gl/GL.h>
+#endif
+
 #include "glext/glcorearb.h"
 
 
@@ -130,7 +132,9 @@ extern PFNGLSTENCILMASKSEPARATEPROC						glStencilMaskSeparate;
 extern PFNGLSTENCILFUNCSEPARATEPROC						glStencilFuncSeparate;
 
 
+#if defined(_WIN64) || defined(_WIN32)
 #include "glext/wglext.h"
 
 // wgl
 extern PFNWGLSWAPINTERVALEXTPROC						wglSwapIntervalEXT;
+#endif

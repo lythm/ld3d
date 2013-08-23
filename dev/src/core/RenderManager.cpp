@@ -563,19 +563,19 @@ namespace ld3d
 	void RenderManager::SetABuffer(MaterialPtr pMaterial)
 	{
 		MaterialParameterPtr pParam = pMaterial->GetParameterByName("_DR_A_BUFFER");
-		pParam ? pParam->SetParameterTexture(m_pABuffer->GetTexture(0)) : 0 ;
+		pParam ? pParam->SetParameterTexture(m_pABuffer->GetTexture(0)) : (void)0 ;
 	}
 	void RenderManager::SetGBuffer(MaterialPtr pMaterial)
 	{
 		MaterialParameterPtr pParam = pMaterial->GetParameterByName("_DR_G_BUFFER_0");
-		pParam ? pParam->SetParameterTexture(m_pGBuffer->GetTexture(0)) : 0;
+		pParam ? pParam->SetParameterTexture(m_pGBuffer->GetTexture(0)) : (void)0;
 		
 		pParam = pMaterial->GetParameterByName("_DR_G_BUFFER_1");
 
-		pParam ? pParam->SetParameterTexture(m_pGBuffer->GetTexture(1)) : 0;
+		pParam ? pParam->SetParameterTexture(m_pGBuffer->GetTexture(1)) : (void)0;
 		
 		pParam = pMaterial->GetParameterByName("_DR_G_BUFFER_2");
-		pParam ? pParam->SetParameterTexture(m_pGBuffer->GetTexture(2)) : 0;
+		pParam ? pParam->SetParameterTexture(m_pGBuffer->GetTexture(2)) : (void)0;
 		
 	}
 	void RenderManager::Draw_Texture(TexturePtr pTex)

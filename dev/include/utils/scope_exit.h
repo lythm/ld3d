@@ -10,7 +10,7 @@ namespace ld3d
 		{
 
 		}
-		~scope_exit() { m_cancel ? 0 : f(); }
+		~scope_exit() { m_cancel ? (void)0 : f(); }
 		F f;
 
 	private:

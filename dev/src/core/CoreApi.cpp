@@ -80,8 +80,13 @@ namespace ld3d
 			return false;
 		}
 
+#if defined(_WIN64) || defined(_WIN32)
 		m_pSysInput = alloc_object<WMInput>();
-
+#endif
+        
+#ifdef __APPLE__
+        m_pSysInput = nullptr;
+#endif
 		if(false == m_pSysInput->Initialize(setting.input.wnd))
 		{
 			return false;

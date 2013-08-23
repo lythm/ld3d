@@ -133,6 +133,8 @@ PFNGLSTENCILMASKSEPARATEPROC						glStencilMaskSeparate							= nullptr;
 PFNGLSTENCILFUNCSEPARATEPROC						glStencilFuncSeparate							= nullptr;
 
 
-
+#if defined(_WIN64) || defined(_WIN32)
 // wgl
 PFNWGLSWAPINTERVALEXTPROC							wglSwapIntervalEXT								= nullptr;
+#endif
+
