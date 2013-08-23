@@ -17,7 +17,6 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
-#include <sys/vfs.h>
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <dirent.h>
