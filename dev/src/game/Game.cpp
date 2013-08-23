@@ -3,12 +3,12 @@
 
 
 
-EXPORT_C_API Game* CreateGame()
+_DLL_API Game* CreateGame()
 {
 	return new Game;
 }
 
-EXPORT_C_API void DestroyGame(ld3d::GameInterface* pGame)
+_DLL_API void DestroyGame(ld3d::GameInterface* pGame)
 {
 	delete (Game*)pGame;
 }

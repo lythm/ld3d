@@ -4,7 +4,7 @@
 
 namespace ld3d
 {
-	class EXPORT_CLASS PoolAllocator : public Allocator
+	class _DLL_CLASS PoolAllocator : public Allocator
 	{
 		typedef std::shared_ptr<MemPool>				MemPoolPtr;
 	public:

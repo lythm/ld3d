@@ -1,8 +1,7 @@
 #pragma once
 
 
-#include "types/dllexport.h"
-#include "types/types.h"
+#include <platform/platform.h>
 
 #include "math/math_all.h"
 

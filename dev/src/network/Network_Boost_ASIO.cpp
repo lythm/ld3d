@@ -9,13 +9,13 @@ namespace ld3d
 	std::function<void (const std::string& log)>			g_logger;
 }
 
-EXPORT_C_API ld3d::Sys_Network* CreateSys(const std::function<void (const std::string& log)>& logger)
+_DLL_API ld3d::Sys_Network* CreateSys(const std::function<void (const std::string& log)>& logger)
 {
 	ld3d::g_logger = logger;
 	return new ld3d::Network_Boost_ASIO;
 }
 
-EXPORT_C_API void DestroySys(ld3d::Sys_Network* pSys)
+_DLL_API void DestroySys(ld3d::Sys_Network* pSys)
 {
 	delete (ld3d::Network_Boost_ASIO*)pSys;
 }

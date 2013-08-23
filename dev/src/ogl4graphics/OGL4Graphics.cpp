@@ -125,13 +125,13 @@ namespace ld3d
 
 
 }
-EXPORT_C_API ld3d::Sys_Graphics* CreateSys(const std::function<void (const std::string& log)>& logger)
+_DLL_API ld3d::Sys_Graphics* CreateSys(const std::function<void (const std::string& log)>& logger)
 {
 	ld3d::g_logger = logger;
 	return new ld3d::OGL4Graphics;
 }
 
-EXPORT_C_API void DestroySys(ld3d::Sys_Graphics* pSys)
+_DLL_API void DestroySys(ld3d::Sys_Graphics* pSys)
 {
 	delete (ld3d::OGL4Graphics*)pSys;
 }

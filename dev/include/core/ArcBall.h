@@ -2,7 +2,7 @@
 
 namespace ld3d
 {
-	class EXPORT_CLASS ArcBall
+	class _DLL_CLASS ArcBall
 	{
 	public:
 		ArcBall(void);

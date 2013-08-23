@@ -148,10 +148,10 @@ namespace ld3d
 
 	void EngineApp::ShowFPS()
 	{
-		static int tick = GetTickCount();
+		static int tick = os_get_tick();
 
 		static int frames = 0;
-		int dt = GetTickCount() - tick;
+		int dt = os_get_tick() - tick;
 
 		int iv = 100;
 		if(dt >= iv)
@@ -164,7 +164,7 @@ namespace ld3d
 
 			SetTitle(buffer);
 
-			tick = GetTickCount();
+			tick = os_get_tick();
 			frames = 0;
 		}
 

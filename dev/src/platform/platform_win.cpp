@@ -9,7 +9,7 @@ namespace ld3d
 {
 	uint64 os_get_tick()
 	{
-		return GetTickCount();
+		return GetTickCount64();
 	}
 
 	void* os_load_module(const char* szModule)

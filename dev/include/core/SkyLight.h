@@ -4,7 +4,7 @@
 
 namespace ld3d
 {
-	class EXPORT_CLASS SkyLight : public Light
+	class _DLL_CLASS SkyLight : public Light
 	{
 	public:
 		SkyLight(void);

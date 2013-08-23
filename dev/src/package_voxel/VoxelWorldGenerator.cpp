@@ -39,7 +39,7 @@ namespace ld3d
 		}
 		m_pManager->Log("Rebuilding Voxel world...");
 
-		int tick = GetTickCount();
+		int tick = os_get_tick();
 
 		VoxelWorldDataSetPtr pDataSet = pWorld->GetDataSet();
 		if(pDataSet != nullptr)
@@ -52,7 +52,7 @@ namespace ld3d
 
 		pWorld->SetDataSet(pDataSet);
 
-		tick = GetTickCount() - tick;
+		tick = os_get_tick() - tick;
 		char szBuffer[512];
 
 		sprintf(szBuffer, "Voxel world rebuilt.(%d triangles in %.4fs)", pDataSet->GetFaceCount(), float(tick) / 1000.0f);
@@ -101,7 +101,7 @@ namespace ld3d
 
 	VoxelWorldDataSetPtr VoxelWorldGenerator::Generate_Perlin(int sx, int sy, int sz)
 	{
-		PerlinNoise pl(7, 4, 1, GetTickCount());
+		PerlinNoise pl(7, 4, 1, os_get_tick());
 
 
 		VoxelWorldDataSetPtr pDataSet = VoxelWorldDataSetPtr(new VoxelWorldDataSet);
@@ -214,7 +214,7 @@ namespace ld3d
 	}
 	VoxelWorldDataSetPtr VoxelWorldGenerator::Generate_Fractal(int sx, int sy, int sz, float h)
 	{
-		int seed = GetTickCount();
+		int seed = os_get_tick();
 		float hscale = 1;
 
 		float ratio = (float) pow (2.,-h);

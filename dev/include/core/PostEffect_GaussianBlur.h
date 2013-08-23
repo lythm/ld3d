@@ -4,7 +4,7 @@
 
 namespace ld3d
 {
-	class EXPORT_CLASS PostEffect_GaussianBlur : public PostEffect
+	class _DLL_CLASS PostEffect_GaussianBlur : public PostEffect
 	{
 	public:
 		PostEffect_GaussianBlur(void);

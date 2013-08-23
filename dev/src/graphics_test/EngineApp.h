@@ -25,23 +25,23 @@ namespace ld3d
 
 			std::shared_ptr<Sys>			pSys;
 
-			HMODULE							hLib;
-			std::string					filename;
+			void*							hLib;
+			std::string						filename;
 
 
 			bool							load_sys(const char* file)
 			{
-				hLib = ::LoadLibraryA(file);
+				hLib = os_load_module(file);
 				if(hLib == NULL)
 				{
 					return false;
 				}
 
 
-				Fn_CreateSys CreateSys = (Fn_CreateSys)GetProcAddress(hLib, "CreateSys");
+				Fn_CreateSys CreateSys = (Fn_CreateSys)os_find_proc(hLib, "CreateSys");
 				if(CreateSys == NULL)
 				{
-					FreeLibrary(hLib);
+					os_unload_module(hLib);
 					return false;
 				}
 
@@ -60,7 +60,7 @@ namespace ld3d
 				{
 					return;
 				}
-				Fn_DestroySys DestroySys = (Fn_DestroySys)GetProcAddress(hLib, "DestroySys");
+				Fn_DestroySys DestroySys = (Fn_DestroySys)os_find_proc(hLib, "DestroySys");
 
 				if(DestroySys == NULL)
 				{
@@ -70,7 +70,7 @@ namespace ld3d
 
 				DestroySys(pSys);
 
-				FreeLibrary(hLib);
+				os_unload_module(hLib);
 				hLib = NULL;
 			}
 		};

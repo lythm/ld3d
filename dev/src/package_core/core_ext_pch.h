@@ -1,7 +1,6 @@
 #pragma once
 
-#include "types/dllexport.h"
-#include "types/types.h"
+#include <platform/platform.h>
 #include "utils/utils_all.h"
 #include "core/core_all.h"
 

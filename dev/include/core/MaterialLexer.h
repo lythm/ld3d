@@ -22,7 +22,7 @@ namespace ld3d
 
 			int										line;
 		};
-		class EXPORT_CLASS Lexer
+		class _DLL_CLASS Lexer
 		{
 			struct LineInfo
 			{

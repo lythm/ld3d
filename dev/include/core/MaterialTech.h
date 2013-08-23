@@ -3,7 +3,7 @@
 
 namespace ld3d
 {
-	class EXPORT_CLASS MaterialTech
+	class _DLL_CLASS MaterialTech
 	{
 	public:
 		MaterialTech(const std::string& name);

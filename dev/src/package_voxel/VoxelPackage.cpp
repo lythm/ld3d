@@ -13,13 +13,13 @@
 #include "VoxelObjectTemplate.h"
 
 
-EXPORT_C_API ld3d::Package* CreatePackage(ld3d::GameObjectManagerPtr pManager)
+_DLL_API ld3d::Package* CreatePackage(ld3d::GameObjectManagerPtr pManager)
 {
 	return new ld3d::VoxelPackage(pManager);
 }
 
 
-EXPORT_C_API void DestroyPackage(ld3d::Package* pPackage)
+_DLL_API void DestroyPackage(ld3d::Package* pPackage)
 {
 	delete (ld3d::VoxelPackage*)pPackage;
 }

@@ -3,7 +3,7 @@
 
 namespace ld3d
 {
-	class EXPORT_CLASS PointLight : public Light
+	class _DLL_CLASS PointLight : public Light
 	{
 	public:
 		PointLight(void);

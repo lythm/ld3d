@@ -1,5 +1,5 @@
 #pragma once
 
-#include "types/dllexport.h"
+#include <platform/platform.h>
 #include <memory>
 #include <functional>

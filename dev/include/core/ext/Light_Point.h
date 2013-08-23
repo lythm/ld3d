@@ -4,7 +4,7 @@
 
 namespace ld3d
 {
-	class EXPORT_CLASS Light_Point : public GameObjectComponent
+	class _DLL_CLASS Light_Point : public GameObjectComponent
 	{
 	public:
 		Light_Point(GameObjectManagerPtr pManager);

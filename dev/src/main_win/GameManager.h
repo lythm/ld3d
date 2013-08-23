@@ -24,8 +24,8 @@ namespace ld3d
 	private:
 		
 		
-		HMODULE									m_hLib;
-		std::string							m_filename;
+		void*									m_hLib;
+		std::string								m_filename;
 		GameInterface*							m_pGame;
 	};
 

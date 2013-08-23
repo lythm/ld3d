@@ -2,7 +2,7 @@
 
 namespace ld3d
 {
-	class EXPORT_CLASS Material
+	class _DLL_CLASS Material
 	{
 		
 	public:

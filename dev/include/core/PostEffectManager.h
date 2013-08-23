@@ -3,7 +3,7 @@
 
 namespace ld3d
 {
-	class EXPORT_CLASS PostEffectManager
+	class _DLL_CLASS PostEffectManager
 	{
 	public:
 		PostEffectManager(void);

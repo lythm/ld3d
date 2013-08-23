@@ -4,7 +4,7 @@
 
 namespace ld3d
 {
-	class EXPORT_CLASS RenderData
+	class _DLL_CLASS RenderData
 	{
 	public:
 		RenderData(void)

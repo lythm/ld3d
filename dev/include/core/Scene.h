@@ -4,7 +4,7 @@
 namespace ld3d
 {
 
-	class EXPORT_CLASS Scene
+	class _DLL_CLASS Scene
 	{
 	public:
 		Scene(GameObjectManagerPtr pManager);

@@ -16,14 +16,14 @@ namespace ld3d
 	}
 	bool GameManager::Initialize(const std::string& file)
 	{
-		m_hLib = ::LoadLibraryA(file.c_str());
+		m_hLib = os_load_module(file.c_str());
 
 		if(m_hLib == NULL)
 		{
 			return false;
 		}
 
-		Fn_CreateGame CreateGame = (Fn_CreateGame)GetProcAddress(m_hLib, "CreateGame");
+		Fn_CreateGame CreateGame = (Fn_CreateGame)os_find_proc(m_hLib, "CreateGame");
 
 		if(CreateGame == NULL)
 		{
@@ -45,7 +45,7 @@ namespace ld3d
 		{
 			return;
 		}
-		Fn_DestroyGame DestroyGame = (Fn_DestroyGame)GetProcAddress(m_hLib, "DestroyGame");
+		Fn_DestroyGame DestroyGame = (Fn_DestroyGame)os_find_proc(m_hLib, "DestroyGame");
 
 		if(DestroyGame != NULL)
 		{
@@ -53,7 +53,7 @@ namespace ld3d
 		}
 
 
-		FreeLibrary(m_hLib);
+		os_unload_module(m_hLib);
 		m_hLib = NULL;
 	}
 

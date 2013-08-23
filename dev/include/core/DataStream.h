@@ -1,10 +1,9 @@
 #pragma once
-#include <types/dllexport.h>
-#include "types/types.h"
+#include <platform/platform.h>
 
 namespace ld3d
 {
-	class EXPORT_CLASS DataStream
+	class _DLL_CLASS DataStream
 	{
 	public:
 

@@ -4,7 +4,7 @@
 
 namespace ld3d
 {
-	class EXPORT_CLASS MeshData : public GameObjectComponent
+	class _DLL_CLASS MeshData : public GameObjectComponent
 	{
 	public:
 		MeshData(GameObjectManagerPtr pManager);

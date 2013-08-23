@@ -9,7 +9,7 @@ namespace ld3d
 {
 	class Allocator;
 
-	class EXPORT_CLASS GameObjectManager : public std::enable_shared_from_this<GameObjectManager>
+	class _DLL_CLASS GameObjectManager : public std::enable_shared_from_this<GameObjectManager>
 	{
 		class PackageMod
 		{
@@ -25,7 +25,7 @@ namespace ld3d
 
 		private:
 			Package*							m_pPackage;
-			HMODULE								m_hLib;
+			void*								m_hLib;
 			std::string							m_file;
 		};
 

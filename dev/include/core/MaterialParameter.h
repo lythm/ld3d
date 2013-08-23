@@ -4,7 +4,7 @@
 
 namespace ld3d
 {
-	class EXPORT_CLASS MaterialParameter
+	class _DLL_CLASS MaterialParameter
 	{
 	public:
 		typedef std::pair<ShaderProgramPtr, ShaderProgram::ParameterID>	ParamInfo;

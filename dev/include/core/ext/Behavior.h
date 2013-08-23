@@ -4,7 +4,7 @@
 
 namespace ld3d
 {
-	class EXPORT_CLASS Behavior : public GameObjectComponent
+	class _DLL_CLASS Behavior : public GameObjectComponent
 	{
 	public:
 		Behavior(GameObjectManagerPtr pManager);

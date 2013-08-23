@@ -4,7 +4,7 @@
 
 namespace ld3d
 {
-	class EXPORT_CLASS MaterialPass
+	class _DLL_CLASS MaterialPass
 	{
 	public:
 

@@ -4,7 +4,7 @@
 
 namespace ld3d
 {
-	class EXPORT_CLASS StdAllocator : public Allocator
+	class _DLL_CLASS StdAllocator : public Allocator
 	{
 	public:
 		StdAllocator(void);

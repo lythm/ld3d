@@ -3,7 +3,7 @@
 
 namespace ld3d
 {
-	class EXPORT_CLASS Mesh
+	class _DLL_CLASS Mesh
 	{
 	public:
 

@@ -4,7 +4,7 @@
 
 namespace ld3d
 {
-	class EXPORT_CLASS Texture
+	class _DLL_CLASS Texture
 	{
 	public:
 		

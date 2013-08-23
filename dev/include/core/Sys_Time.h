@@ -1,6 +1,6 @@
 #pragma once
 
-#include "types/types.h"
+#include <platform/platform.h>
 
 
 namespace ld3d

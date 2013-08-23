@@ -9,7 +9,7 @@
 namespace ld3d
 {
 
-	class EXPORT_CLASS PropertyManager : public GameObjectComponent
+	class _DLL_CLASS PropertyManager : public GameObjectComponent
 	{
 	public:
 

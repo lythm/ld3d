@@ -4,7 +4,7 @@
 
 namespace ld3d
 {
-	class EXPORT_CLASS DirectionalLight : public Light
+	class _DLL_CLASS DirectionalLight : public Light
 	{
 	public:
 		DirectionalLight(void);

@@ -4,7 +4,7 @@
 
 namespace ld3d
 {
-	class EXPORT_CLASS DataStream_Mem : public DataStream
+	class _DLL_CLASS DataStream_Mem : public DataStream
 	{
 	public:
 		DataStream_Mem(void);

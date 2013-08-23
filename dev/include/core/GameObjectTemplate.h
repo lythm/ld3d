@@ -2,7 +2,7 @@
 
 namespace ld3d
 {
-	class EXPORT_CLASS GameObjectTemplate
+	class _DLL_CLASS GameObjectTemplate
 	{
 	public:
 		GameObjectTemplate(GameObjectManagerPtr pManager, const std::string& name, const std::string& catalog = std::string("Misc"));

@@ -2,7 +2,7 @@
 
 namespace ld3d
 {
-	class EXPORT_CLASS ViewFrustum
+	class _DLL_CLASS ViewFrustum
 	{
 	public:
 		enum

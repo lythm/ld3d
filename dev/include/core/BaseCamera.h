@@ -3,7 +3,7 @@
 
 namespace ld3d
 {
-	class EXPORT_CLASS BaseCamera
+	class _DLL_CLASS BaseCamera
 	{
 	public:
 		BaseCamera(void);

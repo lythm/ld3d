@@ -2,7 +2,7 @@
 
 namespace ld3d
 {
-	class EXPORT_CLASS Light_Sky : public GameObjectComponent
+	class _DLL_CLASS Light_Sky : public GameObjectComponent
 	{
 	public:
 		Light_Sky(GameObjectManagerPtr pManager);

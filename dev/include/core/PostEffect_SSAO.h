@@ -4,7 +4,7 @@
 
 namespace ld3d
 {
-	class EXPORT_CLASS PostEffect_SSAO : public PostEffect
+	class _DLL_CLASS PostEffect_SSAO : public PostEffect
 	{
 	public:
 		PostEffect_SSAO(void);

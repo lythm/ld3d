@@ -2,7 +2,7 @@
 
 namespace ld3d
 {
-	class EXPORT_CLASS MaterialParameterManager
+	class _DLL_CLASS MaterialParameterManager
 	{
 	public:
 		MaterialParameterManager(void);

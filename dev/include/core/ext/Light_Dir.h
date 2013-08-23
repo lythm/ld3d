@@ -2,7 +2,7 @@
 
 namespace ld3d
 {
-	class EXPORT_CLASS Light_Dir : public GameObjectComponent
+	class _DLL_CLASS Light_Dir : public GameObjectComponent
 	{
 	public:
 		Light_Dir(GameObjectManagerPtr pManager);

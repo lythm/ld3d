@@ -5,7 +5,7 @@ namespace ld3d
 {
 	namespace material_script
 	{
-		class EXPORT_CLASS BaseParser
+		class _DLL_CLASS BaseParser
 		{
 		public:
 			BaseParser(BaseParser* parent, std::function<void (const std::string&)> logger = std::function<void (const std::string&)>());

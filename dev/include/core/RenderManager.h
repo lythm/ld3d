@@ -4,7 +4,7 @@
 
 namespace ld3d
 {
-	class EXPORT_CLASS RenderManager : public std::enable_shared_from_this<RenderManager>
+	class _DLL_CLASS RenderManager : public std::enable_shared_from_this<RenderManager>
 	{
 		struct MATRIX_BLOCK
 		{

@@ -193,17 +193,17 @@ namespace ld3d
 	}
 	bool GameObjectManager::PackageMod::load_package(const char* file, GameObjectManagerPtr pManager)
 	{
-		m_hLib = ::LoadLibraryA(file);
+		m_hLib = os_load_module(file);
 		if(m_hLib == NULL)
 		{
 			return false;
 		}
 
 
-		Fn_CreatePackage CreatePackage = (Fn_CreatePackage)GetProcAddress(m_hLib, "CreatePackage");
+		Fn_CreatePackage CreatePackage = (Fn_CreatePackage)os_find_proc(m_hLib, "CreatePackage");
 		if(CreatePackage == NULL)
 		{
-			FreeLibrary(m_hLib);
+			os_unload_module(m_hLib);
 			return false;
 		}
 
@@ -219,7 +219,7 @@ namespace ld3d
 		{
 			return;
 		}
-		Fn_DestroyPackage DestroyPackage = (Fn_DestroyPackage)GetProcAddress(m_hLib, "DestroyPackage");
+		Fn_DestroyPackage DestroyPackage = (Fn_DestroyPackage)os_find_proc(m_hLib, "DestroyPackage");
 
 		if(DestroyPackage == NULL)
 		{
@@ -230,7 +230,7 @@ namespace ld3d
 
 		DestroyPackage(m_pPackage);
 
-		FreeLibrary(m_hLib);
+		os_unload_module(m_hLib);
 		m_hLib = NULL;
 	}
 	void GameObjectManager::Log(const std::string& text)

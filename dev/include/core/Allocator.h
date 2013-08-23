@@ -1,10 +1,10 @@
 #pragma once
 
-#include "types/types.h"
+#include <platform/platform.h>
 
 namespace ld3d
 {
-	class EXPORT_CLASS Allocator
+	class _DLL_CLASS Allocator
 	{
 	public:
 

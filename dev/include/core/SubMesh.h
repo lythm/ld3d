@@ -4,7 +4,7 @@
 
 namespace ld3d
 {
-	class EXPORT_CLASS SubMesh
+	class _DLL_CLASS SubMesh
 	{
 	public:
 		SubMesh();

@@ -4,7 +4,7 @@
 namespace ld3d
 {
 
-	class EXPORT_CLASS SpotLight : public Light
+	class _DLL_CLASS SpotLight : public Light
 	{
 	public:
 		SpotLight(void);

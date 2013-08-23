@@ -2,7 +2,7 @@
 
 namespace ld3d
 {
-	class EXPORT_CLASS PostEffect
+	class _DLL_CLASS PostEffect
 	{
 	public:
 		PostEffect(void);

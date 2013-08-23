@@ -8,7 +8,7 @@
 namespace ld3d
 {
 
-	class EXPORT_CLASS MeshRenderer : public GameObjectComponent
+	class _DLL_CLASS MeshRenderer : public GameObjectComponent
 	{
 	public:
 		MeshRenderer(GameObjectManagerPtr pManager);

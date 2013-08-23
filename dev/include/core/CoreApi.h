@@ -8,7 +8,7 @@
 namespace ld3d
 {
 	
-	class EXPORT_CLASS CoreApi : public std::enable_shared_from_this<CoreApi>
+	class _DLL_CLASS CoreApi : public std::enable_shared_from_this<CoreApi>
 	{
 	public:
 		typedef std::function<void (const std::string& log)>			Logger;

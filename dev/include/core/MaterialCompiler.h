@@ -6,7 +6,7 @@ namespace ld3d
 {
 	namespace material_script
 	{
-		class EXPORT_CLASS Compiler
+		class _DLL_CLASS Compiler
 		{
 		public:
 			Compiler(void);

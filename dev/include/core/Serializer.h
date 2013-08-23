@@ -5,7 +5,7 @@
 
 namespace ld3d
 {
-	class EXPORT_CLASS Serializer
+	class _DLL_CLASS Serializer
 	{
 	protected:
 		Serializer(DataStreamPtr pStream)

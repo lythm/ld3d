@@ -13,6 +13,6 @@ namespace ld3d
 
 	uint64 Time64::_get_tick()
 	{
-		return (uint64)GetTickCount64();
+		return (uint64)os_get_tick();
 	}
 }

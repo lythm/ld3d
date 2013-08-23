@@ -4,7 +4,7 @@
 
 namespace ld3d
 {
-	class EXPORT_CLASS BBoxRenderData
+	class _DLL_CLASS BBoxRenderData
 	{
 	public:
 		BBoxRenderData(void);

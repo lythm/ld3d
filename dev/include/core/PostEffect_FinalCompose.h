@@ -4,7 +4,7 @@
 
 namespace ld3d
 {
-	class EXPORT_CLASS PostEffect_FinalCompose : public PostEffect
+	class _DLL_CLASS PostEffect_FinalCompose : public PostEffect
 	{
 	public:
 		PostEffect_FinalCompose(void);
