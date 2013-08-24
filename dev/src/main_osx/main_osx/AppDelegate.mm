@@ -13,8 +13,23 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
     // Insert code here to initialize your application
+    
+    NSSize size;
+    
+    size.width = 800;
+    size.height = 600;
+    
+    [self.window setContentSize:size];
+    
+    [self.window center];
+    
+
 }
 
+-(void)applicationWillTerminate:(NSNotification *)notification
+{
+    
+}
 -(BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)sender
 {
     return YES;
