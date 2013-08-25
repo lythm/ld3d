@@ -21,9 +21,6 @@
     <ClInclude Include="OGL4Graphics.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="OGL4RenderWindow.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="OGL4Loader.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -63,18 +60,15 @@
     <ClInclude Include="OGL4ShaderCompiler.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="ogl4graphics_win\OGL4RenderWindow.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ogl4graphics_pch.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="OGL4Graphics.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="OGL4RenderWindow.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="OGL4Loader.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="gl_def.cpp">
@@ -111,6 +105,12 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="OGL4ShaderCompiler.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="ogl4graphics_win\OGL4Loader.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="ogl4graphics_win\OGL4RenderWindow.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

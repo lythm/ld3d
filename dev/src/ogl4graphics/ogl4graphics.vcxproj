@@ -150,6 +150,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="gl_def.h" />
+    <ClInclude Include="ogl4graphics_win\OGL4RenderWindow.h" />
     <ClInclude Include="OGL4RenderState.h" />
     <ClInclude Include="OGL4Shader.h" />
     <ClInclude Include="OGL4Buffer.h" />
@@ -160,7 +161,6 @@
     <ClInclude Include="ogl4graphics_pch.h" />
     <ClInclude Include="OGL4Loader.h" />
     <ClInclude Include="OGL4RenderTexture.h" />
-    <ClInclude Include="OGL4RenderWindow.h" />
     <ClInclude Include="OGL4Sampler.h" />
     <ClInclude Include="OGL4ShaderCompiler.h" />
     <ClInclude Include="OGL4ShaderProgram.h" />
@@ -168,6 +168,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="gl_def.cpp" />
+    <ClCompile Include="ogl4graphics_win\OGL4Loader.cpp" />
+    <ClCompile Include="ogl4graphics_win\OGL4RenderWindow.cpp" />
     <ClCompile Include="OGL4RenderState.cpp" />
     <ClCompile Include="OGL4Shader.cpp" />
     <ClCompile Include="OGL4Buffer.cpp" />
@@ -181,9 +183,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="OGL4Loader.cpp" />
     <ClCompile Include="OGL4RenderTexture.cpp" />
-    <ClCompile Include="OGL4RenderWindow.cpp" />
     <ClCompile Include="OGL4Sampler.cpp" />
     <ClCompile Include="OGL4ShaderCompiler.cpp" />
     <ClCompile Include="OGL4ShaderProgram.cpp" />
