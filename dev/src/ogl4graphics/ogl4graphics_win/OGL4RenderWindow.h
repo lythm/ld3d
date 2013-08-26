@@ -1,6 +1,6 @@
 #pragma once
 
-#if deined(_WIN64) || defined(_WIN32)
+#if defined(_WIN64) || defined(_WIN32)
 #include "core/RenderWindow.h"
 
 namespace ld3d

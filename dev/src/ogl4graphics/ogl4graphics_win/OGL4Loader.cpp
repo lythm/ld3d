@@ -9,6 +9,12 @@
 #include <algorithm>
 
 
+void* get_proc_address(const char* szName)
+{
+	return nullptr;
+}
+
+
 #define LOAD_API(name, type)			assert(name == nullptr);name = (type)wglGetProcAddress(#name);assert(name != nullptr);
 
 namespace ld3d

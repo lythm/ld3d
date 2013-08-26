@@ -37,10 +37,10 @@ namespace ld3d
 			std::pair<std::string, uint32>("BLEND_FACTOR",				RS_BLEND_BLEND_FACTOR),
 
 			std::pair<std::string, uint32>("INV_BLEND_FACTOR",			RS_BLEND_INV_BLEND_FACTOR),
-			std::pair<std::string, uint32>("SRC1_COLOR",				RS_BLEND_SRC1_COLOR),
-			std::pair<std::string, uint32>("INV_SRC1_COLOR",			RS_BLEND_INV_SRC1_COLOR),
-			std::pair<std::string, uint32>("SRC1_ALPHA",				RS_BLEND_SRC1_ALPHA),
-			std::pair<std::string, uint32>("INV_SRC1_ALPHA",			RS_BLEND_INV_SRC1_ALPHA),
+//			std::pair<std::string, uint32>("SRC1_COLOR",				RS_BLEND_SRC1_COLOR),
+//			std::pair<std::string, uint32>("INV_SRC1_COLOR",			RS_BLEND_INV_SRC1_COLOR),
+//			std::pair<std::string, uint32>("SRC1_ALPHA",				RS_BLEND_SRC1_ALPHA),
+//			std::pair<std::string, uint32>("INV_SRC1_ALPHA",			RS_BLEND_INV_SRC1_ALPHA),
 
 		};
 		static std::pair<std::string, uint32> BlendOPEnum[] = 

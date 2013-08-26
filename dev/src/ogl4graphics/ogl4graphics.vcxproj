@@ -109,7 +109,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>soil64.lib;utils.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>soil64.lib;utils.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -150,6 +150,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="gl_def.h" />
+    <ClInclude Include="ogl4graphics_win\OGL4Context.h" />
     <ClInclude Include="ogl4graphics_win\OGL4RenderWindow.h" />
     <ClInclude Include="OGL4RenderState.h" />
     <ClInclude Include="OGL4Shader.h" />
@@ -168,6 +169,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="gl_def.cpp" />
+    <ClCompile Include="ogl4graphics_win\OGL4Context.cpp" />
     <ClCompile Include="ogl4graphics_win\OGL4Loader.cpp" />
     <ClCompile Include="ogl4graphics_win\OGL4RenderWindow.cpp" />
     <ClCompile Include="OGL4RenderState.cpp" />

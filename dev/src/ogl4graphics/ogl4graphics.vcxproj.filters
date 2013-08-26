@@ -63,6 +63,9 @@
     <ClInclude Include="ogl4graphics_win\OGL4RenderWindow.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="ogl4graphics_win\OGL4Context.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ogl4graphics_pch.cpp">
@@ -111,6 +114,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="ogl4graphics_win\OGL4RenderWindow.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="ogl4graphics_win\OGL4Context.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
