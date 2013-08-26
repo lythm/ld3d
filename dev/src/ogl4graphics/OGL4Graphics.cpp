@@ -3,8 +3,6 @@
 #include "OGL4Graphics.h"
 #include "OGL4Loader.h"
 
-#include "ogl4graphics_win/OGL4RenderWindow.h"
-
 #include "OGL4RenderTexture.h"
 #include "OGL4Texture.h"
 #include "OGL4Buffer.h"
