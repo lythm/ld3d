@@ -2,11 +2,16 @@
 
 #ifdef __APPLE__
 #include <OpenGL/OpenGL.h>
-#else
-#include <gl/GL.h>
+#include <OpenGL/gl3.h>
 #endif
 
+
+#if defined(_WIN64) || defined(_WIN32)
+#include <gl/GL.h>
 #include "glext/glcorearb.h"
+
+
+
 
 
 extern PFNGLGETSTRINGIPROC								glGetStringi;
@@ -130,7 +135,7 @@ extern PFNGLBLENDFUNCSEPARATEPROC						glBlendFuncSeparate;
 extern PFNGLSTENCILOPSEPARATEPROC						glStencilOpSeparate;
 extern PFNGLSTENCILMASKSEPARATEPROC						glStencilMaskSeparate;
 extern PFNGLSTENCILFUNCSEPARATEPROC						glStencilFuncSeparate;
-
+#endif
 
 #if defined(_WIN64) || defined(_WIN32)
 #include "glext/wglext.h"

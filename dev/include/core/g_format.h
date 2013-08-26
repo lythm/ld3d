@@ -188,10 +188,10 @@ namespace ld3d
 		RS_BLEND_SRC_ALPHA_SAT      = 11,
 		RS_BLEND_BLEND_FACTOR       = 14,
 		RS_BLEND_INV_BLEND_FACTOR   = 15,
-		RS_BLEND_SRC1_COLOR         = 16,
-		RS_BLEND_INV_SRC1_COLOR     = 17,
-		RS_BLEND_SRC1_ALPHA         = 18,
-		RS_BLEND_INV_SRC1_ALPHA     = 19,
+	//	RS_BLEND_SRC1_COLOR         = 16,
+	//	RS_BLEND_INV_SRC1_COLOR     = 17,
+	//	RS_BLEND_SRC1_ALPHA         = 18,
+	//	RS_BLEND_INV_SRC1_ALPHA     = 19,
 	};
 
 	enum RS_BLEND_OP

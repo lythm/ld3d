@@ -369,14 +369,14 @@ namespace ld3d
 			return GL_CONSTANT_COLOR;;
 		case RS_BLEND_INV_BLEND_FACTOR:
 			return GL_ONE_MINUS_CONSTANT_COLOR;
-		case RS_BLEND_SRC1_COLOR:
-			return GL_SRC1_COLOR;
-		case RS_BLEND_INV_SRC1_COLOR:
-			return GL_ONE_MINUS_SRC1_COLOR;
-		case RS_BLEND_SRC1_ALPHA:
-			return GL_SRC1_ALPHA;
-		case RS_BLEND_INV_SRC1_ALPHA:
-			return GL_ONE_MINUS_SRC1_ALPHA;
+		//case RS_BLEND_SRC1_COLOR:
+		//	return GL_SRC1_COLOR;
+		//case RS_BLEND_INV_SRC1_COLOR:
+		//	return GL_ONE_MINUS_SRC1_COLOR;
+		//case RS_BLEND_SRC1_ALPHA:
+		//	return GL_SRC1_ALPHA;
+		//case RS_BLEND_INV_SRC1_ALPHA:
+		//	return GL_ONE_MINUS_SRC1_ALPHA;
 		default:
 			assert(0);
 			break;

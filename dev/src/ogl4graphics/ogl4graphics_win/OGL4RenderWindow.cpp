@@ -1,4 +1,6 @@
 #include "ogl4graphics_pch.h"
+
+#if defined(_WIN64) || defined(_WIN32)
 #include "OGL4RenderWindow.h"
 #include "glext/wglext.h"
 
@@ -123,3 +125,6 @@ namespace ld3d
 		bEnable ? wglSwapIntervalEXT(1) : wglSwapIntervalEXT(0);
 	}
 }
+
+
+#endif

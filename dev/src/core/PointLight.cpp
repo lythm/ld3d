@@ -58,7 +58,7 @@ namespace ld3d
 		mem_free(pPos);
 
 		
-		m_pMaterial = pRenderManager->CreateMaterialFromFile("./assets/standard/material/dr_render_point_light.fx");
+		m_pMaterial = pRenderManager->CreateMaterialFromFile("./assets/standard/material/dr_render_point_light.material");
 		if(m_pMaterial == nullptr)
 		{
 			return false;

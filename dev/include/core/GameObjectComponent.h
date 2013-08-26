@@ -46,7 +46,7 @@ namespace ld3d
 		
 	protected:
 		GameObjectPtr												m_pObject;
-		std::string												m_name;
+		std::string													m_name;
 		GameObjectManagerPtr										m_pManager;
 		bool														m_bExclusive;
 		Version														m_version;

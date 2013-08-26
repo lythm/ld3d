@@ -2,7 +2,9 @@
 
 #include "OGL4Graphics.h"
 #include "OGL4Loader.h"
-#include "OGL4RenderWindow.h"
+
+#include "ogl4graphics_win/OGL4RenderWindow.h"
+
 #include "OGL4RenderTexture.h"
 #include "OGL4Texture.h"
 #include "OGL4Buffer.h"
@@ -15,6 +17,14 @@
 #include "OGL4Sampler.h"
 #include "OGL4DepthStencilBuffer.h"
 #include "OGL4RenderTexture.h"
+
+#ifdef __APPLE__
+#include "OGL4RenderWindow_osx.h"
+#endif
+
+#if defined(_WIN64) || defined(_WIN32)
+#include "ogl4graphics_win/OGL4RenderWindow.h"
+#endif
 namespace ld3d
 {
 

@@ -1,5 +1,6 @@
 #pragma once
 
+#if deined(_WIN64) || defined(_WIN32)
 #include "core/RenderWindow.h"
 
 namespace ld3d
@@ -31,3 +32,5 @@ namespace ld3d
 		int															m_height;
 	};
 }
+
+#endif

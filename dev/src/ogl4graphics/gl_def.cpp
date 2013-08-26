@@ -1,6 +1,7 @@
 #include "ogl4graphics_pch.h"
 #include "gl_def.h"
 
+#if defined(_WIN64) || defined(_WIN32)
 PFNGLGETSTRINGIPROC									glGetStringi									= nullptr;
 
 PFNGLCLEARBUFFERFVPROC								glClearBufferfv									= nullptr;
@@ -132,6 +133,7 @@ PFNGLSTENCILOPSEPARATEPROC							glStencilOpSeparate								= nullptr;
 PFNGLSTENCILMASKSEPARATEPROC						glStencilMaskSeparate							= nullptr;
 PFNGLSTENCILFUNCSEPARATEPROC						glStencilFuncSeparate							= nullptr;
 
+#endif
 
 #if defined(_WIN64) || defined(_WIN32)
 // wgl

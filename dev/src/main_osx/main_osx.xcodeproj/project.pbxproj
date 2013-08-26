@@ -47,7 +47,6 @@
 		07B3C24F17C36C33004F86AA = {
 			isa = PBXGroup;
 			children = (
-				07FA9F2617C91D0900CAD600 /* OpenGL.framework */,
 				07B3C26117C36C33004F86AA /* main_osx */,
 				07B3C25A17C36C33004F86AA /* Frameworks */,
 				07B3C25917C36C33004F86AA /* Products */,
@@ -65,6 +64,7 @@
 		07B3C25A17C36C33004F86AA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				07FA9F2617C91D0900CAD600 /* OpenGL.framework */,
 				07B3C25B17C36C33004F86AA /* Cocoa.framework */,
 				07B3C25D17C36C33004F86AA /* Other Frameworks */,
 			);

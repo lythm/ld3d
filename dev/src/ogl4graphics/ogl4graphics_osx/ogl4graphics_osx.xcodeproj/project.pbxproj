@@ -39,6 +39,8 @@
 		07C350DF17C7D13700FCAE85 /* OGL4ShaderProgram.h in Headers */ = {isa = PBXBuildFile; fileRef = 07C350CD17C7D13700FCAE85 /* OGL4ShaderProgram.h */; };
 		07C350E017C7D13700FCAE85 /* OGL4Texture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07C350CE17C7D13700FCAE85 /* OGL4Texture.cpp */; };
 		07C350E117C7D13700FCAE85 /* OGL4Texture.h in Headers */ = {isa = PBXBuildFile; fileRef = 07C350CF17C7D13700FCAE85 /* OGL4Texture.h */; };
+		07FA9F2A17CB3B4500CAD600 /* OGL4RenderWindow_osx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07FA9F2817CB3B4500CAD600 /* OGL4RenderWindow_osx.cpp */; };
+		07FA9F2B17CB3B4500CAD600 /* OGL4RenderWindow_osx.h in Headers */ = {isa = PBXBuildFile; fileRef = 07FA9F2917CB3B4500CAD600 /* OGL4RenderWindow_osx.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -75,6 +77,8 @@
 		07C350CD17C7D13700FCAE85 /* OGL4ShaderProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OGL4ShaderProgram.h; path = ../OGL4ShaderProgram.h; sourceTree = "<group>"; };
 		07C350CE17C7D13700FCAE85 /* OGL4Texture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OGL4Texture.cpp; path = ../OGL4Texture.cpp; sourceTree = "<group>"; };
 		07C350CF17C7D13700FCAE85 /* OGL4Texture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OGL4Texture.h; path = ../OGL4Texture.h; sourceTree = "<group>"; };
+		07FA9F2817CB3B4500CAD600 /* OGL4RenderWindow_osx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OGL4RenderWindow_osx.cpp; sourceTree = "<group>"; };
+		07FA9F2917CB3B4500CAD600 /* OGL4RenderWindow_osx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OGL4RenderWindow_osx.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +95,8 @@
 		07C3509217C7D0FC00FCAE85 = {
 			isa = PBXGroup;
 			children = (
+				07FA9F2817CB3B4500CAD600 /* OGL4RenderWindow_osx.cpp */,
+				07FA9F2917CB3B4500CAD600 /* OGL4RenderWindow_osx.h */,
 				07C350BE17C7D13700FCAE85 /* OGL4Loader.cpp */,
 				07C350BF17C7D13700FCAE85 /* OGL4Loader.h */,
 				07C350C017C7D13700FCAE85 /* OGL4RenderState.cpp */,
@@ -158,6 +164,7 @@
 				07C350DD17C7D13700FCAE85 /* OGL4ShaderCompiler.h in Headers */,
 				07C350DF17C7D13700FCAE85 /* OGL4ShaderProgram.h in Headers */,
 				07C350E117C7D13700FCAE85 /* OGL4Texture.h in Headers */,
+				07FA9F2B17CB3B4500CAD600 /* OGL4RenderWindow_osx.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -228,6 +235,7 @@
 				07C350DC17C7D13700FCAE85 /* OGL4ShaderCompiler.cpp in Sources */,
 				07C350DE17C7D13700FCAE85 /* OGL4ShaderProgram.cpp in Sources */,
 				07C350E017C7D13700FCAE85 /* OGL4Texture.cpp in Sources */,
+				07FA9F2A17CB3B4500CAD600 /* OGL4RenderWindow_osx.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -340,6 +348,7 @@
 				07C350A117C7D0FC00FCAE85 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
