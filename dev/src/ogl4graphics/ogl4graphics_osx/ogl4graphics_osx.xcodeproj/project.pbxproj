@@ -21,14 +21,11 @@
 		07C350BB17C7D12300FCAE85 /* ogl4graphics_pch.h in Headers */ = {isa = PBXBuildFile; fileRef = 07C350B717C7D12300FCAE85 /* ogl4graphics_pch.h */; };
 		07C350BC17C7D12300FCAE85 /* OGL4Graphics.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07C350B817C7D12300FCAE85 /* OGL4Graphics.cpp */; };
 		07C350BD17C7D12300FCAE85 /* OGL4Graphics.h in Headers */ = {isa = PBXBuildFile; fileRef = 07C350B917C7D12300FCAE85 /* OGL4Graphics.h */; };
-		07C350D017C7D13700FCAE85 /* OGL4Loader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07C350BE17C7D13700FCAE85 /* OGL4Loader.cpp */; };
 		07C350D117C7D13700FCAE85 /* OGL4Loader.h in Headers */ = {isa = PBXBuildFile; fileRef = 07C350BF17C7D13700FCAE85 /* OGL4Loader.h */; };
 		07C350D217C7D13700FCAE85 /* OGL4RenderState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07C350C017C7D13700FCAE85 /* OGL4RenderState.cpp */; };
 		07C350D317C7D13700FCAE85 /* OGL4RenderState.h in Headers */ = {isa = PBXBuildFile; fileRef = 07C350C117C7D13700FCAE85 /* OGL4RenderState.h */; };
 		07C350D417C7D13700FCAE85 /* OGL4RenderTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07C350C217C7D13700FCAE85 /* OGL4RenderTexture.cpp */; };
 		07C350D517C7D13700FCAE85 /* OGL4RenderTexture.h in Headers */ = {isa = PBXBuildFile; fileRef = 07C350C317C7D13700FCAE85 /* OGL4RenderTexture.h */; };
-		07C350D617C7D13700FCAE85 /* OGL4RenderWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07C350C417C7D13700FCAE85 /* OGL4RenderWindow.cpp */; };
-		07C350D717C7D13700FCAE85 /* OGL4RenderWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 07C350C517C7D13700FCAE85 /* OGL4RenderWindow.h */; };
 		07C350D817C7D13700FCAE85 /* OGL4Sampler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07C350C617C7D13700FCAE85 /* OGL4Sampler.cpp */; };
 		07C350D917C7D13700FCAE85 /* OGL4Sampler.h in Headers */ = {isa = PBXBuildFile; fileRef = 07C350C717C7D13700FCAE85 /* OGL4Sampler.h */; };
 		07C350DA17C7D13700FCAE85 /* OGL4Shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07C350C817C7D13700FCAE85 /* OGL4Shader.cpp */; };
@@ -59,14 +56,11 @@
 		07C350B717C7D12300FCAE85 /* ogl4graphics_pch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ogl4graphics_pch.h; path = ../ogl4graphics_pch.h; sourceTree = "<group>"; };
 		07C350B817C7D12300FCAE85 /* OGL4Graphics.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OGL4Graphics.cpp; path = ../OGL4Graphics.cpp; sourceTree = "<group>"; };
 		07C350B917C7D12300FCAE85 /* OGL4Graphics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OGL4Graphics.h; path = ../OGL4Graphics.h; sourceTree = "<group>"; };
-		07C350BE17C7D13700FCAE85 /* OGL4Loader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OGL4Loader.cpp; path = ../OGL4Loader.cpp; sourceTree = "<group>"; };
 		07C350BF17C7D13700FCAE85 /* OGL4Loader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OGL4Loader.h; path = ../OGL4Loader.h; sourceTree = "<group>"; };
 		07C350C017C7D13700FCAE85 /* OGL4RenderState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OGL4RenderState.cpp; path = ../OGL4RenderState.cpp; sourceTree = "<group>"; };
 		07C350C117C7D13700FCAE85 /* OGL4RenderState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OGL4RenderState.h; path = ../OGL4RenderState.h; sourceTree = "<group>"; };
 		07C350C217C7D13700FCAE85 /* OGL4RenderTexture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OGL4RenderTexture.cpp; path = ../OGL4RenderTexture.cpp; sourceTree = "<group>"; };
 		07C350C317C7D13700FCAE85 /* OGL4RenderTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OGL4RenderTexture.h; path = ../OGL4RenderTexture.h; sourceTree = "<group>"; };
-		07C350C417C7D13700FCAE85 /* OGL4RenderWindow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OGL4RenderWindow.cpp; path = ../OGL4RenderWindow.cpp; sourceTree = "<group>"; };
-		07C350C517C7D13700FCAE85 /* OGL4RenderWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OGL4RenderWindow.h; path = ../OGL4RenderWindow.h; sourceTree = "<group>"; };
 		07C350C617C7D13700FCAE85 /* OGL4Sampler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OGL4Sampler.cpp; path = ../OGL4Sampler.cpp; sourceTree = "<group>"; };
 		07C350C717C7D13700FCAE85 /* OGL4Sampler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OGL4Sampler.h; path = ../OGL4Sampler.h; sourceTree = "<group>"; };
 		07C350C817C7D13700FCAE85 /* OGL4Shader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OGL4Shader.cpp; path = ../OGL4Shader.cpp; sourceTree = "<group>"; };
@@ -97,14 +91,11 @@
 			children = (
 				07FA9F2817CB3B4500CAD600 /* OGL4RenderWindow_osx.cpp */,
 				07FA9F2917CB3B4500CAD600 /* OGL4RenderWindow_osx.h */,
-				07C350BE17C7D13700FCAE85 /* OGL4Loader.cpp */,
 				07C350BF17C7D13700FCAE85 /* OGL4Loader.h */,
 				07C350C017C7D13700FCAE85 /* OGL4RenderState.cpp */,
 				07C350C117C7D13700FCAE85 /* OGL4RenderState.h */,
 				07C350C217C7D13700FCAE85 /* OGL4RenderTexture.cpp */,
 				07C350C317C7D13700FCAE85 /* OGL4RenderTexture.h */,
-				07C350C417C7D13700FCAE85 /* OGL4RenderWindow.cpp */,
-				07C350C517C7D13700FCAE85 /* OGL4RenderWindow.h */,
 				07C350C617C7D13700FCAE85 /* OGL4Sampler.cpp */,
 				07C350C717C7D13700FCAE85 /* OGL4Sampler.h */,
 				07C350C817C7D13700FCAE85 /* OGL4Shader.cpp */,
@@ -158,7 +149,6 @@
 				07C350D117C7D13700FCAE85 /* OGL4Loader.h in Headers */,
 				07C350D317C7D13700FCAE85 /* OGL4RenderState.h in Headers */,
 				07C350D517C7D13700FCAE85 /* OGL4RenderTexture.h in Headers */,
-				07C350D717C7D13700FCAE85 /* OGL4RenderWindow.h in Headers */,
 				07C350D917C7D13700FCAE85 /* OGL4Sampler.h in Headers */,
 				07C350DB17C7D13700FCAE85 /* OGL4Shader.h in Headers */,
 				07C350DD17C7D13700FCAE85 /* OGL4ShaderCompiler.h in Headers */,
@@ -226,10 +216,8 @@
 				07C350B417C7D10B00FCAE85 /* OGL4GeometryData.cpp in Sources */,
 				07C350BA17C7D12300FCAE85 /* ogl4graphics_pch.cpp in Sources */,
 				07C350BC17C7D12300FCAE85 /* OGL4Graphics.cpp in Sources */,
-				07C350D017C7D13700FCAE85 /* OGL4Loader.cpp in Sources */,
 				07C350D217C7D13700FCAE85 /* OGL4RenderState.cpp in Sources */,
 				07C350D417C7D13700FCAE85 /* OGL4RenderTexture.cpp in Sources */,
-				07C350D617C7D13700FCAE85 /* OGL4RenderWindow.cpp in Sources */,
 				07C350D817C7D13700FCAE85 /* OGL4Sampler.cpp in Sources */,
 				07C350DA17C7D13700FCAE85 /* OGL4Shader.cpp in Sources */,
 				07C350DC17C7D13700FCAE85 /* OGL4ShaderCompiler.cpp in Sources */,

@@ -170,7 +170,7 @@ namespace ld3d
 		{
 			return;
 		}
-		m_bRecording ? m_commands.push_back(command) : 0;
+		m_bRecording ? m_commands.push_back(command) : (void)0;
 	
 	}
 }
