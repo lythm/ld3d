@@ -1,16 +1,13 @@
 #include "ogl4graphics_pch.h"
 #include "../OGL4Loader.h"
 
-
-
-
 #if defined (_WIN64) || defined(_WIN32)
 #include <regex>
 #include <algorithm>
 
 
 
-#define LOAD_API(name, type)			assert(name == nullptr);name = (type)wglGetProcAddress(#name);assert(name != nullptr);
+#define LOAD_API(api, type)			api = (type)_load(#api);assert(api != nullptr);if(api == nullptr) return false;
 
 namespace ld3d
 {
@@ -23,7 +20,7 @@ namespace ld3d
 	OGL4Loader::~OGL4Loader(void)
 	{
 	}
-	bool OGL4Loader::Load()
+	bool OGL4Loader::load_module()
 	{
 		m_hLib = os_load_module("opengl32.dll");
 
@@ -32,7 +29,33 @@ namespace ld3d
 			return false;
 		}
 
-		void* pp = os_find_proc(m_hLib, "wglMakeCurrent");
+		void* pp = _load("glGetStringi");
+
+		return true;
+	}
+	void* OGL4Loader::_load(const char* szName)
+	{
+		void* api = wglGetProcAddress(szName);
+		if(api != nullptr)
+		{
+			return api;
+		}
+
+		api = os_find_proc(m_hLib, szName);
+		
+		return api;
+	}
+	bool OGL4Loader::Load()
+	{
+		if(load_module() == false)
+		{
+			return false;
+		}
+
+		if(load_wgl() == false)
+		{
+			return false;
+		}
 
 		if(false == load_version())
 		{
@@ -50,8 +73,20 @@ namespace ld3d
 		}
 		return true;
 	}
+	bool OGL4Loader::load_wgl()
+	{
+		//wglSwapIntervalEXT = (PFNWGLSWAPINTERVALEXTPROC)wglGetProcAddress("wglSwapIntervalEXT");
+
+
+		LOAD_API(wglSwapIntervalEXT,									PFNWGLSWAPINTERVALEXTPROC);
+
+		return true;
+	}
 	bool OGL4Loader::load_version()
 	{
+
+		LOAD_API(glGetString,										PFNGLGETSTRINGPROC);
+
 		int major;
 		int minor;
 		GLubyte const * str = glGetString(GL_VERSION);
@@ -76,6 +111,7 @@ namespace ld3d
 	bool OGL4Loader::load_extension_info()
 	{
 		LOAD_API(glGetStringi, PFNGLGETSTRINGIPROC);
+		LOAD_API(glGetIntegerv, PFNGLGETINTEGERVPROC);
 
 		if(glGetStringi == nullptr)
 		{
@@ -105,14 +141,33 @@ namespace ld3d
 	}
 	bool OGL4Loader::load_api()
 	{
-		if(glGetStringi == nullptr)
-		{
-			LOAD_API(glGetStringi,										PFNGLGETSTRINGIPROC);
-		}
-
-		LOAD_API(wglSwapIntervalEXT,									PFNWGLSWAPINTERVALEXTPROC);
-
 		
+		LOAD_API(glGetStringi,											PFNGLGETSTRINGIPROC);
+		LOAD_API(glGetString,											PFNGLGETSTRINGPROC);
+		LOAD_API(glGetIntegerv,											PFNGLGETINTEGERVPROC);
+		LOAD_API(glDeleteTextures,										PFNGLDELETETEXTURESPROC);
+		LOAD_API(glGenTextures,											PFNGLGENTEXTURESPROC);
+
+		LOAD_API(glBindTexture,											PFNGLBINDTEXTUREPROC);
+		LOAD_API(glTexParameteri,										PFNGLTEXPARAMETERIPROC);
+		LOAD_API(glTexSubImage1D,										PFNGLTEXSUBIMAGE1DPROC);
+		LOAD_API(glTexSubImage2D,										PFNGLTEXSUBIMAGE2DPROC);
+
+		LOAD_API(glEnable,												PFNGLENABLEPROC);
+		LOAD_API(glDisable,												PFNGLDISABLEPROC);
+		LOAD_API(glColorMask,											PFNGLCOLORMASKPROC);
+		LOAD_API(glPolygonMode,											PFNGLPOLYGONMODEPROC);
+
+		LOAD_API(glCullFace,											PFNGLCULLFACEPROC);
+		LOAD_API(glFrontFace,											PFNGLFRONTFACEPROC);
+		LOAD_API(glPolygonOffset,										PFNGLPOLYGONOFFSETPROC);
+		LOAD_API(glDepthMask,											PFNGLDEPTHMASKPROC);
+
+		LOAD_API(glDepthFunc,											PFNGLDEPTHFUNCPROC);
+		LOAD_API(glDrawArrays,											PFNGLDRAWARRAYSPROC);
+		LOAD_API(glDrawElements,										PFNGLDRAWELEMENTSPROC);
+		LOAD_API(glViewport,											PFNGLVIEWPORTPROC);
+
 
 		LOAD_API(glGenBuffers,											PFNGLGENBUFFERSPROC);
 
@@ -241,7 +296,7 @@ namespace ld3d
 
 		LOAD_API(glDrawBuffers,											PFNGLDRAWBUFFERSPROC);
 
-		LOAD_API(glCompressedTexSubImage2D,											PFNGLCOMPRESSEDTEXSUBIMAGE2DPROC);
+		LOAD_API(glCompressedTexSubImage2D,								PFNGLCOMPRESSEDTEXSUBIMAGE2DPROC);
 
 		return true;
 	}

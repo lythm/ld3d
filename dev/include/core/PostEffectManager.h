@@ -15,7 +15,7 @@ namespace ld3d
 		void													Render();
 
 		RenderTexturePtr										GetInput();
-		RenderTexturePtr											GetOutput();
+		RenderTexturePtr										GetOutput();
 
 		int														GetEffectCount();
 

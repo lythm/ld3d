@@ -7,8 +7,38 @@
 
 
 #if defined(_WIN64) || defined(_WIN32)
-#include <gl/GL.h>
 #include "glext/glcorearb.h"
+
+
+extern PFNGLGETSTRINGPROC								glGetString;
+extern PFNGLGETINTEGERVPROC								glGetIntegerv;
+extern PFNGLDELETETEXTURESPROC							glDeleteTextures;
+
+extern PFNGLGENTEXTURESPROC								glGenTextures;
+extern PFNGLBINDTEXTUREPROC								glBindTexture;
+extern PFNGLTEXPARAMETERIPROC							glTexParameteri;
+extern PFNGLTEXSUBIMAGE1DPROC							glTexSubImage1D;
+extern PFNGLTEXSUBIMAGE2DPROC							glTexSubImage2D;
+extern PFNGLTEXSUBIMAGE3DPROC							glTexSubImage3D;
+
+extern PFNGLENABLEPROC									glEnable;
+extern PFNGLDISABLEPROC									glDisable;
+
+extern PFNGLCOLORMASKPROC								glColorMask;
+
+extern PFNGLPOLYGONMODEPROC								glPolygonMode;
+
+extern PFNGLCULLFACEPROC								glCullFace;
+extern PFNGLFRONTFACEPROC								glFrontFace;
+extern PFNGLPOLYGONOFFSETPROC							glPolygonOffset;
+extern PFNGLDEPTHMASKPROC								glDepthMask;
+extern PFNGLDEPTHFUNCPROC								glDepthFunc;
+
+
+extern PFNGLDRAWARRAYSPROC								glDrawArrays;
+extern PFNGLDRAWELEMENTSPROC							glDrawElements;
+extern PFNGLVIEWPORTPROC								glViewport;
+
 
 
 

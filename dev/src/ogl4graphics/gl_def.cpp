@@ -2,6 +2,47 @@
 #include "gl_def.h"
 
 #if defined(_WIN64) || defined(_WIN32)
+
+
+
+
+PFNGLGETSTRINGPROC								glGetString											= nullptr;
+PFNGLGETINTEGERVPROC							glGetIntegerv										= nullptr;
+PFNGLDELETETEXTURESPROC							glDeleteTextures									= nullptr;
+
+PFNGLGENTEXTURESPROC							glGenTextures										= nullptr;
+PFNGLBINDTEXTUREPROC							glBindTexture										= nullptr;
+PFNGLTEXPARAMETERIPROC							glTexParameteri										= nullptr;
+PFNGLTEXSUBIMAGE1DPROC							glTexSubImage1D										= nullptr;
+PFNGLTEXSUBIMAGE2DPROC							glTexSubImage2D										= nullptr;
+PFNGLTEXSUBIMAGE3DPROC							glTexSubImage3D										= nullptr;
+
+PFNGLENABLEPROC									glEnable											= nullptr;
+PFNGLDISABLEPROC								glDisable											= nullptr;
+
+PFNGLCOLORMASKPROC								glColorMask											= nullptr;
+
+PFNGLPOLYGONMODEPROC							glPolygonMode										= nullptr;
+
+PFNGLCULLFACEPROC								glCullFace											= nullptr;
+PFNGLFRONTFACEPROC								glFrontFace											= nullptr;
+PFNGLPOLYGONOFFSETPROC							glPolygonOffset										= nullptr;
+PFNGLDEPTHMASKPROC								glDepthMask											= nullptr;
+PFNGLDEPTHFUNCPROC								glDepthFunc											= nullptr;
+
+
+PFNGLDRAWARRAYSPROC								glDrawArrays										= nullptr;
+PFNGLDRAWELEMENTSPROC							glDrawElements										= nullptr;
+PFNGLVIEWPORTPROC								glViewport											= nullptr;
+
+
+
+
+
+
+
+
+
 PFNGLGETSTRINGIPROC									glGetStringi									= nullptr;
 
 PFNGLCLEARBUFFERFVPROC								glClearBufferfv									= nullptr;
@@ -41,7 +82,6 @@ PFNGLACTIVETEXTUREPROC								glActiveTexture									= nullptr;
 PFNGLTEXSTORAGE1DPROC								glTexStorage1D									= nullptr;
 PFNGLTEXSTORAGE2DPROC								glTexStorage2D									= nullptr;
 PFNGLTEXSTORAGE3DPROC								glTexStorage3D									= nullptr;
-PFNGLTEXSUBIMAGE3DPROC								glTexSubImage3D									= nullptr;
 PFNGLCOMPRESSEDTEXSUBIMAGE2DPROC					glCompressedTexSubImage2D						= nullptr;
 // sampler
 PFNGLGENSAMPLERSPROC								glGenSamplers									= nullptr;
