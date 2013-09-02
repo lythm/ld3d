@@ -2,6 +2,8 @@
 #include "OGL4Texture.h"
 #include "OGL4Convert.h"
 
+#include "gli/gli.hpp"
+
 namespace ld3d
 {
 
@@ -94,7 +96,7 @@ namespace ld3d
 	}
 	void* OGL4Texture::Map()
 	{
-		
+
 		if(m_pbo == 0)
 		{
 			glGenBuffers(1, &m_pbo);
@@ -111,9 +113,9 @@ namespace ld3d
 	}
 	void OGL4Texture::UnMap()
 	{
-		
+
 		glUnmapBuffer(GL_PIXEL_UNPACK_BUFFER);
-		
+
 		switch(m_type)
 		{
 		case TEX_1D:
@@ -137,7 +139,7 @@ namespace ld3d
 			break;
 		}
 
-	
+
 		glBindBuffer(GL_PIXEL_UNPACK_BUFFER, 0);
 	}
 
@@ -365,31 +367,105 @@ namespace ld3d
 	{
 		return m_texture;
 	}
+	//bool OGL4Texture::CreateFromFile(const char* szFile, bool dynamic)
+	//{
+	//	m_bDynamic = dynamic;
+
+	//	m_texture = SOIL_load_OGL_texture(szFile, SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_MIPMAPS);
+
+	//	if(m_texture == 0)
+	//		return false;
+
+	//	
+	//	m_type = TEX_2D;
+	//	
+	//	// todo
+	//	/*m_width = w;
+	//	m_lvls = 1;
+	//	m_height = h;
+	//	m_depth = d;
+
+	//	m_format = OGL4Convert::TextureFormatToGL(format);
+
+	//	m_pboBytes = FormatSize(m_format) * m_width * m_height * m_depth;*/
+
+
+	//	return true;
+	//}
+
 	bool OGL4Texture::CreateFromFile(const char* szFile, bool dynamic)
 	{
 		m_bDynamic = dynamic;
 
-		m_texture = SOIL_load_OGL_texture(szFile, SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_MIPMAPS);
 
-		if(m_texture == 0)
+		glGenTextures(1, &m_texture);
+
+		gli::texture2D tex(gli::loadStorageDDS(szFile));
+
+		if(tex.empty())
+		{
 			return false;
+		}
 
-		
+		assert(!tex.empty());
+
+		glBindTexture(GL_TEXTURE_2D, m_texture);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_BASE_LEVEL, 0);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, GLint(tex.levels() - 1));
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_SWIZZLE_R, GL_RED);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_SWIZZLE_G, GL_GREEN);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_SWIZZLE_B, GL_BLUE);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_SWIZZLE_A, GL_ALPHA);
+		glTexStorage2D(GL_TEXTURE_2D,
+			GLint(tex.levels()),
+			GLenum(gli::internal_format(tex.format())),
+			GLsizei(tex.dimensions().x),
+			GLsizei(tex.dimensions().y));
+		if(gli::is_compressed(tex.format()))
+		{
+			for(gli::texture2D::size_type Level = 0; Level < tex.levels(); ++Level)
+			{
+				glCompressedTexSubImage2D(GL_TEXTURE_2D,
+					GLint(Level),
+					0, 0,
+					GLsizei(tex[Level].dimensions().x),
+					GLsizei(tex[Level].dimensions().y),
+					GLenum(gli::internal_format(tex.format())),
+					GLsizei(tex[Level].size()),
+					tex[Level].data());
+			}
+		}
+		else
+		{
+			for(gli::texture2D::size_type Level = 0; Level < tex.levels(); ++Level)
+			{
+				glTexSubImage2D(GL_TEXTURE_2D,
+					GLint(Level),
+					0, 0,
+					GLsizei(tex[Level].dimensions().x),
+					GLsizei(tex[Level].dimensions().y),
+					GLenum(gli::external_format(tex.format())),
+					GLenum(gli::type_format(tex.format())),
+					tex[Level].data());
+			}
+		}
+
+
 		m_type = TEX_2D;
-		
+
 		// todo
-		/*m_width = w;
-		m_lvls = 1;
-		m_height = h;
-		m_depth = d;
+		m_width = tex.dimensions().x;
+		m_height = tex.dimensions().y;
+		m_lvls = tex.levels();
+		m_depth = 0;
 
-		m_format = OGL4Convert::TextureFormatToGL(format);
+		m_format = GLenum(gli::internal_format(tex.format()));
 
-		m_pboBytes = FormatSize(m_format) * m_width * m_height * m_depth;*/
-
+//		m_pboBytes = FormatSize(m_format) * m_width * m_height;
 
 		return true;
 	}
+
 	void OGL4Texture::SetSampler(SamplerStatePtr pSampler)
 	{
 		m_pSampler = pSampler;

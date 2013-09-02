@@ -18,8 +18,6 @@
 
 
 
-#include "soil/soil.h"
-
 
 namespace ld3d
 {

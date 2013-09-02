@@ -61,6 +61,7 @@ extern PFNGLTEXSTORAGE1DPROC							glTexStorage1D;
 extern PFNGLTEXSTORAGE2DPROC							glTexStorage2D;
 extern PFNGLTEXSTORAGE3DPROC							glTexStorage3D;
 extern PFNGLTEXSUBIMAGE3DPROC							glTexSubImage3D;
+extern PFNGLCOMPRESSEDTEXSUBIMAGE2DPROC					glCompressedTexSubImage2D;
 
 // sampler
 extern PFNGLGENSAMPLERSPROC								glGenSamplers;
@@ -142,4 +143,6 @@ extern PFNGLSTENCILFUNCSEPARATEPROC						glStencilFuncSeparate;
 
 // wgl
 extern PFNWGLSWAPINTERVALEXTPROC						wglSwapIntervalEXT;
+
+
 #endif

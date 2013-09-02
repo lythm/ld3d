@@ -20,5 +20,7 @@ namespace ld3d
 	private:
 		std::vector<std::string>					m_exts;
 		Version										m_ver;
+
+		void*										m_hLib;
 	};
 }

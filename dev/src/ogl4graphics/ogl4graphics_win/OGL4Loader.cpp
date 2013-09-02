@@ -9,11 +9,6 @@
 #include <algorithm>
 
 
-void* get_proc_address(const char* szName)
-{
-	return nullptr;
-}
-
 
 #define LOAD_API(name, type)			assert(name == nullptr);name = (type)wglGetProcAddress(#name);assert(name != nullptr);
 
@@ -21,6 +16,7 @@ namespace ld3d
 {
 	OGL4Loader::OGL4Loader(void)
 	{
+		m_hLib = nullptr;
 	}
 
 
@@ -29,6 +25,15 @@ namespace ld3d
 	}
 	bool OGL4Loader::Load()
 	{
+		m_hLib = os_load_module("opengl32.dll");
+
+		if(m_hLib == nullptr)
+		{
+			return false;
+		}
+
+		void* pp = os_find_proc(m_hLib, "wglMakeCurrent");
+
 		if(false == load_version())
 		{
 			return false;
@@ -90,6 +95,9 @@ namespace ld3d
 	void OGL4Loader::Unload()
 	{
 		m_exts.clear();
+
+		os_unload_module(m_hLib);
+		m_hLib = nullptr;
 	}
 	bool OGL4Loader::IsExtSupported(const std::string& ext)
 	{
@@ -231,7 +239,9 @@ namespace ld3d
 		LOAD_API(glStencilMaskSeparate,									PFNGLSTENCILMASKSEPARATEPROC);
 		LOAD_API(glStencilFuncSeparate,									PFNGLSTENCILFUNCSEPARATEPROC);
 
-		LOAD_API(glDrawBuffers,									PFNGLDRAWBUFFERSPROC);
+		LOAD_API(glDrawBuffers,											PFNGLDRAWBUFFERSPROC);
+
+		LOAD_API(glCompressedTexSubImage2D,											PFNGLCOMPRESSEDTEXSUBIMAGE2DPROC);
 
 		return true;
 	}

@@ -109,7 +109,7 @@ namespace ld3d
 		
 		m_pGeometry = CreateCube(10);
 
-		m_pTex = m_pGraphics->CreateTextureFromFile("./assets/standard/texture/15.png", false);
+		m_pTex = m_pGraphics->CreateTextureFromFile("./assets/standard/texture/array.dds", false);
 		
 
 		DepthStencilBufferPtr pDS = m_pGraphics->CreateDepthStencilBuffer(G_FORMAT_D32_FLOAT, 800, 600);
