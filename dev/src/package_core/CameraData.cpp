@@ -22,22 +22,16 @@ namespace ld3d
 		
 		m_pManager->GetRenderManager()->AddCamera(m_pCamera);
 
-		PropertyManagerPtr pPM = std::dynamic_pointer_cast<PropertyManager>(m_pObject->GetComponent("PropertyManager"));
-		
-		pPM->Begin("Camera");
-		{
-			pPM->RegisterProperty<int, Camera>(m_pCamera.get(),
+		RegisterProperty<int, Camera>(m_pCamera.get(),
 									"Rendering Order",
 									&Camera::GetOrder,
 									&Camera::SetOrder);
-
-		}
-		pPM->End();
 
 		return true;
 	}
 	void CameraData::OnDetach()
 	{
+		ClearPropertySet();
 		m_pManager->GetRenderManager()->RemoveCamera(m_pCamera);
 		m_pCamera.reset();
 	}

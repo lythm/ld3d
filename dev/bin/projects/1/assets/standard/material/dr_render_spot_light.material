@@ -1,0 +1,67 @@
+
+
+Render State RS_SpotLight_StencilPass
+{
+	CULLMODE = Back;
+
+	BLENDENABLE						= false;
+
+	DepthEnable						= true;
+	DepthFunc						= LESS_EQUAL;
+	DepthWriteMask					= ZERO;
+	StencilEnable					= true;
+	FrontFaceStencilFail			= KEEP;
+	FrontFaceStencilDepthFail		= REPLACE;
+	FrontFaceStencilPass			= KEEP;
+	FrontFaceStencilFunc			= ALWAYS;
+	FrontFaceStencilRef				= 1;
+};
+
+RenderState RS_SpotLight
+{
+	CULLMODE = front;
+	
+	BLENDENABLE							= true;
+	SRCBLEND							= ONE;
+	DESTBLEND							= ONE;
+	BLENDOP								= ADD;
+	SRCBLENDALPHA						= ONE;
+	DESTBLENDALPHA						= ONE;
+	BLENDOPALPHA						= ADD;
+	ColorWrite							= ALL;
+
+	DepthEnable						= true;
+	DepthFunc						= GREATER;
+	DepthWriteMask					= ZERO;
+	StencilEnable					= true;
+
+	BackFaceStencilFail				= KEEP;
+	BackFaceStencilDepthFail		= KEEP;
+	BackFaceStencilPass				= KEEP;
+	BackFaceStencilFunc				= EQUAL;
+	BackFaceStencilRef				= 0;
+};
+
+
+
+
+
+
+
+technique11 deferred
+{
+	pass p1
+	{
+		SetRenderState(RS_SpotLight_StencilPass);
+		SetVertexShader("./shader/dr_render_spot_light.vs");
+		SetPixelShader( "");
+	}
+
+	pass p2
+	{
+		SetRenderState(RS_SpotLight);
+		SetVertexShader("./shader/dr_render_spot_light.vs");
+		SetPixelShader("./shader/dr_render_spot_light.ps");
+	}
+}
+

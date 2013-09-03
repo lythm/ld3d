@@ -140,10 +140,6 @@ void MenuManager::Install_Menu_Component(QMenu* pMenu)
 		{
 			Package::ComponentClass* pClass = pPack->GetClassByIndex(ii);
 
-			if(pClass->m_name == "PropertyManager")
-			{
-				continue;
-			}
 			if(pClass->m_catalog == "DT")
 			{
 				continue;

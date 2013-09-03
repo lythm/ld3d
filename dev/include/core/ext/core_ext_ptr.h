@@ -2,7 +2,6 @@
 
 namespace ld3d
 {
-	class PropertyManager;
 	class MeshRenderer;
 	class MeshData;
 	class WorldMeshRenderer;
@@ -22,7 +21,6 @@ namespace ld3d
 	typedef std::shared_ptr<Light_Point>										Light_PointPtr;
 	typedef std::shared_ptr<Light_Dir>										Light_DirPtr;
 	typedef std::shared_ptr<Behavior>											BehaviorPtr;
-	typedef std::shared_ptr<PropertyManager>									PropertyManagerPtr;
 	typedef std::shared_ptr<MeshData>											MeshDataPtr;
 	typedef std::shared_ptr<MeshRenderer>										MeshRendererPtr;
 	typedef std::shared_ptr<WorldMeshRenderer>								WorldMeshRendererPtr;

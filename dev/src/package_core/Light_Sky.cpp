@@ -45,37 +45,32 @@ namespace ld3d
 
 		m_pRenderManager->AddLight(m_pLight);
 
-		PropertyManagerPtr pPM = std::dynamic_pointer_cast<PropertyManager>(m_pObject->GetComponent("PropertyManager"));
-
-		pPM->Begin("SkyLight");
-		{
-			pPM->RegisterProperty<bool, SkyLight>(m_pLight.get(), 
+		RegisterProperty<bool, SkyLight>(m_pLight.get(), 
 				"Cast Shadow", 
 				&SkyLight::GetCastShadow,
 				&SkyLight::SetCastShadow);
 
-			pPM->RegisterProperty<math::Color4, SkyLight>(m_pLight.get(), 
+		RegisterProperty<math::Color4, SkyLight>(m_pLight.get(), 
 				"Diffuse Color", 
 				&SkyLight::GetDiffuseColor,
 				&SkyLight::SetDiffuseColor);
 
-			pPM->RegisterProperty<float, SkyLight>(m_pLight.get(), 
+		RegisterProperty<float, SkyLight>(m_pLight.get(), 
 				"Intensity", 
 				&SkyLight::GetIntensity,
 				&SkyLight::SetIntensity);
 
-			pPM->RegisterProperty<bool, SkyLight>(m_pLight.get(), 
+		RegisterProperty<bool, SkyLight>(m_pLight.get(), 
 				"Enabled", 
 				&SkyLight::GetEnabled,
 				&SkyLight::SetEnabled);
 
-		}
-		pPM->End();
 
 		return true;
 	}
 	void Light_Sky::OnDetach()
 	{
+		ClearPropertySet();
 		m_pRenderManager->RemoveLight(m_pLight);
 		m_pLight->Release();
 		m_pLight.reset();

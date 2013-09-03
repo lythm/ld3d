@@ -2,7 +2,6 @@
 #include "CorePackage.h"
 #include "core/ext/MeshData.h"
 #include "core/ext/MeshRenderer.h"
-#include "core/ext/PropertyManager.h"
 #include "core/ext/WorldMeshRenderer.h"
 #include "core/ext/Light_Dir.h"
 #include "core/ext/Light_Point.h"
@@ -97,11 +96,7 @@ namespace ld3d
 					"Mesh Renderer",
 					&Create_Component<MeshRenderer>));
 
-		m_classes.push_back(ComponentClass("PropertyManager",
-					"Misc",
-					"Property Manager",
-					&Create_Component<PropertyManager>));
-
+		
 		/*m_classes.push_back(ComponentClass("WorldMeshRenderer",
 					"Mesh",
 					"World Mesh Renderer",

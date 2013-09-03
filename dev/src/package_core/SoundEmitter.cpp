@@ -46,22 +46,18 @@ namespace ld3d
 
 		m_pChannel->Play(true);
 
-		PropertyManagerPtr pPM = std::dynamic_pointer_cast<PropertyManager>(m_pObject->GetComponent("PropertyManager"));
-
-		pPM->Begin("SoundEmitter");
-		{
-			pPM->RegisterProperty<bool, SoundEmitter>(this,
+	
+		RegisterProperty<bool, SoundEmitter>(this,
 					"Streamed",
 					&SoundEmitter::GetStreamed,
 					&SoundEmitter::SetStreamed);
 
-		}
-
-		pPM->End();
+		
 		return true;
 	}
 	void SoundEmitter::OnDetach()
 	{
+		ClearPropertySet();
 		if(m_pChannel)
 		{
 			m_pChannel->Release();

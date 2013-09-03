@@ -36,44 +36,41 @@ namespace ld3d
 		m_pLight->Create(m_pRenderManager);
 		m_pRenderManager->AddLight(m_pLight);
 
-		PropertyManagerPtr pPM = std::dynamic_pointer_cast<PropertyManager>(m_pObject->GetComponent("PropertyManager"));
-		pPM->Begin("SpotLight");
-		{
-			pPM->RegisterProperty<bool, SpotLight>(m_pLight.get(), 
-												"Cast Shadow", 
-												&SpotLight::GetCastShadow,
-												&SpotLight::SetCastShadow);
+		RegisterProperty<bool, SpotLight>(m_pLight.get(), 
+										"Cast Shadow", 
+										&SpotLight::GetCastShadow,
+										&SpotLight::SetCastShadow);
 
-			pPM->RegisterProperty<math::Color4, SpotLight>(m_pLight.get(), 
-												"Diffuse Color", 
-												&SpotLight::GetDiffuseColor,
-												&SpotLight::SetDiffuseColor);
+		RegisterProperty<math::Color4, SpotLight>(m_pLight.get(), 
+										"Diffuse Color", 
+										&SpotLight::GetDiffuseColor,
+										&SpotLight::SetDiffuseColor);
 
-			pPM->RegisterProperty<float, SpotLight>(m_pLight.get(), 
-												"Intensity", 
-												&SpotLight::GetIntensity,
-												&SpotLight::SetIntensity);
+		RegisterProperty<float, SpotLight>(m_pLight.get(), 
+										"Intensity", 
+										&SpotLight::GetIntensity,
+										&SpotLight::SetIntensity);
 
-			pPM->RegisterProperty<float, SpotLight>(m_pLight.get(), 
-												"Angle", 
-												&SpotLight::GetAngle,
-												&SpotLight::SetAngle);
+		RegisterProperty<float, SpotLight>(m_pLight.get(), 
+										"Angle", 
+										&SpotLight::GetAngle,
+										&SpotLight::SetAngle);
 
-			pPM->RegisterProperty<float, SpotLight>(m_pLight.get(), 
-												"Range", 
-												&SpotLight::GetRange,
-												&SpotLight::SetRange);
+		RegisterProperty<float, SpotLight>(m_pLight.get(), 
+										"Range", 
+										&SpotLight::GetRange,
+										&SpotLight::SetRange);
 
-			pPM->RegisterProperty<bool, SpotLight>(m_pLight.get(), 
+		RegisterProperty<bool, SpotLight>(m_pLight.get(), 
 												"Enabled", 
 												&SpotLight::GetEnabled,
 												&SpotLight::SetEnabled);
-		}
-		pPM->End();
+	
 		return true;
 	}
 	void Light_Spot::OnDetach()
 	{
+		ClearPropertySet();
 		m_pRenderManager->RemoveLight(m_pLight);
 		m_pLight->Release();
 		m_pLight.reset();

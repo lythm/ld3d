@@ -7,7 +7,6 @@
 #include "core/Mesh.h"
 #include "core/GPUBuffer.h"
 #include "core/SubMesh.h"
-#include "core/ext/PropertyManager.h"
 
 #include "CorePackage.h"
 
@@ -52,15 +51,14 @@ namespace ld3d
 		}
 		Reset(pMD);
 
-		PropertyManagerPtr pPM = std::dynamic_pointer_cast<PropertyManager>(m_pObject->GetComponent("PropertyManager"));
-		pPM->Begin("MeshRenderer");
+		
 
-		pPM->RegisterProperty<bool, MeshRenderer>(this,
+		RegisterProperty<bool, MeshRenderer>(this,
 			"Deferred", 
 			&MeshRenderer::IsDeferred,
 			&MeshRenderer::SetDeferred);
 
-		pPM->End();
+		
 
 
 		m_hFrustumCull = m_pManager->AddEventHandler(EV_FRUSTUM_CULL, boost::bind(&MeshRenderer::on_event_frustum_cull, this, _1));
@@ -69,6 +67,7 @@ namespace ld3d
 	}
 	void MeshRenderer::OnDetach()
 	{
+		ClearPropertySet();
 		m_pManager->RemoveEventHandler(m_hFrustumCull);
 
 		m_pRenderManager.reset();

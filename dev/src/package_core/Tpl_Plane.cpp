@@ -1,6 +1,7 @@
 #include "core_ext_pch.h"
 #include "Tpl_Plane.h"
-
+#include "core/ext/MeshData.h"
+#include "core/ext/MeshRenderer.h"
 namespace ld3d
 {
 	Tpl_Plane::Tpl_Plane(GameObjectManagerPtr pManager, const std::string& name) : GameObjectTemplate(pManager, name, "Geometry")

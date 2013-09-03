@@ -20,12 +20,7 @@ namespace ld3d
 	bool SkyBox::OnAttach()
 	{
 	
-		PropertyManagerPtr pPM = std::dynamic_pointer_cast<PropertyManager>(m_pObject->GetComponent("PropertyManager"));
-
-		pPM->Begin("SkyBox");
-		{
-		}
-		pPM->End();
+		
 
 
 		m_hFrustumCull = m_pManager->AddEventHandler(EV_FRUSTUM_CULL, boost::bind(&SkyBox::on_event_frustum_cull, this, _1));

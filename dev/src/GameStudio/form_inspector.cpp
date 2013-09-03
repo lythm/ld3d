@@ -39,26 +39,45 @@ void Form_Inspector::SetObject(ld3d::GameObject* pObj)
 	using namespace ld3d;
 
 	m_pInspector->RemoveAll();
-
+	m_pObj = pObj;
 	if(pObj == nullptr)
 	{
 		return;
 	}
 
-	PropertyManagerPtr pPM = std::dynamic_pointer_cast<PropertyManager>(pObj->GetComponent("PropertyManager"));
+	Widget_InspectorPanel* pPanel = m_pInspector->AddPanel(QString::fromStdString("General"));
 
-	for(int i = 0; i < pPM->GetPropertySetCount(); ++i)
+	// name
+	Widget_InspectorProperty* pProp = pPanel->AddStringProperty(QString::fromStdString("Name"), QString::fromStdString(pObj->GetName()));
+	pProp->SetUserData("Name");
+	pProp->on_property_changed = std::bind(&Form_Inspector::on_object_property_changed, this, std::placeholders::_1);
+	
+
+	// transform
+	pProp = pPanel->AddTransformProperty(pObj->GetLocalTransform());
+	pProp->SetUserData("Transform");
+	pProp->on_property_changed = std::bind(&Form_Inspector::on_object_property_changed, this, std::placeholders::_1);
+
+	int c = pObj->GetComponentCount();
+	for(int i = 0; i < c; ++i)
 	{
-		PropertySetPtr pO = pPM->GetPropertySet(i);
-
-		Widget_InspectorPanel* pPanel = m_pInspector->AddPanel(QString::fromStdString(pO->getName()));
-
-		for(size_t ii = 0; ii < pO->getPropertyCount(); ++ii)
+		GameObjectComponentPtr pCom = pObj->GetComponent(i);
+		PropertySetPtr pSet = pCom->GetPropertySet();
+		if(pSet == nullptr)
 		{
-			Property* p = pO->getProperty(ii);
+			continue;
+		}
+
+		Widget_InspectorPanel* pPanel = m_pInspector->AddPanel(QString::fromStdString(pSet->getName()));
+
+		for(size_t ii = 0; ii < pSet->getPropertyCount(); ++ii)
+		{
+			Property* p = pSet->getProperty(ii);
 			Widget_InspectorProperty* pProp = AddProperty(pPanel, p);
 		}
+
 	}
+
 }
 
 
@@ -124,6 +143,38 @@ Widget_InspectorProperty* Form_Inspector::AddProperty(Widget_InspectorPanel* pPa
 		pProp->on_property_changed = std::bind(&Form_Inspector::on_property_changed, this, std::placeholders::_1);
 	}
 	return pProp;
+}
+void Form_Inspector::on_object_property_changed(Widget_InspectorProperty* prop)
+{
+	if(m_pObj == nullptr)
+	{
+		return;
+	}
+	std::string name = (const char*)prop->GetUserData();
+
+	if(name == "Name")
+	{
+		QString value = ((Widget_InspectorPropertyString*)prop)->GetValue();
+		m_pObj->SetName(value.toStdString());
+		value = QString::fromStdString(m_pObj->GetName());
+		((Widget_InspectorPropertyString*)prop)->SetValue(value);
+		return;
+	}
+
+
+	if(name == "Transform")
+	{
+		math::Matrix44  value = ((Widget_InspectorPropertyTransform*)prop)->GetValue();
+		
+		m_pObj->SetLocalTransform(value);
+		
+		value = m_pObj->GetLocalTransform();
+		((Widget_InspectorPropertyTransform*)prop)->SetValue(value);
+		return;
+	}
+
+	return;
+
 }
 void Form_Inspector::on_property_changed(Widget_InspectorProperty* prop)
 {

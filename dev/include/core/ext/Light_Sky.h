@@ -19,7 +19,7 @@ namespace ld3d
 		bool										OnAttach();
 		void										OnDetach();
 	private:
-		RenderManagerPtr								m_pRenderManager;
+		RenderManagerPtr							m_pRenderManager;
 		SkyLightPtr									m_pLight;
 	};
 

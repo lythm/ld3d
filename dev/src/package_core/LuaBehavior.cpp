@@ -18,15 +18,7 @@ namespace ld3d
 	}
 	bool LuaBehavior::OnAttach()
 	{
-		PropertyManagerPtr pPM = std::dynamic_pointer_cast<PropertyManager>(m_pObject->GetComponent("PropertyManager"));
-
-		pPM->Begin("LuaBehavior");
-		{
-			
-
-		}
-		pPM->End();
-
+		
 		return true;
 	}
 	void LuaBehavior::OnDetach()

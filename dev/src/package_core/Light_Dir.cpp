@@ -38,37 +38,32 @@ namespace ld3d
 
 		m_pRenderManager->AddLight(m_pLight);
 
-		PropertyManagerPtr pPM = std::dynamic_pointer_cast<PropertyManager>(m_pObject->GetComponent("PropertyManager"));
 		
-		pPM->Begin("DirectionalLight");
-		{
-			pPM->RegisterProperty<bool, DirectionalLight>(m_pLight.get(), 
+		RegisterProperty<bool, DirectionalLight>(m_pLight.get(), 
 												"Cast Shadow", 
 												&DirectionalLight::GetCastShadow,
 												&DirectionalLight::SetCastShadow);
 
-			pPM->RegisterProperty<math::Color4, DirectionalLight>(m_pLight.get(), 
+		RegisterProperty<math::Color4, DirectionalLight>(m_pLight.get(), 
 												"Diffuse Color", 
 												&DirectionalLight::GetDiffuseColor,
 												&DirectionalLight::SetDiffuseColor);
 
-			pPM->RegisterProperty<float, DirectionalLight>(m_pLight.get(), 
-				"Intensity", 
-				&DirectionalLight::GetIntensity,
-				&DirectionalLight::SetIntensity);
+		RegisterProperty<float, DirectionalLight>(m_pLight.get(), 
+												"Intensity", 
+												&DirectionalLight::GetIntensity,
+												&DirectionalLight::SetIntensity);
 
-			pPM->RegisterProperty<bool, DirectionalLight>(m_pLight.get(), 
-				"Enabled", 
-				&DirectionalLight::GetEnabled,
-				&DirectionalLight::SetEnabled);
-
-		}
-		pPM->End();
+		RegisterProperty<bool, DirectionalLight>(m_pLight.get(), 
+												"Enabled", 
+												&DirectionalLight::GetEnabled,
+												&DirectionalLight::SetEnabled);
 
 		return true;
 	}
 	void Light_Dir::OnDetach()
 	{
+		ClearPropertySet();
 		m_pRenderManager->RemoveLight(m_pLight);
 		m_pLight->Release();
 		m_pLight.reset();

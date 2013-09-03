@@ -334,6 +334,10 @@ namespace ld3d
 	}
 	void CoreApi::Log(const std::string& text)
 	{
+		if(text == "")
+		{
+			return;
+		}
 		if(s_logger)
 		{
 			s_logger(text);

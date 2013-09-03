@@ -22,7 +22,7 @@ namespace ld3d
 
 		m_componentClasses.clear();
 #ifdef _WIN64
-		if(false == LoadPackage("./package_core_x64.dll"))
+		if(false == LoadPackage("./packages/core/package_core_x64.dll"))
 		{
 			return false;
 		}
@@ -79,7 +79,7 @@ namespace ld3d
 			return false;
 		}
 		m_templates[name] = pTpl;
-		log("Template registered: " + name);
+		log("-Template registered: " + name);
 		return true;
 	}
 	
@@ -98,10 +98,6 @@ namespace ld3d
 		GameObjectPtr pObj = alloc_object<GameObject>();
 		pObj->SetName(name);
 
-		GameObjectComponentPtr pPM = CreateComponent("PropertyManager");
-
-		pObj->AddComponent(pPM);
-
 		return pObj;
 	}
 	
@@ -114,6 +110,7 @@ namespace ld3d
 			return false;
 		}
 		
+		log(std::string("Loading Package: ") + mod.GetPackage()->GetPackageName());
 		RegisterPackage(mod.GetPackage());
 		log(std::string("Package loaded: ") + mod.GetPackage()->GetPackageName());
 		m_packages.push_back(mod);
@@ -135,7 +132,7 @@ namespace ld3d
 		}
 		m_componentClasses[c->m_name] = c;
 
-		log("Component registered: " + c->m_name);
+		log("-Component registered: " + c->m_name);
 		return true;
 	}
 	bool GameObjectManager::RegisterPackage(Package* pPack)

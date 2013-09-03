@@ -75,27 +75,23 @@ namespace ld3d
 	}
 	bool VoxelWorldGenerator::OnAttach()
 	{
-		PropertyManagerPtr pPM = std::dynamic_pointer_cast<PropertyManager>(m_pObject->GetComponent("PropertyManager"));
-
-		pPM->Begin("VoxelWorldGenerator");
-		{
-			pPM->RegisterProperty<float, VoxelWorldGenerator>(this,
+		
+		RegisterProperty<float, VoxelWorldGenerator>(this,
 				"Smooth",
 				&VoxelWorldGenerator::GetSmooth,
 				&VoxelWorldGenerator::SetSmooth);
 
-			pPM->RegisterProperty<prop_signal, VoxelWorldGenerator>(this,
+		RegisterProperty<prop_signal, VoxelWorldGenerator>(this,
 				"Generate",
 				&VoxelWorldGenerator::_dummy,
 				&VoxelWorldGenerator::OnSignaleGenerate);
 
-		}
-		pPM->End();
-
+		
 		return true;
 	}
 	void VoxelWorldGenerator::OnDetach()
 	{
+		ClearPropertySet();
 	}
 
 

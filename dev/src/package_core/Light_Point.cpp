@@ -42,43 +42,39 @@ namespace ld3d
 
 		m_pRenderManager->AddLight(m_pLight);
 
-		PropertyManagerPtr pPM = std::dynamic_pointer_cast<PropertyManager>(m_pObject->GetComponent("PropertyManager"));
 		
-		pPM->Begin("PointLight");
-		{
-			pPM->RegisterProperty<bool, PointLight>(m_pLight.get(), 
-												"Cast Shadow", 
-												&PointLight::GetCastShadow,
-												&PointLight::SetCastShadow);
+		RegisterProperty<bool, PointLight>(m_pLight.get(), 
+										"Cast Shadow", 
+										&PointLight::GetCastShadow,
+										&PointLight::SetCastShadow);
 
-			pPM->RegisterProperty<math::Color4, PointLight>(m_pLight.get(), 
-												"Diffuse Color", 
-												&PointLight::GetDiffuseColor,
-												&PointLight::SetDiffuseColor);
+		RegisterProperty<math::Color4, PointLight>(m_pLight.get(), 
+										"Diffuse Color", 
+										&PointLight::GetDiffuseColor,
+										&PointLight::SetDiffuseColor);
 
-			
-			pPM->RegisterProperty<float, PointLight>(m_pLight.get(), 
-												"Radius", 
-												&PointLight::GetRadius,
-												&PointLight::SetRadius);
+		
+		RegisterProperty<float, PointLight>(m_pLight.get(), 
+										"Radius", 
+										&PointLight::GetRadius,
+										&PointLight::SetRadius);
 
-			pPM->RegisterProperty<float, PointLight>(m_pLight.get(), 
-												"Intensity", 
-												&PointLight::GetIntensity,
-												&PointLight::SetIntensity);
+		RegisterProperty<float, PointLight>(m_pLight.get(), 
+										"Intensity", 
+										&PointLight::GetIntensity,
+										&PointLight::SetIntensity);
 
-			pPM->RegisterProperty<bool, PointLight>(m_pLight.get(), 
+		RegisterProperty<bool, PointLight>(m_pLight.get(), 
 												"Enabled", 
 												&PointLight::GetEnabled,
 												&PointLight::SetEnabled);
 
-		}
-		pPM->End();
 
 		return true;
 	}
 	void Light_Point::OnDetach()
 	{
+		ClearPropertySet();
 		m_pRenderManager->RemoveLight(m_pLight);
 		m_pLight->Release();
 		m_pLight.reset();

@@ -20,18 +20,12 @@ namespace ld3d
 			
 	bool VoxelObjectRenderer::OnAttach()
 	{
-		PropertyManagerPtr pPM = std::dynamic_pointer_cast<PropertyManager>(m_pObject->GetComponent("PropertyManager"));
-
-		pPM->Begin("VoxelObjectRenderer");
-		{
-			
-		}
-		pPM->End();
+		
 
 		return true;
 	}
 	void VoxelObjectRenderer::OnDetach()
 	{
-		
+		ClearPropertySet();
 	}
 }

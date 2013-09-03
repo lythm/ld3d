@@ -10,6 +10,8 @@ namespace ld3d
 		SetName(name);	
 		m_pManager = pManager;
 		m_bExclusive = true;
+
+		m_pPropertySet = alloc_object<PropertySet>(name);
 	}
 	GameObjectComponent::GameObjectComponent(GameObjectManagerPtr pManager)
 	{
@@ -18,6 +20,7 @@ namespace ld3d
 
 	GameObjectComponent::~GameObjectComponent(void)
 	{
+		m_pPropertySet.reset();
 		m_pObject.reset();
 		m_name = "";
 	}
@@ -106,6 +109,14 @@ namespace ld3d
 	void GameObjectComponent::SetVersion(const Version& v)
 	{
 		m_version = v;
+	}
+	PropertySetPtr GameObjectComponent::GetPropertySet()
+	{
+		return m_pPropertySet;
+	}
+	void GameObjectComponent::ClearPropertySet()
+	{
+		m_pPropertySet->clearProperties();
 	}
 }
 

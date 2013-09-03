@@ -76,11 +76,7 @@ namespace ld3d
 		{
 			GameObjectComponentPtr pCom = pObj->GetComponent(i);
 			
-			if(pCom->GetName() == "PropertyManager")
-			{
-				continue;
-			}
-
+			
 			pStream->WriteString(pCom->GetName());
 			
 			if(false == pCom->Serialize(pStream))

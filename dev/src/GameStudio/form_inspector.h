@@ -22,8 +22,10 @@ private:
 	Widget_InspectorProperty*				AddProperty(Widget_InspectorPanel* pPanel, ld3d::Property* p);
 
 	void									on_property_changed(Widget_InspectorProperty* prop);
+	void									on_object_property_changed(Widget_InspectorProperty* prop);
 private:
 	Widget_Inspector*						m_pInspector;
+	ld3d::GameObject*						m_pObj;
 };
 
 #endif // FORM_INSPECTOR_H

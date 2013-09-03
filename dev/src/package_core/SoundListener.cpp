@@ -33,15 +33,11 @@ namespace ld3d
 	
 	bool SoundListener::OnAttach()
 	{
-		PropertyManagerPtr pPM = std::dynamic_pointer_cast<PropertyManager>(m_pObject->GetComponent("PropertyManager"));
-
-		pPM->Begin("SoundListener");
-		{
-		}
-		pPM->End();
+		
 		return true;
 	}
 	void SoundListener::OnDetach()
 	{
+		ClearPropertySet();
 	}
 }

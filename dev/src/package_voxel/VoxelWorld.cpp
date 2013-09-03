@@ -30,32 +30,26 @@ namespace ld3d
 	bool VoxelWorld::OnAttach()
 	{
 
-		PropertyManagerPtr pPM = std::dynamic_pointer_cast<PropertyManager>(m_pObject->GetComponent("PropertyManager"));
-
-		pPM->Begin("VoxelWorld");
-		{
-			pPM->RegisterProperty<int, VoxelWorld>(this,
+		
+		RegisterProperty<int, VoxelWorld>(this,
 				"Voxel Size",
 				&VoxelWorld::GetVoxelSize,
 				&VoxelWorld::SetVoxelSize);
 
-			pPM->RegisterProperty<int, VoxelWorld>(this,
+		RegisterProperty<int, VoxelWorld>(this,
 				"World Size X",
 				&VoxelWorld::GetWorldSizeX,
 				&VoxelWorld::SetWorldSizeX);
 
-			pPM->RegisterProperty<int, VoxelWorld>(this,
+		RegisterProperty<int, VoxelWorld>(this,
 				"World Size Y",
 				&VoxelWorld::GetWorldSizeY,
 				&VoxelWorld::SetWorldSizeY);
 
-			pPM->RegisterProperty<int, VoxelWorld>(this,
+		RegisterProperty<int, VoxelWorld>(this,
 				"World Size Z",
 				&VoxelWorld::GetWorldSizeZ,
 				&VoxelWorld::SetWorldSizeZ);
-
-		}
-		pPM->End();
 
 
 		return true;
@@ -71,6 +65,7 @@ namespace ld3d
 	}
 	void VoxelWorld::OnDetach()
 	{
+		ClearPropertySet();
 		if(m_pDataSet != nullptr)
 		{
 			m_pDataSet->Release();

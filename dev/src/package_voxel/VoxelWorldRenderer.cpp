@@ -25,18 +25,12 @@ namespace ld3d
 	
 	bool VoxelWorldRenderer::OnAttach()
 	{
-		PropertyManagerPtr pPM = std::dynamic_pointer_cast<PropertyManager>(m_pObject->GetComponent("PropertyManager"));
-
-		pPM->Begin("VoxelWorldRenderer");
-		{
-			pPM->RegisterProperty<bool, VoxelWorldRenderer>(this,
+		
+		RegisterProperty<bool, VoxelWorldRenderer>(this,
 				"Show Bound",
 				&VoxelWorldRenderer::GetShowBound,
 				&VoxelWorldRenderer::SetShowBound);
-		}
-		pPM->End();
-
-		
+				
 
 		m_pRenderData = m_pManager->alloc_object<VoxelWorldRenderData>();
 		if(m_pRenderData->Initialize(m_pManager->GetRenderManager()) == false)
@@ -58,6 +52,7 @@ namespace ld3d
 	}
 	void VoxelWorldRenderer::OnDetach()
 	{
+		ClearPropertySet();
 		m_pManager->RemoveEventHandler(m_hFrustumCull);
 		m_pRenderData->Release();
 		m_pRenderData.reset();

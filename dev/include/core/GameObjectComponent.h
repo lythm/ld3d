@@ -40,6 +40,47 @@ namespace ld3d
 		void														SetExclusive(bool v);
 		
 	
+		PropertySetPtr												GetPropertySet();
+		void														ClearPropertySet();
+
+		template<typename T>
+		bool														RegisterProperty(const std::string& name, 
+																		boost::function<const T& ()> getter,
+																		boost::function<void (const T&)> setter = boost::function<void (const T&)>())
+		{
+			std::shared_ptr<Property_T<T> > pProp = CoreApi::GetAllocator()->AllocObject<Property_T<T> >(name);
+			pProp->setType(PropTypeId<T>::m_type);
+			pProp->m_getter = getter;
+			pProp->m_setter = setter;
+
+			m_pPropertySet->addProperty(pProp);
+
+			return true;
+		}
+
+		template<typename T, typename TObject>
+		bool														RegisterProperty(TObject* pObj, 
+																		const std::string& name, 
+																		boost::function<const T& (TObject*)> getter,
+																		boost::function<void (TObject*, const T&)> setter =  boost::function<void (TObject*, const T&)>())
+		{
+			std::shared_ptr<Property_T<T> > pProp = m_pManager->alloc_object<Property_T<T> >(name);
+			pProp->setType(PropTypeId<T>::m_type);
+			pProp->m_getter = boost::bind(getter, pObj);
+
+			if(setter)
+			{
+				pProp->m_setter = boost::bind(setter, pObj, _1);
+			}
+			else
+			{
+				pProp->m_setter = boost::function<void (const T&)>();
+			}
+
+			m_pPropertySet->addProperty(pProp);
+
+			return true;
+		}
 	private:
 		virtual bool												OnAttach();
 		virtual void												OnDetach();
@@ -50,5 +91,7 @@ namespace ld3d
 		GameObjectManagerPtr										m_pManager;
 		bool														m_bExclusive;
 		Version														m_version;
+
+		PropertySetPtr												m_pPropertySet;
 	};
 }

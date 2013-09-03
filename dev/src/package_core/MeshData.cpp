@@ -3,7 +3,6 @@
 #include "core/Mesh.h"
 #include "core/ext/MeshRenderer.h"
 #include "core/GameObject.h"
-#include "core/ext/PropertyManager.h"
 #include "core/MeshUtil.h"
 #include "core/RenderManager.h"
 #include "core/Sys_Graphics.h"
@@ -34,6 +33,7 @@ namespace ld3d
 	}
 	void MeshData::OnDetach()
 	{
+		ClearPropertySet();
 		if(m_pMesh)
 		{
 			m_pMesh->Destroy();
@@ -71,15 +71,13 @@ namespace ld3d
 	{
 		ResetMeshRenderer();
 
-		PropertyManagerPtr pPM = std::dynamic_pointer_cast<PropertyManager>(m_pObject->GetComponent("PropertyManager"));
-		pPM->Begin("MeshData");
-
-		pPM->RegisterProperty<std::string, MeshData>(this,
+		
+		RegisterProperty<std::string, MeshData>(this,
 			"MeshAsset", 
 			&MeshData::GetMeshAsset,
 			&MeshData::SetMeshAsset);
 
-		pPM->End();
+		
 
 		return true;
 	}

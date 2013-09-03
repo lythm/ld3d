@@ -1,6 +1,7 @@
 #include "core_ext_pch.h"
 #include "Tpl_Cube.h"
-
+#include "core/ext/MeshData.h"
+#include "core/ext/MeshRenderer.h"
 namespace ld3d
 {
 	Tpl_Cube::Tpl_Cube(GameObjectManagerPtr pManager, const std::string& name) : GameObjectTemplate(pManager, name, "Geometry")
