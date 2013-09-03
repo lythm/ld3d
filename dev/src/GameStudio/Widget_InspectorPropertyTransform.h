@@ -16,6 +16,19 @@ public:
 	void											resizeEvent(QResizeEvent* e);
 
 	QSize											sizeHint() const;
+
+	static void* operator new(size_t size)
+	{
+		return g_Allocator.Alloc(size);
+		//return ::operator new(size);
+	}
+
+	static void operator delete(void* pointee)
+	{
+		//::operator delete(pointee);
+		g_Allocator.Free(pointee);
+	}
+
 private:
 	math::Vector3									MatrixToEular(const math::Matrix44& mat);
 	math::Matrix44									EularToMatrix(const math::Vector3& r);
@@ -25,32 +38,34 @@ public slots:
 	void											on_edit_changed();
 private:
 
-	QLineEdit*										m_rvx;
-	QLineEdit*										m_rvy;
-	QLineEdit*										m_rvz;
+	QLineEdit										m_rvx;
+	QLineEdit										m_rvy;
+	QLineEdit										m_rvz;
 
-	QLineEdit*										m_tvx;
-	QLineEdit*										m_tvy;
-	QLineEdit*										m_tvz;
+	QLineEdit										m_tvx;
+	QLineEdit										m_tvy;
+	QLineEdit										m_tvz;
 
-	QLineEdit*										m_svx;
-	QLineEdit*										m_svy;
-	QLineEdit*										m_svz;
+	QLineEdit										m_svx;
+	QLineEdit										m_svy;
+	QLineEdit										m_svz;
 
-	QLabel*											m_labelTranslation;
-	QLabel*											m_labelRotation;
-	QLabel*											m_labelScale;
+	QLabel											m_labelTranslation;
+	QLabel											m_labelRotation;
+	QLabel											m_labelScale;
 
-	QLabel*											m_labelTvx;
-	QLabel*											m_labelTvy;
-	QLabel*											m_labelTvz;
+	QLabel											m_labelTvx;
+	QLabel											m_labelTvy;
+	QLabel											m_labelTvz;
 
-	QLabel*											m_labelRvx;
-	QLabel*											m_labelRvy;
-	QLabel*											m_labelRvz;
+	QLabel											m_labelRvx;
+	QLabel											m_labelRvy;
+	QLabel											m_labelRvz;
 
-	QLabel*											m_labelSvx;
-	QLabel*											m_labelSvy;
-	QLabel*											m_labelSvz;
+	QLabel											m_labelSvx;
+	QLabel											m_labelSvy;
+	QLabel											m_labelSvz;
+
+	QDoubleValidator								m_validator;
 };
 

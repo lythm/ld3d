@@ -15,10 +15,23 @@ public:
 	QColor								GetValue();
 	void								SetValue(const QColor& value);
 	
+
+	static void* operator new(size_t size)
+	{
+		return g_Allocator.Alloc(size);
+		//return ::operator new(size);
+	}
+
+	static void operator delete(void* pointee)
+	{
+		//::operator delete(pointee);
+		g_Allocator.Free(pointee);
+	}
+
 public slots:
 	void								on_value_changed(const QColor&);
 private:
-	Widget_ColorButton*					m_pValue;
+	Widget_ColorButton					m_value;
 
 };
 

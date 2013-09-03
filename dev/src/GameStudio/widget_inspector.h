@@ -56,6 +56,20 @@ public:
 	void										AddProperty(Widget_InspectorProperty* pProp);
 
 	void										paintEvent(QPaintEvent *);
+
+
+	static void* operator new(size_t size)
+	{
+		return g_Allocator.Alloc(size);
+		//return ::operator new(size);
+	}
+
+	static void operator delete(void* pointee)
+	{
+		//::operator delete(pointee);
+		g_Allocator.Free(pointee);
+	}
+
 private:
 	void										resizeEvent(QResizeEvent* e);
 private:

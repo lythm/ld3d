@@ -25,10 +25,10 @@ int main(int argc, char *argv[])
 	{
 		a.processEvents();
 		w.on_idle();
-		QThread::msleep(1);
+	//	QThread::msleep(1);
 	}
 
-	g_Allocator.Release();
+	//g_Allocator.Release();
 
 	return 0;
 }

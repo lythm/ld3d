@@ -2,13 +2,12 @@
 #include "widget_inspectorpropertysimple.h"
 
 Widget_InspectorPropertySimple::Widget_InspectorPropertySimple(QWidget *parent, const QString& name, void* userData)
-	: Widget_InspectorProperty(parent, userData)
+	: Widget_InspectorProperty(parent, userData) , m_nameWidget(this)
 {
 
 	setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
 		
-	m_pNameWidget = new QLabel(this);
-	m_pNameWidget->setAttribute(Qt::WA_DeleteOnClose);
+	m_nameWidget.setAttribute(Qt::WA_DeleteOnClose);
 	m_pValueWidget = nullptr;
 
 	SetName(name);
@@ -28,7 +27,7 @@ void Widget_InspectorPropertySimple::resizeEvent(QResizeEvent* e)
 
 	int w1 = 100;
 
-	m_pNameWidget->setGeometry(0, 0, w1 - 1, WIDGET_ROW_HEIGHT);
+	m_nameWidget.setGeometry(0, 0, w1 - 1, WIDGET_ROW_HEIGHT);
 
 	if(m_pValueWidget)
 	{
@@ -43,15 +42,15 @@ void Widget_InspectorPropertySimple::SetValueWidget(QWidget* pValue)
 	//m_pValueWidget->setAttribute(Qt::WA_DeleteOnClose);
 	m_pValueWidget->setParent(this);
 
-	setMinimumWidth(m_pNameWidget->sizeHint().width() + m_pValueWidget->minimumWidth() + 1);
+	setMinimumWidth(m_nameWidget.sizeHint().width() + m_pValueWidget->minimumWidth() + 1);
 }
 void Widget_InspectorPropertySimple::SetName(const QString& name)
 {
-	m_pNameWidget->setText(name);
+	m_nameWidget.setText(name);
 }
 QString	Widget_InspectorPropertySimple::GetName()
 {
-	return m_pNameWidget->text();
+	return m_nameWidget.text();
 }
 QSize Widget_InspectorPropertySimple::sizeHint() const
 {

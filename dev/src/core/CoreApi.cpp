@@ -343,12 +343,7 @@ namespace ld3d
 			s_logger(text);
 		}
 
-#ifdef _WIN32
-#ifdef _DEBUG
-		OutputDebugStringA(text.c_str());
-		OutputDebugStringA("\r\n");
-#endif
-#endif
+
 	}
 	void CoreApi::SetLogger(Logger logger)
 	{

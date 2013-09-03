@@ -4,11 +4,13 @@
 Widget_InspectorPropertyString::Widget_InspectorPropertyString(QWidget *parent, const QString& name, const QString& value)
 	: Widget_InspectorPropertySimple(parent, name)
 {
-	m_pValue = new QLineEdit(this);
-	SetValueWidget(m_pValue);
-	m_pValue->setText(value);
+	m_value.setParent(this);
 
-	connect(m_pValue, SIGNAL(editingFinished()), this, SLOT(slotTextChanged()));
+	//m_pValue = new QLineEdit(this);
+	SetValueWidget(&m_value);
+	m_value.setText(value);
+
+	connect(&m_value, SIGNAL(editingFinished()), this, SLOT(slotTextChanged()));
 }
 
 Widget_InspectorPropertyString::~Widget_InspectorPropertyString()
@@ -17,11 +19,11 @@ Widget_InspectorPropertyString::~Widget_InspectorPropertyString()
 }
 QString	Widget_InspectorPropertyString::GetValue()
 {
-	return m_pValue->text();
+	return m_value.text();
 }
 void Widget_InspectorPropertyString::SetValue(const QString& value)
 {
-	m_pValue->setText(value);
+	m_value.setText(value);
 }
 void Widget_InspectorPropertyString::slotTextChanged()
 {

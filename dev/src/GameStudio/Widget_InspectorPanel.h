@@ -26,7 +26,21 @@ public:
 	QSize										sizeHint() const;
 	void										Release();
 	void										paintEvent(QPaintEvent *);
-public
+
+
+	static void* operator new(size_t size)
+	{
+		return g_Allocator.Alloc(size);
+		//return ::operator new(size);
+	}
+
+	static void operator delete(void* pointee)
+	{
+		//::operator delete(pointee);
+		g_Allocator.Free(pointee);
+	}
+
+	public
 Q_SLOTS:
 	void										slotTitleClicked();
 private:

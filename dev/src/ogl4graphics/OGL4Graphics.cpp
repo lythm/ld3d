@@ -39,7 +39,8 @@ namespace ld3d
 	}
 	
 
-#ifdef _DEBUG
+#if 1
+//#ifdef _DEBUG
 	void APIENTRY _DebugCallback(GLenum source, 
 		GLenum type, 
 		GLuint id,
@@ -124,6 +125,8 @@ namespace ld3d
 
 
 		g_log(str.str());
+
+		return ;
 	}
 
 #define _ENABLE_GL_DEBUG_	glDebugMessageCallback(_DebugCallback, NULL);glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
@@ -232,7 +235,10 @@ namespace ld3d
 			unsigned int value_count = 0;
 			GLenum gltype = GL_INVALID_ENUM;
 
-			assert(OGL4Convert::FormatToGLVertexAttr(type, value_count, gltype));
+			if(OGL4Convert::FormatToGLVertexAttr(type, value_count, gltype) == false)
+			{
+				assert(0);
+			}
 
 			glVertexAttribPointer(i, value_count, gltype, false, stride, (GLvoid*)(bufferOffset + offset));
 
@@ -259,7 +265,10 @@ namespace ld3d
 			unsigned int value_count = 0;
 			GLenum gltype = GL_INVALID_ENUM;
 
-			assert(OGL4Convert::FormatToGLVertexAttr(type, value_count, gltype));
+			if(false == OGL4Convert::FormatToGLVertexAttr(type, value_count, gltype))
+			{
+				assert(0);
+			}
 
 			glVertexAttribPointer(i, value_count, gltype, false, stride, (GLvoid*)(vbOffset + offset));
 

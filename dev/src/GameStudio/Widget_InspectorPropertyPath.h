@@ -19,6 +19,19 @@ public:
 
 	QSize										sizeHint() const;
 
+
+	static void* operator new(size_t size)
+	{
+		return g_Allocator.Alloc(size);
+		//return ::operator new(size);
+	}
+
+	static void operator delete(void* pointee)
+	{
+		//::operator delete(pointee);
+		g_Allocator.Free(pointee);
+	}
+
 public slots:
 	void										slotPickPath();
 	void										on_value_changed();

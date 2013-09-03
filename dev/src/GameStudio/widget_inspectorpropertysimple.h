@@ -18,11 +18,24 @@ public:
 	QString										GetName();
 
 	QSize										sizeHint() const;
+
+	static void* operator new(size_t size)
+	{
+		return g_Allocator.Alloc(size);
+		//return ::operator new(size);
+	}
+
+	static void operator delete(void* pointee)
+	{
+		//::operator delete(pointee);
+		g_Allocator.Free(pointee);
+	}
+
 protected:
 	void										SetValueWidget(QWidget* pValue);
 
 private:
-	QLabel*										m_pNameWidget;
+	QLabel										m_nameWidget;
 	QWidget*									m_pValueWidget;
 };
 

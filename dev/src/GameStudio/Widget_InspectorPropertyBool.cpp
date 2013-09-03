@@ -8,12 +8,12 @@ Widget_InspectorPropertyBool::Widget_InspectorPropertyBool(QWidget *parent, cons
 	:Widget_InspectorPropertySimple(parent, name)
 {
 
-	m_pValue = new QCheckBox(this);
+	m_value.setParent(this);
 	
-	SetValueWidget(m_pValue);
+	SetValueWidget(&m_value);
 	SetValue(value);
 
-	connect(m_pValue, SIGNAL(stateChanged(int)), this, SLOT(on_value_changed(int)));
+	connect(&m_value, SIGNAL(stateChanged(int)), this, SLOT(on_value_changed(int)));
 }
 
 Widget_InspectorPropertyBool::~Widget_InspectorPropertyBool(void)
@@ -21,11 +21,11 @@ Widget_InspectorPropertyBool::~Widget_InspectorPropertyBool(void)
 }
 bool Widget_InspectorPropertyBool::GetValue()
 {
-	return m_pValue->isChecked();
+	return m_value.isChecked();
 }
 void Widget_InspectorPropertyBool::SetValue(bool value)
 {
-	m_pValue->setChecked(value);
+	m_value.setChecked(value);
 }
 
 void Widget_InspectorPropertyBool::on_value_changed(int)

@@ -6,6 +6,14 @@
 
 namespace ld3d
 {
+
+	void log(const std::string& text)
+	{
+		OutputDebugStringA(text.c_str());
+		OutputDebugStringA("\r\n");
+
+	}
+
 	bool												MainApp::m_bActive = true;
 	MainApp::MainApp(void)
 	{
@@ -224,6 +232,8 @@ namespace ld3d
 		m_pGameManager->GetGame()->AdjustSysSetting(setting);
 		
 		AdjustWindow(setting.graphics.frameBufferWidth, setting.graphics.frameBufferHeight);
+
+		CoreApi::SetLogger(log);
 
 		if(false == m_pCore->Initialize(setting))
 		{

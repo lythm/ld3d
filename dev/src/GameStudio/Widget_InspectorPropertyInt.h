@@ -12,9 +12,23 @@ public:
 
 	int									GetValue();
 	void								SetValue(int value);
+
+	static void* operator new(size_t size)
+	{
+		return g_Allocator.Alloc(size);
+		//return ::operator new(size);
+	}
+
+	static void operator delete(void* pointee)
+	{
+		//::operator delete(pointee);
+		g_Allocator.Free(pointee);
+	}
+
 public slots:
 	void								on_value_changed();
 private:
-	QLineEdit*							m_pValue;
+	QLineEdit							m_value;
+	QIntValidator						m_validator;
 };
 

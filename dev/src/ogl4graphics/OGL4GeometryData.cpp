@@ -126,7 +126,10 @@ namespace ld3d
 			unsigned int value_count = 0;
 			GLenum gltype = GL_INVALID_ENUM;
 
-			assert(OGL4Convert::FormatToGLVertexAttr(type, value_count, gltype));
+			if(OGL4Convert::FormatToGLVertexAttr(type, value_count, gltype) == false)
+			{
+				assert(0);
+			}
 
 			glVertexAttribPointer(i, value_count, gltype, false, stride, (GLvoid*)(m_vbOffset + offset));
 
