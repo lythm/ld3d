@@ -1,6 +1,5 @@
 #pragma once
 
-#include "core/MaterialLexer.h"
 #include "core/MaterialBaseParser.h"
 
 

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "GameManager.h"
+#include "MainConfig.h"
 namespace ld3d
 {
 	class MainApp
@@ -59,6 +60,7 @@ namespace ld3d
 
 		GameManagerPtr											m_pGameManager;
 		CoreApiPtr												m_pCore;
+		MainConfigPtr											m_pConfig;
 	};
 
 

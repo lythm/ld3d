@@ -173,14 +173,12 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Config.cpp" />
+    <ClCompile Include="Lexer.cpp" />
     <ClCompile Include="MemPool.cpp" />
     <ClCompile Include="MiniDump.cpp" />
     <ClCompile Include="PerlinNoise.cpp" />
     <ClCompile Include="PropertySet.cpp" />
-    <ClCompile Include="tinystr.cpp" />
-    <ClCompile Include="tinyxml.cpp" />
-    <ClCompile Include="tinyxmlerror.cpp" />
-    <ClCompile Include="tinyxmlparser.cpp" />
     <ClCompile Include="Unicode.cpp" />
     <ClCompile Include="utils_pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -193,13 +191,13 @@
     <ClCompile Include="Version.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\include\utils\Config.h" />
+    <ClInclude Include="..\..\include\utils\Lexer.h" />
     <ClInclude Include="..\..\include\utils\MemPool.h" />
     <ClInclude Include="..\..\include\utils\MiniDump.h" />
     <ClInclude Include="..\..\include\utils\PerlinNoise.h" />
     <ClInclude Include="..\..\include\utils\PropertySet.h" />
     <ClInclude Include="..\..\include\utils\scope_exit.h" />
-    <ClInclude Include="..\..\include\utils\tinystr.h" />
-    <ClInclude Include="..\..\include\utils\tinyxml.h" />
     <ClInclude Include="..\..\include\utils\Unicode.h" />
     <ClInclude Include="..\..\include\utils\utils_all.h" />
     <ClInclude Include="..\..\include\utils\Version.h" />

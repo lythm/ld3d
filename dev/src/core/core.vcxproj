@@ -195,7 +195,6 @@
     <ClInclude Include="..\..\include\core\Material.h" />
     <ClInclude Include="..\..\include\core\MaterialBaseParser.h" />
     <ClInclude Include="..\..\include\core\MaterialCompiler.h" />
-    <ClInclude Include="..\..\include\core\MaterialLexer.h" />
     <ClInclude Include="..\..\include\core\MaterialParameter.h" />
     <ClInclude Include="..\..\include\core\MaterialParser.h" />
     <ClInclude Include="..\..\include\core\MaterialPass.h" />
@@ -252,6 +251,9 @@
     <ClInclude Include="Frame.h" />
     <ClInclude Include="MaterialParameterManager.h" />
     <ClInclude Include="PostEffect_FXAA.h" />
+    <ClInclude Include="RenderSystem.h" />
+    <ClInclude Include="RenderSystem_DR.h" />
+    <ClInclude Include="RenderSystem_FR.h" />
     <ClInclude Include="Time64.h" />
     <ClInclude Include="WMInput.h" />
   </ItemGroup>
@@ -284,7 +286,6 @@
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="MaterialBaseParser.cpp" />
     <ClCompile Include="MaterialCompiler.cpp" />
-    <ClCompile Include="MaterialLexer.cpp" />
     <ClCompile Include="MaterialParameter.cpp" />
     <ClCompile Include="MaterialParameterManager.cpp" />
     <ClCompile Include="MaterialParser.cpp" />
@@ -305,6 +306,8 @@
     <ClCompile Include="PostEffect.cpp" />
     <ClCompile Include="RenderManager.cpp" />
     <ClCompile Include="RenderStateParser.cpp" />
+    <ClCompile Include="RenderSystem_DR.cpp" />
+    <ClCompile Include="RenderSystem_FR.cpp" />
     <ClCompile Include="SamplerStateParser.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneSerializer.cpp" />

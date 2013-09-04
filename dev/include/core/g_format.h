@@ -267,7 +267,7 @@ namespace ld3d
 	};
 	struct GraphicsSetting
 	{
-		std::string		sysMod;
+		std::string			sysMod;
 		void*				wnd;
 		bool				windowed;
 		int					frameBufferWidth;

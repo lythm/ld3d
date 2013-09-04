@@ -50,7 +50,6 @@
     <ClCompile Include="MaterialTech.cpp" />
     <ClCompile Include="BBoxRenderData.cpp" />
     <ClCompile Include="MaterialCompiler.cpp" />
-    <ClCompile Include="MaterialLexer.cpp" />
     <ClCompile Include="MaterialParser.cpp" />
     <ClCompile Include="SamplerStateParser.cpp" />
     <ClCompile Include="RenderStateParser.cpp" />
@@ -58,6 +57,8 @@
     <ClCompile Include="PassParser.cpp" />
     <ClCompile Include="MaterialBaseParser.cpp" />
     <ClCompile Include="Material.cpp" />
+    <ClCompile Include="RenderSystem_FR.cpp" />
+    <ClCompile Include="RenderSystem_DR.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\core\ArcBall.h" />
@@ -143,7 +144,6 @@
     <ClInclude Include="..\..\include\core\GeometryData.h" />
     <ClInclude Include="..\..\include\core\ShaderProgram.h" />
     <ClInclude Include="..\..\include\core\MaterialCompiler.h" />
-    <ClInclude Include="..\..\include\core\MaterialLexer.h" />
     <ClInclude Include="..\..\include\core\MaterialParser.h" />
     <ClInclude Include="..\..\include\core\SamplerStateParser.h" />
     <ClInclude Include="..\..\include\core\RenderStateParser.h" />
@@ -153,6 +153,9 @@
     <ClInclude Include="..\..\include\core\RenderTexture.h" />
     <ClInclude Include="..\..\include\core\Material.h" />
     <ClInclude Include="..\..\include\core\Package.h" />
+    <ClInclude Include="RenderSystem_FR.h" />
+    <ClInclude Include="RenderSystem_DR.h" />
+    <ClInclude Include="RenderSystem.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

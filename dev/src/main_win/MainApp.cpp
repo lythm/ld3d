@@ -195,6 +195,13 @@ namespace ld3d
 
 	bool MainApp::OnInit()
 	{
+
+		m_pConfig = std::make_shared<MainConfig>();
+		if(m_pConfig->Load("./main.conf.xml") == false)
+		{
+			return false;
+		}
+
 		m_pGameManager = std::make_shared<GameManager>();
 
 		if(false == m_pGameManager->Initialize("./game_x64.dll"))

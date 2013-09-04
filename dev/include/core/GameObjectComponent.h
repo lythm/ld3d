@@ -32,9 +32,7 @@ namespace ld3d
 		const Version&												GetVersion() const;
 		void														SetVersion(const Version& v);
 
-		const wchar_t*												GetVersionString();
-
-		virtual GameObjectComponentPtr Clone();
+		virtual GameObjectComponentPtr								Clone();
 
 		bool														IsExclusive();
 		void														SetExclusive(bool v);

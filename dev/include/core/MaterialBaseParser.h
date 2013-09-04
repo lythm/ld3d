@@ -1,6 +1,5 @@
 #pragma once
 
-#include "core/MaterialLexer.h"
 namespace ld3d
 {
 	namespace material_script
@@ -12,7 +11,6 @@ namespace ld3d
 			virtual ~BaseParser(void);
 
 			virtual bool										Parse(Lexer* lexer, const boost::filesystem::path& dir = "./")											= 0;
-			//virtual bool										Generate()													= 0;
 
 			void												Error(int line, const std::string& msg);
 			BaseParserPtr										FindSymbol(const std::string& name, bool curScope);

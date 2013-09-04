@@ -83,15 +83,11 @@ namespace ld3d
 	}
 	GameObjectComponentPtr GameObjectComponent::Clone()
 	{
-		//GameObjectComponentPtr pClone = alloc_object<GameObjectComponent, GameObjectManagerPtr>(m_pManager);
+		GameObjectComponentPtr pClone = alloc_object<GameObjectComponent, std::string, GameObjectManagerPtr>(m_name, m_pManager);
 
-		//pClone->SetName(GetName());
+		pClone->m_bExclusive = m_bExclusive;
 
-		return GameObjectComponentPtr();
-	}
-	const wchar_t* GameObjectComponent::GetVersionString()
-	{
-		return GetVersion().AsWString().c_str();
+		return pClone;
 	}
 	
 	bool GameObjectComponent::IsExclusive()

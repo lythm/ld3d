@@ -24,6 +24,9 @@
     <ClInclude Include="GameManager.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="MainConfig.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MainApp.cpp">
@@ -33,6 +36,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="GameManager.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="MainConfig.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

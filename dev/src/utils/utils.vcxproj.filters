@@ -15,18 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="tinystr.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="tinyxml.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="tinyxmlerror.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="tinyxmlparser.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="utils_pch.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -48,14 +36,14 @@
     <ClCompile Include="PerlinNoise.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Config.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Lexer.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\include\utils\tinystr.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\utils\tinyxml.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="utils_pch.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -81,6 +69,12 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\utils\scope_exit.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\utils\Config.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\utils\Lexer.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
