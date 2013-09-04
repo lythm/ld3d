@@ -18,9 +18,7 @@ bool VoxelDemo::Init(ld3d::CoreApiPtr pCore)
 
 	m_pCore = pCore;
 		
-	m_pCore->AddEventHandler(EV_WINMSG, boost::bind(&VoxelDemo::OnMsg, this, _1));
-
-	m_pCore->LoadPackage("./packages/voxel/package_voxel_x64.dll");
+	m_hEvHandler = m_pCore->AddEventHandler(EV_WINMSG, boost::bind(&VoxelDemo::OnMsg, this, _1));
 
 	m_pCore->GetRenderManager()->SetGlobalAmbient(math::Color4(0, 0.1f, 0.2f, 1.0f));
 	m_pCore->GetRenderManager()->SetClearColor(math::Color4(0.3f, 0.2f, 0.3f, 1));
@@ -73,6 +71,7 @@ bool VoxelDemo::Init(ld3d::CoreApiPtr pCore)
 }
 void VoxelDemo::Release()
 {
+	m_pCore->RemoveEventHandler(m_hEvHandler);
 }
 void VoxelDemo::Update()
 {

@@ -12,8 +12,6 @@ public:
 	Game(void);
 	virtual ~Game(void);
 
-
-	void									AdjustSysSetting(ld3d::SysSetting& setting);
 	bool									Initialize(ld3d::CoreApiPtr pCore);
 	void									Release();
 	bool									Update();

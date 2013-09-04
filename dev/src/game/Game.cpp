@@ -52,8 +52,3 @@ bool Game::Update()
 	
 	return true;
 }
-void Game::AdjustSysSetting(ld3d::SysSetting& setting)
-{
-	setting.graphics.sysMod = "./ogl4graphics_x64.dll";
-	setting.graphics.windowed = false;
-}

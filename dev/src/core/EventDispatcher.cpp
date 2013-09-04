@@ -44,10 +44,12 @@ namespace ld3d
 				v.second->disconnect_all_slots();
 			}
 		}
+
 		m_HandlerMap.clear();
 	}
 	void EventDispatcher::RemoveEventHandler(EventHandlerHandle handler)
 	{
 		handler.disconnect();
+		
 	}
 }

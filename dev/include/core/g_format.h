@@ -267,6 +267,18 @@ namespace ld3d
 	};
 	struct GraphicsSetting
 	{
+		GraphicsSetting()
+		{
+			wnd					= nullptr;
+			windowed			= true;
+			frameBufferWidth	= 640;
+			frameBufferHeight	= 480;
+			frameBufferFormat	= G_FORMAT_R8G8B8A8_UNORM;
+			depthStencilFormat	= G_FORMAT_D24_UNORM_S8_UINT;
+			multiSampleCount	= 1;
+			multiSampleQuality	= 0;
+			backBufferCount		= 2;
+		}
 		std::string			sysMod;
 		void*				wnd;
 		bool				windowed;
@@ -282,11 +294,19 @@ namespace ld3d
 
 	struct SoundSetting
 	{
+		SoundSetting()
+		{
+			maxChannels = 0;
+		}
 		std::string		sysMod;
 		int					maxChannels;
 	};
 	struct InputSetting
 	{
+		InputSetting()
+		{
+			wnd = nullptr;
+		}
 		std::string		sysMod;
 		void*				wnd;
 	};

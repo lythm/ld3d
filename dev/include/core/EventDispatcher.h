@@ -8,7 +8,7 @@ namespace ld3d
 	{
 	public:
 
-		typedef std::function<void (EventPtr)>											EventHandler;
+		typedef boost::function<void (EventPtr)>											EventHandler;
 
 		typedef boost::signals2::signal<void (EventPtr)>								Signal;
 

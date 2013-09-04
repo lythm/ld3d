@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<main>
+  <sys>
+    <sys_graphics w="800" h="600" windowed="true">sys/ogl4graphics_x64.dll</sys_graphics>
+    <sys_sound max_channels="100">sys/fmod_sound_x64.dll</sys_sound>
+    <sys_network>sys/network_x64.dll</sys_network>
+    <sys_physics></sys_physics>
+  </sys>
+
+  <package_list>
+    <package>packages/core</package>
+    <package>packages/voxel</package>
+  </package_list>
+
+  <mod>mods/game/game_x64.mod</mod>
+
+</main>

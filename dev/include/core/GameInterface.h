@@ -13,8 +13,6 @@ namespace ld3d
 
 	public:
 
-		virtual void									AdjustSysSetting(SysSetting& setting){}
-
 		virtual bool									Initialize(CoreApiPtr pCore)								= 0;
 		virtual void									Release()													= 0;
 		virtual bool									Update()													= 0;
