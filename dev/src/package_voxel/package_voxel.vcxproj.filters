@@ -18,37 +18,16 @@
     <ClInclude Include="voxel_pch.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\ext_voxel\Voxel.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\ext_voxel\VoxelWorld.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="VoxelWorldRenderData.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="VoxelSerializer.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\ext_voxel\voxel_all.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\ext_voxel\voxel_ptr.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\ext_voxel\VoxelWorldRenderer.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="VoxelPackage.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="VoxelWorldTemplate.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\ext_voxel\VoxelObject.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\ext_voxel\VoxelObjectRenderer.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="VoxelObjectTemplate.h">
@@ -60,9 +39,6 @@
     <ClInclude Include="VoxelWorldDataSet.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\ext_voxel\VoxelType.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="VoxelWorldChunk.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -72,7 +48,31 @@
     <ClInclude Include="VoxelWorldOctTree.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\ext_voxel\VoxelWorldGenerator.h">
+    <ClInclude Include="..\..\include\packages\voxel\Voxel.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\packages\voxel\voxel_all.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\packages\voxel\voxel_ptr.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\packages\voxel\VoxelObject.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\packages\voxel\VoxelObjectRenderer.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\packages\voxel\VoxelType.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\packages\voxel\VoxelWorld.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\packages\voxel\VoxelWorldGenerator.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\packages\voxel\VoxelWorldRenderer.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

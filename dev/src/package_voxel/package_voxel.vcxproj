@@ -161,15 +161,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\include\ext_voxel\Voxel.h" />
-    <ClInclude Include="..\..\include\ext_voxel\VoxelObject.h" />
-    <ClInclude Include="..\..\include\ext_voxel\VoxelObjectRenderer.h" />
-    <ClInclude Include="..\..\include\ext_voxel\VoxelType.h" />
-    <ClInclude Include="..\..\include\ext_voxel\VoxelWorldGenerator.h" />
-    <ClInclude Include="..\..\include\ext_voxel\VoxelWorldRenderer.h" />
-    <ClInclude Include="..\..\include\ext_voxel\VoxelWorld.h" />
-    <ClInclude Include="..\..\include\ext_voxel\voxel_all.h" />
-    <ClInclude Include="..\..\include\ext_voxel\voxel_ptr.h" />
+    <ClInclude Include="..\..\include\packages\voxel\Voxel.h" />
+    <ClInclude Include="..\..\include\packages\voxel\VoxelObject.h" />
+    <ClInclude Include="..\..\include\packages\voxel\VoxelObjectRenderer.h" />
+    <ClInclude Include="..\..\include\packages\voxel\VoxelType.h" />
+    <ClInclude Include="..\..\include\packages\voxel\VoxelWorld.h" />
+    <ClInclude Include="..\..\include\packages\voxel\VoxelWorldGenerator.h" />
+    <ClInclude Include="..\..\include\packages\voxel\VoxelWorldRenderer.h" />
+    <ClInclude Include="..\..\include\packages\voxel\voxel_all.h" />
+    <ClInclude Include="..\..\include\packages\voxel\voxel_ptr.h" />
     <ClInclude Include="VoxelObjectTemplate.h" />
     <ClInclude Include="VoxelPackage.h" />
     <ClInclude Include="VoxelPool.h" />
