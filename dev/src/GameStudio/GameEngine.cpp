@@ -32,7 +32,7 @@ bool GameEngine::Initialize(QWidget* pTarget)
 
 #ifdef _WIN64
 	SysSetting setting;
-	setting.graphics.sysMod = "./ogl4graphics_x64.dll";
+	setting.graphics.sysMod = "./sys/ogl4graphics_x64.dll";
 	setting.graphics.backBufferCount = 2;
 	setting.graphics.depthStencilFormat = G_FORMAT_D24_UNORM_S8_UINT;
 	setting.graphics.frameBufferFormat = G_FORMAT_R8G8B8A8_UNORM;
@@ -47,11 +47,11 @@ bool GameEngine::Initialize(QWidget* pTarget)
 	setting.input.wnd = (void*)pTarget->winId();
 
 	setting.sound.maxChannels = 100;
-	setting.sound.sysMod = "./fmod_sound_x64.dll";
+	setting.sound.sysMod = "./sys/fmod_sound_x64.dll";
 
 	setting.physics.sysMod = "";
 
-	setting.network.sysMod = "./network_x64.dll";
+	setting.network.sysMod = "./sys/network_x64.dll";
 
 #else
 	SysSetting setting;
@@ -83,17 +83,18 @@ bool GameEngine::Initialize(QWidget* pTarget)
 		return false;
 	}
 
+	if(m_pCore->LoadPackage("core") == false)
+	{
+		return false;
+	}
+	if(m_pCore->LoadPackage("voxel") == false)
+	{
+		return false;
+	}
 
 	m_pRenderManager = m_pCore->GetRenderManager();
 
 
-#ifdef _WIN64
-	m_pCore->GetGameObjectManager()->LoadPackage("./extensions/package_voxel_x64.dll");
-
-#else
-	m_pCore->GetGameObjectManager()->LoadPackage("./extensions/package_voxel_x86.dll");
-#endif
-	
 	m_pRenderManager->SetClearColor(math::Color4(0.3f, 0.2f, 0.4f, 1.0f));
 	//m_pRenderManager->SetGlobalAmbient(math::Color4(0, 0, 0, 1.0f));
 

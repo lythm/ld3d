@@ -1,5 +1,5 @@
 #include "core_ext_pch.h"
-#include "core/ext/Light_Point.h"
+#include "packages/core/Light_Point.h"
 #include "core/PointLight.h"
 #include "core/RenderManager.h"
 #include "core/GameObject.h"

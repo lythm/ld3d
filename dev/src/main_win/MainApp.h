@@ -17,6 +17,8 @@ namespace ld3d
 		void													Run();
 	protected:
 
+		void													CenterWindow();
+
 		void													ShowFPS();
 
 		void													SetTitle(const char* szTitle);

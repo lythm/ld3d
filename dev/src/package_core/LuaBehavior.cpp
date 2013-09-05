@@ -1,5 +1,5 @@
 #include "core_ext_pch.h"
-#include "core/ext/LuaBehavior.h"
+#include "packages/core/LuaBehavior.h"
 
 namespace ld3d
 {

@@ -16,7 +16,6 @@ _DLL_API void DestroyGame(ld3d::GameInterface* pGame)
 Game::Game(void)
 {
 	m_pDemo = NULL;
-	m_pGraphcicsTest = nullptr;
 }
 
 
@@ -25,12 +24,6 @@ Game::~Game(void)
 }
 bool Game::Initialize(ld3d::CoreApiPtr pCore)
 {
-	m_pGraphcicsTest = new GraphicsTest;
-
-	/*if(m_pGraphcicsTest->Init(pCore) == false)
-	{
-		return false;
-	}*/
 	m_pDemo = new VoxelDemo;
 
 	if(m_pDemo->Init(pCore) == false)

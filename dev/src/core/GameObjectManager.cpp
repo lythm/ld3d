@@ -21,17 +21,6 @@ namespace ld3d
 		m_pCore = pCore;
 
 		m_componentClasses.clear();
-#ifdef _WIN64
-		if(false == LoadPackage("./packages/core/package_core_x64.dll"))
-		{
-			return false;
-		}
-#else
-		if(false == LoadPackage("./package_core_x86.dll"))
-		{
-			return false;
-		}
-#endif
 
 		return true;
 	}
@@ -104,17 +93,11 @@ namespace ld3d
 	
 	bool GameObjectManager::LoadPackage(const std::string& name)
 	{
-		PackageMod mod;
-		if(false == mod.load_package(name.c_str(), shared_from_this()))
+		if(LoadNativePackage(name))
 		{
-			return false;
+			return true;
 		}
-		
-		log(std::string("Loading Package: ") + mod.GetPackage()->GetPackageName());
-		RegisterPackage(mod.GetPackage());
-		log(std::string("Package loaded: ") + mod.GetPackage()->GetPackageName());
-		m_packages.push_back(mod);
-		return true;
+		return LoadLuaPackage(name);
 	}
 	int GameObjectManager::GetPackageCount()
 	{
@@ -261,5 +244,29 @@ namespace ld3d
 	DT_CoreApiPtr GameObjectManager::GetDTCoreApi()
 	{
 		return m_pCore->GetDTCoreApi();
+	}
+
+	bool GameObjectManager::LoadNativePackage(const std::string& name)
+	{
+		using namespace boost::filesystem;
+
+		path pack = "./packages" / name / (name + ".dll");
+
+		PackageMod mod;
+		if(false == mod.load_package(pack.string().c_str(), shared_from_this()))
+		{
+			return false;
+		}
+		
+		log(std::string("Loading Package: ") + mod.GetPackage()->GetPackageName());
+		RegisterPackage(mod.GetPackage());
+		log(std::string("Package loaded: ") + mod.GetPackage()->GetPackageName());
+		m_packages.push_back(mod);
+
+		return true;
+	}
+	bool GameObjectManager::LoadLuaPackage(const std::string& name)
+	{
+		return true;
 	}
 }

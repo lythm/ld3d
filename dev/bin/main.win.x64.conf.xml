@@ -8,8 +8,8 @@
   </sys>
 
   <package_list>
-    <package>packages/core</package>
-    <package>packages/voxel</package>
+    <package>core</package>
+    <package>voxel</package>
   </package_list>
 
   <mod>mods/game/game_x64.mod</mod>

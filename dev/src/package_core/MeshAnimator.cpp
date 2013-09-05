@@ -1,5 +1,5 @@
 #include "core_ext_pch.h"
-#include "core/ext/MeshAnimator.h"
+#include "packages/core/MeshAnimator.h"
 
 namespace ld3d
 {

@@ -1,5 +1,5 @@
 #include "core_ext_pch.h"
-#include "core/ext/CameraData.h"
+#include "packages/core/CameraData.h"
 
 namespace ld3d
 {

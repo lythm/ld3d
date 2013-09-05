@@ -21,9 +21,6 @@ Form_Inspector::Form_Inspector(QWidget *parent)
 	inspector_layout->addWidget(m_pInspector);
 	inspector_layout->addWidget(new QPushButton("Add Component", this));
 
-	
-
-
 }
 
 Form_Inspector::~Form_Inspector()

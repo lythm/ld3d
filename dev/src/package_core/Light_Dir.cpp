@@ -1,5 +1,5 @@
 #include "core_ext_pch.h"
-#include "core/ext/Light_Dir.h"
+#include "packages/core/Light_Dir.h"
 #include "core/DirectionalLight.h"
 #include "core/RenderManager.h"
 #include "core/GameObject.h"

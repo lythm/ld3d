@@ -1,6 +1,6 @@
 #pragma once
 
-#include "ext_voxel/Voxel.h"
+#include "packages/voxel/Voxel.h"
 #include "core/ObjectPool.h"
 
 

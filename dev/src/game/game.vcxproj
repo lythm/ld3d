@@ -159,7 +159,6 @@
   <ItemGroup>
     <ClInclude Include="Game.h" />
     <ClInclude Include="game_pch.h" />
-    <ClInclude Include="GraphicsTest.h" />
     <ClInclude Include="VoxelDemo.h" />
   </ItemGroup>
   <ItemGroup>
@@ -170,7 +169,6 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="GraphicsTest.cpp" />
     <ClCompile Include="VoxelDemo.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -2,7 +2,7 @@
 
 namespace ld3d
 {
-	class VoxelWorldGenerator : public GameObjectComponent
+	class _DLL_CLASS VoxelWorldGenerator : public GameObjectComponent
 	{
 	public:
 		VoxelWorldGenerator(GameObjectManagerPtr pManager);

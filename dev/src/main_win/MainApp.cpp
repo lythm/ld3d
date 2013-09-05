@@ -97,6 +97,9 @@ namespace ld3d
 
 		AdjustWindow(w, h);
 
+		CenterWindow();
+		
+
 		ShowWindow(m_hWnd, SW_SHOW);
 		UpdateWindow(m_hWnd);
 
@@ -107,6 +110,22 @@ namespace ld3d
 
 		return true;
 	}
+
+	void MainApp::CenterWindow()
+	{
+		RECT	rtWindow = {0};
+		RECT	rtContainer = {0};
+
+		GetWindowRect(m_hWnd,&rtWindow);
+		rtWindow.right -= rtWindow.left;
+		rtWindow.bottom -= rtWindow.top;
+		
+		rtContainer.right = GetSystemMetrics(SM_CXSCREEN);
+		rtContainer.bottom = GetSystemMetrics(SM_CYSCREEN);
+
+		SetWindowPos(m_hWnd,NULL,(rtContainer.right - rtWindow.right) / 2,(rtContainer.bottom - rtWindow.bottom) / 2,0,0,SWP_NOSIZE);
+	}
+
 	void MainApp::AdjustWindow(int Width, int Height )
 	{
 		RECT WinRect;
@@ -197,7 +216,7 @@ namespace ld3d
 	{
 
 		m_pConfig = std::make_shared<MainConfig>();
-		if(m_pConfig->Load("./main.conf.xml") == false)
+		if(m_pConfig->Load("./main.win.x64.conf.xml") == false)
 		{
 			return false;
 		}
@@ -221,7 +240,10 @@ namespace ld3d
 
 		for(auto package : m_pConfig->GetPackageList())
 		{
-			m_pCore->LoadPackage(package.string());
+			if(false == m_pCore->LoadPackage(package.string()))
+			{
+				return false;
+			}
 		}
 
 
@@ -259,8 +281,6 @@ namespace ld3d
 			m_pCore.reset();
 		}
 	}
-
-
 
 	void MainApp::SetTitle(const char* szTitle)
 	{

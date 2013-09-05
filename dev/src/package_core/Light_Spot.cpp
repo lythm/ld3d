@@ -1,5 +1,5 @@
 #include "core_ext_pch.h"
-#include "core/ext/Light_Spot.h"
+#include "packages/core/Light_Spot.h"
 #include "core/SpotLight.h"
 #include "CorePackage.h"
 

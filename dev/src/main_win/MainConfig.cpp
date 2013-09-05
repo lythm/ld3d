@@ -17,7 +17,7 @@ namespace ld3d
 		using namespace pugi;
 		xml_document doc;
 
-		xml_parse_result result = doc.load_file("main.win.x64.conf.xml");
+		xml_parse_result result = doc.load_file(file.c_str());
 
 		if(result == false)
 		{

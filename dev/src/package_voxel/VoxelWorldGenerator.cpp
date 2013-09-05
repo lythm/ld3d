@@ -1,9 +1,9 @@
 #include "voxel_pch.h"
-#include "ext_voxel/VoxelWorldGenerator.h"
+#include "packages/voxel/VoxelWorldGenerator.h"
 #include "VoxelWorldChunk.h"
 #include "VoxelPool.h"
 #include "VoxelWorldDataSet.h"
-#include "ext_voxel/VoxelWorld.h"
+#include "packages/voxel/VoxelWorld.h"
 
 #include <boost/random.hpp>
 

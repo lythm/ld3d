@@ -1,5 +1,5 @@
 #include "core_ext_pch.h"
-#include "core/ext/Behavior.h"
+#include "packages/core/Behavior.h"
 #include "CorePackage.h"
 
 namespace ld3d

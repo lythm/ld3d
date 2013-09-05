@@ -1,5 +1,5 @@
 #include "core_ext_pch.h"
-#include "core/ext/SkyBox.h"
+#include "packages/core/SkyBox.h"
 
 
 namespace ld3d

@@ -1,7 +1,7 @@
 #include "core_ext_pch.h"
 #include "Tpl_Sphere.h"
-#include "core/ext/MeshData.h"
-#include "core/ext/MeshRenderer.h"
+#include "packages/core/MeshData.h"
+#include "packages/core/MeshRenderer.h"
 namespace ld3d
 {
 	Tpl_Sphere::Tpl_Sphere(GameObjectManagerPtr pManager, const std::string& name) : GameObjectTemplate(pManager, name, "Geometry")

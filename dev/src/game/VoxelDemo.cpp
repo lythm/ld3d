@@ -3,6 +3,8 @@
 
 #include <windowsx.h>
 
+
+
 VoxelDemo::VoxelDemo(void)
 {
 	
@@ -17,7 +19,7 @@ bool VoxelDemo::Init(ld3d::CoreApiPtr pCore)
 	using namespace ld3d;
 
 	m_pCore = pCore;
-		
+
 	m_hEvHandler = m_pCore->AddEventHandler(EV_WINMSG, boost::bind(&VoxelDemo::OnMsg, this, _1));
 
 	m_pCore->GetRenderManager()->SetGlobalAmbient(math::Color4(0, 0.1f, 0.2f, 1.0f));
@@ -56,6 +58,8 @@ bool VoxelDemo::Init(ld3d::CoreApiPtr pCore)
 	pLight->SetTranslation(0, 5, -5);
 	pLight->LookAt(pCube);
 
+
+	
 	//
 	//pLight = m_pCore->CreatGameObjectFromTemplate("PointLight", "pl");
 	//pLight->SetTranslation(0, 5, 0);

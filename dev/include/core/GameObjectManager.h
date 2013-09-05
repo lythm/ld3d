@@ -37,6 +37,7 @@ namespace ld3d
 		void																Release();
 
 		bool																LoadPackage(const std::string& name);
+		
 
 		GameObjectPtr														CreateGameObject(const std::string& name);
 		GameObjectPtr														CreateObjectFromTemplate(const std::string& tpl);
@@ -87,7 +88,8 @@ namespace ld3d
 		}
 	private:
 
-
+		bool																LoadNativePackage(const std::string& name);
+		bool																LoadLuaPackage(const std::string& name);
 	private:
 		std::unordered_map<std::string, GameObjectTemplate*>				m_templates;
 		std::unordered_map<std::string, Package::ComponentClass*>		m_componentClasses;

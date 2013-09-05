@@ -1,5 +1,5 @@
 #include "voxel_pch.h"
-#include "ext_voxel/VoxelObjectRenderer.h"
+#include "packages/voxel/VoxelObjectRenderer.h"
 
 
 namespace ld3d

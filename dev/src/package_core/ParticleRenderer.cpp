@@ -1,5 +1,5 @@
 #include "core_ext_pch.h"
-#include "core/ext/ParticleRenderer.h"
+#include "packages/core/ParticleRenderer.h"
 
 
 namespace ld3d

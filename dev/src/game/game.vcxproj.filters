@@ -24,9 +24,6 @@
     <ClInclude Include="VoxelDemo.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="GraphicsTest.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="game_pch.cpp">
@@ -36,9 +33,6 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="VoxelDemo.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="GraphicsTest.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

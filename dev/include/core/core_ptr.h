@@ -2,8 +2,6 @@
 
 #include <memory>
 
-#include "core/ext/core_ext_ptr.h"
-
 namespace ld3d
 {
 	enum RUN_MODE
