@@ -16,7 +16,7 @@ namespace ld3d
 		GameManager(void);
 		virtual ~GameManager(void);
 
-		bool									Initialize(const std::string& file);
+		bool									Initialize(const std::string& name);
 		void									Release();
 
 		GameInterface*							GetGame();

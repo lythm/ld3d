@@ -14,9 +14,15 @@ namespace ld3d
 	GameManager::~GameManager(void)
 	{
 	}
-	bool GameManager::Initialize(const std::string& file)
+	bool GameManager::Initialize(const std::string& name)
 	{
-		m_hLib = os_load_module(file.c_str());
+
+		using namespace boost::filesystem;
+
+		path p = "./mods" / name;
+
+
+		m_hLib = os_load_module(p.string().c_str());
 
 		if(m_hLib == NULL)
 		{
@@ -29,7 +35,7 @@ namespace ld3d
 		{
 			return false;
 		}
-		m_filename = file;
+		m_filename = p.string();
 
 		m_pGame = CreateGame();
 
