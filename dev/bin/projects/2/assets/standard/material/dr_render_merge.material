@@ -1,0 +1,21 @@
+
+RenderState rs
+{
+	CULLMODE						= Back;
+	DepthEnable						= true;
+	DepthFunc						= GREATER;
+	DepthWriteMask					= ZERO;
+	StencilEnable					= false;
+	BlendEnable						= false;	
+};
+
+technique t1
+{
+  pass p1
+  {
+	SetRenderState(rs);
+	SetVertexShader("shader/dr_render_merge.vs");
+	SetPixelShader("shader/dr_render_merge.ps");
+
+  }
+}

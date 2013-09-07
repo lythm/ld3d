@@ -68,7 +68,7 @@ namespace ld3d
 			return false;
 		}
 		m_templates[name] = pTpl;
-		log("-Template registered: " + name);
+		logger() << "-Template registered: " << name << "\n";
 		return true;
 	}
 	
@@ -115,7 +115,7 @@ namespace ld3d
 		}
 		m_componentClasses[c->m_name] = c;
 
-		log("-Component registered: " + c->m_name);
+		logger() << "-Component registered: " << c->m_name << "\n";
 		return true;
 	}
 	bool GameObjectManager::RegisterPackage(Package* pPack)
@@ -213,9 +213,9 @@ namespace ld3d
 		os_unload_module(m_hLib);
 		m_hLib = NULL;
 	}
-	void GameObjectManager::Log(const std::string& text)
+	Logger& GameObjectManager::logger()
 	{
-		log(text);
+		return ld3d::logger();
 	}
 	Sys_SoundPtr GameObjectManager::GetSysSound()
 	{
@@ -258,9 +258,9 @@ namespace ld3d
 			return false;
 		}
 		
-		log(std::string("Loading Package: ") + mod.GetPackage()->GetPackageName());
+		logger() << std::string("Loading Package: ") << mod.GetPackage()->GetPackageName() << "\n";
 		RegisterPackage(mod.GetPackage());
-		log(std::string("Package loaded: ") + mod.GetPackage()->GetPackageName());
+		logger() << std::string("Package loaded: ") << mod.GetPackage()->GetPackageName() << "\n";
 		m_packages.push_back(mod);
 
 		return true;

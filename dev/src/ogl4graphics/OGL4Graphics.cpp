@@ -26,16 +26,11 @@
 namespace ld3d
 {
 
-	std::function<void (const std::string& log)>			g_logger;
+	Logger												g_logger;
 
-	void g_log(const std::string& str)
+	Logger& logger()
 	{
-		if(g_logger == nullptr)
-		{
-			return;
-		}
-
-		g_logger(str);
+		return g_logger;
 	}
 	
 
@@ -124,7 +119,7 @@ namespace ld3d
 		str << message << std::endl;
 
 
-		g_log(str.str());
+		logger() << str.str() << "\n";
 
 		return ;
 	}
@@ -136,7 +131,7 @@ namespace ld3d
 
 
 }
-_DLL_API ld3d::Sys_Graphics* CreateSys(const std::function<void (const std::string& log)>& logger)
+_DLL_API ld3d::Sys_Graphics* CreateSys(ld3d::Logger& logger)
 {
 	ld3d::g_logger = logger;
 	return new ld3d::OGL4Graphics;

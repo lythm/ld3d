@@ -179,6 +179,7 @@
     <ClInclude Include="..\..\include\core\DT_CoreApi.h" />
     <ClInclude Include="..\..\include\core\Event.h" />
     <ClInclude Include="..\..\include\core\EventDispatcher.h" />
+    <ClInclude Include="..\..\include\core\input_types.h" />
     <ClInclude Include="..\..\include\core\Package.h" />
     <ClInclude Include="..\..\include\core\FileSystem.h" />
     <ClInclude Include="..\..\include\core\Font.h" />

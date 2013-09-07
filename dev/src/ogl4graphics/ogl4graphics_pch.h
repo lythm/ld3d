@@ -49,6 +49,6 @@ namespace ld3d
 	typedef std::shared_ptr<OGL4RenderWindow>								OGL4RenderWindowPtr;
 	typedef std::shared_ptr<OGL4Loader>										OGL4LoaderPtr;
 
-	void																	g_log(const std::string& str);
-	void																	g_log(const std::string& str);
+
+	Logger&																	logger();
 }

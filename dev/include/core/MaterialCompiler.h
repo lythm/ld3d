@@ -17,9 +17,6 @@ namespace ld3d
 			MaterialPtr											Compile(Sys_GraphicsPtr pGraphics, const std::string& src, const boost::filesystem::path& filename = "");
 
 
-
-		private:
-			void													_log(const std::string& msg);
 		private:
 			boost::filesystem::path									m_file;
 		};

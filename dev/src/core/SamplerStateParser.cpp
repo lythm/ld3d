@@ -32,7 +32,7 @@ namespace ld3d
 			
 		};
 
-		SamplerStateParser::SamplerStateParser(BaseParser* parent, std::function<void (const std::string&)> logger) : BaseParser(parent, logger)
+		SamplerStateParser::SamplerStateParser(BaseParser* parent, Logger& logger) : BaseParser(parent, logger)
 		{
 
 			_AddressModeU			= SamplerState::AM_REPEAT;

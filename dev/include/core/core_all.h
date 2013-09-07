@@ -8,6 +8,9 @@
 #include <boost/signals2.hpp>
 
 #include <boost/filesystem.hpp>
+
+#include "core/input_types.h"
+
 #include "core/core_ptr.h"
 
 #include "math/math_all.h"

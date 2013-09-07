@@ -9,7 +9,7 @@ namespace ld3d
 		class RenderStateParser  : public BaseParser
 		{
 		public:
-			RenderStateParser(BaseParser* parent, std::function<void (const std::string&)> logger = std::function<void (const std::string&)>());
+			RenderStateParser(BaseParser* parent, Logger& logger = Logger());
 			virtual ~RenderStateParser(void);
 
 			bool												Parse(Lexer* lexer, const boost::filesystem::path& dir = "./");

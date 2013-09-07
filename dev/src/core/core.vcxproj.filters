@@ -156,6 +156,7 @@
     <ClInclude Include="RenderSystem_FR.h" />
     <ClInclude Include="RenderSystem_DR.h" />
     <ClInclude Include="RenderSystem.h" />
+    <ClInclude Include="..\..\include\core\input_types.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

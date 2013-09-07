@@ -5,7 +5,7 @@ namespace ld3d
 {
 	namespace material_script
 	{
-		BaseParser::BaseParser(BaseParser* parent, std::function<void (const std::string&)> logger)
+		BaseParser::BaseParser(BaseParser* parent, Logger& logger)
 		{
 			m_logger = logger;
 			m_parent = parent;
@@ -17,10 +17,8 @@ namespace ld3d
 		}
 		void BaseParser::Error(int line, const std::string& msg)
 		{
-			if(m_logger)
-			{
-				m_logger("(" + std::to_string(line + 1) + "): " + msg);
-			}
+			m_logger << "(" << std::to_string(line + 1) << "): " << msg << "\n";
+			
 		}
 		BaseParser* BaseParser::Parent()
 		{

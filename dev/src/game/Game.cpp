@@ -2,6 +2,7 @@
 #include "Game.h"
 
 
+#include "utils/Logger.h"
 
 _DLL_API Game* CreateGame()
 {
@@ -30,7 +31,7 @@ bool Game::Initialize(ld3d::CoreApiPtr pCore)
 	{
 		return false;
 	}
-	
+
 	return true;
 }
 void Game::Release()

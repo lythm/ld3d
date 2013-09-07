@@ -26,9 +26,7 @@ bool GameEngine::Initialize(QWidget* pTarget)
 	int w = size.width();
 	int h = size.height();
 
-	m_pCore = CoreApiPtr(new CoreApi());
-
-	CoreApi::SetLogger(AppContext::log_info);
+	m_pCore = std::make_shared<CoreApi>(Logger(AppContext::log_info));
 
 #ifdef _WIN64
 	SysSetting setting;

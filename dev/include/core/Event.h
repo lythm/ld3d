@@ -1,5 +1,7 @@
 #pragma once
 
+#include "input_types.h"
+
 
 namespace ld3d
 {
@@ -8,6 +10,11 @@ namespace ld3d
 		EV_WINMSG,
 		EV_RESIZE_FRAMEBUFFER,
 		EV_FRUSTUM_CULL,
+		EV_KEYBOARD_STATE,
+		EV_MOUSE_MOVE,
+		EV_MOUSE_WHEEL,
+		EV_MOUSE_BUTTON,
+		
 	};
 	class Event
 	{
@@ -21,6 +28,25 @@ namespace ld3d
 		uint32								id;
 	};
 
+	class Event_MouseState : public Event
+	{
+	public:
+		Event_MouseState() : Event((uint32)-1)
+		{
+		}
+		MouseState*					mouse_state;
+	};
+	
+	class Event_KeyboardState : public Event
+	{
+	public:
+		Event_KeyboardState() : Event(EV_KEYBOARD_STATE)
+		{
+		}
+			
+		KeyState*					key_State;
+
+	};
 	class Event_ResizeFrameBuffer : public Event
 	{
 	public:

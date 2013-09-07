@@ -1,0 +1,27 @@
+#version 330
+
+#pragma include "shader/dr_gbuffer.glsl"
+#pragma include "matrix_block.glsl"
+
+layout(row_major) uniform;
+
+layout(location = 0) out vec4	G_BUFFER_0;
+layout(location = 1) out vec4	G_BUFFER_1;
+layout(location = 2) out vec4	G_BUFFER_2;
+
+
+smooth in vec3 p_normal;
+
+void main()
+{
+	float specular = 0;
+
+	float d = depth_2_view_space_z(gl_FragCoord.z, MATRIX_PROJ);
+
+	G_BUFFER_0 = vec4(d, 0, 0, 0);
+	
+	G_BUFFER_1 = vec4(normalize(p_normal).xy, 0, 0);
+
+	G_BUFFER_2 = vec4(1, 1, 1, specular);
+
+}

@@ -34,9 +34,7 @@ namespace ld3d
 		{
 			if(it->second->Ready())
 			{
-				char buffer[100];
-				sprintf(buffer, "%d", it->second->Ref());
-				log("asset leak: " + it->first + " ref: " + buffer);
+				logger() << "asset leak: " << it->first << " ref: " << it->second->Ref() << "\n";
 				it->second->Release();
 			}
 		}
@@ -133,7 +131,7 @@ namespace ld3d
 
 		if(it != m_loaders.end())
 		{
-			log("Asset loader already exists: " + it->first);
+			logger() << "Asset loader already exists: " << it->first << "\n";
 			return false;
 		}
 

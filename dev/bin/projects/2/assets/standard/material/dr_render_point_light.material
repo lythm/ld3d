@@ -1,0 +1,63 @@
+
+RenderState RS_PointLight_StencilPass
+{
+	CULLMODE = Back;
+
+	BlendEnable = false;
+
+	DepthEnable						= true;
+	DepthFunc						= LESS_EQUAL;
+	DepthWriteMask					= ZERO;
+	StencilEnable					= true;
+	FrontFaceStencilFailOP			= KEEP;
+	FrontFaceStencilDepthFailOP		= REPLACE;
+	FrontFaceStencilPassOP			= KEEP;
+	FrontFaceStencilFunc			= ALWAYS;
+	FrontFaceStencilRef				= 1;
+};
+
+RenderState RS_PointLight
+{
+	CULLMODE = front;
+
+	BLENDENABLE							= true;
+	BlendSrcRGB							= ONE;
+	BlendDstRGB							= ONE;
+	BLENDRGBOP							= ADD;
+	BlendSrcAlpha						= ONE;
+	BlendDstAlpha						= ONE;
+	BLENDALPHAop						= ADD;
+
+	DepthEnable						= true;
+	DepthFunc						= GREATER;
+	DepthWriteMask					= ZERO;
+	StencilEnable					= true;
+
+	BackFaceStencilFailOP				= KEEP;
+	BackFaceStencilDepthFailOP		= KEEP;
+	BackFaceStencilPassOP				= KEEP;
+	BackFaceStencilFunc				= EQUAL;
+	BackFaceStencilRef				= 0;
+};
+
+
+
+technique point_light
+{
+	pass p1
+	{
+		SetRenderState(RS_PointLight_StencilPass);
+
+		SetVertexShader("./shader/dr_render_point_light.vs");
+		SetPixelShader("");
+	}
+
+	pass p2
+	{
+		SetRenderState(RS_PointLight);
+
+		SetVertexShader("./shader/dr_render_point_light.vs");
+		SetPixelShader("./shader/dr_render_point_light.ps");
+	}
+}
+

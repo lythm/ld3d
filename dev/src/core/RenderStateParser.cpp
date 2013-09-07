@@ -140,7 +140,7 @@ namespace ld3d
 		};
 
 
-		RenderStateParser::RenderStateParser(BaseParser* parent, std::function<void (const std::string&)> logger) : BaseParser(parent, logger)
+		RenderStateParser::RenderStateParser(BaseParser* parent, Logger& logger) : BaseParser(parent, logger)
 		{
 			_BlendFactor						= math::Vector4(0, 0, 0, 1);
 			_BlendEnable						= false;
@@ -152,8 +152,8 @@ namespace ld3d
 			_BlendDstAlpha						= RS_BLEND_ONE;;
 			_ColorWrite							= RS_COLOR_WRITE_ENABLE_ALL;
 			_FillMode							= RS_FILL_SOLID;
-			_CullMode							= RS_CULL_NONE;
-			_FrontFaceCounterClockWise			= false;
+			_CullMode							= RS_CULL_BACK;
+			_FrontFaceCounterClockWise			= true;
 			_DepthClipEnable					= false;
 			_DepthEnable						= true;
 			_DepthWriteMask						= RS_DEPTH_WRITE_MASK_ALL;

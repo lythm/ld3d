@@ -295,15 +295,16 @@ namespace ld3d
 		SetProjMatrix(proj);
 
 		DR_G_Pass();
-		DR_Light_Pass();
-		DR_Merge_Pass();
+		//DR_Light_Pass();
+		//DR_Merge_Pass();
 		
-		RenderForward();
+		//RenderForward();
 
-		RenderPostEffects();
+		//RenderPostEffects();
 		
-		RenderFinal();
+		//RenderFinal();
 
+		Draw_Texture(m_pGBuffer->GetTexture(2));
 		//Draw_Texture(m_pABuffer->GetTexture(0));
 		//Draw_Texture(m_pPostEffectManager->GetOutput()->GetTexture(0));
 	}

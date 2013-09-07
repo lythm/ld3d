@@ -52,9 +52,9 @@ namespace ld3d
 
 		if(Version(v) != g_scene_file_version)
 		{
-			log("invalid scene file version:");
-			log("should be:" + g_scene_file_version.AsString());
-			log("file version:" + Version(v).AsString());
+			logger() << ("invalid scene file version:") << "\n";
+			logger() << "should be:" << g_scene_file_version.AsString() << "\n";
+			logger() <<"file version:" << Version(v).AsString() << "\n";
 
 			return false;
 		}
@@ -81,7 +81,7 @@ namespace ld3d
 			
 			if(false == pCom->Serialize(pStream))
 			{
-				log("failed to save component: " + pCom->GetName());
+				logger() << "failed to save component: " << pCom->GetName() << "\n";
 				return false;
 			}
 		}
@@ -133,14 +133,14 @@ namespace ld3d
 			GameObjectComponentPtr pCom = m_pObjectManager->CreateComponent(comName);
 			if(pCom == nullptr)
 			{
-				log("failed to create component: " + comName);
+				logger() << "failed to create component: " << comName << "\n";
 				return false;
 			}
 			pObj->AddComponent(pCom);
 
 			if(false == pCom->UnSerialize(pStream))
 			{
-				log("failed to load component: " + comName);
+				logger() << "failed to load component: " << comName << "\n";
 				return false;
 			}
 

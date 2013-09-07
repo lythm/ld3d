@@ -77,5 +77,8 @@
     <ClInclude Include="..\..\include\utils\Lexer.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\utils\Logger.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

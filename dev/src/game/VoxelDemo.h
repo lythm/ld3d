@@ -9,11 +9,13 @@ public:
 	void										Release();
 	void										Update();
 
-	void										OnMsg(ld3d::EventPtr pEvent);
+	void										_on_mouse_move(ld3d::EventPtr pEvent);
+	void										_on_mouse_wheel(ld3d::EventPtr pEvent);
+	void										_on_mouse_button(ld3d::EventPtr pEvent);
+	
 private:
 	ld3d::CoreApiPtr							m_pCore;
 	ld3d::CameraPtr								m_pCamera;
 
-	ld3d::EventDispatcher::EventHandlerHandle	m_hEvHandler;
 };
 

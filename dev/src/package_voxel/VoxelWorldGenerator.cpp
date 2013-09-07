@@ -37,7 +37,7 @@ namespace ld3d
 		{
 			return;
 		}
-		m_pManager->Log("Rebuilding Voxel world...");
+		m_pManager->logger() << "Rebuilding Voxel world..." << "\n";
 
 		int tick = os_get_tick();
 
@@ -53,11 +53,8 @@ namespace ld3d
 		pWorld->SetDataSet(pDataSet);
 
 		tick = os_get_tick() - tick;
-		char szBuffer[512];
-
-		sprintf(szBuffer, "Voxel world rebuilt.(%d triangles in %.4fs)", pDataSet->GetFaceCount(), float(tick) / 1000.0f);
-
-		m_pManager->Log(szBuffer);
+		
+		m_pManager->logger() << "Voxel world rebuilt.(" << pDataSet->GetFaceCount() << " triangles in " << float(tick) / 1000.0f << "s).\n";
 		
 	}
 	void VoxelWorldGenerator::OnSignaleGenerate(const prop_signal& s)

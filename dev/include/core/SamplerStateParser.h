@@ -10,7 +10,7 @@ namespace ld3d
 		class SamplerStateParser : public BaseParser
 		{
 		public:
-			SamplerStateParser(BaseParser* parent, std::function<void (const std::string&)> logger = std::function<void (const std::string&)>());
+			SamplerStateParser(BaseParser* parent, Logger& logger = Logger());
 			virtual ~SamplerStateParser(void);
 
 			bool												Parse(Lexer* lexer, const boost::filesystem::path& dir = "./");

@@ -7,7 +7,7 @@ namespace ld3d
 		class _DLL_CLASS BaseParser
 		{
 		public:
-			BaseParser(BaseParser* parent, std::function<void (const std::string&)> logger = std::function<void (const std::string&)>());
+			BaseParser(BaseParser* parent, Logger& logger = Logger());
 			virtual ~BaseParser(void);
 
 			virtual bool										Parse(Lexer* lexer, const boost::filesystem::path& dir = "./")											= 0;
@@ -33,7 +33,7 @@ namespace ld3d
 			bool												ParseInt(const std::string& value, int& ret);
 			bool												ParseFloat(const std::string& value, float& ret);
 		protected:
-			std::function<void (const std::string&)>			m_logger;
+			Logger												m_logger;
 			BaseParser*											m_parent;
 			std::string											m_name;
 			std::vector<BaseParserPtr>							m_members;

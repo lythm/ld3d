@@ -7,7 +7,7 @@
 
 VoxelDemo::VoxelDemo(void)
 {
-	
+
 }
 
 
@@ -20,7 +20,9 @@ bool VoxelDemo::Init(ld3d::CoreApiPtr pCore)
 
 	m_pCore = pCore;
 
-	m_hEvHandler = m_pCore->AddEventHandler(EV_WINMSG, boost::bind(&VoxelDemo::OnMsg, this, _1));
+	m_pCore->AddEventHandler(EV_MOUSE_WHEEL, boost::bind(&VoxelDemo::_on_mouse_wheel, this, _1));
+	m_pCore->AddEventHandler(EV_MOUSE_MOVE, boost::bind(&VoxelDemo::_on_mouse_move, this, _1));
+	m_pCore->AddEventHandler(EV_MOUSE_BUTTON, boost::bind(&VoxelDemo::_on_mouse_button, this, _1));
 
 	m_pCore->GetRenderManager()->SetGlobalAmbient(math::Color4(0, 0.1f, 0.2f, 1.0f));
 	m_pCore->GetRenderManager()->SetClearColor(math::Color4(0.3f, 0.2f, 0.3f, 1));
@@ -34,19 +36,19 @@ bool VoxelDemo::Init(ld3d::CoreApiPtr pCore)
 	/*DataStream_File file;
 	if(false == file.OpenStream("./projects/2/2.scene"))
 	{
-		return false;
+	return false;
 	}
 
 	if(false == m_pCore->GetScene()->UnSerialize(&file))
 	{
-		return false;
+	return false;
 	}
 
 	m_pCore->CreateGameObjectComponent("VoxelWorld");*/
-	
-	
-	
-	
+
+
+
+
 	//m_pCore->CreatGameObjectFromTemplate("Plane", "Plane");
 
 
@@ -58,7 +60,7 @@ bool VoxelDemo::Init(ld3d::CoreApiPtr pCore)
 	pLight->SetTranslation(0, 5, -5);
 	pLight->LookAt(pSphere);
 
-	
+
 	GameObjectPtr pCube = m_pCore->CreatGameObjectFromTemplate("Cube", "Cube");
 
 	pCube->Translate(0, 0, 0);
@@ -77,7 +79,7 @@ bool VoxelDemo::Init(ld3d::CoreApiPtr pCore)
 }
 void VoxelDemo::Release()
 {
-	m_pCore->RemoveEventHandler(m_hEvHandler);
+
 }
 void VoxelDemo::Update()
 {
@@ -86,63 +88,64 @@ void VoxelDemo::Update()
 
 	m_pCore->Present();
 }
-void VoxelDemo::OnMsg(ld3d::EventPtr pEvent)
+
+void VoxelDemo::_on_mouse_move(ld3d::EventPtr pEvent)
 {
 	using namespace ld3d;
 	using namespace math;
 
-	std::shared_ptr<Event_WindowMessage> pMsg = std::dynamic_pointer_cast<Event_WindowMessage>(pEvent);
+	Event_MouseState* pState = (Event_MouseState*)pEvent.get();
 
-	switch(pMsg->msg.message)
+	int x =  pState->mouse_state->x;
+	int y =  pState->mouse_state->y;
+	static int lastx = x;
+	static int lasty = y;
+
+	int dx = x - lastx;
+	int dy = y - lasty;
+
+	if(pState->mouse_state->LButtonDown())
 	{
-	case WM_MOUSEMOVE:
-		{
-			int x =  GET_X_LPARAM(pMsg->msg.lParam);
-			int y =  GET_Y_LPARAM(pMsg->msg.lParam); ;
-			static int lastx = x;
-			static int lasty = y;
+		Matrix44 view = m_pCamera->GetViewMatrix();
+		Vector3 axis_x = m_pCamera->GetAxisX();
 
-			int dx = x - lastx;
-			int dy = y - lasty;
-
-			if(pMsg->msg.wParam & MK_LBUTTON)
-			{
-				Matrix44 view = m_pCamera->GetViewMatrix();
-				Vector3 axis_x = m_pCamera->GetAxisX();
-
-				m_pCamera->SetViewMatrix(MatrixRotationAxisY(-dx * 0.01f) * MatrixRotationAxis(-axis_x, dy * 0.01f) * view);
-			}
-
-			lastx = x;
-			lasty = y;
-		}
-		break;
-
-	case WM_MOUSEWHEEL:
-		{
-			int zDelta = -GET_WHEEL_DELTA_WPARAM(pMsg->msg.wParam);
-
-			using namespace math;
-
-			Matrix44 view = m_pCamera->GetViewMatrix();
-			Vector3 axis_z = m_pCamera->GetAxisZ();
-
-			m_pCamera->SetViewMatrix( MatrixTranslation(0.01f * zDelta * axis_z) * view);
-
-			view = m_pCamera->GetViewMatrix();
-			math::Vector3 eye(0, 0, 0);
-			math::Vector3 up = m_pCamera->GetAxisY();
-			math::Vector3 forward = m_pCamera->GetAxisZ();
-			
-			view.Invert();
-			math::TransformCoord(eye, view);
-
-			m_pCore->GetSysSound()->SetListenerAttr(eye, math::Vector3(), forward, up);
-
-		}
-		break;
-
-	default:
-		break;
+		m_pCamera->SetViewMatrix(MatrixRotationAxisY(-dx * 0.01f) * MatrixRotationAxis(-axis_x, dy * 0.01f) * view);
 	}
+
+	lastx = x;
+	lasty = y;
+
+}
+
+void VoxelDemo::_on_mouse_wheel(ld3d::EventPtr pEvent)
+{
+	using namespace ld3d;
+	using namespace math;
+
+	Event_MouseState* pState = (Event_MouseState*)pEvent.get();
+
+
+	int zDelta = pState->mouse_state->wheel;
+
+	
+	Matrix44 view = m_pCamera->GetViewMatrix();
+	Vector3 axis_z = m_pCamera->GetAxisZ();
+
+	m_pCamera->SetViewMatrix( MatrixTranslation(0.01f * zDelta * axis_z) * view);
+
+	view = m_pCamera->GetViewMatrix();
+	math::Vector3 eye(0, 0, 0);
+	math::Vector3 up = m_pCamera->GetAxisY();
+	math::Vector3 forward = m_pCamera->GetAxisZ();
+
+	view.Invert();
+	math::TransformCoord(eye, view);
+
+	m_pCore->GetSysSound()->SetListenerAttr(eye, math::Vector3(), forward, up);
+}
+void VoxelDemo::_on_mouse_button(ld3d::EventPtr pEvent)
+{
+	using namespace ld3d;
+	Event_MouseState* pState = (Event_MouseState*)pEvent.get();
+		
 }

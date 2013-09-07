@@ -11,7 +11,7 @@ namespace ld3d
 	
 	namespace material_script
 	{
-		MaterialParser::MaterialParser(BaseParser* parent, std::function<void (const std::string&)> logger) : BaseParser(parent, logger)
+		MaterialParser::MaterialParser(BaseParser* parent, Logger& logger) : BaseParser(parent, logger)
 		{
 		}
 		MaterialParser::~MaterialParser()

@@ -44,7 +44,7 @@ namespace ld3d
 
 			Lexer lexer(src);
 			
-			MaterialParser parser(nullptr, std::bind(&Compiler::_log, this, std::placeholders::_1));
+			MaterialParser parser(nullptr, logger());
 
 			if(false == parser.Parse(&lexer, m_file == "" ? "./" : m_file.parent_path()))
 			{
@@ -53,9 +53,6 @@ namespace ld3d
 			
 			return parser.CreateObject(pGraphics);
 		}
-		void Compiler::_log(const std::string& msg)
-		{
-			log(m_file.string() + msg);
-		}
+		
 	}
 }

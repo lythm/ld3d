@@ -95,7 +95,7 @@ namespace ld3d
 
 		char szInfo[1024];
 		glGetProgramInfoLog(m_program, 1024, nullptr, szInfo);
-		g_log(szInfo);
+		logger() << szInfo << "\n";
 
 		GLint ret = GL_FALSE;
 		glGetProgramiv(m_program,  GL_LINK_STATUS, &ret);
@@ -128,7 +128,7 @@ namespace ld3d
 
 		char szInfo[1024];
 		glGetProgramInfoLog(m_program, 1024, nullptr, szInfo);
-		g_log(szInfo);
+		logger() << szInfo << "\n";
 
 		GLint ret = GL_FALSE;
 		glGetProgramiv(m_program,  GL_VALIDATE_STATUS, &ret);

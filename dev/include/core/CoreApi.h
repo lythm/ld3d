@@ -3,6 +3,7 @@
 #include "core/Allocator.h"
 #include "core/StdAllocator.h"
 #include "core/g_format.h"
+#include "utils/Logger.h"
 
 
 namespace ld3d
@@ -11,9 +12,8 @@ namespace ld3d
 	class _DLL_CLASS CoreApi : public std::enable_shared_from_this<CoreApi>
 	{
 	public:
-		typedef std::function<void (const std::string& log)>			Logger;
 
-		CoreApi(void);
+		CoreApi(Logger logger = Logger());
 		virtual ~CoreApi(void);
 
 
@@ -63,9 +63,8 @@ namespace ld3d
 
 		static Allocator*								GetAllocator();
 
-		static void										Log(const std::string& text);
-		static void										SetLogger(Logger logger);
-
+		static Logger&									logger();
+		
 	private:
 		GameObjectManagerPtr							m_pObjectManager;
 		EventDispatcherPtr								m_pEventDispatcher;

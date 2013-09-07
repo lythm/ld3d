@@ -11,3 +11,4 @@
 #include "utils/scope_exit.h"
 #include "utils/Config.h"
 #include "utils/Lexer.h"
+#include "utils/Logger.h"

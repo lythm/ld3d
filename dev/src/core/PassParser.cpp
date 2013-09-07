@@ -13,7 +13,7 @@ namespace ld3d
 			"SetVertexShader", "SetGeometryShader", "SetPixelShader", "SetRenderState", "BindSampler",
 		};
 
-		PassParser::PassParser(BaseParser* parent, std::function<void (const std::string&)> logger) : BaseParser(parent, logger)
+		PassParser::PassParser(BaseParser* parent, Logger& logger) : BaseParser(parent, logger)
 		{
 		}
 

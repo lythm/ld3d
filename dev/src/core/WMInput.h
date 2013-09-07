@@ -12,7 +12,7 @@ namespace ld3d
 		virtual ~WMInput(void);
 
 
-		bool												Initialize(void* app_handle);
+		bool												Initialize(void* app_handle, EmitEvent ee);
 		void												Release();
 		void												Update();
 
@@ -22,10 +22,20 @@ namespace ld3d
 
 		void												HandleMessage(MSG& msg);
 
+	private:
+		void												ProcessMouse(MSG& msg);
 
+		void												UpdateMouseState(MSG& msg);
 	private:
 		KeyState											m_keyState;
 		MouseState											m_mouseState;
+		
+		EmitEvent											_emit_event;
+
+
+		std::shared_ptr<Event_MouseState>					m_pMouseStateEvent;
+		std::shared_ptr<Event_KeyboardState>				m_pKeyStateEvent;
+
 	};
 
 

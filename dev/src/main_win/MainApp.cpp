@@ -10,8 +10,6 @@ namespace ld3d
 	void log(const std::string& text)
 	{
 		OutputDebugStringA(text.c_str());
-		OutputDebugStringA("\r\n");
-
 	}
 
 	bool												MainApp::m_bActive = true;
@@ -221,7 +219,7 @@ namespace ld3d
 			return false;
 		}
 
-		m_pCore = std::make_shared<CoreApi>();
+		m_pCore = std::make_shared<CoreApi>(Logger(log));
 
 		SysSetting setting = m_pConfig->GetSysSetting();
 		
@@ -230,8 +228,6 @@ namespace ld3d
 		setting.input.sysMod = "";
 			
 		AdjustWindow(setting.graphics.frameBufferWidth, setting.graphics.frameBufferHeight);
-
-		CoreApi::SetLogger(log);
 
 		if(false == m_pCore->Initialize(setting))
 		{

@@ -10,12 +10,12 @@ namespace ld3d
 		class MaterialParser : public BaseParser
 		{
 		public:
-			MaterialParser(BaseParser* parent, std::function<void (const std::string&)> logger = std::function<void (const std::string&)>());
+			MaterialParser(BaseParser* parent, Logger& logger = Logger());
 			virtual ~MaterialParser();
 
 			bool												Parse(Lexer* lexer, const boost::filesystem::path& dir = "./");
 
-			MaterialPtr										CreateObject(Sys_GraphicsPtr pGraphics);
+			MaterialPtr											CreateObject(Sys_GraphicsPtr pGraphics);
 		private:
 			bool												ParseIdentifier(Lexer* lexer);
 			

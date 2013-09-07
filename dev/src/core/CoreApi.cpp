@@ -27,12 +27,13 @@
 namespace ld3d
 {
 	Allocator*										CoreApi::s_pAllocator;
-	CoreApi::Logger									CoreApi::s_logger;
+	Logger											CoreApi::s_logger = Logger();
 	static StdAllocator								g_stdAllocator;
 
-	CoreApi::CoreApi(void)
+	CoreApi::CoreApi(Logger logger)
 	{
 		m_runmode					= RM_RT;
+		s_logger = logger;
 	}
 
 
@@ -87,7 +88,7 @@ namespace ld3d
 #ifdef __APPLE__
         m_pSysInput = nullptr;
 #endif
-		if(false == m_pSysInput->Initialize(setting.input.wnd))
+		if(false == m_pSysInput->Initialize(setting.input.wnd, std::bind(&CoreApi::DispatchEvent, this, std::placeholders::_1)))
 		{
 			return false;
 		}
@@ -332,22 +333,9 @@ namespace ld3d
 	{
 		m_pScene->Reset();
 	}
-	void CoreApi::Log(const std::string& text)
+	Logger& CoreApi::logger()
 	{
-		if(text == "")
-		{
-			return;
-		}
-		if(s_logger)
-		{
-			s_logger(text);
-		}
-
-
-	}
-	void CoreApi::SetLogger(Logger logger)
-	{
-		s_logger = logger;
+		return s_logger;
 	}
 	bool CoreApi::LoadPackage(const std::string& packageFile)
 	{
