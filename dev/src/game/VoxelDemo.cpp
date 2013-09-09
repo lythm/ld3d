@@ -29,9 +29,57 @@ bool VoxelDemo::Init(ld3d::CoreApiPtr pCore)
 
 	m_pCamera = m_pCore->GetGameObjectManager()->alloc_object<ld3d::Camera>();
 	m_pCamera->PerspectiveFovLH(0.25f * 3.14f, 4.0f / 3.0f, 0.01f, 10000);
-	m_pCamera->LookAtLH(math::Vector3(0, 2, -2), math::Vector3(0, 0, 0), math::Vector3(0, 1, 0));
+	m_pCamera->LookAtLH(math::Vector3(0, 0, -1), math::Vector3(0, 0, 0), math::Vector3(0, 1, 0));
 
 	m_pCore->AddCamera(m_pCamera);
+
+	m_pRD = std::make_shared<RenderData>();
+
+	m_pRD->geometry = m_pCore->GetRenderManager()->CreateGeometryData();
+
+	struct vertex
+	{
+		math::Vector3	pos;
+		//math::Vector3	normal;
+	};
+
+
+	/*vertex verts[] = 
+	{
+		{math::Vector3(0, 0, 0), math::Vector3(0, 0, -1), },
+		{math::Vector3(1, 0, 0), math::Vector3(0, 0, -1), },
+		{math::Vector3(1, 1, 0), math::Vector3(0, 0, -1), },
+	};*/
+
+	vertex verts[] = 
+	{
+		math::Vector3(0, 0, 0), 
+		math::Vector3(1, 0, 0), 
+		math::Vector3(1, 1, 0), 
+	};
+
+
+	VertexLayout layout;
+	layout.AddAttribute(G_FORMAT_R32G32B32_FLOAT);
+	//layout.AddAttribute(G_FORMAT_R32G32B32_FLOAT);
+	m_pRD->geometry->BeginGeometry(PT_TRIANGLE_LIST);
+	{
+		m_pRD->geometry->AllocVertexBuffer(sizeof(vertex) * 3, verts, false, layout);
+	}
+	m_pRD->geometry->EndGeometry();
+
+
+	m_pRD->material = m_pCore->GetRenderManager()->CreateMaterialFromFile("./assets/standard/material/editor_grid.material");
+
+	m_pRD->base_vertex = 0;
+	m_pRD->index_count = 0;
+	m_pRD->start_index = 0;
+	m_pRD->vertex_count = 3;
+	m_pRD->world_matrix = math::MatrixIdentity();
+	m_pRD->dr = true;
+
+
+
 
 	/*DataStream_File file;
 	if(false == file.OpenStream("./projects/2/2.scene"))
@@ -49,21 +97,23 @@ bool VoxelDemo::Init(ld3d::CoreApiPtr pCore)
 
 
 
-	//m_pCore->CreatGameObjectFromTemplate("Plane", "Plane");
+	m_pCore->CreatGameObjectFromTemplate("Plane", "Plane");
 
 
 	GameObjectPtr pSphere = m_pCore->CreatGameObjectFromTemplate("Sphere", "Sphere");
 
 	pSphere->Translate(0, 0, 0);
-	GameObjectPtr pLight = m_pCore->CreatGameObjectFromTemplate("DirectionalLight", "light");
-
-	pLight->SetTranslation(0, 5, -5);
-	pLight->LookAt(pSphere);
+	pSphere->SetScale(0.7, 0.7, 0.7);
 
 
 	GameObjectPtr pCube = m_pCore->CreatGameObjectFromTemplate("Cube", "Cube");
 
 	pCube->Translate(0, 0, 0);
+
+	GameObjectPtr pLight = m_pCore->CreatGameObjectFromTemplate("DirectionalLight", "light");
+
+	pLight->SetTranslation(0, 5, -5);
+	pLight->LookAt(pCube);
 	//
 	//pLight = m_pCore->CreatGameObjectFromTemplate("PointLight", "pl");
 	//pLight->SetTranslation(0, 5, 0);
@@ -83,6 +133,9 @@ void VoxelDemo::Release()
 }
 void VoxelDemo::Update()
 {
+	//m_pCore->AddRenderData(m_pRD);
+
+	//m_pCore->GetRenderManager()->RenderTest(m_pCamera);
 	m_pCore->Render(m_pCamera);
 	m_pCore->ClearRenderQueue();
 

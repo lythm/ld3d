@@ -227,7 +227,11 @@ namespace ld3d
 		RS_CULL_FRONT   = 2,
 		RS_CULL_BACK    = 3,
 	};
-
+	enum RS_FRONT_FACE
+	{
+		RS_CW			= 1,
+		RS_CCW			= 2,
+	};
 	enum RS_DEPTH_WRITE
 	{
 		RS_DEPTH_WRITE_MASK_ZERO   = 0,

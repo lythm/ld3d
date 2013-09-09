@@ -34,7 +34,7 @@ namespace ld3d
 			RS_COLOR_WRITE										_ColorWrite;
 			RS_FILL_MODE										_FillMode;
 			RS_CULL_MODE										_CullMode;
-			bool												_FrontFaceCounterClockWise;
+			RS_FRONT_FACE										_FrontFace;
 			bool												_DepthClipEnable;
 			bool												_DepthEnable;
 			RS_DEPTH_WRITE										_DepthWriteMask;

@@ -1,7 +1,8 @@
 
 RenderState rs
 {
-	CULLMODE						= None;
+	FrontFace						= CW;
+	CULLMODE						= Back;
 
 	DepthEnable						= TRUE;
 	DepthFunc						= LESS;

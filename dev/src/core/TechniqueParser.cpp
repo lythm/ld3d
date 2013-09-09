@@ -120,7 +120,7 @@ namespace ld3d
 					return nullptr;
 				}
 
-				pTech->AddPass(pParser->CreateObject(pGraphics));
+				pTech->AddPass(pPass);
 			}
 
 			return pTech;

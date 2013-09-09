@@ -21,7 +21,7 @@ namespace ld3d
 			"FillMode", 
 			"CullMode", 
 			
-			"FrontFaceCounterClockWise", 
+			"FrontFace", 
 			"DepthBias", 
 			"DepthBiasClamp", 
 			"SlopScaledDepthBias",
@@ -79,6 +79,12 @@ namespace ld3d
 
 			std::pair<std::string, uint32>("MAX",						RS_BLEND_OP_MAX),
 
+		};
+
+		static std::pair<std::string, uint32> FrontFaceEnum[] = 
+		{
+			std::pair<std::string, uint32>("CW",						RS_CW),
+			std::pair<std::string, uint32>("CCW",						RS_CCW),
 		};
 
 		static std::pair<std::string, uint32> ColorWriteEnum[] = 
@@ -153,7 +159,7 @@ namespace ld3d
 			_ColorWrite							= RS_COLOR_WRITE_ENABLE_ALL;
 			_FillMode							= RS_FILL_SOLID;
 			_CullMode							= RS_CULL_BACK;
-			_FrontFaceCounterClockWise			= true;
+			_FrontFace							= RS_CW;
 			_DepthClipEnable					= false;
 			_DepthEnable						= true;
 			_DepthWriteMask						= RS_DEPTH_WRITE_MASK_ALL;
@@ -405,10 +411,10 @@ namespace ld3d
 				}
 			}
 			
-			//"FrontFaceCounterClockWise"
-			if(str_i_cmp(name, "FrontFaceCounterClockWise"))
+			//"FrontFace"
+			if(str_i_cmp(name, "FrontFace"))
 			{
-				if(ParseBool(value, _FrontFaceCounterClockWise))
+				if(ParseEnum(value, (uint32&)_FrontFace, FrontFaceEnum))
 				{
 					return true;
 				}
@@ -604,7 +610,7 @@ namespace ld3d
 				pState->SetColorWrite(_ColorWrite);
 				pState->SetFillMode(_FillMode);
 				pState->SetCullMode(_CullMode);
-				pState->SetFrontCounterClockwise(_FrontFaceCounterClockWise);
+				pState->SetFrontFace(_FrontFace);
 				//pState->SetDepthBias(uint32 val);
 				//pState->SetDepthBiasClamp(float val);
 				//pState->SetSlopeScaledDepthBias(float val);

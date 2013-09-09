@@ -84,9 +84,21 @@ namespace ld3d
 			break;
 		}
 	}
-	void OGL4RenderState::SetFrontCounterClockwise(bool val)
+	
+	void OGL4RenderState::SetFrontFace(RS_FRONT_FACE val)
 	{
-		AddCommand(std::bind(glFrontFace, val ? GL_CCW : GL_CW));
+		switch(val)
+		{
+		case RS_CW:
+			AddCommand(std::bind(glFrontFace, GL_CW));
+			break;
+		case RS_CCW:
+			AddCommand(std::bind(glFrontFace, GL_CCW));
+			break;
+		default:
+			assert(0);
+			break;
+		}
 	}
 	void OGL4RenderState::SetDepthBias(uint32 val)
 	{

@@ -29,8 +29,7 @@ namespace ld3d
 
 		void										SetFillMode(RS_FILL_MODE val);
 		void										SetCullMode(RS_CULL_MODE val);
-		void										SetFrontCounterClockwise(bool val);
-
+		void										SetFrontFace(RS_FRONT_FACE val);
 		void										SetDepthBias(uint32 val);
 		void										SetDepthBiasClamp(float val);
 		void										SetSlopeScaledDepthBias(float val);

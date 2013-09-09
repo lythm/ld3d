@@ -125,7 +125,7 @@ namespace ld3d
 			return false;
 		}
 
-		m_pDrawTextureMaterial = CreateMaterialFromFile("./assets/standard/material/dr_render_final.material");
+		m_pDrawTextureMaterial = CreateMaterialFromFile("./assets/standard/material/draw_screen_texture.material");
 		if(m_pDrawTextureMaterial == nullptr)
 		{
 			return false;
@@ -214,12 +214,6 @@ namespace ld3d
 	}
 	void RenderManager::DR_G_Pass()
 	{
-		m_pGraphics->SetRenderTarget(m_pGBuffer);
-		m_pGraphics->ClearRenderTarget(0, math::Color4(1, 0, 0, 0));
-		m_pGraphics->ClearRenderTarget(1, math::Color4(0, 0, 0, 0));
-		m_pGraphics->ClearRenderTarget(2, math::Color4(0, 0, 0, 1));
-		m_pGraphics->ClearDepthStencil(CLEAR_ALL, 1.0f, 0);
-
 		for(size_t i = 0; i < m_deferredQueue.size(); ++i)
 		{
 			SetMatrixBlock(m_deferredQueue[i]->material, m_deferredQueue[i]->world_matrix);
@@ -264,11 +258,6 @@ namespace ld3d
 	}
 	void RenderManager::DR_Merge_Pass()
 	{
-		RenderTexturePtr pOutput = m_pPostEffectManager->GetInput();
-
-		m_pGraphics->SetRenderTarget(pOutput);
-		m_pGraphics->ClearRenderTarget(0, m_clearClr);
-
 		SetDRBuffer(m_pScreenQuadMaterial);
 		SetMatrixBlock(m_pScreenQuadMaterial, math::MatrixIdentity());
 
@@ -294,17 +283,45 @@ namespace ld3d
 		SetViewMatrix(view);
 		SetProjMatrix(proj);
 
+
+		// Geometry Pass
+		m_pGraphics->SetRenderTarget(m_pGBuffer);
+		m_pGraphics->ClearRenderTarget(0, math::Color4(1, 0, 0, 0));
+		m_pGraphics->ClearRenderTarget(1, math::Color4(0, 0, 0, 0));
+		m_pGraphics->ClearRenderTarget(2, math::Color4(0, 0, 0, 1));
+		m_pGraphics->ClearDepthStencil(CLEAR_ALL, 1.0f, 0);
+
 		DR_G_Pass();
-		//DR_Light_Pass();
-		//DR_Merge_Pass();
-		
-		//RenderForward();
 
-		//RenderPostEffects();
-		
-		//RenderFinal();
+		// Light Pass
+		m_pGraphics->SetRenderTarget(m_pABuffer);
 
-		Draw_Texture(m_pGBuffer->GetTexture(2));
+		math::Color4 clr = m_globalAmbientColor;
+		clr.a = 0;
+		m_pGraphics->ClearRenderTarget(0, clr);
+		
+		DR_Light_Pass();
+
+
+		// Merge Pass
+		RenderTexturePtr pOutput = m_pPostEffectManager->GetInput();
+
+		m_pGraphics->SetRenderTarget(pOutput);
+		m_pGraphics->ClearRenderTarget(0, m_clearClr);
+
+		DR_Merge_Pass();
+		
+		// Forward and transparent pass
+		RenderForward();
+
+		// post effects pass
+		RenderPostEffects();
+		
+
+		// Final Pass
+		RenderFinal();
+
+		//Draw_Texture(m_pGBuffer->GetTexture(1));
 		//Draw_Texture(m_pABuffer->GetTexture(0));
 		//Draw_Texture(m_pPostEffectManager->GetOutput()->GetTexture(0));
 	}
@@ -398,12 +415,7 @@ namespace ld3d
 	
 	void RenderManager::DR_Light_Pass()
 	{
-		m_pGraphics->SetRenderTarget(m_pABuffer);
-
-		math::Color4 clr = m_globalAmbientColor;
-		clr.a = 0;
-
-		m_pGraphics->ClearRenderTarget(0, clr);
+		
 
 		m_pLightManager->RenderLights();
 	}
@@ -585,5 +597,18 @@ namespace ld3d
 		pParam->SetParameterTexture(pTex);
 
 		DrawFullScreenQuad(m_pDrawTextureMaterial);
+	}
+	void RenderManager::RenderTest(CameraPtr pCamera)
+	{
+		pCamera->UpdateViewFrustum();
+
+		SetViewMatrix(pCamera->GetViewMatrix());
+		SetProjMatrix(pCamera->GetProjMatrix());
+
+		SetRenderTarget(nullptr);
+		//ClearRenderTarget(0, GetClearColor());
+		ClearRenderTarget(0, math::Color4(0, 0, 0,1));
+		ClearDepthBuffer(CLEAR_ALL, 1, 0);
+		RenderForward();
 	}
 }

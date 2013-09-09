@@ -98,6 +98,11 @@ namespace ld3d
 		void										SetDRBuffer(MaterialPtr pMaterial);
 		void										SetABuffer(MaterialPtr pMaterial);
 		void										SetGBuffer(MaterialPtr pMaterial);
+
+
+		// test
+		void										RenderTest(CameraPtr pCamera);
+		//
 	private:
 		bool										CreateABuffer(int w, int h);
 		bool										CreateGBuffer(int w, int h);
