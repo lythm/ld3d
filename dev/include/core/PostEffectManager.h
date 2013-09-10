@@ -24,6 +24,7 @@ namespace ld3d
 		void													RenderToFrameBuffer();
 
 		void													AddEffect(PostEffectPtr pEffect);
+
 	private:
 		bool													CreateRT(int w, int h);
 	private:

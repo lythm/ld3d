@@ -2,8 +2,8 @@
 
 RenderState rs
 {
-	FrontFace	= CW;
-	CULLMODE	= Front;
+	FrontFace	= CCW;
+	CULLMODE	= Back;
 	FILLMODE	= SOLID;
 
 	DepthEnable = TRUE;

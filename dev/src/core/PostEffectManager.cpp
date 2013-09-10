@@ -136,19 +136,22 @@ namespace ld3d
 			return false;
 		}
 
+		m_pInput->SetDepthStencilBuffer(m_pRenderManager->GetDepthStencilBuffer());
+
 		m_pOutput = m_pRenderManager->CreateRenderTexture(1, w, h, formats);
 
 		if(m_pOutput == nullptr)
 		{
 			return false;
 		}
-
+		m_pOutput->SetDepthStencilBuffer(m_pRenderManager->GetDepthStencilBuffer());
 		return true;
 	}
 	void PostEffectManager::RenderToFrameBuffer()
 	{
 		m_pRenderManager->SetRenderTarget(nullptr);
 		m_pRenderManager->ClearRenderTarget(0, m_pRenderManager->GetClearColor());
+		m_pRenderManager->ClearDepthBuffer(CLEAR_DEPTH, 1.0f, 0);
 
 		//m_pParamOutput->SetParameterTexture(m_pOutput->GetTexture(0));
 		m_pParamOutput->SetParameterTexture(m_pInput->GetTexture(0));

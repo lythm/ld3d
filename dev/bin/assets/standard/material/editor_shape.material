@@ -4,8 +4,8 @@ RenderState rs
 	FrontFace						= CW;
 	CULLMODE						= Back;
 
-	DepthEnable						= TRUE;
-	DepthFunc						= LESS;
+	DepthEnable						= true;
+	DepthFunc						= LEQUAL;
 	DepthWriteMask					= ALL;
 	StencilEnable					= false;
 	BlendEnable						= false;

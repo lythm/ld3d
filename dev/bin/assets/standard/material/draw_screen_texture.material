@@ -2,7 +2,7 @@
 RenderState rs
 {
 	CULLMODE						= None;
-	DepthEnable						= FALSE;
+	DepthEnable						= false;
 	DepthFunc						= ALWAYS;
 	DepthWriteMask					= ZERO;
 	StencilEnable					= false;

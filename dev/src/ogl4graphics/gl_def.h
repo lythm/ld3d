@@ -50,6 +50,7 @@ extern PFNGLGETSTRINGIPROC								glGetStringi;
 
 extern PFNGLCLEARBUFFERFVPROC							glClearBufferfv;
 extern PFNGLCLEARBUFFERFIPROC							glClearBufferfi;
+extern PFNGLCLEARBUFFERIVPROC							glClearBufferiv;
 
 
 // debug

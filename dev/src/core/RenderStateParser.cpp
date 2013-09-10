@@ -122,10 +122,10 @@ namespace ld3d
 			std::pair<std::string, uint32>("NEVER",						RS_COMPARISON_NEVER),
 			std::pair<std::string, uint32>("LESS",						RS_COMPARISON_LESS),
 			std::pair<std::string, uint32>("EQUAL",						RS_COMPARISON_EQUAL),
-			std::pair<std::string, uint32>("LESS_EQUAL",				RS_COMPARISON_LESS_EQUAL),
+			std::pair<std::string, uint32>("LEQUAL",					RS_COMPARISON_LESS_EQUAL),
 			std::pair<std::string, uint32>("GREATER",					RS_COMPARISON_GREATER),
-			std::pair<std::string, uint32>("NOT_EQUAL",					RS_COMPARISON_NOT_EQUAL),
-			std::pair<std::string, uint32>("GREATER_EQUAL",				RS_COMPARISON_GREATER_EQUAL),
+			std::pair<std::string, uint32>("NEQUAL",					RS_COMPARISON_NOT_EQUAL),
+			std::pair<std::string, uint32>("GEQUAL",					RS_COMPARISON_GREATER_EQUAL),
 			std::pair<std::string, uint32>("ALWAYS",					RS_COMPARISON_ALWAYS),
 
 

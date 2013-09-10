@@ -99,7 +99,7 @@ namespace ld3d
 		void										SetABuffer(MaterialPtr pMaterial);
 		void										SetGBuffer(MaterialPtr pMaterial);
 
-
+		DepthStencilBufferPtr						GetDepthStencilBuffer();
 		// test
 		void										RenderTest(CameraPtr pCamera);
 		//
@@ -135,7 +135,7 @@ namespace ld3d
 
 		RenderTexturePtr							m_pGBuffer;
 		RenderTexturePtr							m_pABuffer;
-
+		DepthStencilBufferPtr						m_pDSBuffer;
 		ScreenQuadPtr								m_pScreenQuad;
 
 		LightManagerPtr								m_pLightManager;

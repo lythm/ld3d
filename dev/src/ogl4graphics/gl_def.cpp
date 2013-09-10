@@ -47,7 +47,7 @@ PFNGLGETSTRINGIPROC									glGetStringi									= nullptr;
 
 PFNGLCLEARBUFFERFVPROC								glClearBufferfv									= nullptr;
 PFNGLCLEARBUFFERFIPROC								glClearBufferfi									= nullptr;
-
+PFNGLCLEARBUFFERIVPROC								glClearBufferiv									= nullptr;
 
 PFNGLGENBUFFERSPROC									glGenBuffers									= nullptr;
 PFNGLBINDBUFFERPROC									glBindBuffer									= nullptr;

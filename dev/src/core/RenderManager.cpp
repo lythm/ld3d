@@ -14,6 +14,7 @@
 #include "core/Event.h"
 #include "core/GeometryData.h"
 #include "core/RenderTexture.h"
+#include "core/DepthStencilBuffer.h"
 #include "core/MaterialParameter.h"
 #include "core/MaterialCompiler.h"
 
@@ -91,6 +92,14 @@ namespace ld3d
 		int w = pGraphics->GetFrameBufferWidth();
 		int h = pGraphics->GetFrameBufferHeight();
 
+
+		m_pDSBuffer = m_pGraphics->CreateDepthStencilBuffer(G_FORMAT_D24_UNORM_S8_UINT, w, h);
+		//m_pDSBuffer = m_pGraphics->CreateDepthStencilBuffer(G_FORMAT_D32_FLOAT, w, h);
+		if(m_pDSBuffer == nullptr)
+		{
+			return false;
+		}
+
 		if(false == CreateGBuffer(w, h))
 		{
 			return false;
@@ -154,7 +163,7 @@ namespace ld3d
 		{
 			return false;
 		}
-
+		m_pGBuffer->SetDepthStencilBuffer(m_pDSBuffer);
 		return true;
 
 	}
@@ -192,6 +201,12 @@ namespace ld3d
 		{
 			m_pABuffer->Release();
 			m_pABuffer.reset();
+		}
+
+		if(m_pDSBuffer != nullptr)
+		{
+			m_pDSBuffer->Release();
+			m_pDSBuffer.reset();
 		}
 	}
 	
@@ -285,11 +300,14 @@ namespace ld3d
 
 
 		// Geometry Pass
+		
+
 		m_pGraphics->SetRenderTarget(m_pGBuffer);
 		m_pGraphics->ClearRenderTarget(0, math::Color4(1, 0, 0, 0));
 		m_pGraphics->ClearRenderTarget(1, math::Color4(0, 0, 0, 0));
 		m_pGraphics->ClearRenderTarget(2, math::Color4(0, 0, 0, 1));
-		m_pGraphics->ClearDepthStencil(CLEAR_ALL, 1.0f, 0);
+		//m_pGraphics->ClearDepthStencil(CLEAR_ALL, 0.0f, 0);
+		m_pGraphics->ClearDepthStencil(CLEAR_DEPTH, 1.0f, 0);
 
 		DR_G_Pass();
 
@@ -321,7 +339,7 @@ namespace ld3d
 		// Final Pass
 		RenderFinal();
 
-		//Draw_Texture(m_pGBuffer->GetTexture(1));
+		Draw_Texture(m_pGBuffer->GetTexture(1));
 		//Draw_Texture(m_pABuffer->GetTexture(0));
 		//Draw_Texture(m_pPostEffectManager->GetOutput()->GetTexture(0));
 	}
@@ -448,6 +466,7 @@ namespace ld3d
 			return false;
 		}
 
+		m_pABuffer->SetDepthStencilBuffer(m_pDSBuffer);
 		return true;
 	}
 	RenderTexturePtr RenderManager::GetGBuffer()
@@ -610,5 +629,9 @@ namespace ld3d
 		ClearRenderTarget(0, math::Color4(0, 0, 0,1));
 		ClearDepthBuffer(CLEAR_ALL, 1, 0);
 		RenderForward();
+	}
+	DepthStencilBufferPtr RenderManager::GetDepthStencilBuffer()
+	{
+		return m_pDSBuffer;
 	}
 }

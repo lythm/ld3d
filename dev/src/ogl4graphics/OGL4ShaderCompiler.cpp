@@ -211,7 +211,10 @@ namespace ld3d
 		{
 			std::string msg = AdjustLog(it->str(), inc_list);
 
-			logger() << msg << "\n";
+			if(msg != "")
+			{
+				logger() << msg << "\n";
+			}
 		}
 	}
 	int OGL4ShaderCompiler::GetSourceLines(const std::string& src)

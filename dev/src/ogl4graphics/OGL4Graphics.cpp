@@ -119,7 +119,7 @@ namespace ld3d
 		str << message << std::endl;
 
 
-		logger() << str.str() << "\n";
+		logger() << str.str();
 
 		return ;
 	}
@@ -315,10 +315,12 @@ namespace ld3d
 		switch(flag)
 		{
 		case CLEAR_DEPTH:
-			glClearBufferfi(GL_DEPTH, 0, d, s);
+			glClearBufferfv(GL_DEPTH, 0, &d);
+			//glClearBufferfi(GL_DEPTH, 0, d, s);
 			break;
 		case CLEAR_STENCIL:
-			glClearBufferfi(GL_STENCIL, 0, d, s);
+			glClearBufferiv(GL_STENCIL, 0, &s);
+			//glClearBufferfi(GL_STENCIL, 0, d, s);
 			break;
 		case CLEAR_ALL:
 			glClearBufferfi(GL_DEPTH_STENCIL, 0, d, s);
@@ -491,7 +493,6 @@ namespace ld3d
 		m_pCurrentRT = std::dynamic_pointer_cast<OGL4RenderTexture>(pTarget);
 
 		m_pCurrentRT->Bind();
-
 	}
 	
 	TexturePtr OGL4Graphics::CreateTexture1D(G_FORMAT format, int l, int lvls, bool dynamic)

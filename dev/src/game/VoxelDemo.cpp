@@ -76,7 +76,7 @@ bool VoxelDemo::Init(ld3d::CoreApiPtr pCore)
 	m_pRD->start_index = 0;
 	m_pRD->vertex_count = 3;
 	m_pRD->world_matrix = math::MatrixIdentity();
-	m_pRD->dr = true;
+	m_pRD->dr = false;
 
 
 

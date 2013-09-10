@@ -19,13 +19,13 @@ namespace ld3d
 
 		TexturePtr													GetTexture(int index);
 
-		void														AttachDepthStencilBuffer(DepthStencilBufferPtr pDS);
+		void														SetDepthStencilBuffer(DepthStencilBufferPtr pDS);
 		DepthStencilBufferPtr										GetDepthStencilBuffer();
 
 		void														Bind();
 		GLuint														GetFBO();
 	private:
-		std::vector<TexturePtr>									m_texs;
+		std::vector<TexturePtr>										m_texs;
 		DepthStencilBufferPtr										m_pDS;
 
 		GLuint														m_fbo;
