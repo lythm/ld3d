@@ -83,7 +83,7 @@ namespace ld3d
 
 		OGL4DepthStencilBuffer* pGLTex = (OGL4DepthStencilBuffer*)pDS.get();
 
-		glBindRenderbuffer(GL_RENDERBUFFER, pGLTex->GetDepthStencilBufferObject());
+		//glBindRenderbuffer(GL_RENDERBUFFER, pGLTex->GetDepthStencilBufferObject());
 
 		glFramebufferRenderbuffer(GL_FRAMEBUFFER, pGLTex->GetAttachPoint(),  GL_RENDERBUFFER, pGLTex->GetDepthStencilBufferObject());
 
