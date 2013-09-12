@@ -42,7 +42,7 @@ namespace ld3d
 		{
 			m_file = filename;
 
-			logger() << "compiling material(" << m_file << "): \n";
+			logger() << "-- compiling material(" << m_file << "): \n";
 			
 			Lexer lexer(src);
 			
@@ -50,10 +50,10 @@ namespace ld3d
 
 			if(false == parser.Parse(&lexer, m_file == "" ? "./" : m_file.parent_path()))
 			{
-				logger() << "failed. \n";
+				logger() << "== failed.\n";
 				return MaterialPtr();
 			}
-			logger() << "ok. \n";
+			logger() << "== ok.\n";
 			return parser.CreateObject(pGraphics);
 		}
 		

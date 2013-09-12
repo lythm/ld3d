@@ -3,12 +3,36 @@
 #include "MainApp.h"
 #include <tchar.h>
 
+#include <boost/date_time.hpp>
 
 namespace ld3d
 {
+	static std::ofstream						s_log;
 
+	void open_log()
+	{
+		boost::filesystem::path p("./log");
+		if(boost::filesystem::exists("./log") == false)
+		{
+			boost::filesystem::create_directory("./log");
+		}
+
+		std::string date = boost::posix_time::to_iso_string(boost::posix_time::second_clock::local_time());
+		
+		s_log.open((p / date).string() + ".log", std::ios_base::app);
+		s_log << date << "\n";
+
+	}
 	void log(const std::string& text)
 	{
+		if(s_log.is_open() == false)
+		{
+			open_log();
+		}
+
+		s_log << text;
+		s_log.flush();
+
 		OutputDebugStringA(text.c_str());
 	}
 
@@ -22,6 +46,7 @@ namespace ld3d
 
 		m_clientWidth		= 0;
 		m_clientHeight		= 0;
+
 	}
 
 	MainApp::~MainApp(void)

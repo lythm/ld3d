@@ -7,3 +7,5 @@
 #include "core/core_all.h"
 
 #include "pugixml/pugixml.hpp"
+
+#include <boost/chrono.hpp>
