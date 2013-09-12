@@ -23,13 +23,15 @@ namespace ld3d
 	}
 
 	template<typename T, typename TP> inline
-		std::shared_ptr<T>									alloc_object(TP& p)
+		std::shared_ptr<T>									alloc_object(const TP& p)
 	{
 		return std::allocate_shared<T, std_allocator_adapter<T> >(CoreApi::GetAllocator(), p);
 	}
 
+
+
 	template<typename T, typename TP1, typename TP2> inline
-		std::shared_ptr<T>									alloc_object(TP1& p1, TP2& p2)
+		std::shared_ptr<T>									alloc_object(const TP1& p1, const TP2& p2)
 	{
 		return std::allocate_shared<T, std_allocator_adapter<T> >(CoreApi::GetAllocator(), p1, p2);
 	}

@@ -23,6 +23,8 @@
 
 #include "Time64.h"
 
+#include "core/Event.h"
+
 
 namespace ld3d
 {
@@ -134,14 +136,23 @@ namespace ld3d
 
 		m_pScene = alloc_object<Scene>(m_pObjectManager);
 
-
-
-		
+				
 		m_lastFrameTime = m_pSysTime->Second();
+
+
+		EventPtr pEvent = alloc_object<Event, uint32>(EV_ENGINE_INITIALIZED);
+
+		DispatchEvent(pEvent);
+
 		return true;
 	}
 	void CoreApi::Release()
 	{
+
+		EventPtr pEvent = alloc_object<Event, uint32>(EV_ENGINE_ABOUT_TO_RELEASE);
+
+		DispatchEvent(pEvent);
+
 		if(m_pScene)
 		{
 			m_pScene->Release();

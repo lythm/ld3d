@@ -5,6 +5,7 @@
 #include "core_utils.h"
 #include "core/DataStream.h"
 #include "core/GameObjectComponent.h"
+#include "core/Event.h"
 
 namespace ld3d
 {
@@ -44,7 +45,15 @@ namespace ld3d
 	{
 		pStream->WriteInt32(g_scene_file_version.AsUInt32());
 
-		return SerializeObject(m_pRoot, pStream);
+		if(false == SerializeObject(m_pRoot, pStream))
+		{
+			return false;
+		}
+
+		EventPtr pEvent = alloc_object<Event, uint32>(EV_SCENE_SAVED);
+		m_pObjectManager->DispatchEvent(pEvent);
+
+		return true;
 	}
 	bool Scene::UnSerialize(DataStream* pStream)
 	{
@@ -59,7 +68,14 @@ namespace ld3d
 			return false;
 		}
 
-		return UnSerializeObject(m_pRoot, pStream);
+		if(false == UnSerializeObject(m_pRoot, pStream))
+		{
+			return false;
+		}
+		EventPtr pEvent = alloc_object<Event, uint32>(EV_SCENE_LOADED);
+		m_pObjectManager->DispatchEvent(pEvent);
+
+		return true;
 	}
 	bool Scene::SerializeObject(GameObjectPtr pObj, DataStream* pStream)
 	{

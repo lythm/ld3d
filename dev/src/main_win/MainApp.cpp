@@ -205,9 +205,13 @@ namespace ld3d
 	{
 		m_pCore->Update();
 
+		m_pGameManager->GetGame()->Update();
+		
 		ShowFPS();
 
-		m_pGameManager->GetGame()->Update();
+		m_pCore->Render();
+		m_pCore->ClearRenderQueue();
+		m_pCore->Present();
 	}
 
 	bool MainApp::OnInit()

@@ -6,6 +6,7 @@ namespace ld3d
 {
 	MainConfig::MainConfig(void)
 	{
+		m_frameRate = 30;
 	}
 
 
@@ -171,5 +172,9 @@ namespace ld3d
 	SysSetting MainConfig::GetSysSetting()
 	{
 		return m_sysSetting;
+	}
+	uint32 MainConfig::GetFrameRate()
+	{
+		return m_frameRate;
 	}
 }

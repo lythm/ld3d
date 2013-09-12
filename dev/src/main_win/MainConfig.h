@@ -13,6 +13,8 @@ namespace ld3d
 		SysSetting												GetSysSetting();
 		boost::filesystem::path									GetMod();
 		std::vector<boost::filesystem::path> 					GetPackageList();
+
+		uint32													GetFrameRate();
 	private:
 		bool													LoadSysSetting(pugi::xml_document& doc);
 		bool													LoadPackageList(pugi::xml_document& doc);
@@ -24,6 +26,8 @@ namespace ld3d
 
 
 		boost::filesystem::path									m_mod;
+
+		uint32													m_frameRate;
 
 	};
 

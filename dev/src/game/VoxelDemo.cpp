@@ -136,10 +136,7 @@ void VoxelDemo::Update()
 	//m_pCore->AddRenderData(m_pRD);
 
 	//m_pCore->GetRenderManager()->RenderTest(m_pCamera);
-	m_pCore->Render(m_pCamera);
-	m_pCore->ClearRenderQueue();
-
-	m_pCore->Present();
+	
 }
 
 void VoxelDemo::_on_mouse_move(ld3d::EventPtr pEvent)

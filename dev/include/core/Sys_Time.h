@@ -78,6 +78,5 @@ namespace ld3d
 		uint64								m_dt;
 		uint64								m_pausedTick;
 		uint64								m_startTick;
-
 	};
 }

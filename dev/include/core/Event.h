@@ -7,6 +7,13 @@ namespace ld3d
 {
 	enum EVENT_ID
 	{
+		EV_ENGINE_INITIALIZED,
+		EV_ENGINE_ABOUT_TO_RELEASE,
+
+
+		EV_SCENE_LOADED,
+		EV_SCENE_SAVED,
+
 		EV_WINMSG,
 		EV_RESIZE_FRAMEBUFFER,
 		EV_FRUSTUM_CULL,
@@ -14,12 +21,14 @@ namespace ld3d
 		EV_MOUSE_MOVE,
 		EV_MOUSE_WHEEL,
 		EV_MOUSE_BUTTON,
+
+		EV_UNKNOWN,
 		
 	};
 	class Event
 	{
 	public:
-		Event(uint32 _id)
+		Event(uint32 _id = EV_UNKNOWN)
 		{
 			id = _id;
 		}

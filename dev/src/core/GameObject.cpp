@@ -22,7 +22,7 @@ namespace ld3d
 		m_pEventDispather				= alloc_object<EventDispatcher>();
 
 	}
-	GameObject::GameObject()
+	GameObject::GameObject() 
 	{
 		m_name							= "GameObject";
 		m_LocalTransform.MakeIdentity();
