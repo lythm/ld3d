@@ -40,7 +40,7 @@ namespace ld3d
 
 		m_pSound = std::dynamic_pointer_cast<SoundAsset>(m_pManager->GetAssetManager()->LoadAsset("./assets/standard/music/1.mp3"));
 
-		m_pChannel = m_pManager->GetSysSound()->AllocChannel(m_pSound->GetAsset());
+		m_pChannel = m_pManager->GetSysSound()->AllocChannel(m_pSound->Value());
 
 		//m_pChannel = m_pManager->GetSysSound()->Create3DStream("http://music.k618.cn/tytq/song/201208/W020120827815517810655.mp3");
 

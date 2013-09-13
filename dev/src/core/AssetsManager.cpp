@@ -12,7 +12,6 @@ namespace ld3d
 	{
 	}
 
-
 	AssetManager::~AssetManager(void)
 	{
 	}

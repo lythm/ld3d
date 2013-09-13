@@ -58,7 +58,7 @@ namespace ld3d
 			}
 		}
 
-		T_Ptr									GetAsset()
+		T_Ptr									Value()
 		{
 			return m_pAsset;
 		}
@@ -67,7 +67,7 @@ namespace ld3d
 		{
 			return m_pAsset != nullptr;
 		}
-
+		
 	private:
 		T_Ptr									m_pAsset;
 		
@@ -97,7 +97,7 @@ namespace ld3d
 		AssetPtr							LoadSound(const boost::filesystem::path& file, bool sound3d = true);
 		AssetPtr							LoadTexture(const boost::filesystem::path& file);
 	private:
-		Sys_GraphicsPtr					m_pGraphics;
+		Sys_GraphicsPtr						m_pGraphics;
 		Sys_SoundPtr						m_pSound;
 		
 
