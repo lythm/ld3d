@@ -8,7 +8,7 @@ namespace ld3d
 	{
 	public:
 
-		typedef boost::function<void (EventPtr)>											EventHandler;
+		typedef boost::function<void (EventPtr)>										EventHandler;
 
 		typedef boost::signals2::signal<void (EventPtr)>								Signal;
 
@@ -22,6 +22,9 @@ namespace ld3d
 
 		void									DispatchEvent(EventPtr pEvent);
 		EventHandlerHandle						AddEventHandler(uint32 id, const EventHandler& handler);
+
+
+
 		void									RemoveEventHandler(EventHandlerHandle handler);
 		void									Clear();
 	private:

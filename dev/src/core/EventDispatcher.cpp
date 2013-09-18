@@ -28,7 +28,6 @@ namespace ld3d
 
 		if(pHandlers == nullptr)
 		{
-
 			pHandlers = alloc_object<Signal>();
 			m_HandlerMap[id] = pHandlers;
 		}
@@ -50,6 +49,5 @@ namespace ld3d
 	void EventDispatcher::RemoveEventHandler(EventHandlerHandle handler)
 	{
 		handler.disconnect();
-		
 	}
 }

@@ -7,6 +7,8 @@ namespace ld3d
 {
 	enum EVENT_ID
 	{
+		EV_UNKNOWN,
+
 		EV_ENGINE_INITIALIZED,
 		EV_ENGINE_ABOUT_TO_RELEASE,
 
@@ -22,7 +24,11 @@ namespace ld3d
 		EV_MOUSE_WHEEL,
 		EV_MOUSE_BUTTON,
 
-		EV_UNKNOWN,
+		
+		EV_SYS_EVENT_COUNT,
+
+		EV_CUSTOM_EVENT = EV_SYS_EVENT_COUNT + 1000,
+
 		
 	};
 	class Event

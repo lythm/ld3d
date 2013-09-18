@@ -161,6 +161,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\include\core\ActionMapping.h" />
     <ClInclude Include="..\..\include\core\Allocator.h" />
     <ClInclude Include="..\..\include\core\ArcBall.h" />
     <ClInclude Include="..\..\include\core\AssetsManager.h" />
@@ -259,6 +260,7 @@
     <ClInclude Include="WinRawInput.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ActionMapping.cpp" />
     <ClCompile Include="ArcBall.cpp" />
     <ClCompile Include="AssetsManager.cpp" />
     <ClCompile Include="BaseCamera.cpp" />
