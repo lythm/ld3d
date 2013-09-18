@@ -13,6 +13,7 @@ public:
 	void										_on_mouse_wheel(ld3d::EventPtr pEvent);
 	void										_on_mouse_button(ld3d::EventPtr pEvent);
 	
+	void										_on_key_state(ld3d::EventPtr pEvent);
 private:
 	ld3d::CoreApiPtr							m_pCore;
 	ld3d::CameraPtr								m_pCamera;

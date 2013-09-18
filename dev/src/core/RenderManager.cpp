@@ -339,7 +339,7 @@ namespace ld3d
 		// Final Pass
 		RenderFinal();
 
-		Draw_Texture(m_pGBuffer->GetTexture(1));
+		//Draw_Texture(m_pGBuffer->GetTexture(1));
 		//Draw_Texture(m_pABuffer->GetTexture(0));
 		//Draw_Texture(m_pPostEffectManager->GetOutput()->GetTexture(0));
 	}

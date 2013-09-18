@@ -24,6 +24,8 @@ bool VoxelDemo::Init(ld3d::CoreApiPtr pCore)
 	m_pCore->AddEventHandler(EV_MOUSE_MOVE, boost::bind(&VoxelDemo::_on_mouse_move, this, _1));
 	m_pCore->AddEventHandler(EV_MOUSE_BUTTON, boost::bind(&VoxelDemo::_on_mouse_button, this, _1));
 
+	m_pCore->AddEventHandler(EV_KEYBOARD_STATE, boost::bind(&VoxelDemo::_on_key_state, this, _1));
+
 	m_pCore->GetRenderManager()->SetGlobalAmbient(math::Color4(0, 0.1f, 0.2f, 1.0f));
 	m_pCore->GetRenderManager()->SetClearColor(math::Color4(0.3f, 0.2f, 0.3f, 1));
 
@@ -198,4 +200,17 @@ void VoxelDemo::_on_mouse_button(ld3d::EventPtr pEvent)
 	using namespace ld3d;
 	Event_MouseState* pState = (Event_MouseState*)pEvent.get();
 		
+}
+void VoxelDemo::_on_key_state(ld3d::EventPtr pEvent)
+{
+	using namespace ld3d;
+	Event_KeyboardState* pState = (Event_KeyboardState*)pEvent.get();
+
+	
+	if(pState->keyboard_state->KeyDown(key_2) && pState->keyboard_state->KeyDown(key_1))
+	{
+		return;
+	}
+	
+	return;
 }

@@ -201,26 +201,28 @@ namespace ld3d
 	void MainApp::Run()
 	{
 		MSG msg = {0};
-		while( WM_QUIT != msg.message )
+		while( true )
 		{
-			if( PeekMessage( &msg, NULL, 0, 0, PM_REMOVE ) )
+			while( PeekMessage( &msg, NULL, 0, 0, PM_REMOVE ) )
 			{
 				HandleMessage(msg);
 
 				TranslateMessage( &msg );
 				DispatchMessage( &msg );
 			
+				if(WM_QUIT == msg.message)
+				{
+					return;
+				}
+			}
+			
+			if(m_bActive)
+			{
+				OnUpdate();
 			}
 			else
 			{
-				if(m_bActive)
-				{
-					OnUpdate();
-				}
-				else
-				{
-					Sleep(1);
-				}
+				Sleep(1);
 			}
 		}
 

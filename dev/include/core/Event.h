@@ -42,6 +42,7 @@ namespace ld3d
 	public:
 		Event_MouseState() : Event((uint32)-1)
 		{
+			mouse_state				= nullptr;
 		}
 		MouseState*					mouse_state;
 	};
@@ -51,10 +52,13 @@ namespace ld3d
 	public:
 		Event_KeyboardState() : Event(EV_KEYBOARD_STATE)
 		{
+			key_code				= 0;
+			keyboard_state			= nullptr;
 		}
 			
-		KeyState*					key_State;
 
+		uint32						key_code;
+		KeyState*					keyboard_state;
 	};
 	class Event_ResizeFrameBuffer : public Event
 	{

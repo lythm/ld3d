@@ -257,7 +257,6 @@
     <ClInclude Include="RenderSystem_FR.h" />
     <ClInclude Include="Time64.h" />
     <ClInclude Include="WinRawInput.h" />
-    <ClInclude Include="WMInput.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ArcBall.cpp" />
@@ -323,7 +322,6 @@
     <ClCompile Include="TimerManager.cpp" />
     <ClCompile Include="ViewFrustum.cpp" />
     <ClCompile Include="WinRawInput.cpp" />
-    <ClCompile Include="WMInput.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

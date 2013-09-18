@@ -7,12 +7,12 @@
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
     <QTDIR>D:\sdk\Qt\Qt5.0.2\5.0.2\msvc2012_64</QTDIR>
     <LocalDebuggerCommandArguments>-graphicssystem opengl</LocalDebuggerCommandArguments>
-    <LocalDebuggerEnvironment>PATH="$(QTDIR)\bin%3b$(PATH)</LocalDebuggerEnvironment>
+    <LocalDebuggerEnvironment>PATH=$(QTDIR)\bin%3b$(PATH)</LocalDebuggerEnvironment>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <QTDIR>D:\sdk\Qt\Qt5.0.2\5.0.2\msvc2012_64</QTDIR>
     <LocalDebuggerWorkingDirectory>..\..\bin\</LocalDebuggerWorkingDirectory>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
-    <LocalDebuggerEnvironment>PATH="$(QTDIR)\bin%3b$(PATH)</LocalDebuggerEnvironment>
+    <LocalDebuggerEnvironment>PATH=$(QTDIR)\bin%3b$(PATH)</LocalDebuggerEnvironment>
   </PropertyGroup>
 </Project>

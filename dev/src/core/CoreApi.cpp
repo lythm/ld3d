@@ -17,7 +17,8 @@
 
 #include "core/GameObject.h"
 
-#include "WMInput.h"
+#include "WinRawInput.h"
+
 #include "core/Sys_Sound.h"
 #include "core_utils.h"
 
@@ -84,7 +85,7 @@ namespace ld3d
 		}
 
 #if defined(_WIN64) || defined(_WIN32)
-		m_pSysInput = alloc_object<WMInput>();
+		m_pSysInput = alloc_object<WinRawInput>();
 #endif
         
 #ifdef __APPLE__
