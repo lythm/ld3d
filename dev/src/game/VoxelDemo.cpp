@@ -3,6 +3,9 @@
 
 #include <windowsx.h>
 
+#include "packages/voxel/voxel_ptr.h"
+#include "packages/voxel/VoxelWorldGenerator.h"
+#include "packages/voxel/VoxelWorld.h"
 
 
 VoxelDemo::VoxelDemo(void)
@@ -16,6 +19,12 @@ VoxelDemo::~VoxelDemo(void)
 }
 bool VoxelDemo::Init(ld3d::CoreApiPtr pCore)
 {
+	math::Matrix44 m1 = math::MatrixTranslation(math::Vector3(-50, 0, -50));
+
+	math::Matrix44 m2 = m1;
+	m2.Invert();
+
+
 	using namespace ld3d;
 
 	m_pCore = pCore;
@@ -27,7 +36,7 @@ bool VoxelDemo::Init(ld3d::CoreApiPtr pCore)
 	m_pCore->AddEventHandler(EV_KEYBOARD_STATE, boost::bind(&VoxelDemo::_on_key_state, this, _1));
 
 	m_pCore->GetRenderManager()->SetGlobalAmbient(math::Color4(0.1, 0.1f, 0.1f, 1.0f));
-	m_pCore->GetRenderManager()->SetClearColor(math::Color4(0.0f, 0.0f, 0.0f, 1));
+	m_pCore->GetRenderManager()->SetClearColor(math::Color4(0.1f, 0.2f, 0.3f, 1));
 
 	m_pCamera = m_pCore->GetGameObjectManager()->alloc_object<ld3d::Camera>();
 	m_pCamera->PerspectiveFovLH(0.25f * 3.14f, 4.0f / 3.0f, 0.01f, 10000);
@@ -49,15 +58,28 @@ bool VoxelDemo::Init(ld3d::CoreApiPtr pCore)
 	m_pCore->CreateGameObjectComponent("VoxelWorld");*/
 
 
-	GameObjectPtr pSphere = m_pCore->CreatGameObjectFromTemplate("Sphere", "Sphere");
+	/*GameObjectPtr pSphere = m_pCore->CreatGameObjectFromTemplate("Sphere", "Sphere");
 
-	pSphere->Translate(0, 0, 0);
+	pSphere->Translate(0, 0, 0);*/
 	
 	GameObjectPtr pLight = m_pCore->CreatGameObjectFromTemplate("DirectionalLight", "light");
 
 	pLight->SetTranslation(0, 5, -5);
-	pLight->LookAt(pSphere);
+	pLight->LookAt(math::Vector3(0, 0, 0));
 
+
+	m_pWorld = m_pCore->CreatGameObjectFromTemplate("VoxelWorld", "world");
+
+	VoxelWorldPtr pWorld = std::dynamic_pointer_cast<VoxelWorld>(m_pWorld->GetComponent("VoxelWorld"));
+	pWorld->SetWorldSizeX(100);
+	pWorld->SetWorldSizeY(100);
+	pWorld->SetWorldSizeZ(100);
+
+	VoxelWorldGeneratorPtr pGenerator = std::dynamic_pointer_cast<VoxelWorldGenerator>(m_pWorld->GetComponent("VoxelWorldGenerator"));
+
+	pGenerator->RebuildWorld();
+
+	m_pWorld->SetTranslation(-50, 0, -50);
 	/*pLight = m_pCore->CreatGameObjectFromTemplate("DirectionalLight", "light");
 
 	pLight->SetTranslation(0, 5, 5);
@@ -77,7 +99,7 @@ bool VoxelDemo::Init(ld3d::CoreApiPtr pCore)
 }
 void VoxelDemo::Release()
 {
-
+	m_pWorld.reset();
 }
 void VoxelDemo::Update()
 {
@@ -158,5 +180,14 @@ void VoxelDemo::_on_key_state(ld3d::EventPtr pEvent)
 		return;
 	}
 	
+
+	if(pState->keyboard_state->KeyDown(key_r) == false)
+	{
+
+		VoxelWorldGeneratorPtr pGenerator = std::dynamic_pointer_cast<VoxelWorldGenerator>(m_pWorld->GetComponent("VoxelWorldGenerator"));
+
+		pGenerator->RebuildWorld();
+		
+	}
 	return;
 }

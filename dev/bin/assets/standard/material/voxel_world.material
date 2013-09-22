@@ -2,7 +2,7 @@
 
 RenderState rs
 {
-	CULLMODE						= Back;
+	CULLMODE						= back;
 
 	DepthEnable						= TRUE;
 	DepthFunc						= LESS;
@@ -18,6 +18,6 @@ technique dr_render_gbuffer
 	{
 		SetRenderState(rs);
 		SetVertexShader("./shader/voxel_world.vs");
-		SetPixelShader("./shader/voxel_world.vs");
+		SetPixelShader("./shader/voxel_world.ps");
 	}
 }

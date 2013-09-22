@@ -35,6 +35,7 @@ namespace math
 
 		return Matrix44(p);
 	}
+	
 	inline
 		void TransformCoord(Vector2& v, const Matrix44& t)
 	{

@@ -161,42 +161,42 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\include\packages\voxel\Voxel.h" />
     <ClInclude Include="..\..\include\packages\voxel\VoxelObject.h" />
     <ClInclude Include="..\..\include\packages\voxel\VoxelObjectRenderer.h" />
     <ClInclude Include="..\..\include\packages\voxel\VoxelType.h" />
     <ClInclude Include="..\..\include\packages\voxel\VoxelWorld.h" />
     <ClInclude Include="..\..\include\packages\voxel\VoxelWorldGenerator.h" />
     <ClInclude Include="..\..\include\packages\voxel\VoxelWorldRenderer.h" />
-    <ClInclude Include="..\..\include\packages\voxel\voxel_all.h" />
     <ClInclude Include="..\..\include\packages\voxel\voxel_ptr.h" />
+    <ClInclude Include="VoxelObjectImpl.h" />
+    <ClInclude Include="VoxelObjectRendererImpl.h" />
     <ClInclude Include="VoxelObjectTemplate.h" />
     <ClInclude Include="VoxelPackage.h" />
     <ClInclude Include="VoxelPool.h" />
     <ClInclude Include="VoxelSerializer.h" />
     <ClInclude Include="VoxelWorldChunk.h" />
     <ClInclude Include="VoxelWorldDataSet.h" />
+    <ClInclude Include="VoxelWorldGeneratorImpl.h" />
+    <ClInclude Include="VoxelWorldImpl.h" />
     <ClInclude Include="VoxelWorldOctTree.h" />
     <ClInclude Include="VoxelWorldRegion.h" />
-    <ClInclude Include="VoxelWorldRenderData.h" />
+    <ClInclude Include="VoxelWorldRendererImpl.h" />
     <ClInclude Include="VoxelWorldTemplate.h" />
     <ClInclude Include="voxel_pch.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="VoxelObjectRenderer.cpp" />
+    <ClCompile Include="VoxelObjectImpl.cpp" />
+    <ClCompile Include="VoxelObjectRendererImpl.cpp" />
     <ClCompile Include="VoxelObjectTemplate.cpp" />
     <ClCompile Include="VoxelPackage.cpp" />
-    <ClCompile Include="Voxel.cpp" />
-    <ClCompile Include="VoxelObject.cpp" />
     <ClCompile Include="VoxelPool.cpp" />
     <ClCompile Include="VoxelWorldDataSet.cpp" />
-    <ClCompile Include="VoxelWorldGenerator.cpp" />
+    <ClCompile Include="VoxelWorldGeneratorImpl.cpp" />
+    <ClCompile Include="VoxelWorldImpl.cpp" />
     <ClCompile Include="VoxelWorldOctTree.cpp" />
     <ClCompile Include="VoxelWorldRegion.cpp" />
-    <ClCompile Include="VoxelWorldRenderer.cpp" />
     <ClCompile Include="VoxelSerializer.cpp" />
-    <ClCompile Include="VoxelWorld.cpp" />
-    <ClCompile Include="VoxelWorldRenderData.cpp" />
+    <ClCompile Include="VoxelWorldRendererImpl.cpp" />
     <ClCompile Include="VoxelWorldTemplate.cpp" />
     <ClCompile Include="voxel_pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

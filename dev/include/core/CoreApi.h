@@ -67,7 +67,7 @@ namespace ld3d
 
 
 		template <typename T>
-		void											_release_and_reset(std::shared_ptr<T> pObj)
+		void											_release_and_reset(std::shared_ptr<T>& pObj)
 		{
 			if(pObj)
 			{

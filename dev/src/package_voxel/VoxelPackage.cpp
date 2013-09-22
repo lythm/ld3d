@@ -2,11 +2,11 @@
 
 #include "VoxelPackage.h"
 
-#include "packages/voxel/VoxelWorld.h"
-#include "packages/voxel/VoxelWorldRenderer.h"
-#include "packages/voxel/VoxelObject.h"
-#include "packages/voxel/VoxelObjectRenderer.h"
-#include "packages/voxel/VoxelWorldGenerator.h"
+#include "VoxelWorldImpl.h"
+#include "VoxelWorldRendererImpl.h"
+#include "VoxelObjectImpl.h"
+#include "VoxelObjectRendererImpl.h"
+#include "VoxelWorldGeneratorImpl.h"
 
 
 #include "VoxelWorldTemplate.h"
@@ -34,24 +34,24 @@ namespace ld3d
 		m_classes.push_back(ComponentClass("VoxelWorld",
 							"Voxel",
 							"Voxel World",
-							&Create_Component<VoxelWorld>));
+							&Create_Component<VoxelWorldImpl>));
 		m_classes.push_back(ComponentClass("VoxelWorldGenerator",
 							"Voxel",
 							"Voxel World Generator",
-							&Create_Component<VoxelWorldGenerator>));
+							&Create_Component<VoxelWorldGeneratorImpl>));
 		m_classes.push_back(ComponentClass("VoxelWorldRenderer",
 							"Voxel",
 							"Voxel World Renderer",
-							&Create_Component<VoxelWorldRenderer>));
+							&Create_Component<VoxelWorldRendererImpl>));
 
 		m_classes.push_back(ComponentClass("VoxelObject",
 							"Voxel",
 							"Voxel Object",
-							&Create_Component<VoxelObject>));
+							&Create_Component<VoxelObjectImpl>));
 		m_classes.push_back(ComponentClass("VoxelObjectRenderer",
 							"Voxel",
 							"Voxel Object Renderer",
-							&Create_Component<VoxelObjectRenderer>));
+							&Create_Component<VoxelObjectRendererImpl>));
 
 		// templates
 		GameObjectTemplate* pTpl = new VoxelWorldTemplate(m_pManager, "VoxelWorld");

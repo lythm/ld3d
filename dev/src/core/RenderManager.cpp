@@ -231,18 +231,18 @@ namespace ld3d
 	{
 		for(size_t i = 0; i < m_deferredQueue.size(); ++i)
 		{
+			if(m_deferredQueue[i]->dr_draw)
+			{
+				m_deferredQueue[i]->dr_draw(shared_from_this());
+				continue;
+			}
+
 			SetMatrixBlock(m_deferredQueue[i]->material, m_deferredQueue[i]->world_matrix);
 			DR_DrawRenderData(m_deferredQueue[i]);
 		}
 	}
 	void RenderManager::DR_DrawRenderData(RenderDataPtr pData)
 	{
-		if(pData->dr_draw)
-		{
-			pData->dr_draw(shared_from_this());
-			return;
-		}
-
 		int nPass = pData->material->Begin();
 		for(int i = 0; i < nPass; ++i)
 		{
@@ -255,12 +255,6 @@ namespace ld3d
 	}
 	void RenderManager::FR_DrawRenderData(RenderDataPtr pData)
 	{
-		if(pData->fr_draw)
-		{
-			pData->fr_draw(shared_from_this());
-			return;
-		}
-
 		int nPass = pData->material->Begin();
 		for(int i = 0; i < nPass; ++i)
 		{
@@ -282,6 +276,11 @@ namespace ld3d
 	{
 		for(size_t i = 0; i < m_forwardQueue.size(); ++i)
 		{
+			if(m_forwardQueue[i]->fr_draw)
+			{
+				m_forwardQueue[i]->fr_draw(shared_from_this());
+				continue;
+			}
 			SetMatrixBlock(m_forwardQueue[i]->material, m_forwardQueue[i]->world_matrix);
 			
 			FR_DrawRenderData(m_forwardQueue[i]);
@@ -289,6 +288,12 @@ namespace ld3d
 
 		for(size_t i = 0; i < m_transparentQueue.size(); ++i)
 		{
+			if(m_forwardQueue[i]->fr_draw)
+			{
+				m_forwardQueue[i]->fr_draw(shared_from_this());
+				continue;
+			}
+
 			SetMatrixBlock(m_transparentQueue[i]->material, m_transparentQueue[i]->world_matrix);
 			FR_DrawRenderData(m_transparentQueue[i]);
 		}
@@ -433,8 +438,6 @@ namespace ld3d
 	
 	void RenderManager::DR_Light_Pass()
 	{
-		
-
 		m_pLightManager->RenderLights();
 	}
 	void RenderManager::RenderShadowMaps()

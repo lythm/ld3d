@@ -104,6 +104,12 @@ namespace ld3d
 			case G_FORMAT_R32_FLOAT:
 			case G_FORMAT_R32_UINT:
 			case G_FORMAT_R32_SINT:
+			case G_FORMAT_R8G8B8A8_TYPELESS:
+			case G_FORMAT_R8G8B8A8_UNORM:
+			case G_FORMAT_R8G8B8A8_UNORM_SRGB:
+			case G_FORMAT_R8G8B8A8_UINT:
+			case G_FORMAT_R8G8B8A8_SNORM:
+			case G_FORMAT_R8G8B8A8_SINT:
 				return 4;
 
 			case G_FORMAT_R16_FLOAT:
@@ -113,6 +119,8 @@ namespace ld3d
 			case G_FORMAT_R8_UINT:
 			case G_FORMAT_R8_SINT:
 				return 1;
+			
+
 			default:
 				assert(0);
 				break;

@@ -20,6 +20,15 @@ namespace ld3d
 
 
 	};
+
+	struct VoxelFace
+	{
+		math::Vector3			verts[4];
+		math::Vector3			normal;
+		uint8					type;
+	};
+
+
 	VoxelWorldRegion::VoxelWorldRegion(void)
 	{
 		m_pDirtyList = nullptr;

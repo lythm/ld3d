@@ -115,6 +115,18 @@ namespace math
 	Quat				QuatRotationAxisZ(Real rad);
 
 
+	inline
+		void TransformPlane(Plane& p, const Matrix44& t)
+	{
+		Vector3 point = -p.normal * p.dist;
+		TransformCoord(point, t);
+
+		TransformNormal(p.normal, t);
+
+		p.dist = -Dot(point, p.normal);
+
+	}
+
 	template <class T>
 	inline 
 		T Lerp(const T& v1, const T& v2, Real s)

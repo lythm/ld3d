@@ -19,12 +19,7 @@ namespace ld3d
 		VT_EMPTY				= 255,
 	};
 
-	struct VoxelFace
-	{
-		math::Vector3			verts[4];
-		math::Vector3			normal;
-		uint8					type;
-	};
+	
 
 	enum 
 	{

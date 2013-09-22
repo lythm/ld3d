@@ -1,50 +1,27 @@
 #pragma once
 
+#include "core/GameObjectComponent.h"
+
 namespace ld3d
 {
-	struct VoxelWorldChunk;
-	
 	class VoxelWorld : public GameObjectComponent
 	{
 	public:
 
-		VoxelWorld(GameObjectManagerPtr pManager);
-		virtual ~VoxelWorld(void);
+		VoxelWorld(GameObjectManagerPtr pManager) : GameObjectComponent("VoxelWorld", pManager){}
+		virtual ~VoxelWorld(void){}
 
-		void										Update(float dt);
-		
-		const int&									GetVoxelSize();
-		void										SetVoxelSize(const int& size);
+		virtual const int&									GetVoxelSize()								= 0;
+		virtual void										SetVoxelSize(const int& size)				= 0;
 
-		const int&									GetWorldSizeY();
-		void										SetWorldSizeY(const int& y);
+		virtual const int&									GetWorldSizeY()								= 0;
+		virtual void										SetWorldSizeY(const int& y)					= 0;
 
-		const int&									GetWorldSizeX();
-		void										SetWorldSizeX(const int& x);
+		virtual const int&									GetWorldSizeX()								= 0;
+		virtual void										SetWorldSizeX(const int& x)					= 0;
 
-		const int&									GetWorldSizeZ();
-		void										SetWorldSizeZ(const int& z);
+		virtual const int&									GetWorldSizeZ()								= 0;
+		virtual void										SetWorldSizeZ(const int& z)					= 0;
 
-		VoxelWorldChunk*							FrustumCull(BaseCameraPtr pCamera);
-
-		VoxelWorldDataSetPtr						GetDataSet();
-		void										SetDataSet(VoxelWorldDataSetPtr pDataSet);
-
-		bool										OnSerialize(DataStream* pStream);
-		bool										OnUnSerialize(DataStream* pStream, const Version& version);
-	private:
-
-		
-
-		bool										OnAttach();
-		void										OnDetach();
-
-	private:
-		int											m_voxelSize;
-		int											m_worldSizeX;
-		int											m_worldSizeY;
-		int											m_worldSizeZ;
-
-		VoxelWorldDataSetPtr						m_pDataSet;
 	};
 }

@@ -11,7 +11,7 @@ namespace ld3d
 		m_bCastShadow				= false;
 		m_diffClr					= math::Color4(1.0f, 1.0f, 1.0f, 1.0f);
 
-		m_intensity					= 0.8;
+		m_intensity					= 0.8f;
 		m_bEnabled					= true;
 	}
 

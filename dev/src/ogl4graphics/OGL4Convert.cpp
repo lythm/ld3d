@@ -185,6 +185,22 @@ namespace ld3d
 			value_count = 1;
 			gltype = GL_BYTE;
 			return true;
+
+		case G_FORMAT_R8G8B8A8_TYPELESS:
+		case G_FORMAT_R8G8B8A8_UINT:
+		case G_FORMAT_R8G8B8A8_UNORM:
+		case G_FORMAT_R8G8B8A8_UNORM_SRGB:
+			value_count = 4;
+			gltype = GL_UNSIGNED_BYTE;
+			return true;
+		
+		case G_FORMAT_R8G8B8A8_SNORM:
+		case G_FORMAT_R8G8B8A8_SINT:
+
+			value_count = 4;
+			gltype = GL_INT;
+			return true;
+
 		default:
 			assert(0);
 			break;

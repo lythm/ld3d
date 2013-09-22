@@ -1,11 +1,11 @@
 #include "voxel_pch.h"
-#include "packages/voxel/VoxelWorld.h"
+#include "VoxelWorldImpl.h"
 #include "VoxelWorldChunk.h"
 #include "VoxelWorldDataSet.h"
 
 namespace ld3d
 {
-	VoxelWorld::VoxelWorld(GameObjectManagerPtr pManager) : GameObjectComponent("VoxelWorld", pManager)
+	VoxelWorldImpl::VoxelWorldImpl(GameObjectManagerPtr pManager) : VoxelWorld(pManager)
 	{
 		m_voxelSize				= 1;
 		m_worldSizeX			= 10;
@@ -16,10 +16,10 @@ namespace ld3d
 	}
 
 
-	VoxelWorld::~VoxelWorld(void)
+	VoxelWorldImpl::~VoxelWorldImpl(void)
 	{
 	}
-	void VoxelWorld::Update(float dt)
+	void VoxelWorldImpl::Update(float dt)
 	{
 		if(m_pDataSet)
 		{
@@ -27,43 +27,43 @@ namespace ld3d
 		}
 	}
 	
-	bool VoxelWorld::OnAttach()
+	bool VoxelWorldImpl::OnAttach()
 	{
 
 		
-		RegisterProperty<int, VoxelWorld>(this,
+		RegisterProperty<int, VoxelWorldImpl>(this,
 				"Voxel Size",
-				&VoxelWorld::GetVoxelSize,
-				&VoxelWorld::SetVoxelSize);
+				&VoxelWorldImpl::GetVoxelSize,
+				&VoxelWorldImpl::SetVoxelSize);
 
-		RegisterProperty<int, VoxelWorld>(this,
+		RegisterProperty<int, VoxelWorldImpl>(this,
 				"World Size X",
-				&VoxelWorld::GetWorldSizeX,
-				&VoxelWorld::SetWorldSizeX);
+				&VoxelWorldImpl::GetWorldSizeX,
+				&VoxelWorldImpl::SetWorldSizeX);
 
-		RegisterProperty<int, VoxelWorld>(this,
+		RegisterProperty<int, VoxelWorldImpl>(this,
 				"World Size Y",
-				&VoxelWorld::GetWorldSizeY,
-				&VoxelWorld::SetWorldSizeY);
+				&VoxelWorldImpl::GetWorldSizeY,
+				&VoxelWorldImpl::SetWorldSizeY);
 
-		RegisterProperty<int, VoxelWorld>(this,
+		RegisterProperty<int, VoxelWorldImpl>(this,
 				"World Size Z",
-				&VoxelWorld::GetWorldSizeZ,
-				&VoxelWorld::SetWorldSizeZ);
+				&VoxelWorldImpl::GetWorldSizeZ,
+				&VoxelWorldImpl::SetWorldSizeZ);
 
 
 		return true;
 	}
 	
-	const int& VoxelWorld::GetVoxelSize()
+	const int& VoxelWorldImpl::GetVoxelSize()
 	{
 		return m_voxelSize;
 	}
-	void VoxelWorld::SetVoxelSize(const int& blockSize)
+	void VoxelWorldImpl::SetVoxelSize(const int& blockSize)
 	{
 		m_voxelSize = blockSize;
 	}
-	void VoxelWorld::OnDetach()
+	void VoxelWorldImpl::OnDetach()
 	{
 		ClearPropertySet();
 		if(m_pDataSet != nullptr)
@@ -72,50 +72,56 @@ namespace ld3d
 			m_pDataSet.reset();
 		}
 	}
-	const int& VoxelWorld::GetWorldSizeX()
+	const int& VoxelWorldImpl::GetWorldSizeX()
 	{
 		return m_worldSizeX;
 	}
-	void VoxelWorld::SetWorldSizeX(const int& x)
+	void VoxelWorldImpl::SetWorldSizeX(const int& x)
 	{
 		m_worldSizeX = x;
 	}
 
-	const int& VoxelWorld::GetWorldSizeY()
+	const int& VoxelWorldImpl::GetWorldSizeY()
 	{
 		return m_worldSizeY;
 	}
-	void VoxelWorld::SetWorldSizeY(const int& y)
+	void VoxelWorldImpl::SetWorldSizeY(const int& y)
 	{
 		m_worldSizeY = y;
 	}
 
-	const int& VoxelWorld::GetWorldSizeZ()
+	const int& VoxelWorldImpl::GetWorldSizeZ()
 	{
 		return m_worldSizeZ;
 	}
-	void VoxelWorld::SetWorldSizeZ(const int& z)
+	void VoxelWorldImpl::SetWorldSizeZ(const int& z)
 	{
 		m_worldSizeZ = z;
 	}
 	
-	VoxelWorldChunk* VoxelWorld::FrustumCull(BaseCameraPtr pCamera)
+	VoxelWorldChunk* VoxelWorldImpl::FrustumCull(BaseCameraPtr pCamera)
 	{
 		if(m_pDataSet == nullptr)
 		{
 			return nullptr;
 		}
-		const ViewFrustum& vf = pCamera->GetViewFrustum();
+		pCamera->UpdateViewFrustum();
+		ViewFrustum vf = pCamera->GetViewFrustum();
 
+		math::Matrix44 world = m_pObject->GetWorldTransform();
+		world.Invert();
+
+		vf.Transform(world);
+		
 		return m_pDataSet->FrustumCull(vf);
 	}
 	
-	VoxelWorldDataSetPtr VoxelWorld::GetDataSet()
+	VoxelWorldDataSetPtr VoxelWorldImpl::GetDataSet()
 	{
 		return m_pDataSet;
 	}
 
-	bool VoxelWorld::OnSerialize(DataStream* pStream)
+	bool VoxelWorldImpl::OnSerialize(DataStream* pStream)
 	{
 		pStream->WriteInt32(m_worldSizeX);
 		pStream->WriteInt32(m_worldSizeY);
@@ -130,7 +136,7 @@ namespace ld3d
 
 		return m_pDataSet->Serialize(pStream);
 	}
-	bool VoxelWorld::OnUnSerialize(DataStream* pStream, const Version& version)
+	bool VoxelWorldImpl::OnUnSerialize(DataStream* pStream, const Version& version)
 	{
 		if(version != GetVersion())
 		{
@@ -152,7 +158,7 @@ namespace ld3d
 		
 		return m_pDataSet->UnSerialize(pStream);
 	}
-	void VoxelWorld::SetDataSet(VoxelWorldDataSetPtr pDataSet)
+	void VoxelWorldImpl::SetDataSet(VoxelWorldDataSetPtr pDataSet)
 	{
 		if(m_pDataSet != nullptr)
 		{

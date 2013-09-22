@@ -28,6 +28,8 @@ namespace math
 		const Plane&		operator*=(Real s);
 		const Plane&		operator/=(Real s);
 
+		float				PointDist(const Vector3& p);
+		void				Normalize();
 		union
 		{
 			struct
@@ -60,6 +62,15 @@ namespace math
 		c *= s;
 		d *= s;
 		return *this;
+	}
+	inline
+		void Plane::Normalize()
+	{
+		float len = sqrtf(a * a + b* b + c * c);
+		a /= len;
+		b /= len;
+		c /= len;
+		d /= len;
 	}
 	inline
 		const Plane& Plane::operator/=(Real s)
@@ -112,6 +123,11 @@ namespace math
 		b = _b;
 		c = _c;
 		d = _d;
+	}
+	inline
+		float Plane::PointDist(const Vector3& p)
+	{
+		return d + p.x * a + p.y * b + p.z * c;
 	}
 	inline
 		Plane::Plane(const Vector3& _normal, Real _dist)

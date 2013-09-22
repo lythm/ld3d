@@ -214,6 +214,7 @@ namespace ld3d
 
 	void OGL4Graphics::Draw(PRIMITIVE_TYPE prim, GPUBufferPtr pVertexBuffer, int vertexCount, int baseVertex, int bufferOffset, const VertexLayout& layout)
 	{
+		glBindVertexArray(0);
 		OGL4Buffer* pBuffer = (OGL4Buffer*)pVertexBuffer.get();
 
 		unsigned int stride = layout.VertexStride();
@@ -235,7 +236,7 @@ namespace ld3d
 				assert(0);
 			}
 
-			glVertexAttribPointer(i, value_count, gltype, false, stride, (GLvoid*)(bufferOffset + offset));
+			glVertexAttribPointer(i, value_count, gltype, GL_FALSE, stride, (GLvoid*)(bufferOffset + offset));
 
 			offset += layout.TypeBytes(type);
 		}
@@ -265,7 +266,7 @@ namespace ld3d
 				assert(0);
 			}
 
-			glVertexAttribPointer(i, value_count, gltype, false, stride, (GLvoid*)(vbOffset + offset));
+			glVertexAttribPointer(i, value_count, gltype, GL_FALSE, stride, (GLvoid*)(vbOffset + offset));
 
 			offset += layout.TypeBytes(type);
 		}

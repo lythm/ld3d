@@ -1,8 +1,8 @@
 #include "voxel_pch.h"
 #include "VoxelWorldTemplate.h"
-#include "packages/voxel/VoxelWorld.h"
-#include "packages/voxel/VoxelWorldRenderer.h"
-#include "packages/voxel/VoxelWorldGenerator.h"
+#include "VoxelWorldImpl.h"
+#include "VoxelWorldRendererImpl.h"
+#include "VoxelWorldGeneratorImpl.h"
 
 namespace ld3d
 {
@@ -19,14 +19,14 @@ namespace ld3d
 	{
 		GameObjectPtr pObj = m_pManager->CreateGameObject("VoxelWorld");
 
-		VoxelWorldPtr pWorld = m_pManager->alloc_object<VoxelWorld>(m_pManager);
+		VoxelWorldPtr pWorld = m_pManager->alloc_object<VoxelWorldImpl>(m_pManager);
 
 		pObj->AddComponent(pWorld);
 
-		VoxelWorldGeneratorPtr pGen = m_pManager->alloc_object<VoxelWorldGenerator>(m_pManager);
+		VoxelWorldGeneratorPtr pGen = m_pManager->alloc_object<VoxelWorldGeneratorImpl>(m_pManager);
 		pObj->AddComponent(pGen);
 
-		VoxelWorldRendererPtr pRenderer = m_pManager->alloc_object<VoxelWorldRenderer>(m_pManager);
+		VoxelWorldRendererPtr pRenderer = m_pManager->alloc_object<VoxelWorldRendererImpl>(m_pManager);
 		pObj->AddComponent(pRenderer);
 
 		return pObj;

@@ -23,7 +23,7 @@ namespace ld3d
 		void						Update(const math::Matrix44& view, const math::Matrix44& proj);
 		bool						IntersectSphere(const math::Sphere& sphere) const;
 		bool						IntersectBox(const math::AABBox& box) const;
-
+		void						Transform(const math::Matrix44& t);
 	private:
 		math::Plane					m_planes[max_planes];
 	};

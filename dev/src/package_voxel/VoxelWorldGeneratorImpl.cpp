@@ -1,37 +1,38 @@
 #include "voxel_pch.h"
-#include "packages/voxel/VoxelWorldGenerator.h"
+#include "VoxelWorldGeneratorImpl.h"
+
 #include "VoxelWorldChunk.h"
 #include "VoxelPool.h"
 #include "VoxelWorldDataSet.h"
-#include "packages/voxel/VoxelWorld.h"
+#include "VoxelWorldImpl.h"
 
 #include <boost/random.hpp>
 
 namespace ld3d
 {
-	VoxelWorldGenerator::VoxelWorldGenerator(GameObjectManagerPtr pManager) : GameObjectComponent("VoxelWorldGenerator", pManager)
+	VoxelWorldGeneratorImpl::VoxelWorldGeneratorImpl(GameObjectManagerPtr pManager) : VoxelWorldGenerator(pManager)
 	{
 		m_smooth = 0.6f;
 	}
 
 
-	VoxelWorldGenerator::~VoxelWorldGenerator(void)
+	VoxelWorldGeneratorImpl::~VoxelWorldGeneratorImpl(void)
 	{
 	}
-	const float& VoxelWorldGenerator::GetSmooth() const
+	const float& VoxelWorldGeneratorImpl::GetSmooth() const
 	{
 		return m_smooth;
 	}
-	void VoxelWorldGenerator::SetSmooth(const float& r)
+	void VoxelWorldGeneratorImpl::SetSmooth(const float& r)
 	{
 		m_smooth = r;
 
 		m_smooth = m_smooth > 1.0f ? 1.0f : m_smooth;
 		m_smooth = m_smooth < 0.0f ? 0.0f : m_smooth;
 	}
-	void VoxelWorldGenerator::RebuildWorld()
+	void VoxelWorldGeneratorImpl::RebuildWorld()
 	{
-		VoxelWorldPtr pWorld = std::dynamic_pointer_cast<VoxelWorld>(GetGameObject()->GetComponent("VoxelWorld"));
+		VoxelWorldImplPtr pWorld = std::dynamic_pointer_cast<VoxelWorldImpl>(GetGameObject()->GetComponent("VoxelWorld"));
 
 		if(pWorld == nullptr)
 		{
@@ -57,42 +58,42 @@ namespace ld3d
 		m_pManager->logger() << "Voxel world rebuilt.(" << pDataSet->GetFaceCount() << " triangles in " << float(tick) / 1000.0f << "s).\n";
 		
 	}
-	void VoxelWorldGenerator::OnSignaleGenerate(const prop_signal& s)
+	void VoxelWorldGeneratorImpl::OnSignaleGenerate(const prop_signal& s)
 	{
 		RebuildWorld();
 		static bool b = false;
-		m_pManager->GetDTCoreApi()->Inspector_SetPropertyVisible("VoxelWorldGenerator", "Smooth", b);
+		m_pManager->GetDTCoreApi()->Inspector_SetPropertyVisible("VoxelWorldGeneratorImpl", "Smooth", b);
 		m_pManager->GetDTCoreApi()->Inspector_AdjustLayout();
 
 		b = !b;
 	}
-	prop_signal VoxelWorldGenerator::_dummy()
+	prop_signal VoxelWorldGeneratorImpl::_dummy()
 	{
 		return prop_signal();
 	}
-	bool VoxelWorldGenerator::OnAttach()
+	bool VoxelWorldGeneratorImpl::OnAttach()
 	{
 		
-		RegisterProperty<float, VoxelWorldGenerator>(this,
+		RegisterProperty<float, VoxelWorldGeneratorImpl>(this,
 				"Smooth",
-				&VoxelWorldGenerator::GetSmooth,
-				&VoxelWorldGenerator::SetSmooth);
+				&VoxelWorldGeneratorImpl::GetSmooth,
+				&VoxelWorldGeneratorImpl::SetSmooth);
 
-		RegisterProperty<prop_signal, VoxelWorldGenerator>(this,
+		RegisterProperty<prop_signal, VoxelWorldGeneratorImpl>(this,
 				"Generate",
-				&VoxelWorldGenerator::_dummy,
-				&VoxelWorldGenerator::OnSignaleGenerate);
+				&VoxelWorldGeneratorImpl::_dummy,
+				&VoxelWorldGeneratorImpl::OnSignaleGenerate);
 
 		
 		return true;
 	}
-	void VoxelWorldGenerator::OnDetach()
+	void VoxelWorldGeneratorImpl::OnDetach()
 	{
 		ClearPropertySet();
 	}
 
 
-	VoxelWorldDataSetPtr VoxelWorldGenerator::Generate_Perlin(int sx, int sy, int sz)
+	VoxelWorldDataSetPtr VoxelWorldGeneratorImpl::Generate_Perlin(int sx, int sy, int sz)
 	{
 		PerlinNoise pl(7, 4, 1, os_get_tick());
 
@@ -122,7 +123,7 @@ namespace ld3d
 
 		return pDataSet;
 	}
-	VoxelWorldDataSetPtr VoxelWorldGenerator::Generate(int sx, int sy, int sz)
+	VoxelWorldDataSetPtr VoxelWorldGeneratorImpl::Generate(int sx, int sy, int sz)
 	{
 		VoxelWorldDataSetPtr pDataSet = VoxelWorldDataSetPtr(new VoxelWorldDataSet);
 
@@ -205,7 +206,7 @@ namespace ld3d
 
 		return pDataSet;
 	}
-	VoxelWorldDataSetPtr VoxelWorldGenerator::Generate_Fractal(int sx, int sy, int sz, float h)
+	VoxelWorldDataSetPtr VoxelWorldGeneratorImpl::Generate_Fractal(int sx, int sy, int sz, float h)
 	{
 		int seed = os_get_tick();
 		float hscale = 1;
@@ -380,17 +381,17 @@ namespace ld3d
 
 	}
 	
-	float VoxelWorldGenerator::_rand (float min, float max)
+	float VoxelWorldGeneratorImpl::_rand (float min, float max)
 	{
 		int r = rand();
 		float x = (float)(r & 0x7fff) / (float)0x7fff;
 		return (x * (max - min) + min);
 	} 
-	float VoxelWorldGenerator::_fractal_rand(float v)
+	float VoxelWorldGeneratorImpl::_fractal_rand(float v)
 	{
 		return _rand(-v, v);
 	}
-	float VoxelWorldGenerator::_fractal_avg_DiamondVals (int x, int z, int stride, int size, int segs, float *hm)
+	float VoxelWorldGeneratorImpl::_fractal_avg_DiamondVals (int x, int z, int stride, int size, int segs, float *hm)
 	{
 		if (x == 0)
 			return ((float) (hm[(x*size) + z-stride] +
@@ -419,7 +420,7 @@ namespace ld3d
 			hm[(x*size) + z+stride]) * .25f);
 	}
 
-	float VoxelWorldGenerator::_fractal_avg_SquareVals (int x, int z, int stride, int size, float *hm)
+	float VoxelWorldGeneratorImpl::_fractal_avg_SquareVals (int x, int z, int stride, int size, float *hm)
 	{
 		return ((float) (hm[((x-stride)*size) + z-stride] +
 			hm[((x-stride)*size) + z+stride] +

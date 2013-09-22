@@ -131,7 +131,7 @@ namespace ld3d
 				assert(0);
 			}
 
-			glVertexAttribPointer(i, value_count, gltype, false, stride, (GLvoid*)(m_vbOffset + offset));
+			glVertexAttribPointer(i, value_count, gltype, GL_FALSE, stride, (GLvoid*)(m_vbOffset + offset));
 
 			offset += m_layout.TypeBytes(type);
 		}

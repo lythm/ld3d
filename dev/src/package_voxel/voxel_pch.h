@@ -12,4 +12,8 @@ namespace ld3d
 	extern Version											g_packageVersion;
 
 
+	class VoxelWorldImpl;
+
+	typedef std::shared_ptr<VoxelWorldImpl>					VoxelWorldImplPtr;
+
 }

@@ -155,6 +155,9 @@ namespace ld3d
 
 		DispatchEvent(pEvent);
 
+		pEvent.reset();
+
+
 		_release_and_reset(m_pScene);
 
 		if(m_pEventDispatcher)

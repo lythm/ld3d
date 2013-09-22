@@ -51,6 +51,13 @@ namespace ld3d
 		m_planes[far_plane].b		= M.m24 - M.m23;
 		m_planes[far_plane].c		= M.m34 - M.m33;
 		m_planes[far_plane].d		= M.m44 - M.m43;
+
+		for(int i = 0; i < max_planes; ++i)
+		{
+			float l = m_planes[i].normal.Length();
+			m_planes[i].Normalize();
+
+		}
 	}
 	bool ViewFrustum::IntersectBox(const math::AABBox& box) const
 	{
@@ -117,5 +124,12 @@ namespace ld3d
 	bool ViewFrustum::IntersectSphere(const math::Sphere& sphere) const
 	{
 		return true;
+	}
+	void ViewFrustum::Transform(const math::Matrix44& t)
+	{
+		for(int i = 0; i < max_planes; ++i)
+		{
+			math::TransformPlane(m_planes[i], t);
+		}
 	}
 }
