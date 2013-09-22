@@ -5,7 +5,7 @@ RenderState rs
 	CULLMODE						= Back;
 
 	DepthEnable						= true;
-	DepthFunc						= always;
+	DepthFunc						= less;
 	DepthWriteMask					= ALL;
 	StencilEnable					= false;
 	BlendEnable						= false;

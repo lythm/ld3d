@@ -56,7 +56,7 @@ LightResult dr_light_dir(vec3 n, DirectionalLight light, mat4 wv)
 	
 	vec3 l = (-vec4(light.dir, 0) * wv).xyz;
 
-	float il = saturate(dot(l, n)) * light.intensity;
+	float il = saturate(dot(l, n) * light.intensity);
 	
 	float s = dr_light_specular_il(n, l, g_specular_pow);
 
@@ -64,7 +64,12 @@ LightResult dr_light_dir(vec3 n, DirectionalLight light, mat4 wv)
 	
 	LightResult ret;
 	ret.diffuse		= il * light.clr;
-	ret.specular	= s * light.clr;
+	//ret.specular	= s * light.clr;
+	
+	
+
+
+	ret.specular = vec3(0, 0, 0);
 
 	return ret;
 }

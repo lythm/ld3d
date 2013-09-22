@@ -316,11 +316,9 @@ namespace ld3d
 		{
 		case CLEAR_DEPTH:
 			glClearBufferfv(GL_DEPTH, 0, &d);
-			//glClearBufferfi(GL_DEPTH, 0, d, s);
 			break;
 		case CLEAR_STENCIL:
-			glClearBufferiv(GL_STENCIL, 0, &s);
-			//glClearBufferfi(GL_STENCIL, 0, d, s);
+			glClearBufferfi(GL_STENCIL, 0, d, s);
 			break;
 		case CLEAR_ALL:
 			glClearBufferfi(GL_DEPTH_STENCIL, 0, d, s);
@@ -493,6 +491,10 @@ namespace ld3d
 		m_pCurrentRT = std::dynamic_pointer_cast<OGL4RenderTexture>(pTarget);
 
 		m_pCurrentRT->Bind();
+
+		glDepthMask(GL_TRUE);
+		glEnable(GL_DEPTH_TEST);
+
 	}
 	
 	TexturePtr OGL4Graphics::CreateTexture1D(G_FORMAT format, int l, int lvls, bool dynamic)

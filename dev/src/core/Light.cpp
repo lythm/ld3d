@@ -9,9 +9,9 @@ namespace ld3d
 		m_type = type;
 
 		m_bCastShadow				= false;
-		m_diffClr					= math::Color4(0.6f, 0.6f, 0.6f, 1.0f);
+		m_diffClr					= math::Color4(1.0f, 1.0f, 1.0f, 1.0f);
 
-		m_intensity					= 1;
+		m_intensity					= 0.8;
 		m_bEnabled					= true;
 	}
 

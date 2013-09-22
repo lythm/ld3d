@@ -18,6 +18,6 @@ void main()
 	vec4 d = texture(_DR_G_BUFFER_2, uv);
 
 	f_color.xyz = l.xyz * d.xyz + (l.w * d.xyz) * d.w;
-	f_color.w = 1;
 
+	f_color.w = 1;
 }

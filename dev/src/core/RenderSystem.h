@@ -14,7 +14,7 @@ namespace ld3d
 		virtual ~RenderSystem(void)
 		{
 		}
+
+		virtual void								Render()						= 0;
 	};
-
-
 }

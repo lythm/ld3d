@@ -306,8 +306,8 @@ namespace ld3d
 		m_pGraphics->ClearRenderTarget(0, math::Color4(1, 0, 0, 0));
 		m_pGraphics->ClearRenderTarget(1, math::Color4(0, 0, 0, 0));
 		m_pGraphics->ClearRenderTarget(2, math::Color4(0, 0, 0, 1));
-		//m_pGraphics->ClearDepthStencil(CLEAR_ALL, 0.0f, 0);
-		m_pGraphics->ClearDepthStencil(CLEAR_DEPTH, 1.0f, 0);
+		m_pGraphics->ClearDepthStencil(CLEAR_ALL, 1.0f, 0);
+		//m_pGraphics->ClearDepthStencil(CLEAR_DEPTH, 1.0f, 0);
 
 		DR_G_Pass();
 
@@ -339,7 +339,7 @@ namespace ld3d
 		// Final Pass
 		RenderFinal();
 
-		//Draw_Texture(m_pGBuffer->GetTexture(1));
+		//Draw_Texture(m_pGBuffer->GetTexture(0));
 		//Draw_Texture(m_pABuffer->GetTexture(0));
 		//Draw_Texture(m_pPostEffectManager->GetOutput()->GetTexture(0));
 	}

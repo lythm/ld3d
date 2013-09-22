@@ -34,6 +34,12 @@ namespace ld3d
 		p.x = 0;
 		p.y = 0;
 
+		RECT rc;
+		GetClientRect((HWND)app_handle, &rc);
+
+		p.x = (rc.right - rc.left) / 2;
+		p.y = (rc.bottom - rc.top) / 2;
+
 		ClientToScreen((HWND)app_handle, &p);
 
 		SetCursorPos(p.x, p.y);

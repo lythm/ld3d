@@ -147,18 +147,15 @@ namespace ld3d
 
 		return true;
 	}
+
+
 	void CoreApi::Release()
 	{
-
 		EventPtr pEvent = alloc_object<Event, uint32>(EV_ENGINE_ABOUT_TO_RELEASE);
 
 		DispatchEvent(pEvent);
 
-		if(m_pScene)
-		{
-			m_pScene->Release();
-			m_pScene.reset();
-		}
+		_release_and_reset(m_pScene);
 
 		if(m_pEventDispatcher)
 		{
@@ -166,55 +163,24 @@ namespace ld3d
 			m_pEventDispatcher.reset();
 		}
 
-		if(m_pObjectManager)
-		{
-			m_pObjectManager->Release();
-			m_pObjectManager.reset();
-		}
+		_release_and_reset(m_pObjectManager);
+
+		_release_and_reset(m_pRenderManager);
+
+		_release_and_reset(m_pAssetManager);
+
+		_release_and_reset(m_pTimerManager);
 		
-		if(m_pRenderManager)
-		{
-			m_pRenderManager->Release();
-			m_pRenderManager.reset();
-		}
+		_release_and_reset(m_pSysNetwork);
 
-		if(m_pAssetManager)
-		{
-			m_pAssetManager->Release();
-			m_pAssetManager.reset();
-		}
-		if(m_pTimerManager)
-		{
-			m_pTimerManager->Release();
-			m_pTimerManager.reset();
-		}
+		_release_and_reset(m_pSysInput);
+		
+		_release_and_reset(m_pSysGraphics);
 
-		if(m_pSysNetwork)
-		{
-			m_pSysNetwork->Release();
-			m_pSysNetwork.reset();
-		}
-
-		if(m_pSysInput)
-		{
-			m_pSysInput->Release();
-			m_pSysInput.reset();
-		}
-		if(m_pSysGraphics)
-		{
-			m_pSysGraphics->Release();
-			m_pSysGraphics.reset();
-		}
-		if(m_pSysSound)
-		{
-			m_pSysSound->Release();
-			m_pSysSound.reset();
-		}
-
+		_release_and_reset(m_pSysSound);
+		
 		m_pSysManager.reset();
-
 		
-
 		if(m_pSysTime)
 		{
 			m_pSysTime->Stop();

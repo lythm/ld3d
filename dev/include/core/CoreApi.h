@@ -8,7 +8,7 @@
 
 namespace ld3d
 {
-	
+
 	class _DLL_CLASS CoreApi : public std::enable_shared_from_this<CoreApi>
 	{
 	public:
@@ -20,9 +20,9 @@ namespace ld3d
 		bool											Initialize(const SysSetting& setting, Allocator* pAlloc = nullptr, DT_CoreApiPtr pDTCore = DT_CoreApiPtr());
 
 		void											Update();
-		
+
 		void											Release();
-        
+
 #ifdef _WIN32
 		void											HandleMessage(MSG& msg);
 #endif
@@ -40,7 +40,7 @@ namespace ld3d
 		void											Present();
 		void											AddRenderData(RenderDataPtr pData);
 		void											ClearRenderQueue();
-		
+
 		void											AddCamera(CameraPtr pCamera);
 		void											RemoveCamera(CameraPtr pCamera);
 
@@ -64,7 +64,18 @@ namespace ld3d
 		static Allocator*								GetAllocator();
 
 		static Logger&									logger();
-		
+
+
+		template <typename T>
+		void											_release_and_reset(std::shared_ptr<T> pObj)
+		{
+			if(pObj)
+			{
+				pObj->Release();
+				pObj.reset();
+			}
+		}
+
 	private:
 		GameObjectManagerPtr							m_pObjectManager;
 		EventDispatcherPtr								m_pEventDispatcher;
