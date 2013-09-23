@@ -281,7 +281,6 @@ namespace ld3d
 		m_pGraphics->ClearRenderTarget(1, math::Color4(0, 0, 0, 0));
 		m_pGraphics->ClearRenderTarget(2, math::Color4(0, 0, 0, 1));
 		m_pGraphics->ClearDepthStencil(CLEAR_ALL, 1.0f, 0);
-		//m_pGraphics->ClearDepthStencil(CLEAR_DEPTH, 1.0f, 0);
 
 		DR_G_Pass();
 

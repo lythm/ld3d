@@ -367,7 +367,15 @@ namespace ld3d
 		axis_z.Normalize();
 
 		Vector3 axis_y(0, 1, 0);
+
+		float dot = Dot(axis_z, axis_y);
+		if(abs(dot) > 0.9999)
+		{
+			axis_y.z = 0.1f;
+		}
+
 		Vector3 axis_x = Cross(axis_y, axis_z);
+				
 		axis_x.Normalize();
 		axis_y = Cross(axis_z, axis_x);
 		axis_y.Normalize();

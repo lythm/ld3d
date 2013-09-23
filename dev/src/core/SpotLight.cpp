@@ -82,8 +82,6 @@ namespace ld3d
 	}
 	void SpotLight::RenderLight(RenderManagerPtr pRenderManager)
 	{
-		const math::Matrix44& view = pRenderManager->GetViewMatrix();
-		const math::Matrix44& proj = pRenderManager->GetProjMatrix();
 		const math::Matrix44& world = GetWorldTM();
 
 		pRenderManager->SetMatrixBlock(m_pMaterial, world);
@@ -108,7 +106,11 @@ namespace ld3d
 		l.theta = cosf(math::D2R(GetAngle()));
 
 		MaterialParameterPtr pParam = m_pMaterial->GetParameterByName("light");
-		pParam->SetParameterBlock(&l, sizeof(SpotLightParam));
+		
+		if(pParam)
+		{
+			pParam->SetParameterBlock(&l, sizeof(SpotLightParam));
+		}
 	
 		pRenderManager->SetGBuffer(m_pMaterial);
 				

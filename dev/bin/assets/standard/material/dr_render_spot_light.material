@@ -2,47 +2,47 @@
 
 RenderState RS_SpotLight_StencilPass
 {
-	CULLMODE = Back;
+	CULLMODE							= Back;
 
-	BLENDENABLE						= false;
+	BlendEnable							= false;
 
-	DepthEnable						= true;
-	DepthFunc						= LEQUAL;
-	DepthWriteMask					= ZERO;
-	StencilEnable					= true;
-	FrontFaceStencilFailOp			= KEEP;
-	FrontFaceStencilDepthFailOp		= REPLACE;
-	FrontFaceStencilPassOp			= KEEP;
-	FrontFaceStencilFunc			= Never;
-	FrontFaceStencilRef				= 1;
+	DepthEnable							= true;
+	DepthFunc							= LEQUAL;
+	DepthWriteMask						= ZERO;
+	StencilEnable						= true;
+	FrontFaceStencilFailOP				= KEEP;
+	FrontFaceStencilDepthFailOP			= REPLACE;
+	FrontFaceStencilPassOP				= KEEP;
+	FrontFaceStencilFunc				= ALWAYS;
+	FrontFaceStencilRef					= 1;
 
-	ColorWrite						= Zero;
+	ColorWrite							= Zero;
 };
 
 RenderState RS_SpotLight
 {
 	CULLMODE = front;
-	
-	BLENDENABLE						= true;
-	BlendSRCRGB						= ONE;
-	BlendDstRGB						= ONE;
-	BLENDRGBOP						= ADD;
-	BlendSRCALPHA					= ONE;
-	BlendDSTALPHA					= ONE;
-	BLENDALPHAOP					= ADD;
 
-	DepthEnable						= true;
-	DepthFunc						= GREATER;
-	DepthWriteMask					= ZERO;
-	StencilEnable					= true;
+	BLENDENABLE							= true;
+	BlendSrcRGB							= ONE;
+	BlendDstRGB							= ONE;
+	BLENDRGBOP							= ADD;
+	BlendSrcAlpha						= ONE;
+	BlendDstAlpha						= ONE;
+	BLENDALPHAop						= ADD;
 
-	BackFaceStencilFailOp			= KEEP;
-	BackFaceStencilDepthFailOp		= KEEP;
-	BackFaceStencilPassOp			= KEEP;
-	BackFaceStencilFunc				= EQUAL;
-	BackFaceStencilRef				= 0;
+	DepthEnable							= true;
+	DepthFunc							= GEQUAL;
+	DepthWriteMask						= ZERO;
+	StencilEnable						= true;
 
-	ColorWrite						= All;
+	BackFaceStencilFailOP				= KEEP;
+	BackFaceStencilDepthFailOP			= KEEP;
+	BackFaceStencilPassOP				= KEEP;
+	BackFaceStencilFunc					= EQUAL;
+	BackFaceStencilRef					= 0;
+
+	ColorWrite							= All;
 };
 
 

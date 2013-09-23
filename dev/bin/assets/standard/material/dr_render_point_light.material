@@ -8,11 +8,12 @@ RenderState RS_PointLight_StencilPass
 	DepthEnable							= true;
 	DepthFunc							= LEQUAL;
 	DepthWriteMask						= ZERO;
+
 	StencilEnable						= true;
 	FrontFaceStencilFailOP				= KEEP;
 	FrontFaceStencilDepthFailOP			= REPLACE;
 	FrontFaceStencilPassOP				= KEEP;
-	FrontFaceStencilFunc				= Never;
+	FrontFaceStencilFunc				= ALWAYS;
 	FrontFaceStencilRef					= 1;
 
 	ColorWrite							= Zero;
@@ -20,7 +21,7 @@ RenderState RS_PointLight_StencilPass
 
 RenderState RS_PointLight
 {
-	CULLMODE = front;
+	CULLMODE							= front;
 
 	BLENDENABLE							= true;
 	BlendSrcRGB							= ONE;
@@ -31,10 +32,10 @@ RenderState RS_PointLight
 	BLENDALPHAop						= ADD;
 
 	DepthEnable							= true;
-	DepthFunc							= GREATER;
+	DepthFunc							= GEQUAL;
 	DepthWriteMask						= ZERO;
-	StencilEnable						= true;
 
+	StencilEnable						= true;
 	BackFaceStencilFailOP				= KEEP;
 	BackFaceStencilDepthFailOP			= KEEP;
 	BackFaceStencilPassOP				= KEEP;

@@ -143,11 +143,11 @@ namespace ld3d
 	}
 	void OGL4RenderState::SetFrontFaceStencilOP(RS_STENCIL_OP sfail, RS_STENCIL_OP dfaile, RS_STENCIL_OP pass)
 	{
-		AddCommand(std::bind(glStencilOpSeparate, GL_FRONT, OGL4Convert::StencilOPToGL(sfail), OGL4Convert::StencilOPToGL(sfail), OGL4Convert::StencilOPToGL(sfail)));
+		AddCommand(std::bind(glStencilOpSeparate, GL_FRONT, OGL4Convert::StencilOPToGL(sfail), OGL4Convert::StencilOPToGL(dfaile), OGL4Convert::StencilOPToGL(pass)));
 	}
 	void OGL4RenderState::SetBackFaceStencilOP(RS_STENCIL_OP sfail, RS_STENCIL_OP dfaile, RS_STENCIL_OP pass)
 	{
-		AddCommand(std::bind(glStencilOpSeparate, GL_BACK, OGL4Convert::StencilOPToGL(sfail), OGL4Convert::StencilOPToGL(sfail), OGL4Convert::StencilOPToGL(sfail)));
+		AddCommand(std::bind(glStencilOpSeparate, GL_BACK, OGL4Convert::StencilOPToGL(sfail), OGL4Convert::StencilOPToGL(dfaile), OGL4Convert::StencilOPToGL(pass)));
 	}
 
 

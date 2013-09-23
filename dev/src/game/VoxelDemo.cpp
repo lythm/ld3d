@@ -85,13 +85,13 @@ bool VoxelDemo::Init(ld3d::CoreApiPtr pCore)
 	pLight->SetTranslation(0, 5, 5);
 	pLight->LookAt(pSphere);*/
 	//
-	//pLight = m_pCore->CreatGameObjectFromTemplate("PointLight", "pl");
-	//pLight->SetTranslation(0, 5, 0);
+	GameObjectPtr pLight = m_pCore->CreatGameObjectFromTemplate("PointLight", "pl");
+	pLight->SetTranslation(5, 5, 0);
 
 
-	GameObjectPtr pLight = m_pCore->CreatGameObjectFromTemplate("SpotLight", "pl");
-	pLight->SetTranslation(5, 5, 5);
-	pLight->LookAt(math::Vector3(0, 0, 0));
+	//pLight = m_pCore->CreatGameObjectFromTemplate("SpotLight", "pl");
+	//pLight->SetTranslation(5, 5, 0);
+	//pLight->LookAt(math::Vector3(0, 0, 0));
 
 
 	return true;

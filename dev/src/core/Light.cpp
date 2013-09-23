@@ -13,6 +13,8 @@ namespace ld3d
 
 		m_intensity					= 0.8f;
 		m_bEnabled					= true;
+
+		m_worldTM.MakeIdentity();
 	}
 
 

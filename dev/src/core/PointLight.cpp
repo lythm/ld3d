@@ -121,7 +121,11 @@ namespace ld3d
 	}
 	const math::Matrix44& PointLight::GetWorldTM()
 	{
-		m_modifiedWorldTM = math::MatrixScale(math::Vector3(m_radius, m_radius, m_radius)) * Light::GetWorldTM();
+		m_modifiedWorldTM = Light::GetWorldTM();
+
+		m_modifiedWorldTM.SetScale(math::Vector3(m_radius, m_radius, m_radius));
+
+		//m_modifiedWorldTM = math::MatrixScale(math::Vector3(m_radius, m_radius, m_radius)) * Light::GetWorldTM();
 		return m_modifiedWorldTM;
 	}
 }
