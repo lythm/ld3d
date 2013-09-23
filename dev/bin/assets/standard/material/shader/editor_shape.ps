@@ -16,7 +16,8 @@ void main()
 {
 	float specular = 0;
 
-	float d = depth_2_view_space_z(gl_FragCoord.z, MATRIX_PROJ);
+	// view space z
+	float d = 1.0 / gl_FragCoord.w;
 
 	G_BUFFER_0 = vec4(d, 0, 0, 0);
 	

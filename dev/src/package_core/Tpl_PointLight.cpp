@@ -15,9 +15,13 @@ namespace ld3d
 	}
 	GameObjectPtr Tpl_PointLight::CreateGameObject()
 	{
+		GameObjectComponentPtr pLight = m_pManager->CreateComponent("PointLight");
+		if(pLight == nullptr)
+		{
+			return nullptr;
+		}
 		GameObjectPtr pObj = m_pManager->CreateGameObject("Point Light");
 
-		GameObjectComponentPtr pLight = m_pManager->CreateComponent("PointLight");
 		pObj->AddComponent(pLight);
 
 		return pObj;

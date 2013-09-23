@@ -201,6 +201,7 @@
     <ClInclude Include="..\..\include\utils\scope_exit.h" />
     <ClInclude Include="..\..\include\utils\Unicode.h" />
     <ClInclude Include="..\..\include\utils\utils_all.h" />
+    <ClInclude Include="..\..\include\utils\utils_helper.h" />
     <ClInclude Include="..\..\include\utils\Version.h" />
     <ClInclude Include="utils_pch.h" />
   </ItemGroup>

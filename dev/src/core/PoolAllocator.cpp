@@ -31,11 +31,8 @@ namespace ld3d
 	}
 	void PoolAllocator::Release()
 	{
-		if(m_pMemPool)
-		{
-			m_pMemPool->Release();
-			m_pMemPool.reset();
-		}
+		_release_and_reset(m_pMemPool);
+
 	}
 	void PoolAllocator::Update()
 	{

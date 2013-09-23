@@ -199,11 +199,7 @@ namespace ld3d
 	}
 	void OGL4Graphics::Release()
 	{
-		if(m_pMainRW)
-		{
-			m_pMainRW->Release();
-			m_pMainRW.reset();
-		}
+		_release_and_reset(m_pMainRW);
 
 		if(m_pLoader)
 		{
@@ -319,7 +315,7 @@ namespace ld3d
 			glClearBufferfv(GL_DEPTH, 0, &d);
 			break;
 		case CLEAR_STENCIL:
-			glClearBufferfi(GL_STENCIL, 0, d, s);
+			glClearBufferiv(GL_STENCIL, 0, &s);
 			break;
 		case CLEAR_ALL:
 			glClearBufferfi(GL_DEPTH_STENCIL, 0, d, s);

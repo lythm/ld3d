@@ -8,6 +8,15 @@ uniform sampler2D _DR_G_BUFFER_0;
 uniform sampler2D _DR_G_BUFFER_1;
 uniform sampler2D _DR_G_BUFFER_2;
 
+
+layout(std140) uniform light
+{
+	vec3	clr;
+	float	intensity;
+	float	range;
+	float	cos_theta;
+};
+
 out vec4 color;
 void main()
 {
@@ -17,9 +26,13 @@ void main()
 	float depth = dr_gbuffer_get_depth(_DR_G_BUFFER_0, uv);
 	vec3 vpos = view_port_2_view_space(gl_FragCoord.xy, depth, MATRIX_PROJ, dim);
 
-	SpotLight light;
+	SpotLight sl;
+	sl.clr = clr;
+	sl.intensity = intensity;
+	sl.range = range;
+	sl.cos_theta = cos_theta;
 
-	LightResult ret = dr_light_spot(vpos, n, light, MATRIX_WV);
+	LightResult ret = dr_light_spot(vpos, n, sl, MATRIX_WV);
 
 	color.xyz = ret.diffuse;
 	color.w = rgb_2_il(ret.specular);

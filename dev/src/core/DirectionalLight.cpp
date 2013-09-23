@@ -6,6 +6,7 @@
 #include "core/RenderManager.h"
 #include "core/MaterialParameter.h"
 #include "core/GeometryData.h"
+#include "core_utils.h"
 
 namespace ld3d
 {
@@ -35,11 +36,7 @@ namespace ld3d
 	}
 	void DirectionalLight::Release()
 	{
-		if(m_pMaterial)
-		{
-			m_pMaterial->Release();
-			m_pMaterial.reset();
-		}
+		_release_and_reset(m_pMaterial);
 	}
 	void DirectionalLight::RenderLight(RenderManagerPtr pRenderer)
 	{

@@ -8,6 +8,15 @@ uniform sampler2D _DR_G_BUFFER_0;
 uniform sampler2D _DR_G_BUFFER_1;
 uniform sampler2D _DR_G_BUFFER_2;
 
+
+layout(std140) uniform light
+{
+	vec3	clr;
+	float	intensity;
+	float	radius;
+};
+
+
 out vec4 color;
 
 void main()
@@ -21,9 +30,13 @@ void main()
 
 	vec3 vpos = view_port_2_view_space(gl_FragCoord.xy, depth, MATRIX_PROJ, dim);
 
-	PointLight light;
+	PointLight pl;
+	
+	pl.clr = clr;
+	pl.intensity = intensity;
+	pl.radius = radius;
 
-	LightResult ret = dr_light_point(vpos, n, light, MATRIX_WV);
+	LightResult ret = dr_light_point(vpos, n, pl, MATRIX_WV);
 
 	color.xyz = ret.diffuse;
 	color.w = rgb_2_il(ret.specular);

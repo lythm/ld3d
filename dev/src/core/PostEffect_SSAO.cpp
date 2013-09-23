@@ -6,6 +6,7 @@
 #include "core/Texture.h"
 #include "core/RenderTexture.h"
 #include "core/materialparameter.h"
+#include "core_utils.h"
 
 namespace ld3d
 {
@@ -58,26 +59,14 @@ namespace ld3d
 	}
 	void PostEffect_SSAO::Release()
 	{
-		if(m_pGBlurTarget)
-		{
-			m_pGBlurTarget->Release();
-			m_pGBlurTarget.reset();
-		}
-		if(m_pGBlurMaterial)
-		{
-			m_pGBlurMaterial->Release();
-			m_pGBlurMaterial.reset();
-		}
-		if(m_pSSAORandomTex)
-		{
-			m_pSSAORandomTex->Release();
-			m_pSSAORandomTex.reset();
-		}
-		if(m_pMaterial)
-		{
-			m_pMaterial->Release();
-			m_pMaterial.reset();
-		}
+		_release_and_reset(m_pGBlurTarget);
+
+		_release_and_reset(m_pGBlurMaterial);
+
+		_release_and_reset(m_pSSAORandomTex);
+
+		_release_and_reset(m_pMaterial);
+
 	}
 
 	void PostEffect_SSAO::Render(RenderManagerPtr pRenderer, RenderTexturePtr pInput, RenderTexturePtr pOutput)

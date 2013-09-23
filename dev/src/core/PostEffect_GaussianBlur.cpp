@@ -46,10 +46,7 @@ namespace ld3d
 		m_pParamInputSize	= nullptr;
 		m_pParamInputTex	= nullptr;
 
-		if(m_pMaterial)
-		{
-			m_pMaterial->Release();
-			m_pMaterial.reset();
-		}
+		_release_and_reset(m_pMaterial);
+
 	}
 }

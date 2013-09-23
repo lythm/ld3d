@@ -24,17 +24,10 @@ namespace ld3d
 	}
 	void OGL4GeometryData::Release()
 	{
-		if(m_pVertexBuffer)
-		{
-			m_pVertexBuffer->Release();
-			m_pVertexBuffer.reset();
-		}
-		if(m_pIndexBuffer)
-		{
-			m_pIndexBuffer->Release();
-			m_pIndexBuffer.reset();
-		}
+		_release_and_reset(m_pVertexBuffer);
 
+		_release_and_reset(m_pIndexBuffer);
+		
 		glDeleteVertexArrays(1, &m_vao);
 		m_vao = 0;
 	}

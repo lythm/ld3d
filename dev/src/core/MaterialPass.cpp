@@ -33,22 +33,17 @@ namespace ld3d
 	
 	void MaterialPass::Release()
 	{
-		if(m_pRenderState)
-		{
-			m_pRenderState->Release();
-			m_pRenderState.reset();
-		}
+		_release_and_reset(m_pRenderState);
+
 
 		for(auto v : m_Samplers)
 		{
 			v->Release();
 		}
 		m_Samplers.clear();
-		if(m_pProgram)
-		{
-			m_pProgram->Release();
-			m_pProgram.reset();
-		}
+
+		_release_and_reset(m_pProgram);
+
 	}
 	bool MaterialPass::Validate()
 	{

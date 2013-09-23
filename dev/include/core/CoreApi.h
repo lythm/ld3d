@@ -65,17 +65,6 @@ namespace ld3d
 
 		static Logger&									logger();
 
-
-		template <typename T>
-		void											_release_and_reset(std::shared_ptr<T>& pObj)
-		{
-			if(pObj)
-			{
-				pObj->Release();
-				pObj.reset();
-			}
-		}
-
 	private:
 		GameObjectManagerPtr							m_pObjectManager;
 		EventDispatcherPtr								m_pEventDispatcher;

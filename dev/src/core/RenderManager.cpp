@@ -45,11 +45,7 @@ namespace ld3d
 	}
 	void RenderManager::ScreenQuad::Release()
 	{
-		if(m_pGeometryData)
-		{
-			m_pGeometryData->Release();
-			m_pGeometryData.reset();
-		}
+		_release_and_reset(m_pGeometryData);
 	}
 	void RenderManager::ScreenQuad::Render(Sys_GraphicsPtr pGraphics, MaterialPtr pMaterial)
 	{
@@ -144,11 +140,7 @@ namespace ld3d
 	}
 	bool RenderManager::CreateGBuffer(int w, int h)
 	{
-		if(m_pGBuffer != nullptr)
-		{
-			m_pGBuffer->Release();
-			m_pGBuffer.reset();
-		}
+		_release_and_reset(m_pGBuffer);
 
 		G_FORMAT formats[3] = 
 		{
@@ -171,43 +163,20 @@ namespace ld3d
 	{
 		Clear();
 
-		if(m_pScreenQuadMaterial)
-		{
-			m_pScreenQuadMaterial->Release();
-			m_pScreenQuadMaterial.reset();
-		}
-		if(m_pLightManager)
-		{
-			m_pLightManager->Release();
-			m_pLightManager.reset();
-		}
+		_release_and_reset(m_pScreenQuadMaterial);
 
-		if(m_pPostEffectManager)
-		{
-			m_pPostEffectManager->Release();
-			m_pPostEffectManager.reset();
-		}
-		if(m_pScreenQuad)
-		{
-			m_pScreenQuad->Release();
-			m_pScreenQuad.reset();
-		}
-		if(m_pGBuffer != nullptr)
-		{
-			m_pGBuffer->Release();
-			m_pGBuffer.reset();
-		}
-		if(m_pABuffer != nullptr)
-		{
-			m_pABuffer->Release();
-			m_pABuffer.reset();
-		}
+		_release_and_reset(m_pLightManager);
 
-		if(m_pDSBuffer != nullptr)
-		{
-			m_pDSBuffer->Release();
-			m_pDSBuffer.reset();
-		}
+		_release_and_reset(m_pPostEffectManager);
+
+		_release_and_reset(m_pScreenQuad);
+
+		_release_and_reset(m_pGBuffer);
+
+		_release_and_reset(m_pABuffer);
+
+		_release_and_reset(m_pDSBuffer);
+
 	}
 	
 	void RenderManager::AddRenderData(RenderDataPtr pData)

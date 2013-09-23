@@ -44,7 +44,7 @@ namespace ld3d
 				
 		mem_free(pVerts);
 		
-		m_pMaterial = pRenderManager->CreateMaterialFromFile("./assets/standard/material/dr_render_spot_light.fx");
+		m_pMaterial = pRenderManager->CreateMaterialFromFile("./assets/standard/material/dr_render_spot_light.material");
 		if(m_pMaterial == nullptr)
 		{
 			return false;
@@ -75,16 +75,10 @@ namespace ld3d
 	
 	void SpotLight::Release()
 	{
-		if(m_pMaterial)
-		{
-			m_pMaterial->Release();
-			m_pMaterial.reset();
-		}
-		if(m_pGeometry)
-		{
-			m_pGeometry->Release();
-			m_pGeometry.reset();
-		}
+		_release_and_reset(m_pMaterial);
+
+		_release_and_reset(m_pGeometry);
+
 	}
 	void SpotLight::RenderLight(RenderManagerPtr pRenderManager)
 	{

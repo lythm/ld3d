@@ -94,6 +94,8 @@ LightResult dr_light_point(vec3 p, vec3 n, PointLight light, mat4 wv)
 	
 
 	LightResult ret;
+
+	//ret.diffuse		= vec3(d / light.radius, d / light.radius, d / light.radius);
 	ret.diffuse		= il * light.clr;
 	ret.specular	= s * light.clr;
 
@@ -113,7 +115,7 @@ LightResult dr_light_spot(vec3 p, vec3 n, SpotLight light, mat4 wv)
 	float cos_angle = dot(ld, -l);
 	
 	float factor = step(light.cos_theta, cos_angle) * step(d , light.range / cos_angle);
-	float il = max(0, dot(l , n)) * light.intensity * factor;
+	float il = max(0, dot(l , n)) * light.intensity;// * factor;
 	
 	float s = dr_light_specular_il(n, l, g_specular_pow);
 
@@ -122,7 +124,7 @@ LightResult dr_light_spot(vec3 p, vec3 n, SpotLight light, mat4 wv)
 
 	LightResult ret;
 	ret.diffuse		= il * light.clr;
-	ret.specular	= s * light.clr;
+	ret.specular	= s * light.clr * 0;
 
 	return ret;
 

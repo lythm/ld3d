@@ -1,54 +1,52 @@
 
 
-Render State RS_SpotLight_StencilPass
+RenderState RS_SpotLight_StencilPass
 {
 	CULLMODE = Back;
 
 	BLENDENABLE						= false;
 
 	DepthEnable						= true;
-	DepthFunc						= LESS_EQUAL;
+	DepthFunc						= LEQUAL;
 	DepthWriteMask					= ZERO;
 	StencilEnable					= true;
-	FrontFaceStencilFail			= KEEP;
-	FrontFaceStencilDepthFail		= REPLACE;
-	FrontFaceStencilPass			= KEEP;
-	FrontFaceStencilFunc			= ALWAYS;
+	FrontFaceStencilFailOp			= KEEP;
+	FrontFaceStencilDepthFailOp		= REPLACE;
+	FrontFaceStencilPassOp			= KEEP;
+	FrontFaceStencilFunc			= Never;
 	FrontFaceStencilRef				= 1;
+
+	ColorWrite						= Zero;
 };
 
 RenderState RS_SpotLight
 {
 	CULLMODE = front;
 	
-	BLENDENABLE							= true;
-	SRCBLEND							= ONE;
-	DESTBLEND							= ONE;
-	BLENDOP								= ADD;
-	SRCBLENDALPHA						= ONE;
-	DESTBLENDALPHA						= ONE;
-	BLENDOPALPHA						= ADD;
-	ColorWrite							= ALL;
+	BLENDENABLE						= true;
+	BlendSRCRGB						= ONE;
+	BlendDstRGB						= ONE;
+	BLENDRGBOP						= ADD;
+	BlendSRCALPHA					= ONE;
+	BlendDSTALPHA					= ONE;
+	BLENDALPHAOP					= ADD;
 
 	DepthEnable						= true;
 	DepthFunc						= GREATER;
 	DepthWriteMask					= ZERO;
 	StencilEnable					= true;
 
-	BackFaceStencilFail				= KEEP;
-	BackFaceStencilDepthFail		= KEEP;
-	BackFaceStencilPass				= KEEP;
+	BackFaceStencilFailOp			= KEEP;
+	BackFaceStencilDepthFailOp		= KEEP;
+	BackFaceStencilPassOp			= KEEP;
 	BackFaceStencilFunc				= EQUAL;
 	BackFaceStencilRef				= 0;
+
+	ColorWrite						= All;
 };
 
 
-
-
-
-
-
-technique11 deferred
+technique deferred
 {
 	pass p1
 	{
@@ -64,4 +62,3 @@ technique11 deferred
 		SetPixelShader("./shader/dr_render_spot_light.ps");
 	}
 }
-

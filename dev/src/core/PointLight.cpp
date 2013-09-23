@@ -95,17 +95,13 @@ namespace ld3d
 	}
 	void PointLight::DrawLightVolumn(RenderManagerPtr pRenderManager)
 	{
-		const math::Matrix44& view = pRenderManager->GetViewMatrix();
-		const math::Matrix44& proj = pRenderManager->GetProjMatrix();
 		const math::Matrix44& world = GetWorldTM();
 
 		pRenderManager->SetMatrixBlock(m_pMaterial, world);
-		
-		
+
 		pRenderManager->ClearDepthBuffer(CLEAR_STENCIL, 1.0f, 0);
 		
 		Sys_GraphicsPtr pGraphics = pRenderManager->GetSysGraphics();
-
 
 		int nPass = m_pMaterial->Begin();
 		for(int i = 0; i < nPass; ++i)
@@ -118,16 +114,10 @@ namespace ld3d
 	
 	void PointLight::Release()
 	{
-		if(m_pMaterial)
-		{
-			m_pMaterial->Release();
-			m_pMaterial.reset();
-		}
-		if(m_pGeometry)
-		{
-			m_pGeometry->Release();
-			m_pGeometry.reset();
-		}
+		_release_and_reset(m_pMaterial);
+
+		_release_and_reset(m_pGeometry);
+		
 	}
 	const math::Matrix44& PointLight::GetWorldTM()
 	{

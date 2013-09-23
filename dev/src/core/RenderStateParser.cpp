@@ -89,11 +89,12 @@ namespace ld3d
 
 		static std::pair<std::string, uint32> ColorWriteEnum[] = 
 		{
-			std::pair<std::string, uint32>("RED",						RS_COLOR_WRITE_ENABLE_RED),
+			/*std::pair<std::string, uint32>("RED",						RS_COLOR_WRITE_ENABLE_RED),
 			std::pair<std::string, uint32>("GREEN",						RS_COLOR_WRITE_ENABLE_GREEN),
 			std::pair<std::string, uint32>("BLUE",						RS_COLOR_WRITE_ENABLE_BLUE),
-			std::pair<std::string, uint32>("ALPHA",						RS_COLOR_WRITE_ENABLE_ALPHA),
+			std::pair<std::string, uint32>("ALPHA",						RS_COLOR_WRITE_ENABLE_ALPHA),*/
 
+			std::pair<std::string, uint32>("Zero",						RS_COLOR_WRITE_ENABLE_ZERO),
 			std::pair<std::string, uint32>("ALL",						RS_COLOR_WRITE_ENABLE_ALL),
 		};
 
@@ -175,10 +176,10 @@ namespace ld3d
 			_BackFaceStencilPassOP				= RS_STENCIL_OP_KEEP;
 			_BackFaceStencilFunc				= RS_COMPARISON_ALWAYS;
 
-			_FrontFaceStencilWriteMask			= 255;
-			_FrontFaceStencilReadMask			= 255;
-			_BackFaceStencilWriteMask			= 255;
-			_BackFaceStencilReadMask			= 255;
+			_FrontFaceStencilWriteMask			= 0xffffffff;
+			_FrontFaceStencilReadMask			= 0xffffffff;
+			_BackFaceStencilWriteMask			= 0xffffffff;
+			_BackFaceStencilReadMask			= 0xffffffff;
 
 			_FrontFaceStencilRef				= 0;
 			_BackFaceStencilRef					= 0;

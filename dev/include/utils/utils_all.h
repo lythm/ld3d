@@ -3,6 +3,7 @@
 #include <memory>
 #include <functional>
 
+#include "utils/utils_helper.h"
 #include "utils/MemPool.h"
 #include "utils/PropertySet.h"
 #include "utils/Version.h"

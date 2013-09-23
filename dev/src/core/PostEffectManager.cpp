@@ -60,22 +60,12 @@ namespace ld3d
 
 		m_effects.clear();
 
-		if(m_pInput)
-		{
-			m_pInput->Release();
-			m_pInput.reset();
-		}
-		if(m_pOutput)
-		{
-			m_pOutput->Release();
-			m_pOutput.reset();
-		}
+		_release_and_reset(m_pInput);
 
-		if(m_pFinalMaterial)
-		{
-			m_pFinalMaterial->Release();
-			m_pFinalMaterial.reset();
-		}
+		_release_and_reset(m_pOutput);
+
+		_release_and_reset(m_pFinalMaterial);
+		
 	}
 	void PostEffectManager::Render()
 	{
@@ -117,16 +107,9 @@ namespace ld3d
 	}
 	bool PostEffectManager::CreateRT(int w, int h)
 	{
-		if(m_pInput != nullptr)
-		{
-			m_pInput->Release();
-			m_pInput.reset();
-		}
-		if(m_pOutput != nullptr)
-		{
-			m_pOutput->Release();
-			m_pOutput.reset();
-		}
+		_release_and_reset(m_pInput);
+
+		_release_and_reset(m_pOutput);
 
 		G_FORMAT formats[1] = {G_FORMAT_R8G8B8A8_UNORM,};
 		m_pInput = m_pRenderManager->CreateRenderTexture(1, w, h, formats);

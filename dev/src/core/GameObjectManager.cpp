@@ -209,6 +209,7 @@ namespace ld3d
 		m_pPackage->Release();
 
 		DestroyPackage(m_pPackage);
+		m_pPackage = nullptr;
 
 		os_unload_module(m_hLib);
 		m_hLib = NULL;
