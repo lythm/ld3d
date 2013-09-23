@@ -1,0 +1,1013 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#ifndef APSTUDIO_INVOKED
+#include "targetver.h"
+#endif
+#include "afxres.h"
+#include "verrsrc.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// 中文(简体，中国) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+LANGUAGE LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED
+#pragma code_page(936)
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#ifndef APSTUDIO_INVOKED\r\n"
+    "#include ""targetver.h""\r\n"
+    "#endif\r\n"
+    "#include ""afxres.h""\r\n"
+    "#include ""verrsrc.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)\r\n"
+    "LANGUAGE 4, 2\r\n"
+    "#include ""res\\GameEditor.rc2""  // 非 Microsoft Visual C++ 编辑的资源\r\n"
+    "#include ""l.CHS\\afxres.rc""      // 标准组件\r\n"
+    "#if !defined(_AFXDLL)\r\n"
+    "#include ""l.CHS\\afxprint.rc""        // 打印/打印预览资源\r\n"
+    "#include ""l.CHS\\afxribbon.rc""        // MFC 功能区和控件条资源\r\n"
+    "#endif\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON                    "res\\GameEditor.ico"
+IDR_GameEditorTYPE      ICON                    "res\\GameEditorDoc.ico"
+IDI_FILE_VIEW           ICON                    "res\\file_view.ico"
+IDI_FILE_VIEW_HC        ICON                    "res\\file_view_hc.ico"
+IDI_CLASS_VIEW          ICON                    "res\\class_view.ico"
+IDI_CLASS_VIEW_HC       ICON                    "res\\class_view_hc.ico"
+IDI_OUTPUT_WND          ICON                    "res\\output_wnd.ico"
+IDI_OUTPUT_WND_HC       ICON                    "res\\output_wnd_hc.ico"
+IDI_PROPERTIES_WND      ICON                    "res\\properties_wnd.ico"
+IDI_PROPERTIES_WND_HC   ICON                    "res\\properties_wnd_hc.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDR_MAINFRAME           BITMAP                  "res\\Toolbar.bmp"
+IDR_MAINFRAME_256       BITMAP                  "res\\Toolbar256.bmp"
+IDR_SORT                BITMAP                  "res\\sort.bmp"
+IDB_SORT_24             BITMAP                  "res\\sort_hc.bmp"
+IDB_FILE_VIEW           BITMAP                  "res\\fileview.bmp"
+IDB_FILE_VIEW_24        BITMAP                  "res\\fileview_hc.bmp"
+IDB_CLASS_VIEW          BITMAP                  "res\\classview.bmp"
+IDB_CLASS_VIEW_24       BITMAP                  "res\\classview_hc.bmp"
+IDR_EXPLORER            BITMAP                  "res\\explorer.bmp"
+IDB_EXPLORER_24         BITMAP                  "res\\explorer_hc.bmp"
+IDR_MENU_IMAGES         BITMAP                  "res\\menuimages.bmp"
+IDB_MENU_IMAGES_24      BITMAP                  "res\\menuimages_hc.bmp"
+IDR_PROPERTIES          BITMAP                  "res\\properties.bmp"
+IDB_PROPERTIES_HC       BITMAP                  "res\\properties_hc.bmp"
+IDB_INFO                BITMAP                  "res\\info.bmp"
+IDB_ASSETLIST           BITMAP                  "res\\bitmap1.bmp"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Toolbar
+//
+
+IDR_MAINFRAME TOOLBAR 16, 15
+BEGIN
+    BUTTON      ID_FILE_NEW_SCENE
+    BUTTON      ID_FILE_OPEN_SCENE
+    BUTTON      ID_FILE_SAVE_SCENE
+    SEPARATOR
+    BUTTON      ID_EDIT_CUT
+    BUTTON      ID_EDIT_COPY
+    BUTTON      ID_EDIT_PASTE
+    SEPARATOR
+    BUTTON      ID_FILE_PRINT
+    BUTTON      ID_APP_ABOUT
+END
+
+IDR_MAINFRAME_256 TOOLBAR 16, 15
+BEGIN
+    BUTTON      ID_FILE_NEW_SCENE
+    BUTTON      ID_FILE_OPEN_SCENE
+    BUTTON      ID_FILE_SAVE_SCENE
+    SEPARATOR
+    BUTTON      ID_EDIT_CUT
+    BUTTON      ID_EDIT_COPY
+    BUTTON      ID_EDIT_PASTE
+    SEPARATOR
+    BUTTON      ID_FILE_PRINT
+    BUTTON      ID_APP_ABOUT
+END
+
+IDR_SORT TOOLBAR 16, 15
+BEGIN
+    BUTTON      ID_SORT_MENU
+    BUTTON      ID_NEW_FOLDER
+END
+
+IDR_EXPLORER TOOLBAR 16, 15
+BEGIN
+    BUTTON      ID_PROPERTIES
+END
+
+IDR_MENU_IMAGES TOOLBAR 16, 15
+BEGIN
+    BUTTON      ID_WINDOW_MANAGER
+    SEPARATOR
+    BUTTON      ID_WINDOW_CASCADE
+    BUTTON      ID_WINDOW_TILE_HORZ
+    BUTTON      ID_TOOLS_MACRO
+    BUTTON      ID_SORTING_SORTALPHABETIC
+    BUTTON      ID_SORTING_SORTBYTYPE
+    BUTTON      ID_SORTING_SORTBYACCESS
+    BUTTON      ID_SORTING_GROUPBYTYPE
+END
+
+IDR_PROPERTIES TOOLBAR 16, 15
+BEGIN
+    BUTTON      ID_EXPAND_ALL
+    BUTTON      ID_SORTPROPERTIES
+    BUTTON      ID_PROPERTIES1
+    BUTTON      ID_PROPERTIES2
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDR_MAINFRAME MENU
+BEGIN
+    POPUP "文件(&F)"
+    BEGIN
+        MENUITEM "New Project(&N)\tCtrl+N",     ID_FILE_NEW_PROJECT
+        MENUITEM "Open Project(&O)...\tCtrl+O", ID_FILE_OPEN_PROJECT
+        MENUITEM "Save Project(&S)\tCtrl+S",    ID_FILE_SAVE_PROJECT
+        MENUITEM SEPARATOR
+        MENUITEM "New Scene",                   ID_FILE_NEW_SCENE
+        MENUITEM "Open Scene",                  ID_FILE_OPEN_SCENE
+        MENUITEM "Save Scene",                  ID_FILE_SAVE_SCENE
+        MENUITEM "Save Scene As(&A)...",        ID_FILE_SAVE_SCENE_AS
+        MENUITEM SEPARATOR
+        MENUITEM "最近的文件",                       ID_FILE_MRU_FILE1, GRAYED
+        MENUITEM SEPARATOR
+        MENUITEM "退出(&X)",                      ID_APP_EXIT
+    END
+    POPUP "编辑(&E)"
+    BEGIN
+        MENUITEM "撤消(&U)\tCtrl+Z",              ID_EDIT_UNDO
+        MENUITEM SEPARATOR
+        MENUITEM "剪切(&T)\tCtrl+X",              ID_EDIT_CUT
+        MENUITEM "复制(&C)\tCtrl+C",              ID_EDIT_COPY
+        MENUITEM "粘贴(&P)\tCtrl+V",              ID_EDIT_PASTE
+        MENUITEM SEPARATOR
+        MENUITEM "设置...",                       ID_EDIT_APPSETTINGS
+        MENUITEM "Rendering Setting...",        ID_RENDERING_SETTING
+    END
+    POPUP "视图(&V)"
+    BEGIN
+        MENUITEM "Show Grid",                   ID_VIEW_SHOWGRID, CHECKED
+        MENUITEM SEPARATOR
+        POPUP "工具栏和停靠窗口(&T)"
+        BEGIN
+            MENUITEM "<占位符>",                       ID_VIEW_TOOLBAR
+        END
+        MENUITEM "状态栏(&S)",                     ID_VIEW_STATUS_BAR
+        MENUITEM "标题栏(&C)",                     ID_VIEW_CAPTION_BAR
+        POPUP "应用程序外观(&A)"
+        BEGIN
+            MENUITEM "Windows 2000(&2)",            ID_VIEW_APPLOOK_WIN_2000
+            MENUITEM "Office XP(&X)",               ID_VIEW_APPLOOK_OFF_XP
+            MENUITEM "Windows XP(&W)",              ID_VIEW_APPLOOK_WIN_XP
+            MENUITEM "Office 2003(&3)",             ID_VIEW_APPLOOK_OFF_2003
+            MENUITEM "Visual Studio 200&5",         ID_VIEW_APPLOOK_VS_2005
+            MENUITEM "Visual Studio 200&8",         ID_VIEW_APPLOOK_VS_2008
+            POPUP "Office 2007(&7)"
+            BEGIN
+                MENUITEM "蓝色样式(&B)",                    ID_VIEW_APPLOOK_OFF_2007_BLUE
+                MENUITEM "黑色样式(&L)",                    ID_VIEW_APPLOOK_OFF_2007_BLACK
+                MENUITEM "银色样式(&S)",                    ID_VIEW_APPLOOK_OFF_2007_SILVER
+                MENUITEM "水绿色样式(&A)",                   ID_VIEW_APPLOOK_OFF_2007_AQUA
+            END
+        END
+    END
+    POPUP "Build"
+    BEGIN
+        MENUITEM "Build",                       ID_BUILD_BUILD
+        MENUITEM "Build and Run",               ID_BUILD_BUILDANDRUN
+        MENUITEM "Preview",                     ID_BUILD_PREVIEW
+    END
+    POPUP "GameObject"
+    BEGIN
+        MENUITEM "CreateEmpty",                 ID_GAMEOBJECT_CREATEEMPTY
+        POPUP "CreateFromTemplate"
+        BEGIN
+            MENUITEM "Cube",                        ID_CREATEFROMTEMPLATE_CUBE
+            MENUITEM "Sphere",                      ID_CREATEFROMTEMPLATE_SPHERE
+            MENUITEM "Cone",                        ID_CREATEFROMTEMPLATE_CONE
+            MENUITEM "Plane",                       ID_CREATEFROMTEMPLATE_PLANE
+            MENUITEM SEPARATOR
+            MENUITEM "PointLight",                  ID_CREATEFROMTEMPLATE_POINTLIGHT
+            MENUITEM "DirectionalLight",            ID_CREATEFROMTEMPLATE_DIRLIGHT
+            MENUITEM "SpotLight",                   ID_CREATEFROMTEMPLATE_SPOTLIGHT
+            MENUITEM "SkyLight",                    ID_CREATEFROMTEMPLATE_SKYLIGHT
+            MENUITEM SEPARATOR
+            MENUITEM "Camera",                      ID_CREATEFROMTEMPLATE_CAMERA
+            MENUITEM SEPARATOR
+            MENUITEM "Templates...",                ID_CREATEFROMTEMPLATE_TEMPLATES
+        END
+        MENUITEM SEPARATOR
+    END
+    POPUP "Component"
+    BEGIN
+        MENUITEM "PlaceHolder",                 ID_COMPONENT_PLACEHOLDER
+    END
+    POPUP "Project"
+    BEGIN
+        MENUITEM "Settings",                    ID_32776
+        MENUITEM SEPARATOR
+        POPUP "Import"
+        BEGIN
+            MENUITEM "Import From Max File",        ID_IMPORT_IMPORTMAXMESH
+        END
+    END
+    POPUP "帮助(&H)"
+    BEGIN
+        MENUITEM "关于 GameEditor(&A)...",        ID_APP_ABOUT
+    END
+END
+
+IDR_POPUP_EDIT MENU
+BEGIN
+    POPUP "编辑"
+    BEGIN
+        MENUITEM "剪切(&T)\tCtrl+X",              ID_EDIT_CUT
+        MENUITEM "复制(&C)\tCtrl+C",              ID_EDIT_COPY
+        MENUITEM "粘贴(&P)\tCtrl+V",              ID_EDIT_PASTE
+    END
+END
+
+IDR_POPUP_SORT MENU
+BEGIN
+    POPUP "排序"
+    BEGIN
+        MENUITEM "按字母顺序排序(&S)",                 ID_SORTING_SORTALPHABETIC
+        MENUITEM "按类型排序(&T)",                   ID_SORTING_SORTBYTYPE
+        MENUITEM "按访问排序(&E)",                   ID_SORTING_SORTBYACCESS
+        MENUITEM "按类型分组(&Y)",                   ID_SORTING_GROUPBYTYPE
+    END
+END
+
+IDR_POPUP_EXPLORER MENU
+BEGIN
+    POPUP "资源管理器"
+    BEGIN
+        MENUITEM "打开(&O)",                      ID_OPEN
+        MENUITEM "打开方式(&W)....",                ID_OPEN_WITH
+        MENUITEM SEPARATOR
+        MENUITEM "编译(&C)",                      ID_DUMMY_COMPILE
+        MENUITEM SEPARATOR
+        MENUITEM "剪切(&T)\tCtrl+X",              ID_EDIT_CUT
+        MENUITEM "复制(&C)\tCtrl+C",              ID_EDIT_COPY
+        MENUITEM "移除(&R)",                      ID_EDIT_CLEAR
+        MENUITEM SEPARATOR
+        MENUITEM "属性(&P)...",                   ID_PROPERTIES
+    END
+END
+
+IDR_OUTPUT_POPUP MENU
+BEGIN
+    POPUP "弹出项"
+    BEGIN
+        MENUITEM "清除(&C)",                      ID_EDIT_CLEAR
+        MENUITEM "Copy",                        ID_EDIT_COPY
+        MENUITEM "Select All",                  ID_OUTPUT_EDIT_SELECT_ALL
+    END
+END
+
+IDR_HELP_MENU MENU
+BEGIN
+    MENUITEM "关于 GameEditor(&A)...",        ID_APP_ABOUT
+END
+
+IDR_THEME_MENU MENU
+BEGIN
+    MENUITEM "Office 2007 (蓝色样式)(&B)",      ID_VIEW_APPLOOK_OFF_2007_BLUE
+    MENUITEM "Office 2007 (黑色样式)(&L)",      ID_VIEW_APPLOOK_OFF_2007_BLACK
+    MENUITEM "Office 2007 (银色样式)(&S)",      ID_VIEW_APPLOOK_OFF_2007_SILVER
+    MENUITEM "Office 2007 (水绿色样式)(&A)",     ID_VIEW_APPLOOK_OFF_2007_AQUA
+    MENUITEM "Windows 7(&D)",               ID_VIEW_APPLOOK_WINDOWS_7
+END
+
+IDR_OV_CONTEXT MENU
+BEGIN
+    POPUP "OV_CONTEXT"
+    BEGIN
+        MENUITEM "重命名",                         ID_OV_RENAME
+        MENUITEM SEPARATOR
+        MENUITEM "删除对象",                        ID_OV_DELOBJ
+        MENUITEM SEPARATOR
+        POPUP "Component"
+        BEGIN
+            POPUP "Mesh"
+            BEGIN
+                MENUITEM "MeshData",                    ID_MESH_MESHDATA
+                MENUITEM "MeshRenderer",                ID_MESH_MESHRENDERER
+            END
+            POPUP "Sound"
+            BEGIN
+                MENUITEM "SoundEmitter",                ID_SOUND_SOUNDEMITTER
+                MENUITEM "SoundListener",               ID_SOUND_SOUNDLISTENER
+            END
+            POPUP "Rendering"
+            BEGIN
+                MENUITEM "Light",                       ID_RENDERING_LIGHT
+            END
+        END
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Accelerator
+//
+
+IDR_MAINFRAME ACCELERATORS
+BEGIN
+    "N",            ID_FILE_NEW,            VIRTKEY, CONTROL
+    "O",            ID_FILE_OPEN,           VIRTKEY, CONTROL
+    "S",            ID_FILE_SAVE,           VIRTKEY, CONTROL
+    "Z",            ID_EDIT_UNDO,           VIRTKEY, CONTROL
+    "X",            ID_EDIT_CUT,            VIRTKEY, CONTROL
+    "C",            ID_EDIT_COPY,           VIRTKEY, CONTROL
+    "V",            ID_EDIT_PASTE,          VIRTKEY, CONTROL
+    VK_BACK,        ID_EDIT_UNDO,           VIRTKEY, ALT
+    VK_DELETE,      ID_EDIT_CUT,            VIRTKEY, SHIFT
+    VK_INSERT,      ID_EDIT_COPY,           VIRTKEY, CONTROL
+    VK_INSERT,      ID_EDIT_PASTE,          VIRTKEY, SHIFT
+    VK_F6,          ID_NEXT_PANE,           VIRTKEY 
+    VK_F6,          ID_PREV_PANE,           VIRTKEY, SHIFT
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_ABOUTBOX DIALOGEX 0, 0, 170, 62
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "关于 GameEditor"
+FONT 9, "MS Shell Dlg", 0, 0, 0x1
+BEGIN
+    ICON            IDR_MAINFRAME,IDC_STATIC,14,14,21,20
+    LTEXT           "GameEditor，1.0 版",IDC_STATIC,42,14,114,8,SS_NOPREFIX
+    LTEXT           "Copyright (C) 2012",IDC_STATIC,42,26,114,8
+    DEFPUSHBUTTON   "确定",IDOK,113,41,50,14,WS_GROUP
+END
+
+IDD_APPSETTINGS DIALOGEX 0, 0, 619, 274
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Settings"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "确定",IDOK,198,253,50,14
+    PUSHBUTTON      "取消",IDCANCEL,562,253,50,14
+    CONTROL         "",IDC_SPIN1,"msctls_updown32",UDS_ARROWKEYS,306,75,16,14
+    CONTROL         "",IDC_RICHEDIT21,"RichEdit20W",WS_BORDER | WS_TABSTOP | 0x80,93,137,177,14
+END
+
+IDD_STARTUP DIALOGEX 0, 0, 501, 282
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Start up"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "确定",IDOK,153,261,50,14
+    PUSHBUTTON      "取消",IDCANCEL,380,261,50,14
+    CONTROL         "None",IDC_COMMAND1,"Button",BS_COMMANDLINK | BS_CENTER | BS_VCENTER | BS_FLAT | WS_TABSTOP,54,40,90,26
+    CONTROL         "MfcButton1",IDC_MFCBUTTON1,"MfcButton",WS_TABSTOP,152,34,263,14
+    PUSHBUTTON      "Button1",IDC_BUTTON1,421,55,50,14
+    CONTROL         "",IDC_MFCVSLISTBOX1,"MfcVSListBox",WS_TABSTOP,7,100,187,79
+    CONTROL         "Split1",IDC_SPLIT1,"Button",BS_SPLITBUTTON | BS_LEFT | BS_FLAT | WS_TABSTOP,267,146,50,14
+END
+
+IDD_RENDERING_SETTING DIALOGEX 0, 0, 407, 189
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Rendering Setting"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "确定",IDOK,58,168,50,14
+    PUSHBUTTON      "取消",IDCANCEL,267,168,50,14
+    CONTROL         "Custom1",IDC_CUSTOM1,"",WS_TABSTOP,82,24,150,60
+    CONTROL         "MfcButton1",IDC_MFCBUTTON1,"MfcButton",WS_TABSTOP,303,58,50,14
+    LTEXT           "Static",IDC_STATIC,323,96,19,8
+END
+
+IDD_PREVIEW DIALOGEX 0, 0, 633, 311
+STYLE DS_SETFONT | DS_3DLOOK | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME
+EXSTYLE WS_EX_TOOLWINDOW
+CAPTION "Preview"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+END
+
+IDD_PROGRESS_DLG DIALOGEX 0, 0, 330, 51
+STYLE DS_SETFONT | WS_POPUP | WS_VISIBLE
+FONT 9, "宋体", 400, 0, 0x0
+BEGIN
+    CONTROL         "",IDC_PROGRESS,"msctls_progress32",WS_BORDER,11,24,307,14
+    LTEXT           "Static",IDC_PROGRESS_INFO,14,8,303,8
+END
+
+IDD_PROJECT_NEW_OPEN DIALOGEX 0, 0, 133, 95
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Project"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    GROUPBOX        "",IDC_STATIC,7,7,119,81,BS_FLAT
+    PUSHBUTTON      "New Project...",IDC_PW_BUTTON_NEW,36,25,61,14
+    PUSHBUTTON      "Open Project...",IDC_PW_BUTTON_OPEN,36,54,61,14
+END
+
+IDD_INSPECTOR_PANEL_BAR DIALOGEX 0, 0, 330, 12
+STYLE DS_SETFONT | WS_CHILD
+FONT 9, "宋体", 400, 0, 0x0
+BEGIN
+    CTEXT           "Static",IDC_NAME,2,2,207,8,SS_NOPREFIX | SS_NOTIFY | SS_CENTERIMAGE | SS_WORDELLIPSIS
+END
+
+IDD_INPSECTOR_PROPERTY DIALOGEX 0, 0, 330, 16
+STYLE DS_SETFONT | WS_CHILD
+FONT 9, "宋体", 400, 0, 0x0
+BEGIN
+    CTEXT           "Empty",IDC_STATIC,125,4,78,8
+END
+
+IDD_INSPECTOR_PROPERTY_INT DIALOGEX 0, 0, 330, 12
+STYLE DS_SETFONT | WS_CHILD
+FONT 9, "宋体", 400, 0, 0x86
+BEGIN
+    CONTROL         "Static",IDC_NAME,"Static",SS_SIMPLE | SS_CENTERIMAGE | WS_GROUP,0,0,77,8
+    EDITTEXT        IDC_VALUE,183,0,147,12,ES_WANTRETURN | NOT WS_BORDER | NOT WS_TABSTOP
+END
+
+IDD_INSPECTOR_PROPERTY_STRING DIALOGEX 0, 0, 330, 12
+STYLE DS_SETFONT | WS_CHILD
+FONT 9, "宋体", 400, 0, 0x0
+BEGIN
+    LTEXT           "TODO: 布局对话栏",IDC_NAME,0,3,77,8,SS_CENTERIMAGE
+    EDITTEXT        IDC_VALUE,237,0,93,12,ES_AUTOHSCROLL
+END
+
+IDD_INSPECTOR_PROPERTY_FLOAT DIALOGEX 0, 0, 330, 12
+STYLE DS_SETFONT | WS_CHILD
+FONT 9, "宋体", 400, 0, 0x0
+BEGIN
+    LTEXT           "TODO: 布局对话栏",IDC_NAME,0,0,77,8,SS_CENTERIMAGE
+    EDITTEXT        IDC_VALUE,233,0,40,14,ES_AUTOHSCROLL
+END
+
+IDD_INSPECTOR_PROPERTY_COLOR DIALOGEX 0, 0, 330, 12
+STYLE DS_SETFONT | WS_CHILD
+FONT 9, "宋体", 400, 0, 0x0
+BEGIN
+    LTEXT           "TODO: 布局对话栏",IDC_NAME,0,0,77,8,SS_CENTERIMAGE
+    CONTROL         "",IDC_VALUE,"MfcColorButton",WS_TABSTOP,238,2,50,8
+END
+
+IDD_INSPECTOR_PROPERTY_BOOL DIALOGEX 0, 0, 330, 12
+STYLE DS_SETFONT | WS_CHILD
+FONT 9, "宋体", 400, 0, 0x0
+BEGIN
+    LTEXT           "TODO: 布局对话栏",IDC_NAME,0,0,77,8,SS_CENTERIMAGE
+    CONTROL         "",IDC_VALUE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,251,0,16,10
+END
+
+IDD_INSPECTOR_PROPERTY_FILEPATH DIALOGEX 0, 0, 330, 12
+STYLE DS_SETFONT | WS_CHILD
+FONT 9, "宋体", 400, 0, 0x86
+BEGIN
+    LTEXT           "TODO: 布局对话栏",IDC_NAME,0,0,77,8,SS_CENTERIMAGE
+    CONTROL         "",IDC_VALUE,"MfcEditBrowse",WS_BORDER | WS_TABSTOP | 0x80,203,0,80,11
+END
+
+IDD_INSPECTOR_PROPERTY_RANGE DIALOGEX 0, 0, 330, 16
+STYLE DS_SETFONT | WS_CHILD
+FONT 9, "宋体", 400, 0, 0x0
+BEGIN
+    LTEXT           "TODO: 布局对话栏",IDC_NAME,0,0,77,8,SS_CENTERIMAGE
+    CONTROL         "",IDC_VALUE,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,196,0,100,15
+END
+
+IDD_INSPECTOR_PROPERTY_TRANSFORM DIALOGEX 0, 0, 276, 164
+STYLE DS_SETFONT | WS_CHILD
+FONT 9, "宋体", 400, 0, 0x0
+BEGIN
+    LTEXT           "Translation:",IDC_TRANSLATION,1,6,49,8,SS_CENTERIMAGE
+    LTEXT           "Rotation:",IDC_ROTATION,1,35,37,8,SS_CENTERIMAGE
+    LTEXT           "Scale:",IDC_SCALE,1,73,25,8,SS_CENTERIMAGE
+    EDITTEXT        IDC_TRANSLATION_Y_VALUE,83,17,40,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_TRANSLATION_X_VALUE,18,17,40,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_TRANSLATION_Z_VALUE,145,17,40,12,ES_AUTOHSCROLL
+    LTEXT           "x",IDC_TRANSLATION_X,10,20,8,8,SS_CENTERIMAGE
+    LTEXT           "y",IDC_TRANSLATION_Y,74,20,8,8,SS_CENTERIMAGE
+    LTEXT           "z",IDC_TRANSLATION_Z,134,20,8,8,SS_CENTERIMAGE
+    EDITTEXT        IDC_ROTATION_Y_VALUE,81,51,40,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_ROTATION_X_VALUE,15,51,40,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_ROTATION_Z_VALUE,143,51,40,12,ES_AUTOHSCROLL
+    LTEXT           "x",IDC_ROTATION_X,7,54,8,8,SS_CENTERIMAGE
+    LTEXT           "y",IDC_ROTATION_Y,71,54,8,8,SS_CENTERIMAGE
+    LTEXT           "z",IDC_ROTATION_Z,131,54,8,8,SS_CENTERIMAGE
+    EDITTEXT        IDC_SCALE_Y_VALUE,83,96,40,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_SCALE_X_VALUE,18,96,40,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_SCALE_Z_VALUE,145,96,40,12,ES_AUTOHSCROLL
+    LTEXT           "x",IDC_SCALE_X,10,100,8,8,SS_CENTERIMAGE
+    LTEXT           "y",IDC_SCALE_Y,74,100,8,8,SS_CENTERIMAGE
+    LTEXT           "z",IDC_SCALE_Z,134,100,8,8,SS_CENTERIMAGE
+END
+
+IDD_INSPECTOR_PROPERTY_SIGNAL DIALOGEX 0, 0, 330, 16
+STYLE DS_SETFONT | WS_CHILD
+FONT 9, "宋体", 400, 0, 0x0
+BEGIN
+    PUSHBUTTON      "Button1",IDC_SIGNAL_BTN,115,1,168,14
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x40004L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "080404b0"
+        BEGIN
+            VALUE "CompanyName", "GGUHA Ltd."
+            VALUE "FileDescription", "GameEditor"
+            VALUE "FileVersion", "1.0.0.1"
+            VALUE "InternalName", "GameEditor.exe"
+            VALUE "LegalCopyright", "GGUA Ltd.保留所有权利。"
+            VALUE "OriginalFilename", "GameEditor.exe"
+            VALUE "ProductName", "GameEditor"
+            VALUE "ProductVersion", "1.0.0.1"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x804, 1200
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO
+BEGIN
+    IDD_ABOUTBOX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 163
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 55
+    END
+
+    IDD_APPSETTINGS, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 612
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 267
+    END
+
+    IDD_STARTUP, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 494
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 275
+    END
+
+    IDD_RENDERING_SETTING, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 400
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 182
+    END
+
+    IDD_PREVIEW, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 626
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 304
+    END
+
+    IDD_PROGRESS_DLG, DIALOG
+    BEGIN
+    END
+
+    IDD_PROJECT_NEW_OPEN, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 126
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 88
+    END
+
+    IDD_INSPECTOR_PANEL_BAR, DIALOG
+    BEGIN
+        VERTGUIDE, 80
+        HORZGUIDE, 2
+    END
+
+    IDD_INPSECTOR_PROPERTY, DIALOG
+    BEGIN
+    END
+
+    IDD_INSPECTOR_PROPERTY_INT, DIALOG
+    BEGIN
+    END
+
+    IDD_INSPECTOR_PROPERTY_STRING, DIALOG
+    BEGIN
+    END
+
+    IDD_INSPECTOR_PROPERTY_FLOAT, DIALOG
+    BEGIN
+    END
+
+    IDD_INSPECTOR_PROPERTY_COLOR, DIALOG
+    BEGIN
+    END
+
+    IDD_INSPECTOR_PROPERTY_BOOL, DIALOG
+    BEGIN
+    END
+
+    IDD_INSPECTOR_PROPERTY_FILEPATH, DIALOG
+    BEGIN
+    END
+
+    IDD_INSPECTOR_PROPERTY_RANGE, DIALOG
+    BEGIN
+    END
+
+    IDD_INSPECTOR_PROPERTY_TRANSFORM, DIALOG
+    BEGIN
+        BOTTOMMARGIN, 108
+    END
+
+    IDD_INSPECTOR_PROPERTY_SIGNAL, DIALOG
+    BEGIN
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog Info
+//
+
+IDD_INSPECTOR_PROPERTY_COLOR DLGINIT
+BEGIN
+    IDC_VALUE, 0x37c, 215, 0
+0x4d3c, 0x4346, 0x6f43, 0x6f6c, 0x4272, 0x7475, 0x6f74, 0x5f6e, 0x6e45, 
+0x6261, 0x656c, 0x744f, 0x6568, 0x4272, 0x7475, 0x6f74, 0x3e6e, 0x5254, 
+0x4555, 0x2f3c, 0x464d, 0x4343, 0x6c6f, 0x726f, 0x7542, 0x7474, 0x6e6f, 
+0x455f, 0x616e, 0x6c62, 0x4f65, 0x6874, 0x7265, 0x7542, 0x7474, 0x6e6f, 
+0x3c3e, 0x464d, 0x4343, 0x6c6f, 0x726f, 0x7542, 0x7474, 0x6e6f, 0x455f, 
+0x616e, 0x6c62, 0x4165, 0x7475, 0x6d6f, 0x7461, 0x6369, 0x7542, 0x7474, 
+0x6e6f, 0x463e, 0x4c41, 0x4553, 0x2f3c, 0x464d, 0x4343, 0x6c6f, 0x726f, 
+0x7542, 0x7474, 0x6e6f, 0x455f, 0x616e, 0x6c62, 0x4165, 0x7475, 0x6d6f, 
+0x7461, 0x6369, 0x7542, 0x7474, 0x6e6f, 0x3c3e, 0x464d, 0x4343, 0x6c6f, 
+0x726f, 0x7542, 0x7474, 0x6e6f, 0x435f, 0x6c6f, 0x6d75, 0x736e, 0x6f43, 
+0x6e75, 0x3e74, 0x3c35, 0x4d2f, 0x4346, 0x6f43, 0x6f6c, 0x4272, 0x7475, 
+0x6f74, 0x5f6e, 0x6f43, 0x756c, 0x6e6d, 0x4373, 0x756f, 0x746e, "\076" 
+    0
+END
+
+IDD_INSPECTOR_PROPERTY_FILEPATH DLGINIT
+BEGIN
+    IDC_VALUE, 0x37c, 42, 0
+0x4d3c, 0x4346, 0x6445, 0x7469, 0x7242, 0x776f, 0x6573, 0x4d5f, 0x646f, 
+0x3e65, 0x3c31, 0x4d2f, 0x4346, 0x6445, 0x7469, 0x7242, 0x776f, 0x6573, 
+0x4d5f, 0x646f, 0x3e65, 
+    0
+END
+
+IDD_STARTUP DLGINIT
+BEGIN
+    IDC_MFCBUTTON1, 0x37c, 369, 0
+0x4d3c, 0x4346, 0x7542, 0x7474, 0x6e6f, 0x535f, 0x7974, 0x656c, 0x343e, 
+0x2f3c, 0x464d, 0x4243, 0x7475, 0x6f74, 0x5f6e, 0x7453, 0x6c79, 0x3e65, 
+0x4d3c, 0x4346, 0x7542, 0x7474, 0x6e6f, 0x415f, 0x7475, 0x736f, 0x7a69, 
+0x3e65, 0x4146, 0x534c, 0x3c45, 0x4d2f, 0x4346, 0x7542, 0x7474, 0x6e6f, 
+0x415f, 0x7475, 0x736f, 0x7a69, 0x3e65, 0x4d3c, 0x4346, 0x7542, 0x7474, 
+0x6e6f, 0x545f, 0x6f6f, 0x746c, 0x7069, 0x3c3e, 0x4d2f, 0x4346, 0x7542, 
+0x7474, 0x6e6f, 0x545f, 0x6f6f, 0x746c, 0x7069, 0x3c3e, 0x464d, 0x4243, 
+0x7475, 0x6f74, 0x5f6e, 0x7546, 0x6c6c, 0x6554, 0x7478, 0x6f54, 0x6c6f, 
+0x543e, 0x5552, 0x3c45, 0x4d2f, 0x4346, 0x7542, 0x7474, 0x6e6f, 0x465f, 
+0x6c75, 0x546c, 0x7865, 0x5474, 0x6f6f, 0x3e6c, 0x4d3c, 0x4346, 0x7542, 
+0x7474, 0x6e6f, 0x435f, 0x7275, 0x6f73, 0x5472, 0x7079, 0x3e65, 0x3131, 
+0x2f3c, 0x464d, 0x4243, 0x7475, 0x6f74, 0x5f6e, 0x7543, 0x7372, 0x726f, 
+0x7954, 0x6570, 0x3c3e, 0x464d, 0x4243, 0x7475, 0x6f74, 0x5f6e, 0x6d49, 
+0x6761, 0x5465, 0x7079, 0x3e65, 0x3c38, 0x4d2f, 0x4346, 0x7542, 0x7474, 
+0x6e6f, 0x495f, 0x616d, 0x6567, 0x7954, 0x6570, 0x3c3e, 0x464d, 0x4243, 
+0x7475, 0x6f74, 0x5f6e, 0x6d49, 0x6761, 0x4f65, 0x546e, 0x706f, 0x463e, 
+0x4c41, 0x4553, 0x2f3c, 0x464d, 0x4243, 0x7475, 0x6f74, 0x5f6e, 0x6d49, 
+0x6761, 0x4f65, 0x546e, 0x706f, 0x3c3e, 0x464d, 0x4243, 0x7475, 0x6f74, 
+0x5f6e, 0x6d49, 0x6761, 0x4f65, 0x526e, 0x6769, 0x7468, 0x463e, 0x4c41, 
+0x4553, 0x2f3c, 0x464d, 0x4243, 0x7475, 0x6f74, 0x5f6e, 0x6d49, 0x6761, 
+0x4f65, 0x526e, 0x6769, 0x7468, "\076" 
+    IDC_MFCVSLISTBOX1, 0x37c, 277, 0
+0x4d3c, 0x4346, 0x5356, 0x694c, 0x7473, 0x6f62, 0x5f78, 0x7242, 0x776f, 
+0x6573, 0x7542, 0x7474, 0x6e6f, 0x543e, 0x5552, 0x3c45, 0x4d2f, 0x4346, 
+0x5356, 0x694c, 0x7473, 0x6f62, 0x5f78, 0x7242, 0x776f, 0x6573, 0x7542, 
+0x7474, 0x6e6f, 0x3c3e, 0x464d, 0x5643, 0x4c53, 0x7369, 0x6274, 0x786f, 
+0x4e5f, 0x7765, 0x7542, 0x7474, 0x6e6f, 0x543e, 0x5552, 0x3c45, 0x4d2f, 
+0x4346, 0x5356, 0x694c, 0x7473, 0x6f62, 0x5f78, 0x654e, 0x4277, 0x7475, 
+0x6f74, 0x3e6e, 0x4d3c, 0x4346, 0x5356, 0x694c, 0x7473, 0x6f62, 0x5f78, 
+0x6552, 0x6f6d, 0x6576, 0x7542, 0x7474, 0x6e6f, 0x543e, 0x5552, 0x3c45, 
+0x4d2f, 0x4346, 0x5356, 0x694c, 0x7473, 0x6f62, 0x5f78, 0x6552, 0x6f6d, 
+0x6576, 0x7542, 0x7474, 0x6e6f, 0x3c3e, 0x464d, 0x5643, 0x4c53, 0x7369, 
+0x6274, 0x786f, 0x555f, 0x4270, 0x7475, 0x6f74, 0x3e6e, 0x5254, 0x4555, 
+0x2f3c, 0x464d, 0x5643, 0x4c53, 0x7369, 0x6274, 0x786f, 0x555f, 0x4270, 
+0x7475, 0x6f74, 0x3e6e, 0x4d3c, 0x4346, 0x5356, 0x694c, 0x7473, 0x6f62, 
+0x5f78, 0x6f44, 0x6e77, 0x7542, 0x7474, 0x6e6f, 0x543e, 0x5552, 0x3c45, 
+0x4d2f, 0x4346, 0x5356, 0x694c, 0x7473, 0x6f62, 0x5f78, 0x6f44, 0x6e77, 
+0x7542, 0x7474, 0x6e6f, "\076" 
+    0
+END
+
+IDD_RENDERING_SETTING DLGINIT
+BEGIN
+    IDC_MFCBUTTON1, 0x37c, 369, 0
+0x4d3c, 0x4346, 0x7542, 0x7474, 0x6e6f, 0x535f, 0x7974, 0x656c, 0x343e, 
+0x2f3c, 0x464d, 0x4243, 0x7475, 0x6f74, 0x5f6e, 0x7453, 0x6c79, 0x3e65, 
+0x4d3c, 0x4346, 0x7542, 0x7474, 0x6e6f, 0x415f, 0x7475, 0x736f, 0x7a69, 
+0x3e65, 0x4146, 0x534c, 0x3c45, 0x4d2f, 0x4346, 0x7542, 0x7474, 0x6e6f, 
+0x415f, 0x7475, 0x736f, 0x7a69, 0x3e65, 0x4d3c, 0x4346, 0x7542, 0x7474, 
+0x6e6f, 0x545f, 0x6f6f, 0x746c, 0x7069, 0x3c3e, 0x4d2f, 0x4346, 0x7542, 
+0x7474, 0x6e6f, 0x545f, 0x6f6f, 0x746c, 0x7069, 0x3c3e, 0x464d, 0x4243, 
+0x7475, 0x6f74, 0x5f6e, 0x7546, 0x6c6c, 0x6554, 0x7478, 0x6f54, 0x6c6f, 
+0x543e, 0x5552, 0x3c45, 0x4d2f, 0x4346, 0x7542, 0x7474, 0x6e6f, 0x465f, 
+0x6c75, 0x546c, 0x7865, 0x5474, 0x6f6f, 0x3e6c, 0x4d3c, 0x4346, 0x7542, 
+0x7474, 0x6e6f, 0x435f, 0x7275, 0x6f73, 0x5472, 0x7079, 0x3e65, 0x3131, 
+0x2f3c, 0x464d, 0x4243, 0x7475, 0x6f74, 0x5f6e, 0x7543, 0x7372, 0x726f, 
+0x7954, 0x6570, 0x3c3e, 0x464d, 0x4243, 0x7475, 0x6f74, 0x5f6e, 0x6d49, 
+0x6761, 0x5465, 0x7079, 0x3e65, 0x3c38, 0x4d2f, 0x4346, 0x7542, 0x7474, 
+0x6e6f, 0x495f, 0x616d, 0x6567, 0x7954, 0x6570, 0x3c3e, 0x464d, 0x4243, 
+0x7475, 0x6f74, 0x5f6e, 0x6d49, 0x6761, 0x4f65, 0x546e, 0x706f, 0x463e, 
+0x4c41, 0x4553, 0x2f3c, 0x464d, 0x4243, 0x7475, 0x6f74, 0x5f6e, 0x6d49, 
+0x6761, 0x4f65, 0x546e, 0x706f, 0x3c3e, 0x464d, 0x4243, 0x7475, 0x6f74, 
+0x5f6e, 0x6d49, 0x6761, 0x4f65, 0x526e, 0x6769, 0x7468, 0x463e, 0x4c41, 
+0x4553, 0x2f3c, 0x464d, 0x4243, 0x7475, 0x6f74, 0x5f6e, 0x6d49, 0x6761, 
+0x4f65, 0x526e, 0x6769, 0x7468, "\076" 
+    0
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE
+BEGIN
+    IDP_OLE_INIT_FAILED     "OLE 初始化失败。请确保 OLE 库是正确的版本。"
+END
+
+STRINGTABLE
+BEGIN
+    IDR_MAINFRAME           "GameEditor\n\nGameEditor\nGameEditor Files (*.gp)\n.gp\nGameEditor.Document\nGameEditor.Document"
+END
+
+STRINGTABLE
+BEGIN
+    AFX_IDS_APP_TITLE       "GameEditor"
+    AFX_IDS_IDLEMESSAGE     "就绪"
+END
+
+STRINGTABLE
+BEGIN
+    ID_INDICATOR_EXT        "EXT"
+    ID_INDICATOR_CAPS       "CAP"
+    ID_INDICATOR_NUM        "NUM"
+    ID_INDICATOR_SCRL       "SCRL"
+    ID_INDICATOR_OVR        "OVR"
+    ID_INDICATOR_REC        "REC"
+END
+
+STRINGTABLE
+BEGIN
+    ID_FILE_NEW             "创建新文档\n新建"
+    ID_FILE_OPEN            "打开现有文档\n打开"
+    ID_FILE_CLOSE           "关闭活动文档\n关闭"
+    ID_FILE_SAVE            "保存活动文档\n保存"
+    ID_FILE_SAVE_AS         "用新名称保存活动文档\n另存为"
+END
+
+STRINGTABLE
+BEGIN
+    ID_APP_ABOUT            "显示程序信息、版本号和版权信息\n关于"
+    ID_APP_EXIT             "退出应用程序；提示保存文档\n退出"
+END
+
+STRINGTABLE
+BEGIN
+    ID_FILE_MRU_FILE1       "打开此文档"
+    ID_FILE_MRU_FILE2       "打开此文档"
+    ID_FILE_MRU_FILE3       "打开此文档"
+    ID_FILE_MRU_FILE4       "打开此文档"
+    ID_FILE_MRU_FILE5       "打开此文档"
+    ID_FILE_MRU_FILE6       "打开此文档"
+    ID_FILE_MRU_FILE7       "打开此文档"
+    ID_FILE_MRU_FILE8       "打开此文档"
+    ID_FILE_MRU_FILE9       "打开此文档"
+    ID_FILE_MRU_FILE10      "打开此文档"
+    ID_FILE_MRU_FILE11      "打开此文档"
+    ID_FILE_MRU_FILE12      "打开此文档"
+    ID_FILE_MRU_FILE13      "打开此文档"
+    ID_FILE_MRU_FILE14      "打开此文档"
+    ID_FILE_MRU_FILE15      "打开此文档"
+    ID_FILE_MRU_FILE16      "打开此文档"
+END
+
+STRINGTABLE
+BEGIN
+    ID_NEXT_PANE            "切换到下一个窗格\n下一窗格"
+    ID_PREV_PANE            "切换回上一个窗格\n上一窗格"
+END
+
+STRINGTABLE
+BEGIN
+    ID_WINDOW_SPLIT         "将活动窗口拆分为多个窗格\n拆分"
+END
+
+STRINGTABLE
+BEGIN
+    ID_EDIT_CLEAR           "清除所选内容\n清除"
+    ID_EDIT_CLEAR_ALL       "清除全部内容\n全部清除"
+    ID_EDIT_COPY            "复制所选内容，将其放入剪贴板\n复制"
+    ID_EDIT_CUT             "剪切所选内容，将其放入剪贴板\n剪切"
+    ID_EDIT_FIND            "查找指定的文本\n查找"
+    ID_EDIT_PASTE           "插入剪贴板内容\n粘贴"
+    ID_EDIT_REPEAT          "重复上一操作\n重复"
+    ID_EDIT_REPLACE         "用其他文本替换特定的文本\n替换"
+    ID_EDIT_SELECT_ALL      "选定整个文档\n全选"
+    ID_EDIT_UNDO            "撤消上一操作\n撤消"
+    ID_EDIT_REDO            "重做上次撤消的操作\n重做"
+END
+
+STRINGTABLE
+BEGIN
+    ID_VIEW_STATUS_BAR      "显示或隐藏状态栏\n切换状态栏"
+END
+
+STRINGTABLE
+BEGIN
+    ID_VIEW_CAPTION_BAR     "显示或隐藏标题栏\n切换标题栏"
+END
+
+STRINGTABLE
+BEGIN
+    AFX_IDS_SCSIZE          "更改窗口大小"
+    AFX_IDS_SCMOVE          "更改窗口位置"
+    AFX_IDS_SCMINIMIZE      "将窗口缩小成图标"
+    AFX_IDS_SCMAXIMIZE      "将窗口放大到最大尺寸"
+    AFX_IDS_SCNEXTWINDOW    "切换到下一个文档窗口"
+    AFX_IDS_SCPREVWINDOW    "切换到上一个文档窗口"
+    AFX_IDS_SCCLOSE         "关闭活动窗口并提示保存文档"
+END
+
+STRINGTABLE
+BEGIN
+    AFX_IDS_SCRESTORE       "将窗口恢复到正常大小"
+    AFX_IDS_SCTASKLIST      "激活任务列表"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_STATUS_PANE1        "窗格 1"
+    IDS_STATUS_PANE2        "窗格 2"
+    IDS_TOOLBAR_STANDARD    "标准"
+    IDS_TOOLBAR_CUSTOMIZE   "自定义..."
+END
+
+STRINGTABLE
+BEGIN
+    IDS_CLASS_VIEW          "对象视图"
+    IDS_OUTPUT_WND          "输出"
+    IDS_PROPERTIES_WND      "属性"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_EXPLORER            "资源管理器"
+    IDS_EDIT_MENU           "编辑"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_BUILD_TAB           "生成"
+    IDS_DEBUG_TAB           "调试"
+    IDS_FIND_TAB            "查找"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_CAPTION_BUTTON      "选项..."
+    IDS_CAPTION_BUTTON_TIP  "单击此处查看其他选项"
+    IDS_CAPTION_TEXT        "这是标题栏，可在其中向用户显示消息。"
+    IDS_CAPTION_IMAGE_TIP   "重要事项"
+    IDS_CAPTION_IMAGE_TEXT  "这是向用户显示的信息性消息。"
+END
+
+#endif    // 中文(简体，中国) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+LANGUAGE 4, 2
+#include "res\GameEditor.rc2"  // 非 Microsoft Visual C++ 编辑的资源
+#include "l.CHS\afxres.rc"      // 标准组件
+#if !defined(_AFXDLL)
+#include "l.CHS\afxprint.rc"        // 打印/打印预览资源
+#include "l.CHS\afxribbon.rc"        // MFC 功能区和控件条资源
+#endif
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+
