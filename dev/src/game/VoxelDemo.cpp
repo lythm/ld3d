@@ -86,13 +86,12 @@ bool VoxelDemo::Init(ld3d::CoreApiPtr pCore)
 	pLight->LookAt(pSphere);*/
 	//
 	GameObjectPtr pLight = m_pCore->CreatGameObjectFromTemplate("PointLight", "pl");
-	pLight->SetTranslation(5, 5, 0);
+	pLight->SetTranslation(0, 3, 0);
 
 
-	//pLight = m_pCore->CreatGameObjectFromTemplate("SpotLight", "pl");
-	//pLight->SetTranslation(5, 5, 0);
-	//pLight->LookAt(math::Vector3(0, 0, 0));
-
+	pLight = m_pCore->CreatGameObjectFromTemplate("SpotLight", "pl");
+	pLight->SetTranslation(3, 5, 0);
+	pLight->LookAt(math::Vector3(0, 0, 0));
 
 	return true;
 }
@@ -180,7 +179,7 @@ void VoxelDemo::_on_key_state(ld3d::EventPtr pEvent)
 	}
 	
 
-	if(pState->keyboard_state->KeyDown(key_r) == false)
+	if(pState->key_code == key_r && pState->keyboard_state->KeyDown(key_r) == false)
 	{
 
 		VoxelWorldGeneratorPtr pGenerator = std::dynamic_pointer_cast<VoxelWorldGenerator>(m_pWorld->GetComponent("VoxelWorldGenerator"));

@@ -30,9 +30,11 @@ namespace ld3d
 		GeometryDataPtr					m_pGeometry;
 		int								m_nVerts;
 
-		MaterialPtr					m_pMaterial;
+		MaterialPtr						m_pMaterial;
 
 		math::Matrix44					m_modifiedTM;
+
+		TexturePtr						m_pTexture;
 
 	};
 

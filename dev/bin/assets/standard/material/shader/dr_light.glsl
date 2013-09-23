@@ -64,13 +64,8 @@ LightResult dr_light_dir(vec3 n, DirectionalLight light, mat4 wv)
 	
 	LightResult ret;
 	ret.diffuse		= il * light.clr;
-	//ret.specular	= s * light.clr;
+	ret.specular	= s * light.clr;
 	
-	
-
-
-	ret.specular = vec3(0, 0, 0);
-
 	return ret;
 }
 
@@ -81,21 +76,22 @@ LightResult dr_light_point(vec3 p, vec3 n, PointLight light, mat4 wv)
 	vec3 l = center - p;
 	float d = length(l);
 	l = normalize(l);
+	
+	float r = light.radius;
 
-	float falloff = 1;
-	float att = 1 - saturate(d * falloff / light.radius);
+	float denom = d / r + 1;
+	float attenu = 1 / (denom * denom);
+	attenu = attenu * ( 1 - d / r);
+	attenu = max(attenu, 0);
 
-	float il = max(0, dot(l , n)) * light.intensity * att;
+	float il = max(0, dot(l , n)) * light.intensity * attenu;
 
 	float s = dr_light_specular_il(n, l, g_specular_pow);
 
-	s = s * light.intensity * att;
-
-	
+	s = saturate(s * light.intensity * attenu);
 
 	LightResult ret;
 
-	//ret.diffuse		= vec3(d / light.radius, d / light.radius, d / light.radius);
 	ret.diffuse		= il * light.clr;
 	ret.specular	= s * light.clr;
 
@@ -114,17 +110,19 @@ LightResult dr_light_spot(vec3 p, vec3 n, SpotLight light, mat4 wv)
 	
 	float cos_angle = dot(ld, -l);
 	
-	float factor = step(light.cos_theta, cos_angle) * step(d , light.range / cos_angle);
-	float il = max(0, dot(l , n)) * light.intensity;// * factor;
+	//float factor = step(light.cos_theta, cos_angle) * step(d , light.range / cos_angle);
+	
+	float factor = (1 - saturate(light.cos_theta / cos_angle)) * (cos_angle * cos_angle + cos_angle);
+	
+	float il = max(0, dot(l , n)) * light.intensity * factor;
 	
 	float s = dr_light_specular_il(n, l, g_specular_pow);
 
-	s = s * light.intensity * factor;
-
+	s = saturate(s * light.intensity * factor);
 
 	LightResult ret;
 	ret.diffuse		= il * light.clr;
-	ret.specular	= s * light.clr * 0;
+	ret.specular	= s * light.clr;
 
 	return ret;
 

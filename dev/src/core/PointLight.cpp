@@ -12,7 +12,7 @@ namespace ld3d
 {
 	PointLight::PointLight(void) : Light(LT_POINTLIGHT)
 	{
-		m_radius				= 10.0f;
+		m_radius				= 20.0f;
 		m_fallout				= 1.0f;
 		m_nVerts				= 0;
 		m_modifiedWorldTM.MakeIdentity();

@@ -9,6 +9,12 @@ uniform sampler2D _DR_G_BUFFER_1;
 uniform sampler2D _DR_G_BUFFER_2;
 
 
+uniform sampler2D tex;
+
+layout(row_major) uniform;
+
+uniform mat4	light_matrix;	
+
 layout(std140) uniform light
 {
 	vec3	clr;
@@ -34,6 +40,6 @@ void main()
 
 	LightResult ret = dr_light_spot(vpos, n, sl, MATRIX_WV);
 
-	color.xyz = ret.diffuse;
+	color.xyz = ret.diffuse * texture2D(tex, uv).xyz;
 	color.w = rgb_2_il(ret.specular);
 }

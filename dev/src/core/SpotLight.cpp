@@ -8,6 +8,7 @@
 #include "core/RenderManager.h"
 #include "core/GeometryData.h"
 #include "core/MaterialParameter.h"
+#include "core/Texture.h"
 
 namespace ld3d
 {
@@ -15,7 +16,7 @@ namespace ld3d
 	{
 		m_angle			= 45;
 		m_nVerts		= 0;
-		m_range			= 10;
+		m_range			= 30;
 		
 
 		m_modifiedTM.MakeIdentity();
@@ -50,6 +51,13 @@ namespace ld3d
 			return false;
 		}
 
+
+		m_pTexture = pRenderManager->CreateTextureFromFile("./assets/standard/texture/array.dds");
+
+		MaterialParameterPtr pParam = m_pMaterial->GetParameterByName("tex");
+
+		pParam->SetParameterTexture(m_pTexture);
+
 		return true;
 	}
 	const float& SpotLight::GetAngle()
@@ -75,6 +83,8 @@ namespace ld3d
 	
 	void SpotLight::Release()
 	{
+		_release_and_reset(m_pTexture);
+
 		_release_and_reset(m_pMaterial);
 
 		_release_and_reset(m_pGeometry);
