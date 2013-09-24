@@ -35,7 +35,7 @@ bool VoxelDemo::Init(ld3d::CoreApiPtr pCore)
 
 	m_pCore->AddEventHandler(EV_KEYBOARD_STATE, boost::bind(&VoxelDemo::_on_key_state, this, _1));
 
-	m_pCore->GetRenderManager()->SetGlobalAmbient(math::Color4(0.1, 0.1f, 0.1f, 1.0f));
+	m_pCore->GetRenderManager()->SetGlobalAmbient(math::Color4(0.2, 0.2f, 0.2f, 1.0f));
 	m_pCore->GetRenderManager()->SetClearColor(math::Color4(0.1f, 0.2f, 0.3f, 1));
 
 	m_pCamera = m_pCore->GetGameObjectManager()->alloc_object<ld3d::Camera>();
@@ -60,7 +60,7 @@ bool VoxelDemo::Init(ld3d::CoreApiPtr pCore)
 
 	GameObjectPtr pSphere = m_pCore->CreatGameObjectFromTemplate("Sphere", "Sphere");
 
-	pSphere->Translate(0, 0, 0);
+	//pSphere->Translate(0, 0, 0);
 	
 	//GameObjectPtr pLight = m_pCore->CreatGameObjectFromTemplate("DirectionalLight", "light");
 
@@ -68,30 +68,49 @@ bool VoxelDemo::Init(ld3d::CoreApiPtr pCore)
 	//pLight->LookAt(math::Vector3(0, 0, 0));
 
 
-	/*m_pWorld = m_pCore->CreatGameObjectFromTemplate("VoxelWorld", "world");
+	//m_pWorld = m_pCore->CreatGameObjectFromTemplate("VoxelWorld", "world");
 
-	VoxelWorldPtr pWorld = std::dynamic_pointer_cast<VoxelWorld>(m_pWorld->GetComponent("VoxelWorld"));
-	pWorld->SetWorldSizeX(100);
-	pWorld->SetWorldSizeY(100);
-	pWorld->SetWorldSizeZ(100);
+	//VoxelWorldPtr pWorld = std::dynamic_pointer_cast<VoxelWorld>(m_pWorld->GetComponent("VoxelWorld"));
+	//pWorld->SetWorldSizeX(100);
+	//pWorld->SetWorldSizeY(100);
+	//pWorld->SetWorldSizeZ(100);
 
-	VoxelWorldGeneratorPtr pGenerator = std::dynamic_pointer_cast<VoxelWorldGenerator>(m_pWorld->GetComponent("VoxelWorldGenerator"));
+	//VoxelWorldGeneratorPtr pGenerator = std::dynamic_pointer_cast<VoxelWorldGenerator>(m_pWorld->GetComponent("VoxelWorldGenerator"));
 
-	pGenerator->RebuildWorld();
+	//pGenerator->RebuildWorld();
 
-	m_pWorld->SetTranslation(-50, 0, -50);*/
-	/*pLight = m_pCore->CreatGameObjectFromTemplate("DirectionalLight", "light");
+	//m_pWorld->SetTranslation(-50, 0, -50);
+	//GameObjectPtr pLight = m_pCore->CreatGameObjectFromTemplate("DirectionalLight", "light");
 
-	pLight->SetTranslation(0, 5, 5);
-	pLight->LookAt(pSphere);*/
+	//pLight->SetTranslation(0, 5, 5);
+	//pLight->LookAt(math::Vector3(0, 0, 0));
 	//
-	GameObjectPtr pLight = m_pCore->CreatGameObjectFromTemplate("PointLight", "pl");
-	pLight->SetTranslation(0, 3, 0);
+	
+	for(int i = -3; i <= 3; ++i)
+	{
+		if(i == 0)
+		{
+			continue;
+		}
+		GameObjectPtr pLight = m_pCore->CreatGameObjectFromTemplate("PointLight", "pl");
+		pLight->SetTranslation(10 * i, 3, 0);
+	}
+
+	for(int i = -3; i <= 3; ++i)
+	{
+		if(i == 0)
+		{
+			continue;
+		}
+
+		GameObjectPtr pLight = m_pCore->CreatGameObjectFromTemplate("PointLight", "pl");
+		pLight->SetTranslation(0, 3, 10 * i);
+	}
 
 
-	pLight = m_pCore->CreatGameObjectFromTemplate("SpotLight", "pl");
-	pLight->SetTranslation(3, 5, 0);
-	pLight->LookAt(math::Vector3(0, 0, 0));
+	//pLight = m_pCore->CreatGameObjectFromTemplate("SpotLight", "pl");
+	//pLight->SetTranslation(4, 5, 0);
+	//pLight->LookAt(math::Vector3(0, 0, 0));
 
 	return true;
 }
@@ -101,10 +120,6 @@ void VoxelDemo::Release()
 }
 void VoxelDemo::Update()
 {
-	//m_pCore->AddRenderData(m_pRD);
-
-	//m_pCore->GetRenderManager()->RenderTest(m_pCamera);
-	
 }
 
 void VoxelDemo::_on_mouse_move(ld3d::EventPtr pEvent)

@@ -14,11 +14,11 @@ namespace ld3d
 {
 	SpotLight::SpotLight(void) : Light(LT_SPOTLIGHT)
 	{
-		m_angle			= 45;
+		m_angle			= 40;
 		m_nVerts		= 0;
-		m_range			= 30;
+		m_range			= 300;
 		
-
+		m_projTM.MakeIdentity();
 		m_modifiedTM.MakeIdentity();
 	}
 
@@ -52,12 +52,14 @@ namespace ld3d
 		}
 
 
-		m_pTexture = pRenderManager->CreateTextureFromFile("./assets/standard/texture/array.dds");
+		m_pTexture = pRenderManager->CreateTextureFromFile("./assets/standard/texture/001.dds");
 
 		MaterialParameterPtr pParam = m_pMaterial->GetParameterByName("tex");
 
 		pParam->SetParameterTexture(m_pTexture);
 
+
+		UpdateLightProjMatrix();
 		return true;
 	}
 	const float& SpotLight::GetAngle()
@@ -122,6 +124,7 @@ namespace ld3d
 			pParam->SetParameterBlock(&l, sizeof(SpotLightParam));
 		}
 	
+
 		pRenderManager->SetGBuffer(m_pMaterial);
 				
 		Sys_GraphicsPtr pGraphics = pRenderManager->GetSysGraphics();
@@ -149,5 +152,52 @@ namespace ld3d
 		pVB->Unmap();
 				
 		mem_free(pVerts);
+
+		UpdateLightProjMatrix();
+	}
+	void SpotLight::UpdateLightProjMatrix()
+	{
+		using namespace math;
+		Matrix44 world = GetWorldTM();
+		
+		math::Vector3 eye(0, 0, 0);
+		math::Vector3 up(0, 1, 0);
+		math::Vector3 at(0, 0, m_range);
+
+		TransformCoord(eye, world);
+		TransformCoord(at, world);
+				
+		Vector3 z_axis = at - eye;
+		z_axis.Normalize();
+
+		if(abs(Dot(z_axis, up)) > 0.999)
+		{
+			up.z = 0.1;
+		}
+		
+		m_projTM = math::MatrixLookAtLH(eye, at, up) * math::MatrixPerspectiveFovLH(math::D2R(2 * m_angle), 1, 0.1f, m_range);
+		
+		MaterialParameterPtr pParam = m_pMaterial->GetParameterByName("light_matrix");
+		
+		if(pParam)
+		{
+			pParam->SetParameterMatrix(m_projTM);
+		}
+	}
+	void SpotLight::SetWorldTM(const math::Matrix44& world)
+	{
+		Light::SetWorldTM(world);
+		UpdateLightProjMatrix();
+	}
+	void SpotLight::SetTexture(TexturePtr pTex)
+	{
+		m_pTexture = pTex;
+		MaterialParameterPtr pParam = m_pMaterial->GetParameterByName("tex");
+
+		pParam->SetParameterTexture(m_pTexture);
+	}
+	TexturePtr SpotLight::GetTexture()
+	{
+		return m_pTexture;
 	}
 }

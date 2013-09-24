@@ -10,6 +10,8 @@ RenderState rs
 	StencilEnable					= false;
 
 	BLENDENABLE						= false;
+
+	ColorWrite						= all;
 	
 };
 technique dr_render_gbuffer

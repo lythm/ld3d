@@ -24,6 +24,21 @@ layout(std140) uniform light
 };
 
 out vec4 color;
+
+vec3 proj_texture(vec3 vpos)
+{
+	vec4 p = vec4(vpos, 1) * MATRIX_I_VIEW * light_matrix;
+	
+	vec2 uv = p.xy / p.w;
+
+	uv = uv + vec2(1, 1);
+	uv = uv / 2;
+	
+	uv.y = 1 - uv.y;
+
+	return texture2D(tex, uv).xyz;
+}
+
 void main()
 {
 	vec2 dim = textureSize(_DR_G_BUFFER_0, 0);
@@ -40,6 +55,6 @@ void main()
 
 	LightResult ret = dr_light_spot(vpos, n, sl, MATRIX_WV);
 
-	color.xyz = ret.diffuse * texture2D(tex, uv).xyz;
+	color.xyz = ret.diffuse * proj_texture(vpos);
 	color.w = rgb_2_il(ret.specular);
 }

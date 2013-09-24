@@ -21,8 +21,13 @@ namespace ld3d
 	
 		void							RenderLight(RenderManagerPtr pRenderManager);
 
+		void							SetWorldTM(const math::Matrix44& world);
+
+		void							SetTexture(TexturePtr pTex);
+		TexturePtr						GetTexture();
 	private:
 		void							UpdateLightVolume();
+		void							UpdateLightProjMatrix();
 	private:
 		float							m_angle;
 		float							m_range;
@@ -33,6 +38,7 @@ namespace ld3d
 		MaterialPtr						m_pMaterial;
 
 		math::Matrix44					m_modifiedTM;
+		math::Matrix44					m_projTM;
 
 		TexturePtr						m_pTexture;
 

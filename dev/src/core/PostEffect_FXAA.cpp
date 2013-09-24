@@ -11,5 +11,10 @@ namespace ld3d
 	PostEffect_FXAA::~PostEffect_FXAA(void)
 	{
 	}
-
+	void PostEffect_FXAA::Render(RenderManagerPtr pRenderer, RenderTexturePtr pInput, RenderTexturePtr pOutput)
+	{
+	}
+	void PostEffect_FXAA::Release()
+	{
+	}
 }

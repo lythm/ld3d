@@ -69,13 +69,14 @@ namespace ld3d
 	}
 	void PostEffectManager::Render()
 	{
-		return;
 		for(size_t i = 0; i < m_effects.size(); ++i)
 		{
 			m_effects[i]->Render(m_pRenderManager, m_pInput, m_pOutput);
 			SwapRenderTarget();
 		}
+
 		SwapRenderTarget();
+		
 	}
 	void PostEffectManager::SwapRenderTarget()
 	{
@@ -136,8 +137,8 @@ namespace ld3d
 		m_pRenderManager->ClearRenderTarget(0, m_pRenderManager->GetClearColor());
 		m_pRenderManager->ClearDepthBuffer(CLEAR_DEPTH, 1.0f, 0);
 
-		//m_pParamOutput->SetParameterTexture(m_pOutput->GetTexture(0));
-		m_pParamOutput->SetParameterTexture(m_pInput->GetTexture(0));
+		m_pParamOutput->SetParameterTexture(m_pOutput->GetTexture(0));
+		//m_pParamOutput->SetParameterTexture(m_pInput->GetTexture(0));
 
 		m_pRenderManager->DrawFullScreenQuad(m_pFinalMaterial);
 	}
