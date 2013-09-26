@@ -77,6 +77,7 @@ namespace ld3d
 		void										SetGlobalAmbient(const math::Color4& clr);
 
 		RenderTexturePtr							CreateRenderTexture(int c, int w, int h, G_FORMAT format[]);
+		RenderTexturePtr							CreateRenderTextureMS(int c, int w, int h, G_FORMAT format[], int samples);
 		void										SetRenderTarget(RenderTargetPtr pRT);
 		void										ClearRenderTarget(int index, const math::Color4 & clr);
 		void										ClearDepthBuffer(CLEAR_DS_FLAG flag, float d, int s);
@@ -104,8 +105,8 @@ namespace ld3d
 		void										RenderTest(CameraPtr pCamera);
 		//
 	private:
-		bool										CreateABuffer(int w, int h);
-		bool										CreateGBuffer(int w, int h);
+		bool										CreateABuffer(int w, int h, int samples);
+		bool										CreateGBuffer(int w, int h, int samples);
 
 		void										DR_G_Pass();
 		void										DR_Merge_Pass();
@@ -136,6 +137,7 @@ namespace ld3d
 		RenderTexturePtr							m_pGBuffer;
 		RenderTexturePtr							m_pABuffer;
 		DepthStencilBufferPtr						m_pDSBuffer;
+
 		ScreenQuadPtr								m_pScreenQuad;
 
 		LightManagerPtr								m_pLightManager;

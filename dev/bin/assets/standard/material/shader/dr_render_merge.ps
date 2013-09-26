@@ -2,8 +2,8 @@
 
 #pragma include "dr_gbuffer.glsl"
 
-uniform sampler2D _DR_A_BUFFER;
-uniform sampler2D _DR_G_BUFFER_2;
+uniform sampler2DMS _DR_A_BUFFER;
+uniform sampler2DMS _DR_G_BUFFER_2;
 
 
 out vec4 f_color;
@@ -11,12 +11,26 @@ out vec4 f_color;
 
 void main()
 {
-	vec2 dim = textureSize(_DR_A_BUFFER, 0);
-	vec2 uv = gl_FragCoord.xy / dim;
+	vec2 dim = textureSize(_DR_A_BUFFER);
+	ivec2 uv = ivec2(gl_FragCoord.xy);
 
-	vec4 l = texture(_DR_A_BUFFER, uv);
-	vec4 d = texture(_DR_G_BUFFER_2, uv);
+	vec4 l = vec4(0, 0, 0, 0);
+	for(int i = 0; i < 4; ++i)
+	{
+		l += texelFetch(_DR_A_BUFFER, uv, i);
+	}
 
+	l /= 4;
+	
+	vec4 d = vec4(0, 0, 0, 0);
+	for(int i = 0; i < 4; ++i)
+	{
+		d += texelFetch(_DR_G_BUFFER_2, uv, i);
+	}
+	
+	d /= 4;
+
+	
 	f_color.xyz = l.xyz * d.xyz + (l.w * d.xyz) * d.w;
 
 	f_color.w = 1;

@@ -13,6 +13,7 @@ namespace ld3d
 		void							Release();
 
 		bool							Create(G_FORMAT format, int w, int h);
+		bool							CreateMS(G_FORMAT format, int w, int h, int samples);
 		GLenum							GetAttachPoint();
 		GLuint							GetDepthStencilBufferObject();
 	private:

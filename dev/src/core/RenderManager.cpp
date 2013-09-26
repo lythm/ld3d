@@ -82,6 +82,8 @@ namespace ld3d
 
 	bool RenderManager::Initialize(Sys_GraphicsPtr pGraphics, EventDispatcherPtr pED)
 	{
+		int samples = 4;
+
 		m_pGraphics = pGraphics;
 		m_pEventDispatcher = pED;
 
@@ -89,18 +91,20 @@ namespace ld3d
 		int h = pGraphics->GetFrameBufferHeight();
 
 
-		m_pDSBuffer = m_pGraphics->CreateDepthStencilBuffer(G_FORMAT_D24_UNORM_S8_UINT, w, h);
+		m_pDSBuffer = m_pGraphics->CreateDepthStencilBufferMS(G_FORMAT_D24_UNORM_S8_UINT, w, h, samples);
 		//m_pDSBuffer = m_pGraphics->CreateDepthStencilBuffer(G_FORMAT_D32_FLOAT, w, h);
 		if(m_pDSBuffer == nullptr)
 		{
 			return false;
 		}
 
-		if(false == CreateGBuffer(w, h))
+		
+
+		if(false == CreateGBuffer(w, h, samples))
 		{
 			return false;
 		}
-		if(false == CreateABuffer(w, h))
+		if(false == CreateABuffer(w, h, samples))
 		{
 			return false;
 		}
@@ -138,7 +142,7 @@ namespace ld3d
 		}
 		return true;
 	}
-	bool RenderManager::CreateGBuffer(int w, int h)
+	bool RenderManager::CreateGBuffer(int w, int h, int samples)
 	{
 		_release_and_reset(m_pGBuffer);
 
@@ -149,12 +153,13 @@ namespace ld3d
 			G_FORMAT_R8G8B8A8_UNORM,			// diffuse color : specular
 		};
 
-		m_pGBuffer = CreateRenderTexture(3, w, h, formats);
+		m_pGBuffer = CreateRenderTextureMS(3, w, h, formats, samples);
 
 		if(m_pGBuffer == nullptr)
 		{
 			return false;
 		}
+
 		m_pGBuffer->SetDepthStencilBuffer(m_pDSBuffer);
 		return true;
 
@@ -385,9 +390,10 @@ namespace ld3d
 
 		m_pGraphics->OnResizeRenderWindow(cx, cy);
 		
+		int samples = 4;
 
-		CreateGBuffer(cx, cy);
-		CreateABuffer(cx, cy);
+		CreateGBuffer(cx, cy, samples);
+		CreateABuffer(cx, cy, samples);
 
 		m_pPostEffectManager->Resize(cx, cy);
 	}
@@ -421,7 +427,7 @@ namespace ld3d
 		}
 	}
 	
-	bool RenderManager::CreateABuffer(int w, int h)
+	bool RenderManager::CreateABuffer(int w, int h, int samples)
 	{
 		if(m_pABuffer != nullptr)
 		{
@@ -430,7 +436,7 @@ namespace ld3d
 		}
 
 		G_FORMAT formats[1] = {G_FORMAT_R8G8B8A8_UNORM,};
-		m_pABuffer = CreateRenderTexture(1, w, h, formats);
+		m_pABuffer = CreateRenderTextureMS(1, w, h, formats, samples);
 		
 		if(m_pABuffer == nullptr)
 		{
@@ -487,6 +493,18 @@ namespace ld3d
 		for(int i = 0; i < c; ++i)
 		{
 			TexturePtr pTex = m_pGraphics->CreateTexture2D(format[i], w, h, 1, false);
+			pRT->AttachTexture(pTex);
+		}
+
+		return pRT;
+	}
+	RenderTexturePtr RenderManager::CreateRenderTextureMS(int c, int w, int h, G_FORMAT format[], int samples)
+	{
+		RenderTexturePtr pRT = m_pGraphics->CreateRenderTexture();
+
+		for(int i = 0; i < c; ++i)
+		{
+			TexturePtr pTex = m_pGraphics->CreateTexture2DMS(format[i], w, h, samples);
 			pRT->AttachTexture(pTex);
 		}
 

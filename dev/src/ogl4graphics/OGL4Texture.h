@@ -14,11 +14,13 @@ namespace ld3d
 
 		void										Release();
 
+		bool										IsMultiSample();
 
 		void										SetSampler(SamplerStatePtr pSampler);
 		SamplerStatePtr								GetSampler();	
 		bool										Create1D(G_FORMAT format, int l, int lvls, bool dynamic);
 		bool										Create2D(G_FORMAT format, int w, int h, int lvls, bool dynamic);
+		bool										Create2DMS(G_FORMAT format, int w, int h, int samples);
 		bool										Create3D(G_FORMAT format, int w, int h, int d, int lvls, bool dynamic);
 
 		int											GetWidth() const;
@@ -51,5 +53,7 @@ namespace ld3d
 		SamplerStatePtr								m_pSampler;
 
 		int											m_lvls;
+
+		bool										m_bMS;
 	};
 }

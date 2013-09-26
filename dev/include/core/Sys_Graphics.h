@@ -69,6 +69,7 @@ namespace ld3d
 
 		virtual TexturePtr								CreateTexture1D(G_FORMAT format, int l, int lvls, bool dynamic)					= 0;
 		virtual TexturePtr								CreateTexture2D(G_FORMAT format, int w, int h, int lvls, bool dynamic)			= 0;
+		virtual TexturePtr								CreateTexture2DMS(G_FORMAT format, int w, int h, int samples)					= 0;
 		virtual TexturePtr								CreateTexture3D(G_FORMAT format, int w, int h, int d, int lvls, bool dynamic)	= 0;
 
 		virtual TexturePtr								CreateTextureFromFile(const char* szFile, bool dynamic)							= 0;
@@ -76,7 +77,7 @@ namespace ld3d
 		virtual SamplerStatePtr							CreateSampler()																	= 0;
 
 		virtual DepthStencilBufferPtr					CreateDepthStencilBuffer(G_FORMAT format, int w, int h)							= 0;
-
+		virtual DepthStencilBufferPtr					CreateDepthStencilBufferMS(G_FORMAT format, int w, int h, int samples)			= 0;
 		virtual RenderStatePtr							CreateRenderState()																= 0;
 		virtual void									SetRenderState(RenderStatePtr pState)											= 0;
 		

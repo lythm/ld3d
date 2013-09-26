@@ -81,6 +81,7 @@ PFNGLGENERATEMIPMAPPROC								glGenerateMipmap								= nullptr;
 PFNGLACTIVETEXTUREPROC								glActiveTexture									= nullptr;
 PFNGLTEXSTORAGE1DPROC								glTexStorage1D									= nullptr;
 PFNGLTEXSTORAGE2DPROC								glTexStorage2D									= nullptr;
+PFNGLTEXSTORAGE2DMULTISAMPLEPROC					glTexStorage2DMultisample						= nullptr;
 PFNGLTEXSTORAGE3DPROC								glTexStorage3D									= nullptr;
 PFNGLCOMPRESSEDTEXSUBIMAGE2DPROC					glCompressedTexSubImage2D						= nullptr;
 // sampler
@@ -153,6 +154,7 @@ PFNGLPROGRAMUNIFORMMATRIX4FVPROC					glProgramUniformMatrix4fv						= nullptr;
 PFNGLGENRENDERBUFFERSPROC							glGenRenderbuffers								= nullptr;
 PFNGLDELETERENDERBUFFERSPROC						glDeleteRenderbuffers							= nullptr;
 PFNGLRENDERBUFFERSTORAGEPROC						glRenderbufferStorage							= nullptr;
+PFNGLRENDERBUFFERSTORAGEMULTISAMPLEPROC				glRenderbufferStorageMultisample				= nullptr;
 PFNGLBINDRENDERBUFFERPROC							glBindRenderbuffer								= nullptr;
 
 // fbo

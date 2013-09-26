@@ -260,6 +260,7 @@ namespace ld3d
 
 		LOAD_API(glTexStorage1D,										PFNGLTEXSTORAGE1DPROC);
 		LOAD_API(glTexStorage2D,										PFNGLTEXSTORAGE2DPROC);
+		LOAD_API(glTexStorage2DMultisample,								PFNGLTEXSTORAGE2DMULTISAMPLEPROC);
 		LOAD_API(glTexStorage3D,										PFNGLTEXSTORAGE3DPROC);
 
 		LOAD_API(glTexSubImage3D,										PFNGLTEXSUBIMAGE3DPROC);
@@ -277,6 +278,8 @@ namespace ld3d
 		LOAD_API(glGenRenderbuffers,									PFNGLGENRENDERBUFFERSPROC);
 		LOAD_API(glDeleteRenderbuffers,									PFNGLDELETERENDERBUFFERSPROC);
 		LOAD_API(glRenderbufferStorage,									PFNGLRENDERBUFFERSTORAGEPROC);
+		LOAD_API(glRenderbufferStorageMultisample,									PFNGLRENDERBUFFERSTORAGEMULTISAMPLEPROC);
+		
 		LOAD_API(glBindRenderbuffer,									PFNGLBINDRENDERBUFFERPROC);
 
 		LOAD_API(glGenFramebuffers,										PFNGLGENFRAMEBUFFERSPROC);

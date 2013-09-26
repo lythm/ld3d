@@ -363,6 +363,17 @@ namespace ld3d
 
 		return pDS;
 	}
+	DepthStencilBufferPtr OGL4Graphics::CreateDepthStencilBufferMS(G_FORMAT format, int w, int h, int samples)
+	{
+		OGL4DepthStencilBufferPtr pDS = std::make_shared<OGL4DepthStencilBuffer>();
+		if(false == pDS->CreateMS(format, w, h, samples))
+		{
+			pDS->Release();
+			pDS.reset();
+		}
+
+		return pDS;
+	}
 
 	void OGL4Graphics::OnResizeRenderWindow(int cx, int cy)
 	{
@@ -509,6 +520,16 @@ namespace ld3d
 	{
 		OGL4TexturePtr pTex = std::make_shared<OGL4Texture>();
 		if(pTex->Create2D(format, w, h, lvls, dynamic) == false)
+		{
+			pTex->Release();
+			pTex.reset();
+		}
+		return pTex;
+	}
+	TexturePtr OGL4Graphics::CreateTexture2DMS(G_FORMAT format, int w, int h, int samples)
+	{
+		OGL4TexturePtr pTex = std::make_shared<OGL4Texture>();
+		if(pTex->Create2DMS(format, w, h, samples) == false)
 		{
 			pTex->Release();
 			pTex.reset();

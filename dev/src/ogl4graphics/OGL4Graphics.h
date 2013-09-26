@@ -24,8 +24,10 @@ namespace ld3d
 		
 		RenderTexturePtr						CreateRenderTexture();
 		GPUBufferPtr							CreateBuffer(BUFFER_TYPE type, int bytes, void* pInitData, bool dynamic);
+
 		TexturePtr								CreateTexture1D(G_FORMAT format, int l, int lvls, bool dynamic);
 		TexturePtr								CreateTexture2D(G_FORMAT format, int w, int h, int lvls, bool dynamic);
+		TexturePtr								CreateTexture2DMS(G_FORMAT format, int w, int h, int samples);
 		TexturePtr								CreateTexture3D(G_FORMAT format, int w, int h, int d, int lvls, bool dynamic);
 		TexturePtr								CreateTextureFromFile(const char* szFile, bool dynamic);
 
@@ -47,7 +49,7 @@ namespace ld3d
 		SamplerStatePtr							CreateSampler();
 
 		DepthStencilBufferPtr					CreateDepthStencilBuffer(G_FORMAT format, int w, int h);
-		
+		DepthStencilBufferPtr					CreateDepthStencilBufferMS(G_FORMAT format, int w, int h, int samples);
 
 		RenderStatePtr							CreateRenderState();
 		void									SetRenderState(RenderStatePtr pState);

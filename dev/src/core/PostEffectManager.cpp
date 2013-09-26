@@ -8,6 +8,7 @@
 #include "core/PostEffect_SSAO.h"
 #include "core_utils.h"
 #include "core/MaterialParameter.h"
+#include "core/Sys_Graphics.h"
 
 namespace ld3d
 {
@@ -120,7 +121,10 @@ namespace ld3d
 			return false;
 		}
 
-		m_pInput->SetDepthStencilBuffer(m_pRenderManager->GetDepthStencilBuffer());
+		DepthStencilBufferPtr pDS = m_pRenderManager->GetSysGraphics()->CreateDepthStencilBuffer(G_FORMAT_D24_UNORM_S8_UINT, w, h);
+
+
+		m_pInput->SetDepthStencilBuffer(pDS);
 
 		m_pOutput = m_pRenderManager->CreateRenderTexture(1, w, h, formats);
 
@@ -128,7 +132,7 @@ namespace ld3d
 		{
 			return false;
 		}
-		m_pOutput->SetDepthStencilBuffer(m_pRenderManager->GetDepthStencilBuffer());
+		m_pOutput->SetDepthStencilBuffer(pDS);
 		return true;
 	}
 	void PostEffectManager::RenderToFrameBuffer()

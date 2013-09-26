@@ -115,6 +115,9 @@ namespace ld3d
 		TEX_1D,
 		TEX_2D,
 		TEX_3D,
+
+		TEX_2DMS,
+
 		TEX_RENDERTARGET,
 		TEX_DEPTHSTENCIL,
 

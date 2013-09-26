@@ -17,7 +17,7 @@ namespace ld3d
 		m_format				= GL_INVALID_ENUM;
 
 		m_bDynamic				= false;
-
+		m_bMS					= false;
 		m_lvls					= 1;
 	}
 
@@ -27,7 +27,7 @@ namespace ld3d
 	}
 	TEXTURE_TYPE OGL4Texture::GetType()
 	{
-		return TEX_2D;
+		return m_type;
 	}
 	void OGL4Texture::Release()
 	{
@@ -74,6 +74,30 @@ namespace ld3d
 		return true;
 	}
 
+	bool OGL4Texture::Create2DMS(G_FORMAT format, int w, int h, int samples)
+	{
+		m_lvls = 1;
+		m_bDynamic = false;
+
+		glGenTextures(1, &m_texture);
+
+		glBindTexture(GL_TEXTURE_2D_MULTISAMPLE, m_texture);
+		//glTexStorage2D(GL_TEXTURE_2D_MULTISAMPLE, lvls, OGL4Convert::TextureFormatToGL(format), w, h);
+
+		glTexStorage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE, samples, OGL4Convert::TextureFormatToGL(format), w, h, GL_FALSE);
+
+		m_width = w;
+		m_height = h;
+		m_type = TEX_2DMS;
+
+		m_format = OGL4Convert::TextureFormatToGL(format);
+
+		m_pboBytes = 0;
+
+		m_bMS = true;
+		return true;
+	}
+
 	bool OGL4Texture::Create3D(G_FORMAT format, int w, int h, int d, int lvls, bool dynamic)
 	{
 		m_lvls = lvls;
@@ -96,6 +120,10 @@ namespace ld3d
 	}
 	void* OGL4Texture::Map()
 	{
+		if(m_bMS == true)
+		{
+			return nullptr;
+		}
 
 		if(m_pbo == 0)
 		{
@@ -113,6 +141,10 @@ namespace ld3d
 	}
 	void OGL4Texture::UnMap()
 	{
+		if(m_bMS)
+		{
+			return;
+		}
 
 		glUnmapBuffer(GL_PIXEL_UNPACK_BUFFER);
 
@@ -484,5 +516,9 @@ namespace ld3d
 	int	 OGL4Texture::GetDepth() const
 	{
 		return m_depth;
+	}
+	bool OGL4Texture::IsMultiSample()
+	{
+		return m_bMS;
 	}
 }

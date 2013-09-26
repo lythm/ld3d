@@ -90,6 +90,7 @@ extern PFNGLGENERATEMIPMAPPROC							glGenerateMipmap;
 extern PFNGLACTIVETEXTUREPROC							glActiveTexture;
 extern PFNGLTEXSTORAGE1DPROC							glTexStorage1D;
 extern PFNGLTEXSTORAGE2DPROC							glTexStorage2D;
+extern PFNGLTEXSTORAGE2DMULTISAMPLEPROC					glTexStorage2DMultisample;
 extern PFNGLTEXSTORAGE3DPROC							glTexStorage3D;
 extern PFNGLTEXSUBIMAGE3DPROC							glTexSubImage3D;
 extern PFNGLCOMPRESSEDTEXSUBIMAGE2DPROC					glCompressedTexSubImage2D;
@@ -149,6 +150,7 @@ extern PFNGLPROGRAMUNIFORM4UIVPROC						glProgramUniform4uiv;
 extern PFNGLGENRENDERBUFFERSPROC						glGenRenderbuffers;
 extern PFNGLDELETERENDERBUFFERSPROC						glDeleteRenderbuffers;
 extern PFNGLRENDERBUFFERSTORAGEPROC						glRenderbufferStorage;
+extern PFNGLRENDERBUFFERSTORAGEMULTISAMPLEPROC			glRenderbufferStorageMultisample;
 extern PFNGLBINDRENDERBUFFERPROC						glBindRenderbuffer;
 
 // fbo

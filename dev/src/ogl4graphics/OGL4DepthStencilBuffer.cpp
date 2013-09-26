@@ -18,6 +18,17 @@ namespace ld3d
 		glDeleteRenderbuffers(1, &m_buffer);
 		m_buffer = 0;
 	}
+	bool OGL4DepthStencilBuffer::CreateMS(G_FORMAT format, int w, int h, int samples)
+	{
+		glGenRenderbuffers(1, &m_buffer);
+		glBindRenderbuffer(GL_RENDERBUFFER, m_buffer);
+		glRenderbufferStorageMultisample(GL_RENDERBUFFER, samples, OGL4Convert::TextureFormatToGL(format), w, h);
+
+		glBindRenderbuffer(GL_RENDERBUFFER, 0);
+
+		m_format = format;
+		return true;
+	}
 	bool OGL4DepthStencilBuffer::Create(G_FORMAT format, int w, int h)
 	{
 		glGenRenderbuffers(1, &m_buffer);

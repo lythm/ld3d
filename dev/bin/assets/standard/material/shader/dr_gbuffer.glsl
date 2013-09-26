@@ -1,17 +1,17 @@
 #version 330
 
-float dr_gbuffer_get_depth(sampler2D g, vec2 uv)
+float dr_gbuffer_get_depth(sampler2DMS g, ivec2 uv, int sample)
 {
-	float d = texture(g, uv).r;
+	float d = texelFetch(g, uv, sample);
 	return d;
 }
 
-vec3 dr_gbuffer_get_normal(sampler2D g, vec2 uv)
+vec3 dr_gbuffer_get_normal(sampler2DMS g, ivec2 uv, int sample)
 {
 	vec3 normal;
-	
-	normal.xy = texture(g, uv).xy;
+	normal.xy = texelFetch(g, uv, sample).xy;
 	normal.z = -sqrt(1-dot(normal.xy, normal.xy));
+
 	return normalize(normal);
 }
 
