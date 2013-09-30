@@ -121,10 +121,7 @@ namespace ld3d
 			return false;
 		}
 
-		DepthStencilBufferPtr pDS = m_pRenderManager->GetSysGraphics()->CreateDepthStencilBuffer(G_FORMAT_D24_UNORM_S8_UINT, w, h);
-
-
-		m_pInput->SetDepthStencilBuffer(pDS);
+		m_pInput->SetDepthStencilBuffer(m_pRenderManager->GetDepthStencilBuffer());
 
 		m_pOutput = m_pRenderManager->CreateRenderTexture(1, w, h, formats);
 
@@ -132,7 +129,7 @@ namespace ld3d
 		{
 			return false;
 		}
-		m_pOutput->SetDepthStencilBuffer(pDS);
+		m_pOutput->SetDepthStencilBuffer(m_pRenderManager->GetDepthStencilBuffer());
 		return true;
 	}
 	void PostEffectManager::RenderToFrameBuffer()

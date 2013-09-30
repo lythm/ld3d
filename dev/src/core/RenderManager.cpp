@@ -91,8 +91,8 @@ namespace ld3d
 		int h = pGraphics->GetFrameBufferHeight();
 
 
-		m_pDSBuffer = m_pGraphics->CreateDepthStencilBufferMS(G_FORMAT_D24_UNORM_S8_UINT, w, h, samples);
-		//m_pDSBuffer = m_pGraphics->CreateDepthStencilBuffer(G_FORMAT_D32_FLOAT, w, h);
+		m_pDSBuffer = m_pGraphics->CreateDepthStencilBuffer(G_FORMAT_D24_UNORM_S8_UINT, w, h);
+
 		if(m_pDSBuffer == nullptr)
 		{
 			return false;
@@ -100,11 +100,11 @@ namespace ld3d
 
 		
 
-		if(false == CreateGBuffer(w, h, samples))
+		if(false == CreateGBuffer(w, h))
 		{
 			return false;
 		}
-		if(false == CreateABuffer(w, h, samples))
+		if(false == CreateABuffer(w, h))
 		{
 			return false;
 		}
@@ -142,7 +142,7 @@ namespace ld3d
 		}
 		return true;
 	}
-	bool RenderManager::CreateGBuffer(int w, int h, int samples)
+	bool RenderManager::CreateGBuffer(int w, int h)
 	{
 		_release_and_reset(m_pGBuffer);
 
@@ -153,7 +153,7 @@ namespace ld3d
 			G_FORMAT_R8G8B8A8_UNORM,			// diffuse color : specular
 		};
 
-		m_pGBuffer = CreateRenderTextureMS(3, w, h, formats, samples);
+		m_pGBuffer = CreateRenderTexture(3, w, h, formats);
 
 		if(m_pGBuffer == nullptr)
 		{
@@ -390,10 +390,16 @@ namespace ld3d
 
 		m_pGraphics->OnResizeRenderWindow(cx, cy);
 		
-		int samples = 4;
 
-		CreateGBuffer(cx, cy, samples);
-		CreateABuffer(cx, cy, samples);
+		if(m_pDSBuffer)
+		{
+			m_pDSBuffer->Release();
+		}
+
+		m_pDSBuffer = m_pGraphics->CreateDepthStencilBuffer(G_FORMAT_D24_UNORM_S8_UINT, cx, cy);
+
+		CreateGBuffer(cx, cy);
+		CreateABuffer(cx, cy);
 
 		m_pPostEffectManager->Resize(cx, cy);
 	}
@@ -427,7 +433,7 @@ namespace ld3d
 		}
 	}
 	
-	bool RenderManager::CreateABuffer(int w, int h, int samples)
+	bool RenderManager::CreateABuffer(int w, int h)
 	{
 		if(m_pABuffer != nullptr)
 		{
@@ -436,7 +442,7 @@ namespace ld3d
 		}
 
 		G_FORMAT formats[1] = {G_FORMAT_R8G8B8A8_UNORM,};
-		m_pABuffer = CreateRenderTextureMS(1, w, h, formats, samples);
+		m_pABuffer = CreateRenderTexture(1, w, h, formats);
 		
 		if(m_pABuffer == nullptr)
 		{

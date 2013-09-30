@@ -1,18 +1,30 @@
 #version 330
 
-float dr_gbuffer_get_depth(sampler2DMS g, ivec2 uv, int sample)
+vec3 decode_normal(vec2 n)
 {
-	float d = texelFetch(g, uv, sample);
+	vec3 normal;
+	
+	normal.z = (n.x * n.x + n.y * n.y) * 2 - 1;
+
+	normal.xy = normalize(n.xy) * sqrt( 1 - normal.z * normal.z);
+
+	return normalize(normal);
+}
+
+vec2 encode_normal(vec3 n)
+{
+	return normalize(n.xy) * sqrt(n.z * 0.5 + 0.5);
+}
+
+float dr_gbuffer_get_depth(sampler2D g, vec2 uv)
+{
+	float d = texture(g, uv);
 	return d;
 }
 
-vec3 dr_gbuffer_get_normal(sampler2DMS g, ivec2 uv, int sample)
+vec3 dr_gbuffer_get_normal(sampler2D g, vec2 uv)
 {
-	vec3 normal;
-	normal.xy = texelFetch(g, uv, sample).xy;
-	normal.z = -sqrt(1-dot(normal.xy, normal.xy));
-
-	return normalize(normal);
+	return decode_normal(texture(g, uv).xy);
 }
 
 vec4 dr_gbuffer_get_albedo(sampler2D g, vec2 uv)

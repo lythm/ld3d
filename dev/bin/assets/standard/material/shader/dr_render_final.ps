@@ -12,5 +12,5 @@ void main()
 	uv.x = gl_FragCoord.x / size.x;
 	uv.y = gl_FragCoord.y / size.y;
 
-	final_color = texture2D(final_image, uv);
+	final_color = texture(final_image, uv);
 }

@@ -105,8 +105,8 @@ namespace ld3d
 		void										RenderTest(CameraPtr pCamera);
 		//
 	private:
-		bool										CreateABuffer(int w, int h, int samples);
-		bool										CreateGBuffer(int w, int h, int samples);
+		bool										CreateABuffer(int w, int h);
+		bool										CreateGBuffer(int w, int h);
 
 		void										DR_G_Pass();
 		void										DR_Merge_Pass();
