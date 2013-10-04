@@ -9,10 +9,7 @@ public:
 	void										Release();
 	void										Update();
 
-	void										_on_mouse_move(ld3d::EventPtr pEvent);
-	void										_on_mouse_wheel(ld3d::EventPtr pEvent);
-	void										_on_mouse_button(ld3d::EventPtr pEvent);
-	
+
 	void										_on_key_state(ld3d::EventPtr pEvent);
 
 private:

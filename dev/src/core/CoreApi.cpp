@@ -287,11 +287,11 @@ namespace ld3d
 	{
 		m_pEventDispatcher->DispatchEvent(pEvent);
 	}
-	EventDispatcher::EventHandlerHandle CoreApi::AddEventHandler(uint32 id, EventDispatcher::EventHandler handler)
+	EventHandlerID CoreApi::AddEventHandler(uint32 id, EventHandler handler)
 	{
 		return m_pEventDispatcher->AddEventHandler(id, handler);
 	}
-	void CoreApi::RemoveEventHandler(EventDispatcher::EventHandlerHandle handle)
+	void CoreApi::RemoveEventHandler(EventHandlerID handle)
 	{
 		m_pEventDispatcher->RemoveEventHandler(handle);
 	}

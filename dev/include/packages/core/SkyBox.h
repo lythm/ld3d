@@ -22,7 +22,7 @@ namespace ld3d
 		
 
 
-		EventDispatcher::EventHandlerHandle			m_hFrustumCull;
+		EventHandlerID								m_hFrustumCull;
 	};
 
 

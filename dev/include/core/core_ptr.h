@@ -1,6 +1,8 @@
 #pragma once
 
 #include <memory>
+#include <boost/signals2.hpp>
+#include <boost/function.hpp>
 
 namespace ld3d
 {
@@ -49,10 +51,10 @@ namespace ld3d
 	class SkyLight;
 
 	typedef std::shared_ptr<LightManager>					LightManagerPtr;
-	typedef std::shared_ptr<Light>						LightPtr;
-	typedef std::shared_ptr<PointLight>					PointLightPtr;
+	typedef std::shared_ptr<Light>							LightPtr;
+	typedef std::shared_ptr<PointLight>						PointLightPtr;
 	typedef std::shared_ptr<DirectionalLight>				DirectionalLightPtr;
-	typedef std::shared_ptr<SpotLight>					SpotLightPtr;
+	typedef std::shared_ptr<SpotLight>						SpotLightPtr;
 	typedef std::shared_ptr<SkyLight>						SkyLightPtr;
 	
 	class DataStream;
@@ -62,7 +64,7 @@ namespace ld3d
 
 
 	typedef std::shared_ptr<SubMesh>						SubMeshPtr;
-	typedef std::shared_ptr<DataStream>					DataStreamPtr;
+	typedef std::shared_ptr<DataStream>						DataStreamPtr;
 	typedef std::shared_ptr<Mesh>							MeshPtr;
 
 
@@ -110,7 +112,7 @@ namespace ld3d
 	typedef std::shared_ptr<BaseCamera>						BaseCameraPtr;
 	typedef std::shared_ptr<DepthStencilBuffer>				DepthStencilBufferPtr;
 	typedef std::shared_ptr<RenderTarget>					RenderTargetPtr;
-	typedef std::shared_ptr<RenderData>					RenderDataPtr;
+	typedef std::shared_ptr<RenderData>						RenderDataPtr;
 	typedef std::shared_ptr<GPUBuffer>						GPUBufferPtr;
 	typedef std::shared_ptr<Texture>						TexturePtr;
 	typedef std::shared_ptr<SamplerState>					SamplerStatePtr;
@@ -125,22 +127,22 @@ namespace ld3d
 
 	typedef std::shared_ptr<PostEffect_GaussianBlur>		PostEffect_GaussianBlurPtr;
 	typedef std::shared_ptr<PostEffect_SSAO>				PostEffect_SSAOPtr;
-	typedef std::shared_ptr<PostEffect>					PostEffectPtr;
-	typedef std::shared_ptr<PostEffectManager>			PostEffectManagerPtr;
-	typedef std::shared_ptr<RenderManager>				RenderManagerPtr;
+	typedef std::shared_ptr<PostEffect>						PostEffectPtr;
+	typedef std::shared_ptr<PostEffectManager>				PostEffectManagerPtr;
+	typedef std::shared_ptr<RenderManager>					RenderManagerPtr;
 	typedef std::shared_ptr<CoreApi>						CoreApiPtr;
 
 
 	class EventDispatcher;
 	class Event;
 
-	typedef std::shared_ptr<Event>						EventPtr;
+	typedef std::shared_ptr<Event>							EventPtr;
 	typedef std::shared_ptr<EventDispatcher>				EventDispatcherPtr;
 
 
 	class Sound;
 	class SoundChannel;
-	typedef std::shared_ptr<Sound>						SoundPtr;
+	typedef std::shared_ptr<Sound>							SoundPtr;
 	typedef std::shared_ptr<SoundChannel>					SoundChannelPtr;
 
 	template <typename T> class Asset_T;
@@ -167,6 +169,9 @@ namespace ld3d
 	typedef std::shared_ptr<Property>						PropertyPtr;
 
 	
+
+	typedef boost::function<void (EventPtr)>				EventHandler;
+	typedef boost::signals2::connection						EventHandlerID;
 
 
 	class DT_CoreApi;

@@ -29,7 +29,7 @@ namespace ld3d
 		void													on_event_frustum_cull(EventPtr pEvent);
 	private:
 
-		EventDispatcher::EventHandlerHandle						m_hFrustumCull;
+		EventHandlerID											m_hFrustumCull;
 
 		RenderManagerPtr										m_pRenderManager;
 

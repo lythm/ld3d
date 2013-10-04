@@ -230,11 +230,11 @@ namespace ld3d
 	{
 		m_pCore->DispatchEvent(pEvent);
 	}
-	EventDispatcher::EventHandlerHandle GameObjectManager::AddEventHandler(uint32 id, EventDispatcher::EventHandler handler)
+	EventHandlerID GameObjectManager::AddEventHandler(uint32 id, EventHandler handler)
 	{
 		return m_pCore->AddEventHandler(id, handler);
 	}
-	void GameObjectManager::RemoveEventHandler(EventDispatcher::EventHandlerHandle handle)
+	void GameObjectManager::RemoveEventHandler(EventHandlerID handle)
 	{
 		m_pCore->RemoveEventHandler(handle);
 	}

@@ -17,6 +17,7 @@ namespace ld3d
 
 		void						Update(float dt);
 
+		CameraPtr					GetCamera();
 	private:
 		CameraPtr					m_pCamera;
 	};

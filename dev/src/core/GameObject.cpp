@@ -85,9 +85,9 @@ namespace ld3d
 			return false;
 		}
 
-		
+
 		m_components.push_back(pCom);
-		
+
 		return true;
 	}
 	void GameObject::RemoveComponent(int index)
@@ -142,7 +142,7 @@ namespace ld3d
 	void GameObject::Clear()
 	{
 		GameObjectPtr pObj = GetFirstChild();
-				
+
 		if(pObj == nullptr)
 		{
 			ClearComponents();
@@ -156,18 +156,18 @@ namespace ld3d
 			GameObjectPtr pTmp = pObj->GetNextNode();
 
 			pObj->Clear();
-			
+
 			pObj = pTmp;
 		}
 
 		ClearComponents();
 		UnLink();
-		
+
 		m_pFirstChild.reset();
 	}
 
-	
-	
+
+
 	void GameObject::SetLocalTransform(const math::Matrix44& Local)
 	{
 		m_LocalTransform = Local;
@@ -210,7 +210,7 @@ namespace ld3d
 	void GameObject::SetRotation(const math::Quat& r)
 	{
 		m_LocalTransform = MatrixRotationQuat(r);
-		
+
 	}
 	void GameObject::SetRotation(const math::Matrix44& rot)
 	{
@@ -375,7 +375,7 @@ namespace ld3d
 		}
 
 		Vector3 axis_x = Cross(axis_y, axis_z);
-				
+
 		axis_x.Normalize();
 		axis_y = Cross(axis_z, axis_x);
 		axis_y.Normalize();
@@ -461,4 +461,13 @@ namespace ld3d
 	{
 		return m_pEventDispather;
 	}
+	EventHandlerID GameObject::AddEventHandler(uint32 e, EventHandler handler)
+	{
+		return m_pEventDispather->AddEventHandler(e, handler);
+	}
+	void GameObject::RemoveEventHandler(EventHandlerID id)
+	{
+		m_pEventDispather->RemoveEventHandler(id);
+	}
+	
 }

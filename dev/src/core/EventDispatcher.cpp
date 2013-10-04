@@ -22,7 +22,7 @@ namespace ld3d
 			(*pHandlers)(pEvent);
 		}
 	}
-	EventDispatcher::EventHandlerHandle EventDispatcher::AddEventHandler(uint32 id, const EventHandler& handler)
+	EventHandlerID EventDispatcher::AddEventHandler(uint32 id, const EventHandler& handler)
 	{
 		std::shared_ptr<Signal> pHandlers = m_HandlerMap[id];
 
@@ -46,7 +46,7 @@ namespace ld3d
 
 		m_HandlerMap.clear();
 	}
-	void EventDispatcher::RemoveEventHandler(EventHandlerHandle handler)
+	void EventDispatcher::RemoveEventHandler(EventHandlerID handler)
 	{
 		handler.disconnect();
 	}

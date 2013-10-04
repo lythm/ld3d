@@ -30,7 +30,7 @@ namespace ld3d
 		void										Draw(Sys_GraphicsPtr pSysGraphics, MaterialPtr pMaterial, int baseVertex);
 	private:
 
-		EventDispatcher::EventHandlerHandle			m_hFrustumCull;
+		EventHandlerID								m_hFrustumCull;
 		VoxelWorldImplPtr							m_pWorld;
 
 		bool										m_bShowBound;

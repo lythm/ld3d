@@ -90,9 +90,13 @@ namespace ld3d
 		GameObjectPtr								Clone();
 
 		EventDispatcherPtr							GetDeventDispatcher();
+
+		EventHandlerID								AddEventHandler(uint32 e, EventHandler handler);
+		void										RemoveEventHandler(EventHandlerID id);
 	private:
 		void										UpdateWorldTransform();
 		void										UpdateComponents(float dt);
+
 	private:
 		math::Matrix44								m_LocalTransform;
 		math::Matrix44								m_WorldTransform;
@@ -110,5 +114,7 @@ namespace ld3d
 		void*										m_pPrivateData;
 
 		EventDispatcherPtr							m_pEventDispather;
+
+		
 	};
 }

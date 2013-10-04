@@ -59,4 +59,8 @@ namespace ld3d
 
 		m_pCamera->SetViewMatrix(mat);
 	}
+	CameraPtr CameraData::GetCamera()
+	{
+		return m_pCamera;
+	}
 }

@@ -2,6 +2,8 @@
 #include "Tpl_Camera.h"
 #include "packages/core/CameraData.h"
 
+#include "packages/core/CameraController_Orbit.h"
+
 namespace ld3d
 {
 	Tpl_Camera::Tpl_Camera(GameObjectManagerPtr pManager, const std::string& name) : GameObjectTemplate(pManager, name, "Camera")
@@ -20,7 +22,9 @@ namespace ld3d
 	
 		pObj->AddComponent(pMD);
 
-	
+		CameraController_OrbitPtr pController = std::dynamic_pointer_cast<CameraController_Orbit>(m_pManager->CreateComponent("CameraOrbitController"));
+
+		pObj->AddComponent(pController);
 
 		return pObj;
 	}

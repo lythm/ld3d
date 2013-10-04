@@ -14,6 +14,7 @@
 #include "packages/core/LuaBehavior.h"
 #include "packages/core/SoundEmitter.h"
 #include "packages/core/SoundListener.h"
+#include "packages/core/CameraController_Orbit.h"
 
 
 
@@ -132,6 +133,13 @@ namespace ld3d
 					"Camera",
 					"Camera",
 					&Create_Component<CameraData>));
+
+		m_classes.push_back(ComponentClass("CameraOrbitController",
+					"Camera",
+					"Camera",
+					&Create_Component<CameraController_Orbit>));
+
+		
 
 		m_classes.push_back(ComponentClass("Sky",
 					"Rendering",

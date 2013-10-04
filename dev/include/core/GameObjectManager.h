@@ -68,8 +68,8 @@ namespace ld3d
 		AssetManagerPtr														GetAssetManager();
 
 		void																DispatchEvent(EventPtr pEvent);
-		EventDispatcher::EventHandlerHandle									AddEventHandler(uint32 id, EventDispatcher::EventHandler handler);
-		void																RemoveEventHandler(EventDispatcher::EventHandlerHandle handle);
+		EventHandlerID														AddEventHandler(uint32 id, EventHandler handler);
+		void																RemoveEventHandler(EventHandlerID handle);
 
 		RUN_MODE															GetRunMode();
 
