@@ -9,8 +9,8 @@ namespace ld3d
 	class MeshAnimator : public GameObjectComponent
 	{
 	public:
-		MeshAnimator(GameObjectManagerPtr pManager);
-		virtual ~MeshAnimator(void);
+		MeshAnimator(GameObjectManagerPtr pManager) : GameObjectComponent("MeshAnimator", pManager){}
+		virtual ~MeshAnimator(void){}
 	};
 
 }

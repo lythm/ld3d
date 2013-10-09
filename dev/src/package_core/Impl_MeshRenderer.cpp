@@ -1,7 +1,10 @@
 #include "core_ext_pch.h"
-#include "packages/core/MeshRenderer.h"
+#include "Impl_MeshRenderer.h"
+
+#include "Impl_MeshData.h"
+
 #include "core/GameObject.h"
-#include "packages/core/MeshData.h"
+
 #include "core/RenderManager.h"
 #include "core/Sys_Graphics.h"
 #include "core/Mesh.h"
@@ -16,7 +19,7 @@
 namespace ld3d
 {
 
-	MeshRenderer::MeshRenderer(GameObjectManagerPtr pManager) : GameObjectComponent("MeshRenderer", pManager)
+	Impl_MeshRenderer::Impl_MeshRenderer(GameObjectManagerPtr pManager) : MeshRenderer(pManager)
 	{
 		m_deferred = true;
 		m_pRenderManager = m_pManager->GetRenderManager();
@@ -25,23 +28,23 @@ namespace ld3d
 
 	}
 
-	MeshRenderer::~MeshRenderer(void)
+	Impl_MeshRenderer::~Impl_MeshRenderer(void)
 	{
 	}
 	
-	void MeshRenderer::SetDeferred(const bool& b)
+	void Impl_MeshRenderer::SetDeferred(const bool& b)
 	{
 		m_deferred = b;
 	}
-	const bool& MeshRenderer::IsDeferred()
+	const bool& Impl_MeshRenderer::IsDeferred()
 	{
 		return m_deferred;
 	}
-	void MeshRenderer::Update(float dt)
+	void Impl_MeshRenderer::Update(float dt)
 	{
 	}
 	
-	bool MeshRenderer::OnAttach()
+	bool Impl_MeshRenderer::OnAttach()
 	{
 		MeshDataPtr pMD = std::dynamic_pointer_cast<MeshData>(m_pObject->GetComponent("MeshData"));
 
@@ -53,19 +56,19 @@ namespace ld3d
 
 		
 
-		RegisterProperty<bool, MeshRenderer>(this,
+		RegisterProperty<bool, Impl_MeshRenderer>(this,
 			"Deferred", 
-			&MeshRenderer::IsDeferred,
-			&MeshRenderer::SetDeferred);
+			&Impl_MeshRenderer::IsDeferred,
+			&Impl_MeshRenderer::SetDeferred);
 
 		
 
 
-		m_hFrustumCull = m_pManager->AddEventHandler(EV_FRUSTUM_CULL, boost::bind(&MeshRenderer::on_event_frustum_cull, this, _1));
+		m_hFrustumCull = m_pManager->AddEventHandler(EV_FRUSTUM_CULL, boost::bind(&Impl_MeshRenderer::on_event_frustum_cull, this, _1));
 
 		return true;
 	}
-	void MeshRenderer::OnDetach()
+	void Impl_MeshRenderer::OnDetach()
 	{
 		ClearPropertySet();
 		m_pManager->RemoveEventHandler(m_hFrustumCull);
@@ -79,7 +82,7 @@ namespace ld3d
 		}
 		m_Subsets.clear();
 	}
-	void MeshRenderer::on_event_frustum_cull(EventPtr pEvent)
+	void Impl_MeshRenderer::on_event_frustum_cull(EventPtr pEvent)
 	{
 		const math::Matrix44& world = m_pObject->GetWorldTransform();
 		for(size_t i = 0; i < m_Subsets.size(); ++i)
@@ -88,7 +91,7 @@ namespace ld3d
 			m_pRenderManager->AddRenderData(m_Subsets[i]);
 		}
 	}
-	void MeshRenderer::Reset(MeshDataPtr pMD)
+	void Impl_MeshRenderer::Reset(MeshDataPtr pMD)
 	{
 		if(pMD == NULL)
 		{

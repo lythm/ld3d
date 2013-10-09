@@ -8,33 +8,14 @@
 namespace ld3d
 {
 
-	class _DLL_CLASS MeshRenderer : public GameObjectComponent
+	class MeshRenderer : public GameObjectComponent
 	{
 	public:
-		MeshRenderer(GameObjectManagerPtr pManager);
-		virtual ~MeshRenderer(void);
+		MeshRenderer(GameObjectManagerPtr pManager) : GameObjectComponent("MeshRenderer", pManager){}
+		virtual ~MeshRenderer(void){}
 
-		void													Update(float dt);
+		virtual const bool&												IsDeferred()										= 0;
+		virtual void													SetDeferred(const bool& b)							= 0;;
 
-		void													Reset(MeshDataPtr pMD);
-		const bool&												IsDeferred();
-		void													SetDeferred(const bool& b);
-
-		RenderManagerPtr										GetRenderManager(){return m_pRenderManager;}
-
-	private:
-		bool													OnAttach();
-		void													OnDetach();
-
-		void													on_event_frustum_cull(EventPtr pEvent);
-	private:
-
-		EventHandlerID											m_hFrustumCull;
-
-		RenderManagerPtr										m_pRenderManager;
-
-		std::vector<RenderDataPtr>								m_Subsets;
-		bool													m_deferred;
 	};
-
 }

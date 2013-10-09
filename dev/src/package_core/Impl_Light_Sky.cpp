@@ -1,5 +1,6 @@
 #include "core_ext_pch.h"
-#include "packages/core/Light_Sky.h"
+#include "Impl_Light_Sky.h"
+
 
 #include "core/SkyLight.h"
 
@@ -7,16 +8,16 @@
 namespace ld3d
 {
 
-	Light_Sky::Light_Sky(GameObjectManagerPtr pManager) : GameObjectComponent("SkyLight", pManager)
+	Impl_Light_Sky::Impl_Light_Sky(GameObjectManagerPtr pManager) : Light_Sky(pManager)
 	{
 		SetVersion(g_packageVersion);
 	}
 
 
-	Light_Sky::~Light_Sky(void)
+	Impl_Light_Sky::~Impl_Light_Sky(void)
 	{
 	}
-	void Light_Sky::Update(float dt)
+	void Impl_Light_Sky::Update(float dt)
 	{
 		if(m_pLight)
 		{
@@ -24,12 +25,12 @@ namespace ld3d
 		}
 	}
 
-	SkyLightPtr Light_Sky::GetLight()
+	SkyLightPtr Impl_Light_Sky::GetLight()
 	{
 		return m_pLight;
 	}
 	
-	bool Light_Sky::OnAttach()
+	bool Impl_Light_Sky::OnAttach()
 	{
 		m_pRenderManager = m_pManager->GetRenderManager();
 		m_pLight = m_pManager->alloc_object<SkyLight>();
@@ -68,14 +69,14 @@ namespace ld3d
 
 		return true;
 	}
-	void Light_Sky::OnDetach()
+	void Impl_Light_Sky::OnDetach()
 	{
 		ClearPropertySet();
 		m_pRenderManager->RemoveLight(m_pLight);
 		m_pLight->Release();
 		m_pLight.reset();
 	}
-	bool Light_Sky::OnSerialize(DataStream* pStream)
+	bool Impl_Light_Sky::OnSerialize(DataStream* pStream)
 	{
 		bool bEnabled = m_pLight->GetEnabled();
 		pStream->WriteBool(bEnabled);
@@ -92,7 +93,7 @@ namespace ld3d
 		return true;
 
 	}
-	bool Light_Sky::OnUnSerialize(DataStream* pStream, const Version& version)
+	bool Impl_Light_Sky::OnUnSerialize(DataStream* pStream, const Version& version)
 	{
 		if(version != GetVersion())
 		{

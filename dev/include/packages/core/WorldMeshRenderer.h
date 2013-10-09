@@ -8,8 +8,8 @@ namespace ld3d
 	class WorldMeshRenderer : public GameObjectComponent
 	{
 	public:
-		WorldMeshRenderer(GameObjectManagerPtr pManager);
-		virtual ~WorldMeshRenderer(void);
+		WorldMeshRenderer(GameObjectManagerPtr pManager):GameObjectComponent("WorldMeshRenderer", pManager){}
+		virtual ~WorldMeshRenderer(void){}
 
 	};
 

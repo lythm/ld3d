@@ -1,22 +1,21 @@
 #include "core_ext_pch.h"
-#include "packages/core/SoundEmitter.h"
-
+#include "Impl_SoundEmitter.h"
 
 
 namespace ld3d
 {
 
-	SoundEmitter::SoundEmitter(GameObjectManagerPtr pManager):GameObjectComponent("SoundEmitter", pManager)
+	Impl_SoundEmitter::Impl_SoundEmitter(GameObjectManagerPtr pManager):SoundEmitter(pManager)
 	{
 		m_bStreamed = false;
 		SetVersion(g_packageVersion);
 	}
 
 
-	SoundEmitter::~SoundEmitter(void)
+	Impl_SoundEmitter::~Impl_SoundEmitter(void)
 	{
 	}
-	void SoundEmitter::Update(float dt)
+	void Impl_SoundEmitter::Update(float dt)
 	{
 		if(m_pChannel)
 		{
@@ -24,16 +23,16 @@ namespace ld3d
 			m_pChannel->SetPosition(pos.x, pos.y, pos.z);
 		}
 	}
-	bool SoundEmitter::OnSerialize(DataStream* pStream)
+	bool Impl_SoundEmitter::OnSerialize(DataStream* pStream)
 	{
 		return true;
 	}
-	bool SoundEmitter::OnUnSerialize(DataStream* pStream, const Version& version )
+	bool Impl_SoundEmitter::OnUnSerialize(DataStream* pStream, const Version& version )
 	{
 		return true;
 	}
 	
-	bool SoundEmitter::OnAttach()
+	bool Impl_SoundEmitter::OnAttach()
 	{
 		boost::filesystem::path p = boost::filesystem::current_path();
 		//m_pChannel = m_pManager->GetSysSound()->Create3DStream("./assets/standard/music/1.mp3");
@@ -55,7 +54,7 @@ namespace ld3d
 		
 		return true;
 	}
-	void SoundEmitter::OnDetach()
+	void Impl_SoundEmitter::OnDetach()
 	{
 		ClearPropertySet();
 		if(m_pChannel)
@@ -69,11 +68,11 @@ namespace ld3d
 			m_pSound.reset();
 		}
 	}
-	const bool& SoundEmitter::GetStreamed()
+	const bool& Impl_SoundEmitter::GetStreamed()
 	{
 		return m_bStreamed;
 	}
-	void SoundEmitter::SetStreamed(const bool& streamed)
+	void Impl_SoundEmitter::SetStreamed(const bool& streamed)
 	{
 		m_bStreamed = streamed;
 	}

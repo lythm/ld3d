@@ -1,21 +1,24 @@
 #include "core_ext_pch.h"
+#include "Impl_Light_Spot.h"
+
+#include "core_ext_pch.h"
 #include "packages/core/Light_Spot.h"
 #include "core/SpotLight.h"
 #include "CorePackage.h"
 
 namespace ld3d
 {
-	Light_Spot::Light_Spot(GameObjectManagerPtr pManager) : GameObjectComponent("SpotLight", pManager)
+	Impl_Light_Spot::Impl_Light_Spot(GameObjectManagerPtr pManager) : Light_Spot(pManager)
 	{
 		SetVersion(g_packageVersion);
 	}
 
 
-	Light_Spot::~Light_Spot(void)
+	Impl_Light_Spot::~Impl_Light_Spot(void)
 	{
 	}
 	
-	void Light_Spot::Update(float dt)
+	void Impl_Light_Spot::Update(float dt)
 	{
 		if(m_pLight)
 		{
@@ -23,13 +26,13 @@ namespace ld3d
 		}
 	}
 	
-	SpotLightPtr Light_Spot::GetLight()
+	SpotLightPtr Impl_Light_Spot::GetLight()
 	{
 		return m_pLight;
 	}
 	
 
-	bool Light_Spot::OnAttach()
+	bool Impl_Light_Spot::OnAttach()
 	{
 		m_pRenderManager = m_pManager->GetRenderManager();
 		m_pLight = m_pManager->alloc_object<SpotLight>();
@@ -68,14 +71,14 @@ namespace ld3d
 	
 		return true;
 	}
-	void Light_Spot::OnDetach()
+	void Impl_Light_Spot::OnDetach()
 	{
 		ClearPropertySet();
 		m_pRenderManager->RemoveLight(m_pLight);
 		m_pLight->Release();
 		m_pLight.reset();
 	}
-	bool Light_Spot::OnSerialize(DataStream* pStream)
+	bool Impl_Light_Spot::OnSerialize(DataStream* pStream)
 	{
 		bool bEnabled = m_pLight->GetEnabled();
 		pStream->WriteBool(bEnabled);
@@ -98,7 +101,7 @@ namespace ld3d
 		return true;
 
 	}
-	bool Light_Spot::OnUnSerialize(DataStream* pStream, const Version& version)
+	bool Impl_Light_Spot::OnUnSerialize(DataStream* pStream, const Version& version)
 	{
 		if(version != GetVersion())
 		{

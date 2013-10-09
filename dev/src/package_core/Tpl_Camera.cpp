@@ -1,8 +1,10 @@
 #include "core_ext_pch.h"
 #include "Tpl_Camera.h"
-#include "packages/core/CameraData.h"
 
-#include "packages/core/CameraController_Orbit.h"
+
+#include "Impl_CameraData.h"
+
+#include "Impl_CameraController_Orbit.h"
 
 namespace ld3d
 {
@@ -18,11 +20,11 @@ namespace ld3d
 	{
 		GameObjectPtr pObj = m_pManager->CreateGameObject("Camera");
 		
-		CameraDataPtr pMD = std::dynamic_pointer_cast<CameraData>(m_pManager->CreateComponent("Camera"));
+		CameraDataPtr pMD = std::dynamic_pointer_cast<Impl_CameraData>(m_pManager->CreateComponent("Camera"));
 	
 		pObj->AddComponent(pMD);
 
-		CameraController_OrbitPtr pController = std::dynamic_pointer_cast<CameraController_Orbit>(m_pManager->CreateComponent("CameraOrbitController"));
+		CameraController_OrbitPtr pController = std::dynamic_pointer_cast<Impl_CameraController_Orbit>(m_pManager->CreateComponent("CameraOrbitController"));
 
 		pObj->AddComponent(pController);
 

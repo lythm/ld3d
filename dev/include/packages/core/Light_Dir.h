@@ -2,23 +2,13 @@
 
 namespace ld3d
 {
-	class _DLL_CLASS Light_Dir : public GameObjectComponent
+	class Light_Dir : public GameObjectComponent
 	{
 	public:
-		Light_Dir(GameObjectManagerPtr pManager);
-		virtual ~Light_Dir(void);
+		Light_Dir(GameObjectManagerPtr pManager) : GameObjectComponent("DirectionalLight", pManager){}
+		virtual ~Light_Dir(void){}
 
-		void										Update(float dt);
-		DirectionalLightPtr							GetLight();
+		virtual DirectionalLightPtr					GetLight()												= 0;
 
-		bool										OnSerialize(DataStream* pStream);
-		bool										OnUnSerialize(DataStream* pStream, const Version& version );
-
-	private:
-		bool										OnAttach();
-		void										OnDetach();
-	private:
-		RenderManagerPtr								m_pRenderManager;
-		DirectionalLightPtr							m_pLight;
 	};
 }

@@ -1,7 +1,9 @@
 #include "core_ext_pch.h"
-#include "packages/core/MeshData.h"
+#include "Impl_MeshData.h"
+
+#include "Impl_MeshRenderer.h"
 #include "core/Mesh.h"
-#include "packages/core/MeshRenderer.h"
+
 #include "core/GameObject.h"
 #include "core/MeshUtil.h"
 #include "core/RenderManager.h"
@@ -12,26 +14,26 @@
 namespace ld3d
 {
 
-	MeshData::MeshData(GameObjectManagerPtr pManager) : GameObjectComponent("MeshData", pManager)
+	Impl_MeshData::Impl_MeshData(GameObjectManagerPtr pManager) : MeshData(pManager)
 	{
 		m_pMesh = MeshPtr();
 		SetVersion(g_packageVersion);
 	}
 
 
-	MeshData::~MeshData(void)
+	Impl_MeshData::~Impl_MeshData(void)
 	{
 
 	}
 	
-	void MeshData::Update(float dt)
+	void Impl_MeshData::Update(float dt)
 	{
 		if(m_pMesh)
 		{
 			m_pMesh->Update();
 		}
 	}
-	void MeshData::OnDetach()
+	void Impl_MeshData::OnDetach()
 	{
 		ClearPropertySet();
 		if(m_pMesh)
@@ -40,11 +42,11 @@ namespace ld3d
 		}
 
 	}
-	MeshPtr	MeshData::GetMesh()
+	MeshPtr	Impl_MeshData::GetMesh()
 	{
 		return m_pMesh;
 	}
-	void MeshData::SetMesh(MeshPtr pMesh)
+	void Impl_MeshData::SetMesh(MeshPtr pMesh)
 	{
 		if(m_pMesh)
 		{
@@ -55,33 +57,33 @@ namespace ld3d
 
 		ResetMeshRenderer();
 	}
-	void MeshData::ResetMeshRenderer()
+	void Impl_MeshData::ResetMeshRenderer()
 	{
 		if(m_pObject == NULL)
 		{
 			return;
 		}
-		MeshRendererPtr pMR = std::dynamic_pointer_cast<MeshRenderer>(m_pObject->GetComponent("MeshRenderer"));
+		std::shared_ptr<Impl_MeshRenderer> pMR = std::dynamic_pointer_cast<Impl_MeshRenderer>(m_pObject->GetComponent("MeshRenderer"));
 		if(pMR)
 		{
-			pMR->Reset(std::dynamic_pointer_cast<MeshData>(shared_from_this()));
+			pMR->Reset(std::dynamic_pointer_cast<Impl_MeshData>(shared_from_this()));
 		}
 	}
-	bool MeshData::OnAttach()
+	bool Impl_MeshData::OnAttach()
 	{
 		ResetMeshRenderer();
 
 		
-		RegisterProperty<std::string, MeshData>(this,
+		RegisterProperty<std::string, Impl_MeshData>(this,
 			"MeshAsset", 
-			&MeshData::GetMeshAsset,
-			&MeshData::SetMeshAsset);
+			&Impl_MeshData::GetMeshAsset,
+			&Impl_MeshData::SetMeshAsset);
 
 		
 
 		return true;
 	}
-	bool MeshData::SetMeshAsset(const std::string& asset)
+	bool Impl_MeshData::SetMeshAsset(const std::string& asset)
 	{
 		m_meshAsset = asset;
 	
@@ -145,22 +147,22 @@ namespace ld3d
 
 		return true;
 	}
-	const std::string& MeshData::GetMeshAsset()
+	const std::string& Impl_MeshData::GetMeshAsset()
 	{
 		return m_meshAsset;
 	}
 
-	bool MeshData::LoadMesh(const std::string& asset)
+	bool Impl_MeshData::LoadMesh(const std::string& asset)
 	{
 		return true;
 	}
 
-	bool MeshData::OnSerialize(DataStream* pStream)
+	bool Impl_MeshData::OnSerialize(DataStream* pStream)
 	{
 		pStream->WriteString(m_meshAsset);
 		return true;
 	}
-	bool MeshData::OnUnSerialize(DataStream* pStream, const Version& version)
+	bool Impl_MeshData::OnUnSerialize(DataStream* pStream, const Version& version)
 	{
 		if(version != GetVersion())
 		{

@@ -1,5 +1,7 @@
 #include "core_ext_pch.h"
-#include "packages/core/Light_Dir.h"
+#include "Impl_Light_Dir.h"
+
+
 #include "core/DirectionalLight.h"
 #include "core/RenderManager.h"
 #include "core/GameObject.h"
@@ -7,17 +9,17 @@
 
 namespace ld3d
 {
-	Light_Dir::Light_Dir(GameObjectManagerPtr pManager) : GameObjectComponent("DirectionalLight", pManager)
+	Impl_Light_Dir::Impl_Light_Dir(GameObjectManagerPtr pManager) : Light_Dir(pManager)
 	{
 		SetVersion(g_packageVersion);
 	}
 
 
-	Light_Dir::~Light_Dir(void)
+	Impl_Light_Dir::~Impl_Light_Dir(void)
 	{
 	}
 	
-	void Light_Dir::Update(float dt)
+	void Impl_Light_Dir::Update(float dt)
 	{
 		if(m_pLight)
 		{
@@ -25,11 +27,11 @@ namespace ld3d
 		}
 	}
 	
-	DirectionalLightPtr Light_Dir::GetLight()
+	DirectionalLightPtr Impl_Light_Dir::GetLight()
 	{
 		return m_pLight;
 	}
-	bool Light_Dir::OnAttach()
+	bool Impl_Light_Dir::OnAttach()
 	{
 		m_pRenderManager = m_pManager->GetRenderManager();
 
@@ -61,14 +63,14 @@ namespace ld3d
 
 		return true;
 	}
-	void Light_Dir::OnDetach()
+	void Impl_Light_Dir::OnDetach()
 	{
 		ClearPropertySet();
 		m_pRenderManager->RemoveLight(m_pLight);
 		m_pLight->Release();
 		m_pLight.reset();
 	}
-	bool Light_Dir::OnSerialize(DataStream* pStream)
+	bool Impl_Light_Dir::OnSerialize(DataStream* pStream)
 	{
 		bool bEnabled = m_pLight->GetEnabled();
 		pStream->WriteBool(bEnabled);
@@ -85,7 +87,7 @@ namespace ld3d
 		return true;
 
 	}
-	bool Light_Dir::OnUnSerialize(DataStream* pStream, const Version& version)
+	bool Impl_Light_Dir::OnUnSerialize(DataStream* pStream, const Version& version)
 	{
 		if(version != GetVersion())
 		{

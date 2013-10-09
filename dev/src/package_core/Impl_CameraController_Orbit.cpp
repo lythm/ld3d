@@ -1,33 +1,33 @@
 #include "core_ext_pch.h"
-#include "packages/core/CameraController_Orbit.h"
+#include "Impl_CameraController_Orbit.h"
 
 namespace ld3d
 {
-	CameraController_Orbit::CameraController_Orbit(GameObjectManagerPtr pManager) : GameObjectComponent("CameraOrbitController", pManager)
+	Impl_CameraController_Orbit::Impl_CameraController_Orbit(GameObjectManagerPtr pManager) : CameraController_Orbit(pManager)
 	{
 	}
 
 
-	CameraController_Orbit::~CameraController_Orbit(void)
+	Impl_CameraController_Orbit::~Impl_CameraController_Orbit(void)
 	{
 	}
-	void CameraController_Orbit::Update(float dt)
+	void Impl_CameraController_Orbit::Update(float dt)
 	{
 	}
-	bool CameraController_Orbit::OnAttach()
+	bool Impl_CameraController_Orbit::OnAttach()
 	{
-		m_wheelId = m_pManager->AddEventHandler(EV_MOUSE_WHEEL, boost::bind(&CameraController_Orbit::_on_mouse_wheel, this, _1));
-		m_moveId = m_pManager->AddEventHandler(EV_MOUSE_MOVE, boost::bind(&CameraController_Orbit::_on_mouse_move, this, _1));
+		m_wheelId = m_pManager->AddEventHandler(EV_MOUSE_WHEEL, boost::bind(&Impl_CameraController_Orbit::_on_mouse_wheel, this, _1));
+		m_moveId = m_pManager->AddEventHandler(EV_MOUSE_MOVE, boost::bind(&Impl_CameraController_Orbit::_on_mouse_move, this, _1));
 
 		return true;
 	}
-	void CameraController_Orbit::OnDetach()
+	void Impl_CameraController_Orbit::OnDetach()
 	{
 		m_pManager->RemoveEventHandler(m_wheelId);
 		m_pManager->RemoveEventHandler(m_moveId);
 	}
 
-	void CameraController_Orbit::_on_mouse_move(ld3d::EventPtr pEvent)
+	void Impl_CameraController_Orbit::_on_mouse_move(ld3d::EventPtr pEvent)
 	{
 		using namespace ld3d;
 		using namespace math;
@@ -64,7 +64,7 @@ namespace ld3d
 
 	}
 
-	void CameraController_Orbit::_on_mouse_wheel(ld3d::EventPtr pEvent)
+	void Impl_CameraController_Orbit::_on_mouse_wheel(ld3d::EventPtr pEvent)
 	{
 		using namespace ld3d;
 		using namespace math;

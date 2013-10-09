@@ -1,26 +1,15 @@
-
 #pragma once
 
 
 namespace ld3d
 {
-	class _DLL_CLASS Light_Point : public GameObjectComponent
+	class Light_Point : public GameObjectComponent
 	{
 	public:
-		Light_Point(GameObjectManagerPtr pManager);
-		virtual ~Light_Point(void);
+		Light_Point(GameObjectManagerPtr pManager) : GameObjectComponent("PointLight", pManager){}
+		virtual ~Light_Point(void){}
+		virtual PointLightPtr						GetLight()						= 0;
 
-		void										Update(float dt);
-		PointLightPtr								GetLight();
-
-		bool										OnSerialize(DataStream* pStream);
-		bool										OnUnSerialize(DataStream* pStream, const Version& version );
-	private:
-		bool										OnAttach();
-		void										OnDetach();
-	private:
-		RenderManagerPtr								m_pRenderManager;
-		PointLightPtr								m_pLight;
 	};
 
 }

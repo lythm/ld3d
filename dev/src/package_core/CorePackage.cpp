@@ -1,20 +1,23 @@
 #include "core_ext_pch.h"
 #include "CorePackage.h"
-#include "packages/core/MeshData.h"
-#include "packages/core/MeshRenderer.h"
+
+
 #include "packages/core/WorldMeshRenderer.h"
-#include "packages/core/Light_Dir.h"
-#include "packages/core/Light_Point.h"
-#include "packages/core/Light_Spot.h"
-#include "packages/core/Light_Sky.h"
-#include "packages/core/SkyBox.h"
-#include "packages/core/CameraData.h"
-#include "packages/core/Sky.h"
-#include "packages/core/PostEffectList.h"
-#include "packages/core/LuaBehavior.h"
-#include "packages/core/SoundEmitter.h"
-#include "packages/core/SoundListener.h"
-#include "packages/core/CameraController_Orbit.h"
+
+
+
+#include "Impl_SoundEmitter.h"
+#include "Impl_SoundListener.h"
+#include "Impl_SkyBox.h"
+#include "Impl_MeshRenderer.h"
+#include "Impl_MeshData.h"
+#include "Impl_LuaBehavior.h"
+#include "Impl_Light_Spot.h"
+#include "Impl_Light_Sky.h"
+#include "Impl_Light_Point.h"
+#include "Impl_Light_Dir.h"
+#include "Impl_CameraData.h"
+#include "Impl_CameraController_Orbit.h"
 
 
 
@@ -90,12 +93,12 @@ namespace ld3d
 		m_classes.push_back(ComponentClass("MeshData",
 					"Mesh",
 					"Mesh Data",
-					&Create_Component<MeshData>));
+					&Create_Component<Impl_MeshData>));
 
 		m_classes.push_back(ComponentClass("MeshRenderer",
 					"Mesh",
 					"Mesh Renderer",
-					&Create_Component<MeshRenderer>));
+					&Create_Component<Impl_MeshRenderer>));
 
 		
 		/*m_classes.push_back(ComponentClass("WorldMeshRenderer",
@@ -107,64 +110,54 @@ namespace ld3d
 		m_classes.push_back(ComponentClass("DirectionalLight",
 					"Light",
 					"Directional Light",
-					&Create_Component<Light_Dir>));
+					&Create_Component<Impl_Light_Dir>));
 
 		m_classes.push_back(ComponentClass("PointLight",
 					"Light",
 					"Point Light",
-					&Create_Component<Light_Point>));
+					&Create_Component<Impl_Light_Point>));
 
 		m_classes.push_back(ComponentClass("SpotLight",
 					"Light",
 					"Spot Light",
-					&Create_Component<Light_Spot>));
+					&Create_Component<Impl_Light_Spot>));
 
 		m_classes.push_back(ComponentClass("SkyLight",
 					"Light",
 					"Sky Light",
-					&Create_Component<Light_Sky>));
+					&Create_Component<Impl_Light_Sky>));
 
 		m_classes.push_back(ComponentClass("SkyBox",
 					"Sky",
 					"SkyBox",
-					&Create_Component<SkyBox>));
+					&Create_Component<Impl_SkyBox>));
 
 		m_classes.push_back(ComponentClass("Camera",
 					"Camera",
 					"Camera",
-					&Create_Component<CameraData>));
+					&Create_Component<Impl_CameraData>));
 
 		m_classes.push_back(ComponentClass("CameraOrbitController",
 					"Camera",
 					"Camera",
-					&Create_Component<CameraController_Orbit>));
+					&Create_Component<Impl_CameraController_Orbit>));
 
 		
-
-		m_classes.push_back(ComponentClass("Sky",
-					"Rendering",
-					"Sky",
-					&Create_Component<Sky>));
-
-		m_classes.push_back(ComponentClass("PostEffectList",
-					"Camera",
-					"PostEffectList",
-					&Create_Component<PostEffectList>));
 
 		m_classes.push_back(ComponentClass("LuaBehavior",
 					"Script",
 					"Lua script Behavior",
-					&Create_Component<LuaBehavior>));
+					&Create_Component<Impl_LuaBehavior>));
 
 		m_classes.push_back(ComponentClass("SoundEmitter",
 					"Sound",
 					"Sound Emitter",
-					&Create_Component<SoundEmitter>));
+					&Create_Component<Impl_SoundEmitter>));
 
 		m_classes.push_back(ComponentClass("SoundListener",
 					"Sound",
 					"Sound Listener",
-					&Create_Component<SoundListener>));
+					&Create_Component<Impl_SoundListener>));
 
 	}
 

@@ -4,33 +4,17 @@
 
 namespace ld3d
 {
-	class _DLL_CLASS MeshData : public GameObjectComponent
+	class MeshData : public GameObjectComponent
 	{
 	public:
-		MeshData(GameObjectManagerPtr pManager);
-		virtual ~MeshData(void);
+		MeshData(GameObjectManagerPtr pManager) : GameObjectComponent("MeshData", pManager){}
+		virtual ~MeshData(void){}
 
+		virtual MeshPtr						GetMesh()												= 0;
+		virtual void						SetMesh(MeshPtr pMesh)									= 0;
+		
+		virtual bool						SetMeshAsset(const std::string& asset)					= 0;
+		virtual const std::string&			GetMeshAsset()											= 0;
 
-		void						Update(float dt);
-		MeshPtr						GetMesh();
-		void						SetMesh(MeshPtr pMesh);
-		bool						OnAttach();
-		void						OnDetach();
-
-		bool						SetMeshAsset(const std::string& asset);
-		const std::string&			GetMeshAsset();
-
-
-		bool						OnSerialize(DataStream* pStream);
-		bool						OnUnSerialize(DataStream* pStream, const Version& version );
-
-
-	private:
-		bool						LoadMesh(const std::string& asset);
-		void						ResetMeshRenderer();
-	private:
-		MeshPtr						m_pMesh;
-
-		std::string				m_meshAsset;
 	};
 }

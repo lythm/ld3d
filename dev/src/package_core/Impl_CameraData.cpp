@@ -1,19 +1,20 @@
 #include "core_ext_pch.h"
-#include "packages/core/CameraData.h"
+#include "Impl_CameraData.h"
+
 
 namespace ld3d
 {
-	CameraData::CameraData(GameObjectManagerPtr pManager) : GameObjectComponent("Camera", pManager)
+	Impl_CameraData::Impl_CameraData(GameObjectManagerPtr pManager) : CameraData(pManager)
 	{
 		SetVersion(g_packageVersion);
 	}
 
 
-	CameraData::~CameraData(void)
+	Impl_CameraData::~Impl_CameraData(void)
 	{
 	}
 	
-	bool CameraData::OnAttach()
+	bool Impl_CameraData::OnAttach()
 	{
 		m_pCamera = m_pManager->alloc_object<Camera>();
 
@@ -29,19 +30,19 @@ namespace ld3d
 
 		return true;
 	}
-	void CameraData::OnDetach()
+	void Impl_CameraData::OnDetach()
 	{
 		ClearPropertySet();
 		m_pManager->GetRenderManager()->RemoveCamera(m_pCamera);
 		m_pCamera.reset();
 	}
-	bool CameraData::OnSerialize(DataStream* pStream)
+	bool Impl_CameraData::OnSerialize(DataStream* pStream)
 	{
 		int order = m_pCamera->GetOrder();
 		pStream->WriteInt32(order);
 		return true;
 	}
-	bool CameraData::OnUnSerialize(DataStream* pStream, const Version& version)
+	bool Impl_CameraData::OnUnSerialize(DataStream* pStream, const Version& version)
 	{
 		if(version != g_packageVersion)
 		{
@@ -51,7 +52,7 @@ namespace ld3d
 		m_pCamera->SetOrder(order);
 		return true;
 	}
-	void CameraData::Update(float dt)
+	void Impl_CameraData::Update(float dt)
 	{
 		math::Matrix44 mat = m_pObject->GetWorldTransform();
 
@@ -59,7 +60,7 @@ namespace ld3d
 
 		m_pCamera->SetViewMatrix(mat);
 	}
-	CameraPtr CameraData::GetCamera()
+	CameraPtr Impl_CameraData::GetCamera()
 	{
 		return m_pCamera;
 	}

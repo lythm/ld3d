@@ -2,25 +2,14 @@
 
 namespace ld3d
 {
-	class _DLL_CLASS Light_Sky : public GameObjectComponent
+	class Light_Sky : public GameObjectComponent
 	{
 	public:
-		Light_Sky(GameObjectManagerPtr pManager);
-		virtual ~Light_Sky(void);
+		Light_Sky(GameObjectManagerPtr pManager) : GameObjectComponent("SkyLight", pManager){}
+		virtual ~Light_Sky(void){}
 
-		void										Update(float dt);
-		SkyLightPtr									GetLight();
+		virtual SkyLightPtr									GetLight()						= 0;
 
-
-		bool										OnSerialize(DataStream* pStream);
-		bool										OnUnSerialize(DataStream* pStream, const Version& version );
-
-	private:
-		bool										OnAttach();
-		void										OnDetach();
-	private:
-		RenderManagerPtr							m_pRenderManager;
-		SkyLightPtr									m_pLight;
 	};
 
 
