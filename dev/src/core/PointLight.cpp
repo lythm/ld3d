@@ -23,7 +23,7 @@ namespace ld3d
 	PointLight::~PointLight(void)
 	{
 	}
-	float PointLight::GetRadius()
+	const float& PointLight::GetRadius()
 	{
 		return m_radius;
 	}
@@ -32,7 +32,7 @@ namespace ld3d
 		m_radius = r;
 	}
 
-	float PointLight::GetFallout()
+	const float& PointLight::GetFallout()
 	{
 		return m_fallout;
 	}

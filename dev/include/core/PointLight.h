@@ -12,10 +12,10 @@ namespace ld3d
 
 		bool					Create(RenderManagerPtr pRenderManager);
 
-		float					GetRadius();
+		const float&			GetRadius();
 		void					SetRadius(float r);
 
-		float					GetFallout();
+		const float&			GetFallout();
 		void					SetFallout(float f);
 
 		const math::Matrix44&	GetWorldTM();

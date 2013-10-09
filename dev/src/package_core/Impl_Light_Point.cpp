@@ -49,7 +49,7 @@ namespace ld3d
 										"Cast Shadow", 
 										&PointLight::GetCastShadow,
 										&PointLight::SetCastShadow);
-
+		 
 		RegisterProperty<math::Color4, PointLight>(m_pLight.get(), 
 										"Diffuse Color", 
 										&PointLight::GetDiffuseColor,
