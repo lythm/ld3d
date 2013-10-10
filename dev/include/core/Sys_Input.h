@@ -16,6 +16,7 @@ namespace ld3d
 		virtual void												Release()															= 0;
 		virtual void												Update()															= 0;
 
+		virtual void												ShowCursor(bool bShow)												= 0;
 		
 		virtual const KeyState&										GetKeyState()														= 0;
 		virtual const MouseState&									GetMouseState()														= 0;

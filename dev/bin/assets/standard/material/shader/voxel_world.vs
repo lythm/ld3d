@@ -13,7 +13,7 @@ smooth out vec4 f_color;
 
 void main()
 {
-	gl_Position = vec4(pos, 1) * MATRIX_WVP;
-	v_normal = (vec4(normal, 0) * MATRIX_WV).xyz;
+	gl_Position = vec4(pos.xyz, 1) * MATRIX_WVP;
+	v_normal = (vec4(normal.xyz, 0) * MATRIX_WV).xyz;
 	f_color = clr;
 }

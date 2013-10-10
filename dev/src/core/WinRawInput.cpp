@@ -202,4 +202,8 @@ namespace ld3d
 		_emit_event(m_pKeyStateEvent);
 
 	}
+	void WinRawInput::ShowCursor(bool bShow)
+	{
+		::ShowCursor(bShow ? TRUE : FALSE);
+	}
 }

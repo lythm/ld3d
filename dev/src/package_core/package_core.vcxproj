@@ -162,6 +162,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\packages\core\Behavior.h" />
+    <ClInclude Include="..\..\include\packages\core\CameraController_FirstPerson.h" />
     <ClInclude Include="..\..\include\packages\core\CameraController_Orbit.h" />
     <ClInclude Include="..\..\include\packages\core\CameraData.h" />
     <ClInclude Include="..\..\include\packages\core\core_ext_all.h" />
@@ -179,6 +180,7 @@
     <ClInclude Include="..\..\include\packages\core\SoundListener.h" />
     <ClInclude Include="..\..\include\packages\core\WorldMeshRenderer.h" />
     <ClInclude Include="Impl_Behavior.h" />
+    <ClInclude Include="Impl_CameraController_FirstPerson.h" />
     <ClInclude Include="Impl_CameraController_Orbit.h" />
     <ClInclude Include="Impl_CameraData.h" />
     <ClInclude Include="Impl_Light_Dir.h" />
@@ -207,6 +209,7 @@
   <ItemGroup>
     <ClCompile Include="CameraController_ArcBall.cpp" />
     <ClCompile Include="Impl_Behavior.cpp" />
+    <ClCompile Include="Impl_CameraController_FirstPerson.cpp" />
     <ClCompile Include="Impl_CameraController_Orbit.cpp" />
     <ClCompile Include="Impl_CameraData.cpp" />
     <ClCompile Include="Impl_Light_Dir.cpp" />

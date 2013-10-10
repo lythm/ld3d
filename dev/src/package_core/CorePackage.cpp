@@ -18,6 +18,7 @@
 #include "Impl_Light_Dir.h"
 #include "Impl_CameraData.h"
 #include "Impl_CameraController_Orbit.h"
+#include "Impl_CameraController_FirstPerson.h"
 
 
 
@@ -141,6 +142,11 @@ namespace ld3d
 					"Camera",
 					"Camera",
 					&Create_Component<Impl_CameraController_Orbit>));
+
+		m_classes.push_back(ComponentClass("CameraFirstPersonController",
+					"Camera",
+					"Camera",
+					&Create_Component<Impl_CameraController_FirstPerson>));
 
 		
 

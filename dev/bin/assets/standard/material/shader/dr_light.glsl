@@ -64,7 +64,7 @@ LightResult dr_light_dir(vec3 n, DirectionalLight light, mat4 wv)
 	
 	LightResult ret;
 	ret.diffuse		= il * light.clr;
-	ret.specular	= s * light.clr;
+	ret.specular	= s * light.clr * 0;
 	
 	return ret;
 }

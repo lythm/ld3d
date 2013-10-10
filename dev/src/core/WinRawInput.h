@@ -20,6 +20,7 @@ namespace ld3d
 
 		void												HandleMessage(MSG& msg);
 
+		void												ShowCursor(bool bShow);
 
 	private:
 		bool												RegisterDevices();
