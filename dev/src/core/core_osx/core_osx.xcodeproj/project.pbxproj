@@ -33,7 +33,6 @@
 		07AF18DF17C5F5830053C45D /* Material.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07AF18A617C5F5830053C45D /* Material.cpp */; };
 		07AF18E017C5F5830053C45D /* MaterialBaseParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07AF18A717C5F5830053C45D /* MaterialBaseParser.cpp */; };
 		07AF18E117C5F5830053C45D /* MaterialCompiler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07AF18A817C5F5830053C45D /* MaterialCompiler.cpp */; };
-		07AF18E217C5F5830053C45D /* MaterialLexer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07AF18A917C5F5830053C45D /* MaterialLexer.cpp */; };
 		07AF18E317C5F5830053C45D /* MaterialParameter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07AF18AA17C5F5830053C45D /* MaterialParameter.cpp */; };
 		07AF18E417C5F5830053C45D /* MaterialParameterManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07AF18AB17C5F5830053C45D /* MaterialParameterManager.cpp */; };
 		07AF18E517C5F5830053C45D /* MaterialParameterManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 07AF18AC17C5F5830053C45D /* MaterialParameterManager.h */; };
@@ -99,7 +98,6 @@
 		07AF18A617C5F5830053C45D /* Material.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Material.cpp; path = ../Material.cpp; sourceTree = "<group>"; };
 		07AF18A717C5F5830053C45D /* MaterialBaseParser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MaterialBaseParser.cpp; path = ../MaterialBaseParser.cpp; sourceTree = "<group>"; };
 		07AF18A817C5F5830053C45D /* MaterialCompiler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MaterialCompiler.cpp; path = ../MaterialCompiler.cpp; sourceTree = "<group>"; };
-		07AF18A917C5F5830053C45D /* MaterialLexer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MaterialLexer.cpp; path = ../MaterialLexer.cpp; sourceTree = "<group>"; };
 		07AF18AA17C5F5830053C45D /* MaterialParameter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MaterialParameter.cpp; path = ../MaterialParameter.cpp; sourceTree = "<group>"; };
 		07AF18AB17C5F5830053C45D /* MaterialParameterManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MaterialParameterManager.cpp; path = ../MaterialParameterManager.cpp; sourceTree = "<group>"; };
 		07AF18AC17C5F5830053C45D /* MaterialParameterManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MaterialParameterManager.h; path = ../MaterialParameterManager.h; sourceTree = "<group>"; };
@@ -172,7 +170,6 @@
 				07AF18A617C5F5830053C45D /* Material.cpp */,
 				07AF18A717C5F5830053C45D /* MaterialBaseParser.cpp */,
 				07AF18A817C5F5830053C45D /* MaterialCompiler.cpp */,
-				07AF18A917C5F5830053C45D /* MaterialLexer.cpp */,
 				07AF18AA17C5F5830053C45D /* MaterialParameter.cpp */,
 				07AF18AB17C5F5830053C45D /* MaterialParameterManager.cpp */,
 				07AF18AC17C5F5830053C45D /* MaterialParameterManager.h */,
@@ -315,7 +312,6 @@
 				07AF18DF17C5F5830053C45D /* Material.cpp in Sources */,
 				07AF18E017C5F5830053C45D /* MaterialBaseParser.cpp in Sources */,
 				07AF18E117C5F5830053C45D /* MaterialCompiler.cpp in Sources */,
-				07AF18E217C5F5830053C45D /* MaterialLexer.cpp in Sources */,
 				07AF18E317C5F5830053C45D /* MaterialParameter.cpp in Sources */,
 				07AF18E417C5F5830053C45D /* MaterialParameterManager.cpp in Sources */,
 				07AF18E617C5F5830053C45D /* MaterialParser.cpp in Sources */,

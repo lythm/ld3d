@@ -11,13 +11,11 @@
 		07284AC617C3A1AC0062CEF9 /* MiniDump.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07284ABA17C3A1AC0062CEF9 /* MiniDump.cpp */; };
 		07284AC717C3A1AC0062CEF9 /* PerlinNoise.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07284ABB17C3A1AC0062CEF9 /* PerlinNoise.cpp */; };
 		07284AC817C3A1AC0062CEF9 /* PropertySet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07284ABC17C3A1AC0062CEF9 /* PropertySet.cpp */; };
-		07284AC917C3A1AC0062CEF9 /* tinystr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07284ABD17C3A1AC0062CEF9 /* tinystr.cpp */; };
-		07284ACA17C3A1AC0062CEF9 /* tinyxml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07284ABE17C3A1AC0062CEF9 /* tinyxml.cpp */; };
-		07284ACB17C3A1AC0062CEF9 /* tinyxmlerror.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07284ABF17C3A1AC0062CEF9 /* tinyxmlerror.cpp */; };
-		07284ACC17C3A1AC0062CEF9 /* tinyxmlparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07284AC017C3A1AC0062CEF9 /* tinyxmlparser.cpp */; };
 		07284ACE17C3A1AC0062CEF9 /* utils_pch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07284AC217C3A1AC0062CEF9 /* utils_pch.cpp */; };
 		07284ACF17C3A1AC0062CEF9 /* utils_pch.h in Headers */ = {isa = PBXBuildFile; fileRef = 07284AC317C3A1AC0062CEF9 /* utils_pch.h */; };
 		07284AD017C3A1AC0062CEF9 /* Version.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07284AC417C3A1AC0062CEF9 /* Version.cpp */; };
+		074D417118093C13007B0AD9 /* Config.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 074D416F18093C13007B0AD9 /* Config.cpp */; };
+		074D417218093C13007B0AD9 /* Lexer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 074D417018093C13007B0AD9 /* Lexer.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,13 +24,11 @@
 		07284ABA17C3A1AC0062CEF9 /* MiniDump.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MiniDump.cpp; path = ../MiniDump.cpp; sourceTree = "<group>"; };
 		07284ABB17C3A1AC0062CEF9 /* PerlinNoise.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PerlinNoise.cpp; path = ../PerlinNoise.cpp; sourceTree = "<group>"; };
 		07284ABC17C3A1AC0062CEF9 /* PropertySet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PropertySet.cpp; path = ../PropertySet.cpp; sourceTree = "<group>"; };
-		07284ABD17C3A1AC0062CEF9 /* tinystr.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = tinystr.cpp; path = ../tinystr.cpp; sourceTree = "<group>"; };
-		07284ABE17C3A1AC0062CEF9 /* tinyxml.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = tinyxml.cpp; path = ../tinyxml.cpp; sourceTree = "<group>"; };
-		07284ABF17C3A1AC0062CEF9 /* tinyxmlerror.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = tinyxmlerror.cpp; path = ../tinyxmlerror.cpp; sourceTree = "<group>"; };
-		07284AC017C3A1AC0062CEF9 /* tinyxmlparser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = tinyxmlparser.cpp; path = ../tinyxmlparser.cpp; sourceTree = "<group>"; };
 		07284AC217C3A1AC0062CEF9 /* utils_pch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = utils_pch.cpp; path = ../utils_pch.cpp; sourceTree = "<group>"; };
 		07284AC317C3A1AC0062CEF9 /* utils_pch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = utils_pch.h; path = ../utils_pch.h; sourceTree = "<group>"; };
 		07284AC417C3A1AC0062CEF9 /* Version.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Version.cpp; path = ../Version.cpp; sourceTree = "<group>"; };
+		074D416F18093C13007B0AD9 /* Config.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Config.cpp; path = ../Config.cpp; sourceTree = "<group>"; };
+		074D417018093C13007B0AD9 /* Lexer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Lexer.cpp; path = ../Lexer.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,14 +45,12 @@
 		07284AA917C39D690062CEF9 = {
 			isa = PBXGroup;
 			children = (
+				074D416F18093C13007B0AD9 /* Config.cpp */,
+				074D417018093C13007B0AD9 /* Lexer.cpp */,
 				07284AB917C3A1AC0062CEF9 /* MemPool.cpp */,
 				07284ABA17C3A1AC0062CEF9 /* MiniDump.cpp */,
 				07284ABB17C3A1AC0062CEF9 /* PerlinNoise.cpp */,
 				07284ABC17C3A1AC0062CEF9 /* PropertySet.cpp */,
-				07284ABD17C3A1AC0062CEF9 /* tinystr.cpp */,
-				07284ABE17C3A1AC0062CEF9 /* tinyxml.cpp */,
-				07284ABF17C3A1AC0062CEF9 /* tinyxmlerror.cpp */,
-				07284AC017C3A1AC0062CEF9 /* tinyxmlparser.cpp */,
 				07284AC217C3A1AC0062CEF9 /* utils_pch.cpp */,
 				07284AC317C3A1AC0062CEF9 /* utils_pch.h */,
 				07284AC417C3A1AC0062CEF9 /* Version.cpp */,
@@ -136,14 +130,12 @@
 			files = (
 				07284AC517C3A1AC0062CEF9 /* MemPool.cpp in Sources */,
 				07284AC617C3A1AC0062CEF9 /* MiniDump.cpp in Sources */,
+				074D417218093C13007B0AD9 /* Lexer.cpp in Sources */,
 				07284AC717C3A1AC0062CEF9 /* PerlinNoise.cpp in Sources */,
 				07284AC817C3A1AC0062CEF9 /* PropertySet.cpp in Sources */,
-				07284AC917C3A1AC0062CEF9 /* tinystr.cpp in Sources */,
-				07284ACA17C3A1AC0062CEF9 /* tinyxml.cpp in Sources */,
-				07284ACB17C3A1AC0062CEF9 /* tinyxmlerror.cpp in Sources */,
-				07284ACC17C3A1AC0062CEF9 /* tinyxmlparser.cpp in Sources */,
 				07284ACE17C3A1AC0062CEF9 /* utils_pch.cpp in Sources */,
 				07284AD017C3A1AC0062CEF9 /* Version.cpp in Sources */,
+				074D417118093C13007B0AD9 /* Config.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
