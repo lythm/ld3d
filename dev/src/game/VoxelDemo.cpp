@@ -59,7 +59,7 @@ bool VoxelDemo::Init(ld3d::CoreApiPtr pCore)
 	//pLight->LookAt(math::Vector3(0, 0, 0));
 
 
-	m_pWorld = m_pCore->CreatGameObjectFromTemplate("VoxelWorld", "world");
+	/*m_pWorld = m_pCore->CreatGameObjectFromTemplate("VoxelWorld", "world");
 
 	VoxelWorldPtr pWorld = std::dynamic_pointer_cast<VoxelWorld>(m_pWorld->GetComponent("VoxelWorld"));
 	pWorld->SetWorldSizeX(100);
@@ -68,26 +68,30 @@ bool VoxelDemo::Init(ld3d::CoreApiPtr pCore)
 
 	VoxelWorldGeneratorPtr pGenerator = std::dynamic_pointer_cast<VoxelWorldGenerator>(m_pWorld->GetComponent("VoxelWorldGenerator"));
 
-	pGenerator->RebuildWorld();
+	pGenerator->RebuildWorld();*/
 
 	//m_pWorld->SetTranslation(-50, 0, -50);
-	GameObjectPtr pLight = m_pCore->CreatGameObjectFromTemplate("DirectionalLight", "light");
+	/*GameObjectPtr pLight = m_pCore->CreatGameObjectFromTemplate("DirectionalLight", "light");
 
 	pLight->SetTranslation(0, 5, 5);
-	pLight->LookAt(math::Vector3(0, 0, 0));
+	pLight->LookAt(math::Vector3(0, 0, 0));*/
 	
 	
-	/*for(int i = -3; i <= 3; ++i)
+	int count = 1;
+	for(int x = -count; x <= count; ++x)
 	{
-		if(i == 0)
+		for(int y = -count ; y <= count; ++y)
 		{
-			continue;
+			if(x == 0 && y == 0)
+			{
+				continue;
+			}
+			GameObjectPtr pLight = m_pCore->CreatGameObjectFromTemplate("PointLight", "pl");
+			pLight->SetTranslation(10 * x, 3, 10 * y);
 		}
-		GameObjectPtr pLight = m_pCore->CreatGameObjectFromTemplate("PointLight", "pl");
-		pLight->SetTranslation(10 * i, 3, 0);
 	}
 
-	for(int i = -3; i <= 3; ++i)
+	/*for(int i = -count; i <= count; ++i)
 	{
 		if(i == 0)
 		{

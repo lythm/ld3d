@@ -95,7 +95,7 @@ namespace ld3d
 
 		float speed = 5.0f;
 
-		float step = 5.0f * dt;
+		float step = speed * dt;
 
 		if(m_forward)
 		{
@@ -130,40 +130,26 @@ namespace ld3d
 		using namespace math;
 
 		Matrix44 local = m_pObject->GetLocalTransform();
+		Matrix44 parent = MatrixIdentity();
+		if(m_pObject->GetParent())
+		{
+			parent = m_pObject->GetParent()->GetWorldTransform();
+		}
+
 		Vector3 axis_x = local.GetRow3(0);
 		axis_x.Normalize();
-		Vector3 axis_y = local.GetRow3(1);
+		Vector3 axis_y = parent.GetRow3(1);
 		axis_y.Normalize();
-		Vector3 axis_z = local.GetRow3(2);
-		axis_z.Normalize();
-
+		
 		Vector3 pos = local.GetRow3(3);
 
-		float scale = 600.0f;
+		float dps = D2R(5);
+		float step = dps * dt;
 
-		float len = sqrt(m_dx * m_dx + m_dy * m_dy);
+		local.SetRow3(3, Vector3(0, 0, 0));
 
-		scale = scale < len * 2 ? len * 2 : scale;
-
-		Vector3 dir(m_dx / scale, -m_dy / scale, 0);
-
-		dir.z = sqrt(1 - dir.x * dir.x - dir.y * dir.y);
-
-		TransformNormal(dir, local);
-
-		dir.Normalize();
-
-		axis_z = axis_z + dir;
-		axis_z.Normalize();
-		axis_x = Cross(Vector3(0, 1, 0), axis_z);
-		axis_x.Normalize();
-		axis_y = Cross(axis_z, axis_x);
-		axis_y.Normalize();
-
-		local.SetRow3(0, axis_x);
-		local.SetRow3(1, axis_y);
-		local.SetRow3(2, axis_z);
-			
+		local = local * MatrixRotationAxis(axis_x, m_dy * step) * MatrixRotationAxis(axis_y, m_dx * step);
+		local.SetRow3(3, pos);
 		m_pObject->SetLocalTransform(local);
 		m_dx = 0;
 		m_dy = 0;
