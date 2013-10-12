@@ -14,6 +14,7 @@ namespace ld3d
 		static math::Vector3*							CreateSphere(float radius, float slice, float stack, int& nVerts);
 		static math::Vector3*							CreateSpotLightCone(float range, float angle, float slice, int& nVerts);
 
+		static math::Vector3*							CreateCube(float size, int& nVerts);
 	private:
 		MeshUtil(void);
 		virtual ~MeshUtil(void);

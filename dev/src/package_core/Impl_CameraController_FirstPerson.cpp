@@ -143,7 +143,7 @@ namespace ld3d
 		
 		Vector3 pos = local.GetRow3(3);
 
-		float dps = D2R(2);
+		float dps = D2R(5);
 		float step = dps * dt;
 
 		local.SetRow3(3, Vector3(0, 0, 0));

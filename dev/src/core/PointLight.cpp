@@ -42,7 +42,7 @@ namespace ld3d
 	}
 	bool PointLight::Create(RenderManagerPtr pRenderManager)
 	{
-		math::Vector3* pPos = MeshUtil::CreateSphere(1, 15, 15, m_nVerts);
+		/*math::Vector3* pPos = MeshUtil::CreateSphere(1, 15, 15, m_nVerts);
 		m_pGeometry = pRenderManager->CreateGeometryData();
 
 		VertexLayout layout;
@@ -54,8 +54,23 @@ namespace ld3d
 		}
 		m_pGeometry->EndGeometry();
 
-		
 		mem_free(pPos);
+*/
+		
+		math::Vector3* pPos = MeshUtil::CreateCube(2, m_nVerts);
+		m_pGeometry = pRenderManager->CreateGeometryData();
+
+		VertexLayout layout;
+		layout.AddAttribute(G_FORMAT_R32G32B32_FLOAT);
+
+		m_pGeometry->BeginGeometry(PT_TRIANGLE_LIST);
+		{
+			m_pGeometry->AllocVertexBuffer(m_nVerts * sizeof(math::Vector3), pPos, false, layout);
+		}
+		m_pGeometry->EndGeometry();
+
+		mem_free(pPos);
+		
 
 		
 		m_pMaterial = pRenderManager->CreateMaterialFromFile("./assets/standard/material/dr_render_point_light.material");

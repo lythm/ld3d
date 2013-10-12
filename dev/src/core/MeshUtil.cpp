@@ -298,6 +298,67 @@ namespace ld3d
 		return pMesh;
 	}
 	
+	math::Vector3* MeshUtil::CreateCube(float size, int& nVerts)
+	{
+		size = size / 2.0f;
+		nVerts = 36;
+
+		math::Vector3* pVerts = (math::Vector3*)mem_alloc(sizeof(math::Vector3) * nVerts);
+
+		pVerts[0] = math::Vector3(-size, size, -size);
+		pVerts[1] = math::Vector3(size, size, -size);
+		pVerts[2] = math::Vector3(size, -size, -size);
+
+		pVerts[3] = math::Vector3(-size, size, -size);
+		pVerts[4] = math::Vector3(size, -size, -size);
+		pVerts[5] = math::Vector3(-size, -size, -size);
+
+		pVerts[6] = math::Vector3(-size, size, size);
+		pVerts[7] = math::Vector3(size, -size, size);
+		pVerts[8] = math::Vector3(size, size, size);
+
+		pVerts[9] = math::Vector3(-size, size, size);
+		pVerts[10] = math::Vector3(-size, -size, size);
+		pVerts[11] = math::Vector3(size, -size, size);
+
+
+		pVerts[12] = math::Vector3(-size, size, size);
+		pVerts[13] = math::Vector3(size, size, size);
+		pVerts[14] = math::Vector3(size, size, -size);
+
+		pVerts[15] = math::Vector3(-size, size, size);
+		pVerts[16] = math::Vector3(size, size, -size);
+		pVerts[17] = math::Vector3(-size, size, -size);
+
+
+		pVerts[18] = math::Vector3(-size, -size, size);
+		pVerts[19] = math::Vector3(size, -size, -size);
+		pVerts[20] = math::Vector3(size, -size, size);
+
+		pVerts[21] = math::Vector3(-size, -size, size);
+		pVerts[22] = math::Vector3(-size, -size, -size);
+		pVerts[23] = math::Vector3(size, -size, -size);
+
+
+		pVerts[24] = math::Vector3(-size, size, size);
+		pVerts[25] = math::Vector3(-size, size, -size);
+		pVerts[26] = math::Vector3(-size, -size, -size);
+
+		pVerts[27] = math::Vector3(-size, size, size);
+		pVerts[28] = math::Vector3(-size, -size, -size);
+		pVerts[29] = math::Vector3(-size, -size, size);
+
+
+		pVerts[30] = math::Vector3(size, size, size);
+		pVerts[31] = math::Vector3(size, -size, -size);
+		pVerts[32] = math::Vector3(size, size, -size);
+
+		pVerts[33] = math::Vector3(size, size, size);
+		pVerts[34] = math::Vector3(size, -size, size);
+		pVerts[35] = math::Vector3(size, -size, -size);
+
+		return pVerts;
+	}
 	math::Vector3* MeshUtil::CreateSphere(float radius, float slice, float stack, int& nVerts)
 	{
 #define DTOR (3.14f / 180.f)
