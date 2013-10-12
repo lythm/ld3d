@@ -2,8 +2,8 @@
 
 
 //#define _D3DX9_IMPL_
-#define _XNAMATH_IMPL_
-//#define _GLM_IMPL_
+//#define _XNAMATH_IMPL_
+#define _GLM_IMPL_
 
 
 
