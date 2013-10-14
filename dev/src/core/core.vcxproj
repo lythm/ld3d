@@ -246,6 +246,7 @@
     <ClInclude Include="..\..\include\core\TechniqueParser.h" />
     <ClInclude Include="..\..\include\core\Texture.h" />
     <ClInclude Include="..\..\include\core\TimerManager.h" />
+    <ClInclude Include="..\..\include\core\UIManager.h" />
     <ClInclude Include="..\..\include\core\VertexFormat.h" />
     <ClInclude Include="..\..\include\core\ViewFrustum.h" />
     <ClInclude Include="core_pch.h" />
@@ -322,6 +323,7 @@
     <ClCompile Include="TechniqueParser.cpp" />
     <ClCompile Include="Time64.cpp" />
     <ClCompile Include="TimerManager.cpp" />
+    <ClCompile Include="UIManager.cpp" />
     <ClCompile Include="ViewFrustum.cpp" />
     <ClCompile Include="WinRawInput.cpp" />
   </ItemGroup>

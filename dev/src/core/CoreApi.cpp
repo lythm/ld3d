@@ -8,6 +8,7 @@
 #include "core/RenderManager.h"
 #include "core/AssetsManager.h"
 #include "core/TimerManager.h"
+#include "core/UIManager.h"
 
 
 #include "core/Event.h"
@@ -56,6 +57,9 @@ namespace ld3d
 		m_pSysNetwork->Update();
 		m_pSysInput->Update();
 		m_pSysSound->Update();
+		
+		m_pUIManager->Update(dt);
+		
 		m_pScene->Update(dt);
 		
 	}
@@ -126,7 +130,11 @@ namespace ld3d
 			return false;
 		}
 		
-
+		m_pUIManager	= alloc_object<UIManager>();
+		if(m_pUIManager->Initialize() == false)
+		{
+			return false;
+		}
 		
 
 		m_pObjectManager = alloc_object<GameObjectManager>();
@@ -167,6 +175,8 @@ namespace ld3d
 		}
 
 		_release_and_reset(m_pObjectManager);
+
+		_release_and_reset(m_pUIManager);
 
 		_release_and_reset(m_pRenderManager);
 

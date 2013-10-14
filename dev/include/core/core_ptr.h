@@ -178,6 +178,9 @@ namespace ld3d
 	typedef std::shared_ptr<DT_CoreApi>						DT_CoreApiPtr;
 
 
+	class UIManager;
+	typedef std::shared_ptr<UIManager>						UIManagerPtr;
+
 	namespace material_script
 	{
 		class SamplerStateParser;

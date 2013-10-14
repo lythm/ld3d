@@ -66,6 +66,9 @@ namespace ld3d
 		static Logger&									logger();
 
 	private:
+
+		UIManagerPtr									m_pUIManager;
+
 		GameObjectManagerPtr							m_pObjectManager;
 		EventDispatcherPtr								m_pEventDispatcher;
 		AssetManagerPtr									m_pAssetManager;
