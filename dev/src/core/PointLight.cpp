@@ -42,7 +42,7 @@ namespace ld3d
 	}
 	bool PointLight::Create(RenderManagerPtr pRenderManager)
 	{
-		/*math::Vector3* pPos = MeshUtil::CreateSphere(1, 15, 15, m_nVerts);
+		math::Vector3* pPos = MeshUtil::CreateSphere(1, 15, 15, m_nVerts);
 		m_pGeometry = pRenderManager->CreateGeometryData();
 
 		VertexLayout layout;
@@ -55,9 +55,9 @@ namespace ld3d
 		m_pGeometry->EndGeometry();
 
 		mem_free(pPos);
-*/
+
 		
-		math::Vector3* pPos = MeshUtil::CreateCube(2, m_nVerts);
+	/*	math::Vector3* pPos = MeshUtil::CreateCube(2, m_nVerts);
 		m_pGeometry = pRenderManager->CreateGeometryData();
 
 		VertexLayout layout;
@@ -69,7 +69,7 @@ namespace ld3d
 		}
 		m_pGeometry->EndGeometry();
 
-		mem_free(pPos);
+		mem_free(pPos);*/
 		
 
 		
