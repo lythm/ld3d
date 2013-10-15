@@ -107,7 +107,7 @@ bool VoxelDemo::Init(ld3d::CoreApiPtr pCore)
 	//pLight->SetTranslation(4, 5, 0);
 	//pLight->LookAt(math::Vector3(0, 0, 0));
 
-	m_pCore->GetSysInput()->ShowCursor(false);
+//	m_pCore->GetSysInput()->ShowCursor(false);
 	return true;
 }
 void VoxelDemo::Release()

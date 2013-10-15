@@ -4,6 +4,7 @@
 #include "core_utils.h"
 #include "core/Sys_Graphics.h"
 #include "core/RenderManager.h"
+#include "core/Camera.h"
 
 namespace ld3d
 {
@@ -125,16 +126,17 @@ namespace ld3d
 	}
 
 	
-	void LightManager::RenderLights()
+	void LightManager::RenderLights(CameraPtr pCamera)
 	{
-		LightPtr pLight = GetNextAffectingLight(LightPtr(), ViewFrustum());
+		
+		LightPtr pLight = GetNextAffectingLight(LightPtr(), pCamera->GetViewFrustum());
 		while(pLight)
 		{
 			if(pLight->GetEnabled())
 			{
 				pLight->RenderLight(m_pRenderManager);
 			}
-			pLight = GetNextAffectingLight(pLight, ViewFrustum());
+			pLight = GetNextAffectingLight(pLight, pCamera->GetViewFrustum());
 		}
 	}
 	

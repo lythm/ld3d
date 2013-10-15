@@ -123,6 +123,8 @@ namespace math
 
 		TransformNormal(p.normal, t);
 
+		p.normal.Normalize();
+
 		p.dist = -Dot(point, p.normal);
 
 	}

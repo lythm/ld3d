@@ -110,7 +110,7 @@ namespace ld3d
 				m_planes[p].c * max.z +
 				m_planes[p].d > 0)
 				vec_in_cnt ++;
-			
+
 			if (vec_in_cnt == 0)
 				return false;
 
@@ -123,6 +123,24 @@ namespace ld3d
 	}
 	bool ViewFrustum::IntersectSphere(const math::Sphere& sphere) const
 	{
+		float d = 0;
+
+		for(int i = 0; i < 6; ++i) 
+		{
+			d = m_planes[i].PointDist(sphere.center);
+			
+			// if this distance is < -sphere.radius, we are outside
+			if(d < -sphere.radius)
+			{
+				return false;
+			}
+
+			// else if the distance is between +- radius, then we intersect
+			if((float)fabs(d) < sphere.radius)
+				return true;
+		}
+
+		// inside
 		return true;
 	}
 	void ViewFrustum::Transform(const math::Matrix44& t)

@@ -200,4 +200,29 @@ namespace ld3d
 	{
 		return m_pTexture;
 	}
+	bool SpotLight::IsAffecting(const ViewFrustum& frustum)
+	{
+		float radius = tanf(math::D2R(m_angle)) * m_range;
+
+		math::Vector3 min_coord;
+		math::Vector3 max_coord;
+
+		min_coord.x = -radius * sinf(math::D2R(m_angle));
+		min_coord.y = -radius * cosf(math::D2R(m_angle));
+		min_coord.z = 0;
+
+		max_coord.x = radius * sinf(math::D2R(m_angle));
+		max_coord.y = radius * cosf(math::D2R(m_angle));
+		max_coord.z = m_range;
+
+		math::AABBox box(min_coord, max_coord);
+
+		math::Matrix44 world = GetWorldTM();
+		world.Invert();
+		ViewFrustum iv = frustum;
+		iv.Transform(world);
+
+		return iv.IntersectBox(box);
+
+	}
 }

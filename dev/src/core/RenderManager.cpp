@@ -272,12 +272,21 @@ namespace ld3d
 			FR_DrawRenderData(m_transparentQueue[i]);
 		}
 	}
-	void RenderManager::Render(const math::Matrix44& view, const math::Matrix44& proj)
+	
+	void RenderManager::Render(CameraPtr pCamera)
 	{
-		SetViewMatrix(view);
-		SetProjMatrix(proj);
+		pCamera->UpdateViewFrustum();
 
+		SetViewMatrix(pCamera->GetViewMatrix());
+		SetProjMatrix(pCamera->GetProjMatrix());
 
+		std::shared_ptr<Event_FrustumCull> pEvent = alloc_object<Event_FrustumCull>(pCamera);
+			
+		m_pEventDispatcher->DispatchEvent(pEvent);
+			
+
+		//RenderShadowMaps();
+		
 		// Geometry Pass
 		
 
@@ -296,7 +305,7 @@ namespace ld3d
 		clr.a = 0;
 		m_pGraphics->ClearRenderTarget(0, clr);
 		
-		DR_Light_Pass();
+		DR_Light_Pass(pCamera);
 
 
 		// Merge Pass
@@ -320,20 +329,6 @@ namespace ld3d
 		//Draw_Texture(m_pGBuffer->GetTexture(0));
 		//Draw_Texture(m_pABuffer->GetTexture(0));
 		//Draw_Texture(m_pPostEffectManager->GetOutput()->GetTexture(0));
-	}
-	void RenderManager::Render(CameraPtr pCamera)
-	{
-
-		pCamera->UpdateViewFrustum();
-
-		std::shared_ptr<Event_FrustumCull> pEvent = alloc_object<Event_FrustumCull>(pCamera);
-			
-		m_pEventDispatcher->DispatchEvent(pEvent);
-
-
-		//RenderShadowMaps();
-
-		Render(pCamera->GetViewMatrix(), pCamera->GetProjMatrix());
 
 	}
 	void RenderManager::Render()
@@ -416,9 +411,9 @@ namespace ld3d
 		return m_pLightManager->GetLightCount();
 	}
 	
-	void RenderManager::DR_Light_Pass()
+	void RenderManager::DR_Light_Pass(CameraPtr pCamera)
 	{
-		m_pLightManager->RenderLights();
+		m_pLightManager->RenderLights(pCamera);
 	}
 	void RenderManager::RenderShadowMaps()
 	{

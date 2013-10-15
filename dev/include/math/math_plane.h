@@ -28,7 +28,7 @@ namespace math
 		const Plane&		operator*=(Real s);
 		const Plane&		operator/=(Real s);
 
-		float				PointDist(const Vector3& p);
+		float				PointDist(const Vector3& p) const;
 		void				Normalize();
 		union
 		{
@@ -125,7 +125,7 @@ namespace math
 		d = _d;
 	}
 	inline
-		float Plane::PointDist(const Vector3& p)
+		float Plane::PointDist(const Vector3& p) const
 	{
 		return d + p.x * a + p.y * b + p.z * c;
 	}

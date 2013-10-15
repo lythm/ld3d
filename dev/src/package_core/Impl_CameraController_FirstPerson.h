@@ -24,7 +24,7 @@ namespace ld3d
 		void										_on_mouse_wheel(ld3d::EventPtr pEvent);
 		void										_on_key(ld3d::EventPtr pEvent);
 
-		void										UpdateRotating(float dt);
+		void										UpdateRotating(float dx, float dy);
 		void										UpdateMoving(float dt);
 	private:
 
@@ -40,9 +40,5 @@ namespace ld3d
 		bool										m_left;
 		bool										m_right;
 
-		float										m_dx;
-		float										m_dy;
 	};
-
-
 }

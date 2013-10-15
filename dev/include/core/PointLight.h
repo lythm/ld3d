@@ -22,6 +22,8 @@ namespace ld3d
 		void					Release();
 		void					RenderLight(RenderManagerPtr pRenderManager);
 
+		bool					IsAffecting(const ViewFrustum& frustum);
+
 	private:
 		void					DrawLightVolumn(RenderManagerPtr pRenderManager);
 	private:

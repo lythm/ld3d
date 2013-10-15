@@ -140,7 +140,14 @@ namespace ld3d
 
 		m_modifiedWorldTM.SetScale(math::Vector3(m_radius, m_radius, m_radius));
 
-		//m_modifiedWorldTM = math::MatrixScale(math::Vector3(m_radius, m_radius, m_radius)) * Light::GetWorldTM();
 		return m_modifiedWorldTM;
+	}
+	bool PointLight::IsAffecting(const ViewFrustum& frustum)
+	{
+		math::Vector3 pos = GetWorldTM().GetRow3(3);
+
+		math::Sphere sphere(pos, m_radius);
+
+		return frustum.IntersectSphere(sphere);
 	}
 }

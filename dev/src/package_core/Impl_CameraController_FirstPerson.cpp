@@ -5,8 +5,6 @@ namespace ld3d
 {
 	Impl_CameraController_FirstPerson::Impl_CameraController_FirstPerson(GameObjectManagerPtr pManager) : CameraController_FirstPerson(pManager)
 	{
-		m_dx					= 0;
-		m_dy					= 0;
 		m_x						= -1;
 		m_y						= -1;
 		m_forward				= false;
@@ -20,13 +18,10 @@ namespace ld3d
 	}
 	void Impl_CameraController_FirstPerson::Update(float dt)
 	{
-		UpdateRotating(dt);
 		UpdateMoving(dt);
 	}
 	bool Impl_CameraController_FirstPerson::OnAttach()
 	{
-		m_dx					= 0;
-		m_dy					= 0;
 		m_x						= -1;
 		m_y						= -1;
 		m_forward				= false;
@@ -57,8 +52,10 @@ namespace ld3d
 			return;
 		}
 
-		m_dx += (pState->mouse_state->x - m_x);
-		m_dy += (pState->mouse_state->y - m_y);
+		float dx = (pState->mouse_state->x - m_x);
+		float dy = (pState->mouse_state->y - m_y);
+
+		UpdateRotating(dx, dy);
 
 		m_x = pState->mouse_state->x;
 		m_y = pState->mouse_state->y;
@@ -125,7 +122,7 @@ namespace ld3d
 		local.SetRow3(3, pos);
 		m_pObject->SetLocalTransform(local);
 	}
-	void Impl_CameraController_FirstPerson::UpdateRotating(float dt)
+	void Impl_CameraController_FirstPerson::UpdateRotating(float dx, float dy)
 	{
 		using namespace math;
 
@@ -143,15 +140,12 @@ namespace ld3d
 		
 		Vector3 pos = local.GetRow3(3);
 
-		float dps = D2R(5);
-		float step = dps * dt;
-
 		local.SetRow3(3, Vector3(0, 0, 0));
 
-		local = local * MatrixRotationAxis(axis_x, m_dy * step) * MatrixRotationAxis(axis_y, m_dx * step);
+		float step = D2R(0.1);
+
+		local = local * MatrixRotationAxis(axis_x, dy * step) * MatrixRotationAxis(axis_y, dx * step);
 		local.SetRow3(3, pos);
 		m_pObject->SetLocalTransform(local);
-		m_dx = 0;
-		m_dy = 0;
 	}
 }

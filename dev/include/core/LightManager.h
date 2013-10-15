@@ -20,12 +20,12 @@ namespace ld3d
 
 		LightPtr								GetNextAffectingLight(LightPtr pLight, const ViewFrustum& frustum);
 
-		void									RenderLights();
+		void									RenderLights(CameraPtr pCamera);
 	private:
 
 		LightPtr								m_pList;
 		int										m_lightCount;
-		Sys_GraphicsPtr						m_pGraphics;
+		Sys_GraphicsPtr							m_pGraphics;
 		RenderManagerPtr						m_pRenderManager;
 	};
 }

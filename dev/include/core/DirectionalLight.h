@@ -23,6 +23,6 @@ namespace ld3d
 
 		MaterialPtr							m_pMaterial;
 
-		RenderTexturePtr						m_pShadowMap;
+		RenderTexturePtr					m_pShadowMap;
 	};
 }

@@ -25,8 +25,9 @@ namespace ld3d
 	
 		pObj->AddComponent(pMD);
 
-		GameObjectComponentPtr pController = std::dynamic_pointer_cast<Impl_CameraController_FirstPerson>(m_pManager->CreateComponent("CameraFirstPersonController"));
-
+		//GameObjectComponentPtr pController = std::dynamic_pointer_cast<Impl_CameraController_FirstPerson>(m_pManager->CreateComponent("CameraFirstPersonController"));
+		GameObjectComponentPtr pController = m_pManager->CreateComponent("CameraOrbitController");
+		
 		pObj->AddComponent(pController);
 
 		return pObj;

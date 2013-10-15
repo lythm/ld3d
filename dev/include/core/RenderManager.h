@@ -45,7 +45,6 @@ namespace ld3d
 		void										Release();
 		void										AddRenderData(RenderDataPtr pData);
 		void										Clear();
-		void										Render(const math::Matrix44& view, const math::Matrix44& proj);
 		void										Render();
 		void										Render(CameraPtr pCamera);
 		void										Present();
@@ -110,7 +109,7 @@ namespace ld3d
 
 		void										DR_G_Pass();
 		void										DR_Merge_Pass();
-		void										DR_Light_Pass();
+		void										DR_Light_Pass(CameraPtr pCamera);
 		void										RenderPostEffects();
 		void										RenderFinal();
 		void										RenderForward();
