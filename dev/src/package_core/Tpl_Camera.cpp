@@ -30,6 +30,9 @@ namespace ld3d
 		
 		pObj->AddComponent(pController);
 
+		GameObjectComponentPtr pSkyBox = m_pManager->CreateComponent("SkyBox");
+		pObj->AddComponent(pSkyBox);
+
 		return pObj;
 	}
 	void Tpl_Camera::Release()

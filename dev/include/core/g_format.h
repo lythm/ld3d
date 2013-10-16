@@ -335,6 +335,15 @@ namespace ld3d
 		PhysicsSetting		physics;
 	};
 
+	enum LAYER
+	{
+		layer_sky			= 0,
+		layer_deferred		= 1,
+		layer_forward		= 10,
+		layer_transparent	= 15,
+		layer_ui			= 20,
 
+		layer_count			= 25,
+	};
 
 }

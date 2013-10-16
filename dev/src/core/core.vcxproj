@@ -254,6 +254,7 @@
     <ClInclude Include="Frame.h" />
     <ClInclude Include="MaterialParameterManager.h" />
     <ClInclude Include="PostEffect_FXAA.h" />
+    <ClInclude Include="RenderQueue.h" />
     <ClInclude Include="RenderSystem.h" />
     <ClInclude Include="RenderSystem_DR.h" />
     <ClInclude Include="RenderSystem_FR.h" />
@@ -309,6 +310,7 @@
     <ClCompile Include="PostEffect_SSAO.cpp" />
     <ClCompile Include="PostEffect.cpp" />
     <ClCompile Include="RenderManager.cpp" />
+    <ClCompile Include="RenderQueue.cpp" />
     <ClCompile Include="RenderStateParser.cpp" />
     <ClCompile Include="RenderSystem_DR.cpp" />
     <ClCompile Include="RenderSystem_FR.cpp" />

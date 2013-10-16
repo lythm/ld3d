@@ -88,7 +88,7 @@ namespace ld3d
 		for(size_t i = 0; i < m_Subsets.size(); ++i)
 		{
 			m_Subsets[i]->world_matrix = world;
-			m_pRenderManager->AddRenderData(m_Subsets[i]);
+			m_pRenderManager->AddRenderData(layer_deferred, m_Subsets[i]);
 		}
 	}
 	void Impl_MeshRenderer::Reset(MeshDataPtr pMD)

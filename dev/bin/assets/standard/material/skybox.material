@@ -3,12 +3,12 @@
 RenderState rs
 {
 	FrontFace	= CW;
-	CULLMODE	= Back;
+	CULLMODE	= none;
 	FILLMODE	= SOLID;
 
 	DepthEnable = TRUE;
 	DepthFunc = LESS;
-	DepthWriteMask = ALL;
+	DepthWriteMask = zero;
 	StencilEnable = false;
 	BlendEnable = false;
 
@@ -19,7 +19,7 @@ technique grid
   pass p1
   {
 	SetRenderState(rs);
-	SetVertexShader("./shader/editor_grid.vs");
-	SetPixelShader("./shader/editor_grid.ps");
+	SetVertexShader("./shader/skybox.vs");
+	SetPixelShader("./shader/skybox.ps");
   }
 }

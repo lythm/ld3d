@@ -17,12 +17,91 @@ namespace ld3d
 	void Impl_SkyBox::Update(float dt)
 	{
 	}
-	
+
 	bool Impl_SkyBox::OnAttach()
 	{
-	
-		
+		m_pRD = m_pManager->alloc_object<RenderData>();
 
+		
+		VertexLayout layout;
+		layout.AddAttribute(G_FORMAT_R32G32B32_FLOAT);
+		
+		float size = 1.0f;
+		int nVerts = 36;
+
+		math::Vector3 verts[] = 
+		{
+			math::Vector3(-size, size, -size),
+			math::Vector3(size, -size, -size),
+			math::Vector3(size, size, -size),
+
+			math::Vector3(-size, size, -size),
+			math::Vector3(-size, -size, -size),
+			math::Vector3(size, -size, -size),
+
+			math::Vector3(-size, size, size),
+			math::Vector3(size, size, size),
+			math::Vector3(size, -size, size),
+
+			math::Vector3(-size, size, size),
+			math::Vector3(size, -size, size),
+			math::Vector3(-size, -size, size),
+
+
+			math::Vector3(-size, size, size),
+			math::Vector3(size, size, -size),
+			math::Vector3(size, size, size),
+
+			math::Vector3(-size, size, size),
+			math::Vector3(-size, size, -size),
+			math::Vector3(size, size, -size),
+
+
+			math::Vector3(-size, -size, size),
+			math::Vector3(size, -size, size),
+			math::Vector3(size, -size, -size),
+
+			math::Vector3(-size, -size, size),
+			math::Vector3(size, -size, -size),
+			math::Vector3(-size, -size, -size),
+
+
+			math::Vector3(-size, size, size),
+			math::Vector3(-size, -size, -size),
+			math::Vector3(-size, size, -size),
+
+			math::Vector3(-size, size, size),
+			math::Vector3(-size, -size, size),
+			math::Vector3(-size, -size, -size),
+
+
+			math::Vector3(size, size, size),
+			math::Vector3(size, size, -size),
+			math::Vector3(size, -size, -size),
+
+			math::Vector3(size, size, size),
+			math::Vector3(size, -size, -size),
+			math::Vector3(size, -size, size),
+
+		};
+
+		m_pRD->geometry = m_pManager->GetRenderManager()->CreateGeometryData();
+
+		m_pRD->geometry->BeginGeometry(PT_TRIANGLE_LIST);
+		{
+			m_pRD->geometry->AllocVertexBuffer(sizeof(math::Vector3) * 36, verts, false, layout);
+		}
+		m_pRD->geometry->EndGeometry();
+
+		m_pRD->dr = false;
+
+		m_pRD->base_vertex = 0;
+		m_pRD->index_count = 0;
+		m_pRD->start_index = 0;
+		m_pRD->vertex_count = 36;
+		m_pRD->world_matrix.MakeIdentity();
+
+		m_pRD->material = m_pManager->GetRenderManager()->CreateMaterialFromFile("./assets/standard/material/skybox.material");
 
 		m_hFrustumCull = m_pManager->AddEventHandler(EV_FRUSTUM_CULL, boost::bind(&Impl_SkyBox::on_event_frustum_cull, this, _1));
 
@@ -31,9 +110,12 @@ namespace ld3d
 	void Impl_SkyBox::OnDetach()
 	{
 		m_pManager->RemoveEventHandler(m_hFrustumCull);
+		m_pRD->material->Release();
+		m_pRD->geometry->Release();
+		m_pRD.reset();
 	}
 	void Impl_SkyBox::on_event_frustum_cull(EventPtr pEvent)
 	{
-
+		m_pManager->GetRenderManager()->AddRenderData(layer_sky, m_pRD);
 	}
 }

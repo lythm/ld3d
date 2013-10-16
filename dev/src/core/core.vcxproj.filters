@@ -61,6 +61,7 @@
     <ClCompile Include="WinRawInput.cpp" />
     <ClCompile Include="ActionMapping.cpp" />
     <ClCompile Include="UIManager.cpp" />
+    <ClCompile Include="RenderQueue.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\core\ArcBall.h" />
@@ -161,6 +162,7 @@
     <ClInclude Include="WinRawInput.h" />
     <ClInclude Include="..\..\include\core\ActionMapping.h" />
     <ClInclude Include="..\..\include\core\UIManager.h" />
+    <ClInclude Include="RenderQueue.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

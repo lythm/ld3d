@@ -123,7 +123,7 @@ namespace ld3d
 			return;
 		}
 		
-		m_pManager->GetRenderManager()->AddRenderData(m_pRenderData);
+		m_pManager->GetRenderManager()->AddRenderData(layer_deferred, m_pRenderData);
 
 	}
 	const bool&	VoxelWorldRendererImpl::GetShowBound()

@@ -4,8 +4,12 @@
 
 namespace ld3d
 {
+	class RenderQueue;
+	
 	class _DLL_CLASS RenderManager : public std::enable_shared_from_this<RenderManager>
 	{
+		typedef std::shared_ptr<RenderQueue>		RenderQueuePtr;
+
 		struct MATRIX_BLOCK
 		{
 			math::Matrix44							MATRIX_WORLD;
@@ -43,7 +47,7 @@ namespace ld3d
 
 		bool										Initialize(Sys_GraphicsPtr pGraphics, EventDispatcherPtr pED);
 		void										Release();
-		void										AddRenderData(RenderDataPtr pData);
+		void										AddRenderData(LAYER layer, RenderDataPtr pData);
 		void										Clear();
 		void										Render();
 		void										Render(CameraPtr pCamera);
@@ -123,10 +127,8 @@ namespace ld3d
 		math::Matrix44								m_viewMatrix;
 		math::Matrix44								m_projMatrix;
 
-		std::vector<RenderDataPtr>					m_forwardQueue;
-		std::vector<RenderDataPtr>					m_deferredQueue;
-		std::vector<RenderDataPtr>					m_transparentQueue;
-			
+		RenderQueuePtr								m_pRenderQueue;
+
 		Sys_GraphicsPtr								m_pGraphics;
 
 		math::Color4								m_clearClr;
