@@ -77,6 +77,8 @@ namespace ld3d
 			return GL_TEXTURE_3D;
 		case TEX_2DMS:
 			return GL_TEXTURE_2D_MULTISAMPLE;
+		case TEX_CUBE:
+			return GL_TEXTURE_CUBE_MAP;
 
 		default:
 			break;

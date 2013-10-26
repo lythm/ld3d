@@ -116,6 +116,8 @@ namespace ld3d
 		TEX_2D,
 		TEX_3D,
 
+		TEX_CUBE,
+
 		TEX_2DMS,
 
 		TEX_RENDERTARGET,

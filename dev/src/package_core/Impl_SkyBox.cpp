@@ -105,6 +105,9 @@ namespace ld3d
 
 		m_hFrustumCull = m_pManager->AddEventHandler(EV_FRUSTUM_CULL, boost::bind(&Impl_SkyBox::on_event_frustum_cull, this, _1));
 
+
+		TexturePtr pTex = m_pManager->GetRenderManager()->CreateTextureFromFile("./assets/standard/texture/001.dds");
+
 		return true;
 	}
 	void Impl_SkyBox::OnDetach()

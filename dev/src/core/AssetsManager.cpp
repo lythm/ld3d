@@ -86,7 +86,7 @@ namespace ld3d
 	}
 	AssetPtr AssetManager::LoadTexture(const boost::filesystem::path& file)
 	{
-		TexturePtr pTex = m_pGraphics->CreateTextureFromFile(file.string().c_str(), false);
+		TexturePtr pTex = m_pGraphics->CreateTextureFromFile(file.string().c_str());
 		if(pTex == nullptr)
 		{
 			return TextureAssetPtr();

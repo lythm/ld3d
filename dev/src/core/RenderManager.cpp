@@ -552,7 +552,7 @@ namespace ld3d
 	}
 	TexturePtr RenderManager::CreateTextureFromFile(const char* szFile)
 	{
-		return m_pGraphics->CreateTextureFromFile(szFile, false);
+		return m_pGraphics->CreateTextureFromFile(szFile);
 	}
 	void RenderManager::AddPostEffect(PostEffectPtr pEffect)
 	{

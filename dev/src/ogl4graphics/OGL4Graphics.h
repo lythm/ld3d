@@ -29,7 +29,7 @@ namespace ld3d
 		TexturePtr								CreateTexture2D(G_FORMAT format, int w, int h, int lvls, bool dynamic);
 		TexturePtr								CreateTexture2DMS(G_FORMAT format, int w, int h, int samples);
 		TexturePtr								CreateTexture3D(G_FORMAT format, int w, int h, int d, int lvls, bool dynamic);
-		TexturePtr								CreateTextureFromFile(const char* szFile, bool dynamic);
+		TexturePtr								CreateTextureFromFile(const char* szFile);
 
 		ShaderProgramPtr						CreateShaderProgram();
 		GeometryDataPtr							CreateGeometryData();

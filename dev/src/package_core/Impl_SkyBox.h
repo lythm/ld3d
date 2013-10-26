@@ -21,9 +21,8 @@ namespace ld3d
 	private:
 		
 		RenderDataPtr								m_pRD;
-
-
 		EventHandlerID								m_hFrustumCull;
+
 	};
 
 

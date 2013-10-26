@@ -1,4 +1,4 @@
-#include "ogl4graphics_pch.h"
+﻿#include "ogl4graphics_pch.h"
 
 #include "OGL4Graphics.h"
 #include "OGL4Loader.h"
@@ -193,6 +193,7 @@ namespace ld3d
 		glEnable(GL_CULL_FACE);
 		glFrontFace(GL_CCW);
 		glCullFace(GL_BACK);
+		glEnable(GL_TEXTURE_CUBE_MAP_SEAMLESS);
 		m_pCurrentRW = m_pMainRW;
 
 		return true;
@@ -341,11 +342,11 @@ namespace ld3d
 		return pBuffer;
 	}
 	
-	TexturePtr OGL4Graphics::CreateTextureFromFile(const char* szFile, bool dynamic)
+	TexturePtr OGL4Graphics::CreateTextureFromFile(const char* szFile)
 	{
 		OGL4TexturePtr pTex = std::make_shared<OGL4Texture>();
 
-		if(pTex->CreateFromFile(szFile, dynamic) == false)
+		if(pTex->CreateFromFile(szFile) == false)
 		{
 			return TexturePtr();
 		}
