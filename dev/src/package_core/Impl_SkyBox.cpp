@@ -1,8 +1,6 @@
 #include "core_ext_pch.h"
 #include "Impl_SkyBox.h"
 
-
-
 namespace ld3d
 {
 	Impl_SkyBox::Impl_SkyBox(GameObjectManagerPtr pManager) : SkyBox(pManager)
@@ -16,6 +14,12 @@ namespace ld3d
 	}
 	void Impl_SkyBox::Update(float dt)
 	{
+		math::Vector3 pos = m_pObject->GetWorldTransform().GetTranslation();
+		m_pRD->world_matrix.MakeIdentity();
+
+		m_pRD->world_matrix.SetRow3(3, pos);
+
+		m_pRD->world_matrix = m_pObject->GetWorldTransform();
 	}
 
 	bool Impl_SkyBox::OnAttach()
@@ -106,13 +110,18 @@ namespace ld3d
 		m_hFrustumCull = m_pManager->AddEventHandler(EV_FRUSTUM_CULL, boost::bind(&Impl_SkyBox::on_event_frustum_cull, this, _1));
 
 
-		TexturePtr pTex = m_pManager->GetRenderManager()->CreateTextureFromFile("./assets/standard/texture/001.dds");
+		m_pTex = m_pManager->GetRenderManager()->CreateTextureFromFile("./assets/standard/texture/001.dds");
 
+		MaterialParameterPtr pParam = m_pRD->material->GetParameterByName("sky_map");
+		
+		pParam->SetParameterTexture(m_pTex);
+		
 		return true;
 	}
 	void Impl_SkyBox::OnDetach()
 	{
 		m_pManager->RemoveEventHandler(m_hFrustumCull);
+		m_pTex->Release();
 		m_pRD->material->Release();
 		m_pRD->geometry->Release();
 		m_pRD.reset();

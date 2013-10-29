@@ -14,7 +14,7 @@ RenderState rs
 
 };
 
-technique grid
+technique t1
 {
   pass p1
   {

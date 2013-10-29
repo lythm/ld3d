@@ -9,6 +9,7 @@ namespace ld3d
 
 	OGL4Texture::OGL4Texture(void)
 	{
+		m_pboBytes				= 0;
 		m_pbo					= 0;
 		m_texture				= 0;
 		m_width					= 0;
@@ -429,7 +430,6 @@ namespace ld3d
 	{
 		m_bDynamic = false;
 
-
 		glGenTextures(1, &m_texture);
 
 		gli::storage s = gli::loadStorageDDS(szFile);
@@ -556,7 +556,7 @@ namespace ld3d
 			{
 				for(int iface = 0; iface < s.faces(); ++iface)
 				{
-					glTexSubImage2D(GL_TEXTURE_2D,
+					glTexSubImage2D(cube_faces[iface],
 						GLint(Level),
 						0, 0,
 						GLsizei(tex[iface][Level].dimensions().x),

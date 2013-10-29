@@ -22,7 +22,7 @@ namespace ld3d
 		
 		RenderDataPtr								m_pRD;
 		EventHandlerID								m_hFrustumCull;
-
+		TexturePtr									m_pTex;
 	};
 
 
