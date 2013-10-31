@@ -14,12 +14,12 @@ namespace ld3d
 	}
 	void Impl_SkyBox::Update(float dt)
 	{
-		math::Vector3 pos = m_pObject->GetWorldTransform().GetTranslation();
-		m_pRD->world_matrix.MakeIdentity();
-
-		m_pRD->world_matrix.SetRow3(3, pos);
-
 		m_pRD->world_matrix = m_pObject->GetWorldTransform();
+
+		math::Vector3 pos = m_pRD->world_matrix.GetTranslation();
+		
+		m_pWorldPos->SetParameterVector(pos);
+
 	}
 
 	bool Impl_SkyBox::OnAttach()
@@ -116,6 +116,7 @@ namespace ld3d
 		
 		pParam->SetParameterTexture(m_pTex);
 		
+		m_pWorldPos = m_pRD->material->GetParameterByName("world_pos");
 		return true;
 	}
 	void Impl_SkyBox::OnDetach()

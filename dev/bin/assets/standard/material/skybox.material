@@ -1,4 +1,8 @@
 
+SamplerState ss
+{
+	Filter		= MIN_MAG_LINEAR_MIP_POINT;
+};
 
 RenderState rs
 {
@@ -19,6 +23,8 @@ technique t1
   pass p1
   {
 	SetRenderState(rs);
+	BindSampler("sky_map", ss);
+
 	SetVertexShader("./shader/skybox.vs");
 	SetPixelShader("./shader/skybox.ps");
   }
