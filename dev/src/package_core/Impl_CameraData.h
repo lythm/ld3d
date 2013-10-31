@@ -16,7 +16,7 @@ namespace ld3d
 		bool						OnUnSerialize(DataStream* pStream, const Version& version);
 
 		void						Update(float dt);
-
+		void						UpdateCamera();
 		CameraPtr					GetCamera();
 	private:
 		CameraPtr					m_pCamera;

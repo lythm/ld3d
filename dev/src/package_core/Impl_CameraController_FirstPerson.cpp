@@ -1,5 +1,6 @@
 #include "core_ext_pch.h"
 #include "Impl_CameraController_FirstPerson.h"
+#include "Impl_CameraData.h"
 
 namespace ld3d
 {
@@ -22,6 +23,8 @@ namespace ld3d
 	}
 	bool Impl_CameraController_FirstPerson::OnAttach()
 	{
+		m_pCameraData = std::dynamic_pointer_cast<Impl_CameraData>(m_pObject->GetComponent("Camera"));
+
 		m_x						= -1;
 		m_y						= -1;
 		m_forward				= false;
@@ -121,6 +124,8 @@ namespace ld3d
 
 		local.SetRow3(3, pos);
 		m_pObject->SetLocalTransform(local);
+
+		m_pCameraData->UpdateCamera();
 	}
 	void Impl_CameraController_FirstPerson::UpdateRotating(float dx, float dy)
 	{
@@ -147,5 +152,7 @@ namespace ld3d
 		local = local * MatrixRotationAxis(axis_x, dy * step) * MatrixRotationAxis(axis_y, dx * step);
 		local.SetRow3(3, pos);
 		m_pObject->SetLocalTransform(local);
+
+		m_pCameraData->UpdateCamera();
 	}
 }

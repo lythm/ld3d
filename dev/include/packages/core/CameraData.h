@@ -7,9 +7,8 @@ namespace ld3d
 	class CameraData : public GameObjectComponent
 	{
 	public:
-		CameraData(GameObjectManagerPtr pManager) : GameObjectComponent("CameraData", pManager){}
+		CameraData(GameObjectManagerPtr pManager) : GameObjectComponent("Camera", pManager){}
 		virtual ~CameraData(void){}
-
 
 	};
 }

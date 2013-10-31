@@ -5,7 +5,7 @@
 
 namespace ld3d
 {
-
+	class Impl_CameraData;
 	class Impl_CameraController_FirstPerson : public CameraController_FirstPerson
 	{
 	public:
@@ -40,5 +40,6 @@ namespace ld3d
 		bool										m_left;
 		bool										m_right;
 
+		std::shared_ptr<Impl_CameraData>			m_pCameraData;
 	};
 }

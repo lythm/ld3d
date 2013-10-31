@@ -18,7 +18,10 @@ namespace ld3d
 
 		math::Vector3 pos = m_pRD->world_matrix.GetTranslation();
 		
-		m_pWorldPos->SetParameterVector(pos);
+		if(m_pWorldPos)
+		{
+			m_pWorldPos->SetParameterVector(pos);
+		}
 
 	}
 

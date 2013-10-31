@@ -54,6 +54,10 @@ namespace ld3d
 	}
 	void Impl_CameraData::Update(float dt)
 	{
+		UpdateCamera();
+	}
+	void Impl_CameraData::UpdateCamera()
+	{
 		math::Matrix44 mat = m_pObject->GetWorldTransform();
 
 		mat.Invert();
