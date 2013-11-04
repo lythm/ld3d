@@ -90,19 +90,15 @@ namespace ld3d
 		pRenderer->SetGBuffer(m_pMaterial);
 
 		pParam = m_pMaterial->GetParameterByName("shadow_map");
-		pParam->SetParameterTexture(m_pShadowMap->GetTexture(0));
-
-
-		math::Matrix44 l_proj = math::MatrixOrthoLH(800, 600, 0.1, 1000);
-		math::Matrix44 l_view = m_worldTM;
-		l_view.Invert();
 		
+		if(pParam)
+		{
+			pParam->SetParameterTexture(m_pShadowMap->GetTexture(0));
+		}
 
-		pParam = m_pMaterial->GetParameterByName("light_view");
-		pParam->SetParameterMatrix(l_view);
 
-		pParam = m_pMaterial->GetParameterByName("light_proj");
-		pParam->SetParameterMatrix(l_proj);
+		pParam = m_pMaterial->GetParameterByName("light_tm");
+		pParam->SetParameterMatrix(m_lightTM);
 
 		pRenderer->DrawFullScreenQuad(m_pMaterial);
 	}
@@ -122,10 +118,15 @@ namespace ld3d
 		m_pRenderManager->ClearRenderTarget(0, math::Color4(1, 1, 1, 1));
 
 
-		math::Matrix44 proj = math::MatrixOrthoLH(800, 600, 0.1, 1000);
+		math::Matrix44 proj = math::MatrixOrthoLH(50, 50, 0.1, 500);
+
+
+
 		math::Matrix44 view = m_worldTM;
 		view.Invert();
 		
+		m_lightTM = view * proj;
+
 		m_pRenderManager->DrawShadowMapGeometry(view, proj);
 	}
 	RenderTexturePtr SkyLight::GetShadowMap()

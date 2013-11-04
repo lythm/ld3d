@@ -29,6 +29,8 @@ namespace ld3d
 		RenderTexturePtr					m_pShadowMap;
 
 		RenderManagerPtr					m_pRenderManager;
+
+		math::Matrix44						m_lightTM;
 	};
 
 

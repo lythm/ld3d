@@ -19,8 +19,7 @@ layout(std140) uniform light
 
 uniform sampler2D shadow_map;
 
-uniform mat4 light_view;
-uniform mat4 light_proj;
+uniform mat4 light_tm;
 
 out vec4 f_color;
 
@@ -35,21 +34,22 @@ void main()
 
 	vec4 vpos = vec4(view_port_2_view_space(gl_FragCoord.xy, depth, MATRIX_PROJ, dim), 1);
 
-	vpos = vpos * MATRIX_I_VIEW * light_view * light_proj;
+	vpos = vpos * MATRIX_I_VIEW * light_tm;
 
-	vpos.xyz = vpos.xyz / vpos.w;
+	vpos.x = vpos.x / vpos.w * 0.5 + 0.5;
+	vpos.y = vpos.y / vpos.w * 0.5 + 0.5;
+	vpos.z = vpos.z / vpos.w * 0.5 + 0.5;
 
-	vpos.xy = (vpos.xy * 0.5 + vec2(0.5, 0.5));
 	float z = texture(shadow_map, vpos.xy).x;
-
-	//float s = (z < (vpos.z - 0.03)) ? 0 : 1;
 	
-	float s = 1;
+	float s = 1.0;
 
-	if(z < vpos.z)
-	{
-		s = 0;
-	}
+	//if(z < vpos.z)
+	//{
+	//	s = 0;
+	//}
+
+	s = s * z;
 
 	vec3 n = dr_gbuffer_get_normal(_DR_G_BUFFER_1, uv);
 
