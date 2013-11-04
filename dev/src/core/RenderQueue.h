@@ -5,11 +5,7 @@ namespace ld3d
 	class RenderQueue
 	{
 	public:
-		struct Layer
-		{
-			std::vector<RenderDataPtr>					m_dr;
-			std::vector<RenderDataPtr>					m_fr;
-		};
+		
 
 		RenderQueue(void);
 		virtual ~RenderQueue(void);
@@ -24,13 +20,11 @@ namespace ld3d
 
 		void											AddRenderData(uint32 layer, RenderDataPtr pData);
 
-		uint32											DR_GetRenderDataCount(uint32 layer);
-		uint32											FR_GetRenderDataCount(uint32 layer);
+		uint32											GetRenderDataCount(uint32 layer);
 
-		RenderDataPtr									DR_GetRenderData(uint32 layer, uint32 index);
-		RenderDataPtr									FR_GetRenderData(uint32 layer, uint32 index);
+		RenderDataPtr									GetRenderData(uint32 layer, uint32 index);
 
 	private:
-		std::vector<Layer>								m_layers;
+		std::vector<std::vector<RenderDataPtr>>			m_layers;
 	};
 }

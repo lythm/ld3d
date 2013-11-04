@@ -139,5 +139,17 @@ namespace ld3d
 			pLight = GetNextAffectingLight(pLight, pCamera->GetViewFrustum());
 		}
 	}
+	void LightManager::RenderShadowMaps(CameraPtr pCamera)
+	{
+		LightPtr pLight = GetNextAffectingLight(LightPtr(), pCamera->GetViewFrustum());
+		while(pLight)
+		{
+			if(pLight->GetCastShadow())
+			{
+				pLight->RenderShadowMap(m_pRenderManager);
+			}
+			pLight = GetNextAffectingLight(pLight, pCamera->GetViewFrustum());
+		}
+	}
 	
 }

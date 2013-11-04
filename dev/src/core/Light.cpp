@@ -24,8 +24,12 @@ namespace ld3d
 	void Light::Update()
 	{
 	}
-	void Light::RenderShadowMap()
+	void Light::RenderShadowMap(RenderManagerPtr pRenderer)
 	{
+	}
+	RenderTexturePtr Light::GetShadowMap()
+	{
+		return RenderTexturePtr();
 	}
 	LIGHT_TYPE Light::GetType() const
 	{

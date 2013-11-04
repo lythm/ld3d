@@ -40,34 +40,20 @@ namespace ld3d
 	}
 	void RenderQueue::ClearLayer(uint32 index)
 	{
-		m_layers[index].m_dr.clear();
-		m_layers[index].m_fr.clear();
+		m_layers[index].clear();
 	}
 	void RenderQueue::AddRenderData(uint32 layer, RenderDataPtr pData)
 	{
-		if(pData->dr)
-		{
-			m_layers[layer].m_dr.push_back(pData);
-		}
-		else
-		{
-			m_layers[layer].m_fr.push_back(pData);
-		}
+		m_layers[layer].push_back(pData);
 	}
-	uint32 RenderQueue::DR_GetRenderDataCount(uint32 layer)
+	uint32 RenderQueue::GetRenderDataCount(uint32 layer)
 	{
-		return (uint32)m_layers[layer].m_dr.size();
+		return (uint32)m_layers[layer].size();
 	}
-	uint32 RenderQueue::FR_GetRenderDataCount(uint32 layer)
+	
+	RenderDataPtr RenderQueue::GetRenderData(uint32 layer, uint32 index)
 	{
-		return (uint32)m_layers[layer].m_fr.size();
+		return m_layers[layer][index];
 	}
-	RenderDataPtr RenderQueue::DR_GetRenderData(uint32 layer, uint32 index)
-	{
-		return m_layers[layer].m_dr[index];
-	}
-	RenderDataPtr RenderQueue::FR_GetRenderData(uint32 layer, uint32 index)
-	{
-		return m_layers[layer].m_fr[index];
-	}
+	
 }

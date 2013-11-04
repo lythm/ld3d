@@ -22,12 +22,14 @@ namespace ld3d
 	{
 		m_pRenderManager = pRenderManager;
 
-		m_pMaterial = pRenderManager->CreateMaterialFromFile("./assets/standard/material/dr_render_directional_light.material");
+		m_pMaterial = pRenderManager->CreateMaterialFromFile("./assets/standard/material/dr_render_sky_light.material");
 		
 		if(m_pMaterial == nullptr)
 		{
 			return false;
 		}
+
+		m_bCastShadow = true;
 
 		if(m_bCastShadow)
 		{
@@ -86,8 +88,22 @@ namespace ld3d
 		pParam->SetParameterBlock(&l, sizeof(DirLightParam));
 
 		pRenderer->SetGBuffer(m_pMaterial);
-				
+
+		pParam = m_pMaterial->GetParameterByName("shadow_map");
+		pParam->SetParameterTexture(m_pShadowMap->GetTexture(0));
+
+
+		math::Matrix44 l_proj = math::MatrixOrthoLH(800, 600, 0.1, 1000);
+		math::Matrix44 l_view = m_worldTM;
+		l_view.Invert();
 		
+
+		pParam = m_pMaterial->GetParameterByName("light_view");
+		pParam->SetParameterMatrix(l_view);
+
+		pParam = m_pMaterial->GetParameterByName("light_proj");
+		pParam->SetParameterMatrix(l_proj);
+
 		pRenderer->DrawFullScreenQuad(m_pMaterial);
 	}
 	bool SkyLight::CreateShadowMap(int w, int h, G_FORMAT format)
@@ -99,14 +115,21 @@ namespace ld3d
 		}
 		return true;
 	}
-	void SkyLight::RenderShadowMap()
+	void SkyLight::RenderShadowMap(RenderManagerPtr pRenderer)
 	{
 		m_pRenderManager->SetRenderTarget(m_pShadowMap);
-		m_pMaterial->SetCurrentTech("T_ShadowMapping");
+		m_pRenderManager->ClearDepthBuffer(CLEAR_ALL, 1.0f, 0);
+		m_pRenderManager->ClearRenderTarget(0, math::Color4(1, 1, 1, 1));
 
 
-		math::Matrix44 world = GetWorldTM();
-		world.Invert();
-
+		math::Matrix44 proj = math::MatrixOrthoLH(800, 600, 0.1, 1000);
+		math::Matrix44 view = m_worldTM;
+		view.Invert();
+		
+		m_pRenderManager->DrawShadowMapGeometry(view, proj);
+	}
+	RenderTexturePtr SkyLight::GetShadowMap()
+	{
+		return m_pShadowMap;
 	}
 }

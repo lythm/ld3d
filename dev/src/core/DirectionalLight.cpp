@@ -30,7 +30,10 @@ namespace ld3d
 
 		if(m_bCastShadow)
 		{
-
+			if(false == CreateShadowMap())
+			{
+				return false;
+			}
 		}
 		return true;
 	}

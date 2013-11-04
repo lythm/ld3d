@@ -49,9 +49,9 @@ bool VoxelDemo::Init(ld3d::CoreApiPtr pCore)
 
 	m_pCore->CreatGameObjectFromTemplate("Plane", "Plane");
 
-	//GameObjectPtr pSphere = m_pCore->CreatGameObjectFromTemplate("Sphere", "Sphere");
+	GameObjectPtr pSphere = m_pCore->CreatGameObjectFromTemplate("Sphere", "Sphere");
 
-//	pSphere->Translate(0, 0.5, 0);
+	pSphere->Translate(0, 0.5, 0);
 	
 	//GameObjectPtr pLight = m_pCore->CreatGameObjectFromTemplate("DirectionalLight", "light");
 
@@ -71,10 +71,10 @@ bool VoxelDemo::Init(ld3d::CoreApiPtr pCore)
 	pGenerator->RebuildWorld();*/
 
 	//m_pWorld->SetTranslation(-50, 0, -50);
-	/*GameObjectPtr pLight = m_pCore->CreatGameObjectFromTemplate("DirectionalLight", "light");
+	GameObjectPtr pLight = m_pCore->CreatGameObjectFromTemplate("SkyLight", "light");
 
-	pLight->SetTranslation(0, 5, 5);
-	pLight->LookAt(math::Vector3(0, 0, 0));*/
+	pLight->SetTranslation(0, 50, 50);
+	pLight->LookAt(math::Vector3(0, 0, 0));
 	
 	
 	/*int count = 1;
@@ -108,8 +108,8 @@ bool VoxelDemo::Init(ld3d::CoreApiPtr pCore)
 	//pLight->LookAt(math::Vector3(0, 0, 0));
 
 
-	GameObjectPtr pLight = m_pCore->CreatGameObjectFromTemplate("PointLight", "pl");
-	pLight->SetTranslation(0, 3, 0);
+	//GameObjectPtr pLight = m_pCore->CreatGameObjectFromTemplate("PointLight", "pl");
+	//pLight->SetTranslation(0, 3, 0);
 
 //	m_pCore->GetSysInput()->ShowCursor(false);
 	return true;

@@ -14,7 +14,9 @@ namespace ld3d
 		void								Release();
 		void								RenderLight(RenderManagerPtr pRenderer);
 
-		void								RenderShadowMap();
+		void								RenderShadowMap(RenderManagerPtr pRenderer);
+
+		RenderTexturePtr					GetShadowMap();
 	private:
 		bool								CreateShadowMap(int w, int h, G_FORMAT format);
 

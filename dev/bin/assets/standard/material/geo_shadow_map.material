@@ -1,0 +1,25 @@
+
+
+RenderState rs
+{
+	FrontFace	= CW;
+	CULLMODE	= Back;
+	FILLMODE	= SOLID;
+
+	DepthEnable = TRUE;
+	DepthFunc = LESS;
+	DepthWriteMask = ALL;
+	StencilEnable = false;
+	BlendEnable = false;
+
+};
+
+technique shadow
+{
+  pass p1
+  {
+	SetRenderState(rs);
+	SetVertexShader("./shader/geo_shadow_map.vs");
+	SetPixelShader("./shader/geo_shadow_map.ps");
+  }
+}

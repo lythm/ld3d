@@ -32,5 +32,6 @@ namespace ld3d
 
 		std::function<void (RenderManagerPtr)>					fr_draw;
 		std::function<void (RenderManagerPtr)>					dr_draw;
+		std::function<void (RenderManagerPtr)>					sm_draw;
 	};
 }

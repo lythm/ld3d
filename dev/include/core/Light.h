@@ -16,12 +16,16 @@ namespace ld3d
 
 		virtual void							RenderLight(RenderManagerPtr pRenderer);
 		virtual void							Update();
-		virtual void							RenderShadowMap();
+		virtual void							RenderShadowMap(RenderManagerPtr pRenderer);
 		virtual bool							IsAffecting(const ViewFrustum& frustum);
 		virtual void							Release();
 		virtual const math::Matrix44&			GetWorldTM();
 		virtual void							SetWorldTM(const math::Matrix44& world);
 
+		
+		virtual RenderTexturePtr				GetShadowMap();
+
+		
 		LIGHT_TYPE								GetType() const;
 
 		

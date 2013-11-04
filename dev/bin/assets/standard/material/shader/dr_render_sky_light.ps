@@ -1,0 +1,68 @@
+#version 330
+
+#pragma include "dr_gbuffer.glsl"
+#pragma include "dr_light.glsl"
+#pragma include "matrix_block.glsl"
+
+uniform sampler2D _DR_G_BUFFER_1;
+uniform sampler2D _DR_G_BUFFER_0;
+
+layout(row_major) uniform;
+
+layout(std140) uniform light
+{
+	vec3	dir;
+	float	intensity;
+	vec3	clr;
+};
+
+
+uniform sampler2D shadow_map;
+
+uniform mat4 light_view;
+uniform mat4 light_proj;
+
+out vec4 f_color;
+
+
+void main()
+{
+	vec2 dim = textureSize(_DR_G_BUFFER_1, 0);
+
+	vec2 uv = gl_FragCoord.xy / dim;
+
+	float depth = dr_gbuffer_get_depth(_DR_G_BUFFER_0, uv);
+
+	vec4 vpos = vec4(view_port_2_view_space(gl_FragCoord.xy, depth, MATRIX_PROJ, dim), 1);
+
+	vpos = vpos * MATRIX_I_VIEW * light_view * light_proj;
+
+	vpos.xyz = vpos.xyz / vpos.w;
+
+	vpos.xy = (vpos.xy * 0.5 + vec2(0.5, 0.5));
+	float z = texture(shadow_map, vpos.xy).x;
+
+	//float s = (z < (vpos.z - 0.03)) ? 0 : 1;
+	
+	float s = 1;
+
+	if(z < vpos.z)
+	{
+		s = 0;
+	}
+
+	vec3 n = dr_gbuffer_get_normal(_DR_G_BUFFER_1, uv);
+
+	DirectionalLight l;
+	
+	l.dir = dir;
+	
+	l.intensity = intensity;
+	l.clr = clr;
+
+	LightResult ret = dr_light_dir(n, l, MATRIX_WV);
+	
+	f_color.xyz = ret.diffuse * s;
+	f_color.w = rgb_2_il(ret.specular) * s;
+
+}

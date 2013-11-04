@@ -97,8 +97,15 @@ namespace ld3d
 		MaterialTechPtr pFind = GetTechByName(szName);
 		if(pFind == nullptr)
 		{
+			logger() << "failed to set material technique, technique not found: " << szName << "\n";
 			return false;
 		}
+		if(pFind->IsValid() == false)
+		{
+			logger() << "failed to set material technique, invalid technique: " << szName << "\n";
+			return false;
+		}
+
 		m_pCurrentTech = pFind;
 
 		return true;
@@ -107,7 +114,7 @@ namespace ld3d
 	{
 		for(size_t i = 0; i < m_techs.size(); ++i)
 		{
-			if(m_techs[i]->GetName() == szName)
+			if(m_techs[i]->GetName() == std::string(szName))
 			{
 				return m_techs[i];
 			}

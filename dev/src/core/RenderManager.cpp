@@ -145,8 +145,14 @@ namespace ld3d
 		if(m_pDrawTextureMaterial == nullptr)
 		{
 			return false;
-
 		}
+
+		m_pShadowMapMaterial = CreateMaterialFromFile("./assets/standard/material/geo_shadow_map.material");
+		if(m_pShadowMapMaterial == nullptr)
+		{
+			return false;
+		}
+		
 		return true;
 	}
 	bool RenderManager::CreateGBuffer(int w, int h)
@@ -175,6 +181,10 @@ namespace ld3d
 	{
 		Clear();
 
+		_release_and_reset(m_pShadowMapMaterial);
+
+		_release_and_reset(m_pDrawTextureMaterial);
+		
 		_release_and_reset(m_pScreenQuadMaterial);
 
 		_release_and_reset(m_pLightManager);
@@ -207,9 +217,9 @@ namespace ld3d
 	{
 		for(uint32 iLayer = layer_deferred; iLayer < layer_forward; ++iLayer)
 		{
-			for(uint32 i = 0; i < m_pRenderQueue->DR_GetRenderDataCount(iLayer); ++i)
+			for(uint32 i = 0; i < m_pRenderQueue->GetRenderDataCount(iLayer); ++i)
 			{
-				RenderDataPtr pData = m_pRenderQueue->DR_GetRenderData(iLayer, i);
+				RenderDataPtr pData = m_pRenderQueue->GetRenderData(iLayer, i);
 
 				if(pData->dr_draw)
 				{
@@ -218,33 +228,26 @@ namespace ld3d
 				}
 
 				SetMatrixBlock(pData->material, pData->world_matrix);
-				DR_DrawRenderData(pData);
+				DrawRenderData(pData);
 			}
 		}
 	}
-	void RenderManager::DR_DrawRenderData(RenderDataPtr pData)
+	void RenderManager::DrawRenderData(RenderDataPtr pData, MaterialPtr pMaterial)
 	{
-		int nPass = pData->material->Begin();
+		MaterialPtr pDrawMaterial = pMaterial == nullptr ? pData->material : pMaterial;
+		if(pDrawMaterial == nullptr)
+		{
+			return;
+		}
+		int nPass = pDrawMaterial->Begin();
 		for(int i = 0; i < nPass; ++i)
 		{
-			pData->material->ApplyPass(i);
+			pDrawMaterial->ApplyPass(i);
 			pData->geometry->GetIndexBuffer() ? 
 				m_pGraphics->DrawIndexed(pData->geometry, pData->index_count, pData->start_index, pData->base_vertex) :
 				m_pGraphics->Draw(pData->geometry, pData->vertex_count, pData->base_vertex);
 		}
-		pData->material->End();
-	}
-	void RenderManager::FR_DrawRenderData(RenderDataPtr pData)
-	{
-		int nPass = pData->material->Begin();
-		for(int i = 0; i < nPass; ++i)
-		{
-			pData->material->ApplyPass(i);
-			pData->geometry->GetIndexBuffer() ? 
-				m_pGraphics->DrawIndexed(pData->geometry, pData->index_count, pData->start_index, pData->base_vertex) :
-				m_pGraphics->Draw(pData->geometry, pData->vertex_count, pData->base_vertex);
-		}
-		pData->material->End();
+		pDrawMaterial->End();
 	}
 	void RenderManager::DR_Merge_Pass()
 	{
@@ -257,21 +260,45 @@ namespace ld3d
 	{
 		for(uint32 iLayer = layer_forward; iLayer < layer_ui; ++iLayer)
 		{
-			for(uint32 i = 0; i < m_pRenderQueue->FR_GetRenderDataCount(iLayer); ++i)
+			for(uint32 i = 0; i < m_pRenderQueue->GetRenderDataCount(iLayer); ++i)
 			{
-				RenderDataPtr pData = m_pRenderQueue->FR_GetRenderData(iLayer, i);
+				RenderDataPtr pData = m_pRenderQueue->GetRenderData(iLayer, i);
+				
+				SetMatrixBlock(pData->material, pData->world_matrix);
+				
 				if(pData->fr_draw)
 				{
 					pData->fr_draw(shared_from_this());
 					continue;
 				}
-				SetMatrixBlock(pData->material, pData->world_matrix);
-
-				FR_DrawRenderData(pData);
+				
+				DrawRenderData(pData);
 			}
 		}
 	}
+	void RenderManager::DrawShadowMapGeometry(const math::Matrix44& view, const math::Matrix44& proj)
+	{
+		SetViewMatrix(view);
+		SetProjMatrix(proj);
 
+		for(uint32 iLayer = layer_deferred; iLayer < layer_ui; ++iLayer)
+		{
+			for(uint32 i = 0; i < m_pRenderQueue->GetRenderDataCount(iLayer); ++i)
+			{
+				RenderDataPtr pData = m_pRenderQueue->GetRenderData(iLayer, i);
+				
+				SetMatrixBlock(m_pShadowMapMaterial, pData->world_matrix);
+				
+				if(pData->sm_draw)
+				{
+					pData->sm_draw(shared_from_this());
+					continue;
+				}
+				
+				DrawRenderData(pData, m_pShadowMapMaterial);
+			}
+		}
+	}
 	void RenderManager::Render(CameraPtr pCamera)
 	{
 		pCamera->UpdateViewFrustum();
@@ -284,17 +311,19 @@ namespace ld3d
 		m_pEventDispatcher->DispatchEvent(pEvent);
 
 
-		//RenderShadowMaps();
+		RenderShadowMaps(pCamera);
 
+		SetViewMatrix(pCamera->GetViewMatrix());
+		SetProjMatrix(pCamera->GetProjMatrix());
 
 		RenderTexturePtr pOutput = m_pPostEffectManager->GetInput();
 
 		m_pGraphics->SetRenderTarget(pOutput);
 		m_pGraphics->ClearRenderTarget(0, m_clearClr);
 
-		for(uint32 i = 0; i < m_pRenderQueue->FR_GetRenderDataCount(layer_sky); ++i)
+		for(uint32 i = 0; i < m_pRenderQueue->GetRenderDataCount(layer_sky); ++i)
 		{
-			RenderDataPtr pData = m_pRenderQueue->FR_GetRenderData(layer_sky, i);
+			RenderDataPtr pData = m_pRenderQueue->GetRenderData(layer_sky, i);
 			if(pData->fr_draw)
 			{
 				pData->fr_draw(shared_from_this());
@@ -302,7 +331,7 @@ namespace ld3d
 			}
 			SetMatrixBlock(pData->material, pData->world_matrix);
 
-			FR_DrawRenderData(pData);
+			DrawRenderData(pData);
 		}
 
 		//
@@ -342,6 +371,11 @@ namespace ld3d
 
 		// Final Pass
 		RenderFinal();
+
+
+		RenderTexturePtr pTex = m_pLightManager->GetNextLight(LightPtr())->GetShadowMap();
+
+		//Draw_Texture(pTex->GetTexture(0));
 
 		//Draw_Texture(m_pGBuffer->GetTexture(0));
 		//Draw_Texture(m_pABuffer->GetTexture(0));
@@ -432,17 +466,9 @@ namespace ld3d
 	{
 		m_pLightManager->RenderLights(pCamera);
 	}
-	void RenderManager::RenderShadowMaps()
+	void RenderManager::RenderShadowMaps(CameraPtr pCamera)
 	{
-		LightPtr pLight = m_pLightManager->GetNextAffectingLight(LightPtr(), ViewFrustum());
-		while(pLight)
-		{
-			if(pLight->GetCastShadow() == true)
-			{
-				pLight->RenderShadowMap();
-			}
-			pLight = m_pLightManager->GetNextAffectingLight(pLight, ViewFrustum());
-		}
+		m_pLightManager->RenderShadowMaps(pCamera);
 	}
 
 	bool RenderManager::CreateABuffer(int w, int h)

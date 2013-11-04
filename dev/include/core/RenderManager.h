@@ -104,6 +104,11 @@ namespace ld3d
 		void										SetGBuffer(MaterialPtr pMaterial);
 
 		DepthStencilBufferPtr						GetDepthStencilBuffer();
+
+		void										DrawRenderData(RenderDataPtr pData, MaterialPtr pMaterial = nullptr);
+
+		void										DrawShadowMapGeometry(const math::Matrix44& view, const math::Matrix44& proj);
+
 		// test
 		void										RenderTest(CameraPtr pCamera);
 		//
@@ -117,11 +122,8 @@ namespace ld3d
 		void										RenderPostEffects();
 		void										RenderFinal();
 		void										RenderForward();
-		void										RenderShadowMaps();
+		void										RenderShadowMaps(CameraPtr pCamera);
 
-		void										DR_DrawRenderData(RenderDataPtr pData);
-		void										FR_DrawRenderData(RenderDataPtr pData);
-		
 		void										Draw_Texture(TexturePtr pTex);
 	private:
 		math::Matrix44								m_viewMatrix;
@@ -158,5 +160,7 @@ namespace ld3d
 		MATRIX_BLOCK								m_matrixBlock;
 
 		MaterialPtr									m_pDrawTextureMaterial;
+
+		MaterialPtr									m_pShadowMapMaterial;
 	};
 }
