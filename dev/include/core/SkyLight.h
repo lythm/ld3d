@@ -31,6 +31,7 @@ namespace ld3d
 		RenderManagerPtr					m_pRenderManager;
 
 		math::Matrix44						m_lightTM;
+
 	};
 
 

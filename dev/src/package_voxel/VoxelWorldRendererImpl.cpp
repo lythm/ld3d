@@ -45,7 +45,7 @@ namespace ld3d
 		m_pRenderData			= m_pManager->alloc_object<RenderData>();
 		m_pRenderData->fr_draw	= std::bind(&VoxelWorldRendererImpl::Render, this, std::placeholders::_1);
 		m_pRenderData->dr_draw	= std::bind(&VoxelWorldRendererImpl::Render, this, std::placeholders::_1);
-		m_pRenderData->dr		= true;
+		m_pRenderData->sm_draw	= std::bind(&VoxelWorldRendererImpl::RenderShadowMapGeo, this, std::placeholders::_1, std::placeholders::_2);
 		
 		m_pMaterial = m_pRenderManager->CreateMaterialFromFile("./assets/standard/material/voxel_world.material");
 		if(m_pMaterial == nullptr)
@@ -150,6 +150,71 @@ namespace ld3d
 		m_bShowBound = pStream->ReadBool();
 		
 		return true;
+	}
+	void VoxelWorldRendererImpl::RenderShadowMapGeo(RenderManagerPtr pManager, MaterialPtr pMaterial)
+	{
+		if(m_pRenderList == nullptr)
+		{
+			return;
+		}
+
+		m_pRenderManager->SetMatrixBlock(pMaterial, m_worldMatrix);
+
+		MaterialPtr pMat = pMaterial;
+		Sys_GraphicsPtr pGraphics = m_pRenderManager->GetSysGraphics();
+		GPUBufferPtr pVB = m_pGeometry->GetVertexBuffer();
+
+
+		VoxelWorldChunk* pChunk = m_pRenderList;
+		
+		m_nVertexCount = 0;
+		m_nVBOffset = m_nVBCurrent;
+		uint32 bytesLeft = m_nVBBytes - m_nVBCurrent;
+
+		uint8* data = nullptr;
+		if(bytesLeft <= sizeof(VoxelVertex) * pChunk->vertex_count)
+		{
+			data = (uint8*)pVB->Map(MAP_DISCARD);
+			m_nVBOffset = 0;
+			m_nVBCurrent = 0;
+			bytesLeft = m_nVBBytes;
+		}
+		else
+		{
+			data = (uint8*)pVB->Map(MAP_NO_OVERWRITE);
+		}
+
+		while(pChunk)
+		{
+			if(pChunk->vertex_count == 0)
+			{
+				pChunk = pChunk->render_list_next;
+				continue;
+			}
+			bytesLeft = m_nVBBytes - m_nVBCurrent;
+			if(bytesLeft <= sizeof(VoxelVertex) * pChunk->vertex_count)
+			{
+				pVB->Unmap();
+				Draw(pGraphics, pMat, m_nVBOffset / m_nVertexStride);
+
+				data = (uint8*)pVB->Map(MAP_DISCARD);
+				m_nVBOffset = 0;
+				m_nVBCurrent = 0;
+				bytesLeft = m_nVBBytes;
+				m_nVertexCount = 0;
+			}
+
+			memcpy(data + m_nVBCurrent, pChunk->vertex_buffer, sizeof(VoxelVertex) * pChunk->vertex_count);
+			
+			m_nVBCurrent += sizeof(VoxelVertex) * pChunk->vertex_count;
+			m_nVertexCount += pChunk->vertex_count;
+			
+			pChunk = pChunk->render_list_next;
+		}
+
+		pVB->Unmap();
+
+		Draw(pGraphics, pMat, m_nVBOffset / m_nVertexStride);
 	}
 	void VoxelWorldRendererImpl::Render(RenderManagerPtr pManager)
 	{

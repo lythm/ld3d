@@ -145,7 +145,6 @@ namespace ld3d
 			pRD->vertex_count = pSub->GetVertexCount();
 			pRD->index_count = pSub->GetIndexCount();
 			pRD->material = pSub->GetMaterial();
-			pRD->dr = m_deferred;
 			pRD->world_matrix = m_pObject->GetWorldTransform();
 			pRD->start_index = 0;
 			m_Subsets.push_back(pRD);

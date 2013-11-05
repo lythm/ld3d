@@ -415,7 +415,7 @@ namespace ld3d
 	}
 	int	OGL4Graphics::GetFrameBufferHeight()
 	{
-			if(m_pCurrentRT)
+		if(m_pCurrentRT)
 		{
 			return m_pCurrentRT->GetTexture(0)->GetHeight();
 		}
@@ -480,6 +480,7 @@ namespace ld3d
 			m_pCurrentRW = std::dynamic_pointer_cast<OGL4RenderWindow>(pTarget);
 			m_pCurrentRW->MakeCurrent();
 			glBindFramebuffer(GL_FRAMEBUFFER, 0);
+			ResetViewport();
 			return;
 		}
 
@@ -487,12 +488,14 @@ namespace ld3d
 		{
 			m_pCurrentRW = m_pMainRW;
 			m_pCurrentRW->MakeCurrent();
+			ResetViewport();
 		}
 
 		if(pTarget == nullptr)
 		{
 			glBindFramebuffer(GL_FRAMEBUFFER, 0);
 			m_pCurrentRT = nullptr;
+			ResetViewport();
 			return;
 		}
 
@@ -503,6 +506,8 @@ namespace ld3d
 
 		glDepthMask(GL_TRUE);
 		glEnable(GL_DEPTH_TEST);
+
+		ResetViewport();
 
 	}
 	
@@ -556,5 +561,15 @@ namespace ld3d
 			pSampler.reset();
 		}
 		return pSampler;
+	}
+	void OGL4Graphics::ResetViewport()
+	{
+		if(m_pCurrentRT)
+		{
+			glViewport(0, 0, m_pCurrentRT->GetTexture(0)->GetWidth(), m_pCurrentRT->GetTexture(0)->GetHeight());
+			return;
+		}
+
+		glViewport(0, 0, m_pCurrentRW->GetWidth(), m_pCurrentRW->GetHeight());
 	}
 }

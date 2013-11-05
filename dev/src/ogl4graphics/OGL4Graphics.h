@@ -58,6 +58,8 @@ namespace ld3d
 	
 		void									OnResizeRenderWindow(int cx, int cy);
 
+
+		void									ResetViewport();
 	private:
 		GraphicsSetting							m_setting;
 

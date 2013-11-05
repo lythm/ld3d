@@ -6,6 +6,8 @@
 #include "core/RenderManager.h"
 #include "core/MaterialParameter.h"
 #include "core/RenderTexture.h"
+#include "core/Texture.h"
+
 namespace ld3d
 {
 	SkyLight::SkyLight(void) : Light(LT_SKYLIGHT)
@@ -113,15 +115,21 @@ namespace ld3d
 	}
 	void SkyLight::RenderShadowMap(RenderManagerPtr pRenderer)
 	{
+		if(m_bCastShadow == false)
+		{
+			return;
+		}
+		if(m_pShadowMap == nullptr)
+		{
+			return;
+		}
+
 		m_pRenderManager->SetRenderTarget(m_pShadowMap);
 		m_pRenderManager->ClearDepthBuffer(CLEAR_ALL, 1.0f, 0);
 		m_pRenderManager->ClearRenderTarget(0, math::Color4(1, 1, 1, 1));
 
-
-		math::Matrix44 proj = math::MatrixOrthoLH(50, 50, 0.1, 500);
-
-
-
+		math::Matrix44 proj = math::MatrixOrthoLH(20, 20, 0.1, 200);
+		
 		math::Matrix44 view = m_worldTM;
 		view.Invert();
 		

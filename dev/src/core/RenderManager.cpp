@@ -291,7 +291,7 @@ namespace ld3d
 				
 				if(pData->sm_draw)
 				{
-					pData->sm_draw(shared_from_this());
+					pData->sm_draw(shared_from_this(), m_pShadowMapMaterial);
 					continue;
 				}
 				

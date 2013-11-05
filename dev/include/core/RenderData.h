@@ -9,7 +9,6 @@ namespace ld3d
 	public:
 		RenderData(void)
 		{
-			dr						= false;
 			base_vertex				= 0;
 			vertex_count			= 0;
 			index_count				= 0;
@@ -22,8 +21,6 @@ namespace ld3d
 		GeometryDataPtr											geometry;
 		MaterialPtr												material;
 		math::Matrix44											world_matrix;
-		bool													dr;
-
 
 		int														base_vertex;
 		int														vertex_count;
@@ -32,6 +29,6 @@ namespace ld3d
 
 		std::function<void (RenderManagerPtr)>					fr_draw;
 		std::function<void (RenderManagerPtr)>					dr_draw;
-		std::function<void (RenderManagerPtr)>					sm_draw;
+		std::function<void (RenderManagerPtr, MaterialPtr)>		sm_draw;
 	};
 }

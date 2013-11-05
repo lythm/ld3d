@@ -100,8 +100,6 @@ namespace ld3d
 		}
 		m_pRD->geometry->EndGeometry();
 
-		m_pRD->dr = false;
-
 		m_pRD->base_vertex = 0;
 		m_pRD->index_count = 0;
 		m_pRD->start_index = 0;

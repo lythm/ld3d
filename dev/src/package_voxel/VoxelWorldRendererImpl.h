@@ -27,6 +27,7 @@ namespace ld3d
 		void										on_event_frustumcull(EventPtr pEvent);
 
 		void										Render(RenderManagerPtr pManager);
+		void										RenderShadowMapGeo(RenderManagerPtr pManager, MaterialPtr pMaterial);
 		void										Draw(Sys_GraphicsPtr pSysGraphics, MaterialPtr pMaterial, int baseVertex);
 	private:
 

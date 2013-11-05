@@ -6,7 +6,7 @@ RenderState rs
 	DepthWriteMask						= ZERO;
 	StencilEnable						= false;
 
-	CULLMODE = back;
+	CULLMODE							= back;
 
 	BLENDENABLE							= true;
 	BlendSrcRGB							= ONE;
@@ -21,8 +21,8 @@ RenderState rs
 SamplerState ss
 {
 	Filter								= MIN_MAG_LINEAR_MIP_POINT;
-	AddressModeU						= CLAMP;
-	AddressModeV						= CLAMP;
+	AddressModeU						= clamp;
+	AddressModeV						= clamp;
 
 };
 

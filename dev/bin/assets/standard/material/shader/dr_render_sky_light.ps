@@ -40,16 +40,29 @@ void main()
 	vpos.y = vpos.y / vpos.w * 0.5 + 0.5;
 	vpos.z = vpos.z / vpos.w * 0.5 + 0.5;
 
-	float z = texture(shadow_map, vpos.xy).x;
+
+	ivec2 size = textureSize(shadow_map, 0);
 	
-	float s = 1.0;
+	ivec2 center;
+	center.x = int(vpos.x * size.x);
+	center.y = int(vpos.y * size.y);
 
-	//if(z < vpos.z)
-	//{
-	//	s = 0;
-	//}
 
-	s = s * z;
+	float z = 0;
+	float s = 0;	
+	float e = -0.0003;
+
+	
+	for(int x = -1; x <= 1; ++x)
+	{
+		for(int y = -1; y <= 1; ++y)
+		{
+			z = texture(shadow_map, vpos.xy + vec2(x / size.x, y / size.y)).x;
+			s += z < (vpos.z + e) ? 0 : 1.0;
+		}
+	}
+
+	s /= 9;
 
 	vec3 n = dr_gbuffer_get_normal(_DR_G_BUFFER_1, uv);
 

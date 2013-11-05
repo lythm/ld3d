@@ -2,16 +2,15 @@
 
 RenderState rs
 {
-	FrontFace	= CW;
-	CULLMODE	= Back;
-	FILLMODE	= SOLID;
+	CULLMODE			= Back;
+	FILLMODE			= SOLID;
 
-	DepthEnable = TRUE;
-	DepthFunc = LESS;
-	DepthWriteMask = ALL;
-	StencilEnable = false;
-	BlendEnable = false;
-
+	DepthEnable			= TRUE;
+	DepthFunc			= LESS;
+	DepthWriteMask		= ALL;
+	StencilEnable		= false;
+	BlendEnable			= false;
+	COLORWRITE			= ALL;
 };
 
 technique shadow
