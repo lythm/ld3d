@@ -289,6 +289,13 @@ namespace math
 	{
 		return v >> 1 ? closest_expo(v >> 1) << 1 : 1;
 	}
+
+
+	inline 
+		int log2(int v) 
+	{
+		return std::log(double(v)) / log(2.0);
+	}
 }
 
 #ifdef _D3DX9_IMPL_

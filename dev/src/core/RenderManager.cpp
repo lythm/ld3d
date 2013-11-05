@@ -530,13 +530,13 @@ namespace ld3d
 	{
 		m_pGraphics->ClearDepthStencil(flag, d, s);
 	}
-	RenderTexturePtr RenderManager::CreateRenderTexture(int c, int w, int h, G_FORMAT format[])
+	RenderTexturePtr RenderManager::CreateRenderTexture(int c, int w, int h, G_FORMAT format[], int lvls)
 	{
 		RenderTexturePtr pRT = m_pGraphics->CreateRenderTexture();
 
 		for(int i = 0; i < c; ++i)
 		{
-			TexturePtr pTex = m_pGraphics->CreateTexture2D(format[i], w, h, 1, false);
+			TexturePtr pTex = m_pGraphics->CreateTexture2D(format[i], w, h, lvls, false);
 			pRT->AttachTexture(pTex);
 		}
 

@@ -38,7 +38,7 @@ namespace ld3d
 			int w = pRenderManager->GetFrameBufferWidth();
 			int h = pRenderManager->GetFrameBufferHeight();
 
-			if(CreateShadowMap(2048, 2048, G_FORMAT_R32_FLOAT) == false)
+			if(CreateShadowMap(4096, 4096, G_FORMAT_R32_FLOAT) == false)
 			{
 				return false;
 			}
@@ -106,7 +106,7 @@ namespace ld3d
 	}
 	bool SkyLight::CreateShadowMap(int w, int h, G_FORMAT format)
 	{
-		m_pShadowMap = m_pRenderManager->CreateRenderTexture(1, w, h, &format);
+		m_pShadowMap = m_pRenderManager->CreateRenderTexture(1, w, h, &format, 0);
 		if(m_pShadowMap == nullptr)
 		{
 			return false;
@@ -128,7 +128,7 @@ namespace ld3d
 		m_pRenderManager->ClearDepthBuffer(CLEAR_ALL, 1.0f, 0);
 		m_pRenderManager->ClearRenderTarget(0, math::Color4(1, 1, 1, 1));
 
-		math::Matrix44 proj = math::MatrixOrthoLH(20, 20, 0.1, 200);
+		math::Matrix44 proj = math::MatrixOrthoLH(10, 10, 0.1, 200);
 		
 		math::Matrix44 view = m_worldTM;
 		view.Invert();
@@ -136,6 +136,8 @@ namespace ld3d
 		m_lightTM = view * proj;
 
 		m_pRenderManager->DrawShadowMapGeometry(view, proj);
+
+		//m_pShadowMap->GetTexture(0)->GenMipmap();
 	}
 	RenderTexturePtr SkyLight::GetShadowMap()
 	{

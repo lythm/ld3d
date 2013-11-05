@@ -79,7 +79,7 @@ namespace ld3d
 		const math::Color4&							GetGlobalAmbient();
 		void										SetGlobalAmbient(const math::Color4& clr);
 
-		RenderTexturePtr							CreateRenderTexture(int c, int w, int h, G_FORMAT format[]);
+		RenderTexturePtr							CreateRenderTexture(int c, int w, int h, G_FORMAT format[], int lvls = 1);
 		RenderTexturePtr							CreateRenderTextureMS(int c, int w, int h, G_FORMAT format[], int samples);
 		void										SetRenderTarget(RenderTargetPtr pRT);
 		void										ClearRenderTarget(int index, const math::Color4 & clr);

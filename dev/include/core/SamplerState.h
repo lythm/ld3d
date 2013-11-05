@@ -28,7 +28,7 @@ namespace ld3d
 		};
 
 
-		enum COMPARE_FUNC
+		enum TEXTURE_COMPARE_FUNC
 		{
 			CF_LEQUAL,
 			CF_GEQUAL,
@@ -40,8 +40,14 @@ namespace ld3d
 			CF_NEVER,
 		};
 
-		virtual void										SetCompareFunction(COMPARE_FUNC value)																		= 0;
+		enum TEXTURE_COMPARE_MODE
+		{
+			TCM_REF,
+			TCM_NONE,
+		};
 
+		virtual void										SetCompareFunction(TEXTURE_COMPARE_FUNC value)																= 0;
+		virtual void										SetCompareMode(TEXTURE_COMPARE_MODE value)																	= 0;
 		virtual void										SetLod(float minLod, float maxLod)																			= 0;
 		//virtual void										SetMipLodBias(int bias)																						= 0;
 		virtual void										SetBorderColor(const math::Color4& clr)																		= 0;

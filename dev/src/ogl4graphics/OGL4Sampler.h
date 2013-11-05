@@ -11,8 +11,8 @@ namespace ld3d
 		virtual ~OGL4Sampler(void);
 
 
-		void										SetCompareFunction(COMPARE_FUNC value);
-
+		void										SetCompareFunction(TEXTURE_COMPARE_FUNC value);
+		void										SetCompareMode(TEXTURE_COMPARE_MODE value);
 		void										SetLod(float minLod, float maxLod);
 		//void										SetMipLodBias(int bias);
 		void										SetBorderColor(const math::Color4& clr);

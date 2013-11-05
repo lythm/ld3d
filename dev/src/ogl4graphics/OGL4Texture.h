@@ -33,6 +33,8 @@ namespace ld3d
 		void										UnMap();
 
 		GLuint										GetTextureObject();
+
+		void										GenMipmap();
 	private:
 		unsigned int								FormatSize(GLenum format);
 

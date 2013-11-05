@@ -31,7 +31,22 @@ namespace ld3d
 		return m_sampler;
 	}
 
-	void OGL4Sampler::SetCompareFunction(COMPARE_FUNC value)
+	void OGL4Sampler::SetCompareMode(TEXTURE_COMPARE_MODE value)
+	{
+		switch(value)
+		{
+		case TCM_REF:
+			glSamplerParameteri(m_sampler, GL_TEXTURE_COMPARE_MODE, GL_COMPARE_REF_TO_TEXTURE);
+			break;
+		case TCM_NONE:
+			glSamplerParameteri(m_sampler, GL_TEXTURE_COMPARE_MODE, GL_NONE);
+			break;
+		default:
+			assert(0);
+			return;
+		}
+	}
+	void OGL4Sampler::SetCompareFunction(TEXTURE_COMPARE_FUNC value)
 	{
 		switch(value)
 		{

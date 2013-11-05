@@ -58,12 +58,18 @@ namespace ld3d
 	bool OGL4Texture::Create2D(G_FORMAT format, int w, int h, int lvls, bool dynamic)
 	{
 		m_lvls = lvls;
+
+		if(m_lvls == 0)
+		{
+			m_lvls = math::log2(w);
+		}
+
 		m_bDynamic = dynamic;
 
 		glGenTextures(1, &m_texture);
 
 		glBindTexture(GL_TEXTURE_2D, m_texture);
-		glTexStorage2D(GL_TEXTURE_2D, lvls, OGL4Convert::TextureFormatToGL(format), w, h);
+		glTexStorage2D(GL_TEXTURE_2D, m_lvls, OGL4Convert::TextureFormatToGL(format), w, h);
 
 		m_width = w;
 		m_height = h;
@@ -604,6 +610,12 @@ namespace ld3d
 	bool OGL4Texture::IsMultiSample()
 	{
 		return m_bMS;
+	}
+	void OGL4Texture::GenMipmap()
+	{
+		glBindTexture(OGL4Convert::TexTypeToGLTarget(m_type), m_texture);
+		glGenerateMipmap(OGL4Convert::TexTypeToGLTarget(m_type));
+
 	}
 
 }

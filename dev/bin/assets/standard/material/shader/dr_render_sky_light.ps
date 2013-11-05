@@ -50,19 +50,19 @@ void main()
 
 	float z = 0;
 	float s = 0;	
-	float e = -0.0003;
+	float e = -0.00001;
 
 	
-	for(int x = -1; x <= 1; ++x)
+	for(float x = -1.5; x <= 1.5; x += 1)
 	{
-		for(int y = -1; y <= 1; ++y)
+		for(float y = -1.5; y <= 1.5; y += 1)
 		{
 			z = texture(shadow_map, vpos.xy + vec2(x / size.x, y / size.y)).x;
 			s += z < (vpos.z + e) ? 0 : 1.0;
 		}
 	}
 
-	s /= 9;
+	s = s / 16;
 
 	vec3 n = dr_gbuffer_get_normal(_DR_G_BUFFER_1, uv);
 
