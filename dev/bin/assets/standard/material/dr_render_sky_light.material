@@ -20,9 +20,10 @@ RenderState rs
 
 SamplerState ss
 {
-	Filter								= MIN_MAG_MIP_LINEAR;
-	AddressModeU						= clamp;
-	AddressModeV						= clamp;
+	Filter								= MIN_MAG_MIP_POINT;
+	BorderColor							= {1.0, 1.0, 1.0, 1.0};
+	AddressModeU						= border;
+	AddressModeV						= border;
 };
 
 technique dir_light

@@ -27,7 +27,7 @@ namespace ld3d
 		const int&									GetWorldSizeZ();
 		void										SetWorldSizeZ(const int& z);
 
-		VoxelWorldChunk*							FrustumCull(BaseCameraPtr pCamera);
+		VoxelWorldChunk*							FrustumCull(ViewFrustum* pVF);
 
 		VoxelWorldDataSetPtr						GetDataSet();
 		void										SetDataSet(VoxelWorldDataSetPtr pDataSet);

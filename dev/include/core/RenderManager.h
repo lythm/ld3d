@@ -1,6 +1,6 @@
 #pragma once
 
-
+#include "core/ViewFrustum.h"
 
 namespace ld3d
 {
@@ -109,6 +109,7 @@ namespace ld3d
 
 		void										DrawShadowMapGeometry(const math::Matrix44& view, const math::Matrix44& proj);
 
+		void										EmitViewFrustumCullEvent(const ViewFrustum& vf);
 		// test
 		void										RenderTest(CameraPtr pCamera);
 		//

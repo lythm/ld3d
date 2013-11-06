@@ -21,6 +21,7 @@ namespace ld3d
 		bool										Create1D(G_FORMAT format, int l, int lvls, bool dynamic);
 		bool										Create2D(G_FORMAT format, int w, int h, int lvls, bool dynamic);
 		bool										Create2DMS(G_FORMAT format, int w, int h, int samples);
+		bool										Create2DShadow(G_FORMAT format, int w, int h);
 		bool										Create3D(G_FORMAT format, int w, int h, int d, int lvls, bool dynamic);
 
 		int											GetWidth() const;

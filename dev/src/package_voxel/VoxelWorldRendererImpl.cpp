@@ -116,7 +116,7 @@ namespace ld3d
 
 		std::shared_ptr<Event_FrustumCull> e = std::dynamic_pointer_cast<Event_FrustumCull>(pEvent);
 
-		m_pRenderList = m_pWorld->FrustumCull(e->m_pCamera);
+		m_pRenderList = m_pWorld->FrustumCull(e->m_pViewFrustum);
 
 		if(m_pRenderList == nullptr)
 		{

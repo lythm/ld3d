@@ -23,8 +23,54 @@ uniform mat4 light_tm;
 
 out vec4 f_color;
 
+float Soft(sampler2D shadow, vec3 uvc, float scale)
+{
+	float s = 0;	
+	float e = -0.00003;
 
-void main()
+	for(float x = -1.5; x <= 1.5; x += 1.0)
+	{
+		for(float y = -1.5; y <= 1.5; y += 1.0)
+		{
+			vec2 offset;
+			offset.x = x * scale;
+			offset.y = y * scale;
+
+			float z = texture(shadow, uvc.xy + offset).x;
+			s += z < (uvc.z + e) ? 0 : 1.0;
+		}
+	}
+
+	s /= 16;
+	
+	return s;
+}
+
+void main_no_shadow()
+{
+	vec2 dim = textureSize(_DR_G_BUFFER_1, 0);
+
+	vec2 uv = gl_FragCoord.xy / dim;
+
+	float depth = dr_gbuffer_get_depth(_DR_G_BUFFER_0, uv);
+
+	vec4 vpos = vec4(view_port_2_view_space(gl_FragCoord.xy, depth, MATRIX_PROJ, dim), 1);
+
+	vec3 n = dr_gbuffer_get_normal(_DR_G_BUFFER_1, uv);
+
+	DirectionalLight l;
+	
+	l.dir = dir;
+	
+	l.intensity = intensity;
+	l.clr = clr;
+
+	LightResult ret = dr_light_dir(n, l, MATRIX_WV);
+	
+	f_color.xyz = ret.diffuse;
+	f_color.w = rgb_2_il(ret.specular);
+}
+void main_sm()
 {
 	vec2 dim = textureSize(_DR_G_BUFFER_1, 0);
 
@@ -48,21 +94,7 @@ void main()
 	center.y = int(vpos.y * size.y);
 
 
-	float z = 0;
-	float s = 0;	
-	float e = -0.00001;
-
-	
-	for(float x = -1.5; x <= 1.5; x += 1)
-	{
-		for(float y = -1.5; y <= 1.5; y += 1)
-		{
-			z = texture(shadow_map, vpos.xy + vec2(x / size.x, y / size.y)).x;
-			s += z < (vpos.z + e) ? 0 : 1.0;
-		}
-	}
-
-	s = s / 16;
+	float s = Soft(shadow_map, vpos.xyz, 1.0 / size.x);
 
 	vec3 n = dr_gbuffer_get_normal(_DR_G_BUFFER_1, uv);
 
@@ -77,5 +109,10 @@ void main()
 	
 	f_color.xyz = ret.diffuse * s;
 	f_color.w = rgb_2_il(ret.specular) * s;
+}
+void main()
+{
+//	main_no_shadow();
+	main_sm();
 
 }

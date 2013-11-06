@@ -299,22 +299,24 @@ namespace ld3d
 			}
 		}
 	}
+	void RenderManager::EmitViewFrustumCullEvent(const ViewFrustum& vf)
+	{
+		std::shared_ptr<Event_FrustumCull> pEvent = alloc_object<Event_FrustumCull>((ViewFrustum*)&vf);
+
+		m_pEventDispatcher->DispatchEvent(pEvent);
+	}
 	void RenderManager::Render(CameraPtr pCamera)
 	{
 		pCamera->UpdateViewFrustum();
-
-		SetViewMatrix(pCamera->GetViewMatrix());
-		SetProjMatrix(pCamera->GetProjMatrix());
-
-		std::shared_ptr<Event_FrustumCull> pEvent = alloc_object<Event_FrustumCull>(pCamera);
-
-		m_pEventDispatcher->DispatchEvent(pEvent);
-
-
+		
 		RenderShadowMaps(pCamera);
+		
 
 		SetViewMatrix(pCamera->GetViewMatrix());
 		SetProjMatrix(pCamera->GetProjMatrix());
+
+		ViewFrustum vf = pCamera->GetViewFrustum();
+		EmitViewFrustumCullEvent(vf);
 
 		RenderTexturePtr pOutput = m_pPostEffectManager->GetInput();
 

@@ -79,15 +79,16 @@ namespace ld3d
 		int							m_height;
 	};
 
+	class ViewFrustum;
 	class Event_FrustumCull : public Event
 	{
 	public:
-		Event_FrustumCull(BaseCameraPtr pCamera) : Event(EV_FRUSTUM_CULL)
+		Event_FrustumCull(ViewFrustum* vf) : Event(EV_FRUSTUM_CULL)
 		{
-			m_pCamera	= pCamera;
+			m_pViewFrustum	= vf;
 		}
 
-		BaseCameraPtr				m_pCamera;
+		ViewFrustum*					m_pViewFrustum;
 	};
 
 #if defined(WIN32) || defined(WIN64)

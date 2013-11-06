@@ -55,6 +55,26 @@ namespace ld3d
 		m_pboBytes = FormatSize(m_format) * m_width;
 		return true;
 	}
+	bool OGL4Texture::Create2DShadow(G_FORMAT format, int w, int h)
+	{
+		m_lvls = 1;
+
+		m_bDynamic = false;
+
+		glGenTextures(1, &m_texture);
+
+		glBindTexture(GL_TEXTURE_2D, m_texture);
+		glTexStorage2D(GL_TEXTURE_2D, m_lvls, OGL4Convert::TextureFormatToGL(format), w, h);
+
+		m_width = w;
+		m_height = h;
+		m_type = TEX_2D;
+
+		m_format = OGL4Convert::TextureFormatToGL(format);
+
+		m_pboBytes = FormatSize(m_format) * m_width * m_height;
+		return true;
+	}
 	bool OGL4Texture::Create2D(G_FORMAT format, int w, int h, int lvls, bool dynamic)
 	{
 		m_lvls = lvls;

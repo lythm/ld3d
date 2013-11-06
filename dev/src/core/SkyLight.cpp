@@ -124,20 +124,26 @@ namespace ld3d
 			return;
 		}
 
-		m_pRenderManager->SetRenderTarget(m_pShadowMap);
-		m_pRenderManager->ClearDepthBuffer(CLEAR_ALL, 1.0f, 0);
-		m_pRenderManager->ClearRenderTarget(0, math::Color4(1, 1, 1, 1));
-
-		math::Matrix44 proj = math::MatrixOrthoLH(10, 10, 0.1, 200);
+		math::Matrix44 proj = math::MatrixOrthoLH(200, 200, 0.1, 1000);
 		
 		math::Matrix44 view = m_worldTM;
 		view.Invert();
 		
 		m_lightTM = view * proj;
 
+		ViewFrustum vf;
+		vf.Update(view, proj);
+
+		m_pRenderManager->EmitViewFrustumCullEvent(vf);
+
+		m_pRenderManager->SetRenderTarget(m_pShadowMap);
+		m_pRenderManager->ClearDepthBuffer(CLEAR_ALL, 1.0f, 0);
+		m_pRenderManager->ClearRenderTarget(0, math::Color4(1, 1, 1, 1));
+
 		m_pRenderManager->DrawShadowMapGeometry(view, proj);
 
-		//m_pShadowMap->GetTexture(0)->GenMipmap();
+		m_pRenderManager->Clear();
+		m_pShadowMap->GetTexture(0)->GenMipmap();
 	}
 	RenderTexturePtr SkyLight::GetShadowMap()
 	{

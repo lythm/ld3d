@@ -49,9 +49,14 @@ bool VoxelDemo::Init(ld3d::CoreApiPtr pCore)
 
 	m_pCore->CreatGameObjectFromTemplate("Plane", "Plane");
 
-	GameObjectPtr pSphere = m_pCore->CreatGameObjectFromTemplate("Sphere", "Sphere");
+	//GameObjectPtr pSphere = m_pCore->CreatGameObjectFromTemplate("Sphere", "Sphere");
 
-	pSphere->Translate(0, 2, 0);
+	//pSphere->Translate(0, 2, 0);
+
+	GameObjectPtr pCube = m_pCore->CreatGameObjectFromTemplate("Cube", "Cube");
+	pCube->SetScale(1, 10, 1);
+	pCube->Translate(0, 5, 0);
+
 	
 	//GameObjectPtr pLight = m_pCore->CreatGameObjectFromTemplate("DirectionalLight", "light");
 
@@ -74,7 +79,7 @@ bool VoxelDemo::Init(ld3d::CoreApiPtr pCore)
 
 	GameObjectPtr pLight = m_pCore->CreatGameObjectFromTemplate("SkyLight", "light");
 
-	pLight->SetTranslation(-5, 5, 5);
+	pLight->SetTranslation(-50, 50, 50);
 	pLight->LookAt(math::Vector3(0, 0, 0));
 	
 	
