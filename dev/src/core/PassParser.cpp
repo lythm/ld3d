@@ -159,7 +159,7 @@ namespace ld3d
 			
 			if(str_i_cmp(func[0].str, "SetVertexShader"))
 			{
-				if(func.size() != 2)
+				if(func.size() != 2 && func.size() != 3)
 				{
 					Error(func[0].line, "SetVertexShader: invalid argment count");
 					return false;
@@ -179,6 +179,12 @@ namespace ld3d
 
 				_VertexShader = m_rootDir / func[1].str;
 
+				_VertexShaderEntry = "";
+				if(func.size() == 3)
+				{
+					_VertexShaderEntry = func[2].str;
+				}
+
 				if(false == boost::filesystem::exists(_VertexShader))
 				{
 					Error(func[0].line, "SetVertexShader: file not found: '" + _VertexShader.string() + "'");
@@ -190,7 +196,7 @@ namespace ld3d
 			//"SetGeometryShader"
 			if(str_i_cmp(func[0].str, "SetGeometryShader"))
 			{
-				if(func.size() != 2)
+				if(func.size() != 2 && func.size() != 3)
 				{
 					Error(func[0].line, "SetGeometryShader: invalid argment count");
 					return false;
@@ -210,6 +216,12 @@ namespace ld3d
 
 				_GeometryShader = m_rootDir / func[1].str;
 
+				_GeometryShaderEntry = "";
+				if(func.size() == 3)
+				{
+					_GeometryShaderEntry = func[2].str;
+				}
+
 				if(false == boost::filesystem::exists(_GeometryShader))
 				{
 					Error(func[0].line, "SetGeometryShader: file not found: '" + _GeometryShader.string() + "'");
@@ -224,7 +236,7 @@ namespace ld3d
 			//"SetPixelShader",
 			if(str_i_cmp(func[0].str, "SetPixelShader"))
 			{
-				if(func.size() != 2)
+				if(func.size() != 2 && func.size() != 3)
 				{
 					Error(func[0].line, "SetPixelShader: invalid argment count");
 					return false;
@@ -243,6 +255,13 @@ namespace ld3d
 				}
 
 				_PixelShader = m_rootDir / func[1].str;
+
+				_PixelShaderEntry = "";
+				if(func.size() == 3)
+				{
+					_PixelShaderEntry = func[2].str;
+				}
+
 				if(false == boost::filesystem::exists(_PixelShader))
 				{
 					Error(func[0].line, "SetPixelShader: file not found: '" + _PixelShader.string() + "'");
@@ -310,21 +329,21 @@ namespace ld3d
 		{
 			ShaderProgramPtr pProgram = pGraphics->CreateShaderProgram();
 
-			if(_VertexShader != "" && pProgram->AttachShaderFromFile(ST_VERTEX_SHADER, _VertexShader.string().c_str()) == false)
+			if(_VertexShader != "" && pProgram->AttachShaderFromFile(ST_VERTEX_SHADER, _VertexShader.string().c_str(), _VertexShaderEntry) == false)
 			{
 				Error(0, "failed to create vertex shader: '" + _VertexShader.string() + "'");
 				pProgram->Release();
 				return nullptr;
 			}
 
-			if(_PixelShader != "" && pProgram->AttachShaderFromFile(ST_PIXEL_SHADER, _PixelShader.string().c_str()) == false)
+			if(_PixelShader != "" && pProgram->AttachShaderFromFile(ST_PIXEL_SHADER, _PixelShader.string().c_str(), _PixelShaderEntry) == false)
 			{
 				Error(0, "Failed to create pixel shader: '" + _PixelShader.string() + "'");
 				pProgram->Release();
 				return nullptr;
 			}
 
-			if(_GeometryShader != "" && pProgram->AttachShaderFromFile(ST_GEOMETRY_SHADER, _GeometryShader.string().c_str()) == false)
+			if(_GeometryShader != "" && pProgram->AttachShaderFromFile(ST_GEOMETRY_SHADER, _GeometryShader.string().c_str(), _GeometryShaderEntry) == false)
 			{
 				Error(0, "Failed to create geometry shader: '" + _GeometryShader.string() + "'");
 				pProgram->Release();

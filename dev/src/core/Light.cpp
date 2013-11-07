@@ -14,6 +14,9 @@ namespace ld3d
 		m_intensity					= 1.0f;
 		m_bEnabled					= true;
 
+		m_shadowMapWidth			= 640;
+		m_shadowMapHeight			= 640;
+
 		m_worldTM.MakeIdentity();
 	}
 
@@ -87,5 +90,19 @@ namespace ld3d
 	void Light::RenderLight(RenderManagerPtr pRenderer)
 	{
 
+	}
+	void Light::SetShadowMapSize(uint32 w, uint32 h)
+	{
+		m_shadowMapWidth = w;
+		m_shadowMapHeight = h;
+		ResizeShadowMap();
+	}
+	void Light::GetShadowMapSize(uint32& w, uint32& h)
+	{
+		w = m_shadowMapWidth;
+		h = m_shadowMapHeight;
+	}
+	void Light::ResizeShadowMap()
+	{
 	}
 }

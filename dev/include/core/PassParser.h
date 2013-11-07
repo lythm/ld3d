@@ -20,8 +20,11 @@ namespace ld3d
 			bool												SetState(const std::vector<Token>& func);
 		private:
 			boost::filesystem::path								_VertexShader;
+			std::string											_VertexShaderEntry;
 			boost::filesystem::path								_PixelShader;
+			std::string											_PixelShaderEntry;
 			boost::filesystem::path								_GeometryShader;
+			std::string											_GeometryShaderEntry;
 
 			std::string											_RenderState;
 			std::vector<SamplerLink>							_SamplerLink;

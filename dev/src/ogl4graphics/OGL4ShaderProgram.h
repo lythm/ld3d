@@ -25,7 +25,7 @@ namespace ld3d
 		virtual ~OGL4ShaderProgram(void);
 
 
-		bool												AttachShaderFromFile(SHADER_TYPE type, const char* szFile);
+		bool												AttachShaderFromFile(SHADER_TYPE type, const char* szFile, const std::string& entry = "");
 		void												AttachShader(ShaderPtr pShader);
 
 		bool												Link();

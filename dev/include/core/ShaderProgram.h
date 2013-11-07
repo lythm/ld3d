@@ -8,7 +8,9 @@ namespace ld3d
 		typedef int64												ParameterID;
 
 		virtual void												Release()																= 0;
-		virtual bool												AttachShaderFromFile(SHADER_TYPE type, const char* szFile)				= 0;
+		virtual bool												AttachShaderFromFile(SHADER_TYPE type, 
+																		const char* szFile, 
+																		const std::string& entry = "")										= 0;
 		virtual void												AttachShader(ShaderPtr pShader)											= 0;
 
 		virtual bool												Link()																	= 0;

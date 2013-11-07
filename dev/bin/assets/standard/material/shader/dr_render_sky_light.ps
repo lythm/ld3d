@@ -16,35 +16,11 @@ layout(std140) uniform light
 	vec3	clr;
 };
 
-
 uniform sampler2D shadow_map;
 
 uniform mat4 light_tm;
 
 out vec4 f_color;
-
-float Soft(sampler2D shadow, vec3 uvc, float scale)
-{
-	float s = 0;	
-	float e = -0.00003;
-
-	for(float x = -1.5; x <= 1.5; x += 1.0)
-	{
-		for(float y = -1.5; y <= 1.5; y += 1.0)
-		{
-			vec2 offset;
-			offset.x = x * scale;
-			offset.y = y * scale;
-
-			float z = texture(shadow, uvc.xy + offset).x;
-			s += z < (uvc.z + e) ? 0 : 1.0;
-		}
-	}
-
-	s /= 16;
-	
-	return s;
-}
 
 void main_no_shadow()
 {
@@ -69,8 +45,33 @@ void main_no_shadow()
 	
 	f_color.xyz = ret.diffuse;
 	f_color.w = rgb_2_il(ret.specular);
+
 }
-void main_sm()
+
+float Soft(sampler2D shadow, vec3 uvc, float scale)
+{
+	float s = 0;	
+	float e = -0.00003;
+
+	for(float x = -1.5; x <= 1.5; x += 1.0)
+	{
+		for(float y = -1.5; y <= 1.5; y += 1.0)
+		{
+			vec2 offset;
+			offset.x = x * scale;
+			offset.y = y * scale;
+
+			float z = texture(shadow, uvc.xy + offset).x;
+			s += z < (uvc.z + e) ? 0 : 1.0;
+		}
+	}
+
+	s /= 16;
+	
+	return s;
+}
+
+void main_with_shadow()
 {
 	vec2 dim = textureSize(_DR_G_BUFFER_1, 0);
 
@@ -109,10 +110,4 @@ void main_sm()
 	
 	f_color.xyz = ret.diffuse * s;
 	f_color.w = rgb_2_il(ret.specular) * s;
-}
-void main()
-{
-//	main_no_shadow();
-	main_sm();
-
 }

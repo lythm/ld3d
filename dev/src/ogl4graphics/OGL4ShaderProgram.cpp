@@ -47,9 +47,9 @@ namespace ld3d
 		glAttachShader(m_program, pGLShader->GetShaderObject());
 	}
 	
-	bool OGL4ShaderProgram::AttachShaderFromFile(SHADER_TYPE type, const char* szFile)
+	bool OGL4ShaderProgram::AttachShaderFromFile(SHADER_TYPE type, const char* szFile, const std::string& entry)
 	{
-		OGL4ShaderPtr pShader = OGL4ShaderCompiler::CreateShaderFromFile(type, szFile);
+		OGL4ShaderPtr pShader = OGL4ShaderCompiler::CreateShaderFromFile(type, szFile, entry);
 		if(pShader == nullptr)
 		{
 			return false;

@@ -17,6 +17,10 @@ namespace ld3d
 		void								RenderShadowMap(RenderManagerPtr pRenderer);
 
 		RenderTexturePtr					GetShadowMap();
+
+		void								SetCastShadow(const bool& bCast);
+
+		void								ResizeShadowMap();
 	private:
 		bool								CreateShadowMap(int w, int h, G_FORMAT format);
 
@@ -33,6 +37,4 @@ namespace ld3d
 		math::Matrix44						m_lightTM;
 
 	};
-
-
 }

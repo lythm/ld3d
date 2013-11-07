@@ -22,19 +22,17 @@ namespace ld3d
 		virtual const math::Matrix44&			GetWorldTM();
 		virtual void							SetWorldTM(const math::Matrix44& world);
 
-		
 		virtual RenderTexturePtr				GetShadowMap();
-
-		
+		virtual void							SetShadowMapSize(uint32 w, uint32 h);
+		virtual void							GetShadowMapSize(uint32& w, uint32& h);
+		virtual void							ResizeShadowMap();
 		LIGHT_TYPE								GetType() const;
-
-		
 
 		const math::Color4&						GetDiffuseColor();
 		void									SetDiffuseColor(const math::Color4& clr);
 
 		const bool&								GetCastShadow();
-		void									SetCastShadow(const bool& bCast);
+		virtual void							SetCastShadow(const bool& bCast);
 
 		const float&							GetIntensity();
 		void									SetIntensity(const float& i);
@@ -55,5 +53,8 @@ namespace ld3d
 		float									m_intensity;
 
 		bool									m_bEnabled;
+
+		uint32									m_shadowMapWidth;
+		uint32									m_shadowMapHeight;
 	};
 }

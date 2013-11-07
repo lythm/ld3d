@@ -26,7 +26,17 @@ SamplerState ss
 	AddressModeV						= border;
 };
 
-technique dir_light
+technique with_no_shadow
+{
+	pass p1
+	{
+		SetRenderState(rs);
+		SetVertexShader("shader/dr_render_sky_light.vs");
+		SetPixelShader("shader/dr_render_sky_light.ps", "main_no_shadow");
+	}
+}
+
+technique with_shadow
 {
 	pass p1
 	{
@@ -34,8 +44,7 @@ technique dir_light
 		BindSampler("shadow_map", ss);
 
 		SetVertexShader("shader/dr_render_sky_light.vs");
-		SetPixelShader("shader/dr_render_sky_light.ps");
-
+		SetPixelShader("shader/dr_render_sky_light.ps", "main_with_shadow");
 	}
 }
 

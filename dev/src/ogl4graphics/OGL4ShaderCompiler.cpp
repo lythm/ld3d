@@ -43,7 +43,7 @@ namespace ld3d
 
 		return szCode;
 	}
-	OGL4ShaderPtr OGL4ShaderCompiler::CreateShaderFromFile(SHADER_TYPE type, const boost::filesystem::path& path)
+	OGL4ShaderPtr OGL4ShaderCompiler::CreateShaderFromFile(SHADER_TYPE type, const boost::filesystem::path& path, const std::string& entry)
 	{
 	
 		std::string source = LoadShaderSource(path.string());
@@ -70,17 +70,19 @@ namespace ld3d
 
 		source = ClearVersionComment(source);
 
-		return CreateShaderFromSource(type, source, inc_list);
+		return CreateShaderFromSource(type, source, inc_list, entry);
 
 
 	}
-	OGL4ShaderPtr OGL4ShaderCompiler::CreateShaderFromSource(SHADER_TYPE type, const std::string& source, const std::vector<IncludeInfo>& inc_list)
+	OGL4ShaderPtr OGL4ShaderCompiler::CreateShaderFromSource(SHADER_TYPE type, const std::string& source, const std::vector<IncludeInfo>& inc_list, const std::string& entry)
 	{
 		GLenum gltype = OGL4Convert::ShaderTypeToGL(type);
 		
 		GLuint shader = glCreateShader(gltype);
 
-		const char* szSource = source.c_str();
+		std::string result = AdjustEntryPoint(source, entry);
+		const char* szSource = result.c_str();
+
 
 		glShaderSource(shader, 1, &szSource, 0);
 
@@ -262,5 +264,25 @@ namespace ld3d
 		}
 
 		return result + log.substr(s.length() + 5);
+	}
+
+	std::string OGL4ShaderCompiler::AdjustEntryPoint(const std::string& src, const std::string& entry)
+	{
+		if(src.empty())
+		{
+			return src;
+		}
+		if(entry.empty())
+		{
+			return src;
+		}
+
+		std::regex rv("void\\s+" + entry);
+
+		std::string fmt = "void main";
+
+		std::string result = std::regex_replace(src, rv, fmt);
+
+		return result;
 	}
 }

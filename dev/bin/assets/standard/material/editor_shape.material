@@ -19,6 +19,6 @@ technique dr_render_gbuffer
 		SetRenderState(rs);
 
 		SetVertexShader("shader/editor_shape.vs");
-		SetPixelShader("shader/editor_shape.ps");
+		SetPixelShader("shader/editor_shape.ps", "main1");
 	}
 }

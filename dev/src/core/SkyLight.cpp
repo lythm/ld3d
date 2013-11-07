@@ -12,6 +12,7 @@ namespace ld3d
 {
 	SkyLight::SkyLight(void) : Light(LT_SKYLIGHT)
 	{
+		SetShadowMapSize(4096, 4096);
 	}
 
 
@@ -32,17 +33,15 @@ namespace ld3d
 		}
 
 		m_bCastShadow = true;
+		
+		if(false == m_pMaterial->SetCurrentTech(m_bCastShadow ? "with_shadow" : "with_no_shadow"))
+		{
+			return false;
+		}
 
 		if(m_bCastShadow)
 		{
-			int w = pRenderManager->GetFrameBufferWidth();
-			int h = pRenderManager->GetFrameBufferHeight();
-
-			if(CreateShadowMap(4096, 4096, G_FORMAT_R32_FLOAT) == false)
-			{
-				return false;
-			}
-
+			ResizeShadowMap();
 		}
 		return true;
 	}
@@ -91,21 +90,24 @@ namespace ld3d
 
 		pRenderer->SetGBuffer(m_pMaterial);
 
-		pParam = m_pMaterial->GetParameterByName("shadow_map");
 		
-		if(pParam)
+		if(m_bCastShadow)
 		{
+			pParam = m_pMaterial->GetParameterByName("shadow_map");
+		
 			pParam->SetParameterTexture(m_pShadowMap->GetTexture(0));
+			pParam = m_pMaterial->GetParameterByName("light_tm");
+			pParam->SetParameterMatrix(m_lightTM);
 		}
-
-
-		pParam = m_pMaterial->GetParameterByName("light_tm");
-		pParam->SetParameterMatrix(m_lightTM);
 
 		pRenderer->DrawFullScreenQuad(m_pMaterial);
 	}
 	bool SkyLight::CreateShadowMap(int w, int h, G_FORMAT format)
 	{
+		if(m_pRenderManager == nullptr)
+		{
+			return false;
+		}
 		m_pShadowMap = m_pRenderManager->CreateRenderTexture(1, w, h, &format, 0);
 		if(m_pShadowMap == nullptr)
 		{
@@ -143,10 +145,43 @@ namespace ld3d
 		m_pRenderManager->DrawShadowMapGeometry(view, proj);
 
 		m_pRenderManager->Clear();
-		m_pShadowMap->GetTexture(0)->GenMipmap();
+//		m_pShadowMap->GetTexture(0)->GenMipmap();
 	}
 	RenderTexturePtr SkyLight::GetShadowMap()
 	{
 		return m_pShadowMap;
+	}
+	void SkyLight::SetCastShadow(const bool& bCast)
+	{
+		Light::SetCastShadow(bCast);
+
+		if(m_pMaterial)
+		{
+			m_pMaterial->SetCurrentTech(bCast ? "with_shadow" : "with_no_shadow");
+		}
+		
+		if(bCast && m_pShadowMap == nullptr)
+		{
+			ResizeShadowMap();
+		}
+
+		if(bCast == false && m_pShadowMap != nullptr)
+		{
+			m_pShadowMap->Release();
+			m_pShadowMap.reset();
+		}
+	}
+	void SkyLight::ResizeShadowMap()
+	{
+		if(m_pShadowMap)
+		{
+			m_pShadowMap->Release();
+			m_pShadowMap.reset();
+		}
+		if(CreateShadowMap(m_shadowMapWidth, m_shadowMapHeight, G_FORMAT_R32_FLOAT) == false)
+		{
+			return;
+		}
+		return;
 	}
 }
