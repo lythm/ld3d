@@ -1,0 +1,26 @@
+
+1.fog 指数
+2.voxelWorld 纹理
+3.PointLight ShadowMap
+4.SpotLight ShadowMap
+5.碰撞
+6.刚体物理
+7.OSX GLRenderer
+8.天空系统，日夜动态交替，大气效果
+9.水渲染
+10.VoxelWorld 扩大规模
+11.VoxelWorld 动态加载
+12.VoxelObject 技术方案
+13.VoxelObject 动画方案
+14.界面系统
+15.deferred rendering 优化
+16.shadow mapping 优化
+17.VoxelWorld 植被
+18.VoxelWorld 生成
+19.VoxelWorld寻路方案
+20.AI方案
+21.SSAO
+22.HDR
+
+
+
