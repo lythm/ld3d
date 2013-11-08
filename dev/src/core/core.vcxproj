@@ -169,6 +169,8 @@
     <ClInclude Include="..\..\include\core\BaseMaterial.h" />
     <ClInclude Include="..\..\include\core\BBoxRenderData.h" />
     <ClInclude Include="..\..\include\core\Camera.h" />
+    <ClInclude Include="..\..\include\core\Collidee.h" />
+    <ClInclude Include="..\..\include\core\Collider.h" />
     <ClInclude Include="..\..\include\core\CoreApi.h" />
     <ClInclude Include="..\..\include\core\core_all.h" />
     <ClInclude Include="..\..\include\core\core_ptr.h" />
@@ -207,6 +209,7 @@
     <ClInclude Include="..\..\include\core\MeshUtil.h" />
     <ClInclude Include="..\..\include\core\ObjectPool.h" />
     <ClInclude Include="..\..\include\core\PassParser.h" />
+    <ClInclude Include="..\..\include\core\PhysicsManager.h" />
     <ClInclude Include="..\..\include\core\PostEffectManager.h" />
     <ClInclude Include="..\..\include\core\PostEffect_BilateralBlur.h" />
     <ClInclude Include="..\..\include\core\PostEffect_FinalCompose.h" />
@@ -268,6 +271,8 @@
     <ClCompile Include="BaseCamera.cpp" />
     <ClCompile Include="BBoxRenderData.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Collidee.cpp" />
+    <ClCompile Include="Collider.cpp" />
     <ClCompile Include="CoreApi.cpp" />
     <ClCompile Include="core_pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -300,6 +305,7 @@
     <ClCompile Include="MeshSerializer_XML.cpp" />
     <ClCompile Include="MeshUtil.cpp" />
     <ClCompile Include="PassParser.cpp" />
+    <ClCompile Include="PhysicsManager.cpp" />
     <ClCompile Include="PointLight.cpp" />
     <ClCompile Include="PoolAllocator.cpp" />
     <ClCompile Include="PostEffectManager.cpp" />

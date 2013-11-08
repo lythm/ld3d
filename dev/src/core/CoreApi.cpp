@@ -9,6 +9,7 @@
 #include "core/AssetsManager.h"
 #include "core/TimerManager.h"
 #include "core/UIManager.h"
+#include "core/PhysicsManager.h"
 
 
 #include "core/Event.h"
@@ -61,6 +62,8 @@ namespace ld3d
 		m_pUIManager->Update(dt);
 		
 		m_pScene->Update(dt);
+
+		m_pPhysicsManager->Update(dt);
 		
 	}
 	bool CoreApi::Initialize(const SysSetting& setting, Allocator* pAlloc, DT_CoreApiPtr pDTCore)
@@ -111,6 +114,14 @@ namespace ld3d
 		{
 			return false;
 		}
+
+
+		m_pPhysicsManager = alloc_object<PhysicsManager>();
+		if(m_pPhysicsManager->Initialize() == false)
+		{
+			return false;
+		}
+
 		m_pTimerManager = alloc_object<TimerManager>();
 
 		if(m_pTimerManager->Init(m_pSysTime) == false)
@@ -184,6 +195,8 @@ namespace ld3d
 
 		_release_and_reset(m_pTimerManager);
 		
+		_release_and_reset(m_pPhysicsManager);
+
 		_release_and_reset(m_pSysNetwork);
 
 		_release_and_reset(m_pSysInput);

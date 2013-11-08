@@ -83,6 +83,8 @@ namespace ld3d
 
 		float											m_lastFrameTime;
 
+		PhysicsManagerPtr								m_pPhysicsManager;
+
 		SysManagerPtr									m_pSysManager;
 		Sys_GraphicsPtr									m_pSysGraphics;
 		Sys_InputPtr									m_pSysInput;

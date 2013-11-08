@@ -4,11 +4,25 @@
 
 uniform sampler2D _DR_A_BUFFER;
 uniform sampler2D _DR_G_BUFFER_2;
-
+uniform sampler2D _DR_G_BUFFER_0;
 
 out vec4 f_color;
 
+vec3 fog(vec3 clr, float d, vec3 fog_clr)
+{
+	float n = 0.1;
+	float f = 200;
 
+	float start = 10;
+
+	float s = (d - start) / (f - start);
+		
+	s = s > 1 ? 1 : s;
+
+	s = s < 0 ? 0 : s;
+
+	return (1 - s) * clr + (fog_clr * s);
+}
 void main()
 {
 	vec2 dim = textureSize(_DR_A_BUFFER, 0);
@@ -19,6 +33,12 @@ void main()
 	vec4 d = texture(_DR_G_BUFFER_2, uv);
 		
 	f_color.xyz = l.xyz * d.xyz + (l.w * d.xyz) * d.w;
+
+	float depth = dr_gbuffer_get_depth(_DR_G_BUFFER_0, uv);
+	
+	vec3 fog_color = vec3(1, 1, 1);
+
+	f_color.xyz = fog(f_color.xyz, depth, fog_color);
 
 	f_color.w = 1;
 }

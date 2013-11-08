@@ -118,6 +118,15 @@ namespace ld3d
 	typedef std::shared_ptr<SamplerState>					SamplerStatePtr;
 	
 
+	class PhysicsManager;
+	class Collider;
+	class Collidee;
+
+	typedef std::shared_ptr<PhysicsManager>					PhysicsManagerPtr;
+	typedef std::shared_ptr<Collider>						ColliderPtr;
+	typedef std::shared_ptr<Collidee>						CollideePtr;
+
+
 	class CoreApi;
 	class RenderManager;
 	class PostEffectManager;

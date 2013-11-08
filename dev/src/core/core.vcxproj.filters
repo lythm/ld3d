@@ -62,6 +62,9 @@
     <ClCompile Include="ActionMapping.cpp" />
     <ClCompile Include="UIManager.cpp" />
     <ClCompile Include="RenderQueue.cpp" />
+    <ClCompile Include="PhysicsManager.cpp" />
+    <ClCompile Include="Collider.cpp" />
+    <ClCompile Include="Collidee.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\core\ArcBall.h" />
@@ -163,6 +166,9 @@
     <ClInclude Include="..\..\include\core\ActionMapping.h" />
     <ClInclude Include="..\..\include\core\UIManager.h" />
     <ClInclude Include="RenderQueue.h" />
+    <ClInclude Include="..\..\include\core\PhysicsManager.h" />
+    <ClInclude Include="..\..\include\core\Collider.h" />
+    <ClInclude Include="..\..\include\core\Collidee.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
