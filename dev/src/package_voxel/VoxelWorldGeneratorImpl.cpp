@@ -307,7 +307,7 @@ namespace ld3d
 				{
 					if(y < 5)
 					{
-						pDataSet->AddVoxel(VT_GRASS, x, y, z);
+						pDataSet->AddVoxel(VT_SILVER, x, y, z);
 					}
 					else if( y < 10)
 					{
@@ -315,7 +315,7 @@ namespace ld3d
 					}
 					else
 					{
-						pDataSet->AddVoxel(VT_SILVER, x, y, z);
+						pDataSet->AddVoxel(VT_GRASS, x, y, z);
 					}
 				}
 			}

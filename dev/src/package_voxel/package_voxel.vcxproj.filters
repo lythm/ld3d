@@ -81,6 +81,9 @@
     <ClInclude Include="VoxelObjectRendererImpl.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="VoxelWorldMeshGenerator.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="voxel_pch.cpp">
@@ -123,6 +126,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="VoxelObjectRendererImpl.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="VoxelWorldMeshGenerator.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

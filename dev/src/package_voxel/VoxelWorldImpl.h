@@ -48,6 +48,8 @@ namespace ld3d
 		int											m_worldSizeZ;
 
 		VoxelWorldDataSetPtr						m_pDataSet;
+
+		VoxelWorldMeshGeneratorPtr					m_pMeshGen;
 	};
 
 
