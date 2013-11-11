@@ -2,7 +2,7 @@
 
 RenderState rs
 {
-	CULLMODE			= front;
+	CULLMODE			= back;
 	FILLMODE			= SOLID;
 
 	DepthEnable			= TRUE;

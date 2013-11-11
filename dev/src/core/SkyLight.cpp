@@ -126,7 +126,7 @@ namespace ld3d
 			return;
 		}
 
-		math::Matrix44 proj = math::MatrixOrthoLH(200, 200, 0.1, 1000);
+		math::Matrix44 proj = math::MatrixOrthoLH(100, 100, 0.1, 1000);
 		
 		math::Matrix44 view = m_worldTM;
 		view.Invert();

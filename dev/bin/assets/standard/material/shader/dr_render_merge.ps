@@ -1,6 +1,7 @@
 #version 330
 
 #pragma include "dr_gbuffer.glsl"
+#pragma include "fog_formular.glsl"
 
 uniform sampler2D _DR_A_BUFFER;
 uniform sampler2D _DR_G_BUFFER_2;
@@ -10,18 +11,19 @@ out vec4 f_color;
 
 vec3 fog(vec3 clr, float d, vec3 fog_clr)
 {
-	float n = 0.1;
-	float f = 200;
+	
+	return clr;
 
-	float start = 10;
 
-	float s = (d - start) / (f - start);
-		
-	s = s > 1 ? 1 : s;
+	/*float start = 20;
+	float end = 100;
 
-	s = s < 0 ? 0 : s;
-
-	return (1 - s) * clr + (fog_clr * s);
+	//float f = fog_factor_linear(start, end, d);
+	//float f = fog_factor_exp(0.03, d);
+	float f = fog_factor_exp2(0.03, d);
+	
+	return (1 - f) * clr + (fog_clr * f);
+	*/
 }
 void main()
 {
