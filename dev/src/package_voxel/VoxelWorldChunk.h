@@ -34,7 +34,5 @@ namespace ld3d
 
 			return math::Vector3(x, y, z);
 		}
-
-
 	};
 }
