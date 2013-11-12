@@ -2,7 +2,7 @@
 #include "VoxelWorldImpl.h"
 #include "VoxelWorldChunk.h"
 #include "VoxelWorldDataSet.h"
-#include "VoxelWorldMeshGenerator.h"
+#include "VoxelWorldUtils.h"
 
 namespace ld3d
 {
@@ -53,11 +53,7 @@ namespace ld3d
 
 
 
-		m_pMeshGen = m_pManager->alloc_object<VoxelWorldMeshGenerator>();
-		if(m_pMeshGen->Initialize() == false)
-		{
-			return false;
-		}
+
 		return true;
 	}
 	
@@ -74,9 +70,6 @@ namespace ld3d
 		ClearPropertySet();
 
 		_release_and_reset(m_pDataSet);
-
-		_release_and_reset(m_pMeshGen);
-
 
 	}
 	const int& VoxelWorldImpl::GetWorldSizeX()

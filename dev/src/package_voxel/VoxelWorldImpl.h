@@ -49,8 +49,5 @@ namespace ld3d
 
 		VoxelWorldDataSetPtr						m_pDataSet;
 
-		VoxelWorldMeshGeneratorPtr					m_pMeshGen;
 	};
-
-
 }

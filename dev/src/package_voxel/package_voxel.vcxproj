@@ -180,7 +180,7 @@
     <ClInclude Include="VoxelWorldGeneratorImpl.h" />
     <ClInclude Include="VoxelWorldImpl.h" />
     <ClInclude Include="VoxelWorldMesh.h" />
-    <ClInclude Include="VoxelWorldMeshGenerator.h" />
+    <ClInclude Include="VoxelWorldUtils.h" />
     <ClInclude Include="VoxelWorldOctTree.h" />
     <ClInclude Include="VoxelWorldRegion.h" />
     <ClInclude Include="VoxelWorldRendererImpl.h" />
@@ -198,7 +198,7 @@
     <ClCompile Include="VoxelWorldGeneratorImpl.cpp" />
     <ClCompile Include="VoxelWorldImpl.cpp" />
     <ClCompile Include="VoxelWorldMesh.cpp" />
-    <ClCompile Include="VoxelWorldMeshGenerator.cpp" />
+    <ClCompile Include="VoxelWorldUtils.cpp" />
     <ClCompile Include="VoxelWorldOctTree.cpp" />
     <ClCompile Include="VoxelWorldRegion.cpp" />
     <ClCompile Include="VoxelSerializer.cpp" />

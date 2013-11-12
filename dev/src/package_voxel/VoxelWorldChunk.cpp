@@ -1,6 +1,9 @@
 #include "voxel_pch.h"
 #include "VoxelWorldChunk.h"
 
+#include "VoxelWorldUtils.h"
+#include "VoxelWorldMesh.h"
+
 namespace ld3d
 {
 	VoxelWorldChunk::VoxelWorldChunk()
@@ -132,10 +135,7 @@ namespace ld3d
 	{
 		return m_blockCount;
 	}
-	void VoxelWorldChunk::UpdateMesh()
-	{
-
-	}
+	
 	math::Vector3 VoxelWorldChunk::IndexToLocal(uint32 index)
 	{
 		math::Vector3 local;
@@ -152,4 +152,10 @@ namespace ld3d
 	{
 		return IndexToLocal(index) + GetChunkCoord();
 	}
+
+	void VoxelWorldChunk::UpdateMesh()
+	{
+
+	}
+
 }

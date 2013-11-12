@@ -13,8 +13,7 @@ namespace ld3d
 
 
 	class VoxelWorldImpl;
-	class VoxelWorldMeshGenerator;
-	typedef std::shared_ptr<VoxelWorldMeshGenerator>		VoxelWorldMeshGeneratorPtr;
+	
 	typedef std::shared_ptr<VoxelWorldImpl>					VoxelWorldImplPtr;
 
 }
