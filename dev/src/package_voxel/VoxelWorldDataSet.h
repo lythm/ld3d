@@ -2,7 +2,7 @@
 
 namespace ld3d
 {
-	struct VoxelWorldChunk;
+	class VoxelWorldChunk;
 
 	class VoxelWorldRegion;
 

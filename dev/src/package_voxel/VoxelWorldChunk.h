@@ -8,31 +8,72 @@ namespace ld3d
 		math::Vector3										normal;
 		uint32												clr;
 	};
-	struct VoxelWorldChunk
+	class VoxelWorldChunk
 	{
 	public:
-		uint32												key;
-		uint8												data[VOXEL_WORLD_CHUNK_SIZE * VOXEL_WORLD_CHUNK_SIZE * VOXEL_WORLD_CHUNK_SIZE];
-		VoxelWorldChunk*									map_next;
-		VoxelWorldChunk*									dirty_list_next;
-		VoxelWorldChunk*									render_list_next;
+		VoxelWorldChunk();
+		virtual ~VoxelWorldChunk();
+
+
+		void												Init(uint32 key);
+		void												Reset();
+
+		void												SetMapNext(VoxelWorldChunk* pNext);
+		VoxelWorldChunk*									GetMapNext();
+		
+		void												SetDirtyListNext(VoxelWorldChunk* pNext);
+		VoxelWorldChunk*									GetDirtyListNext();
+
+		void												SetRenderListNext(VoxelWorldChunk* pNext);
+		VoxelWorldChunk*									GetRenderListNext();
+		
+		uint32												GetKey();
+
+		uint8*												GetBlockData();
+		void												Load(uint32 key, uint8* data);
+		
+
+		uint8												GetBlock(uint32 index);
+		void												SetBlock(uint32 index, uint8 value);
+
+		void												SetDirty(bool dirty);
+		bool												IsDirty();
+
+		void												SetInOctTree(bool value);
+		bool												IsInOctTree();
+
+		math::Vector3										GetChunkCoord();
+
+		math::Vector3										IndexToLocal(uint32 index);
+		math::Vector3										IndexToGlobal(uint32 index);
+
+		// non-empty block count
+		uint32												GetBlockCount();
+
+
+
+		void												UpdateMesh();
+
+
+		////////////////////////////////
+
 		VoxelVertex*										vertex_buffer;
 		int													vertex_count;
-		bool												in_dirty_list;
-		bool												in_oct_tree;
-		uint32												voxel_count;
 
-		math::Vector3										chunk_coord()
-		{
-			uint32 c_x = (key >> 16) & 0x000000ff;
-			uint32 c_y = (key >> 8) & 0x000000ff;
-			uint32 c_z = key & 0x000000ff;
+	
+		///////////////////////////////////
 
-			float x = float(c_x * VOXEL_WORLD_CHUNK_SIZE * VOXEL_WORLD_BLOCK_SIZE);
-			float y = float(c_y * VOXEL_WORLD_CHUNK_SIZE * VOXEL_WORLD_BLOCK_SIZE);
-			float z = float(c_z * VOXEL_WORLD_CHUNK_SIZE * VOXEL_WORLD_BLOCK_SIZE);
+	private:
+		VoxelWorldChunk*									m_pMapNext;
+		VoxelWorldChunk*									m_pDirtyListNext;
+		VoxelWorldChunk*									m_pRenderListNext;
 
-			return math::Vector3(x, y, z);
-		}
+		uint32												m_key;
+
+		bool												m_dirty;
+		bool												m_inOctTree;
+
+		uint32												m_blockCount;
+		uint8												m_pData[VOXEL_WORLD_CHUNK_SIZE * VOXEL_WORLD_CHUNK_SIZE * VOXEL_WORLD_CHUNK_SIZE];
 	};
 }

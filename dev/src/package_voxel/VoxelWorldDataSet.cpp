@@ -96,13 +96,13 @@ namespace ld3d
 
 			while(pChunk)
 			{
-				if(pChunk->voxel_count != 0)
+				if(pChunk->GetBlockCount() != 0)
 				{
-					pStream->WriteInt32(pChunk->key);
-					pStream->Write(pChunk->data, sizeof(uint8) * VOXEL_WORLD_CHUNK_SIZE * VOXEL_WORLD_CHUNK_SIZE * VOXEL_WORLD_CHUNK_SIZE);
+					pStream->WriteInt32(pChunk->GetKey());
+					pStream->Write(pChunk->GetBlockData(), sizeof(uint8) * VOXEL_WORLD_CHUNK_SIZE * VOXEL_WORLD_CHUNK_SIZE * VOXEL_WORLD_CHUNK_SIZE);
 					++chunk_count;
 				}
-				pChunk = pChunk->map_next;
+				pChunk = pChunk->GetMapNext();
 			}
 		}
 		

@@ -4,7 +4,7 @@
 
 namespace ld3d
 {
-	struct VoxelWorldChunk;
+	class VoxelWorldChunk;
 
 	class VoxelWorldRendererImpl : public VoxelWorldRenderer
 	{

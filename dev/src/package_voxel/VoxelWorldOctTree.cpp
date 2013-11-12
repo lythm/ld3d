@@ -58,7 +58,7 @@ namespace ld3d
 	{
 		math::AABBox bound;
 
-		math::Vector3 coord = pChunk->chunk_coord();
+		math::Vector3 coord = pChunk->GetChunkCoord();
 		bound.Make(coord, math::Vector3(
 			coord.x + VOXEL_WORLD_CHUNK_SIZE * VOXEL_WORLD_BLOCK_SIZE,
 			coord.y + VOXEL_WORLD_CHUNK_SIZE * VOXEL_WORLD_BLOCK_SIZE,

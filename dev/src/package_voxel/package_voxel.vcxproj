@@ -176,7 +176,6 @@
     <ClInclude Include="VoxelPool.h" />
     <ClInclude Include="VoxelSerializer.h" />
     <ClInclude Include="VoxelWorldChunk.h" />
-    <ClInclude Include="VoxelWorldChunk2.h" />
     <ClInclude Include="VoxelWorldDataSet.h" />
     <ClInclude Include="VoxelWorldGeneratorImpl.h" />
     <ClInclude Include="VoxelWorldImpl.h" />
@@ -194,7 +193,7 @@
     <ClCompile Include="VoxelObjectTemplate.cpp" />
     <ClCompile Include="VoxelPackage.cpp" />
     <ClCompile Include="VoxelPool.cpp" />
-    <ClCompile Include="VoxelWorldChunk2.cpp" />
+    <ClCompile Include="VoxelWorldChunk.cpp" />
     <ClCompile Include="VoxelWorldDataSet.cpp" />
     <ClCompile Include="VoxelWorldGeneratorImpl.cpp" />
     <ClCompile Include="VoxelWorldImpl.cpp" />

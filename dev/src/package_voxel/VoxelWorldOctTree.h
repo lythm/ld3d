@@ -4,7 +4,7 @@
 
 namespace ld3d
 {
-	struct VoxelWorldChunk;
+	class VoxelWorldChunk;
 	class VoxelWorldOctTree : public std::enable_shared_from_this<VoxelWorldOctTree>
 	{
 	public:

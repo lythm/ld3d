@@ -87,9 +87,6 @@
     <ClInclude Include="VoxelWorldMesh.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="VoxelWorldChunk2.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="voxel_pch.cpp">
@@ -140,7 +137,7 @@
     <ClCompile Include="VoxelWorldMesh.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="VoxelWorldChunk2.cpp">
+    <ClCompile Include="VoxelWorldChunk.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

@@ -188,7 +188,7 @@ namespace ld3d
 		{
 			if(pChunk->vertex_count == 0)
 			{
-				pChunk = pChunk->render_list_next;
+				pChunk = pChunk->GetRenderListNext();
 				continue;
 			}
 			bytesLeft = m_nVBBytes - m_nVBCurrent;
@@ -209,7 +209,7 @@ namespace ld3d
 			m_nVBCurrent += sizeof(VoxelVertex) * pChunk->vertex_count;
 			m_nVertexCount += pChunk->vertex_count;
 			
-			pChunk = pChunk->render_list_next;
+			pChunk = pChunk->GetRenderListNext();
 		}
 
 		pVB->Unmap();
@@ -253,7 +253,7 @@ namespace ld3d
 		{
 			if(pChunk->vertex_count == 0)
 			{
-				pChunk = pChunk->render_list_next;
+				pChunk = pChunk->GetRenderListNext();
 				continue;
 			}
 			bytesLeft = m_nVBBytes - m_nVBCurrent;
@@ -274,7 +274,7 @@ namespace ld3d
 			m_nVBCurrent += sizeof(VoxelVertex) * pChunk->vertex_count;
 			m_nVertexCount += pChunk->vertex_count;
 			
-			pChunk = pChunk->render_list_next;
+			pChunk = pChunk->GetRenderListNext();
 		}
 
 		pVB->Unmap();

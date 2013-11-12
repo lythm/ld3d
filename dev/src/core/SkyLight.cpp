@@ -32,7 +32,7 @@ namespace ld3d
 			return false;
 		}
 
-		m_bCastShadow = true;
+		//m_bCastShadow = true;
 		
 		if(false == m_pMaterial->SetCurrentTech(m_bCastShadow ? "with_shadow" : "with_no_shadow"))
 		{
@@ -126,7 +126,7 @@ namespace ld3d
 			return;
 		}
 
-		math::Matrix44 proj = math::MatrixOrthoLH(100, 100, 0.1, 1000);
+		math::Matrix44 proj = math::MatrixOrthoLH(100, 100, 0.1f, 1000);
 		
 		math::Matrix44 view = m_worldTM;
 		view.Invert();
