@@ -11,9 +11,10 @@ namespace ld3d
 {
 	extern Version											g_packageVersion;
 
-
+	class VoxelWorldMaterialManager;
 	class VoxelWorldImpl;
 	
 	typedef std::shared_ptr<VoxelWorldImpl>					VoxelWorldImplPtr;
+	typedef std::shared_ptr<VoxelWorldMaterialManager>		VoxelWorldMaterialManagerPtr;
 
 }

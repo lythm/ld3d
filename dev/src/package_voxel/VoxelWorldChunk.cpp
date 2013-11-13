@@ -8,6 +8,8 @@ namespace ld3d
 {
 	VoxelWorldChunk::VoxelWorldChunk()
 	{
+		m_pMesh = nullptr;
+
 		Reset();
 	}
 	void VoxelWorldChunk::Reset()
@@ -19,20 +21,39 @@ namespace ld3d
 		m_pDirtyListNext = nullptr;
 		m_pRenderListNext = nullptr;
 		m_inOctTree = false;
-		vertex_buffer = nullptr;
-		vertex_count = 0;
 
 		m_pMapNext = nullptr;
+		m_pRegion = nullptr;
+
+		if(m_pMesh == nullptr)
+		{
+			m_pMesh = new VoxelWorldMesh;
+		}
+		m_pMesh->Reset();
 	}
 	VoxelWorldChunk::~VoxelWorldChunk()
 	{
-
 	}
-
-	void VoxelWorldChunk::Init(uint32 key)
+	void VoxelWorldChunk::Release()
 	{
+		if(m_pMesh)
+		{
+			m_pMesh->Release();
+			delete m_pMesh;
+			m_pMesh = nullptr;
+		}
+	}
+	bool VoxelWorldChunk::Init(uint32 key, VoxelWorldRegion* pRegion)
+	{
+		if(pRegion == nullptr)
+		{
+			return false;
+		}
 		Reset();
 		m_key = key;
+		m_pRegion = pRegion;
+
+		return true;
 	}
 	void VoxelWorldChunk::SetMapNext(VoxelWorldChunk* pNext)
 	{
@@ -152,10 +173,16 @@ namespace ld3d
 	{
 		return IndexToLocal(index) + GetChunkCoord();
 	}
-
+	VoxelWorldRegion* VoxelWorldChunk::GetRegion()
+	{
+		return m_pRegion;
+	}
 	void VoxelWorldChunk::UpdateMesh()
 	{
-
+		VoxelWorldUtils::GenChunkMesh(this);
 	}
-
+	VoxelWorldMesh*	VoxelWorldChunk::GetMesh()
+	{
+		return m_pMesh;
+	}
 }

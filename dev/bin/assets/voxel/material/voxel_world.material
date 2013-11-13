@@ -14,11 +14,20 @@ RenderState rs
 	ColorWrite						= all;
 	
 };
+
+SamplerState ss
+{
+	Filter								= MIN_MAG_MIP_LINEAR;
+	BorderColor							= {1.0, 1.0, 1.0, 1.0};
+	AddressModeU						= repeat;
+	AddressModeV						= repeat;
+};
 technique dr_render_gbuffer
 {
 	pass p1
 	{
 		SetRenderState(rs);
+		BindSampler("diffuse_map", ss);
 		SetVertexShader("./shader/voxel_world.vs");
 		SetPixelShader("./shader/voxel_world.ps");
 	}

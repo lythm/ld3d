@@ -1,14 +1,16 @@
 #version 330
 
-#pragma include "shader/dr_gbuffer.glsl"
-#pragma include "matrix_block.glsl"
+#pragma include "../../../standard/material/shader/dr_gbuffer.glsl"
+#pragma include "../../../standard/material/shader/matrix_block.glsl"
 
 smooth in vec3 v_normal;
-smooth in vec4 f_color;
+smooth in vec2 tex_coord;
 
 layout(location = 0) out vec4	G_BUFFER_0;
 layout(location = 1) out vec4	G_BUFFER_1;
 layout(location = 2) out vec4	G_BUFFER_2;
+
+uniform sampler2D diffuse_map;
 
 void main()
 {
@@ -20,6 +22,8 @@ void main()
 	
 	G_BUFFER_1 =  vec4(encode_normal(normalize(v_normal)), 0, 0);
 
-	G_BUFFER_2 = vec4(f_color.xyz, specular);
+	vec3 diffuse = texture(diffuse_map, tex_coord).xyz;
+	diffuse.x = 1;
+	G_BUFFER_2 = vec4(diffuse, specular);
 		
 }

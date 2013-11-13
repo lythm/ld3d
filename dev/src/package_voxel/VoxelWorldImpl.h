@@ -34,6 +34,8 @@ namespace ld3d
 
 		bool										OnSerialize(DataStream* pStream);
 		bool										OnUnSerialize(DataStream* pStream, const Version& version);
+
+		
 	private:
 
 		
@@ -49,5 +51,6 @@ namespace ld3d
 
 		VoxelWorldDataSetPtr						m_pDataSet;
 
+		
 	};
 }

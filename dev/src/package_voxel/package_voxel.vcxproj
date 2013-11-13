@@ -179,6 +179,7 @@
     <ClInclude Include="VoxelWorldDataSet.h" />
     <ClInclude Include="VoxelWorldGeneratorImpl.h" />
     <ClInclude Include="VoxelWorldImpl.h" />
+    <ClInclude Include="VoxelWorldMaterialManager.h" />
     <ClInclude Include="VoxelWorldMesh.h" />
     <ClInclude Include="VoxelWorldUtils.h" />
     <ClInclude Include="VoxelWorldOctTree.h" />
@@ -197,6 +198,7 @@
     <ClCompile Include="VoxelWorldDataSet.cpp" />
     <ClCompile Include="VoxelWorldGeneratorImpl.cpp" />
     <ClCompile Include="VoxelWorldImpl.cpp" />
+    <ClCompile Include="VoxelWorldMaterialManager.cpp" />
     <ClCompile Include="VoxelWorldMesh.cpp" />
     <ClCompile Include="VoxelWorldUtils.cpp" />
     <ClCompile Include="VoxelWorldOctTree.cpp" />

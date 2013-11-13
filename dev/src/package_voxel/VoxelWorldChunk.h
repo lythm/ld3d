@@ -2,12 +2,8 @@
 
 namespace ld3d
 {
-	struct VoxelVertex
-	{
-		math::Vector3										pos;
-		math::Vector3										normal;
-		uint32												clr;
-	};
+	class VoxelWorldMesh;
+	class VoxelWorldRegion;
 	class VoxelWorldChunk
 	{
 	public:
@@ -15,7 +11,9 @@ namespace ld3d
 		virtual ~VoxelWorldChunk();
 
 
-		void												Init(uint32 key);
+		bool												Init(uint32 key, VoxelWorldRegion* pRegion);
+		void												Release();
+
 		void												Reset();
 
 		void												SetMapNext(VoxelWorldChunk* pNext);
@@ -49,19 +47,11 @@ namespace ld3d
 
 		// non-empty block count
 		uint32												GetBlockCount();
-
-
-
 		void												UpdateMesh();
 
+		VoxelWorldRegion*									GetRegion();
 
-		////////////////////////////////
-
-		VoxelVertex*										vertex_buffer;
-		int													vertex_count;
-
-	
-		///////////////////////////////////
+		VoxelWorldMesh*										GetMesh();
 
 	private:
 		VoxelWorldChunk*									m_pMapNext;
@@ -75,5 +65,9 @@ namespace ld3d
 
 		uint32												m_blockCount;
 		uint8												m_pData[VOXEL_WORLD_CHUNK_SIZE * VOXEL_WORLD_CHUNK_SIZE * VOXEL_WORLD_CHUNK_SIZE];
+
+		VoxelWorldRegion*									m_pRegion;
+
+		VoxelWorldMesh*										m_pMesh;
 	};
 }

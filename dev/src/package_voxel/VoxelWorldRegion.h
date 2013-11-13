@@ -6,12 +6,7 @@ namespace ld3d
 	class VoxelWorldChunk;
 	class VoxelWorldRegion
 	{
-		struct FaceRegion
-		{
-			int x1, y1;
-			int x2, y2;
-			int type;
-		};
+		
 	public:
 		VoxelWorldRegion(void);
 		virtual ~VoxelWorldRegion(void);
@@ -41,10 +36,6 @@ namespace ld3d
 		void													AddChunk(uint32 key, uint8 data[VOXEL_WORLD_CHUNK_SIZE * VOXEL_WORLD_CHUNK_SIZE * VOXEL_WORLD_CHUNK_SIZE]);
 	private:
 
-		void													GenChunkMesh(VoxelWorldChunk* pChunk);
-		std::vector<FaceRegion>									ExtractRegion(uint8 faces[VOXEL_WORLD_CHUNK_SIZE][VOXEL_WORLD_CHUNK_SIZE]);
-		bool													FindMaxRegion(uint8 faces[VOXEL_WORLD_CHUNK_SIZE][VOXEL_WORLD_CHUNK_SIZE], FaceRegion& r);
-		
 		void													AddChunkToRenderList(VoxelWorldChunk* pChunk);
 		void													AddChunkToDirtyList(VoxelWorldChunk* pChunk);
 

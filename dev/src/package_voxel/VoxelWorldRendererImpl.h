@@ -1,6 +1,7 @@
 #pragma once
 
 #include "packages/voxel/VoxelWorldRenderer.h"
+#include "VoxelWorldMesh.h"
 
 namespace ld3d
 {
@@ -9,6 +10,13 @@ namespace ld3d
 	class VoxelWorldRendererImpl : public VoxelWorldRenderer
 	{
 	public:
+
+		struct VoxelBatch
+		{
+			std::vector<VoxelWorldMesh::Subset>		subs;
+			uint8									type;
+		};
+
 		VoxelWorldRendererImpl(GameObjectManagerPtr pManager);
 		virtual ~VoxelWorldRendererImpl(void);
 
@@ -29,6 +37,9 @@ namespace ld3d
 		void										Render(RenderManagerPtr pManager);
 		void										RenderShadowMapGeo(RenderManagerPtr pManager, MaterialPtr pMaterial);
 		void										Draw(Sys_GraphicsPtr pSysGraphics, MaterialPtr pMaterial, int baseVertex);
+
+		void										BatchVoxelMesh(VoxelWorldChunk* pList, std::vector<VoxelWorldMesh::Subset>& subs);
+		
 	private:
 
 		EventHandlerID								m_hFrustumCull;
@@ -56,5 +67,9 @@ namespace ld3d
 		RenderManagerPtr							m_pRenderManager;
 
 		math::Matrix44								m_worldMatrix;
+
+		VoxelWorldMaterialManagerPtr				m_pMaterialManager;
+
+
 	};
 }

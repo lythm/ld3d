@@ -119,7 +119,7 @@ namespace ld3d
 			bool included = false;
 			for(auto v : inc_list)
 			{
-				if((basePath / v.file.filename()) == (basePath / include_list[i].file.filename()))
+				if((basePath / v.file) == (basePath / include_list[i].file))
 				{
 					included = true;
 					break;
@@ -131,7 +131,7 @@ namespace ld3d
 				continue;
 			}
 			
-			std::string inc_source = LoadShaderSource(basePath / include_list[i].file.filename());
+			std::string inc_source = LoadShaderSource(basePath / include_list[i].file);
 			
 			include_list[i].lines = GetSourceLines(inc_source);
 			

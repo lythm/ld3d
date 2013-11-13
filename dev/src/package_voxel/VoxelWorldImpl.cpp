@@ -3,6 +3,7 @@
 #include "VoxelWorldChunk.h"
 #include "VoxelWorldDataSet.h"
 #include "VoxelWorldUtils.h"
+#include "VoxelWorldMaterialManager.h"
 
 namespace ld3d
 {
@@ -52,7 +53,7 @@ namespace ld3d
 				&VoxelWorldImpl::SetWorldSizeZ);
 
 
-
+		
 
 		return true;
 	}
@@ -70,6 +71,7 @@ namespace ld3d
 		ClearPropertySet();
 
 		_release_and_reset(m_pDataSet);
+
 
 	}
 	const int& VoxelWorldImpl::GetWorldSizeX()

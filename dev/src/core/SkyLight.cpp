@@ -32,7 +32,7 @@ namespace ld3d
 			return false;
 		}
 
-		//m_bCastShadow = true;
+		m_bCastShadow = true;
 		
 		if(false == m_pMaterial->SetCurrentTech(m_bCastShadow ? "with_shadow" : "with_no_shadow"))
 		{

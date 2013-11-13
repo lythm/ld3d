@@ -47,15 +47,15 @@ bool VoxelDemo::Init(ld3d::CoreApiPtr pCore)
 	pCamera->SetTranslation(10, 10, 10);
 	pCamera->LookAt(math::Vector3(0, 0, 0));
 
-	m_pCore->CreatGameObjectFromTemplate("Plane", "Plane");
+	//m_pCore->CreatGameObjectFromTemplate("Plane", "Plane");
 
 	//GameObjectPtr pSphere = m_pCore->CreatGameObjectFromTemplate("Sphere", "Sphere");
 
 	//pSphere->Translate(0, 2, 0);
 
-	GameObjectPtr pCube = m_pCore->CreatGameObjectFromTemplate("Cube", "Cube");
-	pCube->SetScale(1, 10, 1);
-	pCube->Translate(0, 5, 0);
+//	GameObjectPtr pCube = m_pCore->CreatGameObjectFromTemplate("Cube", "Cube");
+//	pCube->SetScale(1, 10, 1);
+//	pCube->Translate(0, 5, 0);
 
 	
 	//GameObjectPtr pLight = m_pCore->CreatGameObjectFromTemplate("DirectionalLight", "light");

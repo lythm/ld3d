@@ -4,6 +4,8 @@
 #include "VoxelWorldDataSet.h"
 #include "VoxelWorldImpl.h"
 #include "VoxelWorldChunk.h"
+#include "VoxelWorldMesh.h"
+#include "VoxelWorldMaterialManager.h"
 
 namespace ld3d
 {
@@ -42,12 +44,18 @@ namespace ld3d
 				
 		m_pRenderManager		= m_pManager->GetRenderManager();
 
+		m_pMaterialManager = m_pManager->alloc_object<VoxelWorldMaterialManager>();
+		if(m_pMaterialManager->Initialize(m_pRenderManager) == false)
+		{
+			return false;
+		}
+
 		m_pRenderData			= m_pManager->alloc_object<RenderData>();
 		m_pRenderData->fr_draw	= std::bind(&VoxelWorldRendererImpl::Render, this, std::placeholders::_1);
 		m_pRenderData->dr_draw	= std::bind(&VoxelWorldRendererImpl::Render, this, std::placeholders::_1);
 		m_pRenderData->sm_draw	= std::bind(&VoxelWorldRendererImpl::RenderShadowMapGeo, this, std::placeholders::_1, std::placeholders::_2);
 		
-		m_pMaterial = m_pRenderManager->CreateMaterialFromFile("./assets/standard/material/voxel_world.material");
+		m_pMaterial = m_pRenderManager->CreateMaterialFromFile("./assets/voxel/material/voxel_world.material");
 		if(m_pMaterial == nullptr)
 		{
 			return false;
@@ -56,7 +64,7 @@ namespace ld3d
 		VertexLayout layout;
 		layout.AddAttribute(G_FORMAT_R32G32B32_FLOAT);
 		layout.AddAttribute(G_FORMAT_R32G32B32_FLOAT);
-		layout.AddAttribute(G_FORMAT_R8G8B8A8_UNORM);
+		layout.AddAttribute(G_FORMAT_R32G32_FLOAT);
 		
 		m_pGeometry = m_pRenderManager->CreateGeometryData();
 		
@@ -94,6 +102,8 @@ namespace ld3d
 		m_pMaterial.reset();
 		m_pGeometry->Release();
 		m_pGeometry.reset();
+
+		_release_and_reset(m_pMaterialManager);
 
 		ClearPropertySet();
 		m_pManager->RemoveEventHandler(m_hFrustumCull);
@@ -172,7 +182,10 @@ namespace ld3d
 		uint32 bytesLeft = m_nVBBytes - m_nVBCurrent;
 
 		uint8* data = nullptr;
-		if(bytesLeft <= sizeof(VoxelVertex) * pChunk->vertex_count)
+
+		VoxelWorldMesh* pMesh = pChunk->GetMesh();
+
+		if(bytesLeft <= sizeof(VoxelWorldMesh::VoxelVertex) * pMesh->GetVertexCount())
 		{
 			data = (uint8*)pVB->Map(MAP_DISCARD);
 			m_nVBOffset = 0;
@@ -186,13 +199,14 @@ namespace ld3d
 
 		while(pChunk)
 		{
-			if(pChunk->vertex_count == 0)
+			pMesh = pChunk->GetMesh();
+			if(pMesh->GetVertexCount() == 0)
 			{
 				pChunk = pChunk->GetRenderListNext();
 				continue;
 			}
 			bytesLeft = m_nVBBytes - m_nVBCurrent;
-			if(bytesLeft <= sizeof(VoxelVertex) * pChunk->vertex_count)
+			if(bytesLeft <= sizeof(VoxelWorldMesh::VoxelVertex) * pMesh->GetVertexCount())
 			{
 				pVB->Unmap();
 				Draw(pGraphics, pMat, m_nVBOffset / m_nVertexStride);
@@ -204,10 +218,10 @@ namespace ld3d
 				m_nVertexCount = 0;
 			}
 
-			memcpy(data + m_nVBCurrent, pChunk->vertex_buffer, sizeof(VoxelVertex) * pChunk->vertex_count);
+			memcpy(data + m_nVBCurrent, pMesh->GetVertexBuffer(), sizeof(VoxelWorldMesh::VoxelVertex) * pMesh->GetVertexCount());
 			
-			m_nVBCurrent += sizeof(VoxelVertex) * pChunk->vertex_count;
-			m_nVertexCount += pChunk->vertex_count;
+			m_nVBCurrent += sizeof(VoxelWorldMesh::VoxelVertex) * pMesh->GetVertexCount();
+			m_nVertexCount += pMesh->GetVertexCount();
 			
 			pChunk = pChunk->GetRenderListNext();
 		}
@@ -230,14 +244,20 @@ namespace ld3d
 		GPUBufferPtr pVB = m_pGeometry->GetVertexBuffer();
 
 
-		VoxelWorldChunk* pChunk = m_pRenderList;
-		
+		std::vector<VoxelWorldMesh::Subset>		subs;
+		BatchVoxelMesh(m_pRenderList, subs);
+
+		if(subs.size() == 0)
+		{
+			return;
+		}
+
 		m_nVertexCount = 0;
 		m_nVBOffset = m_nVBCurrent;
 		uint32 bytesLeft = m_nVBBytes - m_nVBCurrent;
-
+		
 		uint8* data = nullptr;
-		if(bytesLeft <= sizeof(VoxelVertex) * pChunk->vertex_count)
+		if(bytesLeft <= sizeof(VoxelWorldMesh::VoxelVertex) * subs[0].vertexCount)
 		{
 			data = (uint8*)pVB->Map(MAP_DISCARD);
 			m_nVBOffset = 0;
@@ -249,17 +269,36 @@ namespace ld3d
 			data = (uint8*)pVB->Map(MAP_NO_OVERWRITE);
 		}
 
-		while(pChunk)
+
+		uint8 current_type = subs[0].type;
+
+
+		for(size_t i = 0; i < subs.size(); ++i)
 		{
-			if(pChunk->vertex_count == 0)
-			{
-				pChunk = pChunk->GetRenderListNext();
-				continue;
-			}
-			bytesLeft = m_nVBBytes - m_nVBCurrent;
-			if(bytesLeft <= sizeof(VoxelVertex) * pChunk->vertex_count)
+			const VoxelWorldMesh::Subset& sub = subs[i];
+
+			if(current_type != sub.type)
 			{
 				pVB->Unmap();
+
+				pMat = m_pMaterialManager->GetMaterialByType(current_type);
+				m_pRenderManager->SetMatrixBlock(pMat, m_worldMatrix);
+
+				Draw(pGraphics, pMat, m_nVBOffset / m_nVertexStride);
+
+				data = (uint8*)pVB->Map(MAP_NO_OVERWRITE);
+				m_nVBOffset = m_nVBCurrent;
+				m_nVertexCount = 0;
+				current_type = sub.type;
+			}
+
+			bytesLeft = m_nVBBytes - m_nVBCurrent;
+			if(bytesLeft <= sizeof(VoxelWorldMesh::VoxelVertex) * sub.vertexCount)
+			{
+				pVB->Unmap();
+				pMat = m_pMaterialManager->GetMaterialByType(current_type);
+				m_pRenderManager->SetMatrixBlock(pMat, m_worldMatrix);
+
 				Draw(pGraphics, pMat, m_nVBOffset / m_nVertexStride);
 
 				data = (uint8*)pVB->Map(MAP_DISCARD);
@@ -267,17 +306,18 @@ namespace ld3d
 				m_nVBCurrent = 0;
 				bytesLeft = m_nVBBytes;
 				m_nVertexCount = 0;
+				current_type = sub.type;
 			}
+			
+			memcpy(data + m_nVBCurrent, sub.vertexBuffer, sizeof(VoxelWorldMesh::VoxelVertex) * sub.vertexCount);
+			
+			m_nVBCurrent += sizeof(VoxelWorldMesh::VoxelVertex) * sub.vertexCount;
+			m_nVertexCount += sub.vertexCount;
 
-			memcpy(data + m_nVBCurrent, pChunk->vertex_buffer, sizeof(VoxelVertex) * pChunk->vertex_count);
-			
-			m_nVBCurrent += sizeof(VoxelVertex) * pChunk->vertex_count;
-			m_nVertexCount += pChunk->vertex_count;
-			
-			pChunk = pChunk->GetRenderListNext();
 		}
-
 		pVB->Unmap();
+		pMat = m_pMaterialManager->GetMaterialByType(current_type);
+		m_pRenderManager->SetMatrixBlock(pMat, m_worldMatrix);
 
 		Draw(pGraphics, pMat, m_nVBOffset / m_nVertexStride);
 
@@ -301,5 +341,32 @@ namespace ld3d
 		}
 
 		pMaterial->End();
+	}
+	void VoxelWorldRendererImpl::BatchVoxelMesh(VoxelWorldChunk* pList, std::vector<VoxelWorldMesh::Subset>& subs)
+	{
+		subs.clear();
+
+		VoxelWorldChunk* pChunk = pList;
+		while(pChunk)
+		{
+			VoxelWorldMesh* pMesh = pChunk->GetMesh();
+			for(int i = 0; i < pMesh->GetSubsetCount(); ++i)
+			{
+				const VoxelWorldMesh::Subset& sub = pMesh->GetSubset(i);
+
+				assert(sub.vertexCount != 0);
+
+				subs.push_back(sub);
+			}
+
+			pChunk = pChunk->GetRenderListNext();
+		}
+
+		if(subs.size() == 0)
+		{
+			return;
+		}
+
+		std::sort(subs.begin(), subs.end(), [](const VoxelWorldMesh::Subset& a, const VoxelWorldMesh::Subset&b){return a.type < b.type;});
 	}
 }

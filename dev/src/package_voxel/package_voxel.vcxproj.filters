@@ -87,6 +87,9 @@
     <ClInclude Include="VoxelWorldUtils.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="VoxelWorldMaterialManager.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="voxel_pch.cpp">
@@ -138,6 +141,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="VoxelWorldUtils.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="VoxelWorldMaterialManager.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
