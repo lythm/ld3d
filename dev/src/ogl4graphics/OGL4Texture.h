@@ -27,7 +27,7 @@ namespace ld3d
 		int											GetWidth() const;
 		int											GetHeight() const;
 		int											GetDepth() const;
-
+		int											GetLvls() const;
 		bool										CreateFromFile(const char* szFile);
 
 		void*										Map();

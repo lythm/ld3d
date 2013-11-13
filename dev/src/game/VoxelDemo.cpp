@@ -44,7 +44,7 @@ bool VoxelDemo::Init(ld3d::CoreApiPtr pCore)
 	
 	GameObjectPtr pCamera = m_pCore->CreatGameObjectFromTemplate("Camera", "Camera01");
 
-	pCamera->SetTranslation(10, 10, 10);
+	pCamera->SetTranslation(0, 0, -10);
 	pCamera->LookAt(math::Vector3(0, 0, 0));
 
 	//m_pCore->CreatGameObjectFromTemplate("Plane", "Plane");

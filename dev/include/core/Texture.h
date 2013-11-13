@@ -24,7 +24,7 @@ namespace ld3d
 		virtual int											GetWidth() const						= 0;
 		virtual int											GetHeight() const						= 0;
 		virtual int											GetDepth() const						= 0;
-
+		virtual int											GetLvls() const							= 0;
 		virtual void										GenMipmap()								= 0;
 		virtual bool										IsMultiSample(){return false;}
 	};

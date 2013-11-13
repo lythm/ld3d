@@ -248,12 +248,9 @@ namespace ld3d
 			}
 
 			glActiveTexture(GL_TEXTURE0 + slot);
-			
+						
 			OGL4Texture* pGLTex = (OGL4Texture*)v.pTex.get();
-
-			GLenum target = OGL4Convert::TexTypeToGLTarget(pGLTex->GetType());
-			glBindTexture(target, pGLTex->GetTextureObject());
-
+			
 			OGL4Sampler* pSampler = (OGL4Sampler*)pGLTex->GetSampler().get();
 
 			if(pSampler == nullptr)
@@ -261,9 +258,14 @@ namespace ld3d
 				pSampler = (OGL4Sampler*)v.pSampler.get();
 			}
 
-			glBindSampler(slot, pSampler ? pSampler->GetSamplerObject() : 0);
+			glBindSampler(slot, (pSampler != nullptr )? pSampler->GetSamplerObject() : 0);
 			
+			GLenum target = OGL4Convert::TexTypeToGLTarget(pGLTex->GetType());
+			glBindTexture(target, pGLTex->GetTextureObject());
+					
 			glProgramUniform1i(m_program, v.index, slot);
+
+
 			slot++;
 		}
 	}

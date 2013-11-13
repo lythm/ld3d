@@ -6,20 +6,6 @@
 
 namespace ld3d
 {
-	static uint32 VoxelColorMap[VT_EMPTY] = 
-	{
-		0xff334455,
-		0xff999999,
-		0xffbbbbbb,
-		0xff000001,
-		0xff00ffff,
-		0xffee0000,
-		0xff00ff00,
-		0xff00cccc,
-
-
-	};
-
 	uint32 VoxelWorldUtils::chunk_local_to_index(uint32 x, uint32 y, uint32 z)
 	{
 		return x + z * VOXEL_WORLD_CHUNK_SIZE + y * VOXEL_WORLD_CHUNK_SIZE * VOXEL_WORLD_CHUNK_SIZE;
@@ -79,10 +65,19 @@ namespace ld3d
 				f.verts[2] = math::Vector3(x, r[i].x2 + 1, r[i].y1);
 				f.verts[3] = math::Vector3(x, r[i].x2 + 1, r[i].y2 + 1);
 
-				f.uv_scale.x = r[i].x2 + 1 - r[i].x1;
-				f.uv_scale.y = r[i].y2 + 1 - r[i].y1;
+				math::Vector2 uv_scale;
+				uv_scale.x = r[i].y2 + 1 - r[i].y1;
+				uv_scale.y = r[i].x2 + 1 - r[i].x1;
+
+				f.uv[0] = math::Vector2(uv_scale.x, 0);
+				f.uv[1] = math::Vector2(0, 0);
+				f.uv[2] = math::Vector2(uv_scale.x, uv_scale.y);
+				f.uv[3] = math::Vector2(0, uv_scale.y);
 
 
+				assert(abs(f.verts[1].z - f.verts[0].z) == abs(f.uv[1].x - f.uv[0].x));
+
+				
 				f.normal = math::Vector3(-1, 0, 0);
 				f.type = r[i].type;
 				mesh.push_back(f);
@@ -127,8 +122,14 @@ namespace ld3d
 				f.verts[3] = math::Vector3(x + 1, r[i].x2 + 1, r[i].y2 + 1);
 				f.normal = math::Vector3(1, 0, 0);
 
-				f.uv_scale.x = r[i].x2 + 1 - r[i].x1;
-				f.uv_scale.y = r[i].y2 + 1 - r[i].y1;
+				math::Vector2 uv_scale;
+				uv_scale.x = r[i].y2 + 1 - r[i].y1;
+				uv_scale.y = r[i].x2 + 1 - r[i].x1;
+
+				f.uv[0] = math::Vector2(0, 0);
+				f.uv[1] = math::Vector2(0, uv_scale.y);
+				f.uv[2] = math::Vector2(uv_scale.x, 0);
+				f.uv[3] = math::Vector2(uv_scale.x, uv_scale.y);
 
 				f.type = r[i].type;
 				mesh.push_back(f);
@@ -173,8 +174,14 @@ namespace ld3d
 				f.verts[3] = math::Vector3(r[i].x2 + 1, y, r[i].y2 + 1);
 				f.normal = math::Vector3(0, -1, 0);
 
-				f.uv_scale.x = r[i].x2 + 1 - r[i].x1;
-				f.uv_scale.y = r[i].y2 + 1 - r[i].y1;
+				math::Vector2 uv_scale;
+				uv_scale.x = r[i].x2 + 1 - r[i].x1;
+				uv_scale.y = r[i].y2 + 1 - r[i].y1;
+
+				f.uv[0] = math::Vector2(0, uv_scale.y);
+				f.uv[1] = math::Vector2(uv_scale.x, uv_scale.y);
+				f.uv[2] = math::Vector2(0, 0);
+				f.uv[3] = math::Vector2(uv_scale.x, 0);
 
 				f.type = r[i].type;
 				mesh.push_back(f);
@@ -220,8 +227,14 @@ namespace ld3d
 				f.verts[3] = math::Vector3(r[i].x2 + 1, y + 1, r[i].y2 + 1);
 				f.normal = math::Vector3(0, 1, 0);
 
-				f.uv_scale.x = r[i].x2 + 1 - r[i].x1;
-				f.uv_scale.y = r[i].y2 + 1 - r[i].y1;
+				math::Vector2 uv_scale;
+				uv_scale.x = r[i].x2 + 1 - r[i].x1;
+				uv_scale.y = r[i].y2 + 1 - r[i].y1;
+
+				f.uv[0] = math::Vector2(0, 0);
+				f.uv[1] = math::Vector2(0, uv_scale.y);
+				f.uv[2] = math::Vector2(uv_scale.x, 0);
+				f.uv[3] = math::Vector2(uv_scale.x, uv_scale.y);
 
 				f.type = r[i].type;
 				mesh.push_back(f);
@@ -267,8 +280,14 @@ namespace ld3d
 				f.verts[3] = math::Vector3(r[i].x2 + 1, r[i].y2 + 1, z);
 				f.normal = math::Vector3(0, 0, -1);
 
-				f.uv_scale.x = r[i].x2 + 1 - r[i].x1;
-				f.uv_scale.y = r[i].y2 + 1 - r[i].y1;
+				math::Vector2 uv_scale;
+				uv_scale.x = r[i].x2 + 1 - r[i].x1;
+				uv_scale.y = r[i].y2 + 1 - r[i].y1;
+
+				f.uv[0] = math::Vector2(uv_scale.x, 0);
+				f.uv[1] = math::Vector2(uv_scale.y, uv_scale.y);
+				f.uv[2] = math::Vector2(0, 0);
+				f.uv[3] = math::Vector2(0, uv_scale.y);
 
 				f.type = r[i].type;
 				mesh.push_back(f);
@@ -313,8 +332,14 @@ namespace ld3d
 				f.verts[2] = math::Vector3(r[i].x1, r[i].y2 + 1, z + 1);
 				f.verts[3] = math::Vector3(r[i].x2 + 1, r[i].y2 + 1, z + 1);
 				f.normal = math::Vector3(0, 0, 1);
-				f.uv_scale.x = r[i].x2 + 1 - r[i].x1;
-				f.uv_scale.y = r[i].y2 + 1 - r[i].y1;
+				math::Vector2 uv_scale;
+				uv_scale.x = r[i].x2 + 1 - r[i].x1;
+				uv_scale.y = r[i].y2 + 1 - r[i].y1;
+
+				f.uv[0] = math::Vector2(0, 0);
+				f.uv[1] = math::Vector2(uv_scale.x, 0);
+				f.uv[2] = math::Vector2(0, uv_scale.y);
+				f.uv[3] = math::Vector2(uv_scale.x, uv_scale.y);
 
 				f.type = r[i].type;
 
@@ -332,6 +357,21 @@ namespace ld3d
 		sub.type = VT_EMPTY;
 		sub.vertexCount				= 0;
 		sub.vertexBuffer			= nullptr;
+
+
+		for(size_t i = 0; i < mesh.size(); ++i)
+		{
+			VoxelFace f = mesh[i];
+
+			assert(f.uv[0].x >= 0);
+			assert(f.uv[1].x >= 0);
+			assert(f.uv[2].x >= 0);
+			assert(f.uv[3].x >= 0);
+
+			
+
+
+		}
 
 		if(mesh.size() != 0)
 		{
@@ -355,41 +395,39 @@ namespace ld3d
 					sub.vertexBuffer = pData;
 				}
 
-				uint32 clr = VoxelColorMap[face.type];
-
 				pData->pos = face.verts[0] + chunk_coord;
 				pData->normal = face.normal;
-				pData->uv = math::Vector2(0, 0);
+				pData->uv = face.uv[0];
 				++pData;
 				sub.vertexCount++;
 
 				pData->pos = face.verts[1] + chunk_coord;
 				pData->normal = face.normal;
-				pData->uv = math::Vector2(0, face.uv_scale.y);
+				pData->uv = face.uv[1];
 				++pData;
 				sub.vertexCount++;
 
 				pData->pos = face.verts[2] + chunk_coord;
 				pData->normal = face.normal;
-				pData->uv = math::Vector2(face.uv_scale.x, 0);
+				pData->uv = face.uv[2];
 				++pData;
 				sub.vertexCount++;
 
 				pData->pos = face.verts[1] + chunk_coord;
 				pData->normal = face.normal;
-				pData->uv = math::Vector2(0, face.uv_scale.y);
+				pData->uv = face.uv[1];
 				++pData;
 				sub.vertexCount++;
 
 				pData->pos = face.verts[3] + chunk_coord;
 				pData->normal = face.normal;
-				pData->uv = math::Vector2(face.uv_scale.x, face.uv_scale.y);
+				pData->uv = face.uv[3];
 				++pData;
 				sub.vertexCount++;
 
 				pData->pos = face.verts[2] + chunk_coord;
 				pData->normal = face.normal;
-				pData->uv = math::Vector2(face.uv_scale.x, 0);
+				pData->uv = face.uv[2];
 
 				++pData;
 				sub.vertexCount++;
@@ -408,6 +446,9 @@ namespace ld3d
 			{
 				break;
 			}
+
+			assert(r.x2 >= r.x1);
+			assert(r.y2 >= r.y1);
 
 			result.push_back(r);
 

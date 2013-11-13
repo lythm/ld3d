@@ -475,6 +475,11 @@ namespace ld3d
 			glBindTexture(GL_TEXTURE_2D, m_texture);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_BASE_LEVEL, 0);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, GLint(tex.levels() - 1));
+
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+
+
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_SWIZZLE_R, GL_RED);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_SWIZZLE_G, GL_GREEN);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_SWIZZLE_B, GL_BLUE);
@@ -626,6 +631,10 @@ namespace ld3d
 	int	 OGL4Texture::GetDepth() const
 	{
 		return m_depth;
+	}
+	int OGL4Texture::GetLvls() const
+	{
+		return m_lvls;
 	}
 	bool OGL4Texture::IsMultiSample()
 	{

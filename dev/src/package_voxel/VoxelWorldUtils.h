@@ -12,7 +12,7 @@ namespace ld3d
 		{
 			math::Vector3			verts[4];
 			math::Vector3			normal;
-			math::Vector2			uv_scale;
+			math::Vector2			uv[4];
 			uint8					type;
 		};
 		struct FaceRegion
