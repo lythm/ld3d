@@ -2,11 +2,15 @@
 
 namespace ld3d
 {
-	class Collider
+	class Collider : public Linked<Collider>
 	{
 	public:
 		Collider(void);
 		virtual ~Collider(void);
+
+
+	private:
+
 	};
 
 

@@ -193,6 +193,7 @@
   <ItemGroup>
     <ClInclude Include="..\..\include\utils\Config.h" />
     <ClInclude Include="..\..\include\utils\Lexer.h" />
+    <ClInclude Include="..\..\include\utils\Linked.h" />
     <ClInclude Include="..\..\include\utils\Logger.h" />
     <ClInclude Include="..\..\include\utils\MemPool.h" />
     <ClInclude Include="..\..\include\utils\MiniDump.h" />

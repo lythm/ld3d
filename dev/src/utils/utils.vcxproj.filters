@@ -83,5 +83,8 @@
     <ClInclude Include="..\..\include\utils\utils_helper.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\utils\Linked.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

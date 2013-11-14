@@ -168,6 +168,7 @@
     <ClInclude Include="..\..\include\core\BaseCamera.h" />
     <ClInclude Include="..\..\include\core\BaseMaterial.h" />
     <ClInclude Include="..\..\include\core\BBoxRenderData.h" />
+    <ClInclude Include="..\..\include\core\Bound.h" />
     <ClInclude Include="..\..\include\core\Camera.h" />
     <ClInclude Include="..\..\include\core\Collidee.h" />
     <ClInclude Include="..\..\include\core\Collider.h" />

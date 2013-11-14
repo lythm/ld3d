@@ -169,6 +169,7 @@
     <ClInclude Include="..\..\include\core\PhysicsManager.h" />
     <ClInclude Include="..\..\include\core\Collider.h" />
     <ClInclude Include="..\..\include\core\Collidee.h" />
+    <ClInclude Include="..\..\include\core\Bound.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
