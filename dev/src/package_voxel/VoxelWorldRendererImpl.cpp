@@ -98,18 +98,17 @@ namespace ld3d
 	}
 	void VoxelWorldRendererImpl::OnDetach()
 	{
-		m_pMaterial->Release();
-		m_pMaterial.reset();
-		m_pGeometry->Release();
-		m_pGeometry.reset();
+		_release_and_reset(m_pMaterial);
 
+		_release_and_reset(m_pGeometry);
+		
 		_release_and_reset(m_pMaterialManager);
 
 		ClearPropertySet();
 		m_pManager->RemoveEventHandler(m_hFrustumCull);
 		m_pRenderData.reset();
-		m_pBBoxRD->Release();
-		m_pBBoxRD.reset();
+
+		_release_and_reset(m_pBBoxRD);
 	
 	}
 	

@@ -11,6 +11,8 @@ namespace ld3d
 		virtual ~OGL4Sampler(void);
 
 
+		void										Bind(uint32 slot);
+
 		void										SetCompareFunction(TEXTURE_COMPARE_FUNC value);
 		void										SetCompareMode(TEXTURE_COMPARE_MODE value);
 		void										SetLod(float minLod, float maxLod);

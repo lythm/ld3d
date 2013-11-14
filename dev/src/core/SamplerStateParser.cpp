@@ -20,6 +20,11 @@ namespace ld3d
 		
 		static std::pair<std::string, uint32> FilterEnum[] = 
 		{
+			std::pair<std::string, uint32>("MIN_LINEAR_MAG_POINT",				SamplerState::FILTER_MIN_LINEAR_MAG_POINT),
+			std::pair<std::string, uint32>("MIN_POINT_MAG_LINEAR",				SamplerState::FILTER_MIN_POINT_MAG_LINEAR),
+			std::pair<std::string, uint32>("MIN_MAG_POINT",						SamplerState::FILTER_MIN_MAG_POINT),
+			std::pair<std::string, uint32>("MIN_MAG_LINEAR",					SamplerState::FILTER_MIN_MAG_LINEAR),
+			
 			std::pair<std::string, uint32>("MIN_MAG_MIP_POINT",					SamplerState::FILTER_MIN_MAG_MIP_POINT),
 			std::pair<std::string, uint32>("MIN_MAG_POINT_MIP_LINEAR",			SamplerState::FILTER_MIN_MAG_POINT_MIP_LINEAR),
 			std::pair<std::string, uint32>("MIN_POINT_MAG_LINEAR_MIP_POINT",	SamplerState::FILTER_MIN_POINT_MAG_LINEAR_MIP_POINT),

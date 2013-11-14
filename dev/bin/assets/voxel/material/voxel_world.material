@@ -3,7 +3,7 @@
 RenderState rs
 {
 	CULLMODE						= back;
-
+	FILLMODE						= solid;
 	DepthEnable						= TRUE;
 	DepthFunc						= LESS;
 	DepthWriteMask					= ALL;

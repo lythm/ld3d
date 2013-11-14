@@ -251,14 +251,10 @@ namespace ld3d
 						
 			OGL4Texture* pGLTex = (OGL4Texture*)v.pTex.get();
 			
-			OGL4Sampler* pSampler = (OGL4Sampler*)pGLTex->GetSampler().get();
+			OGL4Sampler* pSampler = (OGL4Sampler*)v.pSampler.get();
 
-			if(pSampler == nullptr)
-			{
-				pSampler = (OGL4Sampler*)v.pSampler.get();
-			}
+			pSampler ? pSampler->Bind(slot) : (void)0;
 
-			glBindSampler(slot, (pSampler != nullptr )? pSampler->GetSamplerObject() : 0);
 			
 			GLenum target = OGL4Convert::TexTypeToGLTarget(pGLTex->GetType());
 			glBindTexture(target, pGLTex->GetTextureObject());

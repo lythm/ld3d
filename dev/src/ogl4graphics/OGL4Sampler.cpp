@@ -83,7 +83,7 @@ namespace ld3d
 	void OGL4Sampler::SetLod(float minLod, float maxLod)
 	{
 		glSamplerParameterf(m_sampler, GL_TEXTURE_MIN_LOD, minLod);
-		glSamplerParameterf(m_sampler, GL_TEXTURE_MAX_LOD, minLod);
+		glSamplerParameterf(m_sampler, GL_TEXTURE_MAX_LOD, maxLod);
 	}
 	//void OGL4Sampler::SetMipLodBias(int bias)
 	//{
@@ -98,6 +98,23 @@ namespace ld3d
 	{
 		switch(f)
 		{
+		case FILTER_MIN_LINEAR_MAG_POINT:
+			glSamplerParameteri(m_sampler, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+			glSamplerParameteri(m_sampler, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+			break;
+		case FILTER_MIN_POINT_MAG_LINEAR:
+			glSamplerParameteri(m_sampler, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+			glSamplerParameteri(m_sampler, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+			break;
+		case FILTER_MIN_MAG_POINT:
+			glSamplerParameteri(m_sampler, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+			glSamplerParameteri(m_sampler, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+			break;
+		case FILTER_MIN_MAG_LINEAR:
+			glSamplerParameteri(m_sampler, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+			glSamplerParameteri(m_sampler, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+			break;
+
 		case FILTER_MIN_MAG_MIP_POINT:
 			glSamplerParameteri(m_sampler, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 			glSamplerParameteri(m_sampler, GL_TEXTURE_MIN_FILTER, GL_NEAREST_MIPMAP_NEAREST);
@@ -170,5 +187,9 @@ namespace ld3d
 		}
 
 		return GL_INVALID_ENUM;
+	}
+	void OGL4Sampler::Bind(uint32 slot)
+	{
+		glBindSampler(slot, m_sampler);
 	}
 }

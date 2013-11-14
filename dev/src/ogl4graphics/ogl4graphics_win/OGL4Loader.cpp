@@ -273,7 +273,7 @@ namespace ld3d
 		LOAD_API(glSamplerParameterfv,									PFNGLSAMPLERPARAMETERFVPROC);
 
 		LOAD_API(glBindSampler,											PFNGLBINDSAMPLERPROC);
-
+		LOAD_API(glGetSamplerParameteriv,								PFNGLGETSAMPLERPARAMETERIVPROC);
 
 		LOAD_API(glGenRenderbuffers,									PFNGLGENRENDERBUFFERSPROC);
 		LOAD_API(glDeleteRenderbuffers,									PFNGLDELETERENDERBUFFERSPROC);

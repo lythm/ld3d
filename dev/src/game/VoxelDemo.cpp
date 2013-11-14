@@ -26,7 +26,7 @@ bool VoxelDemo::Init(ld3d::CoreApiPtr pCore)
 	
 	m_pCore->AddEventHandler(EV_KEYBOARD_STATE, boost::bind(&VoxelDemo::_on_key_state, this, _1));
 
-	m_pCore->GetRenderManager()->SetGlobalAmbient(math::Color4(0.2, 0.2f, 0.2f, 1.0f));
+	m_pCore->GetRenderManager()->SetGlobalAmbient(math::Color4(0.4, 0.4f, 0.4f, 1.0f));
 	m_pCore->GetRenderManager()->SetClearColor(math::Color4(0.1f, 0.2f, 0.3f, 1));
 
 	
@@ -44,7 +44,7 @@ bool VoxelDemo::Init(ld3d::CoreApiPtr pCore)
 	
 	GameObjectPtr pCamera = m_pCore->CreatGameObjectFromTemplate("Camera", "Camera01");
 
-	pCamera->SetTranslation(0, 0, -10);
+	pCamera->SetTranslation(5, 5, -5);
 	pCamera->LookAt(math::Vector3(0, 0, 0));
 
 	//m_pCore->CreatGameObjectFromTemplate("Plane", "Plane");
@@ -53,9 +53,9 @@ bool VoxelDemo::Init(ld3d::CoreApiPtr pCore)
 
 	//pSphere->Translate(0, 2, 0);
 
-//	GameObjectPtr pCube = m_pCore->CreatGameObjectFromTemplate("Cube", "Cube");
-//	pCube->SetScale(1, 10, 1);
-//	pCube->Translate(0, 5, 0);
+	//GameObjectPtr pCube = m_pCore->CreatGameObjectFromTemplate("Cube", "Cube");
+	//pCube->SetScale(1, 10, 1);
+	//pCube->Translate(0, 5, 0);
 
 	
 	//GameObjectPtr pLight = m_pCore->CreatGameObjectFromTemplate("DirectionalLight", "light");

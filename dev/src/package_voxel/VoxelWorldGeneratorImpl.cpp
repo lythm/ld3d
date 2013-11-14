@@ -12,7 +12,7 @@ namespace ld3d
 {
 	VoxelWorldGeneratorImpl::VoxelWorldGeneratorImpl(GameObjectManagerPtr pManager) : VoxelWorldGenerator(pManager)
 	{
-		m_smooth = 0.6f;
+		m_smooth = 0.9f;
 	}
 
 
@@ -293,17 +293,19 @@ namespace ld3d
 		{
 			for(int z = 0; z < sz; ++z)
 			{
-				float h = height_map[x * d + z];
-
-				//h *= 0.5;
-				//h += 0.5;
+				float v = height_map[x * d + z];
 
 
-				h *= sy;
-				h = h > sy ? sy : h;
-				//h = h < 1 ? 1 : h;
+				
+				v *= 0.5;
+				v += 0.5;
 
-				for(int y = 0; y < (int)h; ++y)
+
+				v *= sy;
+				v = v > sy ? sy : v;
+				//v = v < 1 ? 1 : v;
+
+				for(int y = 0; y < (int)v; ++y)
 				{
 					if(y < 5)
 					{

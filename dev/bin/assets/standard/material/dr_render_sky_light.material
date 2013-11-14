@@ -20,7 +20,7 @@ RenderState rs
 
 SamplerState ss
 {
-	Filter								= MIN_MAG_MIP_POINT;
+	Filter								= MIN_MAG_LINEAR;
 	BorderColor							= {1.0, 1.0, 1.0, 1.0};
 	AddressModeU						= border;
 	AddressModeV						= border;

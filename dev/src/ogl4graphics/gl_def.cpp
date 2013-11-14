@@ -92,6 +92,8 @@ PFNGLSAMPLERPARAMETERFPROC							glSamplerParameterf								= nullptr;
 PFNGLSAMPLERPARAMETERIVPROC							glSamplerParameteriv							= nullptr;
 PFNGLSAMPLERPARAMETERFVPROC							glSamplerParameterfv							= nullptr;
 PFNGLBINDSAMPLERPROC								glBindSampler									= nullptr;
+PFNGLGETSAMPLERPARAMETERIVPROC						glGetSamplerParameteriv							= nullptr;
+
 
 
 

@@ -90,7 +90,6 @@ namespace ld3d
 
 		pRenderer->SetGBuffer(m_pMaterial);
 
-		
 		if(m_bCastShadow)
 		{
 			pParam = m_pMaterial->GetParameterByName("shadow_map");

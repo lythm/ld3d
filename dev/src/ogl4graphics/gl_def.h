@@ -103,6 +103,7 @@ extern PFNGLSAMPLERPARAMETERFPROC						glSamplerParameterf;
 extern PFNGLSAMPLERPARAMETERIVPROC						glSamplerParameteriv;
 extern PFNGLSAMPLERPARAMETERFVPROC						glSamplerParameterfv;
 extern PFNGLBINDSAMPLERPROC								glBindSampler;
+extern PFNGLGETSAMPLERPARAMETERIVPROC					glGetSamplerParameteriv;
 
 
 // shader program
