@@ -35,10 +35,10 @@ namespace ld3d
 		bool										OnSerialize(DataStream* pStream);
 		bool										OnUnSerialize(DataStream* pStream, const Version& version);
 
+		const math::Matrix44&						GetWorldTransform();
 		
+		IntersectionResult							Intersect(const math::Ray& r);
 	private:
-
-		
 
 		bool										OnAttach();
 		void										OnDetach();

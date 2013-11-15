@@ -1,8 +1,10 @@
 #pragma once
 
+#include "core/IntersectionResult.h"
+
 namespace ld3d
 {
-	class PhysicsManager
+	class _DLL_CLASS PhysicsManager
 	{
 	public:
 		PhysicsManager(void);
@@ -13,15 +15,21 @@ namespace ld3d
 		void										Release();
 		void										Update(float dt);
 
-		void										AddCollider(ColliderPtr pCollider);
-		void										RemoveCollider(ColliderPtr pCollider);
+		void										AddCollider(CollisionDataPtr pData);
+		void										RemoveCollider(CollisionDataPtr pData);
 
-		void										AddCollidee(CollideePtr pCollidee);
-		void										RemoveCollidee(CollideePtr pCollidee);
+		void										AddCollidee(CollisionDataPtr pData);
+		void										RemoveCollidee(CollisionDataPtr pData);
+
+
+		IntersectionResult							RayIntersect(const math::Ray& r);
 
 	private:
-		ColliderPtr									m_pColliderList;
-		CollideePtr									m_pCollideeList;
+		void										Detect(CollisionDataPtr pCollider, CollisionDataPtr pCollidee);
+		void										TestCollider(CollisionDataPtr pCollider);
+	private:
+		CollisionDataPtr							m_pColliderList;
+		CollisionDataPtr							m_pCollideeList;
 	};
 
 

@@ -34,6 +34,10 @@ namespace ld3d
 		uint32													GetChunkCount();
 
 		void													AddChunk(uint32 key, uint8 data[VOXEL_WORLD_CHUNK_SIZE * VOXEL_WORLD_CHUNK_SIZE * VOXEL_WORLD_CHUNK_SIZE]);
+
+		VoxelWorldOctTreePtr									GetOctTreeRoot() const;
+
+		IntersectionResult										Intersect(const math::Ray& r);
 	private:
 
 		void													AddChunkToRenderList(VoxelWorldChunk* pChunk);

@@ -53,7 +53,11 @@ namespace ld3d
 
 		VoxelWorldMesh*										GetMesh();
 
+		bool												RayPick(const math::Ray& r, Real& t);
 	private:
+		//bool												_ray_pick(int lvl, const math::Ray& r, 
+	private:
+
 		VoxelWorldChunk*									m_pMapNext;
 		VoxelWorldChunk*									m_pDirtyListNext;
 		VoxelWorldChunk*									m_pRenderListNext;

@@ -156,4 +156,44 @@ namespace ld3d
 		}
 
 	}
+	bool VoxelWorldOctTree::RayPick(const math::Ray& r, Real& t)
+	{
+		Real t0, t1;
+		if(math::RayIntersect(r, m_bbox, t0, t1) == math::intersect_none)
+		{
+			return false;
+		}
+
+		t = t0;
+
+		if(IsLeaf())
+		{
+			return m_pChunk != nullptr;
+		}
+
+		Real near_t = math::MATH_REAL_INFINITY;
+		bool found = false;
+		for(size_t i = 0; i < 8; ++i)
+		{
+			if(m_pChildren[i] == nullptr)
+			{
+				continue;
+			}
+			
+			if(false == m_pChildren[i]->RayPick(r, t))
+			{
+				continue;
+			}
+
+			found = true;
+			if(near_t > t)
+			{
+				near_t = t;
+			}
+		}
+
+		t = near_t;
+
+		return found;
+	}
 }

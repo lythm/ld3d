@@ -27,7 +27,7 @@ namespace ld3d
 		void											HandleMessage(MSG& msg);
 #endif
 		TimerManagerPtr									GetTimerManager();
-
+		PhysicsManagerPtr								GetPhysicsManager();
 		AssetManagerPtr									GetAssetManager();
 		GameObjectManagerPtr							GetGameObjectManager();
 		Sys_GraphicsPtr									GetSysGraphics();

@@ -8,8 +8,7 @@ namespace ld3d
 	{
 	public:
 
-		VoxelWorld(GameObjectManagerPtr pManager) : GameObjectComponent("VoxelWorld", pManager){}
-		virtual ~VoxelWorld(void){}
+		
 
 		virtual const int&									GetVoxelSize()								= 0;
 		virtual void										SetVoxelSize(const int& size)				= 0;
@@ -23,5 +22,8 @@ namespace ld3d
 		virtual const int&									GetWorldSizeZ()								= 0;
 		virtual void										SetWorldSizeZ(const int& z)					= 0;
 
+	protected:
+		VoxelWorld(GameObjectManagerPtr pManager) : GameObjectComponent("VoxelWorld", pManager){}
+		virtual ~VoxelWorld(void){}
 	};
 }

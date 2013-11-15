@@ -168,5 +168,27 @@ namespace ld3d
 		}
 		m_pDataSet = pDataSet;
 	}
+	const math::Matrix44& VoxelWorldImpl::GetWorldTransform()
+	{
+		return m_pObject->GetWorldTransform();
+	}
+	IntersectionResult VoxelWorldImpl::Intersect(const math::Ray& r)
+	{
+		math::Matrix44 worldMatrix = m_pObject->GetWorldTransform();
+		worldMatrix.Invert();
+
+		math::Ray local_r = r;
+		math::TransformRay(local_r, worldMatrix);
+
+		IntersectionResult ret = m_pDataSet->Intersect(local_r);
+		if(ret.ret == IntersectionResult::no || ret.ret == IntersectionResult::invalid)
+		{
+			return ret;
+		}
+
+		Real t = local_r.GetT(ret.contact_point);
+		ret.contact_point = r.GetPos(t);
+		return ret;
+	}
 }
 

@@ -53,6 +53,7 @@ namespace ld3d
 		bool																RegisterComponentClass(Package::ComponentClass* c);
 
 		RenderManagerPtr													GetRenderManager();
+		PhysicsManagerPtr													GetPhysicsManager();
 
 		Allocator*															GetAllocator();
 		CoreApiPtr															GetCoreApi();

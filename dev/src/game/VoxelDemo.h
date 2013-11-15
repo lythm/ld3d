@@ -14,7 +14,7 @@ public:
 
 private:
 	ld3d::CoreApiPtr							m_pCore;
-	ld3d::CameraPtr								m_pCamera;
+	ld3d::GameObjectPtr							m_pCamera;
 
 	ld3d::GameObjectPtr							m_pWorld;
 };

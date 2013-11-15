@@ -90,7 +90,7 @@ namespace math
 		
 	}
 	inline
-		void	TransformNormal(Vector3& v, const Matrix44& t)
+		void TransformNormal(Vector3& v, const Matrix44& t)
 	{
 		glm::vec4 v1(v.x, v.y, v.z, 0);
 		glm::mat4 m1 = glm::make_mat4(t.m);
@@ -100,6 +100,14 @@ namespace math
 		v.x = v1.x;
 		v.y = v1.y;
 		v.z = v1.z;
+
+	}
+	inline
+		void TransformRay(Ray& r, const Matrix44& t)
+	{
+		TransformCoord(r.o, t);
+		TransformNormal(r.d, t);
+		r.d.Normalize();
 
 	}
 	inline

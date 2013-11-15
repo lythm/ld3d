@@ -117,11 +117,14 @@ namespace ld3d
 	typedef std::shared_ptr<Texture>						TexturePtr;
 	typedef std::shared_ptr<SamplerState>					SamplerStatePtr;
 	
-
+	class Bound;
 	class PhysicsManager;
 	class Collider;
 	class Collidee;
+	class CollisionData;
 
+	typedef std::shared_ptr<Bound>							BoundPtr;
+	typedef std::shared_ptr<CollisionData>					CollisionDataPtr;
 	typedef std::shared_ptr<PhysicsManager>					PhysicsManagerPtr;
 	typedef std::shared_ptr<Collider>						ColliderPtr;
 	typedef std::shared_ptr<Collidee>						CollideePtr;

@@ -68,6 +68,8 @@ namespace math
 	void				TransformNormal(Vector2& v, const Matrix44& t);
 	void				TransformNormal(Vector3& v, const Matrix44& t);
 
+	void				TransformRay(Ray& r, const Matrix44& t);
+
 	Quat				Slerp(const Quat& q1, const Quat& q2, Real s);
 	Vector3				Cross(const Vector3& l, const Vector3& r);
 

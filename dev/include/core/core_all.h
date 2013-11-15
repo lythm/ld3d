@@ -85,4 +85,10 @@
 #include "core/TimerManager.h"
 #include "core/EventDispatcher.h"
 
+
+#include "core/CollisionData.h"
+#include "core/Bound.h"
+#include "core/PhysicsManager.h"
+#include "core/IntersectionResult.h"
+
 #include "core/DT_CoreApi.h"

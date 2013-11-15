@@ -166,6 +166,7 @@
     <ClInclude Include="..\..\include\packages\voxel\VoxelObjectRenderer.h" />
     <ClInclude Include="..\..\include\packages\voxel\VoxelType.h" />
     <ClInclude Include="..\..\include\packages\voxel\VoxelWorld.h" />
+    <ClInclude Include="..\..\include\packages\voxel\VoxelWorldCollisionData.h" />
     <ClInclude Include="..\..\include\packages\voxel\VoxelWorldGenerator.h" />
     <ClInclude Include="..\..\include\packages\voxel\VoxelWorldRenderer.h" />
     <ClInclude Include="..\..\include\packages\voxel\voxel_ptr.h" />
@@ -175,7 +176,9 @@
     <ClInclude Include="VoxelPackage.h" />
     <ClInclude Include="VoxelPool.h" />
     <ClInclude Include="VoxelSerializer.h" />
+    <ClInclude Include="VoxelWorldBound.h" />
     <ClInclude Include="VoxelWorldChunk.h" />
+    <ClInclude Include="VoxelWorldCollisionDataImpl.h" />
     <ClInclude Include="VoxelWorldDataSet.h" />
     <ClInclude Include="VoxelWorldGeneratorImpl.h" />
     <ClInclude Include="VoxelWorldImpl.h" />
@@ -194,7 +197,9 @@
     <ClCompile Include="VoxelObjectTemplate.cpp" />
     <ClCompile Include="VoxelPackage.cpp" />
     <ClCompile Include="VoxelPool.cpp" />
+    <ClCompile Include="VoxelWorldBound.cpp" />
     <ClCompile Include="VoxelWorldChunk.cpp" />
+    <ClCompile Include="VoxelWorldCollisionDataImpl.cpp" />
     <ClCompile Include="VoxelWorldDataSet.cpp" />
     <ClCompile Include="VoxelWorldGeneratorImpl.cpp" />
     <ClCompile Include="VoxelWorldImpl.cpp" />

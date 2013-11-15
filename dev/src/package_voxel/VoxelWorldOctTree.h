@@ -27,6 +27,8 @@ namespace ld3d
 		
 		void								FrustumCull(const ViewFrustum& vf, std::function<void (VoxelWorldChunk*)> op);
 
+		bool								RayPick(const math::Ray& r, Real& t);
+
 	private:
 		bool								SubDivideBound(const math::AABBox& bound, math::AABBox Bounds[8]);
 		bool								_add_chunk(VoxelWorldChunk* pChunk);

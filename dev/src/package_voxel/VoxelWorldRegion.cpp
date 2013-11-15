@@ -395,4 +395,23 @@ namespace ld3d
 	{
 		return m_chunkCount;
 	}
+	VoxelWorldOctTreePtr VoxelWorldRegion::GetOctTreeRoot() const
+	{
+		return m_pRoot;
+	}
+	IntersectionResult VoxelWorldRegion::Intersect(const math::Ray& r)
+	{
+		IntersectionResult ret(IntersectionResult::no);
+
+		Real t;
+		if(m_pRoot->RayPick(r, t) == false)
+		{
+			return ret;
+		}
+		
+		ret.ret = IntersectionResult::yes;
+		ret.contact_point = r.GetPos(t);
+
+		return ret;
+	}
 }

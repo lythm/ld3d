@@ -377,4 +377,8 @@ namespace ld3d
 	{
 		return m_pDTCore;
 	}
+	PhysicsManagerPtr CoreApi::GetPhysicsManager()
+	{
+		return m_pPhysicsManager;
+	}
 }

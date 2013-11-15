@@ -90,6 +90,15 @@
     <ClInclude Include="VoxelWorldMaterialManager.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="VoxelWorldBound.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\packages\voxel\VoxelWorldCollisionData.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="VoxelWorldCollisionDataImpl.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="voxel_pch.cpp">
@@ -144,6 +153,12 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="VoxelWorldMaterialManager.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="VoxelWorldBound.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="VoxelWorldCollisionDataImpl.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

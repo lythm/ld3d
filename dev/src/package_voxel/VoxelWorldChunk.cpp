@@ -185,4 +185,8 @@ namespace ld3d
 	{
 		return m_pMesh;
 	}
+	bool VoxelWorldChunk::RayPick(const math::Ray& r, Real& t)
+	{
+		return true;
+	}
 }

@@ -10,6 +10,11 @@ namespace ld3d
 {
 	VoxelWorldDataSet::VoxelWorldDataSet(void)
 	{
+		m_worldSizeX			= 0;
+		m_worldSizeY			= 0;
+		m_worldSizeZ			= 0;
+
+		m_pRegion = nullptr;
 	}
 
 
@@ -18,6 +23,10 @@ namespace ld3d
 	}
 	bool VoxelWorldDataSet::Initialize(int sx, int sy, int sz, float voxelSize)
 	{
+		m_worldSizeX = sx;
+		m_worldSizeY = sy;
+		m_worldSizeZ = sz;
+
 		m_pRegion = new VoxelWorldRegion;
 		if(m_pRegion->Initialize(sx, sy, sz) == false)
 		{
@@ -57,7 +66,7 @@ namespace ld3d
 	{
 		m_pRegion->RemoveBlock(x, y, z);
 	}
-	
+
 	VoxelWorldChunk* VoxelWorldDataSet::FrustumCull(const ViewFrustum& vf)
 	{
 		if(m_pRegion == nullptr)
@@ -105,7 +114,7 @@ namespace ld3d
 				pChunk = pChunk->GetMapNext();
 			}
 		}
-		
+
 		uint64 pos = pStream->Pos();
 		pStream->Seek(chunk_count_pos);
 		pStream->WriteInt32(chunk_count);
@@ -135,5 +144,21 @@ namespace ld3d
 
 		m_pRegion->UpdateMesh();
 		return true;
+	}
+	const int& VoxelWorldDataSet::GetWorldSizeY()
+	{
+		return m_worldSizeY;
+	}
+	const int& VoxelWorldDataSet::GetWorldSizeX()
+	{
+		return m_worldSizeX;
+	}
+	const int& VoxelWorldDataSet::GetWorldSizeZ()
+	{
+		return m_worldSizeZ;
+	}
+	IntersectionResult VoxelWorldDataSet::Intersect(const math::Ray& r)
+	{
+		return m_pRegion->Intersect(r);
 	}
 }

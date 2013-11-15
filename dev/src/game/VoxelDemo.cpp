@@ -42,10 +42,10 @@ bool VoxelDemo::Init(ld3d::CoreApiPtr pCore)
 	}
 */
 	
-	GameObjectPtr pCamera = m_pCore->CreatGameObjectFromTemplate("Camera", "Camera01");
+	m_pCamera = m_pCore->CreatGameObjectFromTemplate("Camera", "Camera01");
 
-	pCamera->SetTranslation(5, 5, -5);
-	pCamera->LookAt(math::Vector3(0, 0, 0));
+	m_pCamera->SetTranslation(5, 5, -5);
+	m_pCamera->LookAt(math::Vector3(0, 0, 0));
 
 	//m_pCore->CreatGameObjectFromTemplate("Plane", "Plane");
 
@@ -126,6 +126,18 @@ void VoxelDemo::Release()
 }
 void VoxelDemo::Update()
 {
+	math::Vector3 eye = m_pCamera->GetTranslation();
+
+	math::Ray r(math::Vector3(eye.x, 10000, eye.z), math::Vector3(0, -1, 0));
+
+	using namespace ld3d;
+
+	PhysicsManagerPtr pPhy = m_pCore->GetPhysicsManager();
+
+	IntersectionResult ret = pPhy->RayIntersect(r);
+
+	m_pCamera->SetTranslation(eye.x, ret.contact_point.y, eye.z);
+
 }
 
 void VoxelDemo::_on_key_state(ld3d::EventPtr pEvent)

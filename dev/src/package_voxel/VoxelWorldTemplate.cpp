@@ -29,6 +29,9 @@ namespace ld3d
 		VoxelWorldRendererPtr pRenderer = m_pManager->alloc_object<VoxelWorldRendererImpl>(m_pManager);
 		pObj->AddComponent(pRenderer);
 
+		GameObjectComponentPtr pCom = m_pManager->CreateComponent("VoxelWorldCollisionData");
+		pObj->AddComponent(pCom);
+
 		return pObj;
 	}
 	void VoxelWorldTemplate::Release()

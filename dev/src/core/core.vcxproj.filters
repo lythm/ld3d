@@ -65,6 +65,8 @@
     <ClCompile Include="PhysicsManager.cpp" />
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="Collidee.cpp" />
+    <ClCompile Include="Bound_AABB.cpp" />
+    <ClCompile Include="Bound_Sphere.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\core\ArcBall.h" />
@@ -170,8 +172,65 @@
     <ClInclude Include="..\..\include\core\Collider.h" />
     <ClInclude Include="..\..\include\core\Collidee.h" />
     <ClInclude Include="..\..\include\core\Bound.h" />
+    <ClInclude Include="..\..\include\core\CollisionData.h" />
+    <ClInclude Include="..\..\include\math\math_aabbox.h">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\math\math_alg.h">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\math\math_all.h">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\math\math_color4.h">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\math\math_config.h">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\math\math_intersect.h">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\math\math_matrix44.h">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\math\math_plane.h">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\math\math_quat.h">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\math\math_ray.h">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\math\math_rect.h">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\math\math_sphere.h">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\math\math_types.h">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\math\math_vector2.h">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\math\math_vector3.h">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\math\math_vector4.h">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\core\Bound_AABB.h" />
+    <ClInclude Include="..\..\include\core\IntersectionResult.h" />
+    <ClInclude Include="..\..\include\core\Bound_Sphere.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="math">
+      <UniqueIdentifier>{a0ba72b2-06ca-4686-bff3-48a010927620}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>
