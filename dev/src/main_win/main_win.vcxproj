@@ -146,13 +146,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="GameManager.h" />
     <ClInclude Include="MainApp.h" />
     <ClInclude Include="MainConfig.h" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="MainApp.cpp" />
     <ClCompile Include="MainConfig.cpp" />
     <ClCompile Include="pch.cpp">

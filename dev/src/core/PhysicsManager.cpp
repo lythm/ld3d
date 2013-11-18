@@ -1,8 +1,6 @@
 #include "core_pch.h"
 #include "core/PhysicsManager.h"
 
-#include "core/Collidee.h"
-#include "core/Collider.h"
 #include "core/CollisionData.h"
 #include "core/Bound.h"
 
@@ -42,13 +40,8 @@ namespace ld3d
 	}
 	void PhysicsManager::Update(float dt)
 	{
-		CollisionDataPtr pData = m_pColliderList;
-		while(pData)
-		{
-			TestCollider(pData);
-
-			pData = pData->Next();
-		}
+		UpdatePhysics(dt);
+		UpdateCollision(dt);
 	}
 	void PhysicsManager::AddCollider(CollisionDataPtr pData)
 	{
@@ -115,7 +108,7 @@ namespace ld3d
 	{
 		IntersectionResult ret;
 		ret.ret = IntersectionResult::no;
-		
+
 		Real tnear = math::MATH_REAL_INFINITY;
 
 
@@ -123,7 +116,7 @@ namespace ld3d
 		while(pData)
 		{
 			IntersectionResult ret_tmp = pData->bound->Intersect(r);
-			
+
 			if(ret_tmp.ret == IntersectionResult::no)
 			{
 				pData = pData->Next();
@@ -135,7 +128,7 @@ namespace ld3d
 				pData = pData->Next();
 				continue;
 			}
-						
+
 			Real t = r.GetT(ret_tmp.contact_point);
 			if(tnear > t)
 			{
@@ -147,5 +140,18 @@ namespace ld3d
 		}
 
 		return ret;
+	}
+	void PhysicsManager::UpdateCollision(float dt)
+	{
+		CollisionDataPtr pData = m_pColliderList;
+		while(pData)
+		{
+			TestCollider(pData);
+
+			pData = pData->Next();
+		}
+	}
+	void PhysicsManager::UpdatePhysics(float dt)
+	{
 	}
 }

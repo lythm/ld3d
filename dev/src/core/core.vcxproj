@@ -172,8 +172,6 @@
     <ClInclude Include="..\..\include\core\Bound_AABB.h" />
     <ClInclude Include="..\..\include\core\Bound_Sphere.h" />
     <ClInclude Include="..\..\include\core\Camera.h" />
-    <ClInclude Include="..\..\include\core\Collidee.h" />
-    <ClInclude Include="..\..\include\core\Collider.h" />
     <ClInclude Include="..\..\include\core\CollisionData.h" />
     <ClInclude Include="..\..\include\core\CoreApi.h" />
     <ClInclude Include="..\..\include\core\core_all.h" />
@@ -276,6 +274,7 @@
     <ClInclude Include="core_pch.h" />
     <ClInclude Include="core_utils.h" />
     <ClInclude Include="Frame.h" />
+    <ClInclude Include="GameManager.h" />
     <ClInclude Include="MaterialParameterManager.h" />
     <ClInclude Include="PostEffect_FXAA.h" />
     <ClInclude Include="RenderQueue.h" />
@@ -294,8 +293,6 @@
     <ClCompile Include="Bound_AABB.cpp" />
     <ClCompile Include="Bound_Sphere.cpp" />
     <ClCompile Include="Camera.cpp" />
-    <ClCompile Include="Collidee.cpp" />
-    <ClCompile Include="Collider.cpp" />
     <ClCompile Include="CoreApi.cpp" />
     <ClCompile Include="core_pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -310,6 +307,7 @@
     <ClCompile Include="DirectionalLight.cpp" />
     <ClCompile Include="EventDispatcher.cpp" />
     <ClCompile Include="Frame.cpp" />
+    <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameObjectComponent.cpp" />
     <ClCompile Include="GameObjectManager.cpp" />

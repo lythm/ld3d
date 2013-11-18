@@ -50,10 +50,11 @@ namespace ld3d
 	{
 		return m_pRegion->GetBlock(x, y, z);
 	}
-	bool VoxelWorldDataSet::Exist(uint32 x, uint32 y, uint32 z)
+	bool VoxelWorldDataSet::Empty(uint32 x, uint32 y, uint32 z)
 	{
-		return m_pRegion->Empty(x, y, z) == false;
+		return m_pRegion->Empty(x, y, z);
 	}
+	
 	void VoxelWorldDataSet::ConvertVoxel(uint8 t, uint32 x, uint32 y, uint32 z)
 	{
 		m_pRegion->ConvertBlock(t, x, y, z);
@@ -159,6 +160,45 @@ namespace ld3d
 	}
 	IntersectionResult VoxelWorldDataSet::Intersect(const math::Ray& r)
 	{
-		return m_pRegion->Intersect(r);
+		using namespace math;
+
+		IntersectionResult result(IntersectionResult::no);
+
+		Real t0, t1;
+		AABBox box(math::Vector3(0, 0, 0), math::Vector3(m_worldSizeX, m_worldSizeY, m_worldSizeZ));
+		if(RayIntersect(r, box, t0, t1) == intersect_none)
+		{
+			return result;
+		}
+
+		Ray new_r;
+		new_r.o = (t0 >= 0) ? r.GetPos(t0) : r.o;
+		new_r.d = r.d;
+
+		Real t = 0;
+		
+		while(true)
+		{
+			Vector3 p = new_r.GetPos(t);
+			
+			if(Empty(p.x, p.y, p.z) == false)
+			{
+				Vector3 min_coord((uint32)p.x, (uint32)p.y, (uint32)p.z);
+				
+				box.Make(min_coord, min_coord + Vector3(1, 1, 1));
+
+				if(intersect_intersect == RayIntersect(new_r, box, t0, t1))
+				{
+					result.ret = IntersectionResult::yes;
+					result.contact_point = new_r.GetPos(t0);
+					return result;
+				}
+			}
+
+			t += VOXEL_WORLD_BLOCK_SIZE;
+		}
+
+
+		return result;
 	}
 }

@@ -26,6 +26,8 @@ namespace ld3d
 
 		void										UpdateRotating(float dx, float dy);
 		void										UpdateMoving(float dt);
+
+		void										CorrectPosition();
 	private:
 
 		EventHandlerID								m_moveId;

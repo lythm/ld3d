@@ -13,7 +13,7 @@ public:
 
 	bool									Initialize(ld3d::CoreApiPtr pCore);
 	void									Release();
-	bool									Update();
+	bool									Update(float dt);
 
 private:
 

@@ -18,11 +18,11 @@ namespace ld3d
 		void													Update();
 
 		uint8													GetVoxelType(uint32 x, uint32 y, uint32 z);
+		bool													Empty(uint32 x, uint32 y, uint32 z);
 
 		void													ConvertVoxel(uint8 t, uint32 x, uint32 y, uint32 z);
 		bool													AddVoxel(uint8 type, uint32 x, uint32 y, uint32 z);
 		void													RemoveVoxel(uint32 x, uint32 y, uint32 z);
-		bool													Exist(uint32 x, uint32 y, uint32 z);
 
 		void													UpdateMesh();
 

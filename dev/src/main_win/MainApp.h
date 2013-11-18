@@ -1,6 +1,5 @@
 #pragma once
 
-#include "GameManager.h"
 #include "MainConfig.h"
 namespace ld3d
 {
@@ -60,7 +59,6 @@ namespace ld3d
 
 		static bool												m_bActive;
 
-		GameManagerPtr											m_pGameManager;
 		CoreApiPtr												m_pCore;
 		MainConfigPtr											m_pConfig;
 	};

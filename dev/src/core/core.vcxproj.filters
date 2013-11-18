@@ -63,10 +63,9 @@
     <ClCompile Include="UIManager.cpp" />
     <ClCompile Include="RenderQueue.cpp" />
     <ClCompile Include="PhysicsManager.cpp" />
-    <ClCompile Include="Collider.cpp" />
-    <ClCompile Include="Collidee.cpp" />
     <ClCompile Include="Bound_AABB.cpp" />
     <ClCompile Include="Bound_Sphere.cpp" />
+    <ClCompile Include="GameManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\core\ArcBall.h" />
@@ -169,8 +168,6 @@
     <ClInclude Include="..\..\include\core\UIManager.h" />
     <ClInclude Include="RenderQueue.h" />
     <ClInclude Include="..\..\include\core\PhysicsManager.h" />
-    <ClInclude Include="..\..\include\core\Collider.h" />
-    <ClInclude Include="..\..\include\core\Collidee.h" />
     <ClInclude Include="..\..\include\core\Bound.h" />
     <ClInclude Include="..\..\include\core\CollisionData.h" />
     <ClInclude Include="..\..\include\math\math_aabbox.h">
@@ -224,6 +221,7 @@
     <ClInclude Include="..\..\include\core\Bound_AABB.h" />
     <ClInclude Include="..\..\include\core\IntersectionResult.h" />
     <ClInclude Include="..\..\include\core\Bound_Sphere.h" />
+    <ClInclude Include="GameManager.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

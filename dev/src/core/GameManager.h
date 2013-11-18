@@ -16,10 +16,12 @@ namespace ld3d
 		GameManager(void);
 		virtual ~GameManager(void);
 
-		bool									Initialize(const std::string& name);
+		bool									Initialize(CoreApiPtr pCore, const std::string& name);
 		void									Release();
 
 		GameInterface*							GetGame();
+
+		void									Update(float dt);
 
 	private:
 		

@@ -1,4 +1,4 @@
-#include "pch.h"
+#include "core_pch.h"
 #include "GameManager.h"
 
 
@@ -6,16 +6,17 @@ namespace ld3d
 {
 	GameManager::GameManager(void)
 	{
-		m_hLib				= NULL;
-		m_pGame				= NULL;
+		m_hLib				= nullptr;
+		m_pGame				= nullptr;
 	}
 
 
 	GameManager::~GameManager(void)
 	{
 	}
-	bool GameManager::Initialize(const std::string& name)
+	bool GameManager::Initialize(CoreApiPtr pCore, const std::string& name)
 	{
+		Release();
 
 		using namespace boost::filesystem;
 
@@ -24,14 +25,14 @@ namespace ld3d
 
 		m_hLib = os_load_module(p.string().c_str());
 
-		if(m_hLib == NULL)
+		if(m_hLib == nullptr)
 		{
 			return false;
 		}
 
 		Fn_CreateGame CreateGame = (Fn_CreateGame)os_find_proc(m_hLib, "CreateGame");
 
-		if(CreateGame == NULL)
+		if(CreateGame == nullptr)
 		{
 			return false;
 		}
@@ -43,28 +44,45 @@ namespace ld3d
 		{
 			return false;
 		}
+
+		if(false == m_pGame->Initialize(pCore))
+		{
+			return false;
+		}
 		return true;
 	}
 	void GameManager::Release()
 	{
-		if(m_hLib == NULL)
+		if(m_hLib == nullptr)
 		{
 			return;
 		}
+
+		if(m_pGame)
+		{
+			m_pGame->Release();
+		}
 		Fn_DestroyGame DestroyGame = (Fn_DestroyGame)os_find_proc(m_hLib, "DestroyGame");
 
-		if(DestroyGame != NULL)
+		if(DestroyGame != nullptr)
 		{
 			DestroyGame(m_pGame);
 		}
 
 
 		os_unload_module(m_hLib);
-		m_hLib = NULL;
+		m_hLib = nullptr;
 	}
 
 	GameInterface* GameManager::GetGame()
 	{
 		return m_pGame;
+	}
+	void GameManager::Update(float dt)
+	{
+		if(m_pGame)
+		{
+			m_pGame->Update(dt);
+		}
 	}
 }

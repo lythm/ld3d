@@ -29,7 +29,6 @@ bool VoxelDemo::Init(ld3d::CoreApiPtr pCore)
 	m_pCore->GetRenderManager()->SetGlobalAmbient(math::Color4(0.4, 0.4f, 0.4f, 1.0f));
 	m_pCore->GetRenderManager()->SetClearColor(math::Color4(0.1f, 0.2f, 0.3f, 1));
 
-	
 	/*DataStream_File file;
 	if(false == file.OpenStream("./projects/2/2.scene"))
 	{
@@ -126,17 +125,7 @@ void VoxelDemo::Release()
 }
 void VoxelDemo::Update()
 {
-	math::Vector3 eye = m_pCamera->GetTranslation();
-
-	math::Ray r(math::Vector3(eye.x, 10000, eye.z), math::Vector3(0, -1, 0));
-
-	using namespace ld3d;
-
-	PhysicsManagerPtr pPhy = m_pCore->GetPhysicsManager();
-
-	IntersectionResult ret = pPhy->RayIntersect(r);
-
-	m_pCamera->SetTranslation(eye.x, ret.contact_point.y, eye.z);
+	
 
 }
 

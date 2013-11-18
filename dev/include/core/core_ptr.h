@@ -209,4 +209,8 @@ namespace ld3d
 
 	}
 
+
+
+	class GameManager;
+	typedef std::shared_ptr<GameManager>					GameManagerPtr;
 }

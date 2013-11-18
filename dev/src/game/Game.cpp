@@ -40,7 +40,7 @@ void Game::Release()
 	//m_pGraphcicsTest->Release();
 	m_pDemo->Release();
 }
-bool Game::Update()
+bool Game::Update(float dt)
 {
 	m_pDemo->Update();
 	

@@ -230,15 +230,10 @@ namespace ld3d
 	}
 	void MainApp::OnUpdate()
 	{
-		m_pCore->Update();
-
-		m_pGameManager->GetGame()->Update();
-		
+		m_pCore->RunFrame();
+				
 		ShowFPS();
 
-		m_pCore->Render();
-		m_pCore->ClearRenderQueue();
-		m_pCore->Present();
 	}
 
 	bool MainApp::OnInit()
@@ -260,28 +255,15 @@ namespace ld3d
 			
 		AdjustWindow(setting.graphics.frameBufferWidth, setting.graphics.frameBufferHeight);
 
-		if(false == m_pCore->Initialize(setting))
-		{
-			return false;
-		}
 
 		for(auto package : m_pConfig->GetPackageList())
 		{
-			if(false == m_pCore->LoadPackage(package.string()))
-			{
-				return false;
-			}
+			setting.packages.push_back(package.string());
 		}
 
+		setting.mod = m_pConfig->GetMod().string();
 
-		m_pGameManager = std::make_shared<GameManager>();
-
-		if(false == m_pGameManager->Initialize(m_pConfig->GetMod().string()))
-		{
-			return false;
-		}
-
-		if(false == m_pGameManager->GetGame()->Initialize(m_pCore))
+		if(false == m_pCore->Initialize(setting))
 		{
 			return false;
 		}
@@ -291,17 +273,6 @@ namespace ld3d
 
 	void MainApp::OnRelease()
 	{
-		if(m_pGameManager)
-		{
-			m_pGameManager->GetGame()->Release();
-		}
-		
-		if(m_pGameManager)
-		{
-			m_pGameManager->Release();
-			m_pGameManager.reset();
-		}
-
 		if(m_pCore)
 		{
 			m_pCore->Release();

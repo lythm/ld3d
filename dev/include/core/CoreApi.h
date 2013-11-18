@@ -19,7 +19,9 @@ namespace ld3d
 
 		bool											Initialize(const SysSetting& setting, Allocator* pAlloc = nullptr, DT_CoreApiPtr pDTCore = DT_CoreApiPtr());
 
-		void											Update();
+		void											RunFrame();
+
+		bool											LoadMod(const std::string& name);
 
 		void											Release();
 
@@ -66,6 +68,9 @@ namespace ld3d
 		static Logger&									logger();
 
 	private:
+		void											UpdateFrame(float dt);
+		void											RenderFrame();
+	private:
 
 		UIManagerPtr									m_pUIManager;
 
@@ -95,5 +100,7 @@ namespace ld3d
 		RUN_MODE										m_runmode;
 
 		DT_CoreApiPtr									m_pDTCore;
+
+		GameManagerPtr									m_pGameManager;
 	};
 }

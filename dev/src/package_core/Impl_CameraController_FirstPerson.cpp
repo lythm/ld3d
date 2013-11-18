@@ -125,7 +125,37 @@ namespace ld3d
 		local.SetRow3(3, pos);
 		m_pObject->SetLocalTransform(local);
 
+		CorrectPosition();
+
 		m_pCameraData->UpdateCamera();
+	}
+	void Impl_CameraController_FirstPerson::CorrectPosition()
+	{
+		math::Vector3 eye = m_pObject->GetWorldTransform().GetTranslation();
+
+		math::Ray r(math::Vector3(eye.x, eye.y, eye.z), math::Vector3(0, -1, 0));
+
+
+		PhysicsManagerPtr pPhy = m_pManager->GetPhysicsManager();
+
+		IntersectionResult ret;
+		while(true)
+		{
+			ret = pPhy->RayIntersect(r);
+
+			if(r.GetT(ret.contact_point) >= 0)
+			{
+				break;
+			}
+
+			r.o = ret.contact_point;
+		}
+
+		if(ret.ret == IntersectionResult::yes)
+		{
+			m_pObject->SetTranslation(eye.x, ret.contact_point.y + 1.5, eye.z);
+		}
+
 	}
 	void Impl_CameraController_FirstPerson::UpdateRotating(float dx, float dy)
 	{

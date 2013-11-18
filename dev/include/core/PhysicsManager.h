@@ -24,7 +24,10 @@ namespace ld3d
 
 		IntersectionResult							RayIntersect(const math::Ray& r);
 
+		
 	private:
+		void										UpdateCollision(float dt);
+		void										UpdatePhysics(float dt);
 		void										Detect(CollisionDataPtr pCollider, CollisionDataPtr pCollidee);
 		void										TestCollider(CollisionDataPtr pCollider);
 	private:

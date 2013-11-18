@@ -12,6 +12,7 @@
 #include "core/PhysicsManager.h"
 
 
+
 #include "core/Event.h"
 #include "core/PoolAllocator.h"
 #include "core/StdAllocator.h"
@@ -27,7 +28,7 @@
 #include "Time64.h"
 
 #include "core/Event.h"
-
+#include "GameManager.h"
 
 namespace ld3d
 {
@@ -45,26 +46,53 @@ namespace ld3d
 	CoreApi::~CoreApi(void)
 	{
 	}
-	void CoreApi::Update()
+	void CoreApi::RunFrame()
 	{
+		float frame_step = 1.0f / 30.0f;
+
 		m_pSysTime->Update();
 
 		float dt = m_pSysTime->Second() - m_lastFrameTime;
 		m_lastFrameTime = m_pSysTime->Second();
 
+		while(dt > frame_step)
+		{
+			UpdateFrame(frame_step);
+			dt -= frame_step;
+		}
+
+		UpdateFrame(dt);
+				
+		RenderFrame();
+	}
+	bool CoreApi::LoadMod(const std::string& name)
+	{
+		return m_pGameManager->Initialize(shared_from_this(), name);
+	}
+	void CoreApi::UpdateFrame(float dt)
+	{
 		s_pAllocator->Update();
 		m_pTimerManager->Update();
 
 		m_pSysNetwork->Update();
 		m_pSysInput->Update();
+
 		m_pSysSound->Update();
-		
+
 		m_pUIManager->Update(dt);
-		
+
 		m_pScene->Update(dt);
 
 		m_pPhysicsManager->Update(dt);
-		
+
+		m_pGameManager->Update(dt);
+
+	}
+	void CoreApi::RenderFrame()
+	{
+		Render();
+		ClearRenderQueue();
+		Present();
 	}
 	bool CoreApi::Initialize(const SysSetting& setting, Allocator* pAlloc, DT_CoreApiPtr pDTCore)
 	{
@@ -154,8 +182,24 @@ namespace ld3d
 			return false;
 		}
 
+
+		for(auto package : setting.packages)
+		{
+			if(m_pObjectManager->LoadPackage(package) == false)
+			{
+				return false;
+			}
+		}
+
 		m_pScene = alloc_object<Scene>(m_pObjectManager);
 
+
+		m_pGameManager = alloc_object<GameManager>();
+
+		if(false == LoadMod(setting.mod))
+		{
+			return false;
+		}
 				
 		m_lastFrameTime = m_pSysTime->Second();
 
@@ -176,6 +220,8 @@ namespace ld3d
 
 		pEvent.reset();
 
+
+		_release_and_reset(m_pGameManager);
 
 		_release_and_reset(m_pScene);
 

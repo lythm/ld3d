@@ -330,11 +330,14 @@ namespace ld3d
 	};
 	struct SysSetting
 	{
-		GraphicsSetting		graphics;
-		InputSetting		input;
-		SoundSetting		sound;
-		NetworkSettting		network;
-		PhysicsSetting		physics;
+		GraphicsSetting						graphics;
+		InputSetting						input;
+		SoundSetting						sound;
+		NetworkSettting						network;
+		PhysicsSetting						physics;
+
+		std::vector<std::string>			packages;
+		std::string							mod;
 	};
 
 	enum LAYER
