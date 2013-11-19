@@ -37,7 +37,7 @@ namespace ld3d
 
 		VoxelWorldOctTreePtr									GetOctTreeRoot() const;
 
-		IntersectionResult										Intersect(const math::Ray& r);
+		Contact													Intersect(const math::Ray& r);
 	private:
 
 		void													AddChunkToRenderList(VoxelWorldChunk* pChunk);

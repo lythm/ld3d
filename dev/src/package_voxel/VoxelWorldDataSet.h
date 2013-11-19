@@ -37,7 +37,7 @@ namespace ld3d
 		const int&												GetWorldSizeX();
 		const int&												GetWorldSizeZ();
 		
-		IntersectionResult										Intersect(const math::Ray& r);
+		Contact													Intersect(const math::Ray& r);
 	private:
 		
 	private:

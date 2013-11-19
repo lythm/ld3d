@@ -89,6 +89,6 @@
 #include "core/CollisionData.h"
 #include "core/Bound.h"
 #include "core/PhysicsManager.h"
-#include "core/IntersectionResult.h"
+#include "core/Contact.h"
 
 #include "core/DT_CoreApi.h"

@@ -1,6 +1,5 @@
 #include "voxel_pch.h"
 #include "VoxelWorldCollisionDataImpl.h"
-#include "VoxelWorldBound.h"
 #include "VoxelWorldImpl.h"
 
 namespace ld3d
@@ -27,12 +26,11 @@ namespace ld3d
 			return false;
 		}
 
-		m_pCD				= m_pManager->alloc_object<CollisionData>();
-		m_pBound			= m_pManager->alloc_object<VoxelWorldBound>();
+		m_pCD										= m_pManager->alloc_object<CollisionData>();
+		std::shared_ptr<Bound_Complex> bound		= m_pManager->alloc_object<Bound_Complex>();
 
-		m_pBound->SetWorld(m_pWorld);
-
-		m_pCD->bound		= m_pBound;
+		bound->RayIntersect = std::bind(&VoxelWorldCollisionDataImpl::RayIntersect, this, std::placeholders::_1);
+		m_pCD->bound = bound;
 
 		m_pPhysicsManager	= m_pManager->GetPhysicsManager();
 		
@@ -45,7 +43,17 @@ namespace ld3d
 
 		m_pPhysicsManager->RemoveCollidee(m_pCD);
 		m_pCD.reset();
-		m_pBound.reset();
 		m_pPhysicsManager.reset();
+	}
+	Contact VoxelWorldCollisionDataImpl::RayIntersect(const math::Ray& r)
+	{
+		Contact ret;
+
+		if(m_pWorld == nullptr)
+		{
+			return ret;
+		}
+
+		return m_pWorld->Intersect(r);
 	}
 }

@@ -29,6 +29,8 @@ bool VoxelDemo::Init(ld3d::CoreApiPtr pCore)
 	m_pCore->GetRenderManager()->SetGlobalAmbient(math::Color4(0.4, 0.4f, 0.4f, 1.0f));
 	m_pCore->GetRenderManager()->SetClearColor(math::Color4(0.1f, 0.2f, 0.3f, 1));
 
+	
+
 	/*DataStream_File file;
 	if(false == file.OpenStream("./projects/2/2.scene"))
 	{
@@ -116,6 +118,11 @@ bool VoxelDemo::Init(ld3d::CoreApiPtr pCore)
 	//GameObjectPtr pLight = m_pCore->CreatGameObjectFromTemplate("PointLight", "pl");
 	//pLight->SetTranslation(0, 3, 0);
 
+	//math::Ray r(math::Vector3(0, 1000, 0), math::Vector3(0, -1, 0));
+	//Contact ret = m_pCore->GetPhysicsManager()->RayIntersect(r);
+
+	//pLight->SetTranslation(0, ret.enter_point.y + 5, 0);
+
 //	m_pCore->GetSysInput()->ShowCursor(false);
 	return true;
 }
@@ -125,8 +132,6 @@ void VoxelDemo::Release()
 }
 void VoxelDemo::Update()
 {
-	
-
 }
 
 void VoxelDemo::_on_key_state(ld3d::EventPtr pEvent)

@@ -13,9 +13,8 @@ namespace ld3d
 
 	class VoxelWorldMaterialManager;
 	class VoxelWorldImpl;
-	class VoxelWorldBound;
 
-	typedef std::shared_ptr<VoxelWorldBound>				VoxelWorldBoundPtr;
+
 	typedef std::shared_ptr<VoxelWorldImpl>					VoxelWorldImplPtr;
 	typedef std::shared_ptr<VoxelWorldMaterialManager>		VoxelWorldMaterialManagerPtr;
 

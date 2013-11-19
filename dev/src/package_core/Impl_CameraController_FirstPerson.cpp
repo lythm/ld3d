@@ -138,22 +138,22 @@ namespace ld3d
 
 		PhysicsManagerPtr pPhy = m_pManager->GetPhysicsManager();
 
-		IntersectionResult ret;
+		Contact ret;
 		while(true)
 		{
 			ret = pPhy->RayIntersect(r);
 
-			if(r.GetT(ret.contact_point) >= 0)
+			if(r.GetT(ret.enter_point) >= 0)
 			{
 				break;
 			}
 
-			r.o = ret.contact_point;
+			r.o = ret.enter_point;
 		}
 
-		if(ret.ret == IntersectionResult::yes)
+		if(ret.result == Contact::Yes)
 		{
-			m_pObject->SetTranslation(eye.x, ret.contact_point.y + 1.5, eye.z);
+			m_pObject->SetTranslation(eye.x, ret.enter_point.y + 1.5, eye.z);
 		}
 
 	}

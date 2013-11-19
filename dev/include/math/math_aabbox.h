@@ -21,6 +21,7 @@ namespace math
 		const Vector3&			GetCenter() const;
 		const Vector3&			GetMaxCoord() const;
 		const Vector3&			GetMinCoord() const;
+		const Vector3&			GetExtent() const;
 
 		void					SetMaxCoord(const Vector3& max_coord);
 		void					SetMinCoord(const Vector3& min_coord);
@@ -40,6 +41,7 @@ namespace math
 		Vector3					m_max;
 		Vector3					m_min;
 		Vector3					m_center;
+		Vector3					m_extent;
 		bool					m_bValid;
 	};
 
@@ -83,7 +85,14 @@ namespace math
 		void AABBox::UpdateCenter()
 	{
 		m_center = (m_max + m_min) * 0.5f;
+		m_extent = m_max - m_min;
 	}
+	inline
+		const Vector3& AABBox::GetExtent() const
+	{
+		return m_extent;
+	}
+
 	inline
 		const Vector3& AABBox::GetCenter() const
 	{

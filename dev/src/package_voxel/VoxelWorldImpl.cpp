@@ -172,7 +172,7 @@ namespace ld3d
 	{
 		return m_pObject->GetWorldTransform();
 	}
-	IntersectionResult VoxelWorldImpl::Intersect(const math::Ray& r)
+	Contact VoxelWorldImpl::Intersect(const math::Ray& r)
 	{
 		math::Matrix44 worldMatrix = m_pObject->GetWorldTransform();
 		worldMatrix.Invert();
@@ -180,14 +180,14 @@ namespace ld3d
 		math::Ray local_r = r;
 		math::TransformRay(local_r, worldMatrix);
 
-		IntersectionResult ret = m_pDataSet->Intersect(local_r);
-		if(ret.ret == IntersectionResult::no || ret.ret == IntersectionResult::invalid)
+		Contact ret = m_pDataSet->Intersect(local_r);
+		if(ret.result == Contact::No || ret.result == Contact::Invalid)
 		{
 			return ret;
 		}
 
-		Real t = local_r.GetT(ret.contact_point);
-		ret.contact_point = r.GetPos(t);
+		Real t = local_r.GetT(ret.enter_point);
+		ret.enter_point = r.GetPos(t);
 		return ret;
 	}
 }

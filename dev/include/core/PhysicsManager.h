@@ -1,6 +1,6 @@
 #pragma once
 
-#include "core/IntersectionResult.h"
+#include "core/Contact.h"
 
 namespace ld3d
 {
@@ -22,14 +22,29 @@ namespace ld3d
 		void										RemoveCollidee(CollisionDataPtr pData);
 
 
-		IntersectionResult							RayIntersect(const math::Ray& r);
+		Contact										RayIntersect(const math::Ray& r);
 
 		
 	private:
 		void										UpdateCollision(float dt);
 		void										UpdatePhysics(float dt);
-		void										Detect(CollisionDataPtr pCollider, CollisionDataPtr pCollidee);
-		void										TestCollider(CollisionDataPtr pCollider);
+		bool										Detect(CollisionDataPtr pCollider, CollisionDataPtr pCollidee);
+		bool										TestCollider(CollisionDataPtr pCollider);
+
+	private:
+		Contact										_ray_intersect(const math::Ray& r, BoundPtr pBound);
+		Contact										_ray_intersect(const math::Ray& r, const math::AABBox& aabb);
+		Contact										_ray_intersect(const math::Ray& r, const math::Sphere& sphere);
+
+		Contact										_aabb_intersect(BoundPtr box, BoundPtr pBound);
+		Contact										_aabb_intersect(const math::AABBox& box1, const math::AABBox& box2);
+		Contact										_aabb_intersect(const math::AABBox& box, const math::Sphere& s);
+
+		Contact										_sphere_intersect(BoundPtr sphere, BoundPtr pBound);
+		Contact										_sphere_intersect(const math::Sphere& s, const math::AABBox& box);
+		Contact										_sphere_intersect(const math::Sphere& s1, const math::Sphere& s2);
+
+
 	private:
 		CollisionDataPtr							m_pColliderList;
 		CollisionDataPtr							m_pCollideeList;

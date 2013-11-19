@@ -37,7 +37,7 @@ namespace ld3d
 
 		const math::Matrix44&						GetWorldTransform();
 		
-		IntersectionResult							Intersect(const math::Ray& r);
+		Contact										Intersect(const math::Ray& r);
 	private:
 
 		bool										OnAttach();

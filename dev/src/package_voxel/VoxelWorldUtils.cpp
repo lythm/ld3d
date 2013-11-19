@@ -74,10 +74,6 @@ namespace ld3d
 				f.uv[2] = math::Vector2(uv_scale.x, uv_scale.y);
 				f.uv[3] = math::Vector2(0, uv_scale.y);
 
-
-				assert(abs(f.verts[1].z - f.verts[0].z) == abs(f.uv[1].x - f.uv[0].x));
-
-				
 				f.normal = math::Vector3(-1, 0, 0);
 				f.type = r[i].type;
 				mesh.push_back(f);
@@ -357,21 +353,6 @@ namespace ld3d
 		sub.type = VT_EMPTY;
 		sub.vertexCount				= 0;
 		sub.vertexBuffer			= nullptr;
-
-
-		for(size_t i = 0; i < mesh.size(); ++i)
-		{
-			VoxelFace f = mesh[i];
-
-			assert(f.uv[0].x >= 0);
-			assert(f.uv[1].x >= 0);
-			assert(f.uv[2].x >= 0);
-			assert(f.uv[3].x >= 0);
-
-			
-
-
-		}
 
 		if(mesh.size() != 0)
 		{

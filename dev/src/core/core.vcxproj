@@ -169,8 +169,6 @@
     <ClInclude Include="..\..\include\core\BaseMaterial.h" />
     <ClInclude Include="..\..\include\core\BBoxRenderData.h" />
     <ClInclude Include="..\..\include\core\Bound.h" />
-    <ClInclude Include="..\..\include\core\Bound_AABB.h" />
-    <ClInclude Include="..\..\include\core\Bound_Sphere.h" />
     <ClInclude Include="..\..\include\core\Camera.h" />
     <ClInclude Include="..\..\include\core\CollisionData.h" />
     <ClInclude Include="..\..\include\core\CoreApi.h" />
@@ -185,7 +183,7 @@
     <ClInclude Include="..\..\include\core\Event.h" />
     <ClInclude Include="..\..\include\core\EventDispatcher.h" />
     <ClInclude Include="..\..\include\core\input_types.h" />
-    <ClInclude Include="..\..\include\core\IntersectionResult.h" />
+    <ClInclude Include="..\..\include\core\Contact.h" />
     <ClInclude Include="..\..\include\core\Package.h" />
     <ClInclude Include="..\..\include\core\FileSystem.h" />
     <ClInclude Include="..\..\include\core\Font.h" />
@@ -290,8 +288,6 @@
     <ClCompile Include="AssetsManager.cpp" />
     <ClCompile Include="BaseCamera.cpp" />
     <ClCompile Include="BBoxRenderData.cpp" />
-    <ClCompile Include="Bound_AABB.cpp" />
-    <ClCompile Include="Bound_Sphere.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CoreApi.cpp" />
     <ClCompile Include="core_pch.cpp">

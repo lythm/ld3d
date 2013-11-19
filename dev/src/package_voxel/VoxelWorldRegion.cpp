@@ -399,9 +399,9 @@ namespace ld3d
 	{
 		return m_pRoot;
 	}
-	IntersectionResult VoxelWorldRegion::Intersect(const math::Ray& r)
+	Contact VoxelWorldRegion::Intersect(const math::Ray& r)
 	{
-		IntersectionResult ret(IntersectionResult::no);
+		Contact ret(Contact::No);
 
 		Real t;
 		if(m_pRoot->RayPick(r, t) == false)
@@ -409,8 +409,8 @@ namespace ld3d
 			return ret;
 		}
 		
-		ret.ret = IntersectionResult::yes;
-		ret.contact_point = r.GetPos(t);
+		ret.result = Contact::Yes;
+		ret.enter_point = r.GetPos(t);
 
 		return ret;
 	}

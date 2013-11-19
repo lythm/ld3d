@@ -1,6 +1,6 @@
 #pragma once
 
-#include "core/IntersectionResult.h"
+#include "core/Contact.h"
 
 namespace ld3d
 {
@@ -13,27 +13,57 @@ namespace ld3d
 			bt_aabb,
 			bt_sphere,
 			bt_complex,
+			bt_unknown,
 		};
-
 		
-
-		Bound(bound_type type)
+		Bound(bound_type t = bt_unknown, const math::Matrix44& world = math::MatrixIdentity())
 		{
-			m_type = type;
+			type			= t;
+			worldMatrix		= world;
 		}
 
-		virtual ~Bound(void){}
+		bound_type														type;
 
-		virtual IntersectionResult										Intersect(BoundPtr other)						= 0;
-		virtual IntersectionResult										Intersect(const math::Ray& r)					= 0;
+		math::Matrix44													worldMatrix;
+	};
 
 
-
-		bound_type														GetType() const
+	class Bound_Sphere : public Bound
+	{
+	public:
+		
+		Bound_Sphere(const math::Sphere& s, const math::Matrix44& world = math::MatrixIdentity()) : Bound(bt_sphere, world)
 		{
-			return m_type;
+			sphere = s;
 		}
-	private:
-		bound_type														m_type;
+
+		math::Sphere											sphere;
+
+	};
+
+	class Bound_AABB : public Bound
+	{
+	public:
+		Bound_AABB(const math::AABBox& box, const math::Matrix44& world = math::MatrixIdentity()): Bound(bt_aabb, world)
+		{
+			aabb = box;
+		}
+		math::AABBox											aabb;
+	};
+
+	class Bound_Complex : public Bound
+	{
+	public:
+
+		typedef std::function<Contact (BoundPtr)>							FUN_Intersect;
+		typedef std::function<Contact (const math::Ray&)>					FUN_RayIntersect;
+
+		Bound_Complex(const math::Matrix44& world = math::MatrixIdentity()) : Bound(bt_complex, world)
+		{
+		}
+
+		FUN_Intersect														Intersect;
+		FUN_RayIntersect													RayIntersect;
+
 	};
 }

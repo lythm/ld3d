@@ -63,6 +63,31 @@ namespace math
 	}
 
 	inline
+		intersect_ret AABBoxIntersectSphere(const AABBox& box, const Sphere& sphere) 
+	{
+		Vector3 aabbcenter = box.GetCenter();
+		Vector3 SepAxis = sphere.center - aabbcenter;
+		Real Dist = SepAxis.Length();
+
+		SepAxis.Normalize();
+		
+		if( SepAxis.x >= SepAxis.y && SepAxis.x >= SepAxis.z )
+			SepAxis *= 1.0f / SepAxis.x;
+		else if( SepAxis.y >= SepAxis.x && SepAxis.y >= SepAxis.z )
+			SepAxis *= 1.0f / SepAxis.y;
+		else
+			SepAxis *= 1.0f / SepAxis.z;
+
+		Vector3 extents = box.GetExtent();
+
+		SepAxis.x *= extents.x / 2.0f;
+		SepAxis.y *= extents.y / 2.0f;
+		SepAxis.z *= extents.z / 2.0f;
+
+		return Dist <= (sphere.radius + SepAxis.Length()) ? intersect_intersect : intersect_none;
+	}
+
+	inline
 		intersect_ret RayIntersectPlane(const Ray& r, const Plane& p, Real& t)
 	{
 		Real dn = Dot(r.d, p.normal);

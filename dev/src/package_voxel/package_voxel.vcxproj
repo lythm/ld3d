@@ -176,7 +176,6 @@
     <ClInclude Include="VoxelPackage.h" />
     <ClInclude Include="VoxelPool.h" />
     <ClInclude Include="VoxelSerializer.h" />
-    <ClInclude Include="VoxelWorldBound.h" />
     <ClInclude Include="VoxelWorldChunk.h" />
     <ClInclude Include="VoxelWorldCollisionDataImpl.h" />
     <ClInclude Include="VoxelWorldDataSet.h" />
@@ -197,7 +196,6 @@
     <ClCompile Include="VoxelObjectTemplate.cpp" />
     <ClCompile Include="VoxelPackage.cpp" />
     <ClCompile Include="VoxelPool.cpp" />
-    <ClCompile Include="VoxelWorldBound.cpp" />
     <ClCompile Include="VoxelWorldChunk.cpp" />
     <ClCompile Include="VoxelWorldCollisionDataImpl.cpp" />
     <ClCompile Include="VoxelWorldDataSet.cpp" />

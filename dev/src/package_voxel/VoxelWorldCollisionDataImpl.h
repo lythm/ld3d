@@ -17,10 +17,10 @@ namespace ld3d
 		bool										OnAttach();
 		void										OnDetach();
 
+		Contact										RayIntersect(const math::Ray& r);
 	private:
 
 		CollisionDataPtr							m_pCD;
-		VoxelWorldBoundPtr							m_pBound;
 
 		PhysicsManagerPtr							m_pPhysicsManager;
 

@@ -158,11 +158,11 @@ namespace ld3d
 	{
 		return m_worldSizeZ;
 	}
-	IntersectionResult VoxelWorldDataSet::Intersect(const math::Ray& r)
+	Contact VoxelWorldDataSet::Intersect(const math::Ray& r)
 	{
 		using namespace math;
 
-		IntersectionResult result(IntersectionResult::no);
+		Contact result(Contact::No);
 
 		Real t0, t1;
 		AABBox box(math::Vector3(0, 0, 0), math::Vector3(m_worldSizeX, m_worldSizeY, m_worldSizeZ));
@@ -189,8 +189,8 @@ namespace ld3d
 
 				if(intersect_intersect == RayIntersect(new_r, box, t0, t1))
 				{
-					result.ret = IntersectionResult::yes;
-					result.contact_point = new_r.GetPos(t0);
+					result.result = Contact::Yes;
+					result.enter_point= new_r.GetPos(t0);
 					return result;
 				}
 			}

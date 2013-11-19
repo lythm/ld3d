@@ -63,8 +63,6 @@
     <ClCompile Include="UIManager.cpp" />
     <ClCompile Include="RenderQueue.cpp" />
     <ClCompile Include="PhysicsManager.cpp" />
-    <ClCompile Include="Bound_AABB.cpp" />
-    <ClCompile Include="Bound_Sphere.cpp" />
     <ClCompile Include="GameManager.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -218,10 +216,8 @@
     <ClInclude Include="..\..\include\math\math_vector4.h">
       <Filter>math</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\core\Bound_AABB.h" />
-    <ClInclude Include="..\..\include\core\IntersectionResult.h" />
-    <ClInclude Include="..\..\include\core\Bound_Sphere.h" />
     <ClInclude Include="GameManager.h" />
+    <ClInclude Include="..\..\include\core\Contact.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
