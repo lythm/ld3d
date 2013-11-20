@@ -316,8 +316,8 @@ namespace ld3d
 	Contact PhysicsManager::_aabb_intersect(const math::AABBox& box1, const math::AABBox& box2)
 	{
 		Contact ret;
-
-		math::AABBoxIntersectAABBox(box1, box2);
+		math::AABBox overlap;
+		math::AABBoxIntersectAABBox(box1, box2, overlap);
 
 		return ret;
 	}

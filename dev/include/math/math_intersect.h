@@ -34,8 +34,31 @@ namespace math
 		intersect_intersect,
 	};
 
+	inline 
+		void AABBoxFindOverlapp(const AABBox& b1, const AABBox& b2, AABBox& overlap)
+	{
+		Vector3 min_coord, max_coord;
+
+		const Vector3& min1 = b1.GetMinCoord();
+		const Vector3& min2 = b2.GetMinCoord();
+
+		min_coord.x = std::min(min1.x, min2.x);
+		min_coord.y = std::min(min1.y, min2.y);
+		min_coord.z = std::min(min1.z, min2.z);
+
+		const Vector3& max1 = b1.GetMaxCoord();
+		const Vector3& max2 = b2.GetMaxCoord();
+
+		max_coord.x = std::max(max1.x, max2.x);
+		max_coord.y = std::max(max1.y, max2.y);
+		max_coord.z = std::max(max1.z, max2.z);
+
+		overlap.Make(min_coord, max_coord);
+
+	}
+
 	inline
-		intersect_ret AABBoxIntersectAABBox(const AABBox& lhs, const AABBox& rhs)
+		intersect_ret AABBoxIntersectAABBoxTest(const AABBox& lhs, const AABBox& rhs)
 	{
 		if( lhs.IsValid() == false || rhs.IsValid() == false)
 			return intersect_none;
@@ -63,6 +86,19 @@ namespace math
 	}
 
 	inline
+		intersect_ret AABBoxIntersectAABBox(const AABBox& lhs, const AABBox& rhs, AABBox& overlap)
+	{
+		intersect_ret ret = AABBoxIntersectAABBoxTest(lhs, rhs);
+		
+		if(ret != intersect_none)
+		{
+			AABBoxFindOverlapp(lhs, rhs, overlap);
+		}
+
+		return ret;
+	}
+
+	inline
 		intersect_ret AABBoxIntersectSphere(const AABBox& box, const Sphere& sphere) 
 	{
 		Vector3 aabbcenter = box.GetCenter();
@@ -86,6 +122,8 @@ namespace math
 
 		return Dist <= (sphere.radius + SepAxis.Length()) ? intersect_intersect : intersect_none;
 	}
+
+	
 
 	inline
 		intersect_ret RayIntersectPlane(const Ray& r, const Plane& p, Real& t)

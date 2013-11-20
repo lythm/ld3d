@@ -349,7 +349,7 @@ namespace ld3d
 		while(pChunk)
 		{
 			VoxelWorldMesh* pMesh = pChunk->GetMesh();
-			for(int i = 0; i < pMesh->GetSubsetCount(); ++i)
+			for(uint32 i = 0; i < pMesh->GetSubsetCount(); ++i)
 			{
 				const VoxelWorldMesh::Subset& sub = pMesh->GetSubset(i);
 

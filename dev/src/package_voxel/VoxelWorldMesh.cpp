@@ -65,7 +65,7 @@ namespace ld3d
 	}
 	uint32 VoxelWorldMesh::GetSubsetCount()
 	{
-		return m_subsets.size();
+		return (uint32)m_subsets.size();
 	}
 	const VoxelWorldMesh::Subset& VoxelWorldMesh::GetSubset(uint32 index)
 	{

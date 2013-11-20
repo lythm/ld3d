@@ -111,6 +111,25 @@ namespace math
 
 	}
 	inline
+		void TransformAABB(AABBox& box, const Matrix44& t)
+	{
+	
+		Vector3 localExtent = box.GetExtent();
+
+		localExtent *= 0.5f;
+
+		Vector3 center = box.GetCenter();
+		center += t.GetTranslation();
+
+		Vector3 extent;
+
+		extent.x = Dot(localExtent, t.GetRow3(0));
+		extent.y = Dot(localExtent, t.GetRow3(1));
+		extent.z = Dot(localExtent, t.GetRow3(2));
+
+		box.Make(center - extent, center + extent);
+	}
+	inline
 		Matrix44 MatrixLookAtLH(const Vector3& eye, const Vector3& at, const Vector3& up)
 	{
 		using namespace glm;
