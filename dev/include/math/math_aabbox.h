@@ -34,6 +34,8 @@ namespace math
 		bool					IsValid() const;
 
 		bool					Inside(const math::Vector3& pt);
+
+		Vector3					PointNormal(const Vector3& pt);
 	private:
 		void					UpdateValid();
 		void					UpdateCenter();
@@ -168,6 +170,28 @@ namespace math
 			m_bValid = false;
 		}
 		m_bValid = true;
+	}
+	inline
+		Vector3 AABBox::PointNormal(const Vector3& pt)
+	{
+		Vector3 n = pt - m_center;
+
+		float min_dst = math::MATH_REAL_INFINITY;
+
+		int axis_ind = -1;
+		for(int i = 0; i < 3; ++i)
+		{
+			float d = abs(m_extent[i] * 0.5 - n[i]);
+			if(min_dst > d)
+			{
+				min_dst = d;
+				axis_ind = i;
+			}
+		}
+
+		Vector3 normal;
+		normal[axis_ind] = n[axis_ind] > 0 ? 1 : -1;
+		return normal;
 	}
 }
 

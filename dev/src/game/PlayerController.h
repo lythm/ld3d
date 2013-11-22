@@ -26,8 +26,6 @@ private:
 	ld3d::EventHandlerID						m_moveId;
 	ld3d::EventHandlerID						m_keyId;
 
-	int											m_x;
-	int											m_y;
 
 	bool										m_forward;
 	bool										m_backward;

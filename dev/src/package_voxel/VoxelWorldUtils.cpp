@@ -280,10 +280,15 @@ namespace ld3d
 				uv_scale.x = r[i].x2 + 1 - r[i].x1;
 				uv_scale.y = r[i].y2 + 1 - r[i].y1;
 
-				f.uv[0] = math::Vector2(uv_scale.x, 0);
+			/*	f.uv[0] = math::Vector2(uv_scale.x, 0);
 				f.uv[1] = math::Vector2(uv_scale.y, uv_scale.y);
 				f.uv[2] = math::Vector2(0, 0);
-				f.uv[3] = math::Vector2(0, uv_scale.y);
+				f.uv[3] = math::Vector2(0, uv_scale.y);*/
+
+				f.uv[0] = math::Vector2(0, 0);
+				f.uv[1] = math::Vector2(0, uv_scale.y);
+				f.uv[2] = math::Vector2(uv_scale.x, 0);
+				f.uv[3] = math::Vector2(uv_scale.x, uv_scale.y);
 
 				f.type = r[i].type;
 				mesh.push_back(f);

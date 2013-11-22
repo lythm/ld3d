@@ -34,16 +34,11 @@ namespace ld3d
 		EventHandlerID								m_wheelId;
 		EventHandlerID								m_keyId;
 
-		int											m_x;
-		int											m_y;
-
 		bool										m_forward;
 		bool										m_backward;
 		bool										m_left;
 		bool										m_right;
 
 		std::shared_ptr<Impl_CameraData>			m_pCameraData;
-
-		bool										m_posEnabled;
 	};
 }

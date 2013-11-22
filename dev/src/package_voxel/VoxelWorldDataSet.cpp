@@ -158,7 +158,7 @@ namespace ld3d
 	{
 		return m_worldSizeZ;
 	}
-	bool VoxelWorldDataSet::Intersect(const math::Ray& r, Real& t)
+	bool VoxelWorldDataSet::Intersect(const math::Ray& r, math::Vector3& pt, math::Vector3& normal)
 	{
 		using namespace math;
 
@@ -185,9 +185,10 @@ namespace ld3d
 				
 				box.Make(min_coord, min_coord + Vector3(VOXEL_WORLD_BLOCK_SIZE, VOXEL_WORLD_BLOCK_SIZE, VOXEL_WORLD_BLOCK_SIZE));
 
-				if(intersect_intersect == RayIntersect(new_r, box, t0, t1))
+				if(intersect_intersect == RayIntersect(r, box, t0, t1))
 				{
-					t = t0;
+					pt = r.GetPos(t0);
+					normal = box.PointNormal(pt);
 					return true;
 				}
 			}

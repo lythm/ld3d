@@ -175,20 +175,32 @@ namespace ld3d
 	Contact VoxelWorldImpl::Intersect(const math::Ray& r)
 	{
 		math::Matrix44 worldMatrix = m_pObject->GetWorldTransform();
-		worldMatrix.Invert();
+
+		math::Matrix44 invWorld = worldMatrix;
+		invWorld.Invert();
+
+		
 
 		math::Ray local_r = r;
-		math::TransformRay(local_r, worldMatrix);
+		math::TransformRay(local_r, invWorld);
 
 		Contact ret;
 		
-		Real t = 0;
-		if(false == m_pDataSet->Intersect(local_r, t))
+		math::Vector3 pt;
+		math::Vector3 normal;
+
+		if(false == m_pDataSet->Intersect(local_r, pt, normal))
 		{
 			return ret;
 		}
-		
-		ret.enter_point = r.GetPos(t);
+		ret.result = Contact::Yes;
+
+		ret.enter_point = pt;
+		math::TransformCoord(ret.enter_point, worldMatrix);
+
+		ret.normal = normal;
+		math::TransformNormal(ret.normal, worldMatrix);
+
 		return ret;
 	}
 	Contact VoxelWorldImpl::Intersect(BoundPtr pBound)

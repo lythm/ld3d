@@ -5,8 +5,6 @@
 
 PlayerController::PlayerController(ld3d::GameObjectManagerPtr pManager) : GameObjectComponent("PlayerController", pManager)
 {
-	m_x						= -1;
-	m_y						= -1;
 	m_forward				= false;
 	m_backward				= false;
 	m_left					= false;
@@ -36,8 +34,6 @@ bool PlayerController::OnAttach()
 {
 	using namespace ld3d;
 
-	m_x						= -1;
-	m_y						= -1;
 	m_forward				= false;
 	m_backward				= false;
 	m_left					= false;
@@ -59,21 +55,12 @@ void PlayerController::_on_mouse_move(ld3d::EventPtr pEvent)
 	using namespace ld3d;
 
 	Event_MouseState* pState = (Event_MouseState*)pEvent.get();
-	if(m_x == -1 || m_y == -1)
-	{
-		m_x = pState->mouse_state->x;
-		m_y = pState->mouse_state->y;
-		return;
-	}
-
-	float dx = (pState->mouse_state->x - m_x);
-	float dy = (pState->mouse_state->y - m_y);
+	
+	float dx = pState->mouse_state->dx;
+	float dy = pState->mouse_state->dy;
 
 	UpdateRotating(dx, dy);
 	UpdateCamera(dx, dy);
-
-	m_x = pState->mouse_state->x;
-	m_y = pState->mouse_state->y;
 }
 
 void PlayerController::_on_key(ld3d::EventPtr pEvent)
@@ -260,5 +247,7 @@ void PlayerController::_on_collide(ld3d::CollisionDataPtr pCollider, const ld3d:
 	local *= math::MatrixTranslation(offset);
 	m_pObject->SetLocalTransform(local);
 	pCollider->bound->worldMatrix = m_pObject->GetWorldTransform();
+
+	m_pObject->Update(0);
 }
 

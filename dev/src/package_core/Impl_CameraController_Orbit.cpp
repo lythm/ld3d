@@ -34,13 +34,8 @@ namespace ld3d
 
 		Event_MouseState* pState = (Event_MouseState*)pEvent.get();
 
-		int x =  pState->mouse_state->x;
-		int y =  pState->mouse_state->y;
-		static int lastx = x;
-		static int lasty = y;
-
-		int dx = x - lastx;
-		int dy = y - lasty;
+		int dx = pState->mouse_state->dx;
+		int dy = pState->mouse_state->dy;
 
 		if(pState->mouse_state->LButtonDown())
 		{
@@ -58,9 +53,6 @@ namespace ld3d
 			Vector3 axis_y = parent.GetRow3(1);
 			m_pObject->SetLocalTransform(local *  MatrixRotationAxis(axis_x, dy * 0.01f) * MatrixRotationAxis(axis_y, dx * 0.01f));
 		}
-
-		lastx = x;
-		lasty = y;
 
 	}
 

@@ -6,14 +6,11 @@ namespace ld3d
 {
 	Impl_CameraController_FirstPerson::Impl_CameraController_FirstPerson(GameObjectManagerPtr pManager) : CameraController_FirstPerson(pManager)
 	{
-		m_x						= -1;
-		m_y						= -1;
 		m_forward				= false;
 		m_backward				= false;
 		m_left					= false;
 		m_right					= false;
 
-		m_posEnabled			= false;	
 	}
 	
 	Impl_CameraController_FirstPerson::~Impl_CameraController_FirstPerson(void)
@@ -21,17 +18,12 @@ namespace ld3d
 	}
 	void Impl_CameraController_FirstPerson::Update(float dt)
 	{
-		if(m_posEnabled)
-		{
-			UpdateMoving(dt);
-		}
+		UpdateMoving(dt);
 	}
 	bool Impl_CameraController_FirstPerson::OnAttach()
 	{
 		m_pCameraData = std::dynamic_pointer_cast<Impl_CameraData>(m_pObject->GetComponent("Camera"));
 
-		m_x						= -1;
-		m_y						= -1;
 		m_forward				= false;
 		m_backward				= false;
 		m_left					= false;
@@ -53,20 +45,12 @@ namespace ld3d
 	void Impl_CameraController_FirstPerson::_on_mouse_move(EventPtr pEvent)
 	{
 		Event_MouseState* pState = (Event_MouseState*)pEvent.get();
-		if(m_x == -1 || m_y == -1)
-		{
-			m_x = pState->mouse_state->x;
-			m_y = pState->mouse_state->y;
-			return;
-		}
-
-		float dx = (pState->mouse_state->x - m_x);
-		float dy = (pState->mouse_state->y - m_y);
+		
+		float dx = pState->mouse_state->dx;
+		float dy = pState->mouse_state->dy;
 
 		UpdateRotating(dx, dy);
 
-		m_x = pState->mouse_state->x;
-		m_y = pState->mouse_state->y;
 	}
 	void Impl_CameraController_FirstPerson::_on_mouse_wheel(EventPtr pEvent)
 	{

@@ -37,7 +37,7 @@ namespace ld3d
 		const int&												GetWorldSizeX();
 		const int&												GetWorldSizeZ();
 		
-		bool													Intersect(const math::Ray& r, Real& t);
+		bool													Intersect(const math::Ray& r, math::Vector3& pt, math::Vector3& normal);
 		bool													Intersect(const math::AABBox& box, math::AABBox& closest_overlap);
 	private:
 		

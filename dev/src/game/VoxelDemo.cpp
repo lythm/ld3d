@@ -123,7 +123,7 @@ bool VoxelDemo::Init(ld3d::CoreApiPtr pCore)
 
 	math::Ray r(math::Vector3(0, 1000, 0), math::Vector3(0, -1, 0));
 	Contact ret = m_pCore->GetPhysicsManager()->RayIntersect(r);
-	m_pPlayer->SetTranslation(1, ret.enter_point.y, 1);
+	m_pPlayer->SetTranslation(1, ret.enter_point.y + 10, 1);
 
 //	m_pCore->GetSysInput()->ShowCursor(false);
 	return true;
