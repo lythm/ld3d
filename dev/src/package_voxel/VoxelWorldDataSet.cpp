@@ -158,47 +158,88 @@ namespace ld3d
 	{
 		return m_worldSizeZ;
 	}
-	Contact VoxelWorldDataSet::Intersect(const math::Ray& r)
+	bool VoxelWorldDataSet::Intersect(const math::Ray& r, Real& t)
 	{
 		using namespace math;
-
-		Contact result(Contact::No);
 
 		Real t0, t1;
 		AABBox box(math::Vector3(0, 0, 0), math::Vector3(m_worldSizeX, m_worldSizeY, m_worldSizeZ));
 		if(RayIntersect(r, box, t0, t1) == intersect_none)
 		{
-			return result;
+			return false;
 		}
 
 		Ray new_r;
 		new_r.o = (t0 >= 0) ? r.GetPos(t0) : r.o;
 		new_r.d = r.d;
 
-		Real t = 0;
-		
+		Real dt = 0;
+
 		while(true)
 		{
-			Vector3 p = new_r.GetPos(t);
+			Vector3 p = new_r.GetPos(dt);
 			
 			if(Empty(p.x, p.y, p.z) == false)
 			{
 				Vector3 min_coord((uint32)p.x, (uint32)p.y, (uint32)p.z);
 				
-				box.Make(min_coord, min_coord + Vector3(1, 1, 1));
+				box.Make(min_coord, min_coord + Vector3(VOXEL_WORLD_BLOCK_SIZE, VOXEL_WORLD_BLOCK_SIZE, VOXEL_WORLD_BLOCK_SIZE));
 
 				if(intersect_intersect == RayIntersect(new_r, box, t0, t1))
 				{
-					result.result = Contact::Yes;
-					result.enter_point= new_r.GetPos(t0);
-					return result;
+					t = t0;
+					return true;
 				}
 			}
 
-			t += VOXEL_WORLD_BLOCK_SIZE;
+			dt += VOXEL_WORLD_BLOCK_SIZE;
 		}
 
+		return false;
+	}
+	bool VoxelWorldDataSet::Intersect(const math::AABBox& box, math::AABBox& closest_overlap)
+	{
+		using namespace math;
+		const Vector3& min_coord = box.GetMinCoord();
+		const Vector3& max_coord = box.GetMaxCoord();
+		const Vector3& center = box.GetCenter();
 
-		return result;
+		
+		bool bFind = false;
+		Real closest_to_center = math::MATH_REAL_INFINITY;
+
+		for(int x = min_coord.x; x < max_coord.x + VOXEL_WORLD_BLOCK_SIZE; x += VOXEL_WORLD_BLOCK_SIZE)
+		{
+			for(int y = min_coord.y; y < max_coord.y + VOXEL_WORLD_BLOCK_SIZE; y += VOXEL_WORLD_BLOCK_SIZE)
+			{
+				for(int z = min_coord.z; z < max_coord.z + VOXEL_WORLD_BLOCK_SIZE; z += VOXEL_WORLD_BLOCK_SIZE)
+				{
+
+					if(Empty(x, y,z))
+						continue;
+
+					Vector3 block_min(x, y, z);
+
+					AABBox block(block_min, block_min + Vector3(VOXEL_WORLD_BLOCK_SIZE, VOXEL_WORLD_BLOCK_SIZE, VOXEL_WORLD_BLOCK_SIZE));
+
+					AABBox overlap;
+
+					if(AABBoxIntersectAABBox(box, block, overlap) == intersect_none)
+					{
+						continue;
+					}
+
+					Real l = (overlap.GetCenter() - center).Length();
+					if(l < closest_to_center)
+					{
+						closest_to_center = l;
+						closest_overlap = overlap;
+						bFind = true;
+					}
+				}
+			}
+		}
+
+		return bFind;
 	}
 }

@@ -166,6 +166,7 @@
     <ClInclude Include="..\..\include\packages\core\CameraController_FirstPerson.h" />
     <ClInclude Include="..\..\include\packages\core\CameraController_Orbit.h" />
     <ClInclude Include="..\..\include\packages\core\CameraData.h" />
+    <ClInclude Include="..\..\include\packages\core\CollisionData_AABBox.h" />
     <ClInclude Include="..\..\include\packages\core\core_ext_all.h" />
     <ClInclude Include="..\..\include\packages\core\core_ext_ptr.h" />
     <ClInclude Include="..\..\include\packages\core\Light_Dir.h" />
@@ -184,6 +185,7 @@
     <ClInclude Include="Impl_CameraController_FirstPerson.h" />
     <ClInclude Include="Impl_CameraController_Orbit.h" />
     <ClInclude Include="Impl_CameraData.h" />
+    <ClInclude Include="Impl_CollisionData_AABBox.h" />
     <ClInclude Include="Impl_Light_Dir.h" />
     <ClInclude Include="Impl_Light_Point.h" />
     <ClInclude Include="Impl_Light_Sky.h" />
@@ -213,6 +215,7 @@
     <ClCompile Include="Impl_CameraController_FirstPerson.cpp" />
     <ClCompile Include="Impl_CameraController_Orbit.cpp" />
     <ClCompile Include="Impl_CameraData.cpp" />
+    <ClCompile Include="Impl_CollisionData_AABBox.cpp" />
     <ClCompile Include="Impl_Light_Dir.cpp" />
     <ClCompile Include="Impl_Light_Point.cpp" />
     <ClCompile Include="Impl_Light_Sky.cpp" />

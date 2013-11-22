@@ -180,14 +180,91 @@ namespace ld3d
 		math::Ray local_r = r;
 		math::TransformRay(local_r, worldMatrix);
 
-		Contact ret = m_pDataSet->Intersect(local_r);
-		if(ret.result == Contact::No || ret.result == Contact::Invalid)
+		Contact ret;
+		
+		Real t = 0;
+		if(false == m_pDataSet->Intersect(local_r, t))
+		{
+			return ret;
+		}
+		
+		ret.enter_point = r.GetPos(t);
+		return ret;
+	}
+	Contact VoxelWorldImpl::Intersect(BoundPtr pBound)
+	{
+		switch(pBound->type)
+		{
+		case Bound::bt_aabb:
+			return _intersect_aabb(pBound);
+		default:
+			assert(0);
+			break;
+		}
+
+
+		return Contact();
+	}
+	Contact	VoxelWorldImpl::_intersect_aabb(const BoundPtr pBound)
+	{
+		Contact ret;
+
+		math::Matrix44 inv = m_pObject->GetWorldTransform();
+		inv.Invert();
+
+		Bound_AABBPtr pAABB = std::dynamic_pointer_cast<Bound_AABB>(pBound);
+		
+		math::AABBox box = pAABB->aabb;
+
+		math::TransformAABB(box, pAABB->worldMatrix * inv);
+
+		math::AABBox overlap;
+		
+		if(false == m_pDataSet->Intersect(box, overlap))
 		{
 			return ret;
 		}
 
-		Real t = local_r.GetT(ret.enter_point);
-		ret.enter_point = r.GetPos(t);
+		ret.result = Contact::Yes;
+
+		const math::Vector3& box_center = box.GetCenter();
+		const math::Vector3& overlap_center = overlap.GetCenter();
+		const math::Vector3& overlap_extent = overlap.GetExtent();
+
+		math::Vector3 sig = box_center - overlap_center;
+		
+		math::Vector3 offset(0, 0, 0);
+
+		int i_min = -1;
+		Real min_dst = math::MATH_REAL_INFINITY;
+
+		for(int i = 0; i < 3; ++i)
+		{
+			if(overlap_extent[i] < min_dst)
+			{
+				min_dst = overlap_extent[i];
+				i_min = i;
+			}
+		}
+
+		ret.enter_point = overlap_center;
+		ret.normal = math::Vector3(0, 0, 0);
+
+
+		if(box_center[i_min] > overlap_center[i_min])
+		{
+			ret.enter_point[i_min] += overlap_extent[i_min] / 2.0f;
+			ret.normal[i_min] = 1;
+		}
+		else
+		{
+			ret.enter_point[i_min] -= overlap_extent[i_min] / 2.0f;
+			ret.normal[i_min] = -1;
+		}
+		
+		math::TransformCoord(ret.enter_point, m_pObject->GetWorldTransform());
+		math::TransformNormal(ret.normal, m_pObject->GetWorldTransform());
+
 		return ret;
 	}
 }

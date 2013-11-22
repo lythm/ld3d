@@ -119,15 +119,19 @@ namespace ld3d
 	
 	class Bound;
 	class PhysicsManager;
-	class Collider;
-	class Collidee;
 	class CollisionData;
+	class Bound_AABB;
+	class Bound_Sphere;
+	class Bound_Complex;
 
 	typedef std::shared_ptr<Bound>							BoundPtr;
+	typedef std::shared_ptr<Bound_AABB>						Bound_AABBPtr;
+	typedef std::shared_ptr<Bound_Sphere>					Bound_SpherePtr;
+	typedef std::shared_ptr<Bound_Complex>					Bound_ComplexPtr;
+
 	typedef std::shared_ptr<CollisionData>					CollisionDataPtr;
 	typedef std::shared_ptr<PhysicsManager>					PhysicsManagerPtr;
-	typedef std::shared_ptr<Collider>						ColliderPtr;
-	typedef std::shared_ptr<Collidee>						CollideePtr;
+	
 
 
 	class CoreApi;

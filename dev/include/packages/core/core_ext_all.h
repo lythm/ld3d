@@ -2,12 +2,15 @@
 
 #include "core_ext_ptr.h"
 
-#include "core/ext/MeshData.h"
-#include "core/ext/MeshData.h"
-#include "core/ext/MeshRenderer.h"
-#include "core/ext/Light_Dir.h"
-#include "core/ext/Light_Point.h"
-#include "core/ext/Light_Spot.h"
-#include "core/ext/Light_Sky.h"
+#include "MeshData.h"
+#include "MeshData.h"
+#include "MeshRenderer.h"
+#include "Light_Dir.h"
+#include "Light_Point.h"
+#include "Light_Spot.h"
+#include "Light_Sky.h"
 
-#include "core/ext/cameradata.h"
+#include "cameradata.h"
+
+#include "CollisionData_AABBox.h"
+

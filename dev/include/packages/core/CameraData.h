@@ -10,5 +10,7 @@ namespace ld3d
 		CameraData(GameObjectManagerPtr pManager) : GameObjectComponent("Camera", pManager){}
 		virtual ~CameraData(void){}
 
+		virtual void						UpdateCamera()									= 0;
+
 	};
 }

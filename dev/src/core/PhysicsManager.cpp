@@ -97,6 +97,10 @@ namespace ld3d
 	}
 	bool PhysicsManager::Detect(CollisionDataPtr pCollider, CollisionDataPtr pCollidee)
 	{
+		if(pCollider == pCollidee)
+		{
+			return false;
+		}
 		Contact ret;
 
 		switch(pCollider->bound->type)
@@ -113,6 +117,11 @@ namespace ld3d
 			break;
 		}
 
+		if(ret.result == Contact::Yes && pCollider->on_collide)
+		{
+			pCollider->on_collide(pCollider, ret);
+		}
+
 		return ret.result == Contact::Yes;
 	}
 	bool PhysicsManager::TestCollider(CollisionDataPtr pCollider)
@@ -122,10 +131,6 @@ namespace ld3d
 		{
 			if(Detect(pCollider, pData) == true)
 			{
-				if(pData->on_collide)
-				{
-					pData->on_collide();
-				}
 				return true;
 			}
 
@@ -186,7 +191,7 @@ namespace ld3d
 					break;
 				}
 			}
-			
+
 			pData = pData->Next();
 		}
 	}
@@ -302,7 +307,10 @@ namespace ld3d
 		case Bound::bt_complex:
 			{
 				Bound_Complex* pOther = (Bound_Complex*)pBound.get();
-				ret = pOther->Intersect(box);
+				if(pOther->Intersect)
+				{
+					ret = pOther->Intersect(box);
+				}
 				return ret;
 			}
 			break;

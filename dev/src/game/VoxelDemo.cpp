@@ -3,10 +3,10 @@
 
 #include <windowsx.h>
 
-#include "packages/voxel/voxel_ptr.h"
-#include "packages/voxel/VoxelWorldGenerator.h"
-#include "packages/voxel/VoxelWorld.h"
+#include "packages/core/core_ext_all.h"
+#include "packages/voxel/voxel_all.h"
 
+#include "PlayerController.h"
 
 VoxelDemo::VoxelDemo(void)
 {
@@ -42,12 +42,15 @@ bool VoxelDemo::Init(ld3d::CoreApiPtr pCore)
 	return false;
 	}
 */
-	
+	m_pPlayer = CreatePlayer();
+
 	m_pCamera = m_pCore->CreatGameObjectFromTemplate("Camera", "Camera01");
 
-	m_pCamera->SetTranslation(5, 5, -5);
-	m_pCamera->LookAt(math::Vector3(0, 0, 0));
+	m_pCamera->SetTranslation(0, 3, -1);
+	m_pCamera->LookAt(math::Vector3(0, 2, 1));
 
+	m_pCamera->LinkTo(m_pPlayer);
+	
 	//m_pCore->CreatGameObjectFromTemplate("Plane", "Plane");
 
 	//GameObjectPtr pSphere = m_pCore->CreatGameObjectFromTemplate("Sphere", "Sphere");
@@ -118,16 +121,17 @@ bool VoxelDemo::Init(ld3d::CoreApiPtr pCore)
 	//GameObjectPtr pLight = m_pCore->CreatGameObjectFromTemplate("PointLight", "pl");
 	//pLight->SetTranslation(0, 3, 0);
 
-	//math::Ray r(math::Vector3(0, 1000, 0), math::Vector3(0, -1, 0));
-	//Contact ret = m_pCore->GetPhysicsManager()->RayIntersect(r);
-
-	//pLight->SetTranslation(0, ret.enter_point.y + 5, 0);
+	math::Ray r(math::Vector3(0, 1000, 0), math::Vector3(0, -1, 0));
+	Contact ret = m_pCore->GetPhysicsManager()->RayIntersect(r);
+	m_pPlayer->SetTranslation(1, ret.enter_point.y, 1);
 
 //	m_pCore->GetSysInput()->ShowCursor(false);
 	return true;
 }
 void VoxelDemo::Release()
 {
+	m_pPlayer->Clear();
+	m_pPlayer.reset();
 	m_pWorld.reset();
 }
 void VoxelDemo::Update()
@@ -155,4 +159,53 @@ void VoxelDemo::_on_key_state(ld3d::EventPtr pEvent)
 		
 	}
 	return;
+}
+ld3d::GameObjectPtr VoxelDemo::CreatePlayer()
+{
+	using namespace ld3d;
+
+	GameObjectPtr pTop = m_pCore->CreateGameObject("PlayerTop");
+
+	MeshDataPtr pMesh = std::dynamic_pointer_cast<MeshData>(m_pCore->GetGameObjectManager()->CreateComponent("MeshData"));
+	pMesh->SetMeshAsset("_cube_");
+	pTop->AddComponent(pMesh);
+
+	GameObjectComponentPtr pRenderer = m_pCore->GetGameObjectManager()->CreateComponent("MeshRenderer");
+
+	pTop->AddComponent(pRenderer);
+	
+	GameObjectPtr pBottom = m_pCore->CreateGameObject("PlayerBottom");
+
+	pMesh = std::dynamic_pointer_cast<MeshData>(m_pCore->GetGameObjectManager()->CreateComponent("MeshData"));
+	pMesh->SetMeshAsset("_cube_");
+	pBottom->AddComponent(pMesh);
+
+	pRenderer = m_pCore->GetGameObjectManager()->CreateComponent("MeshRenderer");
+
+	pBottom->AddComponent(pRenderer);
+
+	GameObjectPtr pPlayerMesh = m_pCore->CreateGameObject("PlayerMesh");
+
+	pBottom->SetLocalTransform(math::MatrixTranslation(math::Vector3(0, 0.5, 0)));
+	pTop->SetLocalTransform(math::MatrixTranslation(math::Vector3(0, 1.5, 0)));
+	pTop->LinkTo(pPlayerMesh);
+	pBottom->LinkTo(pPlayerMesh);
+
+	
+	GameObjectPtr pPlayer = m_pCore->CreateGameObject("Player");
+	pPlayerMesh->LinkTo(pPlayer);
+
+	GameObjectComponentPtr pController = m_pCore->GetGameObjectManager()->alloc_object<PlayerController>(m_pCore->GetGameObjectManager());
+
+	pPlayer->AddComponent(pController);
+
+	CollisionData_AABBoxPtr pCD = std::dynamic_pointer_cast<CollisionData_AABBox>(m_pCore->GetGameObjectManager()->CreateComponent("CollisionData_AABBox"));
+	math::AABBox box;
+	box.Make(math::Vector3(0, 0, 0), math::Vector3(1, 2, 1));
+	pCD->SetAABBox(box);
+	pPlayer->AddComponent(pCD);
+
+	pCD->SetHandler(std::bind(&PlayerController::_on_collide, (PlayerController*)pController.get(), std::placeholders::_1, std::placeholders::_2));
+
+	return pPlayer;
 }

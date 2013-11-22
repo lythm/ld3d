@@ -42,16 +42,16 @@ namespace math
 		const Vector3& min1 = b1.GetMinCoord();
 		const Vector3& min2 = b2.GetMinCoord();
 
-		min_coord.x = std::min(min1.x, min2.x);
-		min_coord.y = std::min(min1.y, min2.y);
-		min_coord.z = std::min(min1.z, min2.z);
+		min_coord.x = std::max(min1.x, min2.x);
+		min_coord.y = std::max(min1.y, min2.y);
+		min_coord.z = std::max(min1.z, min2.z);
 
 		const Vector3& max1 = b1.GetMaxCoord();
 		const Vector3& max2 = b2.GetMaxCoord();
 
-		max_coord.x = std::max(max1.x, max2.x);
-		max_coord.y = std::max(max1.y, max2.y);
-		max_coord.z = std::max(max1.z, max2.z);
+		max_coord.x = std::min(max1.x, max2.x);
+		max_coord.y = std::min(max1.y, max2.y);
+		max_coord.z = std::min(max1.z, max2.z);
 
 		overlap.Make(min_coord, max_coord);
 

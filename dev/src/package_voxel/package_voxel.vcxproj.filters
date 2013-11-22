@@ -96,6 +96,9 @@
     <ClInclude Include="VoxelWorldCollisionDataImpl.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\packages\voxel\voxel_all.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="voxel_pch.cpp">

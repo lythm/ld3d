@@ -21,6 +21,7 @@ namespace ld3d
 			type			= t;
 			worldMatrix		= world;
 		}
+		virtual ~Bound(){}
 
 		bound_type														type;
 

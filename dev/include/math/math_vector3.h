@@ -18,7 +18,7 @@ namespace math
 		const Vector3&		operator+=(const Vector3& r);
 		const Vector3&		operator-=(const Vector3& r);
 		const Vector3&		operator*=(Real s);
-
+		const Vector3&		operator*=(const Vector3& r);
 		Vector3				operator-() const;
 		Vector3				operator+() const;
 
@@ -57,6 +57,14 @@ namespace math
 		Real Vector3::Length() const
 	{
 		return sqrtf(x * x + y * y + z * z);
+	}
+	inline
+		const Vector3& Vector3::operator*=(const Vector3& r)
+	{
+		x *= r.x;
+		y *= r.y;
+		z *= r.z;
+		return *this;
 	}
 	inline
 		const Vector3& Vector3::operator*=(Real s)
@@ -112,7 +120,11 @@ namespace math
 	{
 		return Vector3(l * r.x, l * r.y, l* r.z);
 	}
-
+	inline 
+		Vector3 operator* (const Vector3& l, const Vector3& r)
+	{
+		return Vector3(l.x * r.x, l.y * r.y, l.z * r.z);
+	}
 	inline
 		bool operator==(const Vector3& lhs, const Vector3& rhs)
 	{

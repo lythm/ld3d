@@ -180,6 +180,9 @@ namespace ld3d
 		int32				x;
 		int32				y;
 
+		int32				dx;
+		int32				dy;
+
 		int32				wheel;
 
 		uint8				buttons[4];

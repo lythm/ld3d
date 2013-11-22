@@ -469,5 +469,40 @@ namespace ld3d
 	{
 		m_pEventDispather->RemoveEventHandler(id);
 	}
-	
+	GameObjectPtr GameObject::FindChildRecursive(const std::string& name)
+	{
+		GameObjectPtr pNode = m_pFirstChild;
+		while(pNode)
+		{
+			if(pNode->GetName() == name)
+			{
+				return pNode;
+			}
+
+			GameObjectPtr pChild = pNode->FindChildRecursive(name);
+			if(pChild)
+			{
+				return pChild;
+			}
+			
+			pNode = pNode->GetNextNode();
+		}
+
+		return pNode;
+	}
+	GameObjectPtr GameObject::FindChild(const std::string& name)
+	{
+		GameObjectPtr pNode = m_pFirstChild;
+		while(pNode)
+		{
+			if(pNode->GetName() == name)
+			{
+				return pNode;
+			}
+
+			pNode = pNode->GetNextNode();
+		}
+
+		return pNode;
+	}
 }

@@ -12,6 +12,8 @@ namespace ld3d
 		m_backward				= false;
 		m_left					= false;
 		m_right					= false;
+
+		m_posEnabled			= false;	
 	}
 	
 	Impl_CameraController_FirstPerson::~Impl_CameraController_FirstPerson(void)
@@ -19,7 +21,10 @@ namespace ld3d
 	}
 	void Impl_CameraController_FirstPerson::Update(float dt)
 	{
-		UpdateMoving(dt);
+		if(m_posEnabled)
+		{
+			UpdateMoving(dt);
+		}
 	}
 	bool Impl_CameraController_FirstPerson::OnAttach()
 	{
@@ -45,7 +50,7 @@ namespace ld3d
 		m_pManager->RemoveEventHandler(m_moveId);
 		m_pManager->RemoveEventHandler(m_keyId);
 	}
-	void Impl_CameraController_FirstPerson::_on_mouse_move(ld3d::EventPtr pEvent)
+	void Impl_CameraController_FirstPerson::_on_mouse_move(EventPtr pEvent)
 	{
 		Event_MouseState* pState = (Event_MouseState*)pEvent.get();
 		if(m_x == -1 || m_y == -1)
@@ -63,10 +68,10 @@ namespace ld3d
 		m_x = pState->mouse_state->x;
 		m_y = pState->mouse_state->y;
 	}
-	void Impl_CameraController_FirstPerson::_on_mouse_wheel(ld3d::EventPtr pEvent)
+	void Impl_CameraController_FirstPerson::_on_mouse_wheel(EventPtr pEvent)
 	{
 	}
-	void Impl_CameraController_FirstPerson::_on_key(ld3d::EventPtr pEvent)
+	void Impl_CameraController_FirstPerson::_on_key(EventPtr pEvent)
 	{
 		using namespace math;
 

@@ -38,7 +38,10 @@ namespace ld3d
 		const math::Matrix44&						GetWorldTransform();
 		
 		Contact										Intersect(const math::Ray& r);
+		Contact										Intersect(BoundPtr pBound);
 	private:
+
+		Contact										_intersect_aabb(const BoundPtr pBound);
 
 		bool										OnAttach();
 		void										OnDetach();

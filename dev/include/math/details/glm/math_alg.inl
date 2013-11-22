@@ -397,4 +397,5 @@ namespace math
 
 		return r;
 	}
+
 }

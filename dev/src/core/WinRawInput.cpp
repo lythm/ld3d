@@ -125,7 +125,9 @@ namespace ld3d
 
 	void WinRawInput::ProcessMouse(RAWINPUT* pInput)
 	{
-		
+		m_mouseState.dx = pInput->data.mouse.lLastX;
+		m_mouseState.dy = pInput->data.mouse.lLastX;
+
 		m_mouseState.x += pInput->data.mouse.lLastX;
 		m_mouseState.y += pInput->data.mouse.lLastY;
 

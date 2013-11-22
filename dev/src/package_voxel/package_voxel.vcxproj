@@ -169,6 +169,7 @@
     <ClInclude Include="..\..\include\packages\voxel\VoxelWorldCollisionData.h" />
     <ClInclude Include="..\..\include\packages\voxel\VoxelWorldGenerator.h" />
     <ClInclude Include="..\..\include\packages\voxel\VoxelWorldRenderer.h" />
+    <ClInclude Include="..\..\include\packages\voxel\voxel_all.h" />
     <ClInclude Include="..\..\include\packages\voxel\voxel_ptr.h" />
     <ClInclude Include="VoxelObjectImpl.h" />
     <ClInclude Include="VoxelObjectRendererImpl.h" />

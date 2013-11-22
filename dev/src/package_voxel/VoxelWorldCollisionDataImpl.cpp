@@ -6,6 +6,7 @@ namespace ld3d
 {
 	VoxelWorldCollisionDataImpl::VoxelWorldCollisionDataImpl(GameObjectManagerPtr pManager) : VoxelWorldCollisionData(pManager)
 	{
+		
 	}
 
 
@@ -30,6 +31,7 @@ namespace ld3d
 		std::shared_ptr<Bound_Complex> bound		= m_pManager->alloc_object<Bound_Complex>();
 
 		bound->RayIntersect = std::bind(&VoxelWorldCollisionDataImpl::RayIntersect, this, std::placeholders::_1);
+		bound->Intersect = std::bind(&VoxelWorldCollisionDataImpl::Intersect, this, std::placeholders::_1);
 		m_pCD->bound = bound;
 
 		m_pPhysicsManager	= m_pManager->GetPhysicsManager();
@@ -55,5 +57,16 @@ namespace ld3d
 		}
 
 		return m_pWorld->Intersect(r);
+	}
+	Contact	VoxelWorldCollisionDataImpl::Intersect(BoundPtr pBound)
+	{
+		Contact ret;
+
+		if(m_pWorld == nullptr)
+		{
+			return ret;
+		}
+		
+		return m_pWorld->Intersect(pBound);
 	}
 }

@@ -18,6 +18,7 @@ namespace ld3d
 		void										OnDetach();
 
 		Contact										RayIntersect(const math::Ray& r);
+		Contact										Intersect(BoundPtr pBound);
 	private:
 
 		CollisionDataPtr							m_pCD;
@@ -25,6 +26,8 @@ namespace ld3d
 		PhysicsManagerPtr							m_pPhysicsManager;
 
 		VoxelWorldImplPtr							m_pWorld;
+
+
 	};
 
 

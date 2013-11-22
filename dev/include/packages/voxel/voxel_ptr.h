@@ -12,6 +12,7 @@ namespace ld3d
 	class VoxelWorldDataSet;
 	class VoxelWorldOctTree;
 	class VoxelWorldGenerator;
+	
 
 	typedef std::shared_ptr<VoxelWorldGenerator>					VoxelWorldGeneratorPtr;
 	typedef std::shared_ptr<VoxelWorldOctTree>						VoxelWorldOctTreePtr;

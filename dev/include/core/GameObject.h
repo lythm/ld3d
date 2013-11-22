@@ -93,10 +93,14 @@ namespace ld3d
 
 		EventHandlerID								AddEventHandler(uint32 e, EventHandler handler);
 		void										RemoveEventHandler(EventHandlerID id);
+
+		GameObjectPtr								FindChild(const std::string& name);
+		GameObjectPtr								FindChildRecursive(const std::string& name);
 	private:
 		void										UpdateWorldTransform();
 		void										UpdateComponents(float dt);
 
+		
 	private:
 		math::Matrix44								m_LocalTransform;
 		math::Matrix44								m_WorldTransform;

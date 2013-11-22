@@ -19,6 +19,7 @@
 #include "Impl_CameraData.h"
 #include "Impl_CameraController_Orbit.h"
 #include "Impl_CameraController_FirstPerson.h"
+#include "Impl_CollisionData_AABBox.h"
 
 
 
@@ -164,6 +165,12 @@ namespace ld3d
 					"Sound",
 					"Sound Listener",
 					&Create_Component<Impl_SoundListener>));
+
+
+		m_classes.push_back(ComponentClass("CollisionData_AABBox",
+					"Physics",
+					"Collision Data for AABBox bound.",
+					&Create_Component<Impl_CollisionData_AABBox>));
 
 	}
 

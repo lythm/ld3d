@@ -20,9 +20,9 @@ namespace ld3d
 		bool										OnAttach();
 		void										OnDetach();
 
-		void										_on_mouse_move(ld3d::EventPtr pEvent);
-		void										_on_mouse_wheel(ld3d::EventPtr pEvent);
-		void										_on_key(ld3d::EventPtr pEvent);
+		void										_on_mouse_move(EventPtr pEvent);
+		void										_on_mouse_wheel(EventPtr pEvent);
+		void										_on_key(EventPtr pEvent);
 
 		void										UpdateRotating(float dx, float dy);
 		void										UpdateMoving(float dt);
@@ -43,5 +43,7 @@ namespace ld3d
 		bool										m_right;
 
 		std::shared_ptr<Impl_CameraData>			m_pCameraData;
+
+		bool										m_posEnabled;
 	};
 }
