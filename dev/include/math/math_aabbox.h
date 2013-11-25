@@ -168,7 +168,10 @@ namespace math
 
 		{
 			m_bValid = false;
+
+			return;
 		}
+		
 		m_bValid = true;
 	}
 	inline

@@ -21,7 +21,16 @@ void PlayerController::Update(float dt)
 {
 	using namespace ld3d;
 
+
+	m_lastPos = m_pObject->GetLocalTransform().GetTranslation();
+
+
 	UpdateMoving(dt);
+
+	UpdateGravity(dt);
+
+
+	
 
 	GameObjectPtr pCamera = m_pObject->FindChild("Camera01");
 
@@ -74,6 +83,11 @@ void PlayerController::_on_key(ld3d::EventPtr pEvent)
 	m_backward						= pState->keyboard_state->KeyDown(key_s);
 	m_left							= pState->keyboard_state->KeyDown(key_a);
 	m_right							= pState->keyboard_state->KeyDown(key_d);
+
+	if(pState->keyboard_state->KeyDown(key_space))
+	{
+		m_velocity.y += 5;
+	}
 
 }
 void PlayerController::UpdateMoving(float dt)
@@ -228,10 +242,15 @@ void PlayerController::UpdateRotating(float dx, float dy)
 }
 void PlayerController::_on_collide(ld3d::CollisionDataPtr pCollider, const ld3d::Contact& contact)
 {
+	m_pObject->SetTranslation(m_lastPos);
+	m_velocity = math::Vector3(0, 0, 0);
+	m_pObject->Update(0);
+	return;
+
 	math::AABBox box;
 	box.Make(math::Vector3(0, 0, 0), math::Vector3(1, 2, 1));
 	
-	math::TransformAABB(box, m_pObject->GetWorldTransform());
+	math::TranslateAABB(box, m_pObject->GetWorldTransform());
 
 	using namespace math;
 	Vector3 offset = box.GetExtent() * contact.normal * 0.5f;
@@ -240,7 +259,7 @@ void PlayerController::_on_collide(ld3d::CollisionDataPtr pCollider, const ld3d:
 	
 	offset = new_center - box.GetCenter();
 	
-	//offset += Vector3(0.1, 1, 0.1);
+	offset += Vector3(0.001, 0.001, 0.001);
 
 	math::Matrix44 local = m_pObject->GetLocalTransform();
 
@@ -248,6 +267,26 @@ void PlayerController::_on_collide(ld3d::CollisionDataPtr pCollider, const ld3d:
 	m_pObject->SetLocalTransform(local);
 	pCollider->bound->worldMatrix = m_pObject->GetWorldTransform();
 
+	if(contact.normal.y == 1.0f)
+	{
+		m_velocity = math::Vector3(0, 0, 0);
+	}
+
 	m_pObject->Update(0);
 }
 
+void PlayerController::UpdateGravity(float dt)
+{
+	m_velocity += math::Vector3(0, -1, 0) * 9.8 * dt;
+
+	math::Vector3 offset = m_velocity * dt;
+
+	math::Matrix44 local = m_pObject->GetLocalTransform();
+	
+	math::Vector3 pos = local.GetTranslation();
+
+	pos += offset;
+
+	m_pObject->SetTranslation(pos);
+
+}

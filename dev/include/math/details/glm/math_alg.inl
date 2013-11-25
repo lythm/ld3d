@@ -111,9 +111,27 @@ namespace math
 
 	}
 	inline
+		void TranslateAABB(AABBox& box, const Matrix44& t)
+	{
+	
+		assert(box.IsValid());
+
+		Vector3 trans = t.GetTranslation();
+
+		const Vector3& min_coord = box.GetMinCoord();
+		const Vector3& max_coord = box.GetMaxCoord();
+
+		box.Make(min_coord + trans, max_coord + trans);
+
+		assert(box.IsValid());
+	}
+
+	inline
 		void TransformAABB(AABBox& box, const Matrix44& t)
 	{
 	
+		assert(box.IsValid());
+
 		Vector3 localExtent = box.GetExtent();
 
 		localExtent *= 0.5f;
@@ -123,11 +141,13 @@ namespace math
 
 		Vector3 extent;
 
-		extent.x = Dot(localExtent, t.GetRow3(0));
-		extent.y = Dot(localExtent, t.GetRow3(1));
-		extent.z = Dot(localExtent, t.GetRow3(2));
+		extent.x = abs(Dot(localExtent, t.GetRow3(0)));
+		extent.y = abs(Dot(localExtent, t.GetRow3(1)));
+		extent.z = abs(Dot(localExtent, t.GetRow3(2)));
 
 		box.Make(center - extent, center + extent);
+
+		assert(box.IsValid());
 	}
 	inline
 		Matrix44 MatrixLookAtLH(const Vector3& eye, const Vector3& at, const Vector3& up)

@@ -20,6 +20,8 @@ public:
 	void										UpdateCamera(float dx, float dy);
 	void										CorrectPosition();
 
+	void										UpdateGravity(float dt);
+
 	void										_on_collide(ld3d::CollisionDataPtr pCollider, const ld3d::Contact& contact);
 private:
 
@@ -31,7 +33,9 @@ private:
 	bool										m_backward;
 	bool										m_left;
 	bool										m_right;
-	
 
+	math::Vector3								m_velocity;
+
+	math::Vector3								m_lastPos;
 };
 

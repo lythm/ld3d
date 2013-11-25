@@ -228,7 +228,9 @@ namespace ld3d
 		
 		math::AABBox box = pAABB->aabb;
 
-		math::TransformAABB(box, pAABB->worldMatrix * inv);
+		math::TranslateAABB(box, pAABB->worldMatrix);
+		math::TranslateAABB(box, inv);
+
 
 		math::AABBox overlap;
 		
