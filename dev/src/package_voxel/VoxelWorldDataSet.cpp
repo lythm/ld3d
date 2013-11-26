@@ -198,14 +198,13 @@ namespace ld3d
 
 		return false;
 	}
-	bool VoxelWorldDataSet::Intersect(const math::AABBox& box, math::AABBox& closest_overlap)
+	bool VoxelWorldDataSet::Intersect(const math::AABBox& box, math::AABBox& closest_overlap, math::Vector3& penetration)
 	{
 		using namespace math;
 		const Vector3& min_coord = box.GetMinCoord();
 		const Vector3& max_coord = box.GetMaxCoord();
 		const Vector3& center = box.GetCenter();
 
-		
 		bool bFind = false;
 		Real closest_to_center = math::MATH_REAL_INFINITY;
 
@@ -236,6 +235,14 @@ namespace ld3d
 						closest_to_center = l;
 						closest_overlap = overlap;
 						bFind = true;
+
+						penetration = overlap.GetExtent();
+
+						Vector3 dir = box.GetCenter() - overlap.GetCenter();
+
+						penetration.x = dir.x >= 0 ? -1 : 1;
+						penetration.y = dir.y >= 0 ? -1 : 1;
+						penetration.z = dir.z >= 0 ? -1 : 1;
 					}
 				}
 			}

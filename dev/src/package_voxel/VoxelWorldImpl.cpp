@@ -234,7 +234,8 @@ namespace ld3d
 
 		math::AABBox overlap;
 		
-		if(false == m_pDataSet->Intersect(box, overlap))
+		math::Vector3 penetration;
+		if(false == m_pDataSet->Intersect(box, overlap, penetration))
 		{
 			return ret;
 		}
@@ -276,9 +277,9 @@ namespace ld3d
 			ret.normal[i_min] = -1;
 		}
 		
-		math::TransformCoord(ret.enter_point, m_pObject->GetWorldTransform());
-		math::TransformNormal(ret.normal, m_pObject->GetWorldTransform());
-
+		ret.enter_point += m_pObject->GetWorldTransform().GetTranslation();
+		ret.penetration = penetration;
+		
 		return ret;
 	}
 }
