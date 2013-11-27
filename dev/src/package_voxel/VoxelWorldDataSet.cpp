@@ -240,9 +240,9 @@ namespace ld3d
 
 						Vector3 dir = box.GetCenter() - overlap.GetCenter();
 
-						penetration.x = dir.x >= 0 ? -1 : 1;
-						penetration.y = dir.y >= 0 ? -1 : 1;
-						penetration.z = dir.z >= 0 ? -1 : 1;
+						penetration.x *= dir.x >= 0 ? -1 : 1;
+						penetration.y *= dir.y >= 0 ? -1 : 1;
+						penetration.z *= dir.z >= 0 ? -1 : 1;
 					}
 				}
 			}

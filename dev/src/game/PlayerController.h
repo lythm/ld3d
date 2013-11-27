@@ -18,10 +18,10 @@ public:
 	void										UpdateRotating(float dx, float dy);
 	void										UpdateMoving(float dt);
 	void										UpdateCamera(float dx, float dy);
-	void										CorrectPosition();
 
-	void										UpdateGravity(float dt);
-
+	void										UpdateVelocity(float dt);
+	
+	void										_on_collide2(ld3d::CollisionDataPtr pCollider, const ld3d::Contact& contact);
 	void										_on_collide(ld3d::CollisionDataPtr pCollider, const ld3d::Contact& contact);
 private:
 
@@ -33,7 +33,10 @@ private:
 	bool										m_backward;
 	bool										m_left;
 	bool										m_right;
+	bool										m_jump;
 
+	float										m_movingAcc;
+	float										m_movingSpeed;
 	math::Vector3								m_velocity;
 
 	math::Vector3								m_lastPos;

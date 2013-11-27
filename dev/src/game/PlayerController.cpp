@@ -9,7 +9,10 @@ PlayerController::PlayerController(ld3d::GameObjectManagerPtr pManager) : GameOb
 	m_backward				= false;
 	m_left					= false;
 	m_right					= false;
+	m_jump					= false;
 
+	m_movingAcc				= 5;
+	m_movingSpeed			= 5;
 }
 
 
@@ -26,11 +29,6 @@ void PlayerController::Update(float dt)
 
 
 	UpdateMoving(dt);
-
-	UpdateGravity(dt);
-
-
-	
 
 	GameObjectPtr pCamera = m_pObject->FindChild("Camera01");
 
@@ -83,93 +81,10 @@ void PlayerController::_on_key(ld3d::EventPtr pEvent)
 	m_backward						= pState->keyboard_state->KeyDown(key_s);
 	m_left							= pState->keyboard_state->KeyDown(key_a);
 	m_right							= pState->keyboard_state->KeyDown(key_d);
-
-	if(pState->keyboard_state->KeyDown(key_space))
-	{
-		m_velocity.y += 5;
-	}
-
+	m_jump							= pState->keyboard_state->KeyDown(key_space);
+	
 }
-void PlayerController::UpdateMoving(float dt)
-{
-	using namespace math;
 
-	Matrix44 local = m_pObject->GetLocalTransform();
-
-	Vector3 pos = local.GetRow3(3);
-
-	Vector3 axis_x = local.GetRow3(0);
-	axis_x.Normalize();
-	Vector3 axis_y = local.GetRow3(1);
-	axis_y.Normalize();
-	Vector3 axis_z = local.GetRow3(2);
-	axis_z.Normalize();
-
-	float speed = 5.0f;
-
-	float step = speed * dt;
-
-	if(m_forward)
-	{
-		axis_z *= step;
-		pos += axis_z;
-	}
-
-	if(m_backward)
-	{
-		axis_z *= -step;
-		pos += axis_z;
-	}
-
-
-	if(m_left)
-	{
-		axis_x *= -step;
-		pos += axis_x;
-	}
-
-	if(m_right)
-	{
-		axis_x *= step;
-		pos += axis_x;
-	}
-
-	local.SetRow3(3, pos);
-	m_pObject->SetLocalTransform(local);
-
-	//CorrectPosition();
-
-}
-void PlayerController::CorrectPosition()
-{
-	using namespace ld3d;
-
-	math::Vector3 eye = m_pObject->GetWorldTransform().GetTranslation();
-
-	math::Ray r(math::Vector3(eye.x, eye.y, eye.z), math::Vector3(0, -1, 0));
-
-
-	PhysicsManagerPtr pPhy = m_pManager->GetPhysicsManager();
-
-	Contact ret;
-	while(true)
-	{
-		ret = pPhy->RayIntersect(r);
-
-		if(r.GetT(ret.enter_point) >= 0)
-		{
-			break;
-		}
-
-		r.o = ret.enter_point;
-	}
-
-	if(ret.result == Contact::Yes)
-	{
-		m_pObject->SetTranslation(eye.x, ret.enter_point.y + 1.5, eye.z);
-	}
-
-}
 void PlayerController::UpdateCamera(float dx, float dy)
 {
 	using namespace ld3d;
@@ -199,8 +114,6 @@ void PlayerController::UpdateCamera(float dx, float dy)
 	local.SetRow3(3, Vector3(0, 0, 0));
 
 	float step = D2R(0.1);
-
-	//local = local * MatrixRotationAxis(axis_x, dy * step) * MatrixRotationAxis(axis_y, dx * step);
 
 	local = local * MatrixRotationAxis(axis_x, dy * step);
 
@@ -232,15 +145,13 @@ void PlayerController::UpdateRotating(float dx, float dy)
 
 	float step = D2R(0.1);
 
-	//local = local * MatrixRotationAxis(axis_x, dy * step) * MatrixRotationAxis(axis_y, dx * step);
-
 	local = local * MatrixRotationAxis(axis_y, dx * step);
 
 	local.SetRow3(3, pos);
 	m_pObject->SetLocalTransform(local);
 
 }
-void PlayerController::_on_collide(ld3d::CollisionDataPtr pCollider, const ld3d::Contact& contact)
+void PlayerController::_on_collide2(ld3d::CollisionDataPtr pCollider, const ld3d::Contact& contact)
 {
 	m_pObject->SetTranslation(m_lastPos);
 	m_velocity = math::Vector3(0, 0, 0);
@@ -275,18 +186,92 @@ void PlayerController::_on_collide(ld3d::CollisionDataPtr pCollider, const ld3d:
 	m_pObject->Update(0);
 }
 
-void PlayerController::UpdateGravity(float dt)
-{
-	m_velocity += math::Vector3(0, -1, 0) * 9.8 * dt;
 
-	math::Vector3 offset = m_velocity * dt;
+void PlayerController::_on_collide(ld3d::CollisionDataPtr pCollider, const ld3d::Contact& contact)
+{
+	using namespace math;
+	
+	int i_max = 0;
+	float l_max = -MATH_REAL_INFINITY;
+	for(int i = 0; i < 3; ++i)
+	{
+		if(abs(m_velocity[i]) > l_max)
+		{
+			l_max = abs(m_velocity[i]);
+			i_max = i;
+		}
+	}
+
+	Vector3 offset;
+	
+	offset[i_max] = contact.penetration[i_max];
+
+//	offset[i_max] += 0.01;
 
 	math::Matrix44 local = m_pObject->GetLocalTransform();
+
+	local *= math::MatrixTranslation(-offset);
+	m_pObject->SetLocalTransform(local);
+	pCollider->bound->worldMatrix = m_pObject->GetWorldTransform();
+
+	m_velocity[i_max] = 0;
+
+	m_pObject->Update(0);
+
+}
+
+void PlayerController::UpdateVelocity(float dt)
+{
+	using namespace math;
+
+	Vector2 acc_xz;
+
+	acc_xz.y = m_forward ? 1 : m_backward ? -1 : 0;
+	acc_xz.x = m_right ? 1 : m_left ? -1 : 0;
 	
-	math::Vector3 pos = local.GetTranslation();
+	if(acc_xz.Length() != 0)
+	{
+		acc_xz.Normalize();
+		acc_xz *= m_movingAcc;
+	}
+	
+	Vector2 v_xz(m_velocity.x, m_velocity.z);
 
-	pos += offset;
+	v_xz += acc_xz * dt;
 
-	m_pObject->SetTranslation(pos);
+	if(v_xz.Length() > m_movingSpeed)
+	{
+		v_xz.Normalize();
+		v_xz *= m_movingSpeed;
+	}
+	
+	float v_y = m_velocity.y + -9.8 * dt;
 
+	m_velocity = Vector3(v_xz.x, v_y, v_xz.y);
+
+	if(m_jump && m_velocity.y == 0)
+	{
+		m_velocity.y = 5;
+	}
+}
+void PlayerController::UpdateMoving(float dt)
+{
+	using namespace math;
+
+	UpdateVelocity(dt);
+	
+	Matrix44 local = m_pObject->GetLocalTransform();
+
+	Vector3 v = m_velocity;
+
+	TransformNormal(v, local);
+
+	Vector3 pos = local.GetRow3(3);
+
+	pos += v * dt;
+
+	local.SetRow3(3, pos);
+	m_pObject->SetLocalTransform(local);
+
+	//CorrectPosition();
 }
