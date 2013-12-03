@@ -269,6 +269,7 @@
     <ClInclude Include="..\..\include\math\math_vector2.h" />
     <ClInclude Include="..\..\include\math\math_vector3.h" />
     <ClInclude Include="..\..\include\math\math_vector4.h" />
+    <ClInclude Include="Console.h" />
     <ClInclude Include="core_pch.h" />
     <ClInclude Include="core_utils.h" />
     <ClInclude Include="Frame.h" />
@@ -289,6 +290,7 @@
     <ClCompile Include="BaseCamera.cpp" />
     <ClCompile Include="BBoxRenderData.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Console.cpp" />
     <ClCompile Include="CoreApi.cpp" />
     <ClCompile Include="core_pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

@@ -170,7 +170,7 @@ namespace ld3d
 		}
 		
 		m_pUIManager	= alloc_object<UIManager>();
-		if(m_pUIManager->Initialize() == false)
+		if(m_pUIManager->Initialize(shared_from_this()) == false)
 		{
 			return false;
 		}

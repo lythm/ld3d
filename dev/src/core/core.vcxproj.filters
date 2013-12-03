@@ -64,6 +64,7 @@
     <ClCompile Include="RenderQueue.cpp" />
     <ClCompile Include="PhysicsManager.cpp" />
     <ClCompile Include="GameManager.cpp" />
+    <ClCompile Include="Console.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\core\ArcBall.h" />
@@ -218,6 +219,7 @@
     </ClInclude>
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="..\..\include\core\Contact.h" />
+    <ClInclude Include="Console.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
