@@ -189,34 +189,87 @@ void PlayerController::_on_collide2(ld3d::CollisionDataPtr pCollider, const ld3d
 
 void PlayerController::_on_collide(ld3d::CollisionDataPtr pCollider, const ld3d::Contact& contact)
 {
+
 	using namespace math;
 	
-	int i_max = 0;
-	float l_max = -MATH_REAL_INFINITY;
-	for(int i = 0; i < 3; ++i)
-	{
-		if(abs(m_velocity[i]) > l_max)
-		{
-			l_max = abs(m_velocity[i]);
-			i_max = i;
-		}
-	}
-
-	Vector3 offset;
 	
-	offset[i_max] = contact.penetration[i_max];
 
-//	offset[i_max] += 0.01;
 
 	math::Matrix44 local = m_pObject->GetLocalTransform();
 
-	local *= math::MatrixTranslation(-offset);
+	Vector3 curPos = local.GetTranslation();
+
+	Vector3 dir = curPos - m_lastPos;
+
+	Vector3 normal = contact.normal;
+	float p = contact.penetration + 0.1;
+	
+	Vector3 offset;
+	if(m_velocity == Vector3(0, 0, 0))
+	{
+		offset = p * normal;
+	}
+	else
+	{
+
+		Vector3 r = Reflect(dir, normal);
+
+		float lr = Dot(r, normal);
+
+		Vector3 t = (lr) * normal;
+
+		Vector3 t1 = r - t;
+
+		Vector3 t2 = t1 + p * normal;
+
+		offset = t2;
+
+		
+		float vl = m_velocity.Length();
+
+		if(t1 != Vector3(0, 0, 0))
+		{
+			t1.Normalize();
+		}
+		m_velocity = vl * t1;
+	}
+
+
+
+	local *= math::MatrixTranslation(offset);
 	m_pObject->SetLocalTransform(local);
 	pCollider->bound->worldMatrix = m_pObject->GetWorldTransform();
 
-	m_velocity[i_max] = 0;
-
 	m_pObject->Update(0);
+
+	return;
+
+//	int i_max = 0;
+//	float l_max = -MATH_REAL_INFINITY;
+//	for(int i = 0; i < 3; ++i)
+//	{
+//		if(abs(m_velocity[i]) > l_max)
+//		{
+//			l_max = abs(m_velocity[i]);
+//			i_max = i;
+//		}
+//	}
+//
+//	Vector3 offset;
+//	
+//	offset[i_max] = contact.penetration[i_max];
+//
+////	offset[i_max] += 0.01;
+//
+//	math::Matrix44 local = m_pObject->GetLocalTransform();
+//
+//	local *= math::MatrixTranslation(-offset);
+//	m_pObject->SetLocalTransform(local);
+//	pCollider->bound->worldMatrix = m_pObject->GetWorldTransform();
+//
+//	m_velocity[i_max] = 0;
+//
+//	m_pObject->Update(0);
 
 }
 

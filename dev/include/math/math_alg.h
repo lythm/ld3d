@@ -101,6 +101,8 @@ namespace math
 	Real				DotCoord(const Plane& p, const Vector3& v);
 	Real				DotNormal(const Plane& p, const Vector3 v);
 
+	Vector3				Reflect(const Vector3& d, const Vector3& n);
+	Vector2				Reflect(const Vector2& d, const Vector2& n);
 
 	Matrix44			MatrixRotationAxisX(Real rad);
 	Matrix44			MatrixRotationAxisY(Real rad);
@@ -194,7 +196,16 @@ namespace math
 	{
 		return p.a * v.x + p.b * v.y + p.c * v.z;
 	}
-
+	inline
+		Vector3 Reflect(const Vector3& d, const Vector3& n)
+	{
+		return d - 2 * (Dot(d, n) * n);
+	}
+	inline
+		Vector2 Reflect(const Vector2& d, const Vector2& n)
+	{
+		return d - 2 * (Dot(d, n) * n);
+	}
 	inline
 		Matrix44 MatrixRotationAxisX(Real rad)
 	{

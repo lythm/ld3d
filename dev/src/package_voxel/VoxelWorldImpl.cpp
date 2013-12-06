@@ -278,7 +278,7 @@ namespace ld3d
 		}
 		
 		ret.enter_point += m_pObject->GetWorldTransform().GetTranslation();
-		ret.penetration = penetration;
+		ret.penetration = penetration[i_min];
 		
 		return ret;
 	}
