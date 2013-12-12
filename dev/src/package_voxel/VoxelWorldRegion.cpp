@@ -318,7 +318,9 @@ namespace ld3d
 
 			m_pDirtyList->UpdateMesh();
 
-			m_faceCount = m_pDirtyList->GetMesh()->GetVertexCount() / 3 - delta;
+			delta = m_pDirtyList->GetMesh()->GetVertexCount() / 3 - delta;
+
+			m_faceCount += delta;
 
 			if(m_pDirtyList->IsInOctTree() == false && m_pDirtyList->GetMesh()->GetVertexCount() != 0)
 			{

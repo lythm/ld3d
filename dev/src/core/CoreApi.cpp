@@ -48,6 +48,8 @@ namespace ld3d
 	}
 	void CoreApi::RunFrame()
 	{
+		m_frameMetric.BeginFrame();
+
 		float frame_step = 1.0f / 30.0f;
 
 		m_pSysTime->Update();
@@ -62,8 +64,12 @@ namespace ld3d
 		}
 
 		UpdateFrame(dt);
-				
+
 		RenderFrame();
+
+		m_frameMetric.EndFrame();
+
+		UpdateFPS();
 	}
 	bool CoreApi::LoadMod(const std::string& name)
 	{
@@ -96,9 +102,10 @@ namespace ld3d
 	}
 	bool CoreApi::Initialize(const SysSetting& setting, Allocator* pAlloc, DT_CoreApiPtr pDTCore)
 	{
-		m_pDTCore = pDTCore;
-		m_runmode = m_pDTCore == nullptr ? RM_RT : RM_DT;
-		s_pAllocator = pAlloc;
+		app_delegate				= setting.app_delegate;
+		m_pDTCore					= pDTCore;
+		m_runmode					= m_pDTCore == nullptr ? RM_RT : RM_DT;
+		s_pAllocator				= pAlloc;
 
 		if(s_pAllocator == nullptr)
 		{
@@ -426,5 +433,41 @@ namespace ld3d
 	PhysicsManagerPtr CoreApi::GetPhysicsManager()
 	{
 		return m_pPhysicsManager;
+	}
+	void CoreApi::QuitApp()
+	{
+		app_delegate.ExitApp();
+	}
+	const FrameMetric& CoreApi::GetFrameMetric()
+	{
+		return m_frameMetric;
+	}
+	void CoreApi::UpdateFPS()
+	{
+		static uint64 tick = os_get_tick();
+
+		if(os_get_tick() - tick > 100)
+		{
+			float avg = m_frameMetric.GetAvgFPS();
+			float fps = m_frameMetric.GetFPS();
+
+			std::stringstream str;
+
+			str.precision(3);
+			str.setf( std::ios::fixed, std:: ios::floatfield );
+			str << "fps: "
+				<< fps
+				<< ", "
+				<< 1000.0f / fps
+				<< "ms"
+				<< "    avg_fps: "
+				<< avg
+				<< ", "
+				<< 1000.0f / avg
+				<< "ms";
+			app_delegate.SetWindowTitle(str.str());
+
+			tick = os_get_tick();
+		}
 	}
 }

@@ -2,8 +2,10 @@
 #include "core/EventDispatcher.h"
 #include "core/Allocator.h"
 #include "core/StdAllocator.h"
-#include "core/g_format.h"
 #include "utils/Logger.h"
+#include "core/SysSettings.h"
+
+#include "core/FrameMetric.h"
 
 
 namespace ld3d
@@ -24,6 +26,9 @@ namespace ld3d
 		bool											LoadMod(const std::string& name);
 
 		void											Release();
+
+
+		void											QuitApp();
 
 #ifdef _WIN32
 		void											HandleMessage(MSG& msg);
@@ -67,9 +72,16 @@ namespace ld3d
 
 		static Logger&									logger();
 
+
+		AppDelegate										app_delegate;
+
+		const FrameMetric&								GetFrameMetric();
+
 	private:
 		void											UpdateFrame(float dt);
 		void											RenderFrame();
+
+		void											UpdateFPS();
 	private:
 
 		UIManagerPtr									m_pUIManager;
@@ -102,5 +114,8 @@ namespace ld3d
 		DT_CoreApiPtr									m_pDTCore;
 
 		GameManagerPtr									m_pGameManager;
+
+		FrameMetric										m_frameMetric;
+		
 	};
 }

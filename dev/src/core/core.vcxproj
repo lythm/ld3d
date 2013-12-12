@@ -163,6 +163,7 @@
   <ItemGroup>
     <ClInclude Include="..\..\include\core\ActionMapping.h" />
     <ClInclude Include="..\..\include\core\Allocator.h" />
+    <ClInclude Include="..\..\include\core\AppDelegate.h" />
     <ClInclude Include="..\..\include\core\ArcBall.h" />
     <ClInclude Include="..\..\include\core\AssetsManager.h" />
     <ClInclude Include="..\..\include\core\BaseCamera.h" />
@@ -182,6 +183,7 @@
     <ClInclude Include="..\..\include\core\DT_CoreApi.h" />
     <ClInclude Include="..\..\include\core\Event.h" />
     <ClInclude Include="..\..\include\core\EventDispatcher.h" />
+    <ClInclude Include="..\..\include\core\FrameMetric.h" />
     <ClInclude Include="..\..\include\core\input_types.h" />
     <ClInclude Include="..\..\include\core\Contact.h" />
     <ClInclude Include="..\..\include\core\Package.h" />
@@ -241,6 +243,7 @@
     <ClInclude Include="..\..\include\core\StdAllocator.h" />
     <ClInclude Include="..\..\include\core\SubMesh.h" />
     <ClInclude Include="..\..\include\core\SysManager.h" />
+    <ClInclude Include="..\..\include\core\SysSettings.h" />
     <ClInclude Include="..\..\include\core\Sys_Graphics.h" />
     <ClInclude Include="..\..\include\core\Sys_Input.h" />
     <ClInclude Include="..\..\include\core\Sys_Network.h" />
@@ -305,6 +308,7 @@
     <ClCompile Include="DirectionalLight.cpp" />
     <ClCompile Include="EventDispatcher.cpp" />
     <ClCompile Include="Frame.cpp" />
+    <ClCompile Include="FrameMetric.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameObjectComponent.cpp" />

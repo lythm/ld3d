@@ -1,6 +1,7 @@
 #pragma once
 
 #include "math/math_all.h"
+#include "core/SysSettings.h"
 
 #include "core/g_format.h"
 #include "core/VertexFormat.h"

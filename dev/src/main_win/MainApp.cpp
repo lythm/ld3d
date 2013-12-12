@@ -231,9 +231,6 @@ namespace ld3d
 	void MainApp::OnUpdate()
 	{
 		m_pCore->RunFrame();
-				
-		ShowFPS();
-
 	}
 
 	bool MainApp::OnInit()
@@ -252,7 +249,14 @@ namespace ld3d
 		setting.input.wnd = GetWnd();
 		setting.graphics.wnd = GetWnd();
 		setting.input.sysMod = "";
-			
+		
+		setting.app_delegate.CenterWindow = std::bind(&MainApp::CenterWindow, this);
+		setting.app_delegate.ExitApp = std::bind(&MainApp::ExitApp, this);
+		setting.app_delegate.GetWindowSize = std::bind(&MainApp::GetClientSize, this, std::placeholders::_1, std::placeholders::_2);
+		setting.app_delegate.SetWindowSize = std::bind(&MainApp::AdjustWindow, this, std::placeholders::_1, std::placeholders::_2);
+		setting.app_delegate.SetWindowTitle = std::bind(&MainApp::SetTitle, this, std::placeholders::_1);
+
+
 		AdjustWindow(setting.graphics.frameBufferWidth, setting.graphics.frameBufferHeight);
 
 
@@ -280,9 +284,9 @@ namespace ld3d
 		}
 	}
 
-	void MainApp::SetTitle(const char* szTitle)
+	void MainApp::SetTitle(const std::string& szTitle)
 	{
-		SetWindowTextA(m_hWnd, szTitle);
+		SetWindowTextA(m_hWnd, szTitle.c_str());
 	}
 	void MainApp::ExitApp()
 	{
@@ -308,38 +312,18 @@ namespace ld3d
 	{
 		return m_bActive;
 	}
-
-	void MainApp::ShowFPS()
-	{
-		static uint64 tick = m_pCore->GetSysTime()->Tick();
-
-		static int frames = 0;
-		uint64 dt = m_pCore->GetSysTime()->Tick() - tick;
-
-		int iv = 100;
-		if(dt >= iv)
-		{
-
-			char buffer[100];
-
-			float fps = float(frames * 1000) / float(dt);
-			sprintf(buffer, "fps : %.3f - %fms", fps, 1000.0f / fps);
-
-			SetTitle(buffer);
-
-			tick = m_pCore->GetSysTime()->Tick();
-			frames = 0;
-		}
-
-		frames ++;
-	}
-
+	
 	void MainApp::HandleMessage(MSG& msg)
 	{
 		if(m_pCore)
 		{
 			m_pCore->HandleMessage(msg);
 		}
+	}
+	void MainApp::GetClientSize(int& w, int& h)
+	{
+		w = m_width;
+		h = m_height;
 	}
 }
 

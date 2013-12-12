@@ -18,9 +18,7 @@ namespace ld3d
 
 		void													CenterWindow();
 
-		void													ShowFPS();
-
-		void													SetTitle(const char* szTitle);
+		void													SetTitle(const std::string& szTitle);
 		void													ExitApp();
 		
 		virtual void											OnUpdate();
@@ -41,6 +39,8 @@ namespace ld3d
 
 		int														GetWindowWidth();
 		int														GetWindowHeight();
+
+		void													GetClientSize(int& w, int& h);
 
 		static bool												IsActive();
 	protected:

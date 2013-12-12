@@ -71,15 +71,15 @@ bool VoxelDemo::Init(ld3d::CoreApiPtr pCore)
 	m_pWorld = m_pCore->CreatGameObjectFromTemplate("VoxelWorld", "world");
 
 	VoxelWorldPtr pWorld = std::dynamic_pointer_cast<VoxelWorld>(m_pWorld->GetComponent("VoxelWorld"));
-	pWorld->SetWorldSizeX(100);
+	pWorld->SetWorldSizeX(200);
 	pWorld->SetWorldSizeY(100);
-	pWorld->SetWorldSizeZ(100);
+	pWorld->SetWorldSizeZ(200);
 
 	VoxelWorldGeneratorPtr pGenerator = std::dynamic_pointer_cast<VoxelWorldGenerator>(m_pWorld->GetComponent("VoxelWorldGenerator"));
 
 	pGenerator->RebuildWorld();
 
-	m_pWorld->SetTranslation(-50, 0, -50);
+	m_pWorld->SetTranslation(-100, 0, -100);
 
 	GameObjectPtr pLight = m_pCore->CreatGameObjectFromTemplate("SkyLight", "light");
 
@@ -157,6 +157,11 @@ void VoxelDemo::_on_key_state(ld3d::EventPtr pEvent)
 
 		pGenerator->RebuildWorld();
 		
+	}
+
+	if(pState->key_code == key_escape && pState->keyboard_state->KeyDown(key_escape) == false)
+	{
+		m_pCore->QuitApp();
 	}
 	return;
 }
