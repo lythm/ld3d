@@ -1,13 +1,6 @@
 #pragma once
 
 
-
-//namespace Awesomium
-//{
-//	class WebCore;
-//};
-
-
 namespace ld3d
 {
 
@@ -23,17 +16,13 @@ namespace ld3d
 		bool											LoadUI(const std::string& src);
 		void											Update(float dt);
 
+		bool											DispatchInputEvent(EventPtr pEvent);
 	private:
 		void											_on_key(EventPtr pEvent);
 		void											_on_mouse_move(EventPtr pEvent);
 		void											_on_mouse_button(EventPtr pEvent);
 
 	private:
-
 		CoreApiPtr										m_pCore;
-
-	/*	Awesomium::WebCore*								m_pWebCore;*/
 	};
-
-
 }

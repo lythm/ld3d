@@ -361,6 +361,22 @@ namespace ld3d
 	}
 	void CoreApi::DispatchEvent(EventPtr pEvent)
 	{
+		switch(pEvent->id)
+		{
+		case EV_KEYBOARD_STATE:
+		case EV_MOUSE_MOVE:
+		case EV_MOUSE_WHEEL:
+		case EV_MOUSE_BUTTON:
+
+			if(m_pUIManager->DispatchInputEvent(pEvent) == true)
+			{
+				return;
+			}
+			break;
+
+		default:
+			break;
+		}
 		m_pEventDispatcher->DispatchEvent(pEvent);
 	}
 	EventHandlerID CoreApi::AddEventHandler(uint32 id, EventHandler handler)
