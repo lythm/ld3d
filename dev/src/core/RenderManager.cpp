@@ -256,9 +256,29 @@ namespace ld3d
 
 		DrawFullScreenQuad(m_pScreenQuadMaterial);
 	}
+	void RenderManager::RenderOverlay()
+	{
+		for(uint32 iLayer = layer_overlay; iLayer < layer_count; ++iLayer)
+		{
+			for(uint32 i = 0; i < m_pRenderQueue->GetRenderDataCount(iLayer); ++i)
+			{
+				RenderDataPtr pData = m_pRenderQueue->GetRenderData(iLayer, i);
+				
+				SetMatrixBlock(pData->material, pData->world_matrix);
+				
+				if(pData->fr_draw)
+				{
+					pData->fr_draw(shared_from_this());
+					continue;
+				}
+				
+				DrawRenderData(pData);
+			}
+		}
+	}
 	void RenderManager::RenderForward()
 	{
-		for(uint32 iLayer = layer_forward; iLayer < layer_ui; ++iLayer)
+		for(uint32 iLayer = layer_forward; iLayer < layer_overlay; ++iLayer)
 		{
 			for(uint32 i = 0; i < m_pRenderQueue->GetRenderDataCount(iLayer); ++i)
 			{
@@ -281,7 +301,7 @@ namespace ld3d
 		SetViewMatrix(view);
 		SetProjMatrix(proj);
 
-		for(uint32 iLayer = layer_deferred; iLayer < layer_ui; ++iLayer)
+		for(uint32 iLayer = layer_deferred; iLayer < layer_overlay; ++iLayer)
 		{
 			for(uint32 i = 0; i < m_pRenderQueue->GetRenderDataCount(iLayer); ++i)
 			{
@@ -370,10 +390,12 @@ namespace ld3d
 		// post effects pass
 		RenderPostEffects();
 
-
 		// Final Pass
 		RenderFinal();
 
+		
+		// overlays
+		RenderOverlay();
 
 		RenderTexturePtr pTex = m_pLightManager->GetNextLight(LightPtr())->GetShadowMap();
 

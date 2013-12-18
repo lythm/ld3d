@@ -195,6 +195,9 @@ namespace ld3d
 
 
 	class UIManager;
+	class Overlay;
+
+	typedef std::shared_ptr<Overlay>						OverlayPtr;
 	typedef std::shared_ptr<UIManager>						UIManagerPtr;
 
 	namespace material_script

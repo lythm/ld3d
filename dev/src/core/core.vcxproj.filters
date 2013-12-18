@@ -66,6 +66,7 @@
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="Console.cpp" />
     <ClCompile Include="FrameMetric.cpp" />
+    <ClCompile Include="OverLay.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\core\ArcBall.h" />
@@ -224,6 +225,7 @@
     <ClInclude Include="..\..\include\core\AppDelegate.h" />
     <ClInclude Include="..\..\include\core\SysSettings.h" />
     <ClInclude Include="..\..\include\core\FrameMetric.h" />
+    <ClInclude Include="..\..\include\core\OverLay.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

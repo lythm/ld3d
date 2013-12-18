@@ -186,6 +186,7 @@
     <ClInclude Include="..\..\include\core\FrameMetric.h" />
     <ClInclude Include="..\..\include\core\input_types.h" />
     <ClInclude Include="..\..\include\core\Contact.h" />
+    <ClInclude Include="..\..\include\core\OverLay.h" />
     <ClInclude Include="..\..\include\core\Package.h" />
     <ClInclude Include="..\..\include\core\FileSystem.h" />
     <ClInclude Include="..\..\include\core\Font.h" />
@@ -327,6 +328,7 @@
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="MeshSerializer_XML.cpp" />
     <ClCompile Include="MeshUtil.cpp" />
+    <ClCompile Include="OverLay.cpp" />
     <ClCompile Include="PassParser.cpp" />
     <ClCompile Include="PhysicsManager.cpp" />
     <ClCompile Include="PointLight.cpp" />

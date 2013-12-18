@@ -43,6 +43,6 @@ void Game::Release()
 bool Game::Update(float dt)
 {
 	m_pDemo->Update();
-	
+
 	return true;
 }

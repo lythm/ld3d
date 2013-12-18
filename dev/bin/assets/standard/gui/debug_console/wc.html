@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title> Web Console </title>
+<style type="text/css"> 
+body { margin: 0px; overflow: hidden; }
+div {margin: 0px; overflow: hidden; }
+</style>
+
+<script src="scripts/wc.js"> </script>
+
+<script type="text/javascript">
+
+	con = new Console("main_screen");
+
+
+	//con.bgcolor = "rgb(100, 100, 100)";
+	//con.prompt = "#";
+
+	document.onkeypress=function (event)
+	{
+		return con.on_key(event);
+	}
+	document.onkeydown=function (event)
+	{
+		return con.on_key(event);
+	}
+
+	function on_resize()
+	{
+		//con.resize(window.innerWidth, window.innerHeight)
+
+		var con_div = document.getElementById("console");
+
+		con_div.width = window.innerWidth;
+		con_div.height = window.innerHeight / 2;
+
+		con.resize(con_div.width, con_div.height);
+
+		con.draw();
+	}
+	function on_load()
+	{
+		//con.resize(window.innerWidth, window.innerHeight)
+
+		var con_div = document.getElementById("console");
+
+		con_div.width = window.innerWidth;
+		con_div.height = window.innerHeight / 2;
+
+		con.resize(con_div.width, con_div.height);
+
+		//alert(con_div.width + ", " + con_div.height);
+	}
+</script>
+</head>
+
+<body onresize="javascript:on_resize()" onload="javascript:on_load()" >
+
+<div id="console">
+<canvas id="main_screen" width="800" height = "600" bgcolor="0">
+</canvas>
+</div>
+
+
+</body>
+
+
+</html>

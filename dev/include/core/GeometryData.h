@@ -39,11 +39,7 @@ namespace ld3d
 		virtual const VertexLayout&										GetVertexLayout() const									= 0;
 
 
-	protected:
-		GeometryData(void){}
-
 		virtual ~GeometryData(void){}
+		GeometryData(void){}
 	};
-
-
 }

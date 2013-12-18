@@ -123,6 +123,7 @@ namespace ld3d
 		void										RenderPostEffects();
 		void										RenderFinal();
 		void										RenderForward();
+		void										RenderOverlay();
 		void										RenderShadowMaps(CameraPtr pCamera);
 
 		void										Draw_Texture(TexturePtr pTex);

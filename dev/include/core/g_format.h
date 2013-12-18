@@ -283,7 +283,7 @@ namespace ld3d
 		layer_deferred		= 1,
 		layer_forward		= 10,
 		layer_transparent	= 15,
-		layer_ui			= 20,
+		layer_overlay		= 20,
 
 		layer_count			= 25,
 	};
