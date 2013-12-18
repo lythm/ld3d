@@ -232,7 +232,7 @@ namespace ld3d
 	{
 		m_pCore->RunFrame();
 	}
-
+	
 	bool MainApp::OnInit()
 	{
 

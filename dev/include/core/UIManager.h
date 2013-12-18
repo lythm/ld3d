@@ -19,7 +19,6 @@ namespace ld3d
 		bool											DispatchInputEvent(EventPtr pEvent);
 
 		void											AddOverlay(OverlayPtr pLayer);
-		void											AddOverLay(OverlayPtr pParent, OverlayPtr pLayer);
 
 		void											PrepareForRendering();
 	private:

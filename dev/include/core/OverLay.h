@@ -11,13 +11,13 @@ namespace ld3d
 		OverlayPtr									GetParent();
 		std::list<OverlayPtr>						GetChildList();
 		
-		void										AddChild(OverlayPtr pChild);
+		void										LinkTo(OverlayPtr pParent);
+		void										Unlink();
+
 		void										SortChildren();
 
 		int32										GetZOrder();
 		void										SetZOrder(int32 z);
-
-		void										SetParent(OverlayPtr pParent);
 
 		bool										IsVisible();
 		void										Show(bool show);
@@ -30,6 +30,9 @@ namespace ld3d
 
 		RenderDataPtr								GetRenderData();
 		void										Release();
+
+		const std::string&							GetName();
+		void										SetName(const std::string& name);
 	private:
 
 		int32										m_zOrder;
@@ -45,5 +48,7 @@ namespace ld3d
 
 		MaterialPtr									m_pMaterial;
 		GeometryDataPtr								m_pGeometryData;
+
+		std::string									m_name;
 	};
 }

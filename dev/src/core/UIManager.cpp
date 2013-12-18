@@ -53,12 +53,12 @@ namespace ld3d
 	}
 	void UIManager::AddOverlay(OverlayPtr pLayer)
 	{
-		m_pOverlayRoot->AddChild(pLayer);
+		if(pLayer)
+		{
+			pLayer->LinkTo(m_pOverlayRoot);
+		}
 	}
-	void UIManager::AddOverLay(OverlayPtr pParent, OverlayPtr pLayer)
-	{
-		pParent->AddChild(pLayer);
-	}
+	
 	void UIManager::PrepareForRendering()
 	{
 		_collect_render_data(m_pOverlayRoot);

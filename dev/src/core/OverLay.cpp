@@ -8,7 +8,10 @@ namespace ld3d
 {
 	Overlay::Overlay(OverlayPtr pParent)
 	{
-		m_pParent			= pParent;
+		m_pParent			= nullptr;
+		
+		LinkTo(pParent);
+
 		m_zOrder			= 0;
 		m_visible			= true;
 
@@ -22,17 +25,17 @@ namespace ld3d
 
 	Overlay::~Overlay(void)
 	{
-		m_children.clear();
-		m_pParent = nullptr;
+		Release();
 	}
 	void Overlay::Release()
 	{
 		for(auto v : m_children)
 		{
 			v->Release();
+			v->Unlink();
 		}
 		m_children.clear();
-		m_pParent = nullptr;
+		Unlink();
 
 		if(m_pMaterial)
 		{
@@ -54,19 +57,29 @@ namespace ld3d
 	{
 		return m_children;
 	}
-	void Overlay::AddChild(OverlayPtr pChild)
+	
+	void Overlay::LinkTo(OverlayPtr pParent)
 	{
-		if(pChild == nullptr)
+		Unlink();
+
+		if(pParent == nullptr)
 		{
 			return;
 		}
-		pChild->SetParent(shared_from_this());
-		m_children.push_back(pChild);
-	}
-	void Overlay::SetParent(OverlayPtr pParent)
-	{
+		
 		m_pParent = pParent;
+		m_pParent->m_children.push_back(shared_from_this());
 	}
+	void Overlay::Unlink()
+	{
+		if(m_pParent == nullptr)
+		{
+			return;
+		}
+		m_pParent->m_children.remove(shared_from_this());
+		m_pParent = nullptr;
+	}
+	
 	void Overlay::SortChildren()
 	{
 		m_children.sort([](OverlayPtr v1, OverlayPtr v2){return v1->GetZOrder() < v2->GetZOrder();});
@@ -114,5 +127,13 @@ namespace ld3d
 			return nullptr;
 		}
 		return m_pRenderData;
+	}
+	const std::string& Overlay::GetName()
+	{
+		return m_name;
+	}
+	void Overlay::SetName(const std::string& name)
+	{
+		m_name = name;
 	}
 }

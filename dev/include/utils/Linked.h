@@ -59,7 +59,7 @@ namespace ld3d
 			m_prev.reset();
 
 		}
-
+		
 	private:
 
 		LinkedNodePtr										m_prev;
