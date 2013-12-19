@@ -12,6 +12,7 @@ namespace ld3d
 {
 	TextureOverlay::TextureOverlay(OverlayPtr pParent) : Overlay(pParent)
 	{
+		m_pTexture = nullptr;
 	}
 
 
@@ -20,6 +21,21 @@ namespace ld3d
 	}
 	RenderDataPtr TextureOverlay::PrepareRenderData()
 	{
+		int screen_w = m_pRenderManager->GetFrameBufferWidth();
+		int screen_h = m_pRenderManager->GetFrameBufferHeight();
+
+		MaterialParameterPtr pParam = m_pMaterial->GetParameterByName("screen_size");
+		if(pParam)
+		{
+			pParam->SetParameterVector(math::Vector2(screen_w, screen_h));
+		}
+		
+		pParam = m_pMaterial->GetParameterByName("overlay_image");
+		if(pParam)
+		{
+			pParam->SetParameterTexture(m_pTexture);
+		}
+
 		return m_pRenderData;
 	}
 	bool TextureOverlay::Initialize(RenderManagerPtr pRenderManager, const std::string& name, const math::RectI& rect, TexturePtr pTex)
@@ -27,39 +43,17 @@ namespace ld3d
 		m_pRenderManager				= pRenderManager;
 		m_name							= name;
 		m_rect							= rect;
-		m_pTexture						= pTex;
 		m_pMaterial						= m_pRenderManager->CreateMaterialFromFile("./assets/standard/material/texture_overlay.material");
 		if(m_pMaterial == nullptr)
 		{
 			return false;
 		}
 
-		m_pGeometry						= m_pRenderManager->CreateGeometryData();
-		if(m_pGeometry == nullptr)
+		if(CreateGeometry() == false)
 		{
 			return false;
 		}
-
-		math::Vector3 verts[] = 
-		{
-			math::Vector3(-1, 1, 0),
-			math::Vector3(1, 1, 0),
-			math::Vector3(1, -1, 0),
-			math::Vector3(-1, 1, 0),
-			math::Vector3(1, -1, 0),
-			math::Vector3(-1, -1, 0),
-		};
-
-		VertexLayout layout;
-		layout.AddAttribute(G_FORMAT_R32G32B32_FLOAT);
-
-		m_pGeometry->BeginGeometry(PT_TRIANGLE_LIST);
-		{
-			m_pGeometry->AllocVertexBuffer(sizeof(math::Vector3) * 6, verts, false, layout);
-		}
-		m_pGeometry->EndGeometry();
-
-
+		
 		m_pRenderData					= alloc_object<RenderData>();
 
 		m_pRenderData->geometry			= m_pGeometry;
@@ -73,7 +67,49 @@ namespace ld3d
 		m_pRenderData->vertex_count		= 6;
 
 
-		AttachTexture(m_pTexture);
+		AttachTexture(pTex);
+
+		return true;
+	}
+
+	bool TextureOverlay::CreateGeometry()
+	{
+		m_pGeometry						= m_pRenderManager->CreateGeometryData();
+		if(m_pGeometry == nullptr)
+		{
+			return false;
+		}
+
+		int x1 = m_rect.left;
+		int x2 = m_rect.right;
+		int y1 = m_rect.top;
+		int y2 = m_rect.bottom;
+
+		struct Vertex
+		{
+			math::Vector3			pos;
+			math::Vector2			uv;
+		};
+		Vertex verts[] = 
+		{
+			{math::Vector3(x1, y1, 0),		math::Vector2(0, 0)},
+			{math::Vector3(x2, y1, 0),		math::Vector2(1, 0)},
+			{math::Vector3(x2, y2, 0),		math::Vector2(1, 1)},
+			{math::Vector3(x1, y2, 0),		math::Vector2(0, 1)},
+			{math::Vector3(x1, y1, 0),		math::Vector2(0, 0)},
+			{math::Vector3(x2, y2, 0),		math::Vector2(1, 1)},
+		};
+
+		VertexLayout layout;
+		layout.AddAttribute(G_FORMAT_R32G32B32_FLOAT);
+		layout.AddAttribute(G_FORMAT_R32G32_FLOAT);
+
+		m_pGeometry->BeginGeometry(PT_TRIANGLE_LIST);
+		{
+			m_pGeometry->AllocVertexBuffer(sizeof(Vertex) * 6, verts, false, layout);
+		}
+
+		m_pGeometry->EndGeometry();
 		return true;
 	}
 	void TextureOverlay::Release()
@@ -88,13 +124,7 @@ namespace ld3d
 	}
 	void TextureOverlay::AttachTexture(TexturePtr pTex)
 	{
-		MaterialParameterPtr pParam = m_pMaterial->GetParameterByName("overlay_image");
-		if(pParam)
-		{
-			//pParam->SetParameterTexture(pTex);
-		}
 		_release_and_reset(m_pTexture);
-
 		m_pTexture = pTex;
 	}
 }

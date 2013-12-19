@@ -2,7 +2,7 @@
 
 namespace ld3d
 {
-	class Overlay : public std::enable_shared_from_this<Overlay>
+	class _DLL_CLASS Overlay : public std::enable_shared_from_this<Overlay>
 	{
 	public:
 		Overlay(OverlayPtr pParent = OverlayPtr());

@@ -4,7 +4,7 @@
 
 namespace ld3d
 {
-	class TextureOverlay : public Overlay
+	class _DLL_CLASS TextureOverlay : public Overlay
 	{
 	public:
 		TextureOverlay(OverlayPtr pParent = OverlayPtr());
@@ -17,6 +17,9 @@ namespace ld3d
 
 		void											AttachTexture(TexturePtr pTex);
 
+	private:
+		bool											CreateGeometry();
+		math::Matrix44 									CreateProjMatrix(const math::RectI& rect);
 	private:
 		GeometryDataPtr									m_pGeometry;
 		RenderDataPtr									m_pRenderData;

@@ -25,17 +25,13 @@ namespace ld3d
 	}
 	void Overlay::Release()
 	{
-		//std::list<OverlayPtr>::iterator it = m_children.front();
+		while(m_children.size() != 0)
+		{
+			OverlayPtr pNode = m_children.front();
+			m_children.pop_front();
+			pNode->Release();
+		}
 		
-		
-		//while(m_children.size() != 0)
-		//{
-		//	//OverlayPtr pNode = m_children.front();
-		//	m_children.pop_front();
-		////	pNode->Release();
-		//}
-		//
-
 		m_children.clear();
 		Unlink();
 	}

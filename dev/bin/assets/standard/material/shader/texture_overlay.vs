@@ -1,9 +1,25 @@
 #version 330
 
 layout(location = 0) in vec3 pos;
+layout(location = 1) in vec2 uv;
+
+
+layout(row_major) uniform;
+
+uniform vec2 screen_size;
+uniform vec4 overlay_rect;
+
+out vec2 f_uv;
 
 void main()
 {
-	gl_Position.xyz = pos;
-	gl_Position.w = 1;
+	f_uv = uv;
+	vec3 p = pos;
+
+	p.x = (p.x / screen_size.x) * 2 - 1; 
+	p.y = (1 - p.y / screen_size.y) * 2 - 1;
+
+	p.z = 0;
+
+	gl_Position = vec4(p, 1);
 }

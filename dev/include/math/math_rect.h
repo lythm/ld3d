@@ -24,6 +24,32 @@ namespace math
 		~Rect(void)	{}
 
 
+		T width() const
+		{
+			return right - left;
+		}
+		T height() const
+		{
+			return bottom - top;
+		}
+
+		void move(T offset_x, T offset_y)
+		{
+			left		+= offset_x;
+			right		+= offset_x;
+			top			+= offset_y;
+			bottom		+= offset_y;
+		}
+
+		void move_to(T pos_x, T pos_y)
+		{
+			T offset_x = pos_x - left;
+			T offset_y = pos_y - top;
+
+			move(offset_x, offset_y);
+		}
+
+
 		T			left;
 		T			top;
 		T			right;

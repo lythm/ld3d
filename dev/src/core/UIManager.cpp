@@ -96,10 +96,14 @@ namespace ld3d
 	}
 	TextureOverlayPtr UIManager::CreateTextureOverlay(const std::string& name, const math::RectI& rect, TexturePtr pTex)
 	{
+		/*if(pTex == nullptr)
+		{
+			return nullptr;
+		}*/
 		TextureOverlayPtr pO = alloc_object<TextureOverlay>();
 		if(false == pO->Initialize(m_pRenderManager, name, rect, pTex))
 		{
-			return false;
+			return nullptr;
 		}
 
 		pO->LinkTo(m_pOverlayRoot);

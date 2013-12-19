@@ -71,15 +71,15 @@ bool VoxelDemo::Init(ld3d::CoreApiPtr pCore)
 	m_pWorld = m_pCore->CreatGameObjectFromTemplate("VoxelWorld", "world");
 
 	VoxelWorldPtr pWorld = std::dynamic_pointer_cast<VoxelWorld>(m_pWorld->GetComponent("VoxelWorld"));
-	pWorld->SetWorldSizeX(200);
+	pWorld->SetWorldSizeX(100);
 	pWorld->SetWorldSizeY(100);
-	pWorld->SetWorldSizeZ(200);
+	pWorld->SetWorldSizeZ(100);
 
 	VoxelWorldGeneratorPtr pGenerator = std::dynamic_pointer_cast<VoxelWorldGenerator>(m_pWorld->GetComponent("VoxelWorldGenerator"));
 
 	pGenerator->RebuildWorld();
 
-	m_pWorld->SetTranslation(-100, 0, -100);
+	m_pWorld->SetTranslation(-50, 0, -50);
 
 	GameObjectPtr pLight = m_pCore->CreatGameObjectFromTemplate("SkyLight", "light");
 
@@ -128,10 +128,14 @@ bool VoxelDemo::Init(ld3d::CoreApiPtr pCore)
 //	m_pCore->GetSysInput()->ShowCursor(false);
 
 
-	TextureOverlayPtr pT1 = m_pCore->GetUIManager()->CreateTextureOverlay("t1", math::RectI(0, 0, 100, 100), nullptr);
+	TexturePtr pTex = m_pCore->GetRenderManager()->CreateTextureFromFile("./assets/standard/texture/overlay.dds");
 
-	TextureOverlayPtr pT2 = m_pCore->GetUIManager()->CreateTextureOverlay("t2", math::RectI(100, 100, 100, 100), nullptr);
+	TextureOverlayPtr pT1 = m_pCore->GetUIManager()->CreateTextureOverlay("t1", math::RectI(0, 0, 256, 256), pTex);
 
+
+	pTex = m_pCore->GetRenderManager()->CreateTextureFromFile("./assets/standard/texture/002.dds");
+
+	TextureOverlayPtr pT2 = m_pCore->GetUIManager()->CreateTextureOverlay("t2", math::RectI(100, 100, 612, 612), pTex);
 
 	return true;
 }
