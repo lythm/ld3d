@@ -21,12 +21,15 @@ namespace ld3d
 		void											AddOverlay(OverlayPtr pLayer);
 
 		void											PrepareForRendering();
+
+		OverlayPtr										CreateOverlay(const std::string& name, const math::RectI& rect);
+		TextureOverlayPtr								CreateTextureOverlay(const std::string& name, const math::RectI& rect, TexturePtr pTex);
 	private:
 		void											_on_key(EventPtr pEvent);
 		void											_on_mouse_move(EventPtr pEvent);
 		void											_on_mouse_button(EventPtr pEvent);
 
-		void											_collect_render_data(OverlayPtr pRoot);
+		void											_prepare_render_data(OverlayPtr pRoot);
 	private:
 		CoreApiPtr										m_pCore;
 		RenderManagerPtr								m_pRenderManager;

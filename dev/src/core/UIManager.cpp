@@ -4,6 +4,8 @@
 #include "core_utils.h"
 #include "core/CoreApi.h"
 #include "core/RenderManager.h"
+#include "core/Material.h"
+#include "core/TextureOverlay.h"
 
 namespace ld3d
 {
@@ -20,15 +22,13 @@ namespace ld3d
 	{
 		m_pCore						= pCore;
 		m_pRenderManager			= pCore->GetRenderManager();
-
-		m_pOverlayRoot				= alloc_object<Overlay>();
+		m_pOverlayRoot				= CreateOverlay("_root_", math::RectI(0, 0, 1, 1));
 
 		return true;
 	}
 	void UIManager::Release()
 	{
-		m_pOverlayRoot->Release();
-		m_pOverlayRoot.reset();
+		_release_and_reset(m_pOverlayRoot);
 	}
 	bool UIManager::LoadUI(const std::string& src)
 	{
@@ -61,9 +61,9 @@ namespace ld3d
 	
 	void UIManager::PrepareForRendering()
 	{
-		_collect_render_data(m_pOverlayRoot);
+		_prepare_render_data(m_pOverlayRoot);
 	}
-	void UIManager::_collect_render_data(OverlayPtr pRoot)
+	void UIManager::_prepare_render_data(OverlayPtr pRoot)
 	{
 		if(pRoot == nullptr)
 		{
@@ -76,13 +76,33 @@ namespace ld3d
 
 		for(std::list<OverlayPtr>::iterator it = begin; it != end; ++it)
 		{
-			_collect_render_data(*it);
+			_prepare_render_data(*it);
 		}
 
-		RenderDataPtr pData = pRoot->GetRenderData();
+		RenderDataPtr pData = pRoot->PrepareRenderData();
 		if(pData)
 		{
 			m_pRenderManager->AddRenderData(layer_overlay, pData);
 		}
+	}
+	OverlayPtr UIManager::CreateOverlay(const std::string& name, const math::RectI& rect)
+	{
+		OverlayPtr pO = alloc_object<Overlay>();
+		pO->SetName(name);
+		pO->SetRect(rect);
+
+		pO->LinkTo(m_pOverlayRoot);
+		return pO;
+	}
+	TextureOverlayPtr UIManager::CreateTextureOverlay(const std::string& name, const math::RectI& rect, TexturePtr pTex)
+	{
+		TextureOverlayPtr pO = alloc_object<TextureOverlay>();
+		if(false == pO->Initialize(m_pRenderManager, name, rect, pTex))
+		{
+			return false;
+		}
+
+		pO->LinkTo(m_pOverlayRoot);
+		return pO;
 	}
 }

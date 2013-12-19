@@ -67,6 +67,8 @@
     <ClCompile Include="Console.cpp" />
     <ClCompile Include="FrameMetric.cpp" />
     <ClCompile Include="OverLay.cpp" />
+    <ClCompile Include="TextureOverlay.cpp" />
+    <ClCompile Include="HtmlOverlay.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\core\ArcBall.h" />
@@ -226,6 +228,8 @@
     <ClInclude Include="..\..\include\core\SysSettings.h" />
     <ClInclude Include="..\..\include\core\FrameMetric.h" />
     <ClInclude Include="..\..\include\core\OverLay.h" />
+    <ClInclude Include="..\..\include\core\TextureOverlay.h" />
+    <ClInclude Include="..\..\include\core\HtmlOverlay.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

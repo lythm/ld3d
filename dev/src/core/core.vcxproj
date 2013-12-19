@@ -184,6 +184,7 @@
     <ClInclude Include="..\..\include\core\Event.h" />
     <ClInclude Include="..\..\include\core\EventDispatcher.h" />
     <ClInclude Include="..\..\include\core\FrameMetric.h" />
+    <ClInclude Include="..\..\include\core\HtmlOverlay.h" />
     <ClInclude Include="..\..\include\core\input_types.h" />
     <ClInclude Include="..\..\include\core\Contact.h" />
     <ClInclude Include="..\..\include\core\OverLay.h" />
@@ -253,6 +254,7 @@
     <ClInclude Include="..\..\include\core\Sys_Time.h" />
     <ClInclude Include="..\..\include\core\TechniqueParser.h" />
     <ClInclude Include="..\..\include\core\Texture.h" />
+    <ClInclude Include="..\..\include\core\TextureOverlay.h" />
     <ClInclude Include="..\..\include\core\TimerManager.h" />
     <ClInclude Include="..\..\include\core\UIManager.h" />
     <ClInclude Include="..\..\include\core\VertexFormat.h" />
@@ -315,6 +317,7 @@
     <ClCompile Include="GameObjectComponent.cpp" />
     <ClCompile Include="GameObjectManager.cpp" />
     <ClCompile Include="GameObjectTemplate.cpp" />
+    <ClCompile Include="HtmlOverlay.cpp" />
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="LightManager.cpp" />
     <ClCompile Include="Material.cpp" />
@@ -354,6 +357,7 @@
     <ClCompile Include="SubMesh.cpp" />
     <ClCompile Include="SysManager.cpp" />
     <ClCompile Include="TechniqueParser.cpp" />
+    <ClCompile Include="TextureOverlay.cpp" />
     <ClCompile Include="Time64.cpp" />
     <ClCompile Include="TimerManager.cpp" />
     <ClCompile Include="UIManager.cpp" />

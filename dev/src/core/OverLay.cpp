@@ -16,38 +16,28 @@ namespace ld3d
 		m_visible			= true;
 
 		m_rect				= math::RectI(0, 0, 1, 1);
-
-		m_pMaterial			= nullptr;
-		m_pRenderData		= nullptr;
-		m_pGeometryData		= nullptr;
 	}
 
 
 	Overlay::~Overlay(void)
 	{
-		Release();
+		
 	}
 	void Overlay::Release()
 	{
-		for(auto v : m_children)
-		{
-			v->Release();
-			v->Unlink();
-		}
+		//std::list<OverlayPtr>::iterator it = m_children.front();
+		
+		
+		//while(m_children.size() != 0)
+		//{
+		//	//OverlayPtr pNode = m_children.front();
+		//	m_children.pop_front();
+		////	pNode->Release();
+		//}
+		//
+
 		m_children.clear();
 		Unlink();
-
-		if(m_pMaterial)
-		{
-			m_pMaterial->Release();
-			m_pMaterial = nullptr;
-		}
-		if(m_pGeometryData)
-		{
-			m_pGeometryData->Release();
-			m_pGeometryData = nullptr;
-		}
-		m_pRenderData = nullptr;
 	}
 	OverlayPtr Overlay::GetParent()
 	{
@@ -108,26 +98,6 @@ namespace ld3d
 	{
 		m_rect = r;
 	}
-	void Overlay::SetMaterial(MaterialPtr pMaterial)
-	{
-		m_pMaterial = pMaterial;
-	}
-	MaterialPtr Overlay::GetMaterial()
-	{
-		return m_pMaterial;
-	}
-	RenderDataPtr Overlay::GetRenderData()
-	{
-		if(m_visible == false)
-		{
-			return nullptr;
-		}
-		if(m_pMaterial == nullptr)
-		{
-			return nullptr;
-		}
-		return m_pRenderData;
-	}
 	const std::string& Overlay::GetName()
 	{
 		return m_name;
@@ -135,5 +105,10 @@ namespace ld3d
 	void Overlay::SetName(const std::string& name)
 	{
 		m_name = name;
+	}
+	
+	RenderDataPtr Overlay::PrepareRenderData()
+	{
+		return nullptr;
 	}
 }

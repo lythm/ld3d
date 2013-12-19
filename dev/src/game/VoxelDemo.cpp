@@ -126,6 +126,13 @@ bool VoxelDemo::Init(ld3d::CoreApiPtr pCore)
 	m_pPlayer->SetTranslation(1, ret.enter_point.y + 10, 1);
 
 //	m_pCore->GetSysInput()->ShowCursor(false);
+
+
+	TextureOverlayPtr pT1 = m_pCore->GetUIManager()->CreateTextureOverlay("t1", math::RectI(0, 0, 100, 100), nullptr);
+
+	TextureOverlayPtr pT2 = m_pCore->GetUIManager()->CreateTextureOverlay("t2", math::RectI(100, 100, 100, 100), nullptr);
+
+
 	return true;
 }
 void VoxelDemo::Release()

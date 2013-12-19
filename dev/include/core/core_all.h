@@ -67,6 +67,11 @@
 
 #include "core/GeometryData.h"
 
+#include "core/UIManager.h"
+#include "core/TextureOverlay.h"
+#include "core/HtmlOverlay.h"
+
+
 #include "core/Mesh.h"
 #include "core/SubMesh.h"
 #include "core/Event.h"

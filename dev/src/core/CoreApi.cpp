@@ -488,4 +488,8 @@ namespace ld3d
 			tick = os_get_tick();
 		}
 	}
+	UIManagerPtr CoreApi::GetUIManager()
+	{
+		return m_pUIManager;
+	}
 }

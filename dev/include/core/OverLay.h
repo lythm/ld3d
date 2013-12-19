@@ -25,30 +25,18 @@ namespace ld3d
 		math::RectI									GetRect();
 		void										SetRect(const math::RectI& r);
 
-		void										SetMaterial(MaterialPtr pMaterial);
-		MaterialPtr									GetMaterial();
-
-		RenderDataPtr								GetRenderData();
-		void										Release();
+		virtual void								Release();
 
 		const std::string&							GetName();
 		void										SetName(const std::string& name);
-	private:
 
+		virtual RenderDataPtr						PrepareRenderData();
+	protected:
 		int32										m_zOrder;
-
 		OverlayPtr									m_pParent;
 		std::list<OverlayPtr>						m_children;
-
 		bool										m_visible;
-
-		RenderDataPtr								m_pRenderData;
-
 		math::RectI									m_rect;
-
-		MaterialPtr									m_pMaterial;
-		GeometryDataPtr								m_pGeometryData;
-
 		std::string									m_name;
 	};
 }

@@ -42,6 +42,8 @@ namespace ld3d
 		Sys_SoundPtr									GetSysSound();
 		Sys_TimePtr										GetSysTime();
 
+		UIManagerPtr									GetUIManager();
+
 		void											Render();
 		void											Render(CameraPtr pCamera);
 		void											Present();
