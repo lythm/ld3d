@@ -6,6 +6,7 @@
 #include "core/RenderManager.h"
 #include "core/Material.h"
 #include "core/TextureOverlay.h"
+#include "core/HtmlOverlay.h"
 
 namespace ld3d
 {
@@ -70,6 +71,13 @@ namespace ld3d
 			return;
 		}
 
+		RenderDataPtr pData = pRoot->PrepareRenderData();
+		if(pData)
+		{
+			m_pRenderManager->AddRenderData(layer_overlay, pData);
+		}
+
+
 		std::list<OverlayPtr> child_list = pRoot->GetChildList();
 		std::list<OverlayPtr>::iterator begin = child_list.begin();
 		std::list<OverlayPtr>::iterator end = child_list.end();
@@ -79,11 +87,7 @@ namespace ld3d
 			_prepare_render_data(*it);
 		}
 
-		RenderDataPtr pData = pRoot->PrepareRenderData();
-		if(pData)
-		{
-			m_pRenderManager->AddRenderData(layer_overlay, pData);
-		}
+		
 	}
 	OverlayPtr UIManager::CreateOverlay(const std::string& name, const math::RectI& rect)
 	{
@@ -96,12 +100,19 @@ namespace ld3d
 	}
 	TextureOverlayPtr UIManager::CreateTextureOverlay(const std::string& name, const math::RectI& rect, TexturePtr pTex)
 	{
-		/*if(pTex == nullptr)
-		{
-			return nullptr;
-		}*/
 		TextureOverlayPtr pO = alloc_object<TextureOverlay>();
 		if(false == pO->Initialize(m_pRenderManager, name, rect, pTex))
+		{
+			return nullptr;
+		}
+
+		pO->LinkTo(m_pOverlayRoot);
+		return pO;
+	}
+	HtmlOverlayPtr UIManager::CreateHtmlOverlay(const std::string& name, const math::RectI& rect)
+	{
+		HtmlOverlayPtr pO = alloc_object<HtmlOverlay>();
+		if(false == pO->Initialize(m_pRenderManager, name, rect))
 		{
 			return nullptr;
 		}

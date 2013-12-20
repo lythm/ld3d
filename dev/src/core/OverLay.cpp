@@ -25,6 +25,8 @@ namespace ld3d
 	}
 	void Overlay::Release()
 	{
+		OnRelease();
+
 		while(m_children.size() != 0)
 		{
 			OverlayPtr pNode = m_children.front();
@@ -106,5 +108,41 @@ namespace ld3d
 	RenderDataPtr Overlay::PrepareRenderData()
 	{
 		return nullptr;
+	}
+	void Overlay::GetScreenCoord(int& x, int& y)
+	{
+		int offset_x = 0;
+		int offset_y = 0;
+
+		if(m_pParent)
+		{
+			m_pParent->GetScreenCoord(offset_x, offset_y);
+		}
+
+		x = m_rect.left + offset_x;
+		y = m_rect.top + offset_y;
+	}
+	void Overlay::GetSize(uint32& w, uint32& h)
+	{
+		w = m_rect.width();
+		h = m_rect.height();
+	}
+	void Overlay::MoveTo(int x, int y)
+	{
+		m_rect.move_to(x, y);
+	}
+	void Overlay::Move(int offset_x, int offset_y)
+	{
+		m_rect.move(offset_x, offset_y);
+	}
+	void Overlay::Resize(uint32 w, uint32 h)
+	{
+		m_rect.resize(w, h);
+	}
+	void Overlay::OnRelease()
+	{
+	}
+	void Overlay::OnResize(uint32 w, uint32 h)
+	{
 	}
 }

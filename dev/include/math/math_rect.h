@@ -49,6 +49,12 @@ namespace math
 			move(offset_x, offset_y);
 		}
 
+		void resize(T w, T h)
+		{
+			right = left + w;
+			bottom = top + h;
+		}
+
 
 		T			left;
 		T			top;

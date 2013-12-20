@@ -130,13 +130,16 @@ bool VoxelDemo::Init(ld3d::CoreApiPtr pCore)
 
 	TexturePtr pTex = m_pCore->GetRenderManager()->CreateTextureFromFile("./assets/standard/texture/overlay.dds");
 
-	TextureOverlayPtr pT1 = m_pCore->GetUIManager()->CreateTextureOverlay("t1", math::RectI(0, 0, 256, 256), pTex);
+	TextureOverlayPtr pT1 = m_pCore->GetUIManager()->CreateTextureOverlay("t1", math::RectI(10, 10, pTex->GetWidth() + 10, pTex->GetHeight() + 10), pTex);
 
 
 	pTex = m_pCore->GetRenderManager()->CreateTextureFromFile("./assets/standard/texture/002.dds");
 
-	TextureOverlayPtr pT2 = m_pCore->GetUIManager()->CreateTextureOverlay("t2", math::RectI(100, 100, 612, 612), pTex);
+	HtmlOverlayPtr pT2 = m_pCore->GetUIManager()->CreateHtmlOverlay("t2", math::RectI(10, 10, 256, 256));
 
+	pT2->LinkTo(pT1);
+
+	pT1->MoveTo(100, 100);
 	return true;
 }
 void VoxelDemo::Release()

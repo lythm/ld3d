@@ -12,7 +12,8 @@ namespace ld3d
 {
 	TextureOverlay::TextureOverlay(OverlayPtr pParent) : Overlay(pParent)
 	{
-		m_pTexture = nullptr;
+		m_pTexture					= nullptr;
+		m_texAutoRelease			= true;
 	}
 
 
@@ -24,16 +25,30 @@ namespace ld3d
 		int screen_w = m_pRenderManager->GetFrameBufferWidth();
 		int screen_h = m_pRenderManager->GetFrameBufferHeight();
 
-		MaterialParameterPtr pParam = m_pMaterial->GetParameterByName("screen_size");
-		if(pParam)
+		if(m_pParamScreenSize)
 		{
-			pParam->SetParameterVector(math::Vector2(screen_w, screen_h));
+			m_pParamScreenSize->SetParameterVector(math::Vector2(screen_w, screen_h));
 		}
 		
-		pParam = m_pMaterial->GetParameterByName("overlay_image");
-		if(pParam)
+		m_pParamImage = m_pMaterial->GetParameterByName("overlay_image");
+		if(m_pParamImage)
 		{
-			pParam->SetParameterTexture(m_pTexture);
+			m_pParamImage->SetParameterTexture(m_pTexture);
+		}
+
+		math::Matrix44 trans;
+		trans.MakeIdentity();
+		trans.SetScale(math::Vector3(m_rect.width(), m_rect.height(), 1));
+
+		int x = 0;
+		int y = 0;
+		GetScreenCoord(x, y);
+		trans.SetTranslation(math::Vector3(x, y, 0));
+
+		m_pParamTrans = m_pMaterial->GetParameterByName("trans");
+		if(m_pParamTrans)
+		{
+			m_pParamTrans->SetParameterMatrix(trans);
 		}
 
 		return m_pRenderData;
@@ -48,6 +63,12 @@ namespace ld3d
 		{
 			return false;
 		}
+
+
+		m_pParamImage					= m_pMaterial->GetParameterByName("overlay_image");;
+		m_pParamTrans					= m_pMaterial->GetParameterByName("trans");;
+		m_pParamScreenSize				= m_pMaterial->GetParameterByName("screen_size");;
+
 
 		if(CreateGeometry() == false)
 		{
@@ -80,11 +101,6 @@ namespace ld3d
 			return false;
 		}
 
-		int x1 = m_rect.left;
-		int x2 = m_rect.right;
-		int y1 = m_rect.top;
-		int y2 = m_rect.bottom;
-
 		struct Vertex
 		{
 			math::Vector3			pos;
@@ -92,12 +108,12 @@ namespace ld3d
 		};
 		Vertex verts[] = 
 		{
-			{math::Vector3(x1, y1, 0),		math::Vector2(0, 0)},
-			{math::Vector3(x2, y1, 0),		math::Vector2(1, 0)},
-			{math::Vector3(x2, y2, 0),		math::Vector2(1, 1)},
-			{math::Vector3(x1, y2, 0),		math::Vector2(0, 1)},
-			{math::Vector3(x1, y1, 0),		math::Vector2(0, 0)},
-			{math::Vector3(x2, y2, 0),		math::Vector2(1, 1)},
+			{math::Vector3(0, 0, 0),		math::Vector2(0, 0)},
+			{math::Vector3(1, 0, 0),		math::Vector2(1, 0)},
+			{math::Vector3(1, 1, 0),		math::Vector2(1, 1)},
+			{math::Vector3(0, 1, 0),		math::Vector2(0, 1)},
+			{math::Vector3(0, 0, 0),		math::Vector2(0, 0)},
+			{math::Vector3(1, 1, 0),		math::Vector2(1, 1)},
 		};
 
 		VertexLayout layout;
@@ -112,19 +128,27 @@ namespace ld3d
 		m_pGeometry->EndGeometry();
 		return true;
 	}
-	void TextureOverlay::Release()
+	void TextureOverlay::OnRelease()
 	{
 		m_pRenderData = nullptr;
 		_release_and_reset(m_pGeometry);
 		_release_and_reset(m_pMaterial);
-		_release_and_reset(m_pTexture);
-
-		Overlay::Release();
-
+		if(m_texAutoRelease)
+		{
+			_release_and_reset(m_pTexture);
+		}
 	}
-	void TextureOverlay::AttachTexture(TexturePtr pTex)
+	void TextureOverlay::AttachTexture(TexturePtr pTex, bool auto_release)
 	{
-		_release_and_reset(m_pTexture);
+		if(m_texAutoRelease)
+		{
+			_release_and_reset(m_pTexture);
+		}
 		m_pTexture = pTex;
+		m_texAutoRelease = auto_release;
+	}
+	TexturePtr TextureOverlay::GetTexture()
+	{
+		return m_pTexture;
 	}
 }

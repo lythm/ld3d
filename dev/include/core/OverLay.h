@@ -25,12 +25,22 @@ namespace ld3d
 		math::RectI									GetRect();
 		void										SetRect(const math::RectI& r);
 
-		virtual void								Release();
+		void										Release();
 
 		const std::string&							GetName();
 		void										SetName(const std::string& name);
 
 		virtual RenderDataPtr						PrepareRenderData();
+		virtual void								OnRelease();
+
+		void										GetScreenCoord(int& x, int& y);
+		void										GetSize(uint32& w, uint32& h);
+
+		void										MoveTo(int x, int y);
+		void										Move(int offset_x, int offset_y);
+		void										Resize(uint32 w, uint32 h);
+
+		virtual void								OnResize(uint32 w, uint32 h);
 	protected:
 		int32										m_zOrder;
 		OverlayPtr									m_pParent;

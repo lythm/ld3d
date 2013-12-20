@@ -197,7 +197,9 @@ namespace ld3d
 	class UIManager;
 	class Overlay;
 	class TextureOverlay;
+	class HtmlOverlay;
 
+	typedef std::shared_ptr<HtmlOverlay>					HtmlOverlayPtr;
 	typedef std::shared_ptr<TextureOverlay>					TextureOverlayPtr;
 	typedef std::shared_ptr<Overlay>						OverlayPtr;
 	typedef std::shared_ptr<UIManager>						UIManagerPtr;
