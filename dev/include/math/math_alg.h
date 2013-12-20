@@ -307,7 +307,7 @@ namespace math
 	inline 
 		int log2(int v) 
 	{
-		return std::log(double(v)) / log(2.0);
+		return (int)(std::log(double(v)) / log(2.0));
 	}
 }
 

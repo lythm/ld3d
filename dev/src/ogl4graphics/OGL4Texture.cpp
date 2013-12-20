@@ -460,7 +460,7 @@ namespace ld3d
 
 		gli::storage s = gli::loadStorageDDS(szFile);
 
-		int faces = s.faces();
+		size_t faces = s.faces();
 
 		if(faces == 1)
 		{
@@ -522,7 +522,7 @@ namespace ld3d
 			m_type = TEX_2D;
 			m_width = tex.dimensions().x;
 			m_height = tex.dimensions().y;
-			m_lvls = tex.levels();
+			m_lvls = (int)tex.levels();
 			m_depth = 0;
 
 			m_format = GLenum(gli::internal_format(tex.format()));
@@ -603,7 +603,7 @@ namespace ld3d
 		m_type = TEX_CUBE;
 		m_width = tex.dimensions().x;
 		m_height = tex.dimensions().y;
-		m_lvls = tex.levels();
+		m_lvls = (int)tex.levels();
 		m_depth = 0;
 
 		m_format = GLenum(gli::internal_format(tex.format()));

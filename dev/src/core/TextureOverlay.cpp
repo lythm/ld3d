@@ -22,8 +22,8 @@ namespace ld3d
 	}
 	RenderDataPtr TextureOverlay::PrepareRenderData()
 	{
-		int screen_w = m_pRenderManager->GetFrameBufferWidth();
-		int screen_h = m_pRenderManager->GetFrameBufferHeight();
+		float screen_w = (float)m_pRenderManager->GetFrameBufferWidth();
+		float screen_h = (float)m_pRenderManager->GetFrameBufferHeight();
 
 		if(m_pParamScreenSize)
 		{
@@ -43,7 +43,7 @@ namespace ld3d
 		int x = 0;
 		int y = 0;
 		GetScreenCoord(x, y);
-		trans.SetTranslation(math::Vector3(x, y, 0));
+		trans.SetTranslation(math::Vector3((float)x, (float)y, 0));
 
 		m_pParamTrans = m_pMaterial->GetParameterByName("trans");
 		if(m_pParamTrans)

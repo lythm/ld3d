@@ -172,7 +172,7 @@ namespace ld3d
 
 		if(abs(Dot(z_axis, up)) > 0.999)
 		{
-			up.z = 0.1;
+			up.z = 0.1f;
 		}
 		
 		m_projTM = math::MatrixLookAtLH(eye, at, up) * math::MatrixPerspectiveFovLH(math::D2R(2 * m_angle), 1, 0.1f, m_range);

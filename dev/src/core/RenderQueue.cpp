@@ -35,7 +35,7 @@ namespace ld3d
 	{
 		for(size_t i = 0; i < m_layers.size(); ++i)
 		{
-			ClearLayer(i);
+			ClearLayer((uint32)i);
 		}
 	}
 	void RenderQueue::ClearLayer(uint32 index)

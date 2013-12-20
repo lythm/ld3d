@@ -184,7 +184,7 @@ namespace math
 		int axis_ind = -1;
 		for(int i = 0; i < 3; ++i)
 		{
-			float d = abs(m_extent[i] * 0.5 - n[i]);
+			float d = abs(m_extent[i] * 0.5f - n[i]);
 			if(min_dst > d)
 			{
 				min_dst = d;
@@ -193,7 +193,7 @@ namespace math
 		}
 
 		Vector3 normal;
-		normal[axis_ind] = n[axis_ind] > 0 ? 1 : -1;
+		normal[axis_ind] = n[axis_ind] > 0 ? 1.0f : -1.0f;
 		return normal;
 	}
 }
