@@ -69,6 +69,11 @@
     <ClCompile Include="OverLay.cpp" />
     <ClCompile Include="TextureOverlay.cpp" />
     <ClCompile Include="HtmlOverlay.cpp" />
+    <ClCompile Include="CEFManager.cpp" />
+    <ClCompile Include="CEFApp.cpp" />
+    <ClCompile Include="CEFRenderHandler.cpp" />
+    <ClCompile Include="CEFClientHandler.cpp" />
+    <ClCompile Include="CEFClient.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\core\ArcBall.h" />
@@ -230,6 +235,11 @@
     <ClInclude Include="..\..\include\core\OverLay.h" />
     <ClInclude Include="..\..\include\core\TextureOverlay.h" />
     <ClInclude Include="..\..\include\core\HtmlOverlay.h" />
+    <ClInclude Include="CEFManager.h" />
+    <ClInclude Include="CEFApp.h" />
+    <ClInclude Include="CEFRenderHandler.h" />
+    <ClInclude Include="CEFClientHandler.h" />
+    <ClInclude Include="CEFClient.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
