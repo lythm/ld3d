@@ -74,6 +74,8 @@
     <ClCompile Include="CEFRenderHandler.cpp" />
     <ClCompile Include="CEFClientHandler.cpp" />
     <ClCompile Include="CEFClient.cpp" />
+    <ClCompile Include="CEFBrowser.cpp" />
+    <ClCompile Include="CEFWebPage.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\core\ArcBall.h" />
@@ -240,6 +242,8 @@
     <ClInclude Include="CEFRenderHandler.h" />
     <ClInclude Include="CEFClientHandler.h" />
     <ClInclude Include="CEFClient.h" />
+    <ClInclude Include="CEFBrowser.h" />
+    <ClInclude Include="CEFWebPage.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

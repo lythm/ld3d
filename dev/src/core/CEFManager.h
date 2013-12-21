@@ -13,7 +13,5 @@ namespace ld3d
 			bool								Initialize();
 			void								Release();
 		};
-
-
 	}
 }

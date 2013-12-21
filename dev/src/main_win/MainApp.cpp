@@ -258,7 +258,7 @@ namespace ld3d
 
 
 		AdjustWindow(setting.graphics.frameBufferWidth, setting.graphics.frameBufferHeight);
-
+		CenterWindow();
 
 		for(auto package : m_pConfig->GetPackageList())
 		{
