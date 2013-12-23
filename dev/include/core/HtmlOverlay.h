@@ -11,7 +11,7 @@ namespace ld3d
 		virtual ~HtmlOverlay(void);
 
 		void									OnRelease();
-		bool									Initialize(RenderManagerPtr pRenderManager, const std::string& name, const math::RectI& rect);
+		bool									Initialize(RenderManagerPtr pRenderManager, WebpageRendererPtr pRenderer, const std::string& name, const math::RectI& rect);
 
 		RenderDataPtr							PrepareRenderData();
 
@@ -23,6 +23,7 @@ namespace ld3d
 		TextureOverlayPtr						m_pTexOverlay;
 		TexturePtr								m_pTexture;
 		RenderManagerPtr						m_pRenderManager;
+		WebpageRendererPtr						m_pPageRenderer;
 	};
 
 }

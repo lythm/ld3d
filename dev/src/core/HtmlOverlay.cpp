@@ -5,6 +5,7 @@
 #include "core/RenderManager.h"
 #include "core/Sys_Graphics.h"
 #include "core/Texture.h"
+#include "core/WebpageRenderer.h"
 
 namespace ld3d
 {
@@ -21,8 +22,13 @@ namespace ld3d
 		_release_and_reset(m_pTexture);
 
 	}
-	bool HtmlOverlay::Initialize(RenderManagerPtr pRenderManager, const std::string& name, const math::RectI& rect)
+	bool HtmlOverlay::Initialize(RenderManagerPtr pRenderManager, WebpageRendererPtr pRenderer, const std::string& name, const math::RectI& rect)
 	{
+		if(pRenderer == nullptr)
+		{
+			return false;
+		}
+
 		m_pRenderManager				= pRenderManager;
 		m_name							= name;
 		m_rect							= rect;
@@ -40,6 +46,9 @@ namespace ld3d
 			return false;
 		}
 
+		m_pPageRenderer = pRenderer;
+
+		m_pPageRenderer->SetRenderTarget(m_pTexture);
 		return true;
 	}
 	bool HtmlOverlay::ResizeTexture(uint32 w, uint32 h)

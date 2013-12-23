@@ -159,6 +159,7 @@ Global
 		{BAC1F8EE-8A5F-4B1A-AC7C-2A8762332626}.Release|Win32.ActiveCfg = Release|Win32
 		{BAC1F8EE-8A5F-4B1A-AC7C-2A8762332626}.Release|Win32.Build.0 = Release|Win32
 		{BAC1F8EE-8A5F-4B1A-AC7C-2A8762332626}.Release|x64.ActiveCfg = Release|x64
+		{BAC1F8EE-8A5F-4B1A-AC7C-2A8762332626}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

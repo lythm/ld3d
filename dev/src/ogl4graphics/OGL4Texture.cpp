@@ -201,7 +201,13 @@ namespace ld3d
 
 		glBindBuffer(GL_PIXEL_UNPACK_BUFFER, 0);
 	}
+	void OGL4Texture::UpdateTextureBGRA8(const void* data)
+	{
+		glBindTexture(GL_TEXTURE_2D, m_texture);
+		glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, m_width, m_height, GL_BGRA, GL_UNSIGNED_BYTE, data);
 
+		glBindTexture(GL_TEXTURE_2D, 0);
+	}
 	unsigned int OGL4Texture::FormatSize(GLenum format)
 	{
 		switch(format)

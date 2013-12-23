@@ -36,6 +36,8 @@ namespace ld3d
 		GLuint										GetTextureObject();
 
 		void										GenMipmap();
+
+		void										UpdateTextureBGRA8(const void* data);
 	private:
 		unsigned int								FormatSize(GLenum format);
 

@@ -1,5 +1,7 @@
 #pragma once
 
+#include "CEFApp.h"
+
 namespace ld3d
 {
 	namespace cef
@@ -15,8 +17,11 @@ namespace ld3d
 
 			void								Update();
 
-			CEFWebPagePtr						CreatePage(const std::string& url);
-			
+			WebpageRendererPtr					CreateWebpageRenderer(const std::string& url);
+
+		private:
+
+			CefRefPtr<CEFApp>					m_pApp;
 		};
 	}
 }

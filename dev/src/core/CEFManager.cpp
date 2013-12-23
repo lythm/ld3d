@@ -1,10 +1,8 @@
 #include "core_pch.h"
 #include "CEFManager.h"
 #include "CEFWebPage.h"
-#include "CEFApp.h"
-#include "CEFClientHandler.h"
-#include "CEFClient.h"
-#include "CEFRenderHandler.h"
+#include "core_utils.h"
+
 
 namespace ld3d
 {
@@ -20,19 +18,20 @@ namespace ld3d
 		}
 		bool CEFManager::Initialize()
 		{
-			CefMainArgs main_args;
+			CefMainArgs main_args(GetModuleHandle(NULL));
 
-			CefRefPtr<CEFApp> app(new CEFApp);
+			m_pApp = new CEFApp;
 
-			int exit_code = CefExecuteProcess(main_args, app.get());
-			
+			//int exit_code = CefExecuteProcess(main_args, m_pApp.get());
+		
+
 			CefSettings settings;
-
-			const char* szSub = "./cef_sub_process.exe";
+			settings.command_line_args_disabled = false;
+			const char* szSub = "./cef_sub_process_x64.exe";
 			
 			CefString(&settings.browser_subprocess_path).FromASCII(szSub);
 
-			if(false == CefInitialize(main_args, settings, app.get()))
+			if(false == CefInitialize(main_args, settings, m_pApp.get()))
 			{
 				return false;
 			}
@@ -48,9 +47,24 @@ namespace ld3d
 		{
 			CefDoMessageLoopWork();
 		}
-		CEFWebPagePtr CEFManager::CreatePage(const std::string& url)
+		WebpageRendererPtr CEFManager::CreateWebpageRenderer(const std::string& url)
 		{
-			return CEFWebPagePtr();
+			CefWindowInfo window_info;
+
+			window_info.SetAsOffScreen(nullptr);
+
+			// SimpleHandler implements browser-level callbacks.
+			CefRefPtr<CEFWebPage> handler(new CEFWebPage);
+
+			// Specify CEF browser settings here.
+			CefBrowserSettings browser_settings;
+
+			CefRefPtr<CefBrowser> pBrowser = CefBrowserHost::CreateBrowserSync(window_info, handler.get(), url, browser_settings);
+
+
+			CEFWebpageRendererPtr pRenderer = alloc_object<CEFWebpageRenderer>(handler);
+
+			return pRenderer;
 		}
 	}
 }

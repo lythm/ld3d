@@ -194,12 +194,14 @@ namespace ld3d
 	typedef std::shared_ptr<DT_CoreApi>						DT_CoreApiPtr;
 
 
+	class WebpageRenderer;
+	typedef std::shared_ptr<WebpageRenderer>				WebpageRendererPtr;
 	namespace cef
 	{
 		class CEFManager;
-		class CEFWebPage;
+		class CEFWebpageRenderer;
 
-		typedef std::shared_ptr<CEFWebPage>					CEFWebPagePtr;
+		typedef std::shared_ptr<CEFWebpageRenderer>			CEFWebpageRendererPtr;
 		typedef std::shared_ptr<CEFManager>					CEFManagerPtr;
 	}
 

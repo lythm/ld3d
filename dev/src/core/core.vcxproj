@@ -152,13 +152,14 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;CORE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeaderFile>core_pch.h</PrecompiledHeaderFile>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <AdditionalIncludeDirectories>..\..\include;..\..\external\include\;..\..\external\include\cef3</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>platform.lib;utils.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libcef_x64.lib;libcef_dll_wrapper_x64.lib;platform.lib;utils.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -260,6 +261,7 @@
     <ClInclude Include="..\..\include\core\UIManager.h" />
     <ClInclude Include="..\..\include\core\VertexFormat.h" />
     <ClInclude Include="..\..\include\core\ViewFrustum.h" />
+    <ClInclude Include="..\..\include\core\WebpageRenderer.h" />
     <ClInclude Include="..\..\include\math\math_aabbox.h" />
     <ClInclude Include="..\..\include\math\math_alg.h" />
     <ClInclude Include="..\..\include\math\math_all.h" />
@@ -277,11 +279,7 @@
     <ClInclude Include="..\..\include\math\math_vector3.h" />
     <ClInclude Include="..\..\include\math\math_vector4.h" />
     <ClInclude Include="CEFApp.h" />
-    <ClInclude Include="CEFBrowser.h" />
-    <ClInclude Include="CEFClient.h" />
-    <ClInclude Include="CEFClientHandler.h" />
     <ClInclude Include="CEFManager.h" />
-    <ClInclude Include="CEFRenderHandler.h" />
     <ClInclude Include="CEFWebPage.h" />
     <ClInclude Include="Console.h" />
     <ClInclude Include="core_pch.h" />
@@ -305,11 +303,7 @@
     <ClCompile Include="BBoxRenderData.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CEFApp.cpp" />
-    <ClCompile Include="CEFBrowser.cpp" />
-    <ClCompile Include="CEFClient.cpp" />
-    <ClCompile Include="CEFClientHandler.cpp" />
     <ClCompile Include="CEFManager.cpp" />
-    <ClCompile Include="CEFRenderHandler.cpp" />
     <ClCompile Include="CEFWebPage.cpp" />
     <ClCompile Include="Console.cpp" />
     <ClCompile Include="CoreApi.cpp" />

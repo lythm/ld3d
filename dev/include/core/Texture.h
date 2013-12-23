@@ -27,5 +27,7 @@ namespace ld3d
 		virtual int											GetLvls() const							= 0;
 		virtual void										GenMipmap()								= 0;
 		virtual bool										IsMultiSample(){return false;}
+
+		virtual void										UpdateTextureBGRA8(const void* data)	= 0;
 	};
 }

@@ -122,10 +122,15 @@ namespace ld3d
 		pO->LinkTo(m_pOverlayRoot);
 		return pO;
 	}
-	HtmlOverlayPtr UIManager::CreateHtmlOverlay(const std::string& name, const math::RectI& rect)
+	HtmlOverlayPtr UIManager::CreateHtmlOverlay(const std::string& name, const math::RectI& rect, const std::string& url)
 	{
+		WebpageRendererPtr pRenderer = m_pCEFManager->CreateWebpageRenderer(url);
+		if(pRenderer == nullptr)
+		{
+			return nullptr;
+		}
 		HtmlOverlayPtr pO = alloc_object<HtmlOverlay>();
-		if(false == pO->Initialize(m_pRenderManager, name, rect))
+		if(false == pO->Initialize(m_pRenderManager, pRenderer, name, rect))
 		{
 			return nullptr;
 		}

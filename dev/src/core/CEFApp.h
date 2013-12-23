@@ -18,7 +18,7 @@ namespace ld3d
 
 		private:
 			// Include the default reference counting implementation.
-			IMPLEMENT_REFCOUNTING(SimpleApp);
+			IMPLEMENT_REFCOUNTING(CEFApp);
 
 		};
 	}

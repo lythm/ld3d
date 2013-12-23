@@ -24,7 +24,7 @@ namespace ld3d
 
 		OverlayPtr										CreateOverlay(const std::string& name, const math::RectI& rect);
 		TextureOverlayPtr								CreateTextureOverlay(const std::string& name, const math::RectI& rect, TexturePtr pTex);
-		HtmlOverlayPtr									CreateHtmlOverlay(const std::string& name, const math::RectI& rect);
+		HtmlOverlayPtr									CreateHtmlOverlay(const std::string& name, const math::RectI& rect, const std::string& url);
 	private:
 		void											_on_key(EventPtr pEvent);
 		void											_on_mouse_move(EventPtr pEvent);
