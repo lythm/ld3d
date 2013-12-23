@@ -12,6 +12,11 @@ namespace ld3d
 
 			bool								Initialize();
 			void								Release();
+
+			void								Update();
+
+			CEFWebPagePtr						CreatePage(const std::string& url);
+			
 		};
 	}
 }

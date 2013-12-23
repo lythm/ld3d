@@ -7,6 +7,7 @@
 #include "core/Material.h"
 #include "core/TextureOverlay.h"
 #include "core/HtmlOverlay.h"
+#include "CEFManager.h"
 
 namespace ld3d
 {
@@ -25,11 +26,21 @@ namespace ld3d
 		m_pRenderManager			= pCore->GetRenderManager();
 		m_pOverlayRoot				= CreateOverlay("_root_", math::RectI(0, 0, 1, 1));
 
+
+		m_pCEFManager				= alloc_object<cef::CEFManager>();
+		if(m_pCEFManager->Initialize() == false)
+		{
+			return false;
+		}
 		return true;
 	}
 	void UIManager::Release()
 	{
+		
 		_release_and_reset(m_pOverlayRoot);
+
+		_release_and_reset(m_pCEFManager);
+
 	}
 	bool UIManager::LoadUI(const std::string& src)
 	{
@@ -62,6 +73,8 @@ namespace ld3d
 	
 	void UIManager::PrepareForRendering()
 	{
+		m_pCEFManager->Update();
+
 		_prepare_render_data(m_pOverlayRoot);
 	}
 	void UIManager::_prepare_render_data(OverlayPtr pRoot)

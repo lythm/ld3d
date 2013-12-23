@@ -35,5 +35,7 @@ namespace ld3d
 		CoreApiPtr										m_pCore;
 		RenderManagerPtr								m_pRenderManager;
 		OverlayPtr										m_pOverlayRoot;
+
+		cef::CEFManagerPtr								m_pCEFManager;
 	};
 }

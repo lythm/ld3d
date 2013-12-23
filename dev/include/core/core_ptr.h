@@ -194,6 +194,15 @@ namespace ld3d
 	typedef std::shared_ptr<DT_CoreApi>						DT_CoreApiPtr;
 
 
+	namespace cef
+	{
+		class CEFManager;
+		class CEFWebPage;
+
+		typedef std::shared_ptr<CEFWebPage>					CEFWebPagePtr;
+		typedef std::shared_ptr<CEFManager>					CEFManagerPtr;
+	}
+
 	class UIManager;
 	class Overlay;
 	class TextureOverlay;
