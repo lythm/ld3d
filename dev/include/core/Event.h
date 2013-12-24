@@ -20,6 +20,7 @@ namespace ld3d
 		EV_RESIZE_FRAMEBUFFER,
 		EV_FRUSTUM_CULL,
 		EV_KEYBOARD_STATE,
+		EV_CHAR,
 		EV_MOUSE_MOVE,
 		EV_MOUSE_WHEEL,
 		EV_MOUSE_BUTTON,
@@ -65,6 +66,18 @@ namespace ld3d
 
 		uint32						key_code;
 		KeyState*					keyboard_state;
+
+		uint32						vk_code;
+
+	};
+	class Event_Char : public Event
+	{
+	public:
+		Event_Char(uint32 key) : Event(EV_CHAR)
+		{
+			key_code = key;
+		}
+		uint32						key_code;
 	};
 	class Event_ResizeFrameBuffer : public Event
 	{

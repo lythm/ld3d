@@ -22,9 +22,9 @@ namespace ld3d
 		memset(&m_mouseState, 0, sizeof(m_mouseState));
 		memset(&m_keyState, 0, sizeof(m_keyState));
 
-		m_pMouseStateEvent = alloc_object<Event_MouseState>();
-		m_pKeyStateEvent = alloc_object<Event_KeyboardState>();
-
+		m_pMouseStateEvent	= alloc_object<Event_MouseState>();
+		m_pKeyStateEvent	= alloc_object<Event_KeyboardState>();
+		m_pCharEvent		= alloc_object<Event_Char>(0);
 		m_inputBufferBytes					= 0;
 		m_inputBuffer						= nullptr;
 
@@ -87,12 +87,8 @@ namespace ld3d
 
 		return true;
 	}
-	void WinRawInput::HandleMessage(MSG& msg)
+	void WinRawInput::ProcessRawInput(MSG& msg)
 	{
-		if(msg.message != WM_INPUT)
-		{
-			return;
-		}
 		UINT dwSize;
 
 		GetRawInputData((HRAWINPUT)msg.lParam, RID_INPUT, NULL, &dwSize, sizeof(RAWINPUTHEADER));
@@ -122,7 +118,26 @@ namespace ld3d
 			ProcessMouse(raw);
 		} 
 	}
-
+	void WinRawInput::HandleMessage(MSG& msg)
+	{
+		switch(msg.message)
+		{
+		case WM_INPUT:
+			ProcessRawInput(msg);
+			break;
+		case WM_CHAR:
+			ProcessChar(msg);
+			break;
+		default:
+			break;
+		}
+		
+	}
+	void WinRawInput::ProcessChar(MSG& msg)
+	{
+		m_pCharEvent->key_code = msg.wParam;
+		_emit_event(m_pCharEvent);
+	}
 	void WinRawInput::ProcessMouse(RAWINPUT* pInput)
 	{
 		m_mouseState.dx = pInput->data.mouse.lLastX;
@@ -200,6 +215,7 @@ namespace ld3d
 		
 		m_pKeyStateEvent->key_code = pInput->data.keyboard.MakeCode;
 		m_pKeyStateEvent->keyboard_state = &m_keyState;
+		m_pKeyStateEvent->vk_code = pInput->data.keyboard.VKey;
 
 		_emit_event(m_pKeyStateEvent);
 

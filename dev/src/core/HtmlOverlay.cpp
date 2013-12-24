@@ -9,8 +9,10 @@
 
 namespace ld3d
 {
-	HtmlOverlay::HtmlOverlay(void)
+	HtmlOverlay::HtmlOverlay(UIManagerPtr pUIManager) : Overlay(pUIManager)
 	{
+
+		on_input = std::bind(&HtmlOverlay::_handle_input, this, std::placeholders::_1);
 	}
 
 
@@ -33,14 +35,14 @@ namespace ld3d
 		m_name							= name;
 		m_rect							= rect;
 
-		m_pTexOverlay = alloc_object<TextureOverlay>();
+		m_pTexOverlay = alloc_object<TextureOverlay>(m_pUIManager);
 		if(false == m_pTexOverlay->Initialize(m_pRenderManager, name + "_internal_", math::RectI(0, 0, rect.width(), rect.height()), TexturePtr()))
 		{
 			return false;
 		}
 
 		m_pTexOverlay->LinkTo(shared_from_this());
-		
+	
 		if(false == ResizeTexture(m_rect.width(), m_rect.height()))
 		{
 			return false;
@@ -49,6 +51,9 @@ namespace ld3d
 		m_pPageRenderer = pRenderer;
 
 		m_pPageRenderer->SetRenderTarget(m_pTexture);
+
+
+
 		return true;
 	}
 	bool HtmlOverlay::ResizeTexture(uint32 w, uint32 h)
@@ -72,5 +77,9 @@ namespace ld3d
 	{
 		ResizeTexture(w, h);
 		m_pTexOverlay->Resize(w, h);
+	}
+	bool HtmlOverlay::_handle_input(EventPtr pEvent)
+	{
+		return m_pPageRenderer->ProcessInput(pEvent);
 	}
 }

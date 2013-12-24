@@ -7,7 +7,7 @@ namespace ld3d
 	class _DLL_CLASS TextureOverlay : public Overlay
 	{
 	public:
-		TextureOverlay(OverlayPtr pParent = OverlayPtr());
+		TextureOverlay(UIManagerPtr pUIManager);
 		virtual ~TextureOverlay(void);
 
 		bool											Initialize(RenderManagerPtr pRenderManager, const std::string& name, const math::RectI& rect, TexturePtr pTex);

@@ -49,6 +49,7 @@ namespace ld3d
 
 
 			void												Destroy();
+			bool												ProcessInput(EventPtr pEvent);
 		private:
 
 			TexturePtr											m_pTexture;
@@ -69,6 +70,8 @@ namespace ld3d
 			void												SetRenderTarget(TexturePtr pTexture);
 
 			void												Release();
+
+			bool												ProcessInput(EventPtr pEvent);
 		private:
 			CefRefPtr<CEFWebPage>								m_pPage;
 		};

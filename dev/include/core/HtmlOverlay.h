@@ -4,10 +4,10 @@
 
 namespace ld3d
 {
-	class HtmlOverlay : public Overlay
+	class _DLL_CLASS HtmlOverlay : public Overlay
 	{
 	public:
-		HtmlOverlay(void);
+		HtmlOverlay(UIManagerPtr pUIManager);
 		virtual ~HtmlOverlay(void);
 
 		void									OnRelease();
@@ -19,6 +19,7 @@ namespace ld3d
 
 	private:
 		bool									ResizeTexture(uint32 w, uint32 h);
+		bool									_handle_input(EventPtr pEvent);
 	private:
 		TextureOverlayPtr						m_pTexOverlay;
 		TexturePtr								m_pTexture;

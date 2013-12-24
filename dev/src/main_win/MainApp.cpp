@@ -192,6 +192,10 @@ namespace ld3d
 				
 			}
 			break;
+		case WM_KEYDOWN:
+			break;
+		case WM_KEYUP:
+			break;
 		default:
 			return DefWindowProc(hWnd, message, wParam, lParam);
 		}

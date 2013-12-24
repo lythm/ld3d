@@ -369,8 +369,9 @@ namespace ld3d
 		case EV_MOUSE_MOVE:
 		case EV_MOUSE_WHEEL:
 		case EV_MOUSE_BUTTON:
+		case EV_CHAR:
 
-			if(m_pUIManager->DispatchInputEvent(pEvent) == true)
+			if(m_pUIManager->DispatchInputEvent(pEvent) == false)
 			{
 				return;
 			}
@@ -492,4 +493,5 @@ namespace ld3d
 	{
 		return m_pUIManager;
 	}
+	
 }

@@ -25,6 +25,8 @@ namespace ld3d
 	private:
 		bool												RegisterDevices();
 
+		void												ProcessChar(MSG& msg);
+		void												ProcessRawInput(MSG& msg);
 		void												ProcessMouse(RAWINPUT* pInput);
 		void												ProcessKeyboard(RAWINPUT* pInput);
 	private:
@@ -35,7 +37,7 @@ namespace ld3d
 		
 		std::shared_ptr<Event_MouseState>					m_pMouseStateEvent;
 		std::shared_ptr<Event_KeyboardState>				m_pKeyStateEvent;
-
+		std::shared_ptr<Event_Char>							m_pCharEvent;
 		uint32												m_inputBufferBytes;
 		uint8*												m_inputBuffer;
 	};

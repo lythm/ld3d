@@ -135,9 +135,9 @@ bool VoxelDemo::Init(ld3d::CoreApiPtr pCore)
 
 	pTex = m_pCore->GetRenderManager()->CreateTextureFromFile("./assets/standard/texture/002.dds");
 
-	HtmlOverlayPtr pT2 = m_pCore->GetUIManager()->CreateHtmlOverlay("t2", math::RectI(0, 0, 800, 600), "www.sina.com.cn");
+	HtmlOverlayPtr pT2 = m_pCore->GetUIManager()->CreateHtmlOverlay("t2", math::RectI(0, 0, 1024, 500), "file:///./assets/standard/gui/debug_console/wc.html");
 
-	pT2->LinkTo(pT1);
+//	pT2->LinkTo(pT1);
 
 	pT1->MoveTo(100, 100);
 	return true;

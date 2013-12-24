@@ -61,7 +61,7 @@ namespace ld3d
 	}
 	bool UIManager::DispatchInputEvent(EventPtr pEvent)
 	{
-		return false;
+		return m_pOverlayRoot->DispatchInputEvent(pEvent);
 	}
 	void UIManager::AddOverlay(OverlayPtr pLayer)
 	{
@@ -104,7 +104,7 @@ namespace ld3d
 	}
 	OverlayPtr UIManager::CreateOverlay(const std::string& name, const math::RectI& rect)
 	{
-		OverlayPtr pO = alloc_object<Overlay>();
+		OverlayPtr pO = alloc_object<Overlay>(shared_from_this());
 		pO->SetName(name);
 		pO->SetRect(rect);
 
@@ -113,7 +113,7 @@ namespace ld3d
 	}
 	TextureOverlayPtr UIManager::CreateTextureOverlay(const std::string& name, const math::RectI& rect, TexturePtr pTex)
 	{
-		TextureOverlayPtr pO = alloc_object<TextureOverlay>();
+		TextureOverlayPtr pO = alloc_object<TextureOverlay>(shared_from_this());
 		if(false == pO->Initialize(m_pRenderManager, name, rect, pTex))
 		{
 			return nullptr;
@@ -129,7 +129,7 @@ namespace ld3d
 		{
 			return nullptr;
 		}
-		HtmlOverlayPtr pO = alloc_object<HtmlOverlay>();
+		HtmlOverlayPtr pO = alloc_object<HtmlOverlay>(shared_from_this());
 		if(false == pO->Initialize(m_pRenderManager, pRenderer, name, rect))
 		{
 			return nullptr;
@@ -137,5 +137,9 @@ namespace ld3d
 
 		pO->LinkTo(m_pOverlayRoot);
 		return pO;
+	}
+	OverlayPtr UIManager::PickOverlay()
+	{
+		return OverlayPtr();
 	}
 }

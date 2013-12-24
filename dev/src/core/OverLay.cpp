@@ -6,16 +6,17 @@
 
 namespace ld3d
 {
-	Overlay::Overlay(OverlayPtr pParent)
+	Overlay::Overlay(UIManagerPtr pUIManager)
 	{
+		m_pUIManager		= pUIManager;
 		m_pParent			= nullptr;
 		
-		LinkTo(pParent);
-
 		m_zOrder			= 0;
 		m_visible			= true;
 
 		m_rect				= math::RectI(0, 0, 1, 1);
+
+		m_inputFocus		= false;
 	}
 
 
@@ -144,5 +145,31 @@ namespace ld3d
 	}
 	void Overlay::OnResize(uint32 w, uint32 h)
 	{
+	}
+	bool Overlay::DispatchInputEvent(EventPtr pEvent)
+	{
+
+		std::list<OverlayPtr>::iterator it = m_children.begin();
+
+		for(;it != m_children.end(); ++it)
+		{
+			(*it)->DispatchInputEvent(pEvent);
+		}
+
+
+		if(on_input)
+		{
+			on_input(pEvent);
+		}
+
+		return true;
+	}
+	bool Overlay::IsFocus() const
+	{
+		return m_inputFocus;
+	}
+	void Overlay::SetFocus(bool bFocus)
+	{
+		m_inputFocus = bFocus;
 	}
 }

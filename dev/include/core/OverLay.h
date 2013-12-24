@@ -5,7 +5,10 @@ namespace ld3d
 	class _DLL_CLASS Overlay : public std::enable_shared_from_this<Overlay>
 	{
 	public:
-		Overlay(OverlayPtr pParent = OverlayPtr());
+
+		typedef std::function<bool (EventPtr)>		InputEventHandler;
+
+		Overlay(UIManagerPtr pUIManager);
 		virtual ~Overlay(void);
 
 		OverlayPtr									GetParent();
@@ -41,6 +44,13 @@ namespace ld3d
 		void										Resize(uint32 w, uint32 h);
 
 		virtual void								OnResize(uint32 w, uint32 h);
+
+		bool										IsFocus() const;
+		void										SetFocus(bool bFocus);
+		bool										DispatchInputEvent(EventPtr pEvent);
+
+		InputEventHandler							on_input;
+
 	protected:
 		int32										m_zOrder;
 		OverlayPtr									m_pParent;
@@ -48,5 +58,8 @@ namespace ld3d
 		bool										m_visible;
 		math::RectI									m_rect;
 		std::string									m_name;
+		bool										m_inputFocus;
+
+		UIManagerPtr								m_pUIManager;
 	};
 }

@@ -4,6 +4,7 @@
 #include "include/cef_runnable.h"
 #include "core/Texture.h"
 #include "core_utils.h"
+#include "core/Event.h"
 
 namespace ld3d
 {
@@ -19,6 +20,10 @@ namespace ld3d
 			m_pPage = nullptr;
 		}
 
+		bool CEFWebpageRenderer::ProcessInput(EventPtr pEvent)
+		{
+			return m_pPage->ProcessInput(pEvent);
+		}
 		void CEFWebpageRenderer::Release()
 		{
 			if(m_pPage)
@@ -127,6 +132,54 @@ namespace ld3d
 			m_pBrowser->GetHost()->CloseBrowser(true);
 			m_pTexture = nullptr;
 
+		}
+		bool CEFWebPage::ProcessInput(EventPtr pEvent)
+		{
+			m_pBrowser->GetHost()->SendFocusEvent(true);
+
+			switch(pEvent->id)
+			{
+			case EV_CHAR:
+				{
+					Event_Char* pChar = (Event_Char*)pEvent.get();
+					CefKeyEvent cef_key;
+
+					cef_key.character = pChar->key_code;
+					cef_key.focus_on_editable_field = true;
+					cef_key.is_system_key = false;
+					cef_key.native_key_code = pChar->key_code;
+					cef_key.type = KEYEVENT_CHAR;
+					cef_key.windows_key_code = pChar->key_code;
+					m_pBrowser->GetHost()->SendKeyEvent(cef_key);
+
+					//// backspace
+					//if(pChar->key_code == 8)
+					//{
+					//	cef_key.type = KEYEVENT_KEYDOWN;
+					//
+					//	m_pBrowser->GetHost()->SendKeyEvent(cef_key);
+					//}
+				}
+				break;
+			case EV_KEYBOARD_STATE:
+				{
+					Event_KeyboardState* pKey = (Event_KeyboardState*)pEvent.get();
+					CefKeyEvent cef_key;
+
+					cef_key.character = pKey->vk_code;
+					cef_key.focus_on_editable_field = true;
+					cef_key.is_system_key = false;
+					cef_key.native_key_code = pKey->key_code;
+					cef_key.type = pKey->keyboard_state->KeyDown(pKey->key_code) ? KEYEVENT_KEYDOWN : KEYEVENT_KEYUP;
+					cef_key.windows_key_code = pKey->vk_code;
+					m_pBrowser->GetHost()->SendKeyEvent(cef_key);
+				}
+				break;
+			default:
+				break;
+
+			}
+			return true;
 		}
 	}
 }

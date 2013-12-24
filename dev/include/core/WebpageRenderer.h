@@ -10,6 +10,7 @@ namespace ld3d
 
 		virtual ~WebpageRenderer(void){}
 
+		virtual bool										ProcessInput(EventPtr pEvent)								= 0;
 		virtual void										SetRenderTarget(TexturePtr pTarget)							= 0;
 		virtual void										Release()													= 0;
 

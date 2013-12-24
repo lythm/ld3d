@@ -10,7 +10,7 @@
 
 namespace ld3d
 {
-	TextureOverlay::TextureOverlay(OverlayPtr pParent) : Overlay(pParent)
+	TextureOverlay::TextureOverlay(UIManagerPtr pUIManager) : Overlay(pUIManager)
 	{
 		m_pTexture					= nullptr;
 		m_texAutoRelease			= true;

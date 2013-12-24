@@ -4,7 +4,7 @@
 namespace ld3d
 {
 
-	class _DLL_CLASS UIManager
+	class _DLL_CLASS UIManager : public std::enable_shared_from_this<UIManager>
 	{
 	public:
 		UIManager(void);
@@ -25,12 +25,16 @@ namespace ld3d
 		OverlayPtr										CreateOverlay(const std::string& name, const math::RectI& rect);
 		TextureOverlayPtr								CreateTextureOverlay(const std::string& name, const math::RectI& rect, TexturePtr pTex);
 		HtmlOverlayPtr									CreateHtmlOverlay(const std::string& name, const math::RectI& rect, const std::string& url);
+
+		OverlayPtr										PickOverlay();
 	private:
 		void											_on_key(EventPtr pEvent);
 		void											_on_mouse_move(EventPtr pEvent);
 		void											_on_mouse_button(EventPtr pEvent);
 
 		void											_prepare_render_data(OverlayPtr pRoot);
+
+		
 	private:
 		CoreApiPtr										m_pCore;
 		RenderManagerPtr								m_pRenderManager;

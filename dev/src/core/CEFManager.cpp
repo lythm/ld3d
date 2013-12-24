@@ -52,7 +52,7 @@ namespace ld3d
 			CefWindowInfo window_info;
 
 			window_info.SetAsOffScreen(nullptr);
-
+			window_info.SetTransparentPainting(true);
 			// SimpleHandler implements browser-level callbacks.
 			CefRefPtr<CEFWebPage> handler(new CEFWebPage);
 
