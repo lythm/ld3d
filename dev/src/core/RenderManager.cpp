@@ -399,9 +399,7 @@ namespace ld3d
 	//	SetRenderTarget(nullptr);
 	//	ClearRenderTarget(0, GetClearColor());
 	//	ClearDepthBuffer(CLEAR_DEPTH, 1.0f, 0);
-
-		RenderOverlay();
-
+		
 		RenderTexturePtr pTex = m_pLightManager->GetNextLight(LightPtr())->GetShadowMap();
 
 		//Draw_Texture(pTex->GetTexture(0));
@@ -420,6 +418,8 @@ namespace ld3d
 		{
 			Render(*it);
 		}
+
+		RenderOverlay();
 	}
 	void RenderManager::Present()
 	{

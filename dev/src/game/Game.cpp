@@ -4,7 +4,7 @@
 
 #include "utils/Logger.h"
 
-_DLL_API Game* CreateGame()
+_DLL_API ld3d::GameInterface* CreateGame()
 {
 	return new Game;
 }
