@@ -1,6 +1,6 @@
 #include "core_pch.h"
 #include "CEFManager.h"
-#include "CEFWebPage.h"
+#include "CEFWebpage.h"
 #include "core_utils.h"
 
 
@@ -54,7 +54,7 @@ namespace ld3d
 			window_info.SetAsOffScreen(nullptr);
 			window_info.SetTransparentPainting(true);
 			// SimpleHandler implements browser-level callbacks.
-			CefRefPtr<CEFWebPage> handler(new CEFWebPage);
+			CefRefPtr<CEFWebpage> handler(new CEFWebpage);
 
 			// Specify CEF browser settings here.
 			CefBrowserSettings browser_settings;

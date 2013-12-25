@@ -8,15 +8,15 @@ namespace ld3d
 {
 	namespace cef
 	{
-		class CEFWebPage : public CefClient,
+		class CEFWebpage : public CefClient,
 			public CefDisplayHandler,
 			public CefLifeSpanHandler,
 			public CefLoadHandler ,
 			public CefRenderHandler
 		{
 		public:
-			CEFWebPage(void);
-			virtual ~CEFWebPage(void);
+			CEFWebpage(void);
+			virtual ~CEFWebpage(void);
 
 			void												SetRenderTarget(TexturePtr pTexture);
 
@@ -62,14 +62,14 @@ namespace ld3d
 
 			CefRefPtr<CefBrowser>								m_pBrowser;
 
-			IMPLEMENT_REFCOUNTING(CEFWebPage);
+			IMPLEMENT_REFCOUNTING(CEFWebpage);
 		};
 
 
 		class CEFWebpageRenderer : public WebpageRenderer
 		{
 		public:
-			CEFWebpageRenderer(CefRefPtr<CEFWebPage> pPage);
+			CEFWebpageRenderer(CefRefPtr<CEFWebpage> pPage);
 
 			virtual ~CEFWebpageRenderer();
 
@@ -83,7 +83,7 @@ namespace ld3d
 
 			void												LoadPage(const std::string& url);
 		private:
-			CefRefPtr<CEFWebPage>								m_pPage;
+			CefRefPtr<CEFWebpage>								m_pPage;
 
 			
 		};

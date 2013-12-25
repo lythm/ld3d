@@ -1,5 +1,5 @@
 #include "core_pch.h"
-#include "CEFWebPage.h"
+#include "CEFWebpage.h"
 #include "include/cef_app.h"
 #include "include/cef_runnable.h"
 #include "core/Texture.h"
@@ -10,7 +10,7 @@ namespace ld3d
 {
 	namespace cef
 	{
-		CEFWebpageRenderer::CEFWebpageRenderer(CefRefPtr<CEFWebPage> pPage)
+		CEFWebpageRenderer::CEFWebpageRenderer(CefRefPtr<CEFWebpage> pPage)
 		{
 			m_pPage = pPage;
 			
@@ -49,16 +49,16 @@ namespace ld3d
 
 
 
-		CEFWebPage::CEFWebPage(void)
+		CEFWebpage::CEFWebpage(void)
 		{
 			m_visible = true;
 		}
 
 
-		CEFWebPage::~CEFWebPage(void)
+		CEFWebpage::~CEFWebpage(void)
 		{
 		}
-		void CEFWebPage::SetRenderTarget(TexturePtr pTexture)
+		void CEFWebpage::SetRenderTarget(TexturePtr pTexture)
 		{
 			m_pTexture = pTexture;
 			if(m_pBrowser)
@@ -67,31 +67,31 @@ namespace ld3d
 			}
 		}
 
-		CefRefPtr<CefDisplayHandler> CEFWebPage::GetDisplayHandler()
+		CefRefPtr<CefDisplayHandler> CEFWebpage::GetDisplayHandler()
 		{
 			return this;
 		}
-		CefRefPtr<CefLifeSpanHandler> CEFWebPage::GetLifeSpanHandler()
+		CefRefPtr<CefLifeSpanHandler> CEFWebpage::GetLifeSpanHandler()
 		{
 			return this;
 		}
-		CefRefPtr<CefLoadHandler> CEFWebPage::GetLoadHandler()
+		CefRefPtr<CefLoadHandler> CEFWebpage::GetLoadHandler()
 		{
 			return this;
 		}
-		CefRefPtr<CefRenderHandler> CEFWebPage::GetRenderHandler()
+		CefRefPtr<CefRenderHandler> CEFWebpage::GetRenderHandler()
 		{
 			return this;
 		}
-		void CEFWebPage::OnAfterCreated(CefRefPtr<CefBrowser> browser)
+		void CEFWebpage::OnAfterCreated(CefRefPtr<CefBrowser> browser)
 		{
 			m_pBrowser = browser;
 		}
-		void CEFWebPage::OnBeforeClose(CefRefPtr<CefBrowser> browser)
+		void CEFWebpage::OnBeforeClose(CefRefPtr<CefBrowser> browser)
 		{
 			m_pBrowser = nullptr;
 		}
-		void CEFWebPage::OnLoadError(CefRefPtr<CefBrowser> browser, 
+		void CEFWebpage::OnLoadError(CefRefPtr<CefBrowser> browser, 
 			CefRefPtr<CefFrame> frame,
 			ErrorCode errorCode,
 			const CefString& errorText,
@@ -100,7 +100,7 @@ namespace ld3d
 			logger() << "CEF: " << "error[" << errorCode << "] " << errorText.ToString() << " when loading: " << failedUrl.ToString() << "\n";
 		}
 
-		bool CEFWebPage::GetViewRect(CefRefPtr<CefBrowser> browser, CefRect& rect)
+		bool CEFWebpage::GetViewRect(CefRefPtr<CefBrowser> browser, CefRect& rect)
 		{
 			if(m_pTexture == nullptr)
 			{
@@ -116,7 +116,7 @@ namespace ld3d
 
 			return true;
 		}
-		void CEFWebPage::OnPaint(CefRefPtr<CefBrowser> browser,
+		void CEFWebpage::OnPaint(CefRefPtr<CefBrowser> browser,
 			PaintElementType type,
 			const RectList& dirtyRects,
 			const void* buffer,
@@ -136,13 +136,13 @@ namespace ld3d
 
 			m_pTexture->UnMap();*/
 		}
-		void CEFWebPage::Destroy()
+		void CEFWebpage::Destroy()
 		{
 			m_pBrowser->GetHost()->CloseBrowser(true);
 			m_pTexture = nullptr;
 
 		}
-		bool CEFWebPage::ProcessInput(EventPtr pEvent)
+		bool CEFWebpage::ProcessInput(EventPtr pEvent)
 		{
 			m_pBrowser->GetHost()->SendFocusEvent(true);
 
@@ -190,15 +190,15 @@ namespace ld3d
 			}
 			return true;
 		}
-		void CEFWebPage::SetVisible(bool bVisible)
+		void CEFWebpage::SetVisible(bool bVisible)
 		{
 			m_visible = bVisible;
 		}
-		bool CEFWebPage::IsVisible()
+		bool CEFWebpage::IsVisible()
 		{
 			return m_visible;
 		}
-		void CEFWebPage::LoadPage(const std::string& url)
+		void CEFWebpage::LoadPage(const std::string& url)
 		{
 			CefString cef_url;
 			cef_url.FromString(url);
