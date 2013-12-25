@@ -52,8 +52,6 @@ namespace ld3d
 
 		m_pPageRenderer->SetRenderTarget(m_pTexture);
 
-
-
 		return true;
 	}
 	bool HtmlOverlay::ResizeTexture(uint32 w, uint32 h)
@@ -81,5 +79,17 @@ namespace ld3d
 	bool HtmlOverlay::_handle_input(EventPtr pEvent)
 	{
 		return m_pPageRenderer->ProcessInput(pEvent);
+	}
+	void HtmlOverlay::Show(bool show)
+	{
+		Overlay::Show(show);
+		if(m_pPageRenderer)
+		{
+			m_pPageRenderer->SetVisible(show);
+		}
+	}
+	void HtmlOverlay::LoadPage(const std::string& url)
+	{
+		m_pPageRenderer->LoadPage(url);
 	}
 }

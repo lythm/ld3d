@@ -23,7 +23,7 @@ namespace ld3d
 		void										SetZOrder(int32 z);
 
 		bool										IsVisible();
-		void										Show(bool show);
+		virtual void								Show(bool show);
 
 		math::RectI									GetRect();
 		void										SetRect(const math::RectI& r);

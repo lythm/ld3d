@@ -7,6 +7,12 @@ namespace ld3d
 	public:
 		Console(void);
 		virtual ~Console(void);
+
+
+		bool												Initialize();
+		void												Release();
+	private:
+		HtmlOverlayPtr										m_pConsoleWnd;
 	};
 
 

@@ -22,6 +22,10 @@ namespace ld3d
 	}
 	RenderDataPtr TextureOverlay::PrepareRenderData()
 	{
+		if(IsVisible() == false)
+		{
+			return nullptr;
+		}
 		float screen_w = (float)m_pRenderManager->GetFrameBufferWidth();
 		float screen_h = (float)m_pRenderManager->GetFrameBufferHeight();
 

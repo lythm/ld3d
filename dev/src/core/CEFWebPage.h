@@ -50,7 +50,13 @@ namespace ld3d
 
 			void												Destroy();
 			bool												ProcessInput(EventPtr pEvent);
+			void												SetVisible(bool bVisible);
+			bool												IsVisible();
+
+			void												LoadPage(const std::string& url);
 		private:
+
+			bool												m_visible;
 
 			TexturePtr											m_pTexture;
 
@@ -72,8 +78,14 @@ namespace ld3d
 			void												Release();
 
 			bool												ProcessInput(EventPtr pEvent);
+
+			void												SetVisible(bool visible);
+
+			void												LoadPage(const std::string& url);
 		private:
 			CefRefPtr<CEFWebPage>								m_pPage;
+
+			
 		};
 	}
 }

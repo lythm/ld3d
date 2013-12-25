@@ -6,7 +6,14 @@ RenderState rs
 	DepthFunc						= ALWAYS;
 	DepthWriteMask					= ZERO;
 	StencilEnable					= false;
-	BlendEnable						= false;
+	BlendEnable						= true;
+	BlendSrcRGB						= SRC_ALPHA;
+	BlendDstRGB						= INV_SRC_ALPHA;
+	BLENDRGBOP						= ADD;
+	BlendSrcAlpha					= ONE;
+	BlendDstAlpha					= ONE;
+	BLENDALPHAop					= ADD;
+
 };
 
 Technique T1

@@ -13,13 +13,17 @@ namespace ld3d
 		CEFWebpageRenderer::CEFWebpageRenderer(CefRefPtr<CEFWebPage> pPage)
 		{
 			m_pPage = pPage;
+			
 		}
 
 		CEFWebpageRenderer::~CEFWebpageRenderer()
 		{
 			m_pPage = nullptr;
 		}
-
+		void CEFWebpageRenderer::SetVisible(bool visible)
+		{
+			m_pPage->SetVisible(visible);
+		}
 		bool CEFWebpageRenderer::ProcessInput(EventPtr pEvent)
 		{
 			return m_pPage->ProcessInput(pEvent);
@@ -30,6 +34,10 @@ namespace ld3d
 			{
 				m_pPage->Destroy();
 			}
+		}
+		void CEFWebpageRenderer::LoadPage(const std::string& url)
+		{
+			m_pPage->LoadPage(url);
 		}
 		void CEFWebpageRenderer::SetRenderTarget(TexturePtr pTexture)
 		{
@@ -43,6 +51,7 @@ namespace ld3d
 
 		CEFWebPage::CEFWebPage(void)
 		{
+			m_visible = true;
 		}
 
 
@@ -114,7 +123,7 @@ namespace ld3d
 			int width, int height)
 		{
 
-			if(m_pTexture == nullptr)
+			if(m_pTexture == nullptr || IsVisible() == false)
 			{
 				return;
 			}
@@ -170,7 +179,7 @@ namespace ld3d
 					cef_key.focus_on_editable_field = true;
 					cef_key.is_system_key = false;
 					cef_key.native_key_code = pKey->key_code;
-					cef_key.type = pKey->keyboard_state->KeyDown(pKey->key_code) ? KEYEVENT_KEYDOWN : KEYEVENT_KEYUP;
+					cef_key.type = pKey->keyboard_state->KeyDown(pKey->key_code) ? KEYEVENT_RAWKEYDOWN : KEYEVENT_KEYUP;
 					cef_key.windows_key_code = pKey->vk_code;
 					m_pBrowser->GetHost()->SendKeyEvent(cef_key);
 				}
@@ -180,6 +189,20 @@ namespace ld3d
 
 			}
 			return true;
+		}
+		void CEFWebPage::SetVisible(bool bVisible)
+		{
+			m_visible = bVisible;
+		}
+		bool CEFWebPage::IsVisible()
+		{
+			return m_visible;
+		}
+		void CEFWebPage::LoadPage(const std::string& url)
+		{
+			CefString cef_url;
+			cef_url.FromString(url);
+			m_pBrowser->GetMainFrame()->LoadURL(cef_url);
 		}
 	}
 }

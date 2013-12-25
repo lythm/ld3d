@@ -79,7 +79,7 @@ namespace ld3d
 	}
 	void UIManager::_prepare_render_data(OverlayPtr pRoot)
 	{
-		if(pRoot == nullptr)
+		if(pRoot == nullptr || pRoot->IsVisible() == false)
 		{
 			return;
 		}

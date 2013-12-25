@@ -11,5 +11,12 @@ namespace ld3d
 	Console::~Console(void)
 	{
 	}
+	bool Console::Initialize()
+	{
+		return true;
+	}
+	void Console::Release()
+	{
 
+	}
 }

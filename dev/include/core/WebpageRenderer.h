@@ -13,6 +13,8 @@ namespace ld3d
 		virtual bool										ProcessInput(EventPtr pEvent)								= 0;
 		virtual void										SetRenderTarget(TexturePtr pTarget)							= 0;
 		virtual void										Release()													= 0;
+		virtual void										SetVisible(bool visible)									= 0;
+		virtual void										LoadPage(const std::string& url)							= 0;
 
 	};
 }

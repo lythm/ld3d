@@ -17,6 +17,9 @@ namespace ld3d
 
 		void									OnResize(uint32 w, uint32 h);
 
+		void									Show(bool show);
+
+		void									LoadPage(const std::string& url);
 	private:
 		bool									ResizeTexture(uint32 w, uint32 h);
 		bool									_handle_input(EventPtr pEvent);
