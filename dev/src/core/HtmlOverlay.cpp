@@ -11,8 +11,6 @@ namespace ld3d
 {
 	HtmlOverlay::HtmlOverlay(UIManagerPtr pUIManager) : Overlay(pUIManager)
 	{
-
-		on_input = std::bind(&HtmlOverlay::_handle_input, this, std::placeholders::_1);
 	}
 
 
@@ -75,10 +73,6 @@ namespace ld3d
 	{
 		ResizeTexture(w, h);
 		m_pTexOverlay->Resize(w, h);
-	}
-	bool HtmlOverlay::_handle_input(EventPtr pEvent)
-	{
-		return m_pPageRenderer->ProcessInput(pEvent);
 	}
 	void HtmlOverlay::Show(bool show)
 	{

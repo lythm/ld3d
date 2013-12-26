@@ -22,7 +22,7 @@ namespace ld3d
 		void									LoadPage(const std::string& url);
 	private:
 		bool									ResizeTexture(uint32 w, uint32 h);
-		bool									_handle_input(EventPtr pEvent);
+
 	private:
 		TextureOverlayPtr						m_pTexOverlay;
 		TexturePtr								m_pTexture;

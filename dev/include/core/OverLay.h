@@ -47,9 +47,6 @@ namespace ld3d
 
 		bool										IsFocus() const;
 		void										SetFocus(bool bFocus);
-		bool										DispatchInputEvent(EventPtr pEvent);
-
-		InputEventHandler							on_input;
 
 	protected:
 		int32										m_zOrder;

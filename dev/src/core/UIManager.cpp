@@ -28,7 +28,7 @@ namespace ld3d
 
 
 		m_pCEFManager				= alloc_object<cef::CEFManager>();
-		if(m_pCEFManager->Initialize() == false)
+		if(m_pCEFManager->Initialize(m_pCore) == false)
 		{
 			return false;
 		}
@@ -61,7 +61,7 @@ namespace ld3d
 	}
 	bool UIManager::DispatchInputEvent(EventPtr pEvent)
 	{
-		return m_pOverlayRoot->DispatchInputEvent(pEvent);
+		return true;
 	}
 	void UIManager::AddOverlay(OverlayPtr pLayer)
 	{

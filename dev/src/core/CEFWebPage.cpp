@@ -10,24 +10,29 @@ namespace ld3d
 {
 	namespace cef
 	{
-		CEFWebpageRenderer::CEFWebpageRenderer(CefRefPtr<CEFWebpage> pPage)
+		CEFWebpageRenderer::CEFWebpageRenderer(CoreApiPtr pCore, CefRefPtr<CEFWebpage> pPage)
 		{
 			m_pPage = pPage;
-			
+			m_pCore = pCore;
+
+			m_pCore->AddEventHandler(EV_WINMSG, std::bind(&CEFWebpageRenderer::_on_win_msg, this, std::placeholders::_1));
 		}
 
 		CEFWebpageRenderer::~CEFWebpageRenderer()
 		{
 			m_pPage = nullptr;
 		}
+		void CEFWebpageRenderer::_on_win_msg(EventPtr pEvent)
+		{
+			Event_WindowMessage* pMsg = (Event_WindowMessage*)pEvent.get();
+
+			m_pPage->HandleWinMsg(pMsg->msg);
+		}
 		void CEFWebpageRenderer::SetVisible(bool visible)
 		{
 			m_pPage->SetVisible(visible);
 		}
-		bool CEFWebpageRenderer::ProcessInput(EventPtr pEvent)
-		{
-			return m_pPage->ProcessInput(pEvent);
-		}
+		
 		void CEFWebpageRenderer::Release()
 		{
 			if(m_pPage)
@@ -142,54 +147,7 @@ namespace ld3d
 			m_pTexture = nullptr;
 
 		}
-		bool CEFWebpage::ProcessInput(EventPtr pEvent)
-		{
-			m_pBrowser->GetHost()->SendFocusEvent(true);
-
-			switch(pEvent->id)
-			{
-			case EV_CHAR:
-				{
-					Event_Char* pChar = (Event_Char*)pEvent.get();
-					CefKeyEvent cef_key;
-
-					cef_key.character = pChar->key_code;
-					cef_key.focus_on_editable_field = true;
-					cef_key.is_system_key = false;
-					cef_key.native_key_code = pChar->key_code;
-					cef_key.type = KEYEVENT_CHAR;
-					cef_key.windows_key_code = pChar->key_code;
-					m_pBrowser->GetHost()->SendKeyEvent(cef_key);
-
-					//// backspace
-					//if(pChar->key_code == 8)
-					//{
-					//	cef_key.type = KEYEVENT_KEYDOWN;
-					//
-					//	m_pBrowser->GetHost()->SendKeyEvent(cef_key);
-					//}
-				}
-				break;
-			case EV_KEYBOARD_STATE:
-				{
-					Event_KeyboardState* pKey = (Event_KeyboardState*)pEvent.get();
-					CefKeyEvent cef_key;
-
-					cef_key.character = pKey->vk_code;
-					cef_key.focus_on_editable_field = true;
-					cef_key.is_system_key = false;
-					cef_key.native_key_code = pKey->key_code;
-					cef_key.type = pKey->keyboard_state->KeyDown(pKey->key_code) ? KEYEVENT_RAWKEYDOWN : KEYEVENT_KEYUP;
-					cef_key.windows_key_code = pKey->vk_code;
-					m_pBrowser->GetHost()->SendKeyEvent(cef_key);
-				}
-				break;
-			default:
-				break;
-
-			}
-			return true;
-		}
+		
 		void CEFWebpage::SetVisible(bool bVisible)
 		{
 			m_visible = bVisible;
@@ -203,6 +161,134 @@ namespace ld3d
 			CefString cef_url;
 			cef_url.FromString(url);
 			m_pBrowser->GetMainFrame()->LoadURL(cef_url);
+		}
+		void CEFWebpage::HandleWinMsg(MSG& msg)
+		{
+			switch(msg.message)
+			{
+			case WM_SETFOCUS:
+			case WM_KILLFOCUS:
+			     m_pBrowser->GetHost()->SendFocusEvent(msg.message == WM_SETFOCUS);
+				 break;
+			case WM_SYSCHAR:
+			case WM_SYSKEYDOWN:
+			case WM_SYSKEYUP:
+			case WM_KEYDOWN:
+			case WM_KEYUP:
+			case WM_CHAR: 
+				{
+					CefKeyEvent event;
+					event.windows_key_code		= msg.wParam;
+					event.native_key_code		= msg.lParam;
+					event.is_system_key			= msg.message == WM_SYSCHAR || msg.message == WM_SYSKEYDOWN || msg.message == WM_SYSKEYUP;
+					event.character				 = msg.wParam;
+
+					if (msg.message == WM_KEYDOWN || msg. message == WM_SYSKEYDOWN)
+					{
+						event.type = KEYEVENT_RAWKEYDOWN;
+					}
+					else if (msg.message == WM_KEYUP || msg.message == WM_SYSKEYUP)
+					{
+						event.type = KEYEVENT_KEYUP;
+					}
+					else
+					{
+						event.type = KEYEVENT_CHAR;
+					}
+					event.modifiers = GetCefKeyboardModifiers(msg.wParam, msg.lParam);
+					m_pBrowser->GetHost()->SendKeyEvent(event);
+
+					break;
+				}
+			default:
+				break;
+			}
+		}
+
+		bool CEFWebpage::IsKeyDown(WPARAM wparam) 
+		{
+			return (GetKeyState(wparam) & 0x8000) != 0;
+		}
+		int CEFWebpage::GetCefKeyboardModifiers(WPARAM wparam, LPARAM lparam)
+		{
+			int modifiers = 0;
+			if (IsKeyDown(VK_SHIFT))
+				modifiers |= EVENTFLAG_SHIFT_DOWN;
+			if (IsKeyDown(VK_CONTROL))
+				modifiers |= EVENTFLAG_CONTROL_DOWN;
+			if (IsKeyDown(VK_MENU))
+				modifiers |= EVENTFLAG_ALT_DOWN;
+
+			// Low bit set from GetKeyState indicates "toggled".
+			if (::GetKeyState(VK_NUMLOCK) & 1)
+				modifiers |= EVENTFLAG_NUM_LOCK_ON;
+			if (::GetKeyState(VK_CAPITAL) & 1)
+				modifiers |= EVENTFLAG_CAPS_LOCK_ON;
+
+			switch (wparam) 
+			{
+			case VK_RETURN:
+				if ((lparam >> 16) & KF_EXTENDED)
+					modifiers |= EVENTFLAG_IS_KEY_PAD;
+				break;
+			case VK_INSERT:
+			case VK_DELETE:
+			case VK_HOME:
+			case VK_END:
+			case VK_PRIOR:
+			case VK_NEXT:
+			case VK_UP:
+			case VK_DOWN:
+			case VK_LEFT:
+			case VK_RIGHT:
+				if (!((lparam >> 16) & KF_EXTENDED))
+					modifiers |= EVENTFLAG_IS_KEY_PAD;
+				break;
+			case VK_NUMLOCK:
+			case VK_NUMPAD0:
+			case VK_NUMPAD1:
+			case VK_NUMPAD2:
+			case VK_NUMPAD3:
+			case VK_NUMPAD4:
+			case VK_NUMPAD5:
+			case VK_NUMPAD6:
+			case VK_NUMPAD7:
+			case VK_NUMPAD8:
+			case VK_NUMPAD9:
+			case VK_DIVIDE:
+			case VK_MULTIPLY:
+			case VK_SUBTRACT:
+			case VK_ADD:
+			case VK_DECIMAL:
+			case VK_CLEAR:
+				modifiers |= EVENTFLAG_IS_KEY_PAD;
+				break;
+			case VK_SHIFT:
+				if (IsKeyDown(VK_LSHIFT))
+					modifiers |= EVENTFLAG_IS_LEFT;
+				else if (IsKeyDown(VK_RSHIFT))
+					modifiers |= EVENTFLAG_IS_RIGHT;
+				break;
+			case VK_CONTROL:
+				if (IsKeyDown(VK_LCONTROL))
+					modifiers |= EVENTFLAG_IS_LEFT;
+				else if (IsKeyDown(VK_RCONTROL))
+					modifiers |= EVENTFLAG_IS_RIGHT;
+				break;
+			case VK_MENU:
+				if (IsKeyDown(VK_LMENU))
+					modifiers |= EVENTFLAG_IS_LEFT;
+				else if (IsKeyDown(VK_RMENU))
+					modifiers |= EVENTFLAG_IS_RIGHT;
+				break;
+			case VK_LWIN:
+				modifiers |= EVENTFLAG_IS_LEFT;
+				break;
+			case VK_RWIN:
+				modifiers |= EVENTFLAG_IS_RIGHT;
+				break;
+			}
+			return modifiers;
 		}
 	}
 }

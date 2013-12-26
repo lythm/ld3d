@@ -18,49 +18,53 @@ namespace ld3d
 			CEFWebpage(void);
 			virtual ~CEFWebpage(void);
 
-			void												SetRenderTarget(TexturePtr pTexture);
+			void														SetRenderTarget(TexturePtr pTexture);
 
 
-			CefRefPtr<CefDisplayHandler> GetDisplayHandler() OVERRIDE;
+			CefRefPtr<CefDisplayHandler>								GetDisplayHandler() OVERRIDE;
 
-			CefRefPtr<CefLifeSpanHandler> GetLifeSpanHandler() OVERRIDE;
+			CefRefPtr<CefLifeSpanHandler>								GetLifeSpanHandler() OVERRIDE;
 
-			CefRefPtr<CefLoadHandler> GetLoadHandler() OVERRIDE ;
+			CefRefPtr<CefLoadHandler>									GetLoadHandler() OVERRIDE ;
 
-			CefRefPtr<CefRenderHandler> GetRenderHandler();
-			
-			void OnAfterCreated(CefRefPtr<CefBrowser> browser) OVERRIDE;
-			void OnBeforeClose(CefRefPtr<CefBrowser> browser) OVERRIDE;
+			CefRefPtr<CefRenderHandler>									GetRenderHandler();
 
-			void OnLoadError(CefRefPtr<CefBrowser> browser,
-				CefRefPtr<CefFrame> frame,
-				ErrorCode errorCode,
-				const CefString& errorText,
-				const CefString& failedUrl) OVERRIDE;
+			void														OnAfterCreated(CefRefPtr<CefBrowser> browser) OVERRIDE;
+			void														OnBeforeClose(CefRefPtr<CefBrowser> browser) OVERRIDE;
 
-
-			bool GetViewRect(CefRefPtr<CefBrowser> browser, CefRect& rect);
-
-			void OnPaint(CefRefPtr<CefBrowser> browser,
-				PaintElementType type,
-				const RectList& dirtyRects,
-				const void* buffer,
-				int width, int height);
+			void														OnLoadError(CefRefPtr<CefBrowser> browser,
+																			CefRefPtr<CefFrame> frame,
+																			ErrorCode errorCode,
+																			const CefString& errorText,
+																			const CefString& failedUrl) OVERRIDE;
 
 
-			void												Destroy();
-			bool												ProcessInput(EventPtr pEvent);
-			void												SetVisible(bool bVisible);
-			bool												IsVisible();
+			bool														GetViewRect(CefRefPtr<CefBrowser> browser, CefRect& rect);
 
-			void												LoadPage(const std::string& url);
+			void														OnPaint(CefRefPtr<CefBrowser> browser,
+																			PaintElementType type,
+																			const RectList& dirtyRects,
+																			const void* buffer,
+																			int width, int height);
+
+
+			void														Destroy();
+			void														SetVisible(bool bVisible);
+			bool														IsVisible();
+
+			void														LoadPage(const std::string& url);
+
+			void														HandleWinMsg(MSG& msg);
 		private:
 
-			bool												m_visible;
+			int															GetCefKeyboardModifiers(WPARAM wparam, LPARAM lparam);
+			bool														IsKeyDown(WPARAM wparam);
+		private:
+			bool														m_visible;
 
-			TexturePtr											m_pTexture;
+			TexturePtr													m_pTexture;
 
-			CefRefPtr<CefBrowser>								m_pBrowser;
+			CefRefPtr<CefBrowser>										m_pBrowser;
 
 			IMPLEMENT_REFCOUNTING(CEFWebpage);
 		};
@@ -69,23 +73,25 @@ namespace ld3d
 		class CEFWebpageRenderer : public WebpageRenderer
 		{
 		public:
-			CEFWebpageRenderer(CefRefPtr<CEFWebpage> pPage);
+			CEFWebpageRenderer(CoreApiPtr pCore, CefRefPtr<CEFWebpage> pPage);
 
 			virtual ~CEFWebpageRenderer();
 
-			void												SetRenderTarget(TexturePtr pTexture);
+			void														SetRenderTarget(TexturePtr pTexture);
 
-			void												Release();
+			void														Release();
 
-			bool												ProcessInput(EventPtr pEvent);
+			void														SetVisible(bool visible);
 
-			void												SetVisible(bool visible);
+			void														LoadPage(const std::string& url);
 
-			void												LoadPage(const std::string& url);
 		private:
-			CefRefPtr<CEFWebpage>								m_pPage;
+			void														_on_win_msg(EventPtr pEvent);
+		private:
+			CefRefPtr<CEFWebpage>										m_pPage;
+			CoreApiPtr													m_pCore;
 
-			
+
 		};
 	}
 }

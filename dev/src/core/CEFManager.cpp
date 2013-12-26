@@ -16,8 +16,9 @@ namespace ld3d
 		CEFManager::~CEFManager(void)
 		{
 		}
-		bool CEFManager::Initialize()
+		bool CEFManager::Initialize(CoreApiPtr pCore)
 		{
+			m_pCore = pCore;
 			CefMainArgs main_args(GetModuleHandle(NULL));
 
 			m_pApp = new CEFApp;
@@ -62,7 +63,7 @@ namespace ld3d
 			CefRefPtr<CefBrowser> pBrowser = CefBrowserHost::CreateBrowserSync(window_info, handler.get(), url, browser_settings);
 
 
-			CEFWebpageRendererPtr pRenderer = alloc_object<CEFWebpageRenderer>(handler);
+			CEFWebpageRendererPtr pRenderer = alloc_object<CEFWebpageRenderer>(m_pCore, handler);
 
 			return pRenderer;
 		}

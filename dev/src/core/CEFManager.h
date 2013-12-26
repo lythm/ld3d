@@ -12,7 +12,7 @@ namespace ld3d
 			CEFManager(void);
 			virtual ~CEFManager(void);
 
-			bool								Initialize();
+			bool								Initialize(CoreApiPtr pCore);
 			void								Release();
 
 			void								Update();
@@ -22,6 +22,7 @@ namespace ld3d
 		private:
 
 			CefRefPtr<CEFApp>					m_pApp;
+			CoreApiPtr							m_pCore;
 		};
 	}
 }

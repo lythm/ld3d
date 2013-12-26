@@ -12,9 +12,9 @@ namespace ld3d
 			CEFApp(void);
 			virtual ~CEFApp(void);
 
-			CefRefPtr<CefBrowserProcessHandler> GetBrowserProcessHandler() OVERRIDE;
+			CefRefPtr<CefBrowserProcessHandler>						GetBrowserProcessHandler() OVERRIDE;
 
-			void OnContextInitialized() OVERRIDE;
+			void													OnContextInitialized() OVERRIDE;
 
 		private:
 			// Include the default reference counting implementation.
