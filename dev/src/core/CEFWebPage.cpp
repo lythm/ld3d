@@ -458,9 +458,17 @@ namespace ld3d
 			m_screenX = x;
 			m_screenY = y;
 		}
-		void CEFWebpage::OnPopupShow(CefRefPtr<CefBrowser> browser, bool show)
+		bool CEFWebpage::OnBeforePopup(CefRefPtr<CefBrowser> browser,
+											 CefRefPtr<CefFrame> frame,
+											 const CefString& target_url,
+											 const CefString& target_frame_name,
+											 const CefPopupFeatures& popupFeatures,
+											 CefWindowInfo& windowInfo,
+											 CefRefPtr<CefClient>& client,
+											 CefBrowserSettings& settings,
+											 bool* no_javascript_access)
 		{
-			int i = 0;
+			return true;
 		}
 	}
 }
