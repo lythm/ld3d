@@ -39,7 +39,9 @@ namespace ld3d
 	CoreApi::CoreApi(Logger logger)
 	{
 		m_runmode					= RM_RT;
-		s_logger = logger;
+		s_logger					= logger;
+
+		m_mainWndHandle				= nullptr;
 	}
 
 
@@ -104,6 +106,7 @@ namespace ld3d
 	}
 	bool CoreApi::Initialize(const SysSetting& setting, Allocator* pAlloc, DT_CoreApiPtr pDTCore)
 	{
+		m_mainWndHandle				= setting.main_wnd;
 		app_delegate				= setting.app_delegate;
 		m_pDTCore					= pDTCore;
 		m_runmode					= m_pDTCore == nullptr ? RM_RT : RM_DT;
@@ -492,6 +495,10 @@ namespace ld3d
 	UIManagerPtr CoreApi::GetUIManager()
 	{
 		return m_pUIManager;
+	}
+	void* CoreApi::GetMainWndHandle()
+	{
+		return m_mainWndHandle;
 	}
 	
 }

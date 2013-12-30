@@ -6,6 +6,9 @@
 #include "core_utils.h"
 #include "core/Event.h"
 
+
+#include <windowsx.h>
+
 namespace ld3d
 {
 	namespace cef
@@ -32,7 +35,10 @@ namespace ld3d
 		{
 			m_pPage->SetVisible(visible);
 		}
-		
+		void CEFWebpageRenderer::SetScreenCoord(int x, int y)
+		{
+			m_pPage->SetScreenCoord(x, y);
+		}
 		void CEFWebpageRenderer::Release()
 		{
 			if(m_pPage)
@@ -53,10 +59,11 @@ namespace ld3d
 		}
 
 
-
 		CEFWebpage::CEFWebpage(void)
 		{
 			m_visible = true;
+
+			m_screenX = m_screenY = 0;
 		}
 
 
@@ -147,7 +154,7 @@ namespace ld3d
 			m_pTexture = nullptr;
 
 		}
-		
+
 		void CEFWebpage::SetVisible(bool bVisible)
 		{
 			m_visible = bVisible;
@@ -162,14 +169,23 @@ namespace ld3d
 			cef_url.FromString(url);
 			m_pBrowser->GetMainFrame()->LoadURL(cef_url);
 		}
+
+		void CEFWebpage::GetMouseLocalCoord(LPARAM lParam, int& x, int& y)
+		{
+			x = GET_X_LPARAM(lParam);
+			y = GET_Y_LPARAM(lParam);
+
+			x -= m_screenX;
+			y -= m_screenY;
+		}
 		void CEFWebpage::HandleWinMsg(MSG& msg)
 		{
 			switch(msg.message)
 			{
 			case WM_SETFOCUS:
 			case WM_KILLFOCUS:
-			     m_pBrowser->GetHost()->SendFocusEvent(msg.message == WM_SETFOCUS);
-				 break;
+				m_pBrowser->GetHost()->SendFocusEvent(msg.message == WM_SETFOCUS);
+				break;
 			case WM_SYSCHAR:
 			case WM_SYSKEYDOWN:
 			case WM_SYSKEYUP:
@@ -200,11 +216,135 @@ namespace ld3d
 
 					break;
 				}
+
+			case WM_LBUTTONDOWN:
+			case WM_RBUTTONDOWN:
+			case WM_MBUTTONDOWN:
+				{
+					int x = 0;
+					int y = 0;
+
+					GetMouseLocalCoord(msg.lParam, x, y);
+
+					CefBrowserHost::MouseButtonType btnType =
+						(msg.message == WM_LBUTTONDOWN ? MBT_LEFT : (
+						msg.message == WM_RBUTTONDOWN ? MBT_RIGHT : MBT_MIDDLE));
+
+					if (m_pBrowser.get()) 
+					{
+						CefMouseEvent mouse_event;
+						mouse_event.x = x;
+						mouse_event.y = y;
+						mouse_event.modifiers = GetCefMouseModifiers(msg.wParam);
+						m_pBrowser->GetHost()->SendMouseClickEvent(mouse_event, btnType, false, 1);
+					}
+				}
+				break;
+
+			case WM_LBUTTONUP:
+			case WM_RBUTTONUP:
+			case WM_MBUTTONUP:
+				{
+					int x = 0;
+					int y = 0;
+
+					GetMouseLocalCoord(msg.lParam, x, y);
+
+					CefBrowserHost::MouseButtonType btnType =
+						(msg.message == WM_LBUTTONUP ? MBT_LEFT : (
+						msg.message == WM_RBUTTONUP ? MBT_RIGHT : MBT_MIDDLE));
+					if (m_pBrowser.get()) 
+					{
+						CefMouseEvent mouse_event;
+						mouse_event.x = x;
+						mouse_event.y = y;
+						
+						mouse_event.modifiers = GetCefMouseModifiers(msg.wParam);
+						m_pBrowser->GetHost()->SendMouseClickEvent(mouse_event, btnType, true, 1);
+					}
+				}
+				break;
+
+			case WM_MOUSEMOVE: 
+				{
+					int x = 0;
+					int y = 0;
+
+					GetMouseLocalCoord(msg.lParam, x, y);
+
+					if (m_pBrowser.get())
+					{
+						CefMouseEvent mouse_event;
+						mouse_event.x = x;
+						mouse_event.y = y;
+						mouse_event.modifiers = GetCefMouseModifiers(msg.wParam);
+						m_pBrowser->GetHost()->SendMouseMoveEvent(mouse_event, false);
+					}
+				}
+				break;
+
+			/*case WM_MOUSELEAVE:
+
+				if (m_pBrowser.get()) 
+				{
+					CefMouseEvent mouse_event;
+					mouse_event.x = 0;
+					mouse_event.y = 0;
+					mouse_event.modifiers = GetCefMouseModifiers(msg.wParam);
+					m_pBrowser->GetHost()->SendMouseMoveEvent(mouse_event, true);
+				}
+				break;*/
+
+			case WM_MOUSEWHEEL:
+				if (m_pBrowser.get())
+				{
+					POINT screen_point = {GET_X_LPARAM(msg.lParam), GET_Y_LPARAM(msg.lParam)};
+
+					if(IsPointInside(screen_point.x, screen_point.y) == false)
+					{
+						break;
+					}
+					int delta = GET_WHEEL_DELTA_WPARAM(msg.wParam);
+					
+					int x = 0;
+					int y = 0;
+
+					GetMouseLocalCoord(msg.lParam, x, y);
+
+					CefMouseEvent mouse_event;
+					mouse_event.x = x;
+					mouse_event.y = y;
+
+					mouse_event.modifiers = GetCefMouseModifiers(msg.wParam);
+
+					m_pBrowser->GetHost()->SendMouseWheelEvent(mouse_event, IsKeyDown(VK_SHIFT) ? delta : 0, !IsKeyDown(VK_SHIFT) ? delta : 0);
+				}
+				break;
+			case WM_CAPTURECHANGED:
+			case WM_CANCELMODE:
+				if (m_pBrowser.get())
+				{
+					m_pBrowser->GetHost()->SendCaptureLostEvent();
+				}
+				break;
 			default:
 				break;
 			}
 		}
+		bool CEFWebpage::IsPointInside(int screenX, int screenY)
+		{
+			if(screenX < m_screenX || screenX > m_screenX + m_pTexture->GetWidth())
+			{
+				return false;
+			}
 
+			if(screenY < m_screenY || screenY > m_screenY + m_pTexture->GetHeight())
+			{
+				return false;
+			}
+
+			return true;
+		}
 		bool CEFWebpage::IsKeyDown(WPARAM wparam) 
 		{
 			return (GetKeyState(wparam) & 0x8000) != 0;
@@ -289,6 +429,38 @@ namespace ld3d
 				break;
 			}
 			return modifiers;
+		}
+		int CEFWebpage::GetCefMouseModifiers(WPARAM wparam)
+		{
+			int modifiers = 0;
+			if (wparam & MK_CONTROL)
+				modifiers |= EVENTFLAG_CONTROL_DOWN;
+			if (wparam & MK_SHIFT)
+				modifiers |= EVENTFLAG_SHIFT_DOWN;
+			if (IsKeyDown(VK_MENU))
+				modifiers |= EVENTFLAG_ALT_DOWN;
+			if (wparam & MK_LBUTTON)
+				modifiers |= EVENTFLAG_LEFT_MOUSE_BUTTON;
+			if (wparam & MK_MBUTTON)
+				modifiers |= EVENTFLAG_MIDDLE_MOUSE_BUTTON;
+			if (wparam & MK_RBUTTON)
+				modifiers |= EVENTFLAG_RIGHT_MOUSE_BUTTON;
+
+			// Low bit set from GetKeyState indicates "toggled".
+			if (::GetKeyState(VK_NUMLOCK) & 1)
+				modifiers |= EVENTFLAG_NUM_LOCK_ON;
+			if (::GetKeyState(VK_CAPITAL) & 1)
+				modifiers |= EVENTFLAG_CAPS_LOCK_ON;
+			return modifiers;
+		}
+		void CEFWebpage::SetScreenCoord(int x, int y)
+		{
+			m_screenX = x;
+			m_screenY = y;
+		}
+		void CEFWebpage::OnPopupShow(CefRefPtr<CefBrowser> browser, bool show)
+		{
+			int i = 0;
 		}
 	}
 }

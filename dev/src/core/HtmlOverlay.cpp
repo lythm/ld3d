@@ -50,6 +50,10 @@ namespace ld3d
 
 		m_pPageRenderer->SetRenderTarget(m_pTexture);
 
+		int x = 0;
+		int y = 0;
+		GetScreenCoord(x, y);
+		m_pPageRenderer->SetScreenCoord(x, y);
 		return true;
 	}
 	bool HtmlOverlay::ResizeTexture(uint32 w, uint32 h)
@@ -67,6 +71,11 @@ namespace ld3d
 	}
 	RenderDataPtr HtmlOverlay::PrepareRenderData()
 	{
+		int x = 0;
+		int y = 0;
+		GetScreenCoord(x, y);
+		m_pPageRenderer->SetScreenCoord(x, y);
+
 		return RenderDataPtr();
 	}
 	void HtmlOverlay::OnResize(uint32 w, uint32 h)

@@ -14,6 +14,6 @@ namespace ld3d
 		virtual void										Release()													= 0;
 		virtual void										SetVisible(bool visible)									= 0;
 		virtual void										LoadPage(const std::string& url)							= 0;
-
+		virtual void										SetScreenCoord(int x, int y)								= 0;
 	};
 }

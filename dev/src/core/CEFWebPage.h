@@ -29,6 +29,8 @@ namespace ld3d
 
 			CefRefPtr<CefRenderHandler>									GetRenderHandler();
 
+
+			void														OnPopupShow(CefRefPtr<CefBrowser> browser, bool show);
 			void														OnAfterCreated(CefRefPtr<CefBrowser> browser) OVERRIDE;
 			void														OnBeforeClose(CefRefPtr<CefBrowser> browser) OVERRIDE;
 
@@ -55,11 +57,19 @@ namespace ld3d
 			void														LoadPage(const std::string& url);
 
 			void														HandleWinMsg(MSG& msg);
-		private:
 
+			void														SetScreenCoord(int x, int y);
+		private:
+			bool														IsPointInside(int screenX, int screenY);
+			void														GetMouseLocalCoord(LPARAM lParam, int& x, int& y);
+			int															GetCefMouseModifiers(WPARAM wparam);
 			int															GetCefKeyboardModifiers(WPARAM wparam, LPARAM lparam);
 			bool														IsKeyDown(WPARAM wparam);
 		private:
+
+			int															m_screenX;
+			int															m_screenY;
+
 			bool														m_visible;
 
 			TexturePtr													m_pTexture;
@@ -85,6 +95,7 @@ namespace ld3d
 
 			void														LoadPage(const std::string& url);
 
+			void														SetScreenCoord(int x, int y);
 		private:
 			void														_on_win_msg(EventPtr pEvent);
 		private:

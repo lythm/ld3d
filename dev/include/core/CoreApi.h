@@ -79,6 +79,8 @@ namespace ld3d
 
 		const FrameMetric&								GetFrameMetric();
 
+		void*											GetMainWndHandle();
+
 	private:
 		void											UpdateFrame(float dt);
 		void											RenderFrame();
@@ -118,6 +120,7 @@ namespace ld3d
 		GameManagerPtr									m_pGameManager;
 
 		FrameMetric										m_frameMetric;
-		
+
+		void*											m_mainWndHandle;
 	};
 }

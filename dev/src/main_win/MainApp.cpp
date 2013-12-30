@@ -37,6 +37,7 @@ namespace ld3d
 	}
 
 	bool												MainApp::m_bActive = true;
+
 	MainApp::MainApp(void)
 	{
 		m_hInst	= NULL;
@@ -172,7 +173,6 @@ namespace ld3d
 	
 	void MainApp::Release()
 	{
-
 		OnRelease();
 	}
 	LRESULT CALLBACK MainApp::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
@@ -195,6 +195,24 @@ namespace ld3d
 		case WM_KEYDOWN:
 			break;
 		case WM_KEYUP:
+			break;
+
+		case WM_LBUTTONDOWN:
+		case WM_RBUTTONDOWN:
+		case WM_MBUTTONDOWN:
+
+			SetCapture(hWnd);
+			SetFocus(hWnd);
+
+			break;
+		case WM_LBUTTONUP:
+		case WM_RBUTTONUP:
+		case WM_MBUTTONUP:
+			
+			if (GetCapture() == hWnd)
+			{
+				ReleaseCapture();
+			}
 			break;
 		default:
 			return DefWindowProc(hWnd, message, wParam, lParam);

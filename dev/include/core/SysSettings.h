@@ -20,16 +20,16 @@ namespace ld3d
 			multiSampleQuality	= 0;
 			backBufferCount		= 2;
 		}
-		std::string			sysMod;
-		void*				wnd;
-		bool				windowed;
-		int					frameBufferWidth;
-		int					frameBufferHeight;
-		G_FORMAT			frameBufferFormat;
-		G_FORMAT			depthStencilFormat;
-		int					multiSampleCount;
-		int					multiSampleQuality;
-		int					backBufferCount;
+		std::string							sysMod;
+		void*								wnd;
+		bool								windowed;
+		int									frameBufferWidth;
+		int									frameBufferHeight;
+		G_FORMAT							frameBufferFormat;
+		G_FORMAT							depthStencilFormat;
+		int									multiSampleCount;
+		int									multiSampleQuality;
+		int									backBufferCount;
 
 	};
 
@@ -39,8 +39,8 @@ namespace ld3d
 		{
 			maxChannels = 0;
 		}
-		std::string		sysMod;
-		int					maxChannels;
+		std::string							sysMod;
+		int									maxChannels;
 	};
 	struct InputSetting
 	{
@@ -48,19 +48,20 @@ namespace ld3d
 		{
 			wnd = nullptr;
 		}
-		std::string		sysMod;
-		void*				wnd;
+		std::string							sysMod;
+		void*								wnd;
 	};
 	struct PhysicsSetting
 	{
-		std::string		sysMod;
+		std::string							sysMod;
 	};
 	struct NetworkSettting
 	{
-		std::string		sysMod;
+		std::string							sysMod;
 	};
 	struct SysSetting
 	{
+		void*								main_wnd;
 		GraphicsSetting						graphics;
 		InputSetting						input;
 		SoundSetting						sound;
