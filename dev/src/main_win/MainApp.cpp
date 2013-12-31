@@ -9,6 +9,7 @@ namespace ld3d
 {
 	static std::ofstream						s_log;
 
+	static MainApp								g_app;
 	void open_log()
 	{
 		boost::filesystem::path p("./log");
@@ -47,6 +48,7 @@ namespace ld3d
 
 		m_clientWidth		= 0;
 		m_clientHeight		= 0;
+		m_bInitialized		= false;
 
 	}
 
@@ -132,6 +134,7 @@ namespace ld3d
 			return false;
 		}
 
+		m_bInitialized = true;
 		return true;
 	}
 
@@ -177,6 +180,12 @@ namespace ld3d
 	}
 	LRESULT CALLBACK MainApp::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	{
+		MSG msg;
+		msg.hwnd = hWnd;
+		msg.lParam = lParam;
+		msg.message = message;
+		msg.wParam = wParam;
+		g_app.HandleMessage(msg);
 		switch (message)
 		{
 		case WM_DESTROY:
@@ -187,11 +196,7 @@ namespace ld3d
 			m_bActive = LOWORD(wParam) != 0;
 
 			break;
-		case WM_CHAR:
-			{
-				
-			}
-			break;
+		
 		case WM_KEYDOWN:
 			break;
 		case WM_KEYUP:
@@ -227,8 +232,6 @@ namespace ld3d
 		{
 			while( PeekMessage( &msg, NULL, 0, 0, PM_REMOVE ) )
 			{
-				HandleMessage(msg);
-
 				TranslateMessage( &msg );
 				DispatchMessage( &msg );
 			
@@ -337,6 +340,10 @@ namespace ld3d
 	
 	void MainApp::HandleMessage(MSG& msg)
 	{
+		if(m_bInitialized == false)
+		{
+			return;
+		}
 		if(m_pCore)
 		{
 			m_pCore->HandleMessage(msg);
@@ -361,15 +368,15 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	UNREFERENCED_PARAMETER(lpCmdLine);
 
 	using namespace ld3d;
-	MainApp app;
+	
 
-	if(false == app.Initialize(hInstance, "Main Window", 800, 600))
+	if(false == g_app.Initialize(hInstance, "Main Window", 800, 600))
 	{
 		return -1;
 	}
-	app.Run();
+	g_app.Run();
 
-	app.Release();
+	g_app.Release();
 
 	return 0;
 }

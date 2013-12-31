@@ -35,7 +35,7 @@ namespace ld3d
 		//m_pPage->LoadPage("file:///./assets/standard/gui/debug_console/wc.html");
 		m_pPage->LoadPage("www.youku.com");
 
-		m_pPage->MoveTo(0, 100);
+		//m_pPage->MoveTo(0, 100);
 		return true;
 	}
 	void UIViewer::Release()

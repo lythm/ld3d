@@ -19,6 +19,7 @@ namespace ld3d
 
 			WebpageRendererPtr					CreateWebpageRenderer(const std::string& url);
 
+			//bool								RegisterScriptApi(const std::string& name, 
 		private:
 
 			CefRefPtr<CEFApp>					m_pApp;

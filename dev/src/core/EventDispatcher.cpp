@@ -16,6 +16,15 @@ namespace ld3d
 	
 	void EventDispatcher::DispatchEvent(EventPtr pEvent)
 	{
+		/*if(pEvent->id == EV_WINMSG)
+		{
+			Event_WindowMessage* pMsg = (Event_WindowMessage*)pEvent.get();
+			if(pMsg->msg.message == WM_CHAR)
+			{
+				logger() << (char)pMsg->msg.wParam;
+			}
+		}*/
+
 		std::shared_ptr<Signal> pHandlers = m_HandlerMap[pEvent->id];
 		if(pHandlers)
 		{

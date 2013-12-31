@@ -61,6 +61,8 @@ namespace ld3d
 
 		CoreApiPtr												m_pCore;
 		MainConfigPtr											m_pConfig;
+
+		bool													m_bInitialized;
 	};
 
 

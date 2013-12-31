@@ -9,6 +9,8 @@
 
 #include <windowsx.h>
 
+#include <boost/function_types/result_type.hpp>
+
 namespace ld3d
 {
 	namespace cef
@@ -210,6 +212,8 @@ namespace ld3d
 					else
 					{
 						event.type = KEYEVENT_CHAR;
+
+						//logger() << (char)msg.wParam;
 					}
 					event.modifiers = GetCefKeyboardModifiers(msg.wParam, msg.lParam);
 					m_pBrowser->GetHost()->SendKeyEvent(event);

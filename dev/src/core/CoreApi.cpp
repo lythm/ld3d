@@ -383,6 +383,7 @@ namespace ld3d
 		default:
 			break;
 		}
+
 		m_pEventDispatcher->DispatchEvent(pEvent);
 	}
 	EventHandlerID CoreApi::AddEventHandler(uint32 id, EventHandler handler)
