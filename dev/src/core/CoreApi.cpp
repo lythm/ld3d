@@ -30,6 +30,10 @@
 #include "core/Event.h"
 #include "GameManager.h"
 
+
+#include "Console.h"
+
+
 namespace ld3d
 {
 	Allocator*										CoreApi::s_pAllocator;
@@ -216,6 +220,13 @@ namespace ld3d
 		m_lastFrameTime = m_pSysTime->Second();
 
 
+		m_pConsole = alloc_object<Console>();
+		if(m_pConsole->Initialize(shared_from_this()) == false)
+		{
+			return false;
+		}
+		ShowConsole(false);
+
 		EventPtr pEvent = alloc_object<Event, uint32>(EV_ENGINE_INITIALIZED);
 
 		DispatchEvent(pEvent);
@@ -232,6 +243,7 @@ namespace ld3d
 
 		pEvent.reset();
 
+		_release_and_reset(m_pConsole);
 
 		_release_and_reset(m_pGameManager);
 
@@ -500,6 +512,10 @@ namespace ld3d
 	void* CoreApi::GetMainWndHandle()
 	{
 		return m_mainWndHandle;
+	}
+	void CoreApi::ShowConsole(bool show)
+	{
+		m_pConsole->Show(show);
 	}
 	
 }

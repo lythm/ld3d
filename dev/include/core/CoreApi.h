@@ -10,6 +10,7 @@
 
 namespace ld3d
 {
+	class Console;
 
 	class _DLL_CLASS CoreApi : public std::enable_shared_from_this<CoreApi>
 	{
@@ -81,6 +82,7 @@ namespace ld3d
 
 		void*											GetMainWndHandle();
 
+		void											ShowConsole(bool show);
 	private:
 		void											UpdateFrame(float dt);
 		void											RenderFrame();
@@ -122,5 +124,7 @@ namespace ld3d
 		FrameMetric										m_frameMetric;
 
 		void*											m_mainWndHandle;
+
+		std::shared_ptr<Console>						m_pConsole;
 	};
 }

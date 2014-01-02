@@ -90,12 +90,13 @@ namespace ld3d
 			m_pRenderManager->AddRenderData(layer_overlay, pData);
 		}
 
+		pRoot->SortChildren();
 
 		std::list<OverlayPtr> child_list = pRoot->GetChildList();
-		std::list<OverlayPtr>::iterator begin = child_list.begin();
-		std::list<OverlayPtr>::iterator end = child_list.end();
+		std::list<OverlayPtr>::reverse_iterator begin = child_list.rbegin();
+		std::list<OverlayPtr>::reverse_iterator end = child_list.rend();
 
-		for(std::list<OverlayPtr>::iterator it = begin; it != end; ++it)
+		for(std::list<OverlayPtr>::reverse_iterator it = begin; it != end; ++it)
 		{
 			_prepare_render_data(*it);
 		}

@@ -182,6 +182,10 @@ namespace ld3d
 		}
 		void CEFWebpage::HandleWinMsg(MSG& msg)
 		{
+			if(m_visible == false)
+			{
+				return;
+			}
 			switch(msg.message)
 			{
 			case WM_SETFOCUS:

@@ -162,7 +162,8 @@ function Console(canvas_id) {
 			case "sys_help":
 				this.writeln("sys_help:				print sys command list.");
 				this.writeln("sys_bgclr:			change background color.");
-				this.writeln("sys_fgclr:			change foreground color.")
+				this.writeln("sys_fgclr:			change foreground color.");
+				this.writeln("sys_run_js:			run javascript code.");
 				break;
 			case "sys_bgclr":
 				
@@ -192,7 +193,19 @@ function Console(canvas_id) {
 					this.fontcolor = result[1];
 					this.draw();
 				}
-
+				break;
+			case "sys_run_js":
+				var result = cmdln.slice(cmd.length + 1);
+				
+				if(result.length == 0)
+				{
+					this.writeln("invalid parameter.");
+				}
+				else
+				{
+					eval(result);
+					this.draw();
+				}
 				break;
 			default:
 				return false;

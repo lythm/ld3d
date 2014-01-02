@@ -9,11 +9,17 @@ namespace ld3d
 		virtual ~Console(void);
 
 
-		bool												Initialize();
+		bool												Initialize(CoreApiPtr pCore);
 		void												Release();
+
+		void												Show(bool show);
+
+	private:
+		void												_on_key(EventPtr pEvent);
 	private:
 		HtmlOverlayPtr										m_pConsoleWnd;
+		CoreApiPtr											m_pCore;
+
+
 	};
-
-
 }

@@ -8,8 +8,26 @@ namespace ld3d
 {
 	namespace cef
 	{
+		template<typename F>
+		class function_reg
+		{
+		public:
+			function_reg()
+			{
+			}
+			void register_function()
+			{
+				F::result_type ret;
+
+				bool v = typeid(F::result_type) == typeid(bool);
+			}
+
+		};
+
 		CEFManager::CEFManager(void)
 		{
+			function_reg<decltype(std::bind(&CEFManager::Initialize, this, std::placeholders::_1))> f;
+			f.register_function();
 		}
 
 

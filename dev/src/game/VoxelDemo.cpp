@@ -128,20 +128,6 @@ bool VoxelDemo::Init(ld3d::CoreApiPtr pCore)
 //	m_pCore->GetSysInput()->ShowCursor(false);
 
 
-	TexturePtr pTex = m_pCore->GetRenderManager()->CreateTextureFromFile("./assets/standard/texture/overlay.dds");
-
-	TextureOverlayPtr pT1 = m_pCore->GetUIManager()->CreateTextureOverlay("t1", math::RectI(10, 10, pTex->GetWidth() + 10, pTex->GetHeight() + 10), pTex);
-
-
-	pTex = m_pCore->GetRenderManager()->CreateTextureFromFile("./assets/standard/texture/002.dds");
-
-	HtmlOverlayPtr pT2 = m_pCore->GetUIManager()->CreateHtmlOverlay("t2", math::RectI(0, 0, 1024, 768), "file:///./assets/standard/gui/test_cef/index.html");
-
-	pT2->LoadPage("http://www.sina.com");
-	//pT2->LinkTo(pT1);
-	
-	pT1->MoveTo(100, 100);
-	pT1->Show(false);
 	return true;
 }
 void VoxelDemo::Release()
