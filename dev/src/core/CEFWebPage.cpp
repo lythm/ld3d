@@ -66,6 +66,8 @@ namespace ld3d
 			m_visible = true;
 
 			m_screenX = m_screenY = 0;
+
+			m_isTargetBlank	= true;
 		}
 
 
@@ -79,6 +81,8 @@ namespace ld3d
 			{
 				m_pBrowser->GetHost()->WasResized();
 			}
+
+			m_isTargetBlank = true;
 		}
 
 		CefRefPtr<CefDisplayHandler> CEFWebpage::GetDisplayHandler()
@@ -137,7 +141,7 @@ namespace ld3d
 			int width, int height)
 		{
 
-			if(m_pTexture == nullptr || IsVisible() == false)
+			if((m_pTexture == nullptr || IsVisible() == false) && m_isTargetBlank == false)
 			{
 				return;
 			}
@@ -149,6 +153,8 @@ namespace ld3d
 			memcpy(pData, buffer, width * height * 4);
 
 			m_pTexture->UnMap();*/
+
+			m_isTargetBlank = false;
 		}
 		void CEFWebpage::Destroy()
 		{

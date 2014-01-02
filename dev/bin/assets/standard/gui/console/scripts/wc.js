@@ -117,9 +117,9 @@ function Console(canvas_id) {
 					this.input_buffer = "";
 					break;
 				
-				
+				case 96:
+					break;
 				default:
-
 					this.input_buffer += ch;
 					break;
 			}

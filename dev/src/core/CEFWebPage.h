@@ -84,6 +84,8 @@ namespace ld3d
 
 			CefRefPtr<CefBrowser>										m_pBrowser;
 
+			bool														m_isTargetBlank;
+
 			IMPLEMENT_REFCOUNTING(CEFWebpage);
 		};
 
