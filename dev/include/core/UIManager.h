@@ -28,18 +28,15 @@ namespace ld3d
 
 		OverlayPtr										PickOverlay();
 	private:
-		void											_on_key(EventPtr pEvent);
-		void											_on_mouse_move(EventPtr pEvent);
-		void											_on_mouse_button(EventPtr pEvent);
-
-		void											_prepare_render_data(OverlayPtr pRoot);
-
-		
+		void											_traverse_tree_first_order(OverlayPtr pRoot, std::function<bool(OverlayPtr)> handler);
+	
 	private:
 		CoreApiPtr										m_pCore;
 		RenderManagerPtr								m_pRenderManager;
 		OverlayPtr										m_pOverlayRoot;
 
 		cef::CEFManagerPtr								m_pCEFManager;
+
+		OverlayPtr										m_pFocusOverlay;
 	};
 }

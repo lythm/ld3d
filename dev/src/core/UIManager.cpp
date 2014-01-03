@@ -50,15 +50,7 @@ namespace ld3d
 	{
 		
 	}
-	void UIManager::_on_key(EventPtr pEvent)
-	{
-	}
-	void UIManager::_on_mouse_move(EventPtr pEvent)
-	{
-	}
-	void UIManager::_on_mouse_button(EventPtr pEvent)
-	{
-	}
+	
 	bool UIManager::DispatchInputEvent(EventPtr pEvent)
 	{
 		return true;
@@ -70,24 +62,16 @@ namespace ld3d
 			pLayer->LinkTo(m_pOverlayRoot);
 		}
 	}
-	
-	void UIManager::PrepareForRendering()
+	void UIManager::_traverse_tree_first_order(OverlayPtr pRoot, std::function<bool(OverlayPtr)> handler)
 	{
-		m_pCEFManager->Update();
-
-		_prepare_render_data(m_pOverlayRoot);
-	}
-	void UIManager::_prepare_render_data(OverlayPtr pRoot)
-	{
-		if(pRoot == nullptr || pRoot->IsVisible() == false)
+		if(pRoot == nullptr)
 		{
 			return;
 		}
 
-		RenderDataPtr pData = pRoot->PrepareRenderData();
-		if(pData)
+		if(false == handler(pRoot))
 		{
-			m_pRenderManager->AddRenderData(layer_overlay, pData);
+			return;
 		}
 
 		pRoot->SortChildren();
@@ -98,11 +82,33 @@ namespace ld3d
 
 		for(std::list<OverlayPtr>::reverse_iterator it = begin; it != end; ++it)
 		{
-			_prepare_render_data(*it);
+			_traverse_tree_first_order(*it, handler);
 		}
-
-		
 	}
+	void UIManager::PrepareForRendering()
+	{
+		m_pCEFManager->Update();
+
+		RenderManagerPtr pManager = m_pRenderManager;
+
+		_traverse_tree_first_order(m_pOverlayRoot, 
+			[&](OverlayPtr pNode)->bool
+			{
+				if(pNode->IsVisible() == false)
+				{
+					return false;
+				}
+				RenderDataPtr pData = pNode->PrepareRenderData();
+				if(pData)
+				{
+					pManager->AddRenderData(layer_overlay, pData);
+				}
+				return true;
+			}
+		);
+
+	}
+	
 	OverlayPtr UIManager::CreateOverlay(const std::string& name, const math::RectI& rect)
 	{
 		OverlayPtr pO = alloc_object<Overlay>(shared_from_this());

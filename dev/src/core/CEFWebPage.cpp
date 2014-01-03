@@ -314,6 +314,8 @@ namespace ld3d
 				{
 					POINT screen_point = {GET_X_LPARAM(msg.lParam), GET_Y_LPARAM(msg.lParam)};
 
+					ScreenToClient(msg.hwnd, &screen_point);
+
 					if(IsPointInside(screen_point.x, screen_point.y) == false)
 					{
 						break;
