@@ -62,7 +62,7 @@ namespace ld3d
 			pLayer->LinkTo(m_pOverlayRoot);
 		}
 	}
-	void UIManager::_traverse_tree_first_order(OverlayPtr pRoot, std::function<bool(OverlayPtr)> handler)
+	void UIManager::_traverse_tree_preorder(OverlayPtr pRoot, std::function<bool(OverlayPtr)> handler)
 	{
 		if(pRoot == nullptr)
 		{
@@ -82,7 +82,7 @@ namespace ld3d
 
 		for(std::list<OverlayPtr>::reverse_iterator it = begin; it != end; ++it)
 		{
-			_traverse_tree_first_order(*it, handler);
+			_traverse_tree_preorder(*it, handler);
 		}
 	}
 	void UIManager::PrepareForRendering()
@@ -91,7 +91,7 @@ namespace ld3d
 
 		RenderManagerPtr pManager = m_pRenderManager;
 
-		_traverse_tree_first_order(m_pOverlayRoot, 
+		_traverse_tree_preorder(m_pOverlayRoot, 
 			[&](OverlayPtr pNode)->bool
 			{
 				if(pNode->IsVisible() == false)

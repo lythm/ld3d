@@ -28,7 +28,7 @@ namespace ld3d
 
 		OverlayPtr										PickOverlay();
 	private:
-		void											_traverse_tree_first_order(OverlayPtr pRoot, std::function<bool(OverlayPtr)> handler);
+		void											_traverse_tree_preorder(OverlayPtr pRoot, std::function<bool(OverlayPtr)> handler);
 	
 	private:
 		CoreApiPtr										m_pCore;
