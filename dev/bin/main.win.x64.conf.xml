@@ -12,6 +12,6 @@
     <package>voxel</package>
   </package_list>
 
-  <mod>uiviewer/uiviewer_x64.mod</mod>
+  <mod>game/game_x64.mod</mod>
 
 </main>
