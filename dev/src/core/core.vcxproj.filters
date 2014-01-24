@@ -72,6 +72,7 @@
     <ClCompile Include="CEFManager.cpp" />
     <ClCompile Include="CEFApp.cpp" />
     <ClCompile Include="CEFWebPage.cpp" />
+    <ClCompile Include="NavMesh.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\core\ArcBall.h" />
@@ -237,6 +238,7 @@
     <ClInclude Include="CEFApp.h" />
     <ClInclude Include="CEFWebPage.h" />
     <ClInclude Include="..\..\include\core\WebpageRenderer.h" />
+    <ClInclude Include="..\..\include\core\NavMesh.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

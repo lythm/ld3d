@@ -31,11 +31,8 @@ namespace ld3d
 		int h = m_pCore->GetRenderManager()->GetFrameBufferHeight();
 
 		m_pPage = m_pCore->GetUIManager()->CreateHtmlOverlay("Viewer", math::RectI(0, 0, w, h), "about:blank");
-
-		//m_pPage->LoadPage("file:///./assets/standard/gui/debug_console/wc.html");
 		m_pPage->LoadPage("www.youku.com");
 
-		//m_pPage->MoveTo(0, 100);
 		return true;
 	}
 	void UIViewer::Release()
