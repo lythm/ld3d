@@ -59,7 +59,6 @@
     <ClCompile Include="RenderSystem_FR.cpp" />
     <ClCompile Include="RenderSystem_DR.cpp" />
     <ClCompile Include="WinRawInput.cpp" />
-    <ClCompile Include="ActionMapping.cpp" />
     <ClCompile Include="UIManager.cpp" />
     <ClCompile Include="RenderQueue.cpp" />
     <ClCompile Include="PhysicsManager.cpp" />
@@ -73,6 +72,7 @@
     <ClCompile Include="CEFApp.cpp" />
     <ClCompile Include="CEFWebPage.cpp" />
     <ClCompile Include="NavMesh.cpp" />
+    <ClCompile Include="ActionManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\core\ArcBall.h" />
@@ -171,7 +171,6 @@
     <ClInclude Include="RenderSystem.h" />
     <ClInclude Include="..\..\include\core\input_types.h" />
     <ClInclude Include="WinRawInput.h" />
-    <ClInclude Include="..\..\include\core\ActionMapping.h" />
     <ClInclude Include="..\..\include\core\UIManager.h" />
     <ClInclude Include="RenderQueue.h" />
     <ClInclude Include="..\..\include\core\PhysicsManager.h" />
@@ -239,6 +238,7 @@
     <ClInclude Include="CEFWebPage.h" />
     <ClInclude Include="..\..\include\core\WebpageRenderer.h" />
     <ClInclude Include="..\..\include\core\NavMesh.h" />
+    <ClInclude Include="..\..\include\core\ActionManager.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
