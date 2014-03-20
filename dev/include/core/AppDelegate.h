@@ -11,5 +11,6 @@ namespace ld3d
 		std::function<void ()>										ExitApp;
 		std::function<void (int, int)>								SetWindowSize;
 		std::function<void (int&, int&)>							GetWindowSize;
+		std::function<bool ()>										IsWindowActive;
 	};
 }

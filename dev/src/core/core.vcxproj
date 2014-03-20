@@ -169,7 +169,6 @@
     <ClInclude Include="..\..\include\core\ArcBall.h" />
     <ClInclude Include="..\..\include\core\AssetsManager.h" />
     <ClInclude Include="..\..\include\core\BaseCamera.h" />
-    <ClInclude Include="..\..\include\core\BaseMaterial.h" />
     <ClInclude Include="..\..\include\core\BBoxRenderData.h" />
     <ClInclude Include="..\..\include\core\Bound.h" />
     <ClInclude Include="..\..\include\core\Camera.h" />
@@ -374,9 +373,6 @@
     <ClCompile Include="UIManager.cpp" />
     <ClCompile Include="ViewFrustum.cpp" />
     <ClCompile Include="WinRawInput.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

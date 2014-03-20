@@ -30,7 +30,7 @@ namespace ld3d
 		
 		MaterialParameterManagerPtr										m_pParamManager;
 
-		Sys_GraphicsPtr												m_pGraphics;
+		Sys_GraphicsPtr													m_pGraphics;
 
 		MaterialTechPtr													m_pCurrentTech;
 	};

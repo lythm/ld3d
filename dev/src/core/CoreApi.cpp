@@ -282,6 +282,9 @@ namespace ld3d
 			m_pSysTime->Stop();
 			m_pSysTime.reset();
 		}
+
+		
+
 		s_pAllocator	= nullptr;
 	}
 
@@ -378,6 +381,10 @@ namespace ld3d
 	}
 	void CoreApi::DispatchEvent(EventPtr pEvent)
 	{
+		if(m_pEventDispatcher == nullptr)
+		{
+			return;
+		}
 		switch(pEvent->id)
 		{
 		case EV_KEYBOARD_STATE:

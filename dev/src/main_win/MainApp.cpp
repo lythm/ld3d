@@ -280,7 +280,7 @@ namespace ld3d
 		setting.app_delegate.GetWindowSize = std::bind(&MainApp::GetClientSize, this, std::placeholders::_1, std::placeholders::_2);
 		setting.app_delegate.SetWindowSize = std::bind(&MainApp::AdjustWindow, this, std::placeholders::_1, std::placeholders::_2);
 		setting.app_delegate.SetWindowTitle = std::bind(&MainApp::SetTitle, this, std::placeholders::_1);
-
+		setting.app_delegate.IsWindowActive = std::bind(&MainApp::IsActive);
 
 		AdjustWindow(setting.graphics.frameBufferWidth, setting.graphics.frameBufferHeight);
 		CenterWindow();
