@@ -572,4 +572,8 @@ namespace ld3d
 
 		glViewport(0, 0, m_pCurrentRW->GetWidth(), m_pCurrentRW->GetHeight());
 	}
+	TexturePtr OGL4Graphics::CopyTexture2D(TexturePtr pTex)
+	{
+		return std::shared_ptr<OGL4Texture>();
+	}
 }
