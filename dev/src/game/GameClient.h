@@ -7,6 +7,10 @@ namespace client
 	public:
 		GameClient(void);
 		virtual ~GameClient(void);
+
+		bool								Initialize();
+		void								Release();
+		void								UpdateFrame();
 	};
 
 

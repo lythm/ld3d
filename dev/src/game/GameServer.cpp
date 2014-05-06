@@ -3,6 +3,9 @@
 
 namespace server
 {
+
+	ld3d::Logger				GameServer::s_logger;
+
 	GameServer::GameServer(void)
 	{
 	}
@@ -11,8 +14,13 @@ namespace server
 	GameServer::~GameServer(void)
 	{
 	}
-	bool GameServer::Initialize()
+	bool GameServer::Initialize(ld3d::Logger& logger)
 	{
+		s_logger = logger;
+
+
+
+
 		return true;
 	}
 	void GameServer::Release()
@@ -31,3 +39,4 @@ namespace server
 
 	}
 }
+

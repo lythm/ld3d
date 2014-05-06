@@ -9,10 +9,14 @@ namespace server
 		GameServer(void);
 		virtual ~GameServer(void);
 
-		bool										Initialize();
+		bool										Initialize(ld3d::Logger& logger);
 		void										Release();
 		void										Run();
+
 		void										RunFrame();
 
+	private:
+
+		static ld3d::Logger							s_logger;
 	};
 }

@@ -173,6 +173,7 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ConcurrentQueue.cpp" />
     <ClCompile Include="Config.cpp" />
     <ClCompile Include="Lexer.cpp" />
     <ClCompile Include="MemPool.cpp" />
@@ -191,6 +192,7 @@
     <ClCompile Include="Version.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\include\utils\ConcurrentQueue.h" />
     <ClInclude Include="..\..\include\utils\Config.h" />
     <ClInclude Include="..\..\include\utils\Lexer.h" />
     <ClInclude Include="..\..\include\utils\Linked.h" />

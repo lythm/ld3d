@@ -163,6 +163,7 @@
     <ClInclude Include="GameServer.h" />
     <ClInclude Include="game_pch.h" />
     <ClInclude Include="PlayerController.h" />
+    <ClInclude Include="Session.h" />
     <ClInclude Include="VoxelDemo.h" />
   </ItemGroup>
   <ItemGroup>
@@ -176,6 +177,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="PlayerController.cpp" />
+    <ClCompile Include="Session.cpp" />
     <ClCompile Include="VoxelDemo.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
