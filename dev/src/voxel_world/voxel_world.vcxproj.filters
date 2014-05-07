@@ -24,6 +24,9 @@
     <ClInclude Include="HeightmapUtils.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\voxel_world\Chunk.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="voxel_world_pch.cpp">
@@ -33,6 +36,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="HeightmapUtils.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunk.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

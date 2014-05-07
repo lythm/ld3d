@@ -1,5 +1,5 @@
 #pragma once
-namespace ld3d
+namespace ld3d_voxel
 {
 	class HeightmapUtils
 	{
@@ -18,6 +18,4 @@ namespace ld3d
 		static float							_fractal_avg_DiamondVals (int x, int z, int stride, int size, int segs, float *hm);
 		static float							_fractal_avg_SquareVals (int x, int z, int stride, int size, float *hm);
 	};
-
-
 }

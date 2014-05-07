@@ -3,7 +3,7 @@
 
 
 
-namespace ld3d
+namespace ld3d_voxel
 {
 	HeightmapUtils::HeightmapUtils(void)
 	{

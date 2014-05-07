@@ -1,6 +1,6 @@
 #pragma once
 
-namespace ld3d
+namespace ld3d_voxel
 {
 	class _DLL_CLASS VoxelWorld
 	{

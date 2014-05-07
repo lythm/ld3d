@@ -2,7 +2,7 @@
 
 #include "voxel_world/VoxelWorld.h"
 
-namespace ld3d
+namespace ld3d_voxel
 {
 	VoxelWorld::VoxelWorld(void)
 	{

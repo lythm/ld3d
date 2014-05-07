@@ -143,11 +143,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\include\voxel_world\Chunk.h" />
     <ClInclude Include="..\..\include\voxel_world\VoxelWorld.h" />
     <ClInclude Include="HeightmapUtils.h" />
     <ClInclude Include="voxel_world_pch.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Chunk.cpp" />
     <ClCompile Include="HeightmapUtils.cpp" />
     <ClCompile Include="VoxelWorld.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
