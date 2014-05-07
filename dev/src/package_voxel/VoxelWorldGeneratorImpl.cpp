@@ -8,6 +8,8 @@
 
 #include <boost/random.hpp>
 
+
+
 namespace ld3d
 {
 	VoxelWorldGeneratorImpl::VoxelWorldGeneratorImpl(GameObjectManagerPtr pManager) : VoxelWorldGenerator(pManager)
@@ -206,8 +208,185 @@ namespace ld3d
 
 		return pDataSet;
 	}
+	//VoxelWorldDataSetPtr VoxelWorldGeneratorImpl::Generate_Fractal(int sx, int sy, int sz, float h)
+	//{
+	//	int seed = os_get_tick();
+	//	float hscale = 1;
+
+	//	float ratio = (float) pow (2.,-h);
+	//	float scale = hscale * ratio;
+
+	//	srand(seed);
+
+
+	//	VoxelWorldDataSetPtr pDataSet = VoxelWorldDataSetPtr(new VoxelWorldDataSet);
+
+	//	pDataSet->Initialize(sx, sy, sz);
+
+	//	int d = sx < sz ? sz : sx;
+
+	//	int e = math::closest_expo(d);
+
+	//	d = e < d ? e << 1 : e;
+	//	d += 1;
+
+	//	float* height_map = new float[d * d];
+
+	//	memset(height_map, 0, sizeof(float) * d * d);
+
+
+	//	float init_value = 0;
+
+	//	height_map[0] = init_value;
+	//	height_map[d - 1] = init_value;
+	//	height_map[(d - 1) * d] = init_value;
+	//	height_map[(d - 1) * d + d - 1] = init_value;
+
+	//	int segs = d - 1;
+	//	int stride = segs / 2;
+
+	//	while(stride > 0)
+	//	{
+	//		for (int x=stride; x<segs; x+=stride) 
+	//		{
+	//			for (int z=stride; z<segs; z+=stride)
+	//			{
+	//				height_map[(x * d) + z] =
+	//					scale * _fractal_rand (.5f) +
+	//					_fractal_avg_SquareVals (x, z, stride, d, height_map);
+	//				z += stride;
+	//			}
+	//			x += stride;
+	//		}
+
+	//		int oddline = 0;
+	//		for (int x=0; x<segs; x+=stride) 
+	//		{
+	//			oddline = (oddline == 0);
+	//			for (int z=0; z<segs; z+=stride)
+	//			{
+	//				if ((oddline) && !z)
+	//				{
+	//					z +=stride;
+	//				}
+
+	//				height_map[(x * d) + z] =
+	//					scale * _fractal_rand (.5f) +
+	//					_fractal_avg_DiamondVals (x, z, stride, d, segs, height_map);
+
+	//				if (x==0)
+	//				{
+	//					height_map[(segs*d) + z] = height_map[(x * d) + z];
+	//				}
+	//				if (z==0)
+	//				{
+	//					height_map[(x*d) + segs] = height_map[(x * d) + z];
+	//				}
+
+	//				z +=stride;
+	//			}
+	//		}
+
+	//		scale *= ratio;
+	//		stride >>= 1;
+	//	}
+
+	//	for(int x = 0; x < sx; ++x)
+	//	{
+	//		for(int z = 0; z < sz; ++z)
+	//		{
+	//			float v = height_map[x * d + z];
+
+
+	//			
+	//			v *= 0.5;
+	//			v += 0.5;
+
+
+	//			v *= sy;
+	//			v = v > sy ? sy : v;
+	//			//v = v < 1 ? 1 : v;
+
+	//			for(int y = 0; y < (int)v; ++y)
+	//			{
+	//				if(y < 5)
+	//				{
+	//					pDataSet->AddVoxel(VT_SILVER, x, y, z);
+	//				}
+	//				else if( y < 10)
+	//				{
+	//					pDataSet->AddVoxel(VT_STONE, x, y, z);
+	//				}
+	//				else
+	//				{
+	//					pDataSet->AddVoxel(VT_GRASS, x, y, z);
+	//				}
+	//			}
+	//		}
+	//	}
+
+
+	//	for(int x = 0; x < sx; ++x)
+	//	{
+	//		for(int z = 0; z < sz; ++z)
+	//		{
+	//			uint8 t = pDataSet->GetVoxelType(x, 0, z);
+	//			if(t != VT_EMPTY)
+	//			{
+	//				continue;
+	//			}
+	//			pDataSet->AddVoxel(VT_WATER, x, 0, z);
+	//			
+	//		}
+	//	}
+
+	//	for(int x = 0; x < sx; ++x)
+	//	{
+	//		for(int z = 0; z < sz; ++z)
+	//		{
+	//			uint8 t = pDataSet->GetVoxelType(x + 1, 0, z);
+	//			
+	//			if(t != VT_EMPTY && t != VT_WATER)
+	//			{
+	//				pDataSet->ConvertVoxel(VT_BEACH, x + 1, 0, z);
+	//			}
+
+	//			t = pDataSet->GetVoxelType(x , 0, z + 1);
+	//			
+	//			if(t != VT_EMPTY && t != VT_WATER)
+	//			{
+	//				pDataSet->ConvertVoxel(VT_BEACH, x, 0, z + 1);
+	//			}
+
+	//			t = pDataSet->GetVoxelType(x , 0, z - 1);
+	//			
+	//			if(t != VT_EMPTY && t != VT_WATER)
+	//			{
+	//				pDataSet->ConvertVoxel(VT_BEACH, x, 0, z - 1);
+	//			}
+
+	//			t = pDataSet->GetVoxelType(x -1, 0, z);
+	//			
+	//			if(t != VT_EMPTY && t != VT_WATER)
+	//			{
+	//				pDataSet->ConvertVoxel(VT_BEACH, x - 1, 0, z);
+	//			}
+
+
+	//			pDataSet->AddVoxel(VT_WATER, x, 0, z);
+	//			
+	//		}
+	//	}
+
+
+	//	delete []height_map;
+
+	//	return pDataSet;
+
+	//}
 	VoxelWorldDataSetPtr VoxelWorldGeneratorImpl::Generate_Fractal(int sx, int sy, int sz, float h)
 	{
+
 		int seed = os_get_tick();
 		float hscale = 1;
 
@@ -382,7 +561,6 @@ namespace ld3d
 		return pDataSet;
 
 	}
-	
 	float VoxelWorldGeneratorImpl::_rand (float min, float max)
 	{
 		int r = rand();
