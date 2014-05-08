@@ -12,6 +12,10 @@ namespace ld3d
 
 			bool											Create();
 			void											Destroy();
+
+
+		private:
+			WorldGenPtr										m_pGen;
 		};
 
 	}

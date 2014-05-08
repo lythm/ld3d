@@ -11,10 +11,20 @@ namespace ld3d
 		{
 		}
 
-
 		WorldGen::~WorldGen(void)
 		{
 		}
-
+		bool WorldGen::GenAll()
+		{
+			return true;
+		}
+		bool WorldGen::GenChunk(const Coord& c)
+		{
+			return true;
+		}
+		bool WorldGen::GenRegion(const Coord& c, uint32 dx, uint32 dy, uint32 dz)
+		{
+			return true;
+		}
 	}
 }

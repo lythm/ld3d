@@ -20,6 +20,15 @@ namespace ld3d
 				z = 0;
 			}
 
+			bool operator ==(const Coord& c) const
+			{
+				return x == c.x && y == c.y && z == c.z;
+			}
+			bool operator!=(const Coord& c) const
+			{
+				return !operator==(c);
+			}
+
 			int32						x;
 			int32						y;
 			int32						z;

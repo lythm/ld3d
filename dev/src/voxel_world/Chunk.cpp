@@ -15,6 +15,13 @@ namespace ld3d
 		Chunk::~Chunk(void)
 		{
 		}
-
+		const ChunkKey& Chunk::GetKey() const
+		{
+			return m_key;
+		}
+		void Chunk::SetKey(const ChunkKey& key)
+		{
+			m_key = key;
+		}
 	}
 }

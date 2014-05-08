@@ -24,12 +24,12 @@ namespace ld3d
 			{
 			}
 
-			uint32												AsUint32()
+			uint32												AsUint32() const
 			{
 				return m_key;
 			}
 
-			Coord												ToCoord()
+			Coord												ToCoord() const
 			{
 				int32 c_x = (m_key >> 16) & 0x000000ff;
 				int32 c_y = (m_key >> 8) & 0x000000ff;
@@ -50,6 +50,14 @@ namespace ld3d
 				m_key = ((c_x << 16) | (c_y << 8) | (c_z));
 			}
 
+			bool operator ==(const ChunkKey& key) const
+			{
+				return m_key == key.AsUint32();
+			}
+			bool operator!=(const ChunkKey& key) const
+			{
+				return !operator==(key);
+			}
 
 		private:
 			uint32												m_key;

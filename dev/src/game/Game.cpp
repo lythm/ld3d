@@ -24,12 +24,12 @@ Game::~Game(void)
 }
 bool Game::Initialize(ld3d::CoreApiPtr pCore)
 {
-	//m_pDemo = new VoxelDemo;
+	m_pDemo = new VoxelDemo;
 
-	//if(m_pDemo->Init(pCore) == false)
-//	{
-	//	return false;
-	//}
+	if(m_pDemo->Init(pCore) == false)
+	{
+		return false;
+	}
 
 
 	m_pServer			= std::make_shared<server::GameServer>();
@@ -54,11 +54,11 @@ void Game::Release()
 	m_pServer->Release();
 
 	//m_pGraphcicsTest->Release();
-//	m_pDemo->Release();
+	m_pDemo->Release();
 }
 bool Game::Update(float dt)
 {
-	//m_pDemo->Update();
+	m_pDemo->Update();
 
 
 	m_pServer->RunFrame();
