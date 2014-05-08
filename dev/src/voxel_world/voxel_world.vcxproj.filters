@@ -18,13 +18,31 @@
     <ClInclude Include="voxel_world_pch.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\voxel_world\VoxelWorld.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="HeightmapUtils.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\voxel_world\Chunk.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\voxel_world\voxel_world_types.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\voxel_world\World.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\voxel_world\WorldGen.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\voxel_world\WorldGenPass.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ChunkHashmap.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\voxel_world\Coord.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\voxel_world\ChunkKey.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
@@ -32,13 +50,19 @@
     <ClCompile Include="voxel_world_pch.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="VoxelWorld.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="HeightmapUtils.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Chunk.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="World.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="WorldGen.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="ChunkHashmap.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

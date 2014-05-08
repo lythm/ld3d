@@ -1,4 +1,6 @@
 #pragma once
 
-#include "platform/platform.h"
-#include "math/math_all.h"
+#include "voxel_world/voxel_world_types.h"
+
+
+

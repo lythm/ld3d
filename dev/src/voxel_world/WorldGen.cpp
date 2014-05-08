@@ -1,5 +1,5 @@
 #include "voxel_world_pch.h"
-#include "..\..\include\voxel_world\Chunk.h"
+#include "voxel_world/WorldGen.h"
 
 
 namespace ld3d
@@ -7,12 +7,12 @@ namespace ld3d
 	namespace voxel
 	{
 
-		Chunk::Chunk(void)
+		WorldGen::WorldGen(void)
 		{
 		}
 
 
-		Chunk::~Chunk(void)
+		WorldGen::~WorldGen(void)
 		{
 		}
 
