@@ -146,12 +146,14 @@
     <ClInclude Include="..\..\include\voxel_world\Chunk.h" />
     <ClInclude Include="..\..\include\voxel_world\ChunkKey.h" />
     <ClInclude Include="..\..\include\voxel_world\Coord.h" />
+    <ClInclude Include="..\..\include\voxel_world\voxel_all.h" />
     <ClInclude Include="..\..\include\voxel_world\World.h" />
     <ClInclude Include="..\..\include\voxel_world\voxel_world_types.h" />
     <ClInclude Include="..\..\include\voxel_world\WorldGen.h" />
     <ClInclude Include="..\..\include\voxel_world\WorldGenPass.h" />
     <ClInclude Include="..\..\include\voxel_world\WorldGenPass_Caves.h" />
     <ClInclude Include="..\..\include\voxel_world\WorldGenPass_Moutains.h" />
+    <ClInclude Include="..\..\include\voxel_world\WorldGenPass_Water.h" />
     <ClInclude Include="ChunkHashmap.h" />
     <ClInclude Include="HeightmapUtils.h" />
     <ClInclude Include="voxel_world_pch.h" />
@@ -176,6 +178,7 @@
     <ClCompile Include="WorldGenPass_Mineral.cpp" />
     <ClCompile Include="WorldGenPass_Moutains.cpp" />
     <ClCompile Include="WorldGenPass_Plants.cpp" />
+    <ClCompile Include="WorldGenPass_Water.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

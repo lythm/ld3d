@@ -6,6 +6,14 @@ namespace ld3d
 {
 	namespace voxel
 	{
+
+		//
+		// |-8-|-8-|-8-|-8-|
+		//   0   x   y   z
+		//
+
+
+
 		class ChunkKey
 		{
 		public:
@@ -62,7 +70,6 @@ namespace ld3d
 		private:
 			uint32												m_key;
 		};
-
 
 	}
 }

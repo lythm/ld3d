@@ -1,5 +1,6 @@
 #pragma once
 
+
 namespace ld3d
 {
 	namespace voxel
@@ -16,6 +17,8 @@ namespace ld3d
 
 		private:
 			WorldGenPtr										m_pGen;
+
+			ChunkHasmapPtr									m_pChunkMap;
 		};
 
 	}

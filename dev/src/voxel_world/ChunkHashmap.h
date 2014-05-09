@@ -2,6 +2,9 @@
 
 #include "voxel_world/ChunkKey.h"
 
+
+#include "voxel_world/Chunk.h"
+
 namespace ld3d
 {
 	namespace voxel
@@ -12,10 +15,18 @@ namespace ld3d
 			ChunkHashmap(void);
 			virtual ~ChunkHashmap(void);
 
+			bool											Initialize();
+			void											Release();
+			ChunkPtr										FindChunk(const ChunkKey& key);
 
+			void											AddChunk(const ChunkKey& key, ChunkPtr pChunk);
+			ChunkPtr										RemoveChunk(const ChunkKey& key);
 		private:
-		};
 
+
+			std::vector<ChunkPtr>							m_chunks;
+
+		};
 
 	}
 }

@@ -6,11 +6,16 @@ namespace ld3d
 {
 	namespace voxel
 	{
-		class Chunk
+		class _DLL_CLASS Chunk
 		{
 		public:
 			Chunk(void);
 			virtual ~Chunk(void);
+
+			void											RemoveBlock(uint32 index);
+			void											ReplaceBlock(uint32 index, uint8 v);
+			void											AddBlock(uint32 index, uint8 v);
+
 
 			uint8&											operator[](uint32 index)
 			{
@@ -43,9 +48,15 @@ namespace ld3d
 			const ChunkKey&									GetKey() const;
 			void											SetKey(const ChunkKey& key);
 
+			ChunkPtr										GetNext();
+			void											SetNext(ChunkPtr pNext);
+
 		private:
 			uint8											m_data[CHUNK_SIZE * CHUNK_SIZE * CHUNK_SIZE];
 			ChunkKey										m_key;
+
+			ChunkPtr										m_pNext;
+			
 		};
 	}
 }
