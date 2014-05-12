@@ -1,5 +1,5 @@
 #include "voxel_world_pch.h"
-#include "WorldGenPass_Mineral.h"
+#include "voxel_world/WorldGenPass_Mineral.h"
 
 namespace ld3d
 {

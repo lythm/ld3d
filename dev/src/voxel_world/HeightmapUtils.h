@@ -13,6 +13,7 @@ namespace ld3d
 		public:
 			static bool								Fractal(float* height_map, int d, float s, int rand_seed);
 
+			static bool								Perlin(float* height_map, int d, int octaves,float freq,float amp,int seed);
 
 		private:
 			static float							_rand (float min, float max);

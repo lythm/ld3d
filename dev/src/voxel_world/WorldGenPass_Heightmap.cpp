@@ -1,5 +1,5 @@
 #include "voxel_world_pch.h"
-#include "WorldGenPass_Heightmap.h"
+#include "voxel_world/WorldGenPass_Heightmap.h"
 
 namespace ld3d
 {

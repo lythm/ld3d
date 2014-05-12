@@ -7,6 +7,8 @@
 
 #include "math/math_all.h"
 
+#include "utils/utils_all.h"
+
 #include <memory>
 
 namespace ld3d
@@ -22,14 +24,14 @@ namespace ld3d
 		class World;
 		class WorldGen;
 		class WorldGenPass;
-		class ChunkHasmap;
+		class ChunkHashmap;
 		class Chunk;
 
 
 		typedef std::shared_ptr<World>											WorldPtr;
 		typedef std::shared_ptr<WorldGen>										WorldGenPtr;
 		typedef std::shared_ptr<WorldGenPass>									WorldGenPassPtr;
-		typedef std::shared_ptr<ChunkHasmap>									ChunkHasmapPtr;
+		typedef std::shared_ptr<ChunkHashmap>									ChunkHashmapPtr;
 		typedef std::shared_ptr<Chunk>											ChunkPtr;
 
 

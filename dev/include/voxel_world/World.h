@@ -11,14 +11,14 @@ namespace ld3d
 			World(void);
 			virtual ~World(void);
 
-			bool											Create();
-			void											Destroy();
+			bool											Initialize();
 
+			void											Release();
 
 		private:
 			WorldGenPtr										m_pGen;
 
-			ChunkHasmapPtr									m_pChunkMap;
+			ChunkHashmapPtr									m_pChunkMap;
 		};
 
 	}

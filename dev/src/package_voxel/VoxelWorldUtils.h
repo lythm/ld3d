@@ -14,6 +14,7 @@ namespace ld3d
 			math::Vector3			normal;
 			math::Vector2			uv[4];
 			uint8					type;
+			math::Color4			ao[4];
 		};
 		struct FaceRegion
 		{
@@ -50,7 +51,7 @@ namespace ld3d
 		static uint32										chunk_local_to_index(uint32 x, uint32 y, uint32 z);
 	private:
 
-
+		static void											GenFaceAO(VoxelWorldChunk* pChunk, VoxelFace& face);
 
 
 	private:

@@ -15,8 +15,11 @@ namespace ld3d
 			bool												GenAll();
 			bool												GenChunk(const Coord& c);
 			bool												GenRegion(const Coord& c, uint32 dx, uint32 dy, uint32 dz); 
+
+
+
+		private:
+
 		};
-
-
 	}
 }

@@ -14,11 +14,11 @@ namespace ld3d
 		World::~World(void)
 		{
 		}
-		bool World::Create()
+		bool World::Initialize()
 		{
 			return true;
 		}
-		void World::Destroy()
+		void World::Release()
 		{
 		}
 

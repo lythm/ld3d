@@ -344,10 +344,15 @@ namespace ld3d
 
 				f.type = r[i].type;
 
+				
 				mesh.push_back(f);
 			}
 		}
-
+		for(int i = 0; i < mesh.size(); ++i)
+		{
+			GenFaceAO(pChunk, mesh[i]);
+		}
+		
 		std::sort(mesh.begin(), mesh.end(), [](VoxelFace& a,VoxelFace& b){return a.type < b.type;});
 
 		VoxelWorldMesh* pMesh = pChunk->GetMesh();
@@ -384,36 +389,42 @@ namespace ld3d
 				pData->pos = face.verts[0] + chunk_coord;
 				pData->normal = face.normal;
 				pData->uv = face.uv[0];
+				pData->ao = face.ao[0];
 				++pData;
 				sub.vertexCount++;
 
 				pData->pos = face.verts[1] + chunk_coord;
 				pData->normal = face.normal;
 				pData->uv = face.uv[1];
+				pData->ao = face.ao[1];
 				++pData;
 				sub.vertexCount++;
 
 				pData->pos = face.verts[2] + chunk_coord;
 				pData->normal = face.normal;
 				pData->uv = face.uv[2];
+				pData->ao = face.ao[2];
 				++pData;
 				sub.vertexCount++;
 
 				pData->pos = face.verts[1] + chunk_coord;
 				pData->normal = face.normal;
 				pData->uv = face.uv[1];
+				pData->ao = face.ao[1];
 				++pData;
 				sub.vertexCount++;
 
 				pData->pos = face.verts[3] + chunk_coord;
 				pData->normal = face.normal;
 				pData->uv = face.uv[3];
+				pData->ao = face.ao[3];
 				++pData;
 				sub.vertexCount++;
 
 				pData->pos = face.verts[2] + chunk_coord;
 				pData->normal = face.normal;
 				pData->uv = face.uv[2];
+				pData->ao = face.ao[2];
 
 				++pData;
 				sub.vertexCount++;
@@ -423,7 +434,41 @@ namespace ld3d
 	}
 	std::vector<VoxelWorldUtils::FaceRegion> VoxelWorldUtils::ExtractRegion(uint8 faces[VOXEL_WORLD_CHUNK_SIZE][VOXEL_WORLD_CHUNK_SIZE])
 	{
+
+
 		std::vector<FaceRegion> result;
+
+
+
+		//////////////////////////
+
+		for(int x = 0; x < VOXEL_WORLD_CHUNK_SIZE; ++x)
+		{
+			for(int y = 0; y < VOXEL_WORLD_CHUNK_SIZE; ++y)
+			{
+				if(faces[x][y] == VT_EMPTY)
+				{
+					continue;
+				}
+				FaceRegion r;
+				r.x1 = x;
+				r.y1 = y;
+
+				r.x2 = x ;
+				r.y2 = y ;
+
+				r.type = faces[x][y];
+				result.push_back(r);
+			}
+		}
+
+		return result;
+
+		//////////////////////////
+
+
+
+		
 
 		while(true)
 		{
@@ -452,6 +497,8 @@ namespace ld3d
 	}
 	bool VoxelWorldUtils::FindMaxRegion(uint8 faces[VOXEL_WORLD_CHUNK_SIZE][VOXEL_WORLD_CHUNK_SIZE], FaceRegion& r)
 	{
+		
+
 		struct Stride
 		{
 			int x, y;
@@ -592,5 +639,79 @@ namespace ld3d
 		}
 
 		return true;
+	}
+	void VoxelWorldUtils::GenFaceAO(VoxelWorldChunk* pChunk, VoxelFace& face)
+	{
+		VoxelWorldRegion* pRegion = pChunk->GetRegion();
+
+		uint32 c_x, c_y, c_z;
+
+		math::Vector3 chunk_coord = pChunk->GetChunkCoord();
+
+		c_x = (uint32)chunk_coord.x;
+		c_y = (uint32)chunk_coord.y;
+		c_z = (uint32)chunk_coord.z;
+
+		for(int i = 0; i < 4; ++i)
+		{
+			float ao = 0;
+
+			if(pRegion->Empty(face.verts[i].x + c_x + 0.5, face.verts[i].y + c_y + 0.5, face.verts[i].z + c_z + 0.5f))
+			{
+				ao ++;
+			}
+
+
+			if(pRegion->Empty(face.verts[i].x + c_x + 0.5, face.verts[i].y + c_y + 0.5, face.verts[i].z + c_z - 0.5f))
+			{
+				ao ++;
+			}
+
+
+			if(pRegion->Empty(face.verts[i].x + c_x -0.5 , face.verts[i].y + c_y + 0.5, face.verts[i].z + c_z + 0.5))
+			{
+				ao ++;
+			}
+
+
+			if(pRegion->Empty(face.verts[i].x + c_x - 0.5, face.verts[i].y + c_y + 0.5, face.verts[i].z + c_z - 0.5))
+			{
+				ao ++;
+			}
+
+
+			///
+			if(pRegion->Empty(face.verts[i].x + c_x + 0.5, face.verts[i].y + c_y - 0.5, face.verts[i].z + c_z + 0.5f))
+			{
+				ao ++;
+			}
+
+
+			if(pRegion->Empty(face.verts[i].x + c_x + 0.5, face.verts[i].y + c_y - 0.5, face.verts[i].z + c_z - 0.5f))
+			{
+				ao ++;
+			}
+
+
+			if(pRegion->Empty(face.verts[i].x + c_x -0.5 , face.verts[i].y + c_y - 0.5, face.verts[i].z + c_z + 0.5))
+			{
+				ao ++;
+			}
+
+
+			if(pRegion->Empty(face.verts[i].x + c_x - 0.5, face.verts[i].y + c_y - 0.5, face.verts[i].z + c_z - 0.5))
+			{
+				ao ++;
+			}
+
+			
+
+			ao = ao / 8.0f ;
+
+			ao += 0.3f;
+			ao = ao > 1? 1 : ao;
+
+			face.ao[i] = math::Color4(ao, ao, ao, 1);
+		}
 	}
 }

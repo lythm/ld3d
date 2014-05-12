@@ -10,6 +10,7 @@ namespace ld3d
 			math::Vector3										pos;
 			math::Vector3										normal;
 			math::Vector2										uv;
+			math::Color4										ao;
 		};
 
 

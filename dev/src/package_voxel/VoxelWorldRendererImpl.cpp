@@ -65,6 +65,7 @@ namespace ld3d
 		layout.AddAttribute(G_FORMAT_R32G32B32_FLOAT);
 		layout.AddAttribute(G_FORMAT_R32G32B32_FLOAT);
 		layout.AddAttribute(G_FORMAT_R32G32_FLOAT);
+		layout.AddAttribute(G_FORMAT_R32G32B32A32_FLOAT);
 		
 		m_pGeometry = m_pRenderManager->CreateGeometryData();
 		

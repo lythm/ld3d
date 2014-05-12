@@ -19,9 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{16DBE311-6118-4505-A0F5-F637B851712D}</ProjectGuid>
+    <ProjectGuid>{D4EBB8E9-4ADF-4937-AFA0-B7422E3FA7C8}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>voxel_world</RootNamespace>
+    <RootNamespace>voxel_editor</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -75,6 +75,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <OutDir>..\..\bin\mods\$(ProjectName)\</OutDir>
+    <TargetExt>.mod</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -87,8 +89,8 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;VOXEL_WORLD_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <PrecompiledHeaderFile>voxel_world_pch.h</PrecompiledHeaderFile>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;VOXEL_EDITOR_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeaderFile>voxel_editor_pch.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -100,24 +102,25 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;VOXEL_WORLD_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <PrecompiledHeaderFile>voxel_world_pch.h</PrecompiledHeaderFile>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;VOXEL_EDITOR_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeaderFile>voxel_editor_pch.h</PrecompiledHeaderFile>
+      <AdditionalOptions>/Zm121 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>platform.lib;utils.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>platform.lib;core.lib;voxel_world.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;VOXEL_WORLD_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <PrecompiledHeaderFile>voxel_world_pch.h</PrecompiledHeaderFile>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;VOXEL_EDITOR_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -134,7 +137,7 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;VOXEL_WORLD_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;VOXEL_EDITOR_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -144,44 +147,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\include\voxel_world\Chunk.h" />
-    <ClInclude Include="..\..\include\voxel_world\ChunkKey.h" />
-    <ClInclude Include="..\..\include\voxel_world\ChunkMesh.h" />
-    <ClInclude Include="..\..\include\voxel_world\Coord.h" />
-    <ClInclude Include="..\..\include\voxel_world\voxel_all.h" />
-    <ClInclude Include="..\..\include\voxel_world\World.h" />
-    <ClInclude Include="..\..\include\voxel_world\voxel_world_types.h" />
-    <ClInclude Include="..\..\include\voxel_world\WorldGen.h" />
-    <ClInclude Include="..\..\include\voxel_world\WorldGenPass.h" />
-    <ClInclude Include="..\..\include\voxel_world\WorldGenPass_Caves.h" />
-    <ClInclude Include="..\..\include\voxel_world\WorldGenPass_Heightmap.h" />
-    <ClInclude Include="..\..\include\voxel_world\WorldGenPass_Mineral.h" />
-    <ClInclude Include="..\..\include\voxel_world\WorldGenPass_Moutains.h" />
-    <ClInclude Include="..\..\include\voxel_world\WorldGenPass_Plants.h" />
-    <ClInclude Include="..\..\include\voxel_world\WorldGenPass_Water.h" />
-    <ClInclude Include="ChunkHashmap.h" />
-    <ClInclude Include="HeightmapUtils.h" />
-    <ClInclude Include="voxel_world_pch.h" />
+    <ClInclude Include="VoxelEditor.h" />
+    <ClInclude Include="voxel_editor_pch.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Chunk.cpp" />
-    <ClCompile Include="ChunkHashmap.cpp" />
-    <ClCompile Include="ChunkMesh.cpp" />
-    <ClCompile Include="HeightmapUtils.cpp" />
-    <ClCompile Include="World.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
-    </ClCompile>
-    <ClCompile Include="voxel_world_pch.cpp">
+    <ClCompile Include="VoxelEditor.cpp" />
+    <ClCompile Include="voxel_editor_pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="WorldGen.cpp" />
-    <ClCompile Include="WorldGenPass_Caves.cpp" />
-    <ClCompile Include="WorldGenPass_Heightmap.cpp" />
-    <ClCompile Include="WorldGenPass_Mineral.cpp" />
-    <ClCompile Include="WorldGenPass_Moutains.cpp" />
-    <ClCompile Include="WorldGenPass_Plants.cpp" />
-    <ClCompile Include="WorldGenPass_Water.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

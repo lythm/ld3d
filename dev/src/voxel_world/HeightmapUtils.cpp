@@ -15,6 +15,19 @@ namespace ld3d
 		HeightmapUtils::~HeightmapUtils(void)
 		{
 		}
+		bool HeightmapUtils::Perlin(float* height_map, int d, int octaves,float freq,float amp,int seed)
+		{
+			PerlinNoise pn(octaves, freq, amp, seed);
+
+			for(int x = 0; x < d;++x)
+			{
+				for(int z = 0; z < d; ++z)
+				{
+					height_map[x * d + z] = pn.Get(x, z);
+				}
+			}
+			return true;
+		}
 		bool HeightmapUtils::Fractal(float* height_map, int d, float s, int rand_seed)
 		{
 			int seed = rand_seed;
