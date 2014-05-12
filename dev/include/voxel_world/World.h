@@ -11,7 +11,7 @@ namespace ld3d
 			World(void);
 			virtual ~World(void);
 
-			bool											Initialize();
+			bool											Initialize(WorldGenPtr pGen);
 
 			void											Release();
 

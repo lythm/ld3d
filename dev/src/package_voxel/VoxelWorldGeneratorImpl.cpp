@@ -14,7 +14,7 @@ namespace ld3d
 {
 	VoxelWorldGeneratorImpl::VoxelWorldGeneratorImpl(GameObjectManagerPtr pManager) : VoxelWorldGenerator(pManager)
 	{
-		m_smooth = 0.9f;
+		m_smooth = 0.7f;
 	}
 
 

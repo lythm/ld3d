@@ -14,8 +14,10 @@ namespace ld3d
 		World::~World(void)
 		{
 		}
-		bool World::Initialize()
+		bool World::Initialize(WorldGenPtr pGen)
 		{
+			m_pGen = pGen;
+
 			return true;
 		}
 		void World::Release()
