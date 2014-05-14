@@ -69,6 +69,9 @@
     <ClInclude Include="..\..\include\voxel_world\ChunkMesh.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\voxel_world\Region.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="voxel_world_pch.cpp">
@@ -108,6 +111,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="ChunkMesh.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Region.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

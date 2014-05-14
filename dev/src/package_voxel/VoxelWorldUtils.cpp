@@ -712,6 +712,8 @@ namespace ld3d
 			ao = ao > 1? 1 : ao;
 
 			face.ao[i] = math::Color4(ao, ao, ao, 1);
+
+			//face.ao[i] = math::Color4(1, 1, 1, 1);
 		}
 	}
 }

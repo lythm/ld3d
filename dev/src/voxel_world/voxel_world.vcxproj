@@ -148,6 +148,7 @@
     <ClInclude Include="..\..\include\voxel_world\ChunkKey.h" />
     <ClInclude Include="..\..\include\voxel_world\ChunkMesh.h" />
     <ClInclude Include="..\..\include\voxel_world\Coord.h" />
+    <ClInclude Include="..\..\include\voxel_world\Region.h" />
     <ClInclude Include="..\..\include\voxel_world\voxel_all.h" />
     <ClInclude Include="..\..\include\voxel_world\World.h" />
     <ClInclude Include="..\..\include\voxel_world\voxel_world_types.h" />
@@ -168,6 +169,7 @@
     <ClCompile Include="ChunkHashmap.cpp" />
     <ClCompile Include="ChunkMesh.cpp" />
     <ClCompile Include="HeightmapUtils.cpp" />
+    <ClCompile Include="Region.cpp" />
     <ClCompile Include="World.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
