@@ -12,6 +12,6 @@
     <package>voxel</package>
   </package_list>
 
-  <mod>game/game_x64.mod</mod>
+  <mod>voxel_editor/voxel_editor_x64.mod</mod>
 
 </main>

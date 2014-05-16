@@ -8,8 +8,8 @@ namespace ld3d
 	{
 
 		//
-		// |-8-|-8-|-8-|-8-|
-		//   0   x   y   z
+		// |-2-|-10-|-10-|-10-|
+		//   0   x    y    z
 		//
 
 
@@ -39,9 +39,9 @@ namespace ld3d
 
 			Coord												ToCoord() const
 			{
-				int32 c_x = (m_key >> 16) & 0x000000ff;
-				int32 c_y = (m_key >> 8) & 0x000000ff;
-				int32 c_z = m_key & 0x000000ff;
+				int32 c_x = (m_key >> 20) & 0x000003ff;
+				int32 c_y = (m_key >> 10) & 0x000003ff;
+				int32 c_z = m_key & 0x000003ff;
 
 				int32 x = c_x * CHUNK_SIZE * BLOCK_SIZE;
 				int32 y = c_y * CHUNK_SIZE * BLOCK_SIZE;
@@ -51,11 +51,11 @@ namespace ld3d
 			}
 			void												FromCoord(const Coord& coord)
 			{
-				uint32 c_x = uint32(coord.x / CHUNK_SIZE);
-				uint32 c_y = uint32(coord.y / CHUNK_SIZE);
-				uint32 c_z = uint32(coord.z / CHUNK_SIZE);
+				uint32 c_x = uint32(coord.x / (CHUNK_SIZE * BLOCK_SIZE));
+				uint32 c_y = uint32(coord.y / (CHUNK_SIZE * BLOCK_SIZE));
+				uint32 c_z = uint32(coord.z / (CHUNK_SIZE * BLOCK_SIZE));
 
-				m_key = ((c_x << 16) | (c_y << 8) | (c_z));
+				m_key = ((c_x << 20) | (c_y << 10) | (c_z));
 			}
 
 			bool operator ==(const ChunkKey& key) const

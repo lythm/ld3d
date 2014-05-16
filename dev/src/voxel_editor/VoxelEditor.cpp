@@ -1,6 +1,8 @@
 #include "voxel_editor_pch.h"
 #include "VoxelEditor.h"
 
+#include <unordered_map>
+
 
 _DLL_API ld3d::GameInterface* CreateGame()
 {
@@ -27,6 +29,11 @@ namespace ld3d
 		bool VoxelEditor::Initialize(CoreApiPtr pCore)
 		{
 			WorldPtr pWorld = std::make_shared<World>();
+
+			std::unordered_map<uint32, uint32> map;
+
+			map[0] = 0;
+
 
 			return true;
 		}

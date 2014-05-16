@@ -5,6 +5,9 @@
 
 #include "voxel_world/Chunk.h"
 
+
+#include <unordered_map>
+
 namespace ld3d
 {
 	namespace voxel
