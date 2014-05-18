@@ -11,6 +11,7 @@
 
 #include <memory>
 
+
 namespace ld3d
 {
 	namespace voxel

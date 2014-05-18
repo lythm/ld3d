@@ -30,10 +30,7 @@ namespace ld3d
 		{
 			WorldPtr pWorld = std::make_shared<World>();
 
-			std::unordered_map<uint32, uint32> map;
-
-			map[0] = 0;
-
+			pWorld->Initialize(nullptr);
 
 			return true;
 		}

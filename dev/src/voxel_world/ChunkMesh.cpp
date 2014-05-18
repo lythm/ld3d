@@ -13,6 +13,9 @@ namespace ld3d
 		ChunkMesh::~ChunkMesh(void)
 		{
 		}
+		void ChunkMesh::UpdateMesh(WorldPtr pWorld, ChunkPtr pChunk)
+		{
 
+		}
 	}
 }

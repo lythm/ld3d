@@ -8,8 +8,8 @@ namespace ld3d
 	{
 
 		//
-		// |-2-|-10-|-10-|-10-|
-		//   0   x    y    z
+		// |28-|-8-|-28-|
+		//  x    y   z
 		//
 
 
@@ -18,7 +18,7 @@ namespace ld3d
 		{
 		public:
 
-			ChunkKey(uint32 key = 0xffffffff)
+			ChunkKey(uint64 key = 0xffffffffffffffff)
 			{
 				m_key											= key;
 			}
@@ -32,35 +32,35 @@ namespace ld3d
 			{
 			}
 
-			uint32												AsUint32() const
+			uint64												AsUint64() const
 			{
 				return m_key;
 			}
 
 			Coord												ToCoord() const
 			{
-				int32 c_x = (m_key >> 20) & 0x000003ff;
-				int32 c_y = (m_key >> 10) & 0x000003ff;
-				int32 c_z = m_key & 0x000003ff;
+				uint32 c_x = (m_key >> 36) & 0x000000000fffffff;
+				uint8 c_y = (m_key >> 28) & 0x00000000000000ff;
+				uint32 c_z = m_key & 0x000000000fffffff;
 
 				int32 x = c_x * CHUNK_SIZE * BLOCK_SIZE;
-				int32 y = c_y * CHUNK_SIZE * BLOCK_SIZE;
+				int8 y = c_y * CHUNK_SIZE * BLOCK_SIZE;
 				int32 z = c_z * CHUNK_SIZE * BLOCK_SIZE;
 
 				return Coord(x, y, z);
 			}
 			void												FromCoord(const Coord& coord)
 			{
-				uint32 c_x = uint32(coord.x / (CHUNK_SIZE * BLOCK_SIZE));
-				uint32 c_y = uint32(coord.y / (CHUNK_SIZE * BLOCK_SIZE));
-				uint32 c_z = uint32(coord.z / (CHUNK_SIZE * BLOCK_SIZE));
+				uint64 c_x = uint32(coord.x / (CHUNK_SIZE * BLOCK_SIZE));
+				uint64 c_y = uint8(coord.y / (CHUNK_SIZE * BLOCK_SIZE));
+				uint64 c_z = uint32(coord.z / (CHUNK_SIZE * BLOCK_SIZE));
 
-				m_key = ((c_x << 20) | (c_y << 10) | (c_z));
+				m_key = ((c_x << 36) | (c_y << 28) | (c_z));
 			}
 
 			bool operator ==(const ChunkKey& key) const
 			{
-				return m_key == key.AsUint32();
+				return m_key == key.AsUint64();
 			}
 			bool operator!=(const ChunkKey& key) const
 			{
@@ -68,7 +68,7 @@ namespace ld3d
 			}
 
 		private:
-			uint32												m_key;
+			uint64												m_key;
 		};
 
 	}

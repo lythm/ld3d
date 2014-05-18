@@ -160,13 +160,11 @@
     <ClInclude Include="..\..\include\voxel_world\WorldGenPass_Moutains.h" />
     <ClInclude Include="..\..\include\voxel_world\WorldGenPass_Plants.h" />
     <ClInclude Include="..\..\include\voxel_world\WorldGenPass_Water.h" />
-    <ClInclude Include="ChunkHashmap.h" />
     <ClInclude Include="HeightmapUtils.h" />
     <ClInclude Include="voxel_world_pch.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Chunk.cpp" />
-    <ClCompile Include="ChunkHashmap.cpp" />
     <ClCompile Include="ChunkMesh.cpp" />
     <ClCompile Include="HeightmapUtils.cpp" />
     <ClCompile Include="Region.cpp" />

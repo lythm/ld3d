@@ -9,6 +9,8 @@ namespace ld3d
 		public:
 			ChunkMesh(void);
 			virtual ~ChunkMesh(void);
+
+			void											UpdateMesh(WorldPtr pWorld, ChunkPtr pChunk);
 		};
 
 

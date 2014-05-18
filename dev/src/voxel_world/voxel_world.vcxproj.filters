@@ -36,9 +36,6 @@
     <ClInclude Include="..\..\include\voxel_world\WorldGenPass.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="ChunkHashmap.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\include\voxel_world\Coord.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -87,9 +84,6 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="WorldGen.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="ChunkHashmap.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="WorldGenPass_Heightmap.cpp">

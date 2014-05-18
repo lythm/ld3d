@@ -2,6 +2,8 @@
 
 #include "voxel_world/ChunkKey.h"
 
+#include "voxel_world/Coord.h"
+
 namespace ld3d
 {
 	namespace voxel
@@ -10,12 +12,15 @@ namespace ld3d
 		{
 		public:
 			Chunk(void);
-			virtual ~Chunk(void);
 
-			void											RemoveBlock(uint32 index);
-			void											ReplaceBlock(uint32 index, uint8 v);
-			void											AddBlock(uint32 index, uint8 v);
+			// non virtual, do not subclass
+			~Chunk(void);
 
+
+			bool											IsEmpty() const
+			{
+				return m_counter == 0;
+			}
 
 			uint8&											operator[](uint32 index)
 			{
@@ -32,10 +37,26 @@ namespace ld3d
 				uint32 index = ToIndex(x, y, z);
 				return m_data[index];
 			}
+			uint8											GetBlock(const Coord& c)
+			{
+				return GetBlock(c.x, c.y, c.z);
+			}
 			void											SetBlock(uint32 x, uint32 y, uint32 z, uint8 val)
 			{
 				uint32 index	= ToIndex(x, y, z);
+
+				if(m_data[index] != val)
+				{
+					m_counter += val == VT_EMPTY ? -1 : m_data[index] == VT_EMPTY ? 1 : 0;
+				}
+
 				m_data[index]	= val;
+		
+				SetDirty(true);
+			}
+			void											SetBlock(const Coord& c, uint8 val)
+			{
+				SetBlock(c.x, c.y, c.z, val);
 			}
 
 			uint8											ToIndex(uint32 x, uint32 y, uint32 z)
@@ -43,20 +64,26 @@ namespace ld3d
 				uint32 index = z * CHUNK_SIZE * CHUNK_SIZE + y * CHUNK_SIZE + x;
 				return index;
 			}
-
+			uint8											ToIndex(const Coord& c)
+			{
+				return ToIndex(c.x, c.y, c.z);
+			}
 
 			const ChunkKey&									GetKey() const;
 			void											SetKey(const ChunkKey& key);
 
-			ChunkPtr										GetNext();
-			void											SetNext(ChunkPtr pNext);
+			void											Update();
 
+			
+
+			bool											IsDirty() const;
+			void											SetDirty(bool dirty);
 		private:
 			uint8											m_data[CHUNK_SIZE * CHUNK_SIZE * CHUNK_SIZE];
 			ChunkKey										m_key;
 
-			ChunkPtr										m_pNext;
-			
+			int32											m_counter;
+			bool											m_dirty;
 		};
 	}
 }

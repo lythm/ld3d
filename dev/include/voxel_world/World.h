@@ -1,5 +1,8 @@
 #pragma once
 
+#include "voxel_world/Coord.h"
+
+#include "voxel_world/ChunkKey.h"
 
 namespace ld3d
 {
@@ -15,10 +18,22 @@ namespace ld3d
 
 			void											Release();
 
+			bool											AddBlock(const Coord& c, uint8 type);
+			void											ReplaceBlock(const Coord& c, uint8 type);
+			void											RemoveBlock(const Coord& c);
+			bool											IsEmpty(const Coord& c);
+			uint8											GetBlock(const Coord& c);
+			void											UpdateBlock(const Coord& c);
+
+
+		private:
+			ChunkPtr										AllocChunk();
+			ChunkPtr										FindChunk(const ChunkKey& key);
 		private:
 			WorldGenPtr										m_pGen;
 
-			ChunkHashmapPtr									m_pChunkMap;
+			std::unordered_map<uint64, ChunkPtr>			m_chunkmap;
+
 		};
 
 	}
