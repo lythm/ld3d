@@ -9,6 +9,8 @@ namespace ld3d
 	{
 		World::World(void)
 		{
+			m_worldSize = Coord(200 * 1024, 1024, 200 * 1024);
+
 		}
 
 
@@ -19,10 +21,7 @@ namespace ld3d
 		{
 			m_pGen = pGen;
 
-
-
-
-			Coord c(-1, -17, 0xffffffe);
+			Coord c(1, 17, 0xffffffe);
 
 			ChunkKey k(c);
 
@@ -97,6 +96,25 @@ namespace ld3d
 
 			pChunk ? pChunk->Update() : void(0);
 
+		}
+		bool World::InWorld(const Coord& c) const
+		{
+			if((c.x < -m_worldSize.x / 2) || (c.x > m_worldSize.x / 2))
+			{
+				return false;
+			}
+
+			if((c.y < -m_worldSize.y / 2) || (c.y > m_worldSize.y / 2))
+			{
+				return false;
+			}
+
+			if((c.z < -m_worldSize.z / 2) || (c.z > m_worldSize.z / 2))
+			{
+				return false;
+			}
+
+			return true;
 		}
 	}
 }

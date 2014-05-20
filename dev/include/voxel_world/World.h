@@ -27,6 +27,9 @@ namespace ld3d
 
 
 		private:
+
+			bool											InWorld(const Coord& c) const;
+
 			ChunkPtr										AllocChunk();
 			ChunkPtr										FindChunk(const ChunkKey& key);
 		private:
@@ -34,6 +37,7 @@ namespace ld3d
 
 			std::unordered_map<uint64, ChunkPtr>			m_chunkmap;
 
+			Coord											m_worldSize;
 		};
 
 	}
