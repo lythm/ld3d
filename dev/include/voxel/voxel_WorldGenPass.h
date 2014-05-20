@@ -12,7 +12,7 @@ namespace ld3d
 
 			virtual ~WorldGenPass(void){}
 
-			virtual bool											Apply(WorldPtr pWorld)										= 0;
+			virtual bool											Apply(WorldGenPtr pGen)										= 0;
 
 
 		};

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "voxel_world/WorldGenPass.h"
+#include "voxel/voxel_WorldGenPass.h"
 namespace ld3d
 {
 	namespace voxel
@@ -11,7 +11,7 @@ namespace ld3d
 			WorldGenPass_Heightmap(void);
 			virtual ~WorldGenPass_Heightmap(void);
 
-			bool											Apply(WorldPtr pWorld);
+			bool											Apply(WorldGenPtr pGen);
 
 		private:
 

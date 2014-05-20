@@ -1,7 +1,7 @@
 #include "game_pch.h"
 #include "GameClient.h"
 
-#include "voxel_world/voxel_all.h"
+#include "voxel/voxel_all.h"
 
 namespace client
 {

@@ -1,5 +1,5 @@
-#include "voxel_world_pch.h"
-#include "voxel_world/WorldGenPass_Caves.h"
+#include "voxel_pch.h"
+#include "voxel/voxel_WorldGenPass_Caves.h"
 
 namespace ld3d
 {

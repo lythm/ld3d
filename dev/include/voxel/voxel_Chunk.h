@@ -1,8 +1,8 @@
 #pragma once
 
-#include "voxel_world/ChunkKey.h"
+#include "voxel/voxel_ChunkKey.h"
 
-#include "voxel_world/Coord.h"
+#include "voxel/voxel_Coord.h"
 
 namespace ld3d
 {
@@ -59,12 +59,12 @@ namespace ld3d
 				SetBlock(c.x, c.y, c.z, val);
 			}
 
-			uint8											ToIndex(uint32 x, uint32 y, uint32 z)
+			uint32											ToIndex(uint32 x, uint32 y, uint32 z)
 			{
-				uint32 index = z * CHUNK_SIZE * CHUNK_SIZE + y * CHUNK_SIZE + x;
+				uint32 index = y * CHUNK_SIZE * CHUNK_SIZE + z * CHUNK_SIZE + x;
 				return index;
 			}
-			uint8											ToIndex(const Coord& c)
+			uint32											ToIndex(const Coord& c)
 			{
 				return ToIndex(c.x, c.y, c.z);
 			}

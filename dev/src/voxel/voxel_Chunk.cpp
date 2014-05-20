@@ -1,5 +1,5 @@
-#include "voxel_world_pch.h"
-#include "..\..\include\voxel_world\Chunk.h"
+#include "voxel_pch.h"
+#include "..\..\include\voxel\voxel_Chunk.h"
 
 
 namespace ld3d

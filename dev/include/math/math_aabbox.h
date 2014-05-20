@@ -33,7 +33,7 @@ namespace math
 
 		bool					IsValid() const;
 
-		bool					Inside(const math::Vector3& pt);
+		bool					Inside(const math::Vector3& pt) const;
 
 		Vector3					PointNormal(const Vector3& pt);
 	private:
@@ -48,7 +48,7 @@ namespace math
 	};
 
 	inline
-		bool AABBox::Inside(const math::Vector3& pt)
+		bool AABBox::Inside(const math::Vector3& pt) const
 	{
 		return pt.x >= m_min.x 
 				&& pt.y >= m_min.y

@@ -1,5 +1,5 @@
-#include "voxel_world_pch.h"
-#include "voxel_world/WorldGenPass_Water.h"
+#include "voxel_pch.h"
+#include "voxel/voxel_WorldGenPass_Water.h"
 
 
 namespace ld3d

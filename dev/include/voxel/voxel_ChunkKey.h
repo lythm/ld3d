@@ -1,6 +1,6 @@
 #pragma once
 
-#include "voxel_world/Coord.h"
+#include "voxel/voxel_Coord.h"
 
 namespace ld3d
 {
@@ -47,13 +47,13 @@ namespace ld3d
 				int8 y = c_y * CHUNK_SIZE * BLOCK_SIZE;
 				int32 z = c_z * CHUNK_SIZE * BLOCK_SIZE;
 
-				return Coord(x - 0xfffffff / 2, y - 0xff / 2, z - 0xfffffff / 2);
+				return Coord(x, y, z );
 			}
 			void												FromCoord(const Coord& coord)
 			{
-				uint64 c_x = uint32((coord.x + 0xfffffff / 2) / (CHUNK_SIZE * BLOCK_SIZE));
-				uint64 c_y = uint8((coord.y + 0xff / 2)/ (CHUNK_SIZE * BLOCK_SIZE));
-				uint64 c_z = uint32((coord.z + 0xfffffff / 2)/ (CHUNK_SIZE * BLOCK_SIZE));
+				uint64 c_x = uint32(coord.x / (CHUNK_SIZE * BLOCK_SIZE));
+				uint64 c_y = uint8(coord.y / (CHUNK_SIZE * BLOCK_SIZE));
+				uint64 c_z = uint32(coord.z / (CHUNK_SIZE * BLOCK_SIZE));
 
 				m_key = ((c_x << 36) | (c_y << 28) | (c_z));
 			}

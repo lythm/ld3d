@@ -11,6 +11,10 @@ namespace ld3d
 			virtual ~ChunkMesh(void);
 
 			void											UpdateMesh(WorldPtr pWorld, ChunkPtr pChunk);
+
+
+		private:
+
 		};
 
 
