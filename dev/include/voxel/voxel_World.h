@@ -8,8 +8,6 @@ namespace ld3d
 {
 	namespace voxel
 	{
-
-
 		class _DLL_CLASS World : public std::enable_shared_from_this<World>
 		{
 		public:
@@ -36,19 +34,32 @@ namespace ld3d
 
 			void											SetOriginChunk(const Coord& c);
 			Coord											ToChunkCoord(const Coord& c);
+
+			ChunkPtr										FindChunk(const ChunkKey& key);
+
+			const std::list<ChunkPtr>&						GetDirtyChunks() const;
+			void											ClearDirtyChunks();
 		private:
 			
-			ChunkPtr										AllocChunk();
-			ChunkPtr										FindChunk(const ChunkKey& key);
+		
 		private:
 			WorldGenPtr										m_pGen;
 
-			std::unordered_map<uint64, ChunkPtr>			m_chunkmap;
-
+			ChunkManagerPtr									m_pChunkManager;
 			math::AABBox									m_worldBound;
 
 			math::Matrix44									m_worldTransfom;
 			Coord											m_origin;
+
+
+			uint32											m_regionPoolSize;
+			uint32											m_regionCacheSize;
+
+			std::vector<RegionPtr>							m_regionPool;
+			std::vector<RegionPtr>							m_regionCache;
+
+
+			
 		};
 
 	}

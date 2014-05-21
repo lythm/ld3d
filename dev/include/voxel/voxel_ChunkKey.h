@@ -49,6 +49,7 @@ namespace ld3d
 
 				return Coord(x, y, z );
 			}
+
 			void												FromCoord(const Coord& coord)
 			{
 				uint64 c_x = uint32(coord.x / (CHUNK_SIZE * BLOCK_SIZE));
@@ -57,6 +58,7 @@ namespace ld3d
 
 				m_key = ((c_x << 36) | (c_y << 28) | (c_z));
 			}
+
 
 			bool operator ==(const ChunkKey& key) const
 			{

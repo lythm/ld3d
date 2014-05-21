@@ -13,6 +13,13 @@ namespace ld3d
 		Region::~Region(void)
 		{
 		}
-
+		bool Region::Load()
+		{
+			return true;
+		}
+		bool Region::Save()
+		{
+			return true;
+		}
 	}
 }

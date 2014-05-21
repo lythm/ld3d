@@ -5,6 +5,7 @@
 #include "voxel/voxel_WorldGen.h"
 
 #include "voxel/voxel_WorldGenPass_Heightmap.h"
+#include "voxel_ChunkManager.h"
 
 namespace ld3d
 {
@@ -28,6 +29,8 @@ namespace ld3d
 		}
 		bool World::Initialize(WorldGenPtr pGen)
 		{
+			m_pChunkManager = std::make_shared<ChunkManager>();
+
 			m_pGen = pGen;
 
 			m_pGen = std::make_shared<WorldGen>();
@@ -42,19 +45,23 @@ namespace ld3d
 			m_pGen->GenAll();
 
 
+
 			return true;
 		}
 		void World::Release()
 		{
+			m_pChunkManager->Clear();
+			m_pChunkManager.reset();
+
 		}
 		bool World::AddBlock(const Coord& c, uint8 type)
 		{
-			if(IsEmpty(c) == false)
+			if(Inside(c) == false)
 			{
 				return false;
 			}
-
-			return ReplaceBlock(c, type);
+			
+			return m_pChunkManager->AddBlock(c, type);
 		}
 		bool World::ReplaceBlock(const Coord& c, uint8 type)
 		{
@@ -63,53 +70,49 @@ namespace ld3d
 				return false;
 			}
 
-			ChunkKey key(c);
-
-			ChunkPtr pChunk = FindChunk(key);
-
-			if(pChunk == nullptr)
-			{
-				pChunk = AllocChunk();
-				pChunk->SetKey(key);
-				m_chunkmap[key.AsUint64()] = pChunk;
-			}
-
-			pChunk->SetBlock(c - key.ToCoord(), type);
-
-			return true;
+			return m_pChunkManager->ReplaceBlock(c, type);
 		}
 		bool World::RemoveBlock(const Coord& c)
 		{
-			return ReplaceBlock(c, VT_EMPTY);
+			if(Inside(c) == false)
+			{
+				return false;
+			}
+
+			return m_pChunkManager->RemoveBlock(c);
 		}
 		bool World::IsEmpty(const Coord& c)
 		{
-			return GetBlock(c) == VT_EMPTY;
+			return m_pChunkManager->IsEmpty(c);
 		}
 		uint8 World::GetBlock(const Coord& c)
 		{
-			ChunkKey key(c);
-
-			ChunkPtr pChunk = FindChunk(key);
-			
-			return pChunk ? pChunk->GetBlock((c - key.ToCoord())) : VT_EMPTY;
+			if(Inside(c) == false)
+			{
+				return false;
+			}
+			return m_pChunkManager->GetBlock(c);
 
 		}
 		ChunkPtr World::FindChunk(const ChunkKey& key)
 		{
-			auto it = m_chunkmap.find(key.AsUint64());
+			if(Inside(key.ToCoord()) == false)
+			{
+				return false;
+			}
 
-			return it == m_chunkmap.end() ? nullptr : it->second;
+			return m_pChunkManager->FindChunk(key);
+
 		}
-		ChunkPtr World::AllocChunk()
-		{
-			return std::make_shared<Chunk>();
-		}
+		
 		void World::UpdateBlock(const Coord& c)
 		{
-			ChunkPtr pChunk = FindChunk(ChunkKey(c));
+			if(Inside(c) == false)
+			{
+				return;
+			}
 
-			pChunk ? pChunk->Update() : void(0);
+			m_pChunkManager->UpdateBlock(c);
 
 		}
 		bool World::Inside(const Coord& c) const
@@ -136,6 +139,14 @@ namespace ld3d
 			uint32 c_z = uint32(c.z / (CHUNK_SIZE * BLOCK_SIZE));
 
 			return Coord(c_x, c_y, c_z);
+		}
+		const std::list<ChunkPtr>& World::GetDirtyChunks() const
+		{
+			return m_pChunkManager->GetDirtyChunks();
+		}
+		void World::ClearDirtyChunks()
+		{
+			m_pChunkManager->ClearDirtyChunks();
 		}
 	}
 }
