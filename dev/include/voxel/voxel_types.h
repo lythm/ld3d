@@ -18,9 +18,9 @@ namespace ld3d
 	{
 		const uint8  VT_EMPTY													= 0;
 
-		const uint32 REGION_HEIGHT												= 256;
-		const uint32 REGION_SIZE												= 32;
-		const uint32 CHUNK_SIZE													= 16;
+		const uint32 REGION_HEIGHT												= 256;			// in chunk
+		const uint32 REGION_SIZE												= 32;			// in chunk
+		const uint32 CHUNK_SIZE													= 16;			// int block
 		const uint32 BLOCK_SIZE													= 1;
 
 		class World;

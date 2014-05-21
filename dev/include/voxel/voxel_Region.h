@@ -13,12 +13,18 @@ namespace ld3d
 
 			bool													Load();
 			bool													Save();
+
+			bool													Gen(WorldGenPtr pGen);
+
+			bool													IsModified() const;
+			void													SetModified();
+
+			void													Reset();
 		private:
-			ChunkPtr												m_chunks[REGION_SIZE][REGION_SIZE];
+			std::vector<ChunkPtr>									m_chunks;
 
-			bool													m_dirty;
+			bool													m_modified;
+
 		};
-
-
 	}
 }

@@ -140,6 +140,14 @@ namespace ld3d
 
 			return Coord(c_x, c_y, c_z);
 		}
+		Coord World::ToRegionCoord(const Coord& c)
+		{
+			uint32 c_x = uint32(c.x / (CHUNK_SIZE * BLOCK_SIZE * REGION_SIZE));
+			uint32 c_y = uint8(c.y / (CHUNK_SIZE * BLOCK_SIZE * REGION_HEIGHT));
+			uint32 c_z = uint32(c.z / (CHUNK_SIZE * BLOCK_SIZE * REGION_SIZE));
+
+			return Coord(c_x, c_y, c_z);
+		}
 		const std::list<ChunkPtr>& World::GetDirtyChunks() const
 		{
 			return m_pChunkManager->GetDirtyChunks();

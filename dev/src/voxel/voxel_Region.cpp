@@ -7,6 +7,7 @@ namespace ld3d
 	{
 		Region::Region(void)
 		{
+			Reset();
 		}
 
 
@@ -20,6 +21,24 @@ namespace ld3d
 		bool Region::Save()
 		{
 			return true;
+		}
+		bool Region::Gen(WorldGenPtr pGen)
+		{
+			return true;
+		}
+		bool Region::IsModified() const
+		{
+			return m_modified;
+		}
+		void Region::SetModified()
+		{
+			m_modified = true;
+		}
+		void Region::Reset()
+		{
+			m_modified = false;
+			m_chunks.clear();
+			m_chunks.resize(REGION_SIZE * REGION_SIZE);
 		}
 	}
 }

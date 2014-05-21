@@ -34,7 +34,7 @@ namespace ld3d
 
 			void											SetOriginChunk(const Coord& c);
 			Coord											ToChunkCoord(const Coord& c);
-
+			Coord											ToRegionCoord(const Coord& c);
 			ChunkPtr										FindChunk(const ChunkKey& key);
 
 			const std::list<ChunkPtr>&						GetDirtyChunks() const;
