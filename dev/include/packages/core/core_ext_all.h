@@ -9,7 +9,7 @@
 #include "Light_Point.h"
 #include "Light_Spot.h"
 #include "Light_Sky.h"
-
+#include "GridRenderer.h"
 #include "cameradata.h"
 
 #include "CollisionData_AABBox.h"

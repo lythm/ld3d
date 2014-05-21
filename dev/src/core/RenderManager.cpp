@@ -400,7 +400,7 @@ namespace ld3d
 	//	ClearRenderTarget(0, GetClearColor());
 	//	ClearDepthBuffer(CLEAR_DEPTH, 1.0f, 0);
 		
-		RenderTexturePtr pTex = m_pLightManager->GetNextLight(LightPtr())->GetShadowMap();
+//		RenderTexturePtr pTex = m_pLightManager->GetNextLight(LightPtr())->GetShadowMap();
 
 		//Draw_Texture(pTex->GetTexture(0));
 

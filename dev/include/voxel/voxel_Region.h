@@ -1,5 +1,6 @@
 #pragma once
 
+#include "voxel/voxel_Coord.h"
 namespace ld3d
 {
 	namespace voxel
@@ -24,6 +25,8 @@ namespace ld3d
 			std::vector<ChunkPtr>									m_chunks;
 
 			bool													m_modified;
+
+			Coord													m_coord;
 
 		};
 	}

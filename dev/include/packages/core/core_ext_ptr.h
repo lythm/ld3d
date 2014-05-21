@@ -14,8 +14,10 @@ namespace ld3d
 	class OctTreeNode;
 	class CameraController_Orbit;
 	class CollisionData_AABBox;
+	class GridRenderer;
 
 
+	typedef std::shared_ptr<GridRenderer>									GridRendererPtr;
 	typedef std::shared_ptr<CollisionData_AABBox>							CollisionData_AABBoxPtr;
 
 	typedef std::shared_ptr<OctTreeNode>									OctTreeNodePtr;

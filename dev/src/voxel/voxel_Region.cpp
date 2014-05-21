@@ -39,6 +39,8 @@ namespace ld3d
 			m_modified = false;
 			m_chunks.clear();
 			m_chunks.resize(REGION_SIZE * REGION_SIZE);
+
+			m_coord = Coord();
 		}
 	}
 }

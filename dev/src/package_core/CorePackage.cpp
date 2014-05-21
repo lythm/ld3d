@@ -20,6 +20,7 @@
 #include "Impl_CameraController_Orbit.h"
 #include "Impl_CameraController_FirstPerson.h"
 #include "Impl_CollisionData_AABBox.h"
+#include "Impl_GridRenderer.h"
 
 
 
@@ -101,6 +102,11 @@ namespace ld3d
 					"Mesh",
 					"Mesh Renderer",
 					&Create_Component<Impl_MeshRenderer>));
+
+		m_classes.push_back(ComponentClass("GridRenderer",
+					"Mesh",
+					"Grid Renderer",
+					&Create_Component<Impl_GridRenderer>));
 
 		
 		/*m_classes.push_back(ComponentClass("WorldMeshRenderer",

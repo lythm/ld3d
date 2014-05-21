@@ -16,6 +16,10 @@ namespace ld3d
 			void									Release();
 			bool									Update(float dt);
 
+
+		private:
+			GameObjectPtr							m_pCamera;
+			GameObjectPtr							m_pGrid;
 		};
 
 

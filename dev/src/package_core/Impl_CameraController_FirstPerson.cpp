@@ -114,7 +114,7 @@ namespace ld3d
 		local.SetRow3(3, pos);
 		m_pObject->SetLocalTransform(local);
 
-		CorrectPosition();
+	//	CorrectPosition();
 
 		m_pCameraData->UpdateCamera();
 	}

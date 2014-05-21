@@ -32,6 +32,31 @@ namespace ld3d
 
 			pWorld->Initialize(nullptr);
 
+			m_pGrid = pCore->CreateGameObject("Grid");
+
+			GridRendererPtr pGridRenderer = std::dynamic_pointer_cast<GridRenderer>(pCore->CreateGameObjectComponent("GridRenderer"));
+
+			pGridRenderer->SetSize(200);
+			pGridRenderer->SetGridSize(1);
+
+			m_pGrid->AddComponent(pGridRenderer);
+
+			
+
+			m_pCamera= pCore->CreateGameObject("Camera");
+
+			GameObjectComponentPtr pMD = pCore->CreateGameObjectComponent("Camera");
+
+			m_pCamera->AddComponent(pMD);
+
+			GameObjectComponentPtr pController = pCore->CreateGameObjectComponent("CameraFirstPersonController");
+			m_pCamera->AddComponent(pController);
+
+			GameObjectComponentPtr pSkyBox = pCore->CreateGameObjectComponent("SkyBox");
+			m_pCamera->AddComponent(pSkyBox);
+
+
+			m_pCamera->SetTranslation(0, 20, 0);
 			return true;
 		}
 		void VoxelEditor::Release()
