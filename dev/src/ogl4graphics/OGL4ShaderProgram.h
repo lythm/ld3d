@@ -45,6 +45,7 @@ namespace ld3d
 		void												SetParameterUInt(ParameterID param, uint32 value);
 		void												SetParameterBool(ParameterID param, bool value);
 
+		void												SetParameterColor(ParameterID param, const math::Color4& value);
 		void												SetParameterVector(ParameterID param, const math::Vector2& value);
 		void												SetParameterVector(ParameterID param, const math::Vector3& value);
 		void												SetParameterVector(ParameterID param, const math::Vector4& value);

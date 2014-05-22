@@ -42,7 +42,7 @@ namespace ld3d
 		Sys_InputPtr									GetSysInput();
 		Sys_SoundPtr									GetSysSound();
 		Sys_TimePtr										GetSysTime();
-
+		CursorPtr										GetCursor();
 		UIManagerPtr									GetUIManager();
 
 		void											Render();
@@ -126,5 +126,7 @@ namespace ld3d
 		void*											m_mainWndHandle;
 
 		std::shared_ptr<Console>						m_pConsole;
+
+		CursorPtr										m_pCursor;
 	};
 }

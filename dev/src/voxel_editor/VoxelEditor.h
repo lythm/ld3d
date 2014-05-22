@@ -16,10 +16,12 @@ namespace ld3d
 			void									Release();
 			bool									Update(float dt);
 
-
+			void									_on_key_state(ld3d::EventPtr pEvent);
 		private:
 			GameObjectPtr							m_pCamera;
 			GameObjectPtr							m_pGrid;
+
+			CoreApiPtr								m_pCore;
 		};
 
 

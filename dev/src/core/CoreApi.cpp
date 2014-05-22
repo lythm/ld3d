@@ -21,6 +21,7 @@
 #include "core/GameObject.h"
 
 #include "WinRawInput.h"
+#include "WinCursor.h"
 
 #include "core/Sys_Sound.h"
 #include "core_utils.h"
@@ -137,6 +138,7 @@ namespace ld3d
 
 #if defined(_WIN64) || defined(_WIN32)
 		m_pSysInput = alloc_object<WinRawInput>();
+		m_pCursor = alloc_object<WinCursor>();
 #endif
         
 #ifdef __APPLE__
@@ -146,6 +148,9 @@ namespace ld3d
 		{
 			return false;
 		}
+
+
+		
 
 		m_pSysSound = m_pSysManager->LoadSysSound(setting.sound.sysMod.c_str());
 		if(m_pSysSound->Initialize(100) == false)
@@ -312,6 +317,11 @@ namespace ld3d
 		if(m_pSysInput)
 		{
 			m_pSysInput->HandleMessage(msg);
+		}
+
+		if(m_pCursor)
+		{
+			std::dynamic_pointer_cast<WinCursor>(m_pCursor)->HandleMessage(msg);
 		}
 	}
 #endif
@@ -523,6 +533,10 @@ namespace ld3d
 	void CoreApi::ShowConsole(bool show)
 	{
 		m_pConsole->Show(show);
+	}
+	CursorPtr CoreApi::GetCursor()
+	{
+		return m_pCursor;
 	}
 	
 }

@@ -20,6 +20,9 @@ namespace ld3d
 
 		uint32													GetSize();
 		uint32													GetGridSize();
+
+		void													SetColor(const math::Color4& clr);
+		const math::Color4&										GetColor() const;
 	private:
 		void													on_event_frustum_cull(EventPtr pEvent);
 
@@ -32,6 +35,9 @@ namespace ld3d
 
 		int32													m_gridSize;
 		int32													m_size;
+
+		math::Color4											m_color;
+		MaterialParameterPtr									m_pParamColor;
 	};
 }
 

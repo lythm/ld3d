@@ -24,6 +24,8 @@ namespace ld3d
 		m_gridSize						= 1;
 		m_size							= 100;
 
+		m_color							= math::Color4(0.6f, 0.6f, 0.6f, 1);
+
 	}
 
 
@@ -53,6 +55,11 @@ namespace ld3d
 			&Impl_GridRenderer::GetGridSize,
 			&Impl_GridRenderer::SetGridSize);
 
+		RegisterProperty<math::Color4, Impl_GridRenderer>(this,
+			"Color", 
+			&Impl_GridRenderer::GetColor,
+			&Impl_GridRenderer::SetColor);
+
 
 		ResetGrid();
 
@@ -72,7 +79,13 @@ namespace ld3d
 	}
 	void Impl_GridRenderer::on_event_frustum_cull(EventPtr pEvent)
 	{
-		m_pRenderData->world_matrix = m_pObject->GetWorldTransform();;
+		m_pRenderData->world_matrix = m_pObject->GetWorldTransform();
+
+		if(m_pParamColor)
+		{
+			m_pParamColor->SetParameterColor(m_color);
+		}
+
 		m_pRenderManager->AddRenderData(layer_forward, m_pRenderData);
 
 	}
@@ -187,6 +200,8 @@ namespace ld3d
 			m_pRenderData->material = m_pRenderManager->CreateMaterialFromFile("./assets/standard/material/editor_grid.material");
 		}
 
+		m_pParamColor = m_pRenderData->material->GetParameterByName("grid_color");
+
 		if(m_pRenderData->geometry)
 		{
 			m_pRenderData->geometry->Release();
@@ -206,6 +221,14 @@ namespace ld3d
 		m_pRenderData->index_count = index_count;
 
 	}
+	void Impl_GridRenderer::SetColor(const math::Color4& clr)
+	{
+		m_color = clr;
+	}
 
+	const math::Color4&	Impl_GridRenderer::GetColor() const
+	{
+		return m_color;
+	}
 }
 

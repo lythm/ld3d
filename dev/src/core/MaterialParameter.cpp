@@ -82,6 +82,13 @@ namespace ld3d
 			v.first->SetParameterVector(v.second, value);
 		}
 	}
+	void MaterialParameter::SetParameterColor(const math::Color4& value)
+	{
+		for(auto v : m_params)
+		{
+			v.first->SetParameterColor(v.second, value);
+		}
+	}
 	void MaterialParameter::SetParameterTexture(TexturePtr pTex)
 	{
 		for(auto v : m_params)

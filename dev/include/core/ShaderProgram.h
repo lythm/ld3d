@@ -30,6 +30,8 @@ namespace ld3d
 		virtual void												SetParameterUInt(ParameterID param, uint32 value)						= 0;
 		virtual void												SetParameterBool(ParameterID param, bool value)							= 0;
 		
+		virtual void												SetParameterColor(ParameterID param, const math::Color4& value)			= 0;
+
 		virtual void												SetParameterVector(ParameterID param, const math::Vector2& value)		= 0;
 		virtual void												SetParameterVector(ParameterID param, const math::Vector3& value)		= 0;
 		virtual void												SetParameterVector(ParameterID param, const math::Vector4& value)		= 0;

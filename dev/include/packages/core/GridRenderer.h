@@ -16,6 +16,8 @@ namespace ld3d
 		virtual uint32													GetSize()														= 0;
 		virtual uint32													GetGridSize()													= 0;
 		
+		virtual void													SetColor(const math::Color4& clr)								= 0;
+		virtual const math::Color4&										GetColor() const												= 0;
 	};
 
 

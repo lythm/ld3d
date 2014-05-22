@@ -32,8 +32,9 @@ namespace ld3d
 	class Sys_Time;
 	class Sys_Network;
 	class SysManager;
-
+	class Cursor;
 	
+	typedef std::shared_ptr<Cursor>							CursorPtr;
 	typedef std::shared_ptr<SysManager>						SysManagerPtr;
 	typedef std::shared_ptr<Sys_Time>						Sys_TimePtr;
 	typedef std::shared_ptr<Sys_Network>					Sys_NetworkPtr;

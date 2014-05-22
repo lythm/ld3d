@@ -125,30 +125,16 @@ namespace ld3d
 
 		CenterWindow();
 		
-
-		ShowWindow(m_hWnd, SW_SHOW);
-		UpdateWindow(m_hWnd);
-
 		if(OnInit() == false)
 		{
 			return false;
 		}
-
+		
 		m_bInitialized = true;
 
-		
-
-		POINT pt;
-		pt.x = 0;
-		pt.y = 0;
-
-		ClientToScreen(m_hWnd, &pt);
-		RECT rc;
-		rc.left = pt.x;
-		rc.top = pt.y;
-		rc.right = pt.x + m_clientWidth;
-		rc.bottom = pt.y + m_clientHeight;
-		::ClipCursor(&rc);
+		ShowWindow(m_hWnd, SW_SHOW);
+		UpdateWindow(m_hWnd);
+				
 		return true;
 	}
 

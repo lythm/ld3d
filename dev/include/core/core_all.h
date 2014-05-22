@@ -97,3 +97,5 @@
 #include "core/Contact.h"
 
 #include "core/DT_CoreApi.h"
+
+#include "core/Cursor.h"

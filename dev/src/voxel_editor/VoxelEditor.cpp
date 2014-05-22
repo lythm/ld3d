@@ -28,6 +28,13 @@ namespace ld3d
 		}
 		bool VoxelEditor::Initialize(CoreApiPtr pCore)
 		{
+			m_pCore = pCore;
+			pCore->GetCursor()->ConfineCursor(true);
+
+
+			pCore->AddEventHandler(EV_KEYBOARD_STATE, boost::bind(&VoxelEditor::_on_key_state, this, _1));
+
+
 			WorldPtr pWorld = std::make_shared<World>();
 
 			pWorld->Initialize(nullptr);
@@ -41,7 +48,7 @@ namespace ld3d
 
 			m_pGrid->AddComponent(pGridRenderer);
 
-			
+
 
 			m_pCamera= pCore->CreateGameObject("Camera");
 
@@ -65,6 +72,17 @@ namespace ld3d
 		bool VoxelEditor::Update(float dt)
 		{
 			return true;
+		}
+		void VoxelEditor::_on_key_state(ld3d::EventPtr pEvent)
+		{
+			using namespace ld3d;
+			Event_KeyboardState* pState = (Event_KeyboardState*)pEvent.get();
+
+			if(pState->key_code == key_escape && pState->keyboard_state->KeyDown(key_escape) == false)
+			{
+				m_pCore->QuitApp();
+			}
+			return;
 		}
 	}
 }

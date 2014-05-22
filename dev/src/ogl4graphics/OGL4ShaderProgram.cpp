@@ -220,6 +220,10 @@ namespace ld3d
 	{
 		glProgramUniform4fv(m_program, (GLint)param, 1, value.v);
 	}
+	void OGL4ShaderProgram::SetParameterColor(ParameterID param, const math::Color4& value)
+	{
+		glProgramUniform4fv(m_program, (GLint)param, 1, value.v);
+	}
 	void OGL4ShaderProgram::SetParameterTexture(ParameterID param, TexturePtr pTex)
 	{
 		for(auto& v : m_texLinks)

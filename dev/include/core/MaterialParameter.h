@@ -23,6 +23,9 @@ namespace ld3d
 		void										SetParameterUInt(uint32 value);
 		void										SetParameterBool(bool value);
 		
+
+		void										SetParameterColor(const math::Color4& value);
+
 		void										SetParameterVector(const math::Vector2& value);
 		void										SetParameterVector(const math::Vector3& value);
 		void										SetParameterVector(const math::Vector4& value);
