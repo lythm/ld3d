@@ -21,7 +21,9 @@ namespace ld3d
 		void												HandleMessage(MSG& msg);
 
 		void												ShowCursor(bool bShow);
-
+		void												SetCursorPos(int x, int y);
+		void												GetCursorPos(int& x, int& y);
+		void												ClipCursor(const math::Rect<long>& rc);
 	private:
 		bool												RegisterDevices();
 

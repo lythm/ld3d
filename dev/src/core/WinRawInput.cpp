@@ -224,4 +224,19 @@ namespace ld3d
 	{
 		::ShowCursor(bShow ? TRUE : FALSE);
 	}
+	void WinRawInput::SetCursorPos(int x, int y)
+	{
+		::SetCursorPos(x, y);
+	}
+	void WinRawInput::GetCursorPos(int& x, int& y)
+	{
+		POINT pos;
+		::GetCursorPos(&pos);
+		x = pos.x;
+		y = pos.y;
+	}
+	void WinRawInput::ClipCursor(const math::Rect<long>& rc)
+	{
+		::ClipCursor((RECT*)&rc);
+	}
 }

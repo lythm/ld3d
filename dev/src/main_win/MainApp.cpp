@@ -135,6 +135,20 @@ namespace ld3d
 		}
 
 		m_bInitialized = true;
+
+		
+
+		POINT pt;
+		pt.x = 0;
+		pt.y = 0;
+
+		ClientToScreen(m_hWnd, &pt);
+		RECT rc;
+		rc.left = pt.x;
+		rc.top = pt.y;
+		rc.right = pt.x + m_clientWidth;
+		rc.bottom = pt.y + m_clientHeight;
+		::ClipCursor(&rc);
 		return true;
 	}
 

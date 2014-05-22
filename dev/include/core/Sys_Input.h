@@ -16,6 +16,9 @@ namespace ld3d
 		virtual void												Release()															= 0;
 		virtual void												Update()															= 0;
 
+		virtual void												ClipCursor(const math::Rect<long>& rc)								= 0;
+		virtual void												SetCursorPos(int x, int y)											= 0;
+		virtual void												GetCursorPos(int& x, int& y)										= 0;
 		virtual void												ShowCursor(bool bShow)												= 0;
 		
 		virtual const KeyState&										GetKeyState()														= 0;
