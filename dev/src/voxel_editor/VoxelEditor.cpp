@@ -43,8 +43,8 @@ namespace ld3d
 
 			GridRendererPtr pGridRenderer = std::dynamic_pointer_cast<GridRenderer>(pCore->CreateGameObjectComponent("GridRenderer"));
 
-			pGridRenderer->SetSize(200);
-			pGridRenderer->SetGridSize(1);
+			pGridRenderer->SetSize(2000);
+			pGridRenderer->SetGridSize(8);
 
 			m_pGrid->AddComponent(pGridRenderer);
 

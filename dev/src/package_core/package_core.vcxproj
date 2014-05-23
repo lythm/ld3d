@@ -181,6 +181,8 @@
     <ClInclude Include="..\..\include\packages\core\SkyBox.h" />
     <ClInclude Include="..\..\include\packages\core\SoundEmitter.h" />
     <ClInclude Include="..\..\include\packages\core\SoundListener.h" />
+    <ClInclude Include="..\..\include\packages\core\WaterBody.h" />
+    <ClInclude Include="..\..\include\packages\core\WaterRenderer.h" />
     <ClInclude Include="..\..\include\packages\core\WorldMeshRenderer.h" />
     <ClInclude Include="Impl_Behavior.h" />
     <ClInclude Include="Impl_CameraController_FirstPerson.h" />
@@ -198,6 +200,8 @@
     <ClInclude Include="Impl_SkyBox.h" />
     <ClInclude Include="Impl_SoundEmitter.h" />
     <ClInclude Include="Impl_SoundListener.h" />
+    <ClInclude Include="Impl_WaterBody.h" />
+    <ClInclude Include="Impl_WaterRenderer.h" />
     <ClInclude Include="Impl_WorldMeshRenderer.h" />
     <ClInclude Include="Tpl_Camera.h" />
     <ClInclude Include="Tpl_Cone.h" />
@@ -229,6 +233,8 @@
     <ClCompile Include="Impl_SkyBox.cpp" />
     <ClCompile Include="Impl_SoundEmitter.cpp" />
     <ClCompile Include="Impl_SoundListener.cpp" />
+    <ClCompile Include="Impl_WaterBody.cpp" />
+    <ClCompile Include="Impl_WaterRenderer.cpp" />
     <ClCompile Include="Impl_WorldMeshRenderer.cpp" />
     <ClCompile Include="Tpl_Camera.cpp" />
     <ClCompile Include="Tpl_Cone.cpp" />
