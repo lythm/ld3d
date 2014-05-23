@@ -10,7 +10,11 @@ namespace ld3d
 
 		virtual ~Impl_WaterBody(void);
 
+		void												SetSize(uint32 size);
+		const uint32&										GetSize() const;
+
 	private:
+		uint32												m_size;
 
 	};
 
