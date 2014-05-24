@@ -2,6 +2,7 @@
 
 #include "core/GameInterface.h"
 
+
 namespace ld3d
 {
 	namespace voxel
@@ -22,6 +23,8 @@ namespace ld3d
 			GameObjectPtr							m_pGrid;
 
 			CoreApiPtr								m_pCore;
+
+			WorldPtr								m_pWorld;
 		};
 
 

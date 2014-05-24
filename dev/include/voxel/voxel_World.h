@@ -39,9 +39,13 @@ namespace ld3d
 
 			const std::list<ChunkPtr>&						GetDirtyChunks() const;
 			void											ClearDirtyChunks();
+
+			void											Update(float dt);
 		private:
 			
-		
+			void											LoadPendingRegion();
+
+			void											AddPendingRegion(RegionPtr pRegion);
 		private:
 			WorldGenPtr										m_pGen;
 
@@ -59,9 +63,12 @@ namespace ld3d
 			std::vector<RegionPtr>							m_regionCache;
 
 
+
+			std::list<RegionPtr>							m_pendingRengionList;
 			
 		};
 
 	}
 }
+
 

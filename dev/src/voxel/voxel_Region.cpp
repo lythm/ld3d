@@ -7,14 +7,14 @@ namespace ld3d
 	{
 		Region::Region(void)
 		{
-			Reset();
+			Reset(Coord());
 		}
 
 
 		Region::~Region(void)
 		{
 		}
-		bool Region::Load()
+		bool Region::Load(WorldGenPtr pGen)
 		{
 			return true;
 		}
@@ -34,13 +34,34 @@ namespace ld3d
 		{
 			m_modified = true;
 		}
-		void Region::Reset()
+		void Region::Reset(const Coord& coord)
 		{
 			m_modified = false;
-			m_chunks.clear();
-			m_chunks.resize(REGION_SIZE * REGION_SIZE);
+			m_coord = coord;
+		}
+		bool Region::Initialize(ChunkManagerPtr pChunkManager, const Coord& coord)
+		{
+			m_pChunkManager = pChunkManager;
 
+			Reset(coord);
+
+			return true;
+		}
+		void Region::Release()
+		{
+			m_modified = false;
 			m_coord = Coord();
+
+			m_pChunkManager.reset();
+		}
+		const Coord& Region::GetRegionCoord() const
+		{
+			return m_coord;
+		}
+		void Region::SetRegionCoord(const Coord& coord)
+		{
+			m_coord = coord;
 		}
 	}
 }
+

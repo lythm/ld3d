@@ -45,6 +45,9 @@
     <ClCompile Include="ConcurrentQueue.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="TaskManager.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="utils_pch.h">
@@ -90,6 +93,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\utils\ConcurrentQueue.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\utils\TaskManager.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

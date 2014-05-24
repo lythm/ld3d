@@ -6,6 +6,7 @@
 
 #include "voxel/voxel_WorldGenPass_Heightmap.h"
 #include "voxel_ChunkManager.h"
+#include "voxel/voxel_Region.h"
 
 namespace ld3d
 {
@@ -16,9 +17,6 @@ namespace ld3d
 			m_worldBound = math::AABBox(
 								math::Vector3(-134217728 * CHUNK_SIZE, -128 * CHUNK_SIZE, -134217728 * CHUNK_SIZE), 
 								math::Vector3((134217728 - 1) * CHUNK_SIZE, 127 * CHUNK_SIZE, (134217728 - 1) * CHUNK_SIZE));
-
-
-
 
 			m_worldBound = math::AABBox(math::Vector3(-1024, -1024, -1024), math::Vector3(1024, 1024, 1024));
 		}
@@ -43,6 +41,8 @@ namespace ld3d
 			m_pGen->AddPass(std::make_shared<WorldGenPass_Heightmap>());
 
 			m_pGen->GenAll();
+
+
 
 
 
@@ -155,6 +155,26 @@ namespace ld3d
 		void World::ClearDirtyChunks()
 		{
 			m_pChunkManager->ClearDirtyChunks();
+		}
+		void World::LoadPendingRegion()
+		{
+			std::list<RegionPtr>::iterator it = m_pendingRengionList.begin();
+			if(it == m_pendingRengionList.end())
+			{
+				return;
+			}
+
+			(*it)->Load(m_pGen);
+
+			m_pendingRengionList.erase(it);
+		}
+		void World::AddPendingRegion(RegionPtr pRegion)
+		{
+			m_pendingRengionList.push_back(pRegion);
+		}
+		void World::Update(float dt)
+		{
+			LoadPendingRegion();
 		}
 	}
 }

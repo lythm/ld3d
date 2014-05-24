@@ -11,6 +11,7 @@
 
 #include <memory>
 
+#include <list>
 
 namespace ld3d
 {

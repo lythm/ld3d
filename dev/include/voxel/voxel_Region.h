@@ -8,11 +8,13 @@ namespace ld3d
 		class Region
 		{
 		public:
-			Region(void);
+			Region();
 			virtual ~Region(void);
 
+			bool													Initialize(ChunkManagerPtr pChunkManager, const Coord& coord);
+			void													Release();
 
-			bool													Load();
+			bool													Load(WorldGenPtr pGen);
 			bool													Save();
 
 			bool													Gen(WorldGenPtr pGen);
@@ -20,14 +22,17 @@ namespace ld3d
 			bool													IsModified() const;
 			void													SetModified();
 
-			void													Reset();
-		private:
-			std::vector<ChunkPtr>									m_chunks;
+			void													Reset(const Coord& coord);
 
+			const Coord&											GetRegionCoord() const;
+			void													SetRegionCoord(const Coord& coord);
+		private:
+			
 			bool													m_modified;
 
 			Coord													m_coord;
 
+			ChunkManagerPtr											m_pChunkManager;
 		};
 	}
 }

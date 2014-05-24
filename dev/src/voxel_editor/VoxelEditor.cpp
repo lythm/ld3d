@@ -64,13 +64,21 @@ namespace ld3d
 
 
 			m_pCamera->SetTranslation(0, 20, 0);
+
+
+
+			m_pWorld = std::make_shared<World>();
+			m_pWorld->Initialize(nullptr);
+
 			return true;
 		}
 		void VoxelEditor::Release()
 		{
+			m_pWorld->Release();
 		}
 		bool VoxelEditor::Update(float dt)
 		{
+			m_pWorld->Update(dt);
 			return true;
 		}
 		void VoxelEditor::_on_key_state(ld3d::EventPtr pEvent)

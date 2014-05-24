@@ -180,6 +180,7 @@
     <ClCompile Include="MiniDump.cpp" />
     <ClCompile Include="PerlinNoise.cpp" />
     <ClCompile Include="PropertySet.cpp" />
+    <ClCompile Include="TaskManager.cpp" />
     <ClCompile Include="Unicode.cpp" />
     <ClCompile Include="utils_pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -202,6 +203,7 @@
     <ClInclude Include="..\..\include\utils\PerlinNoise.h" />
     <ClInclude Include="..\..\include\utils\PropertySet.h" />
     <ClInclude Include="..\..\include\utils\scope_exit.h" />
+    <ClInclude Include="..\..\include\utils\TaskManager.h" />
     <ClInclude Include="..\..\include\utils\Unicode.h" />
     <ClInclude Include="..\..\include\utils\utils_all.h" />
     <ClInclude Include="..\..\include\utils\utils_helper.h" />
