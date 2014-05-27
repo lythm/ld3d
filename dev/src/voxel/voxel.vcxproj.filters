@@ -81,6 +81,9 @@
     <ClInclude Include="voxel_ChunkManager.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\voxel\voxel_WorldViewPort.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="voxel_pch.cpp">
@@ -132,6 +135,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="voxel_ChunkManager.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="voxel_WorldViewPort.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

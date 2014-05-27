@@ -163,6 +163,7 @@
     <ClInclude Include="..\..\include\voxel\voxel_WorldGenPass_Ocean.h" />
     <ClInclude Include="..\..\include\voxel\voxel_WorldGenPass_Plants.h" />
     <ClInclude Include="..\..\include\voxel\voxel_WorldGenPass_Water.h" />
+    <ClInclude Include="..\..\include\voxel\voxel_WorldViewPort.h" />
     <ClInclude Include="voxel_ChunkManager.h" />
     <ClInclude Include="voxel_MeshUtils.h" />
     <ClInclude Include="voxel_HeightmapUtils.h" />
@@ -189,6 +190,7 @@
     <ClCompile Include="voxel_WorldGenPass_Ocean.cpp" />
     <ClCompile Include="voxel_WorldGenPass_Plants.cpp" />
     <ClCompile Include="voxel_WorldGenPass_Water.cpp" />
+    <ClCompile Include="voxel_WorldViewPort.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
