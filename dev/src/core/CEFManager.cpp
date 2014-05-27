@@ -58,7 +58,6 @@ namespace ld3d
 
 			CefRefPtr<CefBrowser> pBrowser = CefBrowserHost::CreateBrowserSync(window_info, handler.get(), url, browser_settings);
 
-
 			CEFWebpageRendererPtr pRenderer = alloc_object<CEFWebpageRenderer>(m_pCore, handler);
 
 			return pRenderer;

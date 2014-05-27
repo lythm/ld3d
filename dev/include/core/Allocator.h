@@ -13,6 +13,8 @@ namespace ld3d
 
 		virtual void								Update(){}
 
+		virtual uint64								GetTotalBytes()						= 0;
+		virtual uint64								GetBytesLeft()						= 0;
 	protected:
 
 		Allocator(void){}

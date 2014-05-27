@@ -68,6 +68,8 @@ namespace ld3d
 			m_screenX = m_screenY = 0;
 
 			m_isTargetBlank	= true;
+
+			m_isLoaded = false;
 		}
 
 
@@ -108,6 +110,17 @@ namespace ld3d
 		void CEFWebpage::OnBeforeClose(CefRefPtr<CefBrowser> browser)
 		{
 			m_pBrowser = nullptr;
+		}
+		void CEFWebpage::OnLoadStart(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame)
+		{
+			logger() << "CEF: " << "loading page: " << frame.get()->GetURL().ToString() << "\n";
+		}
+
+		void CEFWebpage::OnLoadEnd(CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, int httpStatusCode)
+		{
+			logger() << "CEF: " << "page loaded: " << frame.get()->GetURL().ToString() << " [HTTP(" << httpStatusCode << ")]\n";
+			m_pBrowser->GetHost()->WasResized();
+			m_isLoaded = true;
 		}
 		void CEFWebpage::OnLoadError(CefRefPtr<CefBrowser> browser, 
 			CefRefPtr<CefFrame> frame,
@@ -173,6 +186,8 @@ namespace ld3d
 		}
 		void CEFWebpage::LoadPage(const std::string& url)
 		{
+			m_isLoaded = false;
+
 			CefString cef_url;
 			cef_url.FromString(url);
 			m_pBrowser->GetMainFrame()->LoadURL(cef_url);

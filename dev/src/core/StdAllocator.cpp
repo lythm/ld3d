@@ -19,4 +19,12 @@ namespace ld3d
 	{
 		delete mem;
 	}
+	uint64 StdAllocator::GetTotalBytes()
+	{
+		return 0;
+	}
+	uint64 StdAllocator::GetBytesLeft()
+	{
+		return 0;
+	}
 }

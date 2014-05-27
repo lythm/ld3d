@@ -41,4 +41,12 @@ namespace ld3d
 			m_pMemPool->Update();
 		}
 	}
+	uint64 PoolAllocator::GetTotalBytes()
+	{
+		return m_pMemPool ? m_pMemPool->GetTotalBytes() : 0;
+	}
+	uint64 PoolAllocator::GetBytesLeft()
+	{
+		return m_pMemPool ? m_pMemPool->GetBytesLeft() : 0;
+	}
 }

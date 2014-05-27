@@ -27,6 +27,8 @@ namespace ld3d
 
 		m_pConsoleWnd = m_pCore->GetUIManager()->CreateHtmlOverlay("sys_console", math::RectI(0, 0, w, h / 2), "file:///assets/standard/gui/console/index.html");
 
+		//m_pConsoleWnd->LoadPage("file:///assets/standard/gui/console/index.html");
+
 		m_pConsoleWnd->SetZOrder(-1);
 
 		m_pCore->AddEventHandler(EV_KEYBOARD_STATE, std::bind(&Console::_on_key, this, std::placeholders::_1));

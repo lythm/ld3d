@@ -12,5 +12,11 @@ namespace ld3d
 
 		void*								Alloc(uint64 bytes);
 		void								Free(void* mem);
+
+		uint64								GetTotalBytes();
+		uint64								GetBytesLeft();
+
+	private:
+		
 	};
 }

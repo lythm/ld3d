@@ -18,6 +18,9 @@ namespace ld3d
 		void											Release();
 
 		void											Update();
+
+		uint64											GetTotalBytes();
+		uint64											GetBytesLeft();
 	private:
 		MemPoolPtr										m_pMemPool;
 	};

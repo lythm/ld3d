@@ -33,6 +33,13 @@ namespace ld3d
 			void														OnAfterCreated(CefRefPtr<CefBrowser> browser) OVERRIDE;
 			void														OnBeforeClose(CefRefPtr<CefBrowser> browser) OVERRIDE;
 
+			void														OnLoadStart(CefRefPtr<CefBrowser> browser,
+																			CefRefPtr<CefFrame> frame);
+
+			void														OnLoadEnd(CefRefPtr<CefBrowser> browser,
+																			CefRefPtr<CefFrame> frame,
+																			int httpStatusCode);
+
 			void														OnLoadError(CefRefPtr<CefBrowser> browser,
 																			CefRefPtr<CefFrame> frame,
 																			ErrorCode errorCode,
@@ -85,6 +92,8 @@ namespace ld3d
 			CefRefPtr<CefBrowser>										m_pBrowser;
 
 			bool														m_isTargetBlank;
+
+			bool														m_isLoaded;
 
 			IMPLEMENT_REFCOUNTING(CEFWebpage);
 		};

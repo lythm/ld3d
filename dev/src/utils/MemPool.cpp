@@ -118,6 +118,28 @@ namespace ld3d
 		}
 		m_Slots.clear();
 	}
+	uint64 MemPool::GetTotalBytes()
+	{
+		uint64 total = 0;
+		for(size_t i = 0; i < m_Slots.size(); ++i)
+		{
+			Slot s = m_Slots[i];
+			total += s.pSlot->GetTotalBytes();
+		}
+
+		return total;
+	}
+	uint64 MemPool::GetBytesLeft()
+	{
+		uint64 left = 0;
+		for(size_t i = 0; i < m_Slots.size(); ++i)
+		{
+			Slot s = m_Slots[i];
+			left += s.pSlot->GetBytesLeft();
+		}
+
+		return left;
+	}
 }
 
 namespace ld3d
@@ -125,7 +147,6 @@ namespace ld3d
 	MemSlot::MemSlot()
 	{
 		m_blockBytes					= 0;
-		m_totalBytes					= 0;
 
 		m_blockCount					= 0;
 
@@ -133,6 +154,8 @@ namespace ld3d
 		m_freeCount						= 0;
 
 		m_reservedBlockCount			= 0;
+
+		m_nodeCount						= 0;
 	}
 	MemSlot::~MemSlot()
 	{
@@ -145,6 +168,9 @@ namespace ld3d
 		m_pHead = new _MemNode;
 
 		m_pHead->next = NULL;
+
+		// head dosent count
+		m_nodeCount = 0;
 
 		ReserveBlocks(blockBytes, reservedBlocks);
 		return true;
@@ -162,7 +188,7 @@ namespace ld3d
 		
 		m_pHead = NULL;
 		m_blockBytes = 0;
-		m_totalBytes = 0;
+		m_nodeCount = 0;
 	}
 	void* MemSlot::Alloc(uint64 bytes)
 	{
@@ -170,6 +196,7 @@ namespace ld3d
 		if(m_pHead->next == NULL)
 		{
 			_MemNode* pNode = (_MemNode*)new char[sizeof(_MemNode) + m_blockBytes];
+			m_nodeCount++;
 			pNode->bytes = bytes;
 			pNode->next = NULL;
 			return pNode->data;
@@ -239,9 +266,29 @@ namespace ld3d
 			m_pHead = m_pHead->next;
 
 			delete pNode;
-
+			m_nodeCount--;
 			-- m_blockCount;
 
 		}
+	}
+	uint64 MemSlot::GetTotalBytes()
+	{
+		return m_nodeCount * (sizeof(_MemNode) + m_blockBytes);
+	}
+	uint64 MemSlot::GetBlockBytes()
+	{
+		return m_blockBytes;
+	}
+	uint64 MemSlot::GetCurrentBlockCount()
+	{
+		return m_blockCount;
+	}
+	uint64 MemSlot::GetTotalBlockCount()
+	{
+		return m_nodeCount;
+	}
+	uint64 MemSlot::GetBytesLeft()
+	{
+		return m_blockCount * (sizeof(_MemNode) + m_blockBytes);
 	}
 }

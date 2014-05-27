@@ -35,20 +35,23 @@ namespace ld3d
 
 		void							Update();
 
+		uint64							GetTotalBytes();
+		uint64							GetBytesLeft();
+		uint64							GetCurrentBlockCount();
+		uint64							GetTotalBlockCount();
 		
 	private:
 		void							ReserveBlocks(uint64 blockBytes, uint64 blockCount);
 		void							Shrink(uint64 count);
 		
 		uint64							m_blockBytes;
-		uint64							m_totalBytes;
 
 		_MemNode*						m_pHead;
 
 		int64							m_blockCount;
 		int64							m_allocCount;
 		int64							m_freeCount;
-
+		int64							m_nodeCount;
 		int64							m_reservedBlockCount;
 		int64							m_shrinkStep;
 	};
@@ -74,16 +77,17 @@ namespace ld3d
 		void*										Alloc(uint64 bytes);
 		void										Free(void* mem);
 
-
+		uint64										GetTotalBytes();
+		uint64										GetBytesLeft();
 		template<typename T>
-		std::shared_ptr<T>						AllocObject()
+		std::shared_ptr<T>							AllocObject()
 		{
 			T* pObj = (T*)Alloc(sizeof(T));
 			
 			return std::shared_ptr<T>(new (pObj)T, boost::bind(&MemPool::FreeObject<T>, this, _1));
 		}
 		template<typename T, typename TP>
-		std::shared_ptr<T>						AllocObject(TP param)
+		std::shared_ptr<T>							AllocObject(TP param)
 		{
 			T* pObj = (T*)Alloc(sizeof(T));
 			
