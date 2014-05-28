@@ -12,7 +12,7 @@ namespace ld3d
 		PerlinNoise(int octaves,float freq,float amp,int seed);
 
 
-		float								Get(float x,float y)
+		float														Get(float x,float y)
 		{
 			float vec[2];
 			vec[0] = x;

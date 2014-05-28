@@ -145,6 +145,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\include\voxel\voxel_Bound.h" />
     <ClInclude Include="..\..\include\voxel\voxel_Chunk.h" />
     <ClInclude Include="..\..\include\voxel\voxel_ChunkKey.h" />
     <ClInclude Include="..\..\include\voxel\voxel_ChunkMesh.h" />

@@ -33,6 +33,8 @@ namespace ld3d
 			Coord													m_coord;
 
 			ChunkManagerPtr											m_pChunkManager;
+
+			uint32													m_refCount;
 		};
 	}
 }

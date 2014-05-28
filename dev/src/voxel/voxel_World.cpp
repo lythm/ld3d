@@ -7,6 +7,7 @@
 #include "voxel/voxel_WorldGenPass_Heightmap.h"
 #include "voxel_ChunkManager.h"
 #include "voxel/voxel_Region.h"
+#include "voxel/voxel_WorldViewPort.h"
 
 namespace ld3d
 {
@@ -14,11 +15,10 @@ namespace ld3d
 	{
 		World::World(void)
 		{
-			m_worldBound = math::AABBox(
-								math::Vector3(-134217728 * CHUNK_SIZE, -128 * CHUNK_SIZE, -134217728 * CHUNK_SIZE), 
-								math::Vector3((134217728 - 1) * CHUNK_SIZE, 127 * CHUNK_SIZE, (134217728 - 1) * CHUNK_SIZE));
+			m_worldBound = Bound(Coord(-134217728 * (int32)CHUNK_SIZE, -128 * (int32)CHUNK_SIZE, -134217728 * (int32)CHUNK_SIZE), 
+								Coord((134217728 - 1) * CHUNK_SIZE, 127 * CHUNK_SIZE, (134217728 - 1) * CHUNK_SIZE));
 
-			m_worldBound = math::AABBox(math::Vector3(-1024, -1024, -1024), math::Vector3(1024, 1024, 1024));
+			//m_worldBound = math::AABBox(math::Vector3(-1024, -1024, -1024), math::Vector3(1024, 1024, 1024));
 		}
 
 
@@ -42,10 +42,7 @@ namespace ld3d
 
 			m_pGen->GenAll();
 
-
-
-
-
+			
 			return true;
 		}
 		void World::Release()
@@ -117,20 +114,12 @@ namespace ld3d
 		}
 		bool World::Inside(const Coord& c) const
 		{
-			return m_worldBound.Inside(math::Vector3(c.x, c.y, c.z));
+			return m_worldBound.Inside(c);
 			
 		}
-		const math::AABBox&	World::GetBound() const
+		const Bound&	World::GetBound() const
 		{
 			return m_worldBound;
-		}
-		const math::Matrix44& World::GetWorldTransform() const
-		{
-			return math::MatrixTranslation(math::Vector3(-m_origin.x, -m_origin.y, -m_origin.z)) * m_worldTransfom;
-		}
-		void World::SetOriginChunk(const Coord& c)
-		{
-			m_origin = ToChunkCoord(c);
 		}
 		Coord World::ToChunkCoord(const Coord& c)
 		{
@@ -176,6 +165,21 @@ namespace ld3d
 		{
 			LoadPendingRegion();
 		}
+		WorldViewportPtr World::OpenViewport(const Coord& c, uint32 size)
+		{
+			WorldViewportPtr pVP = std::make_shared<WorldViewport>(shared_from_this());
+			pVP->SetSize(size);
+			pVP->MoveTo(c);
+
+			m_viewPorts.push_back(pVP);
+			return pVP;
+		}
+		void World::CloseViewport(WorldViewportPtr pViewport)
+		{
+			pViewport->Close();
+			m_viewPorts.remove(pViewport);
+		}
 	}
 }
+
 

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "voxel/voxel_Coord.h"
+#include "voxel/voxel_Bound.h"
 
 #include "voxel/voxel_ChunkKey.h"
 
@@ -28,11 +29,8 @@ namespace ld3d
 
 			bool											Inside(const Coord& c) const;
 
-			const math::AABBox&								GetBound() const;		
+			const Bound&									GetBound() const;		
 
-			const math::Matrix44&							GetWorldTransform() const;
-
-			void											SetOriginChunk(const Coord& c);
 			Coord											ToChunkCoord(const Coord& c);
 			Coord											ToRegionCoord(const Coord& c);
 			ChunkPtr										FindChunk(const ChunkKey& key);
@@ -41,6 +39,9 @@ namespace ld3d
 			void											ClearDirtyChunks();
 
 			void											Update(float dt);
+
+			WorldViewportPtr								OpenViewport(const Coord& c, uint32 size);
+			void											CloseViewport(WorldViewportPtr pViewport);
 		private:
 			
 			void											LoadPendingRegion();
@@ -50,11 +51,7 @@ namespace ld3d
 			WorldGenPtr										m_pGen;
 
 			ChunkManagerPtr									m_pChunkManager;
-			math::AABBox									m_worldBound;
-
-			math::Matrix44									m_worldTransfom;
-			Coord											m_origin;
-
+			Bound											m_worldBound;
 
 			uint32											m_regionPoolSize;
 			uint32											m_regionCacheSize;
@@ -66,8 +63,12 @@ namespace ld3d
 
 			std::list<RegionPtr>							m_pendingRengionList;
 			
-		};
 
+
+			std::list<RegionPtr>							m_regions;
+
+			std::list<WorldViewportPtr>						m_viewPorts;
+		};
 	}
 }
 

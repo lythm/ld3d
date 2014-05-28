@@ -17,7 +17,7 @@ namespace ld3d
 		}
 		bool WorldGenPass_Heightmap::Apply(WorldGenPtr pGen)
 		{
-			const math::AABBox& bound = pGen->GetWorld()->GetBound();
+			const Bound& bound = pGen->GetWorld()->GetBound();
 			WorldPtr pWorld = pGen->GetWorld();
 
 			for(int x = 0; x < 100; ++x)
