@@ -72,5 +72,10 @@ namespace ld3d
 		OGL4RenderWindowPtr						m_pCurrentRW;
 
 		OGL4RenderTexturePtr					m_pCurrentRT;
+
+		int										m_viewPortX;
+		int										m_viewPortY;
+		int										m_viewPortW;
+		int										m_viewPortH;
 	};
 }

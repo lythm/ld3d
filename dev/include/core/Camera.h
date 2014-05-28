@@ -13,9 +13,14 @@ namespace ld3d
 		void								SetOrder(const int& order);
 		const int&							GetOrder();
 
+		void								SetViewport(const math::RectI& vp);
+		const math::RectI&					GetViewport() const;
+
 		static bool							SortFunction(CameraPtr pC1, CameraPtr pC2);
 	private:
 		int									m_order;
+
+		math::RectI							m_viewPort;
 
 	};
 }

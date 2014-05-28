@@ -74,8 +74,6 @@ namespace ld3d
 
 			void											Update();
 
-			
-
 			bool											IsDirty() const;
 			void											SetDirty(bool dirty);
 		private:

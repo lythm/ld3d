@@ -10,6 +10,7 @@ namespace ld3d
 		Impl_CameraData(GameObjectManagerPtr pManager);
 		virtual ~Impl_CameraData(void);
 
+		void						SetViewport(const math::RectI& vp);
 		bool						OnAttach();
 		void						OnDetach();
 		bool						OnSerialize(DataStream* pStream);

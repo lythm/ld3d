@@ -1,26 +1,28 @@
 #include "core_ext_pch.h"
-#include "Impl_CameraController_FirstPerson.h"
+#include "Impl_CameraController_Free.h"
 #include "Impl_CameraData.h"
 
 namespace ld3d
 {
-	Impl_CameraController_FirstPerson::Impl_CameraController_FirstPerson(GameObjectManagerPtr pManager) : CameraController_FirstPerson(pManager)
+	Impl_CameraController_Free::Impl_CameraController_Free(GameObjectManagerPtr pManager) : CameraController_Free(pManager)
 	{
 		m_forward				= false;
 		m_backward				= false;
 		m_left					= false;
 		m_right					= false;
 
+		m_speed					= 5.0f;
+		m_enabled				= true;
 	}
 	
-	Impl_CameraController_FirstPerson::~Impl_CameraController_FirstPerson(void)
+	Impl_CameraController_Free::~Impl_CameraController_Free(void)
 	{
 	}
-	void Impl_CameraController_FirstPerson::Update(float dt)
+	void Impl_CameraController_Free::Update(float dt)
 	{
 		UpdateMoving(dt);
 	}
-	bool Impl_CameraController_FirstPerson::OnAttach()
+	bool Impl_CameraController_Free::OnAttach()
 	{
 		m_pCameraData = std::dynamic_pointer_cast<Impl_CameraData>(m_pObject->GetComponent("Camera"));
 
@@ -30,20 +32,24 @@ namespace ld3d
 		m_right					= false;
 
 
-		m_wheelId = m_pManager->AddEventHandler(EV_MOUSE_WHEEL, boost::bind(&Impl_CameraController_FirstPerson::_on_mouse_wheel, this, _1));
-		m_moveId = m_pManager->AddEventHandler(EV_MOUSE_MOVE, boost::bind(&Impl_CameraController_FirstPerson::_on_mouse_move, this, _1));
-		m_keyId = m_pManager->AddEventHandler(EV_KEYBOARD_STATE, boost::bind(&Impl_CameraController_FirstPerson::_on_key, this, _1));
+		m_wheelId = m_pManager->AddEventHandler(EV_MOUSE_WHEEL, boost::bind(&Impl_CameraController_Free::_on_mouse_wheel, this, _1));
+		m_moveId = m_pManager->AddEventHandler(EV_MOUSE_MOVE, boost::bind(&Impl_CameraController_Free::_on_mouse_move, this, _1));
+		m_keyId = m_pManager->AddEventHandler(EV_KEYBOARD_STATE, boost::bind(&Impl_CameraController_Free::_on_key, this, _1));
 		
 		return true;
 	}
-	void Impl_CameraController_FirstPerson::OnDetach()
+	void Impl_CameraController_Free::OnDetach()
 	{
 		m_pManager->RemoveEventHandler(m_wheelId);
 		m_pManager->RemoveEventHandler(m_moveId);
 		m_pManager->RemoveEventHandler(m_keyId);
 	}
-	void Impl_CameraController_FirstPerson::_on_mouse_move(EventPtr pEvent)
+	void Impl_CameraController_Free::_on_mouse_move(EventPtr pEvent)
 	{
+		if(m_enabled == false)
+		{
+			return;
+		}
 		Event_MouseState* pState = (Event_MouseState*)pEvent.get();
 		
 		float dx = pState->mouse_state->dx;
@@ -52,11 +58,15 @@ namespace ld3d
 		UpdateRotating(dx, dy);
 
 	}
-	void Impl_CameraController_FirstPerson::_on_mouse_wheel(EventPtr pEvent)
+	void Impl_CameraController_Free::_on_mouse_wheel(EventPtr pEvent)
 	{
 	}
-	void Impl_CameraController_FirstPerson::_on_key(EventPtr pEvent)
+	void Impl_CameraController_Free::_on_key(EventPtr pEvent)
 	{
+		if(m_enabled == false)
+		{
+			return;
+		}
 		using namespace math;
 
 		Event_KeyboardState* pState = (Event_KeyboardState*)pEvent.get();
@@ -67,8 +77,12 @@ namespace ld3d
 		m_right							= pState->keyboard_state->KeyDown(key_d);
 
 	}
-	void Impl_CameraController_FirstPerson::UpdateMoving(float dt)
+	void Impl_CameraController_Free::UpdateMoving(float dt)
 	{
+		if(m_enabled == false)
+		{
+			return;
+		}
 		using namespace math;
 
 		Matrix44 local = m_pObject->GetLocalTransform();
@@ -82,9 +96,9 @@ namespace ld3d
 		Vector3 axis_z = local.GetRow3(2);
 		axis_z.Normalize();
 
-		float speed = 5.0f;
+		
 
-		float step = speed * dt;
+		float step = m_speed * dt;
 
 		if(m_forward)
 		{
@@ -118,7 +132,7 @@ namespace ld3d
 
 		m_pCameraData->UpdateCamera();
 	}
-	void Impl_CameraController_FirstPerson::CorrectPosition()
+	void Impl_CameraController_Free::CorrectPosition()
 	{
 		math::Vector3 eye = m_pObject->GetWorldTransform().GetTranslation();
 
@@ -146,8 +160,12 @@ namespace ld3d
 		}
 
 	}
-	void Impl_CameraController_FirstPerson::UpdateRotating(float dx, float dy)
+	void Impl_CameraController_Free::UpdateRotating(float dx, float dy)
 	{
+		if(m_enabled == false)
+		{
+			return;
+		}
 		using namespace math;
 
 		Matrix44 local = m_pObject->GetLocalTransform();
@@ -173,5 +191,17 @@ namespace ld3d
 		m_pObject->SetLocalTransform(local);
 
 		m_pCameraData->UpdateCamera();
+	}
+	float Impl_CameraController_Free::GetSpeed() const
+	{
+		return m_speed;
+	}
+	void Impl_CameraController_Free::SetSpeed(float speed)
+	{
+		m_speed = speed;
+	}
+	void Impl_CameraController_Free::Enable(bool enabled)
+	{
+		m_enabled = enabled;
 	}
 }

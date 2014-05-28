@@ -110,6 +110,8 @@ namespace ld3d
 		void										DrawShadowMapGeometry(const math::Matrix44& view, const math::Matrix44& proj);
 
 		void										EmitViewFrustumCullEvent(const ViewFrustum& vf);
+
+		void										SetViewport(const math::RectI& vp);
 		// test
 		void										RenderTest(CameraPtr pCamera);
 		//

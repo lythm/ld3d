@@ -13,15 +13,18 @@ namespace ld3d
 	class CameraData;
 	class OctTreeNode;
 	class CameraController_Orbit;
+	class CameraController_Free;
 	class CollisionData_AABBox;
 	class GridRenderer;
+	class AABBoxRenderer;
 
-
+	typedef std::shared_ptr<AABBoxRenderer>									AABBoxRendererPtr;
 	typedef std::shared_ptr<GridRenderer>									GridRendererPtr;
 	typedef std::shared_ptr<CollisionData_AABBox>							CollisionData_AABBoxPtr;
 
 	typedef std::shared_ptr<OctTreeNode>									OctTreeNodePtr;
 
+	typedef std::shared_ptr<CameraController_Free>							CameraController_FreePtr;
 	typedef std::shared_ptr<CameraController_Orbit>							CameraController_OrbitPtr;
 	typedef std::shared_ptr<CameraData>										CameraDataPtr;
 	typedef std::shared_ptr<Light_Sky>										Light_SkyPtr;

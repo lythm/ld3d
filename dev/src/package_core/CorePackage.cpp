@@ -18,9 +18,10 @@
 #include "Impl_Light_Dir.h"
 #include "Impl_CameraData.h"
 #include "Impl_CameraController_Orbit.h"
-#include "Impl_CameraController_FirstPerson.h"
+#include "Impl_CameraController_Free.h"
 #include "Impl_CollisionData_AABBox.h"
 #include "Impl_GridRenderer.h"
+#include "Impl_AABBoxRenderer.h"
 
 
 
@@ -108,6 +109,11 @@ namespace ld3d
 					"Grid Renderer",
 					&Create_Component<Impl_GridRenderer>));
 
+		m_classes.push_back(ComponentClass("AABBoxRenderer",
+					"Mesh",
+					"AABBox Renderer",
+					&Create_Component<Impl_AABBoxRenderer>));
+
 		
 		/*m_classes.push_back(ComponentClass("WorldMeshRenderer",
 					"Mesh",
@@ -150,10 +156,10 @@ namespace ld3d
 					"Camera",
 					&Create_Component<Impl_CameraController_Orbit>));
 
-		m_classes.push_back(ComponentClass("CameraFirstPersonController",
+		m_classes.push_back(ComponentClass("CameraFreeController",
 					"Camera",
 					"Camera",
-					&Create_Component<Impl_CameraController_FirstPerson>));
+					&Create_Component<Impl_CameraController_Free>));
 
 		
 

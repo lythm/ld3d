@@ -44,32 +44,16 @@ namespace ld3d
 			void											CloseViewport(WorldViewportPtr pViewport);
 		private:
 			
-			void											LoadPendingRegion();
-
-			void											AddPendingRegion(RegionPtr pRegion);
+			
 		private:
 			WorldGenPtr										m_pGen;
 
 			ChunkManagerPtr									m_pChunkManager;
 			Bound											m_worldBound;
 
-			uint32											m_regionPoolSize;
-			uint32											m_regionCacheSize;
-
-			std::vector<RegionPtr>							m_regionPool;
-			std::vector<RegionPtr>							m_regionCache;
-
-
-
-			std::list<RegionPtr>							m_pendingRengionList;
-			
-
-
-			std::list<RegionPtr>							m_regions;
-
 			std::list<WorldViewportPtr>						m_viewPorts;
+
+
 		};
 	}
 }
-
-

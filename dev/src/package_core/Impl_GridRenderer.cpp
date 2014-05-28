@@ -197,10 +197,10 @@ namespace ld3d
 
 		if(m_pRenderData->material == nullptr)
 		{
-			m_pRenderData->material = m_pRenderManager->CreateMaterialFromFile("./assets/standard/material/editor_grid.material");
+			m_pRenderData->material = m_pRenderManager->CreateMaterialFromFile("./assets/standard/material/simple_line.material");
 		}
 
-		m_pParamColor = m_pRenderData->material->GetParameterByName("grid_color");
+		m_pParamColor = m_pRenderData->material->GetParameterByName("line_color");
 
 		if(m_pRenderData->geometry)
 		{

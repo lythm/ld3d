@@ -47,7 +47,6 @@
     <ClCompile Include="MaterialParameter.cpp" />
     <ClCompile Include="MaterialPass.cpp" />
     <ClCompile Include="MaterialTech.cpp" />
-    <ClCompile Include="BBoxRenderData.cpp" />
     <ClCompile Include="MaterialCompiler.cpp" />
     <ClCompile Include="MaterialParser.cpp" />
     <ClCompile Include="SamplerStateParser.cpp" />
@@ -74,6 +73,7 @@
     <ClCompile Include="NavMesh.cpp" />
     <ClCompile Include="ActionManager.cpp" />
     <ClCompile Include="WinCursor.cpp" />
+    <ClCompile Include="AABBoxRenderData.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\core\ArcBall.h" />
@@ -152,7 +152,6 @@
     <ClInclude Include="..\..\include\core\MaterialTech.h" />
     <ClInclude Include="..\..\include\core\Sys_Network.h" />
     <ClInclude Include="..\..\include\core\ObjectPool.h" />
-    <ClInclude Include="..\..\include\core\BBoxRenderData.h" />
     <ClInclude Include="..\..\include\core\DT_CoreApi.h" />
     <ClInclude Include="..\..\include\core\GeometryData.h" />
     <ClInclude Include="..\..\include\core\ShaderProgram.h" />
@@ -241,6 +240,7 @@
     <ClInclude Include="..\..\include\core\ActionManager.h" />
     <ClInclude Include="..\..\include\core\Cursor.h" />
     <ClInclude Include="WinCursor.h" />
+    <ClInclude Include="..\..\include\core\AABBoxRenderData.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="math">

@@ -151,6 +151,10 @@ namespace ld3d
 
 	OGL4Graphics::OGL4Graphics(void)
 	{
+		m_viewPortX			= 0;
+		m_viewPortY			= 0;
+		m_viewPortW			= 0;
+		m_viewPortH			= 0;
 	}
 
 
@@ -176,6 +180,11 @@ namespace ld3d
 			return false;
 		}
 		m_pMainRW->MakeCurrent();
+
+		m_viewPortX = 0;
+		m_viewPortY = 0;
+		m_viewPortW = setting.frameBufferWidth;
+		m_viewPortH = setting.frameBufferHeight;
 
 		m_pLoader = std::make_shared<OGL4Loader>();
 
@@ -423,7 +432,27 @@ namespace ld3d
 	}
 	void OGL4Graphics::SetViewPort(int x, int y, int w, int h)
 	{
-		glViewport(x, y, w, h);
+		if(w <= 0 || h <= 0)
+		{
+			m_viewPortX = 0;
+			m_viewPortY = 0;
+			m_viewPortW = m_pCurrentRW->GetWidth();
+			m_viewPortH = m_pCurrentRW->GetHeight();
+
+			glViewport(m_viewPortX, m_viewPortY, m_viewPortW, m_viewPortH);
+			return;
+		}
+		
+		m_viewPortW = w;
+		m_viewPortH = h;
+		
+		m_viewPortX = x;
+		m_viewPortY = m_pCurrentRW->GetHeight() - y;
+
+		m_viewPortY -= m_viewPortH;
+
+		glViewport(m_viewPortX, m_viewPortY, m_viewPortW, m_viewPortH);
+
 	}
 
 	RenderTexturePtr OGL4Graphics::CreateRenderTexture()
@@ -570,7 +599,7 @@ namespace ld3d
 			return;
 		}
 
-		glViewport(0, 0, m_pCurrentRW->GetWidth(), m_pCurrentRW->GetHeight());
+		glViewport(m_viewPortX, m_viewPortY, m_viewPortW, m_viewPortH);
 	}
 	TexturePtr OGL4Graphics::CopyTexture2D(TexturePtr pTex)
 	{

@@ -162,8 +162,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\include\packages\core\AABBoxRenderer.h" />
     <ClInclude Include="..\..\include\packages\core\Behavior.h" />
-    <ClInclude Include="..\..\include\packages\core\CameraController_FirstPerson.h" />
+    <ClInclude Include="..\..\include\packages\core\CameraController_Free.h" />
     <ClInclude Include="..\..\include\packages\core\CameraController_Orbit.h" />
     <ClInclude Include="..\..\include\packages\core\CameraData.h" />
     <ClInclude Include="..\..\include\packages\core\CollisionData_AABBox.h" />
@@ -184,8 +185,9 @@
     <ClInclude Include="..\..\include\packages\core\WaterBody.h" />
     <ClInclude Include="..\..\include\packages\core\WaterRenderer.h" />
     <ClInclude Include="..\..\include\packages\core\WorldMeshRenderer.h" />
+    <ClInclude Include="Impl_AABBoxRenderer.h" />
     <ClInclude Include="Impl_Behavior.h" />
-    <ClInclude Include="Impl_CameraController_FirstPerson.h" />
+    <ClInclude Include="Impl_CameraController_Free.h" />
     <ClInclude Include="Impl_CameraController_Orbit.h" />
     <ClInclude Include="Impl_CameraData.h" />
     <ClInclude Include="Impl_CollisionData_AABBox.h" />
@@ -217,8 +219,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CameraController_ArcBall.cpp" />
+    <ClCompile Include="Impl_AABBoxRenderer.cpp" />
     <ClCompile Include="Impl_Behavior.cpp" />
-    <ClCompile Include="Impl_CameraController_FirstPerson.cpp" />
+    <ClCompile Include="Impl_CameraController_Free.cpp" />
     <ClCompile Include="Impl_CameraController_Orbit.cpp" />
     <ClCompile Include="Impl_CameraData.cpp" />
     <ClCompile Include="Impl_CollisionData_AABBox.cpp" />

@@ -68,4 +68,11 @@ namespace ld3d
 	{
 		return m_pCamera;
 	}
+	void Impl_CameraData::SetViewport(const math::RectI& vp)
+	{
+		if(m_pCamera)
+		{
+			m_pCamera->SetViewport(vp);
+		}
+	}
 }

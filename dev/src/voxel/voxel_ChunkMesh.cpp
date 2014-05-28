@@ -11,7 +11,6 @@ namespace ld3d
 		{
 		}
 
-
 		ChunkMesh::~ChunkMesh(void)
 		{
 		}

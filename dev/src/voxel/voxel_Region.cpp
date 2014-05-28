@@ -38,6 +38,7 @@ namespace ld3d
 		{
 			m_modified = false;
 			m_coord = coord;
+			m_loaded = false;
 		}
 		bool Region::Initialize(ChunkManagerPtr pChunkManager, const Coord& coord)
 		{
@@ -61,6 +62,14 @@ namespace ld3d
 		void Region::SetRegionCoord(const Coord& coord)
 		{
 			m_coord = coord;
+		}
+		bool Region::IsLoaded() const
+		{
+			return m_loaded;
+		}
+		void Region::SetLoaded(bool loaded)
+		{
+			m_loaded = loaded;
 		}
 	}
 }

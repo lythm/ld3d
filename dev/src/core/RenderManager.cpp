@@ -332,6 +332,9 @@ namespace ld3d
 		RenderShadowMaps(pCamera);
 		
 
+		const math::RectI& vp = pCamera->GetViewport();
+		SetViewport(vp);
+
 		SetViewMatrix(pCamera->GetViewMatrix());
 		SetProjMatrix(pCamera->GetProjMatrix());
 
@@ -695,5 +698,9 @@ namespace ld3d
 	DepthStencilBufferPtr RenderManager::GetDepthStencilBuffer()
 	{
 		return m_pDSBuffer;
+	}
+	void RenderManager::SetViewport(const math::RectI& vp)
+	{
+		m_pGraphics->SetViewPort(vp.left , vp.top, vp.width(), vp.height());
 	}
 }

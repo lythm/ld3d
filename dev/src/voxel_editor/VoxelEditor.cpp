@@ -52,11 +52,12 @@ namespace ld3d
 
 			m_pCamera= pCore->CreateGameObject("Camera");
 
-			GameObjectComponentPtr pMD = pCore->CreateGameObjectComponent("Camera");
-
+			CameraDataPtr pMD = std::dynamic_pointer_cast<CameraData>(pCore->CreateGameObjectComponent("Camera"));
 			m_pCamera->AddComponent(pMD);
-
-			GameObjectComponentPtr pController = pCore->CreateGameObjectComponent("CameraFirstPersonController");
+			
+			CameraController_FreePtr pController = std::dynamic_pointer_cast<CameraController_Free>(pCore->CreateGameObjectComponent("CameraFreeController"));
+			pController->SetSpeed(50);
+		//	pController->Enable(false);
 			m_pCamera->AddComponent(pController);
 
 			GameObjectComponentPtr pSkyBox = pCore->CreateGameObjectComponent("SkyBox");
@@ -65,10 +66,15 @@ namespace ld3d
 
 			m_pCamera->SetTranslation(0, 20, 0);
 
-
-
 			m_pWorld = std::make_shared<World>();
 			m_pWorld->Initialize(nullptr);
+
+
+			GameObjectPtr pObj = pCore->CreateGameObject("Box");
+			AABBoxRendererPtr pRenderer = std::dynamic_pointer_cast<AABBoxRenderer>(pCore->CreateGameObjectComponent("AABBoxRenderer"));
+			pObj->AddComponent(pRenderer);
+
+			pRenderer->SetAABBox(math::AABBox(math::Vector3(-10, -10, -10), math::Vector3(10, 10, 10)));
 
 			return true;
 		}

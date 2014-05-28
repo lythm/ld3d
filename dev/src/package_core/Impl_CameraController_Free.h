@@ -1,20 +1,24 @@
 #pragma once
 
 
-#include "packages/core/CameraController_FirstPerson.h"
+#include "packages/core/CameraController_Free.h"
 
 namespace ld3d
 {
 	class Impl_CameraData;
-	class Impl_CameraController_FirstPerson : public CameraController_FirstPerson
+	class Impl_CameraController_Free : public CameraController_Free
 	{
 	public:
-		Impl_CameraController_FirstPerson(GameObjectManagerPtr pManager);
-		virtual ~Impl_CameraController_FirstPerson(void);
+		Impl_CameraController_Free(GameObjectManagerPtr pManager);
+		virtual ~Impl_CameraController_Free(void);
 
 
 		void										Update(float dt);
 
+		float										GetSpeed() const;
+		void										SetSpeed(float speed);
+
+		void										Enable(bool enabled);
 	private:
 
 		bool										OnAttach();
@@ -40,5 +44,9 @@ namespace ld3d
 		bool										m_right;
 
 		std::shared_ptr<Impl_CameraData>			m_pCameraData;
+
+		float										m_speed;
+
+		bool										m_enabled;
 	};
 }

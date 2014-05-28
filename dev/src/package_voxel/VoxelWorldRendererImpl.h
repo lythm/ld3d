@@ -47,7 +47,7 @@ namespace ld3d
 
 		bool										m_bShowBound;
 
-		BBoxRenderDataPtr							m_pBBoxRD;
+		AABBoxRenderDataPtr							m_pAABBoxRD;
 
 
 		RenderDataPtr								m_pRenderData;

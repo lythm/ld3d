@@ -17,8 +17,6 @@ namespace ld3d
 		{
 			m_worldBound = Bound(Coord(-134217728 * (int32)CHUNK_SIZE, -128 * (int32)CHUNK_SIZE, -134217728 * (int32)CHUNK_SIZE), 
 								Coord((134217728 - 1) * CHUNK_SIZE, 127 * CHUNK_SIZE, (134217728 - 1) * CHUNK_SIZE));
-
-			//m_worldBound = math::AABBox(math::Vector3(-1024, -1024, -1024), math::Vector3(1024, 1024, 1024));
 		}
 
 
@@ -49,6 +47,8 @@ namespace ld3d
 		{
 			m_pChunkManager->Clear();
 			m_pChunkManager.reset();
+
+			m_viewPorts.clear();
 
 		}
 		bool World::AddBlock(const Coord& c, uint8 type)
@@ -99,7 +99,6 @@ namespace ld3d
 			}
 
 			return m_pChunkManager->FindChunk(key);
-
 		}
 		
 		void World::UpdateBlock(const Coord& c)
@@ -117,7 +116,7 @@ namespace ld3d
 			return m_worldBound.Inside(c);
 			
 		}
-		const Bound&	World::GetBound() const
+		const Bound& World::GetBound() const
 		{
 			return m_worldBound;
 		}
@@ -145,25 +144,9 @@ namespace ld3d
 		{
 			m_pChunkManager->ClearDirtyChunks();
 		}
-		void World::LoadPendingRegion()
-		{
-			std::list<RegionPtr>::iterator it = m_pendingRengionList.begin();
-			if(it == m_pendingRengionList.end())
-			{
-				return;
-			}
-
-			(*it)->Load(m_pGen);
-
-			m_pendingRengionList.erase(it);
-		}
-		void World::AddPendingRegion(RegionPtr pRegion)
-		{
-			m_pendingRengionList.push_back(pRegion);
-		}
+		
 		void World::Update(float dt)
 		{
-			LoadPendingRegion();
 		}
 		WorldViewportPtr World::OpenViewport(const Coord& c, uint32 size)
 		{

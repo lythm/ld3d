@@ -89,8 +89,8 @@ namespace ld3d
 
 		m_pWorld = std::dynamic_pointer_cast<VoxelWorldImpl>(m_pObject->GetComponent("VoxelWorld"));
 
-		m_pBBoxRD = m_pManager->alloc_object<BBoxRenderData>();
-		if(m_pBBoxRD->Initialize(m_pManager->GetRenderManager()->GetSysGraphics()) == false)
+		m_pAABBoxRD = m_pManager->alloc_object<AABBoxRenderData>();
+		if(m_pAABBoxRD->Initialize(m_pManager->GetRenderManager()) == false)
 		{
 			return false;
 		}
@@ -109,7 +109,7 @@ namespace ld3d
 		m_pManager->RemoveEventHandler(m_hFrustumCull);
 		m_pRenderData.reset();
 
-		_release_and_reset(m_pBBoxRD);
+		_release_and_reset(m_pAABBoxRD);
 	
 	}
 	
@@ -117,11 +117,11 @@ namespace ld3d
 	{
 		if(m_bShowBound)
 		{
-			/*m_pBBoxRD->SetWorldMatrix(m_pObject->GetWorldTransform());
-			m_pBBoxRD->SetBBox(math::AABBox(
+			m_pAABBoxRD->SetWorldMatrix(m_pObject->GetWorldTransform());
+			m_pAABBoxRD->SetBox(math::AABBox(
 				math::Vector3(0, 0, 0),
 				math::Vector3(m_pWorld->GetWorldSizeX(), m_pWorld->GetWorldSizeY(), m_pWorld->GetWorldSizeZ())));
-			m_pManager->GetRenderManager()->AddRenderData(m_pBBoxRD);*/
+			m_pManager->GetRenderManager()->AddRenderData(layer_forward, m_pAABBoxRD->GetRenderData());
 		}
 
 		std::shared_ptr<Event_FrustumCull> e = std::dynamic_pointer_cast<Event_FrustumCull>(pEvent);

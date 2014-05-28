@@ -36,6 +36,23 @@ namespace ld3d
 				return *this;
 			}
 
+			const Coord& operator+=(int32 v)
+			{
+				x += v;
+				y += v;
+				z += v;
+				return *this;
+			}
+
+			const Coord& operator-=(int32 v)
+			{
+				x -= v;
+				y -= v;
+				z -= v;
+				return *this;
+			}
+
+
 			Coord operator+() const
 			{
 				return *this;
@@ -91,6 +108,19 @@ namespace ld3d
 		{
 			return Coord(l.x - r.x, l.y - r.y, l.z - r.z);
 		}
+
+		inline
+			Coord operator+(const Coord& l, int32 r)
+		{
+			return Coord(l.x + r, l.y + r, l.z + r);
+		}
+		inline
+			Coord operator-(const Coord& l, int32 r)
+		{
+			return l + (-r);
+		}
+
+
 		inline
 			Coord operator*(const Coord& l, int32 r)
 		{

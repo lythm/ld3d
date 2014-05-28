@@ -11,6 +11,7 @@ namespace ld3d
 		virtual ~CameraData(void){}
 
 		virtual void						UpdateCamera()									= 0;
+		virtual void						SetViewport(const math::RectI& vp)				= 0;
 
 	};
 }

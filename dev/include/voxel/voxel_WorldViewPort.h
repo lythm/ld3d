@@ -26,6 +26,8 @@ namespace ld3d
 
 			uint32														m_size;
 			Coord														m_center;
+
+			std::vector<RegionPtr>										m_regionBuffer;
 		};
 	}
 }

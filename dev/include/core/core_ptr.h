@@ -61,15 +61,15 @@ namespace ld3d
 	class DataStream;
 	class Mesh;
 	class SubMesh;
-	
+	class AABBoxRenderData;
 
 
+	typedef std::shared_ptr<AABBoxRenderData>				AABBoxRenderDataPtr;
 	typedef std::shared_ptr<SubMesh>						SubMeshPtr;
 	typedef std::shared_ptr<DataStream>						DataStreamPtr;
 	typedef std::shared_ptr<Mesh>							MeshPtr;
 
 
-	class BBoxRenderData;
 	class DepthStencilBuffer;
 	class RenderTarget;
 	class Texture;
@@ -92,9 +92,6 @@ namespace ld3d
 	class ShaderProgram;
 	class SamplerState;
 	
-	typedef std::shared_ptr<BBoxRenderData>					BBoxRenderDataPtr;
-	
-
 	typedef std::shared_ptr<Material>						MaterialPtr;
 	typedef std::shared_ptr<MaterialPass>					MaterialPassPtr;
 	typedef std::shared_ptr<MaterialTech>					MaterialTechPtr;

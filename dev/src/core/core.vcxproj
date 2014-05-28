@@ -163,13 +163,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\include\core\AABBoxRenderData.h" />
     <ClInclude Include="..\..\include\core\ActionManager.h" />
     <ClInclude Include="..\..\include\core\Allocator.h" />
     <ClInclude Include="..\..\include\core\AppDelegate.h" />
     <ClInclude Include="..\..\include\core\ArcBall.h" />
     <ClInclude Include="..\..\include\core\AssetsManager.h" />
     <ClInclude Include="..\..\include\core\BaseCamera.h" />
-    <ClInclude Include="..\..\include\core\BBoxRenderData.h" />
     <ClInclude Include="..\..\include\core\Bound.h" />
     <ClInclude Include="..\..\include\core\Camera.h" />
     <ClInclude Include="..\..\include\core\CollisionData.h" />
@@ -298,11 +298,11 @@
     <ClInclude Include="WinRawInput.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AABBoxRenderData.cpp" />
     <ClCompile Include="ActionManager.cpp" />
     <ClCompile Include="ArcBall.cpp" />
     <ClCompile Include="AssetsManager.cpp" />
     <ClCompile Include="BaseCamera.cpp" />
-    <ClCompile Include="BBoxRenderData.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CEFApp.cpp" />
     <ClCompile Include="CEFManager.cpp" />

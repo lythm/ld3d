@@ -59,7 +59,7 @@
 #include "core/RenderManager.h"
 #include "core/coreapi.h"
 
-#include "core/BBoxRenderData.h"
+#include "core/AABBoxRenderData.h"
 #include "core/Shader.h"
 #include "core/ShaderProgram.h"
 #include "core/SamplerState.h"

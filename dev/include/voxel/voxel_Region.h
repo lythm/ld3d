@@ -26,6 +26,9 @@ namespace ld3d
 
 			const Coord&											GetRegionCoord() const;
 			void													SetRegionCoord(const Coord& coord);
+
+			bool													IsLoaded() const;
+			void													SetLoaded(bool loaded);
 		private:
 			
 			bool													m_modified;
@@ -34,7 +37,7 @@ namespace ld3d
 
 			ChunkManagerPtr											m_pChunkManager;
 
-			uint32													m_refCount;
+			bool													m_loaded;
 		};
 	}
 }

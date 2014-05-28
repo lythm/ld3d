@@ -5,7 +5,7 @@
 #include "Impl_CameraData.h"
 
 #include "Impl_CameraController_Orbit.h"
-#include "Impl_CameraController_FirstPerson.h"
+#include "Impl_CameraController_Free.h"
 
 namespace ld3d
 {
@@ -25,7 +25,7 @@ namespace ld3d
 	
 		pObj->AddComponent(pMD);
 
-		GameObjectComponentPtr pController = std::dynamic_pointer_cast<Impl_CameraController_FirstPerson>(m_pManager->CreateComponent("CameraFirstPersonController"));
+		GameObjectComponentPtr pController = std::dynamic_pointer_cast<Impl_CameraController_Free>(m_pManager->CreateComponent("CameraFreeController"));
 		//GameObjectComponentPtr pController = m_pManager->CreateComponent("CameraOrbitController");
 		
 	//	pObj->AddComponent(pController);

@@ -1,0 +1,25 @@
+
+
+RenderState rs
+{
+	FrontFace	= CW;
+	CULLMODE	= Back;
+	FILLMODE	= SOLID;
+
+	DepthEnable = TRUE;
+	DepthFunc = LESS;
+	DepthWriteMask = ALL;
+	StencilEnable = false;
+	BlendEnable = false;
+
+};
+
+technique grid
+{
+  pass p1
+  {
+	SetRenderState(rs);
+	SetVertexShader("./shader/simple_line.vs");
+	SetPixelShader("./shader/simple_line.ps");
+  }
+}

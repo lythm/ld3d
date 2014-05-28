@@ -26,4 +26,12 @@ namespace ld3d
 	{
 		return pC1->GetOrder() <= pC2->GetOrder();
 	}
+	void Camera::SetViewport(const math::RectI& vp)
+	{
+		m_viewPort = vp;
+	}
+	const math::RectI& Camera::GetViewport() const
+	{
+		return m_viewPort;
+	}
 }
