@@ -26,7 +26,6 @@ namespace ld3d
 			uint8											GetBlock(const Coord& c);
 			void											UpdateBlock(const Coord& c);
 
-
 			bool											Inside(const Coord& c) const;
 
 			const Bound&									GetBound() const;		
@@ -40,20 +39,17 @@ namespace ld3d
 
 			void											Update(float dt);
 
-			WorldViewportPtr								OpenViewport(const Coord& c, uint32 size);
-			void											CloseViewport(WorldViewportPtr pViewport);
+			ChunkManagerPtr									GetChunkManager();
+			RegionManagerPtr								GetRegionManager();
 		private:
-			
+		
 			
 		private:
 			WorldGenPtr										m_pGen;
-
-			ChunkManagerPtr									m_pChunkManager;
 			Bound											m_worldBound;
 
-			std::list<WorldViewportPtr>						m_viewPorts;
-
-
+			RegionManagerPtr								m_pRegionManager;
+			ChunkManagerPtr									m_pChunkManager;
 		};
 	}
 }

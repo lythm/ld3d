@@ -169,6 +169,7 @@
     <ClInclude Include="voxel_MeshUtils.h" />
     <ClInclude Include="voxel_HeightmapUtils.h" />
     <ClInclude Include="voxel_pch.h" />
+    <ClInclude Include="voxel_RegionManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="voxel_ChunkManager.cpp" />
@@ -182,6 +183,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="voxel_RegionManager.cpp" />
     <ClCompile Include="voxel_World.cpp" />
     <ClCompile Include="voxel_WorldGen.cpp" />
     <ClCompile Include="voxel_WorldGenPass_Caves.cpp" />

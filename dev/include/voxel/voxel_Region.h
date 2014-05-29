@@ -11,10 +11,11 @@ namespace ld3d
 			Region();
 			virtual ~Region(void);
 
-			bool													Initialize(ChunkManagerPtr pChunkManager, const Coord& coord);
+			bool													Initialize(WorldPtr pWorld, const Coord& coord);
 			void													Release();
 
-			bool													Load(WorldGenPtr pGen);
+			bool													Load();
+			bool													Unload();
 			bool													Save();
 
 			bool													Gen(WorldGenPtr pGen);
@@ -29,6 +30,10 @@ namespace ld3d
 
 			bool													IsLoaded() const;
 			void													SetLoaded(bool loaded);
+
+			void													IncRef();
+			void													DecRef();
+			int32													GetRef() const;
 		private:
 			
 			bool													m_modified;
@@ -38,6 +43,10 @@ namespace ld3d
 			ChunkManagerPtr											m_pChunkManager;
 
 			bool													m_loaded;
+
+			int32													m_refCount;
+
+			WorldPtr												m_pWorld;
 		};
 	}
 }

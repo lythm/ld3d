@@ -8,7 +8,7 @@
 #include "voxel_ChunkManager.h"
 #include "voxel/voxel_Region.h"
 #include "voxel/voxel_WorldViewPort.h"
-
+#include "voxel_RegionManager.h"
 namespace ld3d
 {
 	namespace voxel
@@ -26,7 +26,11 @@ namespace ld3d
 		bool World::Initialize(WorldGenPtr pGen)
 		{
 			m_pChunkManager = std::make_shared<ChunkManager>();
-
+			m_pRegionManager = std::make_shared<RegionManager>();
+			if(m_pRegionManager->Initialize(shared_from_this()) == false)
+			{
+				return false;
+			}
 			m_pGen = pGen;
 
 			m_pGen = std::make_shared<WorldGen>();
@@ -47,8 +51,8 @@ namespace ld3d
 		{
 			m_pChunkManager->Clear();
 			m_pChunkManager.reset();
-
-			m_viewPorts.clear();
+			m_pRegionManager->Release();
+			m_pRegionManager.reset();
 
 		}
 		bool World::AddBlock(const Coord& c, uint8 type)
@@ -147,21 +151,18 @@ namespace ld3d
 		
 		void World::Update(float dt)
 		{
+			m_pRegionManager->Update();
 		}
-		WorldViewportPtr World::OpenViewport(const Coord& c, uint32 size)
+				
+		ChunkManagerPtr	World::GetChunkManager()
 		{
-			WorldViewportPtr pVP = std::make_shared<WorldViewport>(shared_from_this());
-			pVP->SetSize(size);
-			pVP->MoveTo(c);
-
-			m_viewPorts.push_back(pVP);
-			return pVP;
+			return m_pChunkManager;
 		}
-		void World::CloseViewport(WorldViewportPtr pViewport)
+		RegionManagerPtr World::GetRegionManager()
 		{
-			pViewport->Close();
-			m_viewPorts.remove(pViewport);
+			return m_pRegionManager;
 		}
+		
 	}
 }
 

@@ -31,7 +31,10 @@ namespace ld3d
 		class ChunkManager;
 		class Region;
 		class WorldViewport;
+		class RegionManager;
 
+
+		typedef std::shared_ptr<RegionManager>									RegionManagerPtr;
 		typedef std::shared_ptr<WorldViewport>									WorldViewportPtr;
 		typedef std::shared_ptr<Region>											RegionPtr;
 		typedef std::shared_ptr<World>											WorldPtr;

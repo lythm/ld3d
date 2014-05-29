@@ -1,6 +1,6 @@
 #include "voxel_pch.h"
-#include "..\..\include\voxel\voxel_Region.h"
-
+#include "voxel/voxel_Region.h"
+#include "voxel/voxel_World.h"
 namespace ld3d
 {
 	namespace voxel
@@ -14,7 +14,7 @@ namespace ld3d
 		Region::~Region(void)
 		{
 		}
-		bool Region::Load(WorldGenPtr pGen)
+		bool Region::Load()
 		{
 			return true;
 		}
@@ -36,13 +36,15 @@ namespace ld3d
 		}
 		void Region::Reset(const Coord& coord)
 		{
-			m_modified = false;
-			m_coord = coord;
-			m_loaded = false;
+			m_modified		= false;
+			m_coord			= coord;
+			m_loaded		= false;
+			m_refCount		= 0;
 		}
-		bool Region::Initialize(ChunkManagerPtr pChunkManager, const Coord& coord)
+		bool Region::Initialize(WorldPtr pWorld, const Coord& coord)
 		{
-			m_pChunkManager = pChunkManager;
+			m_pWorld = pWorld;
+			m_pChunkManager = pWorld->GetChunkManager();
 
 			Reset(coord);
 
@@ -70,6 +72,22 @@ namespace ld3d
 		void Region::SetLoaded(bool loaded)
 		{
 			m_loaded = loaded;
+		}
+		void Region::IncRef()
+		{
+			++m_refCount;
+		}
+		void Region::DecRef()
+		{
+			--m_refCount;
+		}
+		int32 Region::GetRef() const
+		{
+			return m_refCount;
+		}
+		bool Region::Unload()
+		{
+			return Save();
 		}
 	}
 }

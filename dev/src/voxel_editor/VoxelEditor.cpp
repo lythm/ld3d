@@ -76,6 +76,12 @@ namespace ld3d
 
 			pRenderer->SetAABBox(math::AABBox(math::Vector3(-10, -10, -10), math::Vector3(10, 10, 10)));
 
+
+
+			m_pWorldVP = std::make_shared<WorldViewport>();
+
+			m_pWorldVP->Open(m_pWorld, Coord(), REGION_SIZE * CHUNK_SIZE * BLOCK_SIZE * 3);
+
 			return true;
 		}
 		void VoxelEditor::Release()

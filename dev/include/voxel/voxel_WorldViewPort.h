@@ -6,10 +6,10 @@ namespace ld3d
 {
 	namespace voxel
 	{
-		class WorldViewport : public std::enable_shared_from_this<WorldViewport>
+		class _DLL_CLASS WorldViewport : public std::enable_shared_from_this<WorldViewport>
 		{
 		public:
-			WorldViewport(WorldPtr pWorld);
+			WorldViewport();
 			virtual ~WorldViewport(void);
 
 
@@ -17,17 +17,22 @@ namespace ld3d
 
 			bool														Inside(const Coord& coord) const;
 
-			void														SetSize(uint32 size);
-
+			bool														Open(WorldPtr pWorld, const Coord& center, uint32 size);
 			void														Close();
+
+			void														Update();
 		private:
 
+			bool														InitRegionBuffer();
+			void														ReleaseRegionBuffer();
+		private:
 			WorldPtr													m_pWorld;
-
+			RegionManagerPtr											m_pRegionManager;
 			uint32														m_size;
 			Coord														m_center;
 
 			std::vector<RegionPtr>										m_regionBuffer;
+			std::list<RegionPtr>										m_regionCache;
 		};
 	}
 }
