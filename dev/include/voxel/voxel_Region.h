@@ -18,8 +18,8 @@ namespace ld3d
 			bool													Unload();
 			bool													Save();
 
-			bool													Gen(WorldGenPtr pGen);
-
+			bool													GenChunk(const Coord& chunk_coord);
+			bool													GenRegion();
 			bool													IsModified() const;
 			void													SetModified();
 

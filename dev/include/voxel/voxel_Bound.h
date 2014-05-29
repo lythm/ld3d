@@ -15,33 +15,33 @@ namespace ld3d
 
 			~Bound(void);
 
-			const Coord&			GetCenter() const;
-			const Coord&			GetMaxCoord() const;
-			const Coord&			GetMinCoord() const;
-			const Coord&			GetExtent() const;
+			const Coord&									GetCenter() const;
+			const Coord&									GetMaxCoord() const;
+			const Coord&									GetMinCoord() const;
+			const Coord&									GetExtent() const;
 
-			void					SetMaxCoord(const Coord& max_coord);
-			void					SetMinCoord(const Coord& min_coord);
-			void					Make(const Coord& min_coord, const Coord& max_coord);
+			void											SetMaxCoord(const Coord& max_coord);
+			void											SetMinCoord(const Coord& min_coord);
+			void											Make(const Coord& min_coord, const Coord& max_coord);
 
-			void					Merge(const Bound& box);
+			void											Merge(const Bound& box);
 
-			const Bound&			operator&=(const Bound& box);
+			const Bound&									operator&=(const Bound& box);
 
-			bool					IsValid() const;
+			bool											IsValid() const;
 
-			bool					Inside(const Coord& pt) const;
+			bool											Inside(const Coord& pt) const;
 
-			Coord					PointNormal(const Coord& pt);
+			Coord											PointNormal(const Coord& pt);
 		private:
-			void					UpdateValid();
-			void					UpdateCenter();
+			void											UpdateValid();
+			void											UpdateCenter();
 
-			Coord					m_max;
-			Coord					m_min;
-			Coord					m_center;
-			Coord					m_extent;
-			bool					m_bValid;
+			Coord											m_max;
+			Coord											m_min;
+			Coord											m_center;
+			Coord											m_extent;
+			bool											m_bValid;
 		};
 
 		inline

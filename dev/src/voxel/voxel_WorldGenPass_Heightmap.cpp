@@ -15,19 +15,25 @@ namespace ld3d
 		WorldGenPass_Heightmap::~WorldGenPass_Heightmap(void)
 		{
 		}
-		bool WorldGenPass_Heightmap::Apply(WorldGenPtr pGen)
+		bool WorldGenPass_Heightmap::ApplyChunk(WorldGenPtr pGen, const Coord& chunk_coord)
 		{
+			PerlinNoise p(2, 1, 1, rand());
+
 			const Bound& bound = pGen->GetWorld()->GetBound();
 			WorldPtr pWorld = pGen->GetWorld();
 
-			for(int x = 0; x < 100; ++x)
+			for(int x = 0; x < CHUNK_SIZE; ++x)
 			{
-				for(int z = 0; z < 100; ++z)
+				for(int z = 0; z < CHUNK_SIZE; ++z)
 				{
-					pWorld->AddBlock(Coord(x, 0, z), 1);
+					Coord c = Coord(x, 0, z) + chunk_coord;
+
+					float h = p.Get(c.x, c.z);
+					c.y = h * 2000 - 1000;
+
+					pWorld->AddBlock(c, 1);
 				}
 			}
-
 			return true;
 		}
 	}

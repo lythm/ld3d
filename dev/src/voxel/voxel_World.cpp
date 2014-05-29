@@ -42,7 +42,7 @@ namespace ld3d
 
 			m_pGen->AddPass(std::make_shared<WorldGenPass_Heightmap>());
 
-			m_pGen->GenAll();
+			m_pGen->GenChunk(Coord(0, 0, 0));
 
 			
 			return true;

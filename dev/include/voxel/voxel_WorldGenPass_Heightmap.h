@@ -11,7 +11,7 @@ namespace ld3d
 			WorldGenPass_Heightmap(void);
 			virtual ~WorldGenPass_Heightmap(void);
 
-			bool											Apply(WorldGenPtr pGen);
+			bool											ApplyChunk(WorldGenPtr pGen, const Coord& chunk_coord);
 
 		private:
 

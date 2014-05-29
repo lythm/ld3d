@@ -15,23 +15,17 @@ namespace ld3d
 		WorldGen::~WorldGen(void)
 		{
 		}
-		bool WorldGen::GenAll()
+		
+		bool WorldGen::GenChunk(const Coord& c)
 		{
 			for(size_t i = 0; i < m_passList.size(); ++i)
 			{
-				m_passList[i]->Apply(shared_from_this());
+				m_passList[i]->ApplyChunk(shared_from_this(), c);
 			}
-			return true;
-		}
-		bool WorldGen::GenChunk(const Coord& c)
-		{
-			return true;
-		}
-		bool WorldGen::GenRegion(const Coord& c, uint32 dx, uint32 dy, uint32 dz)
-		{
-			return true;
-		}
 
+			return true;
+		}
+		
 		bool WorldGen::Initialize()
 		{
 			return true;

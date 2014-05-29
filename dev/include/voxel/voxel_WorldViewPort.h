@@ -22,7 +22,7 @@ namespace ld3d
 
 			void														Update();
 		private:
-
+			void														UpdateRegionBuffer();
 			bool														InitRegionBuffer();
 			void														ReleaseRegionBuffer();
 		private:
@@ -30,7 +30,7 @@ namespace ld3d
 			RegionManagerPtr											m_pRegionManager;
 			uint32														m_size;
 			Coord														m_center;
-
+			Coord														m_baseRegionCoord;
 			std::vector<RegionPtr>										m_regionBuffer;
 			std::list<RegionPtr>										m_regionCache;
 		};

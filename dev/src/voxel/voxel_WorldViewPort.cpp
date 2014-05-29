@@ -43,7 +43,6 @@ namespace ld3d
 				return false;
 			}
 
-
 			return true;
 		}
 		void WorldViewport::Close()
@@ -58,7 +57,29 @@ namespace ld3d
 		}
 		bool WorldViewport::InitRegionBuffer()
 		{
+			uint32 region_count = m_size / (REGION_SIZE * CHUNK_SIZE * BLOCK_SIZE) + 1;
 
+			m_regionBuffer.resize(region_count * region_count);
+
+			m_baseRegionCoord = (m_center - m_size / 2);
+
+			m_baseRegionCoord /= REGION_SIZE * CHUNK_SIZE * BLOCK_SIZE;
+
+
+			for(size_t x = 0; x < region_count; ++x)
+			{
+				for(size_t z = 0; z < region_count; ++z)
+				{
+
+					Coord c;
+
+					c.x = x;
+					c.z = z;
+
+					c += m_baseRegionCoord;
+					m_regionBuffer[x + z * region_count] = m_pRegionManager->LoadRegion(c);
+				}
+			}
 			return true;
 		}
 		void WorldViewport::ReleaseRegionBuffer()
@@ -74,6 +95,16 @@ namespace ld3d
 			m_regionBuffer.clear();
 		}
 		void WorldViewport::Update()
+		{
+			Coord base_coord = (m_center - m_size / 2);
+			base_coord /= REGION_SIZE * CHUNK_SIZE * BLOCK_SIZE;
+
+			if(base_coord != m_baseRegionCoord)
+			{
+				UpdateRegionBuffer();
+			}
+		}
+		void WorldViewport::UpdateRegionBuffer()
 		{
 
 		}

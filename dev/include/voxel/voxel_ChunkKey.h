@@ -39,12 +39,13 @@ namespace ld3d
 
 			Coord												ToCoord() const
 			{
-				uint32 c_x = (m_key >> 36) & 0x000000000fffffff;
-				uint8 c_y = (m_key >> 28) & 0x00000000000000ff;
-				uint32 c_z = m_key & 0x000000000fffffff;
+
+				int32 c_x = (m_key >> 36) & 0x000000000fffffff;
+				int8 c_y = (m_key >> 28) & 0x00000000000000ff;
+				int32 c_z = m_key & 0x000000000fffffff;
 
 				int32 x = c_x * CHUNK_SIZE * BLOCK_SIZE;
-				int8 y = c_y * CHUNK_SIZE * BLOCK_SIZE;
+				int32 y = c_y * CHUNK_SIZE * BLOCK_SIZE;
 				int32 z = c_z * CHUNK_SIZE * BLOCK_SIZE;
 
 				return Coord(x, y, z );

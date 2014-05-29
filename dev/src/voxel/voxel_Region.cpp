@@ -16,13 +16,18 @@ namespace ld3d
 		}
 		bool Region::Load()
 		{
+			GenRegion();
 			return true;
 		}
 		bool Region::Save()
 		{
 			return true;
 		}
-		bool Region::Gen(WorldGenPtr pGen)
+		bool Region::GenChunk(const Coord& chunk_coord)
+		{
+			return true;
+		}
+		bool Region::GenRegion()
 		{
 			return true;
 		}

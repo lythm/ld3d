@@ -1,5 +1,7 @@
 #pragma once
 
+#include "voxel/voxel_Coord.h"
+
 namespace ld3d
 {
 	namespace voxel
@@ -12,7 +14,7 @@ namespace ld3d
 
 			virtual ~WorldGenPass(void){}
 
-			virtual bool											Apply(WorldGenPtr pGen)										= 0;
+			virtual bool											ApplyChunk(WorldGenPtr pGen, const Coord& chunk_coord)										= 0;
 
 
 		};

@@ -43,7 +43,7 @@ namespace ld3d
 
 			GridRendererPtr pGridRenderer = std::dynamic_pointer_cast<GridRenderer>(pCore->CreateGameObjectComponent("GridRenderer"));
 
-			pGridRenderer->SetSize(2000);
+			pGridRenderer->SetSize(200);
 			pGridRenderer->SetGridSize(8);
 
 			m_pGrid->AddComponent(pGridRenderer);
@@ -80,7 +80,7 @@ namespace ld3d
 
 			m_pWorldVP = std::make_shared<WorldViewport>();
 
-			m_pWorldVP->Open(m_pWorld, Coord(), REGION_SIZE * CHUNK_SIZE * BLOCK_SIZE * 3);
+			m_pWorldVP->Open(m_pWorld, Coord(), REGION_SIZE * CHUNK_SIZE * BLOCK_SIZE * 3 - 1);
 
 			return true;
 		}
@@ -91,6 +91,8 @@ namespace ld3d
 		bool VoxelEditor::Update(float dt)
 		{
 			m_pWorld->Update(dt);
+
+			m_pWorldVP->Update();
 			return true;
 		}
 		void VoxelEditor::_on_key_state(ld3d::EventPtr pEvent)

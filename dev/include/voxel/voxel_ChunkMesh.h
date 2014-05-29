@@ -35,7 +35,5 @@ namespace ld3d
 
 			std::vector<VoxelFace>							m_mesh;
 		};
-
-
 	}
 }
