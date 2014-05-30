@@ -23,8 +23,6 @@ namespace ld3d
 			bool													IsModified() const;
 			void													SetModified();
 
-			void													Reset(const Coord& coord);
-
 			const Coord&											GetRegionCoord() const;
 			void													SetRegionCoord(const Coord& coord);
 

@@ -121,6 +121,8 @@ namespace ld3d
 			CefRefPtr<CEFWebpage>										m_pPage;
 			CoreApiPtr													m_pCore;
 
+			EventHandlerID												m_winMsgHandlerId;
+
 
 		};
 	}

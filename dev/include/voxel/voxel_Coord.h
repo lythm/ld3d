@@ -79,6 +79,10 @@ namespace ld3d
 				return *this;
 			}
 
+			uint64						Length()
+			{
+				return sqrt(x * x + y * y + z * z);
+			}
 
 			int32						x;
 			int32						y;
@@ -130,6 +134,17 @@ namespace ld3d
 			Coord operator*(int32 l, const Coord& r)
 		{
 			return Coord(l * r.x, l * r.y, l* r.z);
+		}
+
+		inline
+			Coord operator/(const Coord& l, int32 r)
+		{
+			return Coord(l.x / r, l.y / r, l.z / r);
+		}
+		inline
+			Coord operator/(int32 l, const Coord& r)
+		{
+			return Coord(l / r.x, l / r.y, l / r.z);
 		}
 	}
 }

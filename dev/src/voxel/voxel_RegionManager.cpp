@@ -21,6 +21,10 @@ namespace ld3d
 		}
 		void RegionManager::Release()
 		{
+			m_loadingQueue.clear();
+
+			while(ProcessUnloadingQueue());
+
 			m_pWorld.reset();
 		}
 		RegionPtr RegionManager::LoadRegion(const Coord& c)
@@ -86,13 +90,16 @@ namespace ld3d
 				return false;
 			}
 
+			assert((*it)->IsLoaded() == true);
+
 			(*it)->Unload();
 			(*it)->SetLoaded(false);
-			m_unloadingQueue.erase(it);
-
+			
 			(*it)->Release();
 
-			return false;
+			m_unloadingQueue.erase(it);
+
+			return true;
 		}
 		RegionPtr RegionManager::FindRegion(const Coord& c)
 		{

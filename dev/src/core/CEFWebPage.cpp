@@ -20,7 +20,7 @@ namespace ld3d
 			m_pPage = pPage;
 			m_pCore = pCore;
 
-			m_pCore->AddEventHandler(EV_WINMSG, std::bind(&CEFWebpageRenderer::_on_win_msg, this, std::placeholders::_1));
+			m_winMsgHandlerId = m_pCore->AddEventHandler(EV_WINMSG, std::bind(&CEFWebpageRenderer::_on_win_msg, this, std::placeholders::_1));
 		}
 
 		CEFWebpageRenderer::~CEFWebpageRenderer()
@@ -43,6 +43,7 @@ namespace ld3d
 		}
 		void CEFWebpageRenderer::Release()
 		{
+			m_pCore->RemoveEventHandler(m_winMsgHandlerId);
 			if(m_pPage)
 			{
 				m_pPage->Destroy();

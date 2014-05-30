@@ -86,6 +86,8 @@ namespace ld3d
 		}
 		void VoxelEditor::Release()
 		{
+			m_pWorldVP->Close();
+
 			m_pWorld->Release();
 		}
 		bool VoxelEditor::Update(float dt)

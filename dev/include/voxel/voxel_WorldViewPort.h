@@ -25,12 +25,18 @@ namespace ld3d
 			void														UpdateRegionBuffer();
 			bool														InitRegionBuffer();
 			void														ReleaseRegionBuffer();
+
+			RegionPtr													FindInCache(const Coord& c);
+			void														AddToCache(RegionPtr pRegion);
+
+			void														UpdateRegionCache();
 		private:
 			WorldPtr													m_pWorld;
 			RegionManagerPtr											m_pRegionManager;
 			uint32														m_size;
 			Coord														m_center;
-			Coord														m_baseRegionCoord;
+			Coord														m_centerRegionCoord;
+
 			std::vector<RegionPtr>										m_regionBuffer;
 			std::list<RegionPtr>										m_regionCache;
 		};

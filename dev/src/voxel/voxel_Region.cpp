@@ -7,7 +7,10 @@ namespace ld3d
 	{
 		Region::Region(void)
 		{
-			Reset(Coord());
+			m_modified		= false;
+			m_coord			= Coord();
+			m_loaded		= false;
+			m_refCount		= 0;
 		}
 
 
@@ -25,6 +28,7 @@ namespace ld3d
 		}
 		bool Region::GenChunk(const Coord& chunk_coord)
 		{
+			
 			return true;
 		}
 		bool Region::GenRegion()
@@ -39,19 +43,16 @@ namespace ld3d
 		{
 			m_modified = true;
 		}
-		void Region::Reset(const Coord& coord)
-		{
-			m_modified		= false;
-			m_coord			= coord;
-			m_loaded		= false;
-			m_refCount		= 0;
-		}
+		
 		bool Region::Initialize(WorldPtr pWorld, const Coord& coord)
 		{
 			m_pWorld = pWorld;
 			m_pChunkManager = pWorld->GetChunkManager();
 
-			Reset(coord);
+			m_modified		= false;
+			m_coord			= coord;
+			m_loaded		= false;
+			m_refCount		= 0;
 
 			return true;
 		}

@@ -19,6 +19,7 @@ namespace ld3d
 	}
 	void HtmlOverlay::OnRelease()
 	{
+		_release_and_reset(m_pPageRenderer);
 		_release_and_reset(m_pTexture);
 
 	}

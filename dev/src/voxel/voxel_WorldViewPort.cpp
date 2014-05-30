@@ -2,7 +2,7 @@
 #include "voxel/voxel_WorldViewPort.h"
 #include "voxel/voxel_World.h"
 #include "voxel_RegionManager.h"
-
+#include "voxel/voxel_Region.h"
 namespace ld3d
 {
 	namespace voxel
@@ -47,7 +47,6 @@ namespace ld3d
 		}
 		void WorldViewport::Close()
 		{
-
 			ReleaseRegionBuffer();
 
 			m_pWorld.reset();
@@ -57,29 +56,7 @@ namespace ld3d
 		}
 		bool WorldViewport::InitRegionBuffer()
 		{
-			uint32 region_count = m_size / (REGION_SIZE * CHUNK_SIZE * BLOCK_SIZE) + 1;
-
-			m_regionBuffer.resize(region_count * region_count);
-
-			m_baseRegionCoord = (m_center - m_size / 2);
-
-			m_baseRegionCoord /= REGION_SIZE * CHUNK_SIZE * BLOCK_SIZE;
-
-
-			for(size_t x = 0; x < region_count; ++x)
-			{
-				for(size_t z = 0; z < region_count; ++z)
-				{
-
-					Coord c;
-
-					c.x = x;
-					c.z = z;
-
-					c += m_baseRegionCoord;
-					m_regionBuffer[x + z * region_count] = m_pRegionManager->LoadRegion(c);
-				}
-			}
+			UpdateRegionBuffer();
 			return true;
 		}
 		void WorldViewport::ReleaseRegionBuffer()
@@ -93,20 +70,131 @@ namespace ld3d
 				m_pRegionManager->UnloadRegion(r);
 			}
 			m_regionBuffer.clear();
+
+			for(auto r : m_regionCache)
+			{
+				m_pRegionManager->UnloadRegion(r);
+			}
+			m_regionCache.clear();
 		}
 		void WorldViewport::Update()
 		{
-			Coord base_coord = (m_center - m_size / 2);
-			base_coord /= REGION_SIZE * CHUNK_SIZE * BLOCK_SIZE;
-
-			if(base_coord != m_baseRegionCoord)
+			Coord center_coord = m_center / (REGION_SIZE * CHUNK_SIZE * BLOCK_SIZE);
+			
+			if(center_coord != m_centerRegionCoord)
 			{
 				UpdateRegionBuffer();
 			}
+
+			UpdateRegionCache();
+		}
+		void WorldViewport::UpdateRegionCache()
+		{
+			Coord center_coord = m_center / (REGION_SIZE * CHUNK_SIZE * BLOCK_SIZE);
+
+			Coord min_coord = (m_center - m_size / 2) / (REGION_SIZE * CHUNK_SIZE * BLOCK_SIZE);
+			Coord max_coord = (m_center + m_size / 2) / (REGION_SIZE * CHUNK_SIZE * BLOCK_SIZE);
+
+			uint32 dx = max_coord.x - min_coord.x;
+			uint32 dz = max_coord.z - min_coord.z;
+
+			std::vector<std::list<RegionPtr>::iterator> erase_list;
+
+			std::list<RegionPtr>::iterator it = m_regionCache.begin();
+
+			uint32 cache_margin = 1;
+
+			for(it; it != m_regionCache.end(); ++it)
+			{
+
+				Coord r_coord = (*it)->GetRegionCoord();
+				
+				if(r_coord.x < (min_coord.x - cache_margin) || r_coord.x > (min_coord.x + cache_margin))
+				{
+					erase_list.push_back(it);
+					continue;
+				}
+
+				if(r_coord.z < (min_coord.z - cache_margin) || r_coord.z > (min_coord.z + cache_margin))
+				{
+					erase_list.push_back(it);
+					continue;
+				}
+			}
+
+			for(auto r : erase_list)
+			{
+				m_pRegionManager->UnloadRegion(*r);
+				m_regionCache.erase(r);
+			}
+
+			erase_list.clear();
+		}
+		RegionPtr WorldViewport::FindInCache(const Coord& c)
+		{
+			std::list<RegionPtr>::iterator it = m_regionCache.begin();
+			for(; it != m_regionCache.end(); ++it)
+			{
+				if((*it)->GetRegionCoord() == c)
+				{
+					break;
+				}
+			}
+
+			if(it == m_regionCache.end())
+			{
+				return nullptr;
+			}
+
+			RegionPtr pRegion = *it;
+
+			m_regionCache.erase(it);
+
+			return pRegion;
+
+		}
+		void WorldViewport::AddToCache(RegionPtr pRegion)
+		{
+			m_regionCache.push_back(pRegion);
 		}
 		void WorldViewport::UpdateRegionBuffer()
 		{
+			m_centerRegionCoord = m_center / (REGION_SIZE * CHUNK_SIZE * BLOCK_SIZE);
+			
+			Coord min_coord = (m_center - m_size / 2) / (REGION_SIZE * CHUNK_SIZE * BLOCK_SIZE);
+			Coord max_coord = (m_center + m_size / 2) / (REGION_SIZE * CHUNK_SIZE * BLOCK_SIZE);
 
+			uint32 dx = max_coord.x - min_coord.x;
+			uint32 dz = max_coord.z - min_coord.z;
+
+			uint32 region_count = (dx + 1) * (dz + 1);
+
+			for(auto r : m_regionBuffer)
+			{
+				AddToCache(r);
+			}
+
+			if(m_regionBuffer.size() != region_count)
+			{
+				m_regionBuffer.resize(region_count);
+			}
+
+			for(size_t x = 0; x <= dx; ++x)
+			{
+				for(size_t z = 0; z <= dz; ++z)
+				{
+					Coord c(x, 0, z);
+					c += min_coord;
+
+					RegionPtr pRegion = FindInCache(c);
+					if(pRegion == nullptr)
+					{
+						pRegion = m_pRegionManager->LoadRegion(c);
+					}
+					m_regionBuffer[x + z * (dx + 1)] = pRegion;
+				}
+			}
 		}
 	}
 }
+

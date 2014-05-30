@@ -215,6 +215,14 @@ namespace ld3d
 		m_pScene = alloc_object<Scene>(m_pObjectManager);
 
 
+		m_pConsole = alloc_object<Console>();
+		if(m_pConsole->Initialize(shared_from_this()) == false)
+		{
+			return false;
+		}
+		ShowConsole(false);
+
+
 		m_pGameManager = alloc_object<GameManager>();
 
 		if(false == LoadMod(setting.mod))
@@ -225,12 +233,7 @@ namespace ld3d
 		m_lastFrameTime = m_pSysTime->Second();
 
 
-		m_pConsole = alloc_object<Console>();
-		if(m_pConsole->Initialize(shared_from_this()) == false)
-		{
-			return false;
-		}
-		ShowConsole(false);
+		
 
 		EventPtr pEvent = alloc_object<Event, uint32>(EV_ENGINE_INITIALIZED);
 
@@ -248,9 +251,9 @@ namespace ld3d
 
 		pEvent.reset();
 
-		_release_and_reset(m_pConsole);
-
 		_release_and_reset(m_pGameManager);
+
+		_release_and_reset(m_pConsole);
 
 		_release_and_reset(m_pScene);
 
