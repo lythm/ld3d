@@ -388,6 +388,8 @@ namespace ld3d
 	void OGL4Graphics::OnResizeRenderWindow(int cx, int cy)
 	{
 		m_pCurrentRW->OnResize(cx, cy);
+
+		ResetViewport();
 	}
 
 	RenderStatePtr OGL4Graphics::CreateRenderState()

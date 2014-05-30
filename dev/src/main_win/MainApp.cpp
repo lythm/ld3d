@@ -297,6 +297,11 @@ namespace ld3d
 			return false;
 		}
 
+		if(m_pConfig->GetSysSetting().graphics.windowed == false)
+		{
+			ToFullScreen();
+		}
+
 		return true;
 	}
 
@@ -353,6 +358,28 @@ namespace ld3d
 	{
 		w = m_width;
 		h = m_height;
+	}
+	void MainApp::ToFullScreen()
+	{
+		int cx = GetSystemMetrics(SM_CXSCREEN);
+		int cy = GetSystemMetrics(SM_CYSCREEN);
+
+		SetWindowLong(m_hWnd, GWL_STYLE, WS_POPUP);
+		
+		
+		SetWindowPos( m_hWnd, 0, 0, 0, cx, cy, SWP_NOZORDER );
+		
+		m_pCore->GetRenderManager()->OnResizeRenderWindow(cx, cy);
+	}
+	void MainApp::ToWindowed()
+	{
+		int cx = m_pConfig->GetSysSetting().graphics.frameBufferWidth;
+		int cy = m_pConfig->GetSysSetting().graphics.frameBufferHeight;
+		SetWindowLong(m_hWnd, GWL_STYLE, (WS_OVERLAPPED | WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU));
+		AdjustWindow(cx, cy);
+		CenterWindow();
+
+		m_pCore->GetRenderManager()->OnResizeRenderWindow(cx, cy);
 	}
 }
 

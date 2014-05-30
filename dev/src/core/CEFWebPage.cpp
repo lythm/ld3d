@@ -115,6 +115,7 @@ namespace ld3d
 		void CEFWebpage::OnLoadStart(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame)
 		{
 			logger() << "CEF: " << "loading page: " << frame.get()->GetURL().ToString() << "\n";
+			m_isLoaded = false;
 		}
 
 		void CEFWebpage::OnLoadEnd(CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, int httpStatusCode)
@@ -130,6 +131,7 @@ namespace ld3d
 			const CefString& failedUrl)
 		{
 			logger() << "CEF: " << "error[" << errorCode << "] " << errorText.ToString() << " when loading: " << failedUrl.ToString() << "\n";
+			m_isLoaded = true;
 		}
 
 		bool CEFWebpage::GetViewRect(CefRefPtr<CefBrowser> browser, CefRect& rect)
@@ -155,11 +157,16 @@ namespace ld3d
 			int width, int height)
 		{
 
-			if((m_pTexture == nullptr || IsVisible() == false) && m_isTargetBlank == false)
+			if(m_pTexture == nullptr)
 			{
 				return;
 			}
 
+			if(IsVisible() == false && m_isTargetBlank == false)
+			{
+				return;
+			}
+			
 			m_pTexture->UpdateTextureBGRA8(buffer);
 
 			/*void* pData = m_pTexture->Map();
@@ -192,6 +199,11 @@ namespace ld3d
 			CefString cef_url;
 			cef_url.FromString(url);
 			m_pBrowser->GetMainFrame()->LoadURL(cef_url);
+
+			while(m_pBrowser->IsLoading())
+			{
+				CefDoMessageLoopWork();
+			}
 		}
 
 		void CEFWebpage::GetMouseLocalCoord(LPARAM lParam, int& x, int& y)
