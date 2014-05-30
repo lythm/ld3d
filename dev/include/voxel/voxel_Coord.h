@@ -52,6 +52,14 @@ namespace ld3d
 				return *this;
 			}
 
+			const Coord& operator%=(int32 v)
+			{
+				x %= v;
+				y %= v;
+				z %= v;
+				return *this;
+			}
+
 
 			Coord operator+() const
 			{
@@ -145,6 +153,12 @@ namespace ld3d
 			Coord operator/(int32 l, const Coord& r)
 		{
 			return Coord(l / r.x, l / r.y, l / r.z);
+		}
+
+		inline
+			Coord operator%(const Coord& l, int32 r)
+		{
+			return Coord(l.x % r, l.y % r, l.z % r);
 		}
 	}
 }

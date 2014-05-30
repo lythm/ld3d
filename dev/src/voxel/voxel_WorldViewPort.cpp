@@ -79,7 +79,7 @@ namespace ld3d
 		}
 		void WorldViewport::Update()
 		{
-			Coord center_coord = m_center / (REGION_SIZE * CHUNK_SIZE * BLOCK_SIZE);
+			Coord center_coord = m_center / (REGION_SIZE);
 			
 			if(center_coord != m_centerRegionCoord)
 			{
@@ -90,10 +90,10 @@ namespace ld3d
 		}
 		void WorldViewport::UpdateRegionCache()
 		{
-			Coord center_coord = m_center / (REGION_SIZE * CHUNK_SIZE * BLOCK_SIZE);
+			Coord center_coord = m_center / (REGION_SIZE);
 
-			Coord min_coord = (m_center - m_size / 2) / (REGION_SIZE * CHUNK_SIZE * BLOCK_SIZE);
-			Coord max_coord = (m_center + m_size / 2) / (REGION_SIZE * CHUNK_SIZE * BLOCK_SIZE);
+			Coord min_coord = (m_center - m_size / 2) / (REGION_SIZE);
+			Coord max_coord = (m_center + m_size / 2) / (REGION_SIZE);
 
 			uint32 dx = max_coord.x - min_coord.x;
 			uint32 dz = max_coord.z - min_coord.z;
@@ -159,10 +159,10 @@ namespace ld3d
 		}
 		void WorldViewport::UpdateRegionBuffer()
 		{
-			m_centerRegionCoord = m_center / (REGION_SIZE * CHUNK_SIZE * BLOCK_SIZE);
+			m_centerRegionCoord = m_center / REGION_SIZE;
 			
-			Coord min_coord = (m_center - m_size / 2) / (REGION_SIZE * CHUNK_SIZE * BLOCK_SIZE);
-			Coord max_coord = (m_center + m_size / 2) / (REGION_SIZE * CHUNK_SIZE * BLOCK_SIZE);
+			Coord min_coord = (m_center - m_size / 2) / REGION_SIZE;
+			Coord max_coord = (m_center + m_size / 2) / REGION_SIZE;
 
 			uint32 dx = max_coord.x - min_coord.x;
 			uint32 dz = max_coord.z - min_coord.z;

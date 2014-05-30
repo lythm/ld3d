@@ -16,11 +16,11 @@ namespace ld3d
 		{
 		}
 		
-		bool WorldGen::GenChunk(const Coord& c)
+		bool WorldGen::GenChunk(const Coord& chunk_origin)
 		{
 			for(size_t i = 0; i < m_passList.size(); ++i)
 			{
-				m_passList[i]->ApplyChunk(shared_from_this(), c);
+				m_passList[i]->ApplyChunk(shared_from_this(), chunk_origin);
 			}
 
 			return true;

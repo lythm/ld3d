@@ -26,7 +26,7 @@ namespace ld3d
 		{
 			return true;
 		}
-		bool Region::GenChunk(const Coord& chunk_coord)
+		bool Region::GenChunk(const Coord& chunk_origin)
 		{
 			
 			return true;

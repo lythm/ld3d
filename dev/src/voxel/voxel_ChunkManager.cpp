@@ -31,7 +31,7 @@ namespace ld3d
 				m_chunkmap[key.AsUint64()] = pChunk;
 			}
 
-			pChunk->SetBlock(c - key.ToCoord(), type);
+			pChunk->SetBlock(c - key.ToChunkOrigin(), type);
 			pChunk->SetDirty(true);
 			m_dirtyList.push_back(pChunk);
 			return true;
@@ -50,7 +50,7 @@ namespace ld3d
 
 			ChunkPtr pChunk = FindChunk(key);
 			
-			return pChunk ? pChunk->GetBlock((c - key.ToCoord())) : VT_EMPTY;
+			return pChunk ? pChunk->GetBlock((c - key.ToChunkOrigin())) : VT_EMPTY;
 
 		}
 		ChunkPtr ChunkManager::FindChunk(const ChunkKey& key)

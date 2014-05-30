@@ -37,27 +37,29 @@ namespace ld3d
 				return m_key;
 			}
 
-			Coord												ToCoord() const
+			Coord												ToChunkOrigin() const
 			{
 
 				int32 c_x = (m_key >> 36) & 0x000000000fffffff;
 				int8 c_y = (m_key >> 28) & 0x00000000000000ff;
 				int32 c_z = m_key & 0x000000000fffffff;
 
-				int32 x = c_x * CHUNK_SIZE * BLOCK_SIZE;
-				int32 y = c_y * CHUNK_SIZE * BLOCK_SIZE;
-				int32 z = c_z * CHUNK_SIZE * BLOCK_SIZE;
+				int32 x = c_x * CHUNK_SIZE;
+				int32 y = c_y * CHUNK_SIZE;
+				int32 z = c_z * CHUNK_SIZE;
 
 				return Coord(x, y, z );
 			}
 
 			void												FromCoord(const Coord& coord)
 			{
-				uint64 c_x = uint32(coord.x / (CHUNK_SIZE * BLOCK_SIZE));
-				uint64 c_y = uint8(coord.y / (CHUNK_SIZE * BLOCK_SIZE));
-				uint64 c_z = uint32(coord.z / (CHUNK_SIZE * BLOCK_SIZE));
+				uint64 c_x = uint64(coord.x) / CHUNK_SIZE;
+				uint64 c_y = uint64(coord.y) / CHUNK_SIZE;
+				uint64 c_z = uint64(coord.z) / CHUNK_SIZE;
 
-				m_key = ((c_x << 36) | (c_y << 28) | (c_z));
+				m_key = (((c_x & 0x000000000fffffff) << 36 ) | 
+					((c_y & 0x00000000000000ff) << 28) |
+					 (c_z & 0x000000000fffffff));
 			}
 
 

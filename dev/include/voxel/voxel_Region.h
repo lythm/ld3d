@@ -18,7 +18,7 @@ namespace ld3d
 			bool													Unload();
 			bool													Save();
 
-			bool													GenChunk(const Coord& chunk_coord);
+			bool													GenChunk(const Coord& chunk_origin);
 			bool													GenRegion();
 			bool													IsModified() const;
 			void													SetModified();

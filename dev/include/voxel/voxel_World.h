@@ -30,8 +30,6 @@ namespace ld3d
 
 			const Bound&									GetBound() const;		
 
-			Coord											ToChunkCoord(const Coord& c);
-			Coord											ToRegionCoord(const Coord& c);
 			ChunkPtr										FindChunk(const ChunkKey& key);
 
 			const std::list<ChunkPtr>&						GetDirtyChunks() const;
@@ -41,6 +39,12 @@ namespace ld3d
 
 			ChunkManagerPtr									GetChunkManager();
 			RegionManagerPtr								GetRegionManager();
+
+			Coord											ToRegionOrigin(const Coord& c) const;
+			Coord											ToRegionCoord(const Coord& c) const;
+
+			Coord											ToChunkOrigin(const Coord& c) const;
+			Coord											ToChunkCoord(const Coord& c) const;
 		private:
 		
 			

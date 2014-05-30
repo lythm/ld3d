@@ -80,8 +80,12 @@ namespace ld3d
 
 			m_pWorldVP = std::make_shared<WorldViewport>();
 
-			m_pWorldVP->Open(m_pWorld, Coord(), REGION_SIZE * CHUNK_SIZE * BLOCK_SIZE * 3 - 1);
+			m_pWorldVP->Open(m_pWorld, Coord(), REGION_SIZE * 3 - 1);
 
+
+			
+
+			
 			return true;
 		}
 		void VoxelEditor::Release()

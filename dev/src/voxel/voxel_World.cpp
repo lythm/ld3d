@@ -15,8 +15,9 @@ namespace ld3d
 	{
 		World::World(void)
 		{
-			m_worldBound = Bound(Coord(-134217728 * (int32)CHUNK_SIZE, -128 * (int32)CHUNK_SIZE, -134217728 * (int32)CHUNK_SIZE), 
-								Coord((134217728 - 1) * CHUNK_SIZE, 127 * CHUNK_SIZE, (134217728 - 1) * CHUNK_SIZE));
+			m_worldBound = Bound(Coord(-0x10000000/2 * (int32)CHUNK_SIZE, -128 * (int32)CHUNK_SIZE, -0x10000000/2 * (int32)CHUNK_SIZE), 
+								Coord((0x10000000/2 - 1) * CHUNK_SIZE, 127 * CHUNK_SIZE, (0x10000000/2 - 1) * CHUNK_SIZE));
+
 		}
 
 
@@ -97,7 +98,7 @@ namespace ld3d
 		}
 		ChunkPtr World::FindChunk(const ChunkKey& key)
 		{
-			if(Inside(key.ToCoord()) == false)
+			if(Inside(key.ToChunkOrigin()) == false)
 			{
 				return false;
 			}
@@ -124,22 +125,7 @@ namespace ld3d
 		{
 			return m_worldBound;
 		}
-		Coord World::ToChunkCoord(const Coord& c)
-		{
-			uint32 c_x = uint32(c.x / (CHUNK_SIZE * BLOCK_SIZE));
-			uint32 c_y = uint8(c.y / (CHUNK_SIZE * BLOCK_SIZE));
-			uint32 c_z = uint32(c.z / (CHUNK_SIZE * BLOCK_SIZE));
-
-			return Coord(c_x, c_y, c_z);
-		}
-		Coord World::ToRegionCoord(const Coord& c)
-		{
-			uint32 c_x = uint32(c.x / (CHUNK_SIZE * BLOCK_SIZE * REGION_SIZE));
-			uint32 c_y = uint8(c.y / (CHUNK_SIZE * BLOCK_SIZE * REGION_HEIGHT));
-			uint32 c_z = uint32(c.z / (CHUNK_SIZE * BLOCK_SIZE * REGION_SIZE));
-
-			return Coord(c_x, c_y, c_z);
-		}
+		
 		const std::list<ChunkPtr>& World::GetDirtyChunks() const
 		{
 			return m_pChunkManager->GetDirtyChunks();
@@ -161,6 +147,34 @@ namespace ld3d
 		RegionManagerPtr World::GetRegionManager()
 		{
 			return m_pRegionManager;
+		}
+
+		Coord World::ToRegionOrigin(const Coord& c) const
+		{
+			Coord region_coord = ToRegionCoord(c);
+			return region_coord * REGION_SIZE;
+		}
+		Coord World::ToRegionCoord(const Coord& c) const
+		{
+			int64 c_x = uint64(c.x) / (REGION_SIZE);
+			int64 c_y = uint64(c.y) / (REGION_SIZE);
+			int64 c_z = uint64(c.z) / (REGION_SIZE);
+			
+			return Coord(c_x, c_y, c_z);
+		}
+		Coord World::ToChunkOrigin(const Coord& c) const
+		{
+			Coord chunk_coord = ToChunkCoord(c);
+			return chunk_coord * CHUNK_SIZE;
+
+		}
+		Coord World::ToChunkCoord(const Coord& c) const
+		{
+			int64 c_x = uint64(c.x) / (CHUNK_SIZE);
+			int64 c_y = uint64(c.y) / (CHUNK_SIZE);
+			int64 c_z = uint64(c.z) / (CHUNK_SIZE);
+			
+			return Coord(c_x, c_y, c_z);
 		}
 		
 	}

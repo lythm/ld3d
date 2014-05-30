@@ -19,10 +19,15 @@ namespace ld3d
 	{
 		const uint8  VT_EMPTY													= 0;
 
-		const uint32 REGION_HEIGHT												= 256;			// in chunk
-		const uint32 REGION_SIZE												= 32;			// in chunk
-		const uint32 CHUNK_SIZE													= 16;			// int block
+		
+		const uint32 CHUNK_SIZE													= 16;										// int block
 		const uint32 BLOCK_SIZE													= 1;
+
+		const uint32 REGION_CHUNK_HEIGHT										= 256;										// in chunk
+		const uint32 REGION_CHUNK_LENGTH										= 32;										// in chunk
+		const uint32 REGION_SIZE												= REGION_CHUNK_LENGTH * CHUNK_SIZE;			// in block
+		const uint32 REGION_HEIGHT												= REGION_CHUNK_HEIGHT * CHUNK_SIZE;			// in block
+		
 
 		class World;
 		class WorldGen;

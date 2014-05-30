@@ -24,7 +24,7 @@
 
 namespace ld3d
 {
-	PerlinNoise::PerlinNoise(int octaves,float freq,float amp,int seed)
+	PerlinNoise::PerlinNoise(int octaves,double freq,double amp,int seed)
 	{
 		m_Octaves = octaves;
 		m_Frequency = freq;
@@ -36,10 +36,10 @@ namespace ld3d
 	PerlinNoise::~PerlinNoise(void)
 	{
 	}
-	float PerlinNoise::noise1(float arg)
+	double PerlinNoise::noise1(double arg)
 	{
 		int bx0, bx1;
-		float rx0, rx1, sx, t, u, v, vec[1];
+		double rx0, rx1, sx, t, u, v, vec[1];
 
 		vec[0] = arg;
 
@@ -60,10 +60,10 @@ namespace ld3d
 		return lerp(sx, u, v);
 	}
 
-	float PerlinNoise::noise2(float vec[2])
+	double PerlinNoise::noise2(double vec[2])
 	{
 		int bx0, bx1, by0, by1, b00, b10, b01, b11;
-		float rx0, rx1, ry0, ry1, *q, sx, sy, a, b, t, u, v;
+		double rx0, rx1, ry0, ry1, *q, sx, sy, a, b, t, u, v;
 		int i, j;
 
 		if (m_Start)
@@ -104,10 +104,10 @@ namespace ld3d
 		return lerp(sy, a, b);
 	}
 
-	float PerlinNoise::noise3(float vec[3])
+	double PerlinNoise::noise3(double vec[3])
 	{
 		int bx0, bx1, by0, by1, bz0, bz1, b00, b10, b01, b11;
-		float rx0, rx1, ry0, ry1, rz0, rz1, *q, sy, sz, a, b, c, d, t, u, v;
+		double rx0, rx1, ry0, ry1, rz0, rz1, *q, sy, sz, a, b, c, d, t, u, v;
 		int i, j;
 
 		if (m_Start)
@@ -158,21 +158,21 @@ namespace ld3d
 		return lerp(sz, c, d);
 	}
 
-	void PerlinNoise::normalize2(float v[2])
+	void PerlinNoise::normalize2(double v[2])
 	{
-		float s;
+		double s;
 
-		s = (float)sqrt(v[0] * v[0] + v[1] * v[1]);
+		s = (double)sqrt(v[0] * v[0] + v[1] * v[1]);
 		s = 1.0f/s;
 		v[0] = v[0] * s;
 		v[1] = v[1] * s;
 	}
 
-	void PerlinNoise::normalize3(float v[3])
+	void PerlinNoise::normalize3(double v[3])
 	{
-		float s;
+		double s;
 
-		s = (float)sqrt(v[0] * v[0] + v[1] * v[1] + v[2] * v[2]);
+		s = (double)sqrt(v[0] * v[0] + v[1] * v[1] + v[2] * v[2]);
 		s = 1.0f/s;
 
 		v[0] = v[0] * s;
@@ -187,12 +187,12 @@ namespace ld3d
 		for (i = 0 ; i < B ; i++)
 		{
 			p[i] = i;
-			g1[i] = (float)((rand() % (B + B)) - B) / B;
+			g1[i] = (double)((rand() % (B + B)) - B) / B;
 			for (j = 0 ; j < 2 ; j++)
-				g2[i][j] = (float)((rand() % (B + B)) - B) / B;
+				g2[i][j] = (double)((rand() % (B + B)) - B) / B;
 			normalize2(g2[i]);
 			for (j = 0 ; j < 3 ; j++)
-				g3[i][j] = (float)((rand() % (B + B)) - B) / B;
+				g3[i][j] = (double)((rand() % (B + B)) - B) / B;
 			normalize3(g3[i]);
 		}
 
@@ -216,12 +216,12 @@ namespace ld3d
 	}
 
 
-	float PerlinNoise::perlin_noise_2D(float vec[2])
+	double PerlinNoise::perlin_noise_2D(double vec[2])
 	{
 		int terms    = m_Octaves;
-		float freq   = m_Frequency;
-		float result = 0.0f;
-		float amp = m_Amplitude;
+		double freq   = m_Frequency;
+		double result = 0.0f;
+		double amp = m_Amplitude;
 
 		vec[0]*=m_Frequency;
 		vec[1]*=m_Frequency;

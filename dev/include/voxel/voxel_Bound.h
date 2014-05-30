@@ -18,7 +18,9 @@ namespace ld3d
 			const Coord&									GetCenter() const;
 			const Coord&									GetMaxCoord() const;
 			const Coord&									GetMinCoord() const;
-			const Coord&									GetExtent() const;
+			
+			void											GetExtent(uint32& x, uint32& y, uint32& z) const;
+			
 
 			void											SetMaxCoord(const Coord& max_coord);
 			void											SetMinCoord(const Coord& min_coord);
@@ -40,7 +42,9 @@ namespace ld3d
 			Coord											m_max;
 			Coord											m_min;
 			Coord											m_center;
-			Coord											m_extent;
+			uint32											m_extentX;
+			uint32											m_extentY;
+			uint32											m_extentZ;
 			bool											m_bValid;
 		};
 
@@ -84,12 +88,18 @@ namespace ld3d
 			void Bound::UpdateCenter()
 		{
 			m_center = (m_max + m_min) * 0.5;
-			m_extent = m_max - m_min;
+			
+			m_extentX = m_max.x - m_min.x;
+			m_extentY = m_max.y - m_min.y;
+			m_extentZ = m_max.z - m_min.z;
+			
 		}
 		inline
-			const Coord& Bound::GetExtent() const
+			void Bound::GetExtent(uint32& x, uint32& y, uint32& z) const
 		{
-			return m_extent;
+			x = m_extentX;
+			y = m_extentY;
+			z = m_extentZ;
 		}
 
 		inline

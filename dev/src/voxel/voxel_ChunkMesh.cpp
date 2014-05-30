@@ -16,7 +16,7 @@ namespace ld3d
 		}
 		bool ChunkMesh::UpdateMesh(WorldPtr pWorld, const ChunkKey& key)
 		{
-			m_chunkCoord = key.ToCoord();
+			m_chunkCoord = key.ToChunkOrigin();
 
 			ChunkPtr pChunk = pWorld->FindChunk(key);
 			if(pChunk == nullptr)

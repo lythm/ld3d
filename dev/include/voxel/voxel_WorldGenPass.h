@@ -14,7 +14,7 @@ namespace ld3d
 
 			virtual ~WorldGenPass(void){}
 
-			virtual bool											ApplyChunk(WorldGenPtr pGen, const Coord& chunk_coord)										= 0;
+			virtual bool											ApplyChunk(WorldGenPtr pGen, const Coord& chunk_origin)										= 0;
 
 
 		};
