@@ -13,7 +13,7 @@ namespace ld3d
 			virtual ~WorldGen(void);
 
 			bool												GenChunk(const Coord& chunk_origin);
-
+			bool												GenRegion(const Coord& region_origin);
 			bool												Initialize();
 			void												Release();
 

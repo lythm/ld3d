@@ -45,6 +45,8 @@ namespace ld3d
 
 			Coord											ToChunkOrigin(const Coord& c) const;
 			Coord											ToChunkCoord(const Coord& c) const;
+
+			WorldGenPtr										GetWorldGen();
 		private:
 		
 			

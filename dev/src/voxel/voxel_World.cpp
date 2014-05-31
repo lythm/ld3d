@@ -43,7 +43,7 @@ namespace ld3d
 
 			m_pGen->AddPass(std::make_shared<WorldGenPass_Heightmap>());
 
-			m_pGen->GenChunk(Coord(0, 0, 0));
+		//	m_pGen->GenChunk(Coord(0, 0, 0));
 
 			
 			return true;
@@ -152,12 +152,17 @@ namespace ld3d
 		Coord World::ToRegionOrigin(const Coord& c) const
 		{
 			Coord region_coord = ToRegionCoord(c);
-			return region_coord * REGION_SIZE;
+
+			region_coord.x *= REGION_SIZE;
+			region_coord.y *= REGION_HEIGHT;
+			region_coord.z *= REGION_SIZE;
+
+			return region_coord;
 		}
 		Coord World::ToRegionCoord(const Coord& c) const
 		{
 			int64 c_x = uint64(c.x) / (REGION_SIZE);
-			int64 c_y = uint64(c.y) / (REGION_SIZE);
+			int64 c_y = uint64(c.y) / (REGION_HEIGHT);
 			int64 c_z = uint64(c.z) / (REGION_SIZE);
 			
 			return Coord(c_x, c_y, c_z);
@@ -175,6 +180,10 @@ namespace ld3d
 			int64 c_z = uint64(c.z) / (CHUNK_SIZE);
 			
 			return Coord(c_x, c_y, c_z);
+		}
+		WorldGenPtr World::GetWorldGen()
+		{
+			return m_pGen;
 		}
 		
 	}

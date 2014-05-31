@@ -25,6 +25,11 @@ namespace ld3d
 
 			return true;
 		}
+		bool WorldGen::GenRegion(const Coord& region_origin)
+		{
+
+			return true;
+		}
 		
 		bool WorldGen::Initialize()
 		{
