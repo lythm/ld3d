@@ -26,15 +26,21 @@ namespace ld3d
 
 			if(pChunk == nullptr)
 			{
-				pChunk = AllocChunk();
-				pChunk->SetKey(key);
-				m_chunkmap[key.AsUint64()] = pChunk;
+				pChunk = CreateChunk(key, nullptr);
 			}
 
 			pChunk->SetBlock(c - key.ToChunkOrigin(), type);
 			pChunk->SetDirty(true);
 			m_dirtyList.push_back(pChunk);
 			return true;
+		}
+		ChunkPtr ChunkManager::CreateChunk(const ChunkKey& key, uint8 data[])
+		{
+			ChunkPtr pChunk = AllocChunk(data);
+			pChunk->SetKey(key);
+			m_chunkmap[key.AsUint64()] = pChunk;
+
+			return pChunk;
 		}
 		bool ChunkManager::RemoveBlock(const Coord& c)
 		{
@@ -59,9 +65,9 @@ namespace ld3d
 
 			return it == m_chunkmap.end() ? nullptr : it->second;
 		}
-		ChunkPtr ChunkManager::AllocChunk()
+		ChunkPtr ChunkManager::AllocChunk(uint8 data[])
 		{
-			return std::make_shared<Chunk>();
+			return std::make_shared<Chunk>(data);
 		}
 		void ChunkManager::UpdateBlock(const Coord& c)
 		{

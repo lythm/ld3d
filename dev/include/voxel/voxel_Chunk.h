@@ -11,7 +11,9 @@ namespace ld3d
 		class _DLL_CLASS Chunk
 		{
 		public:
-			Chunk(void);
+
+			// if data is null, empty chunk is constructed.
+			Chunk(uint8 data[]);
 
 			// non virtual, do not subclass
 			~Chunk(void);
@@ -53,18 +55,19 @@ namespace ld3d
 				m_data[index]	= val;
 		
 				SetDirty(true);
+				m_modified = true;
 			}
 			void											SetBlock(const Coord& c, uint8 val)
 			{
 				SetBlock(c.x, c.y, c.z, val);
 			}
 
-			uint32											ToIndex(uint32 x, uint32 y, uint32 z)
+			static uint32									ToIndex(uint32 x, uint32 y, uint32 z)
 			{
 				uint32 index = y * CHUNK_SIZE * CHUNK_SIZE + z * CHUNK_SIZE + x;
 				return index;
 			}
-			uint32											ToIndex(const Coord& c)
+			static uint32									ToIndex(const Coord& c)
 			{
 				return ToIndex(c.x, c.y, c.z);
 			}
@@ -76,12 +79,18 @@ namespace ld3d
 
 			bool											IsDirty() const;
 			void											SetDirty(bool dirty);
+
+			void											SetData(uint8 data[]);
+			uint8*											GetData();
+			bool											IsModified() const;
 		private:
 			uint8											m_data[CHUNK_SIZE * CHUNK_SIZE * CHUNK_SIZE];
 			ChunkKey										m_key;
 
 			int32											m_counter;
 			bool											m_dirty;
+
+			bool											m_modified;
 		};
 	}
 }

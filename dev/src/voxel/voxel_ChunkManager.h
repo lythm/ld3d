@@ -28,13 +28,14 @@ namespace ld3d
 			void											ClearDirtyChunks();
 
 			void											Clear();
+
+			ChunkPtr										CreateChunk(const ChunkKey& key, uint8 data[]);
+
 		private:
-			ChunkPtr										AllocChunk();
+			ChunkPtr										AllocChunk(uint8 data[]);
 		private:
 			std::unordered_map<uint64, ChunkPtr>			m_chunkmap;
 			std::list<ChunkPtr>								m_dirtyList;
 		};
-
-
 	}
 }

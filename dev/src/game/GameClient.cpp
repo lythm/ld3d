@@ -18,7 +18,7 @@ namespace client
 		using namespace ld3d;
 		using namespace ld3d::voxel;
 
-		Chunk ck;
+		Chunk ck(nullptr);
 
 		ck[0] = 1;
 
