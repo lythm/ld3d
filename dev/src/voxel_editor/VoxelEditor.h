@@ -17,7 +17,10 @@ namespace ld3d
 			void									Release();
 			bool									Update(float dt);
 
+
+		private:
 			void									_on_key_state(ld3d::EventPtr pEvent);
+			void									_on_resize(ld3d::EventPtr pEvent);
 		private:
 			GameObjectPtr							m_pCamera;
 			GameObjectPtr							m_pGrid;
@@ -27,6 +30,8 @@ namespace ld3d
 			WorldPtr								m_pWorld;
 
 			WorldViewportPtr						m_pWorldVP;
+
+			HtmlOverlayPtr							m_pOverlay;
 		};
 
 

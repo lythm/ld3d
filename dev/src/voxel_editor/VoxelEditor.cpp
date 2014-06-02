@@ -33,6 +33,7 @@ namespace ld3d
 
 
 			pCore->AddEventHandler(EV_KEYBOARD_STATE, boost::bind(&VoxelEditor::_on_key_state, this, _1));
+			pCore->AddEventHandler(EV_RESIZE_FRAMEBUFFER, boost::bind(&VoxelEditor::_on_resize, this, _1));
 
 
 			WorldPtr pWorld = std::make_shared<World>();
@@ -82,14 +83,14 @@ namespace ld3d
 
 			m_pWorldVP->Open(m_pWorld, Coord(), REGION_SIZE * 3 - 1);
 
-
-			
-
+			m_pOverlay = m_pCore->GetUIManager()->CreateHtmlOverlay("debug_panel", math::RectI(0, 0, 600, 400), "file:///assets/standard/gui/debug_panel/index.html");
 			
 			return true;
 		}
 		void VoxelEditor::Release()
 		{
+			m_pOverlay->Release();
+
 			m_pWorldVP->Close();
 
 			m_pWorld->Release();
@@ -111,6 +112,11 @@ namespace ld3d
 				m_pCore->QuitApp();
 			}
 			return;
+		}
+		void VoxelEditor::_on_resize(ld3d::EventPtr pEvent)
+		{
+			Event_ResizeFrameBuffer* pResize = (Event_ResizeFrameBuffer*)pEvent.get();
+			m_pOverlay->Resize(pResize->m_width, pResize->m_height);
 		}
 	}
 }
