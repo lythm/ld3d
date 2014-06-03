@@ -153,6 +153,7 @@ function Console(canvas_id) {
 			}
 		}
 
+		window.script_call("console_command", cmdln);
 	}
 
 	// on system command

@@ -531,5 +531,26 @@ namespace ld3d
 		{
 			return true;
 		}
+		bool CEFWebpage::OnProcessMessageReceived(CefRefPtr<CefBrowser> browser, CefProcessId source_process, CefRefPtr<CefProcessMessage> message)
+		{
+			CefString str = message->GetName();
+
+			if(str != "script_call")
+			{
+				return false;
+			}
+
+			CefString call = message->GetArgumentList()->GetString(0);
+
+			int args = message->GetArgumentList()->GetInt(1);
+
+			for(int i = 0; i < args; ++i)
+			{
+				CefString arg = message->GetArgumentList()->GetString(i);
+
+				logger()<< arg.ToString() << ",";
+			}
+			return false;
+		}
 	}
 }

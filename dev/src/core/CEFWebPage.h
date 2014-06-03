@@ -56,14 +56,18 @@ namespace ld3d
 																			int width, int height);
 
 			bool														OnBeforePopup(CefRefPtr<CefBrowser> browser,
-																			 CefRefPtr<CefFrame> frame,
-																			 const CefString& target_url,
-																			 const CefString& target_frame_name,
-																			 const CefPopupFeatures& popupFeatures,
-																			 CefWindowInfo& windowInfo,
-																			 CefRefPtr<CefClient>& client,
-																			 CefBrowserSettings& settings,
-																			 bool* no_javascript_access);
+																			CefRefPtr<CefFrame> frame,
+																			const CefString& target_url,
+																			const CefString& target_frame_name,
+																			const CefPopupFeatures& popupFeatures,
+																			CefWindowInfo& windowInfo,
+																			CefRefPtr<CefClient>& client,
+																			CefBrowserSettings& settings,
+																			bool* no_javascript_access);
+
+			bool														OnProcessMessageReceived(CefRefPtr<CefBrowser> browser,
+																			CefProcessId source_process,
+																			CefRefPtr<CefProcessMessage> message);
 
 			void														Destroy();
 			void														SetVisible(bool bVisible);

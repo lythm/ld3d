@@ -6,7 +6,8 @@
 #include <Windows.h>
 
 
-#include "cef3/include/cef_app.h"
+#include "RenderProcessApp.h"
+
 
 
 int APIENTRY _tWinMain(HINSTANCE hInstance,
@@ -22,5 +23,5 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 
 	
 
-	return CefExecuteProcess(main_args, nullptr);
+	return CefExecuteProcess(main_args, new RenderProcessApp);
 }
