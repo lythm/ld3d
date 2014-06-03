@@ -5,7 +5,7 @@ namespace ld3d
 {
 	namespace voxel
 	{
-		class Region
+		class Region : public RefCount
 		{
 		public:
 			Region();
@@ -29,9 +29,6 @@ namespace ld3d
 			bool													IsLoaded() const;
 			void													SetLoaded(bool loaded);
 
-			void													IncRef();
-			void													DecRef();
-			int32													GetRef() const;
 		private:
 			
 			bool													m_modified;
@@ -41,8 +38,6 @@ namespace ld3d
 			ChunkManagerPtr											m_pChunkManager;
 
 			bool													m_loaded;
-
-			int32													m_refCount;
 
 			WorldPtr												m_pWorld;
 		};

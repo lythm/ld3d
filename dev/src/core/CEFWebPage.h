@@ -74,6 +74,8 @@ namespace ld3d
 			void														HandleWinMsg(MSG& msg);
 
 			void														SetScreenCoord(int x, int y);
+
+			void														ExcuteJS(const std::string& code);
 		private:
 			bool														IsPointInside(int screenX, int screenY);
 			void														GetMouseLocalCoord(LPARAM lParam, int& x, int& y);
@@ -115,6 +117,8 @@ namespace ld3d
 			void														LoadPage(const std::string& url);
 
 			void														SetScreenCoord(int x, int y);
+
+			void														ExcuteJS(const std::string& code);
 		private:
 			void														_on_win_msg(EventPtr pEvent);
 		private:

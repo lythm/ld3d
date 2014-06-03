@@ -21,5 +21,7 @@ namespace ld3d
 		CoreApiPtr											m_pCore;
 
 
+		
+
 	};
 }

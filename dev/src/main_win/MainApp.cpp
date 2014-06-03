@@ -245,7 +245,7 @@ namespace ld3d
 			{
 				OnUpdate();
 			}
-			//else
+			else
 			{
 				Sleep(1);
 			}

@@ -27,6 +27,14 @@ namespace ld3d
 		{
 			m_pPage = nullptr;
 		}
+		void CEFWebpageRenderer::ExcuteJS(const std::string& code)
+		{
+			if(m_pPage == nullptr)
+			{
+				return;
+			}
+			m_pPage->ExcuteJS(code);
+		}
 		void CEFWebpageRenderer::_on_win_msg(EventPtr pEvent)
 		{
 			Event_WindowMessage* pMsg = (Event_WindowMessage*)pEvent.get();
@@ -191,6 +199,15 @@ namespace ld3d
 		bool CEFWebpage::IsVisible()
 		{
 			return m_visible;
+		}
+		void CEFWebpage::ExcuteJS(const std::string& code)
+		{
+			if(m_pBrowser == nullptr)
+			{
+				return;
+			}
+
+			m_pBrowser->GetMainFrame()->ExecuteJavaScript(CefString(code), m_pBrowser->GetMainFrame()->GetURL(), 0);
 		}
 		void CEFWebpage::LoadPage(const std::string& url)
 		{

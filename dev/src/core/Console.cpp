@@ -32,6 +32,8 @@ namespace ld3d
 		m_pConsoleWnd->SetZOrder(-1);
 
 		m_pCore->AddEventHandler(EV_KEYBOARD_STATE, std::bind(&Console::_on_key, this, std::placeholders::_1));
+
+
 		return true;
 	}
 	void Console::Show(bool show)

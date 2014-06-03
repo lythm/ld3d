@@ -17,6 +17,10 @@ namespace ld3d
 		{
 			return this;
 		}
+		CefRefPtr<CefRenderProcessHandler> CEFApp::GetRenderProcessHandler()
+		{
+			return NULL;
+		}
 		void CEFApp::OnContextInitialized()
 		{
 

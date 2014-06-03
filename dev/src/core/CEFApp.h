@@ -14,6 +14,10 @@ namespace ld3d
 
 			CefRefPtr<CefBrowserProcessHandler>						GetBrowserProcessHandler() OVERRIDE;
 
+
+			CefRefPtr<CefRenderProcessHandler>						GetRenderProcessHandler() OVERRIDE;
+			
+
 			void													OnContextInitialized() OVERRIDE;
 
 		private:

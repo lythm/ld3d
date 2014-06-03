@@ -40,8 +40,6 @@ namespace ld3d
 				m_regions.push_back(pRegion);
 			}
 
-			pRegion->IncRef();
-
 			return pRegion;
 		}
 		void RegionManager::UnloadRegion(RegionPtr pRegion)

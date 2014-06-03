@@ -56,7 +56,7 @@ namespace ld3d
 			// Specify CEF browser settings here.
 			CefBrowserSettings browser_settings;
 
-			CefRefPtr<CefBrowser> pBrowser = CefBrowserHost::CreateBrowserSync(window_info, handler.get(), url, browser_settings);
+			CefRefPtr<CefBrowser> pBrowser = CefBrowserHost::CreateBrowserSync(window_info, handler.get(), url, browser_settings, nullptr);
 
 			while(pBrowser->IsLoading())
 			{

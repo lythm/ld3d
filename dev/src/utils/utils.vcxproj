@@ -193,6 +193,7 @@
     <ClCompile Include="Version.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\include\utils\CommandLine.h" />
     <ClInclude Include="..\..\include\utils\ConcurrentQueue.h" />
     <ClInclude Include="..\..\include\utils\Config.h" />
     <ClInclude Include="..\..\include\utils\Lexer.h" />
@@ -202,6 +203,7 @@
     <ClInclude Include="..\..\include\utils\MiniDump.h" />
     <ClInclude Include="..\..\include\utils\PerlinNoise.h" />
     <ClInclude Include="..\..\include\utils\PropertySet.h" />
+    <ClInclude Include="..\..\include\utils\RefCount.h" />
     <ClInclude Include="..\..\include\utils\scope_exit.h" />
     <ClInclude Include="..\..\include\utils\TaskManager.h" />
     <ClInclude Include="..\..\include\utils\Unicode.h" />

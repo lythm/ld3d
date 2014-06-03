@@ -14,3 +14,5 @@
 #include "utils/Lexer.h"
 #include "utils/Logger.h"
 #include "utils/Linked.h"
+#include "utils/RefCount.h"
+#include "utils/CommandLine.h"

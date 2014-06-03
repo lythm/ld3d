@@ -12,7 +12,6 @@ namespace ld3d
 			m_modified		= false;
 			m_coord			= Coord();
 			m_loaded		= false;
-			m_refCount		= 0;
 		}
 
 
@@ -136,7 +135,6 @@ namespace ld3d
 			m_modified		= false;
 			m_coord			= coord;
 			m_loaded		= false;
-			m_refCount		= 0;
 
 			return true;
 		}
@@ -163,18 +161,7 @@ namespace ld3d
 		{
 			m_loaded = loaded;
 		}
-		void Region::IncRef()
-		{
-			++m_refCount;
-		}
-		void Region::DecRef()
-		{
-			--m_refCount;
-		}
-		int32 Region::GetRef() const
-		{
-			return m_refCount;
-		}
+		
 		bool Region::Unload()
 		{
 			return Save();

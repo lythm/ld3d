@@ -5,30 +5,6 @@
 <title>无标题文档</title>
 
 
- <script src='zebra/zebra.min.js'
-                type='text/javascript'></script>
-        <script type='text/javascript'>
-            zebra.ready(function() {
-                // import classes and variables from "ui" and "layout" packages in local space
-                eval(zebra.Import("ui", "layout"));
-
-                // create Canvas using JSON like style
-                (new zCanvas()).root.properties({
-                    layout: new BorderLayout(),
-                    kids  : {
-                        CENTER: new TextField("", true),
-                        TOP   : (new BoldLabel("Sample application")).properties({
-                            padding : 8
-                        }),
-                        BOTTOM: new Button("Ok")
-                    }
-                });
-            }); 
-        </script>
-
-
-
-
 </head>
 
 <body>
