@@ -27,6 +27,7 @@ namespace ld3d
 			const char* szSub = "./cef_sub_process_x64.exe";
 			
 			CefString(&settings.browser_subprocess_path).FromASCII(szSub);
+			CefString(&settings.log_file).FromString("./log/cef.log");
 
 			if(false == CefInitialize(main_args, settings, m_pApp.get()))
 			{

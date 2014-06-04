@@ -2,6 +2,10 @@
 #include "cef3/include/cef_runnable.h"
 
 
+static std::string invoke_host_call = "invoke_host_call";
+static std::string invoke_script_call = "invoke_script_call";
+
+
 RenderProcessApp::RenderProcessApp(void)
 {
 }
@@ -48,8 +52,8 @@ void RenderProcessApp::OnContextCreated(CefRefPtr<CefBrowser> browser,
 
 	// Add the query function.
 	CefRefPtr<CefV8Value> query_func =
-		CefV8Value::CreateFunction("script_call", handler.get());
-	window->SetValue("script_call", query_func, attributes);
+		CefV8Value::CreateFunction(invoke_host_call, handler.get());
+	window->SetValue(invoke_host_call, query_func, attributes);
 }
 
 
@@ -60,19 +64,12 @@ void RenderProcessApp::OnContextReleased(CefRefPtr<CefBrowser> browser,
 
 }
 
-void RenderProcessApp::SendCall(const CefString& name, const CefV8ValueList& arguments)
+void RenderProcessApp::SendCall(const CefString& json)
 {
-	CefRefPtr<CefProcessMessage> msg = CefProcessMessage::Create("script_call");
+	CefRefPtr<CefProcessMessage> msg = CefProcessMessage::Create(invoke_host_call);
 	CefRefPtr<CefListValue> args = msg->GetArgumentList();
-	args->SetString(0, name);
-	args->SetInt(1, arguments.size());
-	
-	for(int i = 0; i < arguments.size(); ++i)
-	{
-		CefString arg = arguments.at(i)->GetStringValue();
-		args->SetString(2 + i, arg);
-	}
 
+	args->SetString(0, json);
 	
 	m_pBrowser->SendProcessMessage(PID_BROWSER, msg);
 }

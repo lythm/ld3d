@@ -19,8 +19,8 @@ namespace ld3d
 		}
 
 		std::string date = boost::posix_time::to_iso_string(boost::posix_time::second_clock::local_time());
-		
-		s_log.open((p / date).string() + ".log", std::ios_base::app);
+		std::string log_file = (p / date).string() + ".log";
+		s_log.open(log_file, std::ios_base::app);
 		s_log << date << "\n";
 
 	}

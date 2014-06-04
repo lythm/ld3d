@@ -153,7 +153,9 @@ function Console(canvas_id) {
 			}
 		}
 
-		window.script_call("console_command", cmdln);
+		var call = JSON.stringify({call:'console_command', parameter:[cmdln,"tmp"]});
+		
+		window.invoke_host_call(call);
 	}
 
 	// on system command

@@ -23,7 +23,19 @@ public:
 																		CefRefPtr<CefV8Value>& retval,
 																		CefString& exception)
 		{
-			m_pApp->SendCall(arguments.at(0)->GetStringValue(), arguments);
+
+			if(arguments.size() != 1)
+			{
+				exception = "too many armugents";
+				return false;
+			}
+			if(arguments.at(0)->IsString() == false)
+			{
+				exception = "invalid argument type";
+				return false;
+			}
+
+			m_pApp->SendCall(arguments.at(0)->GetStringValue());
 			return true;
 		}
 
@@ -60,10 +72,17 @@ public:
 	IMPLEMENT_REFCOUNTING(CEFApp);
 
 
-	void															SendCall(const CefString& name, const CefV8ValueList& arguments);
+	void															SendCall(const CefString& json);
 
 private:
 	CefRefPtr<CefBrowser>											m_pBrowser;
 
+	struct CallInfo
+	{
+		uint32			contextId;
+		CefString		json;
+	};
+
+	std::map<uint32, CallInfo>										m_callMap;
 };
 

@@ -6,10 +6,17 @@
 #include "core_utils.h"
 #include "core/Event.h"
 
+#include <boost/property_tree/ptree.hpp>
+#include <boost/property_tree/json_parser.hpp>
 
 #include <windowsx.h>
 
 #include <boost/function_types/result_type.hpp>
+
+
+
+static std::string invoke_host_call = "invoke_host_call";
+static std::string invoke_script_call = "invoke_script_call";
 
 namespace ld3d
 {
@@ -535,21 +542,23 @@ namespace ld3d
 		{
 			CefString str = message->GetName();
 
-			if(str != "script_call")
+			if(str != invoke_host_call)
 			{
 				return false;
 			}
 
 			CefString call = message->GetArgumentList()->GetString(0);
 
-			int args = message->GetArgumentList()->GetInt(1);
+			boost::property_tree::ptree pt;
 
-			for(int i = 0; i < args; ++i)
-			{
-				CefString arg = message->GetArgumentList()->GetString(i);
+			std::istringstream stream(call.ToString()) ;
 
-				logger()<< arg.ToString() << ",";
-			}
+			boost::property_tree::read_json(stream, pt);
+
+			std::string c = pt.get<std::string>("call");
+			std::string p = pt.get<std::string>("parameter..");
+
+			logger()<<call.ToString();
 			return false;
 		}
 	}
