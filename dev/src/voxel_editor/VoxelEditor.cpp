@@ -55,10 +55,10 @@ namespace ld3d
 
 			CameraDataPtr pMD = std::dynamic_pointer_cast<CameraData>(pCore->CreateGameObjectComponent("Camera"));
 			m_pCamera->AddComponent(pMD);
-			
+
 			CameraController_FreePtr pController = std::dynamic_pointer_cast<CameraController_Free>(pCore->CreateGameObjectComponent("CameraFreeController"));
 			pController->SetSpeed(50);
-		//	pController->Enable(false);
+			//	pController->Enable(false);
 			m_pCamera->AddComponent(pController);
 
 			GameObjectComponentPtr pSkyBox = pCore->CreateGameObjectComponent("SkyBox");
@@ -84,7 +84,7 @@ namespace ld3d
 			m_pWorldVP->Open(m_pWorld, Coord(), REGION_SIZE * 3 - 1);
 
 			m_pOverlay = m_pCore->GetUIManager()->CreateHtmlOverlay("debug_panel", math::RectI(0, 0, 600, 400), "file:///assets/standard/gui/debug_panel/index.html");
-			
+
 			return true;
 		}
 		void VoxelEditor::Release()
@@ -97,6 +97,34 @@ namespace ld3d
 		}
 		bool VoxelEditor::Update(float dt)
 		{
+			static uint64 tick = os_get_tick();
+
+			if(os_get_tick() - tick > 1000)
+			{
+				float avg = m_pCore->GetFrameMetric().GetAvgFPS();
+				float fps = m_pCore->GetFrameMetric().GetFPS();
+
+				std::stringstream str;
+
+				str.precision(3);
+				str.setf( std::ios::fixed, std:: ios::floatfield );
+				str << "fps: "
+					<< fps
+					<< ", "
+					<< 1000.0f / fps
+					<< "ms"
+					<< " avg_fps: "
+					<< avg
+					<< ", "
+					<< 1000.0f / avg
+					<< "ms";
+
+				std::string content = str.str();
+				m_pOverlay->GetWebpageRenderer()->ExecuteJS("set_fps('" +  content  + "');");
+
+				tick = os_get_tick();
+			}
+
 			m_pWorld->Update(dt);
 
 			m_pWorldVP->Update();

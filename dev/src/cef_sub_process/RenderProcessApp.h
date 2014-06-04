@@ -23,6 +23,10 @@ public:
 																		CefRefPtr<CefV8Value>& retval,
 																		CefString& exception)
 		{
+			if(CefCurrentlyOn(TID_RENDERER) == false)
+			{
+				return false;
+			}
 
 			if(arguments.size() != 1)
 			{

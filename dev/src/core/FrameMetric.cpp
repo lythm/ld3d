@@ -9,6 +9,7 @@ namespace ld3d
 		m_frames				= 0;
 		m_startTick				= 0;
 		m_reportTick			= 0;
+		m_fps					= 1;
 	}
 
 
@@ -30,8 +31,14 @@ namespace ld3d
 	{
 		m_frames++;
 		m_totalFrames ++;
+
+		uint64 dt = os_get_tick() - m_reportTick;
+		if(dt > 100)
+		{
+			UpdateFPS();
+		}
 	}
-	float FrameMetric::GetAvgFPS()
+	float FrameMetric::GetAvgFPS() const
 	{
 		uint64 dt = os_get_tick() - m_startTick;
 		return float(m_totalFrames * 1000) / float(dt);
@@ -39,12 +46,17 @@ namespace ld3d
 	
 	float FrameMetric::GetFPS()
 	{
+		return m_fps;
+	}
+	void FrameMetric::UpdateFPS()
+	{
 		uint64 dt = os_get_tick() - m_reportTick;
-		float fps = float(m_frames * 1000) / float(dt);
+		
+		m_fps = float(m_frames * 1000) / float(dt);
 
 		m_frames = 0;
 		m_reportTick = os_get_tick();
 
-		return fps;
+		
 	}
 }

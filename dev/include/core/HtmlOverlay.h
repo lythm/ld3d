@@ -20,6 +20,8 @@ namespace ld3d
 		void									Show(bool show);
 
 		void									LoadPage(const std::string& url);
+
+		WebpageRendererPtr						GetWebpageRenderer();
 	private:
 		bool									ResizeTexture(uint32 w, uint32 h);
 

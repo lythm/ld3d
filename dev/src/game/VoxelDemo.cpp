@@ -29,6 +29,7 @@ bool VoxelDemo::Init(ld3d::CoreApiPtr pCore)
 	m_pCore->GetRenderManager()->SetGlobalAmbient(math::Color4(0.4, 0.4f, 0.4f, 1.0f));
 	m_pCore->GetRenderManager()->SetClearColor(math::Color4(0.1f, 0.2f, 0.3f, 1));
 
+	m_pCore->RegisterConsoleCommand("rebuild_world", std::bind(&VoxelDemo::_on_cmd_rebuild, this, std::placeholders::_1, std::placeholders::_2));
 	
 
 	/*DataStream_File file;
@@ -132,6 +133,8 @@ bool VoxelDemo::Init(ld3d::CoreApiPtr pCore)
 }
 void VoxelDemo::Release()
 {
+	m_pCore->RemoveConsoleCommand("rebuild_world");		
+
 	m_pPlayer->Clear();
 	m_pPlayer.reset();
 	m_pWorld.reset();
@@ -152,14 +155,14 @@ void VoxelDemo::_on_key_state(ld3d::EventPtr pEvent)
 	}
 	
 
-	if(pState->key_code == key_r && pState->keyboard_state->KeyDown(key_r) == false)
-	{
+	//if(pState->key_code == key_r && pState->keyboard_state->KeyDown(key_r) == false)
+	//{
 
-		VoxelWorldGeneratorPtr pGenerator = std::dynamic_pointer_cast<VoxelWorldGenerator>(m_pWorld->GetComponent("VoxelWorldGenerator"));
+	//	VoxelWorldGeneratorPtr pGenerator = std::dynamic_pointer_cast<VoxelWorldGenerator>(m_pWorld->GetComponent("VoxelWorldGenerator"));
 
-		pGenerator->RebuildWorld();
-		
-	}
+	//	pGenerator->RebuildWorld();
+	//	
+	//}
 
 	if(pState->key_code == key_escape && pState->keyboard_state->KeyDown(key_escape) == false)
 	{
@@ -215,4 +218,12 @@ ld3d::GameObjectPtr VoxelDemo::CreatePlayer()
 	pCD->SetHandler(std::bind(&PlayerController::_on_collide, (PlayerController*)pController.get(), std::placeholders::_1, std::placeholders::_2));
 
 	return pPlayer;
+}
+void VoxelDemo::_on_cmd_rebuild(const ld3d::CommandLine& cl, std::function<void (const std::string&)> writeln)
+{
+	using namespace ld3d;
+
+	VoxelWorldGeneratorPtr pGenerator = std::dynamic_pointer_cast<VoxelWorldGenerator>(m_pWorld->GetComponent("VoxelWorldGenerator"));
+	pGenerator->RebuildWorld();
+	writeln("world is rebuilt.");
 }

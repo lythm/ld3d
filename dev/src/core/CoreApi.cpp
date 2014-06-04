@@ -493,12 +493,13 @@ namespace ld3d
 	{
 		app_delegate.ExitApp();
 	}
-	const FrameMetric& CoreApi::GetFrameMetric()
+	FrameMetric& CoreApi::GetFrameMetric()
 	{
 		return m_frameMetric;
 	}
 	void CoreApi::UpdateFPS()
 	{
+
 		static uint64 tick = os_get_tick();
 
 		if(os_get_tick() - tick > 100)
@@ -540,6 +541,14 @@ namespace ld3d
 	CursorPtr CoreApi::GetCursor()
 	{
 		return m_pCursor;
+	}
+	bool CoreApi::RegisterConsoleCommand(const std::string& cmd, const std::function<void (const CommandLine&, std::function<void (const std::string&)>)>& handler)
+	{
+		return m_pConsole->RegisterConsoleCommand(cmd, handler);
+	}
+	void CoreApi::RemoveConsoleCommand(const std::string& cmd)
+	{
+		m_pConsole->RemoveConsoleCommand(cmd);
 	}
 	
 }

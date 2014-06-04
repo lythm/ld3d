@@ -24,6 +24,7 @@ Game::~Game(void)
 }
 bool Game::Initialize(ld3d::CoreApiPtr pCore)
 {
+	pCore->GetCursor()->ConfineCursor(true);
 	m_pDemo = new VoxelDemo;
 
 	if(m_pDemo->Init(pCore) == false)

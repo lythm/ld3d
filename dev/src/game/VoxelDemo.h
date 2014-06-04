@@ -12,6 +12,8 @@ public:
 
 	void										_on_key_state(ld3d::EventPtr pEvent);
 
+	void										_on_cmd_rebuild(const ld3d::CommandLine& cl, std::function<void (const std::string&)> writeln);
+
 	ld3d::GameObjectPtr							CreatePlayer();
 private:
 	ld3d::CoreApiPtr							m_pCore;

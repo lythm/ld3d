@@ -96,4 +96,8 @@ namespace ld3d
 	{
 		m_pPageRenderer->LoadPage(url);
 	}
+	WebpageRendererPtr HtmlOverlay::GetWebpageRenderer()
+	{
+		return m_pPageRenderer;
+	}
 }

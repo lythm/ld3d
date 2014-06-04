@@ -2,7 +2,7 @@
 function Console(canvas_id) {
 
     this.canvas_id = canvas_id;
-	this.prompt = "#";
+	this.prompt = "# ";
 	this.bgcolor="rgb(0,0,0)";
 	this.fontcolor="rgb(255,255,255)";
     this.lines = [];
@@ -138,88 +138,10 @@ function Console(canvas_id) {
 		{
 			return;
 		}
-		if(this.on_syscmd(ret[0], cmdln) == true)
-		{
-			return;
-		}
 		
-		
-
-		if(this.on_cmd)
-		{
-			if(this.on_cmd(ret[0], cmdln) == false)
-			{
-				this.writeln("unknown command: " + ret[0] + ".");
-			}
-		}
-
-		var call = JSON.stringify({call:'console_command', parameter:[cmdln,"tmp"]});
+		var call = JSON.stringify({call:'on_console_command', parameter:cmdln});
 		
 		window.invoke_host_call(call);
-	}
-
-	// on system command
-	this.on_syscmd = function (cmd, cmdln){
-		switch(cmd)
-		{
-			case "sys_help":
-				this.writeln("sys_help:				print sys command list.");
-				this.writeln("sys_bgclr:			change background color.");
-				this.writeln("sys_fgclr:			change foreground color.");
-				this.writeln("sys_run_js:			run javascript code.");
-				break;
-			case "sys_bgclr":
-				
-				var result = cmdln.split(" ", 2);
-				
-				if(result.length != 2)
-				{
-					this.writeln("invalid parameter.");
-				}
-				else
-				{
-					this.bgcolor = result[1];
-					this.draw();
-				}
-
-				break;
-
-			case "sys_fgclr":
-				var result = cmdln.split(" ", 2);
-				
-				if(result.length != 2)
-				{
-					this.writeln("invalid parameter.");
-				}
-				else
-				{
-					this.fontcolor = result[1];
-					this.draw();
-				}
-				break;
-			case "sys_run_js":
-				var result = cmdln.slice(cmd.length + 1);
-				
-				if(result.length == 0)
-				{
-					this.writeln("invalid parameter.");
-				}
-				else
-				{
-					eval(result);
-					this.draw();
-				}
-				break;
-			default:
-				return false;
-		}
-
-		return true;
-	}
-
-	// on command
-	this.on_cmd = function(cmd, cmdline){
-		return false;
 	}
 
 	// on timer

@@ -11,15 +11,20 @@ namespace ld3d
 		void											BeginFrame();
 		void											EndFrame();
 
-		float											GetAvgFPS();
+		float											GetAvgFPS() const;
 		float											GetFPS();
 
 	private:
+
+		void											UpdateFPS();
+
 		uint64											m_totalFrames;
 		uint64											m_startTick;
 
 
 		uint64											m_frames;
 		uint64											m_reportTick;
+
+		float											m_fps;
 	};
 }

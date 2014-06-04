@@ -79,7 +79,9 @@ namespace ld3d
 
 			void														SetScreenCoord(int x, int y);
 
-			void														ExcuteJS(const std::string& code);
+			void														ExecuteJS(const std::string& code);
+
+			void														RegisterScriptCallHandler(const std::string& call_name, const std::function<void(const std::string&)>& handler);
 		private:
 			bool														IsPointInside(int screenX, int screenY);
 			void														GetMouseLocalCoord(LPARAM lParam, int& x, int& y);
@@ -100,6 +102,10 @@ namespace ld3d
 			bool														m_isTargetBlank;
 
 			bool														m_isLoaded;
+
+			std::map<std::string, 
+				std::function<void(const std::string&)>>				m_scriptHandlerMap;
+
 
 			IMPLEMENT_REFCOUNTING(CEFWebpage);
 		};
@@ -122,7 +128,9 @@ namespace ld3d
 
 			void														SetScreenCoord(int x, int y);
 
-			void														ExcuteJS(const std::string& code);
+			void														ExecuteJS(const std::string& code);
+
+			void														RegisterScriptCallHandler(const std::string& call_name, const std::function<void(const std::string&)>& handler);
 		private:
 			void														_on_win_msg(EventPtr pEvent);
 		private:

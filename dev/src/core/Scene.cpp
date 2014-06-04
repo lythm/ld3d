@@ -178,5 +178,9 @@ namespace ld3d
 		
 		return true;
 	}
+	GameObjectPtr Scene::FindGameObject(const std::string& name)
+	{
+		return m_pRoot->FindChildRecursive(name);
+	}
 }
 

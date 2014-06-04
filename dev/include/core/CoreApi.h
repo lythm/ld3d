@@ -78,11 +78,16 @@ namespace ld3d
 
 		AppDelegate										app_delegate;
 
-		const FrameMetric&								GetFrameMetric();
+		FrameMetric&									GetFrameMetric();
 
 		void*											GetMainWndHandle();
 
 		void											ShowConsole(bool show);
+
+		bool											RegisterConsoleCommand(const std::string& cmd, const std::function<void (const CommandLine&, std::function<void (const std::string&)>)>& handler);
+
+		void											RemoveConsoleCommand(const std::string& cmd);
+
 	private:
 		void											UpdateFrame(float dt);
 		void											RenderFrame();

@@ -193,7 +193,6 @@
     <ClInclude Include="..\..\include\core\OverLay.h" />
     <ClInclude Include="..\..\include\core\Package.h" />
     <ClInclude Include="..\..\include\core\FileSystem.h" />
-    <ClInclude Include="..\..\include\core\Font.h" />
     <ClInclude Include="..\..\include\core\GameInterface.h" />
     <ClInclude Include="..\..\include\core\GameObject.h" />
     <ClInclude Include="..\..\include\core\GameObjectComponent.h" />

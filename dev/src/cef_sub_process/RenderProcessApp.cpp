@@ -37,23 +37,24 @@ void RenderProcessApp::OnContextCreated(CefRefPtr<CefBrowser> browser,
 										CefRefPtr<CefFrame> frame,
 										CefRefPtr<CefV8Context> context)
 {
-	
-//	CEF_REQUIRE_RENDERER_THREAD();
 
-	// Register function handlers with the 'window' object.
+	if(CefCurrentlyOn(TID_RENDERER) == false)
+	{
+		return;
+	}
+	
 	CefRefPtr<CefV8Value> window = context->GetGlobal();
 
 	CefRefPtr<V8Handler> handler = new V8Handler(this);
-	CefV8Value::PropertyAttribute attributes =
-		static_cast<CefV8Value::PropertyAttribute>(
-		V8_PROPERTY_ATTRIBUTE_READONLY |
-		V8_PROPERTY_ATTRIBUTE_DONTENUM |
-		V8_PROPERTY_ATTRIBUTE_DONTDELETE);
 
-	// Add the query function.
-	CefRefPtr<CefV8Value> query_func =
-		CefV8Value::CreateFunction(invoke_host_call, handler.get());
-	window->SetValue(invoke_host_call, query_func, attributes);
+	CefV8Value::PropertyAttribute attributes = static_cast<CefV8Value::PropertyAttribute>(V8_PROPERTY_ATTRIBUTE_READONLY |
+																								V8_PROPERTY_ATTRIBUTE_DONTENUM |
+																								V8_PROPERTY_ATTRIBUTE_DONTDELETE);
+
+	CefRefPtr<CefV8Value> invoke = CefV8Value::CreateFunction(invoke_host_call, handler.get());
+	window->SetValue(invoke_host_call, invoke, attributes);
+
+	
 }
 
 
@@ -61,7 +62,10 @@ void RenderProcessApp::OnContextReleased(CefRefPtr<CefBrowser> browser,
 										 CefRefPtr<CefFrame> frame,
 										 CefRefPtr<CefV8Context> context)
 {
-
+	if(CefCurrentlyOn(TID_RENDERER) == false)
+	{
+		return;
+	}
 }
 
 void RenderProcessApp::SendCall(const CefString& json)

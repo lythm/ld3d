@@ -34,13 +34,20 @@ namespace ld3d
 		{
 			m_pPage = nullptr;
 		}
-		void CEFWebpageRenderer::ExcuteJS(const std::string& code)
+		void CEFWebpageRenderer::RegisterScriptCallHandler(const std::string& call_name, const std::function<void(const std::string&)>& handler)
+		{
+			if(m_pPage)
+			{
+				m_pPage->RegisterScriptCallHandler(call_name, handler);
+			}
+		}
+		void CEFWebpageRenderer::ExecuteJS(const std::string& code)
 		{
 			if(m_pPage == nullptr)
 			{
 				return;
 			}
-			m_pPage->ExcuteJS(code);
+			m_pPage->ExecuteJS(code);
 		}
 		void CEFWebpageRenderer::_on_win_msg(EventPtr pEvent)
 		{
@@ -194,6 +201,7 @@ namespace ld3d
 		}
 		void CEFWebpage::Destroy()
 		{
+			m_scriptHandlerMap.clear();
 			m_pBrowser->GetHost()->CloseBrowser(true);
 			m_pTexture = nullptr;
 
@@ -207,7 +215,7 @@ namespace ld3d
 		{
 			return m_visible;
 		}
-		void CEFWebpage::ExcuteJS(const std::string& code)
+		void CEFWebpage::ExecuteJS(const std::string& code)
 		{
 			if(m_pBrowser == nullptr)
 			{
@@ -215,6 +223,7 @@ namespace ld3d
 			}
 
 			m_pBrowser->GetMainFrame()->ExecuteJavaScript(CefString(code), m_pBrowser->GetMainFrame()->GetURL(), 0);
+			CefDoMessageLoopWork();
 		}
 		void CEFWebpage::LoadPage(const std::string& url)
 		{
@@ -540,6 +549,11 @@ namespace ld3d
 		}
 		bool CEFWebpage::OnProcessMessageReceived(CefRefPtr<CefBrowser> browser, CefProcessId source_process, CefRefPtr<CefProcessMessage> message)
 		{
+			if(CefCurrentlyOn(TID_UI) == false)
+			{
+				return false;
+			}
+
 			CefString str = message->GetName();
 
 			if(str != invoke_host_call)
@@ -555,11 +569,20 @@ namespace ld3d
 
 			boost::property_tree::read_json(stream, pt);
 
-			std::string c = pt.get<std::string>("call");
-			std::string p = pt.get<std::string>("parameter..");
+			std::string call_name = pt.get<std::string>("call");
 
-			logger()<<call.ToString();
-			return false;
+			std::map<std::string, std::function<void(const std::string&)>>::iterator it = m_scriptHandlerMap.find(call_name);
+			if(it == m_scriptHandlerMap.end())
+			{
+				return false;
+			}
+
+			it->second(call.ToString());
+			return true;
+		}
+		void CEFWebpage::RegisterScriptCallHandler(const std::string& call_name, const std::function<void(const std::string&)>& handler)
+		{
+			m_scriptHandlerMap[call_name] = handler;
 		}
 	}
 }
