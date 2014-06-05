@@ -38,6 +38,12 @@ namespace ld3d
 			return false;
 		}
 
+		int rw = m_pRenderManager->GetSysGraphics()->GetRenderWindowWidth();
+		int rh = m_pRenderManager->GetSysGraphics()->GetRenderWindowHeight();
+
+		m_pFinalMaterial->GetParameterByName("render_window_width")->SetParameterInt(rw);
+		m_pFinalMaterial->GetParameterByName("render_window_height")->SetParameterInt(rh);
+
 		m_pParamOutput = m_pFinalMaterial->GetParameterByName("final_image");
 
 		if(m_pParamOutput == nullptr)
@@ -106,6 +112,12 @@ namespace ld3d
 		}
 
 		CreateRT(cx, cy);
+
+		int w = m_pRenderManager->GetSysGraphics()->GetRenderWindowWidth();
+		int h = m_pRenderManager->GetSysGraphics()->GetRenderWindowHeight();
+
+		m_pFinalMaterial->GetParameterByName("render_window_width")->SetParameterInt(w);
+		m_pFinalMaterial->GetParameterByName("render_window_height")->SetParameterInt(h);
 	}
 	bool PostEffectManager::CreateRT(int w, int h)
 	{
@@ -140,6 +152,7 @@ namespace ld3d
 
 		m_pParamOutput->SetParameterTexture(m_pOutput->GetTexture(0));
 		//m_pParamOutput->SetParameterTexture(m_pInput->GetTexture(0));
+
 
 		m_pRenderManager->DrawFullScreenQuad(m_pFinalMaterial);
 	}

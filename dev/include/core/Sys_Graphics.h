@@ -85,8 +85,12 @@ namespace ld3d
 		virtual int										GetFrameBufferWidth()															= 0;
 		virtual int										GetFrameBufferHeight()															= 0;
 
+		virtual int										GetRenderWindowWidth()															= 0;
+
+		virtual int										GetRenderWindowHeight()															= 0;
 		virtual void									OnResizeRenderWindow(int cx, int cy)											= 0;
-		
+		virtual void									ResizeRenderWindow(int cx, int cy, bool fullscreen = false)						= 0;
+		virtual bool									IsFullscreen()																	= 0;
 	protected:
 		Sys_Graphics(void){}
 		virtual ~Sys_Graphics(void){}

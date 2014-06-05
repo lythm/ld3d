@@ -17,12 +17,17 @@ namespace ld3d
 		void														Release();
 
 		void														OnResize(int cx, int cy);
+		void														Resize(int cx, int cy, bool fullscreen = false);
 		void														Present();
 
 		HGLRC														GetContext();
 		void														MakeCurrent();
 
 		void														EnableVSync(bool bEnable);
+		void														CenterWindow();
+		void														AdjustWindow(int Width, int Height);
+
+		bool														IsFullscreen();
 	private:
 		HWND														m_hWnd;
 		HDC															m_hDC;
@@ -30,6 +35,7 @@ namespace ld3d
 
 		int															m_width;
 		int															m_height;
+		bool														m_fullscreen;
 	};
 }
 

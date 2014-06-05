@@ -84,12 +84,12 @@ namespace ld3d
 	public:
 		Event_ResizeFrameBuffer(int cx, int cy) : Event(EV_RESIZE_FRAMEBUFFER)
 		{
-			m_width = cx;
-			m_height = cy;
+			w = cx;
+			h = cy;
 		}
 
-		int							m_width;
-		int							m_height;
+		int							w;
+		int							h;
 	};
 
 	class ViewFrustum;

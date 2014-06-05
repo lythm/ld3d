@@ -457,7 +457,37 @@ namespace ld3d
 	{
 		m_clearStencil = s;
 	}
-	void RenderManager::OnResizeRenderWindow(int cx, int cy)
+	void RenderManager::ResizeFramebuffer(int cx, int cy, bool fullscreen)
+	{
+		if(cx == 0 || cy == 0)
+		{
+			return;
+		}
+
+		m_pGraphics->SetRenderTarget(nullptr);
+
+		m_pGraphics->ResizeRenderWindow(cx, cy, fullscreen);
+
+
+		if(m_pDSBuffer)
+		{
+			m_pDSBuffer->Release();
+		}
+
+		m_pDSBuffer = m_pGraphics->CreateDepthStencilBuffer(G_FORMAT_D24_UNORM_S8_UINT, cx, cy);
+
+		CreateGBuffer(cx, cy);
+		CreateABuffer(cx, cy);
+
+		m_pPostEffectManager->Resize(cx, cy);
+
+
+		std::shared_ptr<Event_ResizeFrameBuffer> pEvent = alloc_object<Event_ResizeFrameBuffer>(cx, cy);
+
+		m_pEventDispatcher->DispatchEvent(pEvent);
+
+	}
+	void RenderManager::OnResizeFramebuffer(int cx, int cy)
 	{
 		if(cx == 0 || cy == 0)
 		{
@@ -480,6 +510,10 @@ namespace ld3d
 		CreateABuffer(cx, cy);
 
 		m_pPostEffectManager->Resize(cx, cy);
+
+		std::shared_ptr<Event_ResizeFrameBuffer> pEvent = alloc_object<Event_ResizeFrameBuffer>(cx, cy);
+
+		m_pEventDispatcher->DispatchEvent(pEvent);
 	}
 	void RenderManager::AddLight(LightPtr pLight)
 	{
@@ -702,5 +736,9 @@ namespace ld3d
 	void RenderManager::SetViewport(const math::RectI& vp)
 	{
 		m_pGraphics->SetViewPort(vp.left , vp.top, vp.width(), vp.height());
+	}
+	bool RenderManager::IsFullscreen()
+	{
+		return m_pGraphics->IsFullscreen();
 	}
 }

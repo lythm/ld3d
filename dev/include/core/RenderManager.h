@@ -65,8 +65,8 @@ namespace ld3d
 		void										SetClearDepth(float d);
 		void										SetClearStencil(int s);
 		const math::Color4&							GetClearColor();
-		void										OnResizeRenderWindow(int cx, int cy);
-
+		void										OnResizeFramebuffer(int cx, int cy);
+		void										ResizeFramebuffer(int cx, int cy, bool fullscreen = false);
 		void										AddLight(LightPtr pLight);
 		void										RemoveLight(LightPtr pLight);
 		int											GetLightCount();
@@ -112,6 +112,9 @@ namespace ld3d
 		void										EmitViewFrustumCullEvent(const ViewFrustum& vf);
 
 		void										SetViewport(const math::RectI& vp);
+
+		bool										IsFullscreen();
+
 		// test
 		void										RenderTest(CameraPtr pCamera);
 		//

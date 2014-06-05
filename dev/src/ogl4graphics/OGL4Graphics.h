@@ -58,10 +58,14 @@ namespace ld3d
 		int										GetFrameBufferWidth();
 		int										GetFrameBufferHeight();
 	
+		int										GetRenderWindowWidth();
+		int										GetRenderWindowHeight();
 		void									OnResizeRenderWindow(int cx, int cy);
-
+		void									ResizeRenderWindow(int cx, int cy, bool fullscreen = false);
 
 		void									ResetViewport();
+
+		bool									IsFullscreen();
 	private:
 		GraphicsSetting							m_setting;
 

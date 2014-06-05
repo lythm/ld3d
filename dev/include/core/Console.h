@@ -20,6 +20,7 @@ namespace ld3d
 		void												RemoveConsoleCommand(const std::string& cmd);
 	private:
 		void												_on_key(EventPtr pEvent);
+		void												_on_resize(EventPtr pEvent);
 
 
 		void												_on_cmd(const std::string& json);
@@ -27,6 +28,10 @@ namespace ld3d
 		void												_on_cmd_exit(const CommandLine& cl, std::function<void (const std::string&)>);
 		void												_on_cmd_help(const CommandLine& cl, std::function<void (const std::string&)>);
 		void												_on_cmd_show_debug_panel(const CommandLine& cl, std::function<void (const std::string&)>);
+		void												_on_cmd_set_windowed(const CommandLine& cl, std::function<void (const std::string&)>);
+		void												_on_cmd_set_resolution(const CommandLine& cl, std::function<void (const std::string&)>);
+
+		
 	private:
 		HtmlOverlayPtr										m_pConsoleWnd;
 		CoreApiPtr											m_pCore;

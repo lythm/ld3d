@@ -34,6 +34,7 @@
 
 #include "core/Console.h"
 #include "core/DebugPanel.h"
+#include "core/Screen.h"
 
 
 namespace ld3d
@@ -192,6 +193,8 @@ namespace ld3d
 			return false;
 		}
 		
+		m_pScreen = alloc_object<Screen>(shared_from_this());
+
 		m_pUIManager	= alloc_object<UIManager>();
 		if(m_pUIManager->Initialize(shared_from_this()) == false)
 		{
@@ -276,6 +279,8 @@ namespace ld3d
 		_release_and_reset(m_pObjectManager);
 
 		_release_and_reset(m_pUIManager);
+
+		m_pScreen.reset();
 
 		_release_and_reset(m_pRenderManager);
 
@@ -572,5 +577,9 @@ namespace ld3d
 	DebugPanelPtr CoreApi::GetDebugPanel()
 	{
 		return m_pDebugPanel;
+	}
+	ScreenPtr CoreApi::GetScreen()
+	{
+		return m_pScreen;
 	}
 }

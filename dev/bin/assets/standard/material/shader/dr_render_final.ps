@@ -1,16 +1,17 @@
 #version 330
 
 uniform sampler2D final_image;
-
+uniform int render_window_width;
+uniform int render_window_height;
 out vec4 final_color;
 
 void main()
 {
-	ivec2 size = textureSize(final_image, 0);
+//	ivec2 size = textureSize(final_image, 0);
 
 	vec2 uv;
-	uv.x = gl_FragCoord.x / size.x;
-	uv.y = gl_FragCoord.y / size.y;
+	uv.x = gl_FragCoord.x / render_window_width;
+	uv.y = gl_FragCoord.y / render_window_height;
 
 	final_color = texture(final_image, uv);
 }

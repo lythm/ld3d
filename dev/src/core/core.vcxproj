@@ -189,6 +189,7 @@
     <ClInclude Include="..\..\include\core\EventDispatcher.h" />
     <ClInclude Include="..\..\include\core\FrameMetric.h" />
     <ClInclude Include="..\..\include\core\HtmlOverlay.h" />
+    <ClInclude Include="..\..\include\core\HtmlTexture.h" />
     <ClInclude Include="..\..\include\core\input_types.h" />
     <ClInclude Include="..\..\include\core\Contact.h" />
     <ClInclude Include="..\..\include\core\NavMesh.h" />
@@ -239,6 +240,7 @@
     <ClInclude Include="..\..\include\core\SamplerStateParser.h" />
     <ClInclude Include="..\..\include\core\Scene.h" />
     <ClInclude Include="..\..\include\core\SceneSerializer.h" />
+    <ClInclude Include="..\..\include\core\Screen.h" />
     <ClInclude Include="..\..\include\core\Serializer.h" />
     <ClInclude Include="..\..\include\core\Shader.h" />
     <ClInclude Include="..\..\include\core\ShaderProgram.h" />
@@ -330,6 +332,7 @@
     <ClCompile Include="GameObjectManager.cpp" />
     <ClCompile Include="GameObjectTemplate.cpp" />
     <ClCompile Include="HtmlOverlay.cpp" />
+    <ClCompile Include="HtmlTexture.cpp" />
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="LightManager.cpp" />
     <ClCompile Include="Material.cpp" />
@@ -364,6 +367,7 @@
     <ClCompile Include="SamplerStateParser.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneSerializer.cpp" />
+    <ClCompile Include="Screen.cpp" />
     <ClCompile Include="SkyLight.cpp" />
     <ClCompile Include="SpotLight.cpp" />
     <ClCompile Include="StdAllocator.cpp" />

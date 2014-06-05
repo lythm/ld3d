@@ -89,6 +89,7 @@ namespace ld3d
 
 		ConsolePtr										GetConsole();
 		DebugPanelPtr									GetDebugPanel();
+		ScreenPtr										GetScreen();
 	private:
 		void											UpdateFrame(float dt);
 		void											RenderFrame();
@@ -136,5 +137,7 @@ namespace ld3d
 		CursorPtr										m_pCursor;
 
 		DebugPanelPtr									m_pDebugPanel;
+
+		ScreenPtr										m_pScreen;
 	};
 }

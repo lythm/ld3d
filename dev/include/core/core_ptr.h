@@ -35,7 +35,9 @@ namespace ld3d
 	class Cursor;
 	class Console;
 	class DebugPanel;
+	class Screen;
 
+	typedef std::shared_ptr<Screen>							ScreenPtr;
 	typedef std::shared_ptr<DebugPanel>						DebugPanelPtr;
 	typedef std::shared_ptr<Console>						ConsolePtr;
 	typedef std::shared_ptr<Cursor>							CursorPtr;

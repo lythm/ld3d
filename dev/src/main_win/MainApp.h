@@ -15,8 +15,6 @@ namespace ld3d
 
 		void													Run();
 
-		void													ToFullScreen();
-		void													ToWindowed();
 	protected:
 
 		void													CenterWindow();

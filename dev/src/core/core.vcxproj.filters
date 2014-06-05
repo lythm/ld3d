@@ -75,6 +75,8 @@
     <ClCompile Include="WinCursor.cpp" />
     <ClCompile Include="AABBoxRenderData.cpp" />
     <ClCompile Include="DebugPanel.cpp" />
+    <ClCompile Include="Screen.cpp" />
+    <ClCompile Include="HtmlTexture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\core\ArcBall.h" />
@@ -242,6 +244,8 @@
     <ClInclude Include="..\..\include\core\AABBoxRenderData.h" />
     <ClInclude Include="..\..\include\core\DebugPanel.h" />
     <ClInclude Include="..\..\include\core\Console.h" />
+    <ClInclude Include="..\..\include\core\Screen.h" />
+    <ClInclude Include="..\..\include\core\HtmlTexture.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="math">

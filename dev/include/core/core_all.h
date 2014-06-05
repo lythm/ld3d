@@ -99,3 +99,7 @@
 #include "core/DT_CoreApi.h"
 
 #include "core/Cursor.h"
+
+#include "core/Console.h"
+#include "core/DebugPanel.h"
+#include "core/Screen.h"

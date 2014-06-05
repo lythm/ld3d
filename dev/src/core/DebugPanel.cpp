@@ -26,6 +26,7 @@ namespace ld3d
 		int w = m_pCore->GetRenderManager()->GetFrameBufferWidth();
 		int h = m_pCore->GetRenderManager()->GetFrameBufferHeight();
 
+		m_pCore->AddEventHandler(EV_RESIZE_FRAMEBUFFER, std::bind(&DebugPanel::_on_resize, this, std::placeholders::_1));
 
 		m_pOverlay = m_pCore->GetUIManager()->CreateHtmlOverlay("sys_debug_panel", math::RectI(0, 0, w, h / 2), "file:///assets/standard/gui/debug_panel/index.html");
 
@@ -78,5 +79,11 @@ namespace ld3d
 		std::string content = str.str();
 		m_pOverlay->GetWebpageRenderer()->ExecuteJS("set_fps('" +  content  + "');");
 
+	}
+	void DebugPanel::_on_resize(EventPtr pEvent)
+	{
+		Event_ResizeFrameBuffer* pResize = (Event_ResizeFrameBuffer*)pEvent.get();
+		
+		m_pOverlay->Resize(pResize->w, pResize->h / 2);
 	}
 }

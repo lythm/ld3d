@@ -42,12 +42,14 @@ namespace ld3d
 
 		m_pTexOverlay->LinkTo(shared_from_this());
 	
+		m_pPageRenderer = pRenderer;
+
 		if(false == ResizeTexture(m_rect.width(), m_rect.height()))
 		{
 			return false;
 		}
 
-		m_pPageRenderer = pRenderer;
+		
 
 		m_pPageRenderer->SetRenderTarget(m_pTexture);
 
@@ -66,7 +68,7 @@ namespace ld3d
 		{
 			return false;
 		}
-
+		m_pPageRenderer->SetRenderTarget(m_pTexture);
 		m_pTexOverlay->AttachTexture(m_pTexture, false);
 		return true;
 	}

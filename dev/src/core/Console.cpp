@@ -8,6 +8,7 @@
 #include "core/RenderManager.h"
 #include "core/Event.h"
 #include "core/WebpageRenderer.h"
+#include "core/Screen.h"
 
 #include "core_utils.h"
 
@@ -38,6 +39,7 @@ namespace ld3d
 		m_pConsoleWnd->SetZOrder(-1);
 
 		m_pCore->AddEventHandler(EV_KEYBOARD_STATE, std::bind(&Console::_on_key, this, std::placeholders::_1));
+		m_pCore->AddEventHandler(EV_RESIZE_FRAMEBUFFER, std::bind(&Console::_on_resize, this, std::placeholders::_1));
 
 
 		m_pConsoleWnd->GetWebpageRenderer()->RegisterScriptCallHandler("on_console_command", std::bind(&Console::_on_cmd, this, std::placeholders::_1));
@@ -46,6 +48,8 @@ namespace ld3d
 		RegisterConsoleCommand("exit", std::bind(&Console::_on_cmd_exit, this, std::placeholders::_1, std::placeholders::_2));
 		RegisterConsoleCommand("help", std::bind(&Console::_on_cmd_help, this, std::placeholders::_1, std::placeholders::_2));
 		RegisterConsoleCommand("show_debug_panel", std::bind(&Console::_on_cmd_show_debug_panel, this, std::placeholders::_1, std::placeholders::_2));
+		RegisterConsoleCommand("set_windowed", std::bind(&Console::_on_cmd_set_windowed, this, std::placeholders::_1, std::placeholders::_2));
+		RegisterConsoleCommand("set_resolution", std::bind(&Console::_on_cmd_set_resolution, this, std::placeholders::_1, std::placeholders::_2));
 		
 		return true;
 	}
@@ -67,6 +71,12 @@ namespace ld3d
 		{
 			Show(!m_pConsoleWnd->IsVisible());
 		}
+	}
+	void Console::_on_resize(EventPtr pEvent)
+	{
+		Event_ResizeFrameBuffer* pResize = (Event_ResizeFrameBuffer*)pEvent.get();
+		
+		m_pConsoleWnd->Resize(pResize->w, pResize->h / 2);
 	}
 	void Console::_on_cmd(const std::string& json)
 	{
@@ -164,6 +174,59 @@ namespace ld3d
 		}
 
 		WriteLine("invalid parameters.");
+	}
+	void Console::_on_cmd_set_windowed(const CommandLine& cl, std::function<void (const std::string&)>)
+	{
+		if(cl.GetParamCount() != 1)
+		{
+			WriteLine("invalid parameters");
+			return;
+		}
+
+		bool value = false;
+		try
+		{
+			value = boost::lexical_cast<bool>(cl.GetParam(0));
+		}
+		catch (boost::bad_lexical_cast& e)
+		{
+			WriteLine(std::string("invalid parameter type: ") + e.what());
+			return;
+		}
+		ScreenPtr pScreen = m_pCore->GetScreen();
+
+		pScreen->SetWindowed(value);
+	}
+	void Console::_on_cmd_set_resolution(const CommandLine& cl, std::function<void (const std::string&)>)
+	{
+		if(cl.GetParamCount() != 2)
+		{
+			WriteLine("invalid parameters");
+			return;
+		}
+
+		int w = 0;
+		int h = 0;
+
+		try
+		{
+			w = boost::lexical_cast<int>(cl.GetParam(0));
+			h = boost::lexical_cast<int>(cl.GetParam(1));
+		}
+		catch (boost::bad_lexical_cast& e)
+		{
+			WriteLine(std::string("invalid parameter type: ") + e.what());
+			return;
+		}
+
+		if(w == 0 || h == 0)
+		{
+			WriteLine("invalid value");
+			return;
+		}
+		ScreenPtr pScreen = m_pCore->GetScreen();
+
+		pScreen->SetResolution(w, h);
 	}
 }
 

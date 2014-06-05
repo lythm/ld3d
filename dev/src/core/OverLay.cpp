@@ -139,6 +139,7 @@ namespace ld3d
 	void Overlay::Resize(uint32 w, uint32 h)
 	{
 		m_rect.resize(w, h);
+		OnResize(w, h);
 	}
 	void Overlay::OnRelease()
 	{

@@ -11,10 +11,9 @@ namespace ld3d
 		virtual int															GetWidth()													= 0;
 		virtual int															GetHeight()													= 0;
 		virtual void														Release()													= 0;
+
 	protected:
 		RenderWindow(void) : RenderTarget(RENDER_WINDOW){}
 		virtual ~RenderWindow(void){}
 	};
-
-	
 }

@@ -121,9 +121,9 @@ namespace ld3d
 			return false;
 		}
 
-		AdjustWindow(w, h);
+	//	AdjustWindow(w, h);
 
-		CenterWindow();
+	//	CenterWindow();
 		
 		if(OnInit() == false)
 		{
@@ -206,17 +206,17 @@ namespace ld3d
 		case WM_RBUTTONDOWN:
 		case WM_MBUTTONDOWN:
 
-			SetCapture(hWnd);
-			SetFocus(hWnd);
+			//SetCapture(hWnd);
+			//SetFocus(hWnd);
 
 			break;
 		case WM_LBUTTONUP:
 		case WM_RBUTTONUP:
 		case WM_MBUTTONUP:
 			
-			if (GetCapture() == hWnd)
+			//if (GetCapture() == hWnd)
 			{
-				ReleaseCapture();
+			//	ReleaseCapture();
 			}
 			break;
 		default:
@@ -297,11 +297,6 @@ namespace ld3d
 			return false;
 		}
 
-		if(m_pConfig->GetSysSetting().graphics.windowed == false)
-		{
-			ToFullScreen();
-		}
-
 		return true;
 	}
 
@@ -358,28 +353,6 @@ namespace ld3d
 	{
 		w = m_width;
 		h = m_height;
-	}
-	void MainApp::ToFullScreen()
-	{
-		int cx = GetSystemMetrics(SM_CXSCREEN);
-		int cy = GetSystemMetrics(SM_CYSCREEN);
-
-		SetWindowLong(m_hWnd, GWL_STYLE, WS_POPUP);
-		
-		
-		SetWindowPos( m_hWnd, 0, 0, 0, cx, cy, SWP_NOZORDER );
-		
-		m_pCore->GetRenderManager()->OnResizeRenderWindow(cx, cy);
-	}
-	void MainApp::ToWindowed()
-	{
-		int cx = m_pConfig->GetSysSetting().graphics.frameBufferWidth;
-		int cy = m_pConfig->GetSysSetting().graphics.frameBufferHeight;
-		SetWindowLong(m_hWnd, GWL_STYLE, (WS_OVERLAPPED | WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU));
-		AdjustWindow(cx, cy);
-		CenterWindow();
-
-		m_pCore->GetRenderManager()->OnResizeRenderWindow(cx, cy);
 	}
 }
 

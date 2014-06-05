@@ -179,6 +179,12 @@ namespace ld3d
 
 			return false;
 		}
+
+		if(setting.windowed == false)
+		{
+			m_pMainRW->Resize(setting.frameBufferWidth, setting.frameBufferHeight, true);
+		}
+
 		m_pMainRW->MakeCurrent();
 
 		m_viewPortX = 0;
@@ -205,6 +211,7 @@ namespace ld3d
 		glEnable(GL_TEXTURE_CUBE_MAP_SEAMLESS);
 		m_pCurrentRW = m_pMainRW;
 
+		m_setting = setting;
 		return true;
 	}
 	void OGL4Graphics::Release()
@@ -389,9 +396,32 @@ namespace ld3d
 	{
 		m_pCurrentRW->OnResize(cx, cy);
 
-		ResetViewport();
-	}
+		m_viewPortX = 0;
+		m_viewPortY = 0;
+		m_viewPortW = m_pCurrentRW->GetWidth();
+		m_viewPortH = m_pCurrentRW->GetHeight();
 
+		ResetViewport();
+
+		m_setting.frameBufferWidth	= cx;
+		m_setting.frameBufferHeight = cy;
+	}
+	void OGL4Graphics::ResizeRenderWindow(int cx, int cy, bool fullscreen)
+	{
+		m_pCurrentRW->Resize(cx, cy, fullscreen);
+
+		m_viewPortX = 0;
+		m_viewPortY = 0;
+		m_viewPortW = m_pCurrentRW->GetWidth();
+		m_viewPortH = m_pCurrentRW->GetHeight();
+
+		ResetViewport();
+
+		m_setting.frameBufferWidth	= cx;
+		m_setting.frameBufferHeight = cy;
+
+		m_setting.windowed = !fullscreen;
+	}
 	RenderStatePtr OGL4Graphics::CreateRenderState()
 	{
 		OGL4RenderStatePtr pState = std::make_shared<OGL4RenderState>();
@@ -418,19 +448,11 @@ namespace ld3d
 	
 	int	OGL4Graphics::GetFrameBufferWidth()
 	{
-		if(m_pCurrentRT)
-		{
-			return m_pCurrentRT->GetTexture(0)->GetWidth();
-		}
-		return m_pCurrentRW->GetWidth();
+		return m_setting.frameBufferWidth;
 	}
 	int	OGL4Graphics::GetFrameBufferHeight()
 	{
-		if(m_pCurrentRT)
-		{
-			return m_pCurrentRT->GetTexture(0)->GetHeight();
-		}
-		return m_pCurrentRW->GetHeight();
+		return m_setting.frameBufferHeight;
 	}
 	void OGL4Graphics::SetViewPort(int x, int y, int w, int h)
 	{
@@ -606,5 +628,17 @@ namespace ld3d
 	TexturePtr OGL4Graphics::CopyTexture2D(TexturePtr pTex)
 	{
 		return std::shared_ptr<OGL4Texture>();
+	}
+	int	OGL4Graphics::GetRenderWindowWidth()
+	{
+		return m_pCurrentRW->GetWidth();
+	}
+	int OGL4Graphics::GetRenderWindowHeight()
+	{
+		return m_pCurrentRW->GetHeight();
+	}
+	bool OGL4Graphics::IsFullscreen()
+	{
+		return m_pCurrentRW->IsFullscreen();
 	}
 }

@@ -16,7 +16,7 @@ namespace ld3d
 		void									Update(float dt);
 
 	private:
-		
+		void									_on_resize(EventPtr pEvent);
 	private:
 		HtmlOverlayPtr							m_pOverlay;
 		CoreApiPtr								m_pCore;

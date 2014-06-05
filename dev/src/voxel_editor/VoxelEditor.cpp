@@ -29,7 +29,7 @@ namespace ld3d
 		bool VoxelEditor::Initialize(CoreApiPtr pCore)
 		{
 			m_pCore = pCore;
-			pCore->GetCursor()->ConfineCursor(true);
+		//	pCore->GetCursor()->ConfineCursor(true);
 
 
 			pCore->AddEventHandler(EV_KEYBOARD_STATE, boost::bind(&VoxelEditor::_on_key_state, this, _1));
@@ -93,34 +93,6 @@ namespace ld3d
 		}
 		bool VoxelEditor::Update(float dt)
 		{
-			static uint64 tick = os_get_tick();
-
-			if(os_get_tick() - tick > 1000)
-			{
-				float avg = m_pCore->GetFrameMetric().GetAvgFPS();
-				float fps = m_pCore->GetFrameMetric().GetFPS();
-
-				std::stringstream str;
-
-				str.precision(3);
-				str.setf( std::ios::fixed, std:: ios::floatfield );
-				str << "fps: "
-					<< fps
-					<< ", "
-					<< 1000.0f / fps
-					<< "ms"
-					<< " avg_fps: "
-					<< avg
-					<< ", "
-					<< 1000.0f / avg
-					<< "ms";
-
-				std::string content = str.str();
-				//m_pOverlay->GetWebpageRenderer()->ExecuteJS("set_fps('" +  content  + "');");
-
-				tick = os_get_tick();
-			}
-
 			m_pWorld->Update(dt);
 
 			m_pWorldVP->Update();
