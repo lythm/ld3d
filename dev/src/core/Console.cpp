@@ -1,5 +1,5 @@
 #include "core_pch.h"
-#include "Console.h"
+#include "core/Console.h"
 
 #include "core/CoreApi.h"
 
@@ -45,6 +45,8 @@ namespace ld3d
 
 		RegisterConsoleCommand("exit", std::bind(&Console::_on_cmd_exit, this, std::placeholders::_1, std::placeholders::_2));
 		RegisterConsoleCommand("help", std::bind(&Console::_on_cmd_help, this, std::placeholders::_1, std::placeholders::_2));
+		RegisterConsoleCommand("show_debug_panel", std::bind(&Console::_on_cmd_show_debug_panel, this, std::placeholders::_1, std::placeholders::_2));
+		
 		return true;
 	}
 	void Console::Show(bool show)
@@ -136,6 +138,32 @@ namespace ld3d
 		}
 
 		WriteLine("total " + boost::lexical_cast<std::string>(m_cmdMap.size()) + " commands.");
+	}
+	void Console::_on_cmd_show_debug_panel(const CommandLine& cl, std::function<void (const std::string&)>)
+	{
+		if(cl.GetParamCount() == 0)
+		{
+			m_pCore->ShowDebugPanel(true);
+			return;
+		}
+
+		if(cl.GetParamCount() == 1)
+		{
+			bool value = false;
+			try
+			{
+				value = boost::lexical_cast<bool>(cl.GetParam(0));
+			}
+			catch (boost::bad_lexical_cast& e)
+			{
+				WriteLine(std::string("invalid parameter type: ") + e.what());
+				return;
+			}
+			m_pCore->ShowDebugPanel(value);
+			return;
+		}
+
+		WriteLine("invalid parameters.");
 	}
 }
 

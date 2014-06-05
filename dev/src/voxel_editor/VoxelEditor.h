@@ -31,9 +31,6 @@ namespace ld3d
 
 			WorldViewportPtr						m_pWorldVP;
 
-			HtmlOverlayPtr							m_pOverlay;
 		};
-
-
 	}
 }

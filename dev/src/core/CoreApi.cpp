@@ -32,7 +32,8 @@
 #include "GameManager.h"
 
 
-#include "Console.h"
+#include "core/Console.h"
+#include "core/DebugPanel.h"
 
 
 namespace ld3d
@@ -76,6 +77,7 @@ namespace ld3d
 
 		m_frameMetric.EndFrame();
 
+		m_pDebugPanel->Update(dt);
 		UpdateFPS();
 	}
 	bool CoreApi::LoadMod(const std::string& name)
@@ -222,6 +224,12 @@ namespace ld3d
 		}
 		ShowConsole(false);
 
+		m_pDebugPanel = alloc_object<DebugPanel>();
+		if(m_pDebugPanel->Initialize(shared_from_this()) == false)
+		{
+			return false;
+		}
+		ShowDebugPanel(false);
 
 		m_pGameManager = alloc_object<GameManager>();
 
@@ -252,6 +260,8 @@ namespace ld3d
 		pEvent.reset();
 
 		_release_and_reset(m_pGameManager);
+
+		_release_and_reset(m_pDebugPanel);
 
 		_release_and_reset(m_pConsole);
 
@@ -538,6 +548,10 @@ namespace ld3d
 	{
 		m_pConsole->Show(show);
 	}
+	void CoreApi::ShowDebugPanel(bool show)
+	{
+		m_pDebugPanel->Show(show);
+	}
 	CursorPtr CoreApi::GetCursor()
 	{
 		return m_pCursor;
@@ -550,5 +564,13 @@ namespace ld3d
 	{
 		m_pConsole->RemoveConsoleCommand(cmd);
 	}
-	
+
+	ConsolePtr CoreApi::GetConsole()
+	{
+		return m_pConsole;
+	}
+	DebugPanelPtr CoreApi::GetDebugPanel()
+	{
+		return m_pDebugPanel;
+	}
 }

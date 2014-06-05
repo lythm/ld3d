@@ -74,6 +74,7 @@
     <ClCompile Include="ActionManager.cpp" />
     <ClCompile Include="WinCursor.cpp" />
     <ClCompile Include="AABBoxRenderData.cpp" />
+    <ClCompile Include="DebugPanel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\core\ArcBall.h" />
@@ -224,7 +225,6 @@
     </ClInclude>
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="..\..\include\core\Contact.h" />
-    <ClInclude Include="Console.h" />
     <ClInclude Include="..\..\include\core\AppDelegate.h" />
     <ClInclude Include="..\..\include\core\SysSettings.h" />
     <ClInclude Include="..\..\include\core\FrameMetric.h" />
@@ -240,6 +240,8 @@
     <ClInclude Include="..\..\include\core\Cursor.h" />
     <ClInclude Include="WinCursor.h" />
     <ClInclude Include="..\..\include\core\AABBoxRenderData.h" />
+    <ClInclude Include="..\..\include\core\DebugPanel.h" />
+    <ClInclude Include="..\..\include\core\Console.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="math">

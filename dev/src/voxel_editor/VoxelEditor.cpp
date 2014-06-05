@@ -83,14 +83,10 @@ namespace ld3d
 
 			m_pWorldVP->Open(m_pWorld, Coord(), REGION_SIZE * 3 - 1);
 
-			m_pOverlay = m_pCore->GetUIManager()->CreateHtmlOverlay("debug_panel", math::RectI(0, 0, 600, 400), "file:///assets/standard/gui/debug_panel/index.html");
-
 			return true;
 		}
 		void VoxelEditor::Release()
 		{
-			m_pOverlay->Release();
-
 			m_pWorldVP->Close();
 
 			m_pWorld->Release();
@@ -120,7 +116,7 @@ namespace ld3d
 					<< "ms";
 
 				std::string content = str.str();
-				m_pOverlay->GetWebpageRenderer()->ExecuteJS("set_fps('" +  content  + "');");
+				//m_pOverlay->GetWebpageRenderer()->ExecuteJS("set_fps('" +  content  + "');");
 
 				tick = os_get_tick();
 			}
@@ -144,7 +140,6 @@ namespace ld3d
 		void VoxelEditor::_on_resize(ld3d::EventPtr pEvent)
 		{
 			Event_ResizeFrameBuffer* pResize = (Event_ResizeFrameBuffer*)pEvent.get();
-			m_pOverlay->Resize(pResize->m_width, pResize->m_height);
 		}
 	}
 }

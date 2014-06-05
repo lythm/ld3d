@@ -26,6 +26,7 @@ namespace ld3d
 
 		void												_on_cmd_exit(const CommandLine& cl, std::function<void (const std::string&)>);
 		void												_on_cmd_help(const CommandLine& cl, std::function<void (const std::string&)>);
+		void												_on_cmd_show_debug_panel(const CommandLine& cl, std::function<void (const std::string&)>);
 	private:
 		HtmlOverlayPtr										m_pConsoleWnd;
 		CoreApiPtr											m_pCore;

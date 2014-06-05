@@ -33,7 +33,11 @@ namespace ld3d
 	class Sys_Network;
 	class SysManager;
 	class Cursor;
-	
+	class Console;
+	class DebugPanel;
+
+	typedef std::shared_ptr<DebugPanel>						DebugPanelPtr;
+	typedef std::shared_ptr<Console>						ConsolePtr;
 	typedef std::shared_ptr<Cursor>							CursorPtr;
 	typedef std::shared_ptr<SysManager>						SysManagerPtr;
 	typedef std::shared_ptr<Sys_Time>						Sys_TimePtr;

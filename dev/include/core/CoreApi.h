@@ -10,8 +10,6 @@
 
 namespace ld3d
 {
-	class Console;
-
 	class _DLL_CLASS CoreApi : public std::enable_shared_from_this<CoreApi>
 	{
 	public:
@@ -84,10 +82,13 @@ namespace ld3d
 
 		void											ShowConsole(bool show);
 
+		void											ShowDebugPanel(bool show);
 		bool											RegisterConsoleCommand(const std::string& cmd, const std::function<void (const CommandLine&, std::function<void (const std::string&)>)>& handler);
 
 		void											RemoveConsoleCommand(const std::string& cmd);
 
+		ConsolePtr										GetConsole();
+		DebugPanelPtr									GetDebugPanel();
 	private:
 		void											UpdateFrame(float dt);
 		void											RenderFrame();
@@ -130,8 +131,10 @@ namespace ld3d
 
 		void*											m_mainWndHandle;
 
-		std::shared_ptr<Console>						m_pConsole;
+		ConsolePtr										m_pConsole;
 
 		CursorPtr										m_pCursor;
+
+		DebugPanelPtr									m_pDebugPanel;
 	};
 }

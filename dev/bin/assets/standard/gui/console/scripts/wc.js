@@ -8,7 +8,8 @@ function Console(canvas_id) {
     this.lines = [];
 	this.input_buffer = "";
 	this.show_cursor = true;
-	
+	this.cmd_history=[];
+	this.index_history = 0;
 	// resize
 	this.resize = function (w, h) {
 
@@ -86,16 +87,55 @@ function Console(canvas_id) {
 		
 		var ch = String.fromCharCode(e.keyCode);
 
+		
+
 		if(e.type == "keydown")
 		{
 			switch(e.keyCode)
 			{
+				// up arrow
+				case 38:
+
+					if(this.cmd_history.length == 0)
+					{
+						break;
+					}
+					
+					this.index_history -= 1;
+					if(this.index_history < 0)
+					{
+						this.index_history = 0;
+					}
+					
+					this.input_buffer = this.cmd_history[this.index_history];
+
+					break;
+				// down arrow
+				case 40:
+					if(this.cmd_history.length == 0)
+					{
+						break;
+					}
+					
+					this.index_history += 1;
+					if(this.index_history >= this.cmd_history.length)
+					{
+						this.index_history = this.cmd_history.length - 1;
+						break;
+					}
+
+					this.input_buffer = this.cmd_history[this.index_history];
+					break;
+
+				// backspace
 				case 8:
 					
 					this.input_buffer = this.input_buffer.slice(0, -1);
 					
-					e.returnValue = false;
-					e.cancelBubble = true;
+					e.preventDefault();
+					e.stopPropagation()
+					//e.returnValue = false;
+					//e.cancelBubble = true;
 					this.draw();
 					return false;
 				default:
@@ -105,18 +145,30 @@ function Console(canvas_id) {
 
 		if(e.type == "keypress")
 		{
-
 			switch(e.keyCode)
 			{
+				// enter
 				case 0xd:
 					
 					this.writeln(this.prompt + this.input_buffer);
 
 					this.parse_cmdln(this.input_buffer);
 
+					if(this.input_buffer.length != 0)
+					{
+						this.cmd_history.push(this.input_buffer);
+						
+						if(this.index_history != this.cmd_history.length && this.input_buffer == this.cmd_history[this.index_history])
+						{
+							this.cmd_history = this.cmd_history.slice(0, this.index_history + 1);
+						}
+
+						this.index_history = this.cmd_history.length;
+					}
 					this.input_buffer = "";
 					break;
 				
+				// `
 				case 96:
 					break;
 				default:
