@@ -236,8 +236,11 @@ namespace ld3d
 	}
 
 
+	class Window;
 	class ActionManager;
 	class GameManager;
+
+	typedef std::shared_ptr<Window>							WindowPtr;
 	typedef std::shared_ptr<GameManager>					GameManagerPtr;
 	typedef std::shared_ptr<ActionManager>					ActionManagerPtr;
 }

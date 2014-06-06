@@ -395,8 +395,7 @@ namespace ld3d
 
 		srand(seed);
 
-
-		VoxelWorldDataSetPtr pDataSet = VoxelWorldDataSetPtr(new VoxelWorldDataSet);
+		VoxelWorldDataSetPtr pDataSet = m_pManager->alloc_object<VoxelWorldDataSet>();
 
 		pDataSet->Initialize(sx, sy, sz);
 

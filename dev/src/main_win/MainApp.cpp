@@ -7,6 +7,7 @@
 
 namespace ld3d
 {
+	static PoolAllocator						g_allocator;
 	static std::ofstream						s_log;
 
 	static MainApp								g_app;
@@ -62,6 +63,8 @@ namespace ld3d
 	}
 	bool MainApp::Initialize(HINSTANCE hInst, const std::string& title, int w, int h)
 	{
+		g_allocator.Initialize();
+
 		m_hInst = hInst;
 		m_wndTitle = title;
 		m_wndClass = title + "_WndClass";
@@ -121,10 +124,6 @@ namespace ld3d
 			return false;
 		}
 
-	//	AdjustWindow(w, h);
-
-	//	CenterWindow();
-		
 		if(OnInit() == false)
 		{
 			return false;
@@ -177,6 +176,8 @@ namespace ld3d
 	void MainApp::Release()
 	{
 		OnRelease();
+
+		g_allocator.Release();
 	}
 	LRESULT CALLBACK MainApp::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	{
@@ -282,9 +283,6 @@ namespace ld3d
 		setting.app_delegate.SetWindowTitle = std::bind(&MainApp::SetTitle, this, std::placeholders::_1);
 		setting.app_delegate.IsWindowActive = std::bind(&MainApp::IsActive);
 
-		AdjustWindow(setting.graphics.frameBufferWidth, setting.graphics.frameBufferHeight);
-		CenterWindow();
-
 		for(auto package : m_pConfig->GetPackageList())
 		{
 			setting.packages.push_back(package.string());
@@ -292,7 +290,7 @@ namespace ld3d
 
 		setting.mod = m_pConfig->GetMod().string();
 
-		if(false == m_pCore->Initialize(setting))
+		if(false == m_pCore->Initialize(setting, &g_allocator))
 		{
 			return false;
 		}

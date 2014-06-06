@@ -193,6 +193,7 @@
     <ClInclude Include="..\..\include\core\input_types.h" />
     <ClInclude Include="..\..\include\core\Contact.h" />
     <ClInclude Include="..\..\include\core\NavMesh.h" />
+    <ClInclude Include="..\..\include\core\OSWindow.h" />
     <ClInclude Include="..\..\include\core\OverLay.h" />
     <ClInclude Include="..\..\include\core\Package.h" />
     <ClInclude Include="..\..\include\core\FileSystem.h" />
@@ -297,6 +298,7 @@
     <ClInclude Include="RenderSystem_FR.h" />
     <ClInclude Include="Time64.h" />
     <ClInclude Include="WinCursor.h" />
+    <ClInclude Include="WinWindow.h" />
     <ClInclude Include="WinRawInput.h" />
   </ItemGroup>
   <ItemGroup>
@@ -380,6 +382,7 @@
     <ClCompile Include="UIManager.cpp" />
     <ClCompile Include="ViewFrustum.cpp" />
     <ClCompile Include="WinCursor.cpp" />
+    <ClCompile Include="WinWindow.cpp" />
     <ClCompile Include="WinRawInput.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -17,6 +17,9 @@ namespace ld3d
 
 	private:
 		void									_on_resize(EventPtr pEvent);
+
+		void									AppendFPS(std::stringstream& stream);
+		void									AppendMemPool(std::stringstream& stream);
 	private:
 		HtmlOverlayPtr							m_pOverlay;
 		CoreApiPtr								m_pCore;

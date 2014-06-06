@@ -6,6 +6,7 @@
 #include "core/RenderManager.h"
 #include "core/Event.h"
 #include "core/WebpageRenderer.h"
+#include "core/Allocator.h"
 
 #include "core_utils.h"
 namespace ld3d
@@ -58,14 +59,24 @@ namespace ld3d
 		}
 
 		m_updateDeltaTime = 0;
-		float avg = m_pCore->GetFrameMetric().GetAvgFPS();
-		float fps = m_pCore->GetFrameMetric().GetFPS();
-
+	
 		std::stringstream str;
 
 		str.precision(3);
 		str.setf( std::ios::fixed, std:: ios::floatfield );
-		str << "fps: "
+
+		AppendFPS(str);
+		AppendMemPool(str);
+		std::string content = str.str();
+		m_pOverlay->GetWebpageRenderer()->ExecuteJS("set_content('" +  content  + "');");
+
+	}
+	void DebugPanel::AppendFPS(std::stringstream& stream)
+	{
+		float avg = m_pCore->GetFrameMetric().GetAvgFPS();
+		float fps = m_pCore->GetFrameMetric().GetFPS();
+
+		stream << "fps: "
 			<< fps
 			<< ", "
 			<< 1000.0f / fps
@@ -74,11 +85,25 @@ namespace ld3d
 			<< avg
 			<< ", "
 			<< 1000.0f / avg
-			<< "ms";
+			<< "ms"
+			<< "<br>";
 
-		std::string content = str.str();
-		m_pOverlay->GetWebpageRenderer()->ExecuteJS("set_fps('" +  content  + "');");
-
+	}
+	void DebugPanel::AppendMemPool(std::stringstream& stream)
+	{
+		uint32 total	= m_pCore->GetAllocator()->GetTotalBytes();
+		uint32 free		= m_pCore->GetAllocator()->GetBytesLeft();
+		stream << "[mempool] "
+			<< "total: " 
+			<< total
+			<< "(" << float(total) / float(1024 * 1024) <<"M)"
+			<< " free: "
+			<< free
+			<< "(" << float(free) / float(1024 * 1024) <<"M)"
+			<< " allocated: "
+			<< total - free
+			<< "(" << float(total - free) / float(1024 * 1024) <<"M)"
+			<< "<br>";
 	}
 	void DebugPanel::_on_resize(EventPtr pEvent)
 	{

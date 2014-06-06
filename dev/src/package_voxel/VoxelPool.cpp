@@ -26,15 +26,21 @@ namespace ld3d
 
 	VoxelWorldChunk* VoxelPool::Alloc()
 	{
-		VoxelWorldChunk* pVoxel = m_pool.Alloc();
+		void* pMem = GetManager()->GetAllocator()->Alloc(sizeof(VoxelWorldChunk));
+
+		return new(pMem) VoxelWorldChunk;
+		
+		//VoxelWorldChunk* pVoxel = m_pool.Alloc();
 
 		//Voxel* pVoxel = new Voxel;
 		
-		return pVoxel;
+		//return pVoxel;
 	}
 	void VoxelPool::Free(VoxelWorldChunk* pVoxel)
 	{
-		m_pool.Free(pVoxel);
+		pVoxel->~VoxelWorldChunk();
+		GetManager()->GetAllocator()->Free(pVoxel);
+		//m_pool.Free(pVoxel);
 
 		//delete pVoxel;
 	}

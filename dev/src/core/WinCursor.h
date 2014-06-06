@@ -17,7 +17,7 @@ namespace ld3d
 		void												ConfineCursor(bool confine);
 
 		void												HandleMessage(MSG& msg);
-
+		void												ShowCursor(bool show);
 	private:
 		void												do_confine(HWND hWnd);
 	private:

@@ -29,8 +29,8 @@ namespace ld3d
 		bool VoxelEditor::Initialize(CoreApiPtr pCore)
 		{
 			m_pCore = pCore;
-		//	pCore->GetCursor()->ConfineCursor(true);
-
+			pCore->GetCursor()->ConfineCursor(true);
+			pCore->GetCursor()->ShowCursor(false);
 
 			pCore->AddEventHandler(EV_KEYBOARD_STATE, boost::bind(&VoxelEditor::_on_key_state, this, _1));
 			pCore->AddEventHandler(EV_RESIZE_FRAMEBUFFER, boost::bind(&VoxelEditor::_on_resize, this, _1));
@@ -48,9 +48,7 @@ namespace ld3d
 			pGridRenderer->SetGridSize(8);
 
 			m_pGrid->AddComponent(pGridRenderer);
-
-
-
+			
 			m_pCamera= pCore->CreateGameObject("Camera");
 
 			CameraDataPtr pMD = std::dynamic_pointer_cast<CameraData>(pCore->CreateGameObjectComponent("Camera"));

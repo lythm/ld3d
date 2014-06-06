@@ -13,6 +13,10 @@ namespace ld3d
 	WinCursor::~WinCursor(void)
 	{
 	}
+	void WinCursor::ShowCursor(bool show)
+	{
+		::ShowCursor(show);
+	}
 	void WinCursor::SetCursorPos(int x, int y)
 	{
 		::SetCursorPos(x, y);
@@ -63,6 +67,17 @@ namespace ld3d
 			if(LOWORD(msg.wParam) == WA_INACTIVE)
 			{
 				::ClipCursor(NULL);
+			}
+			break;
+		case WM_SIZE:
+			if(m_confine)
+			{
+				do_confine(msg.hwnd);
+			}
+		case WM_WINDOWPOSCHANGED:
+			if(m_confine)
+			{
+				do_confine(msg.hwnd);
 			}
 			break;
 		default:

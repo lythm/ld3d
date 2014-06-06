@@ -27,7 +27,7 @@ namespace ld3d
 		m_worldSizeY = sy;
 		m_worldSizeZ = sz;
 
-		m_pRegion = new VoxelWorldRegion;
+		m_pRegion = GetManager()->alloc_object<VoxelWorldRegion>();
 		if(m_pRegion->Initialize(sx, sy, sz) == false)
 		{
 			return false;
@@ -39,7 +39,6 @@ namespace ld3d
 		if(m_pRegion)
 		{
 			m_pRegion->Release();
-			delete m_pRegion;
 			m_pRegion = nullptr;
 		}
 	}

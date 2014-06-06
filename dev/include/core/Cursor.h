@@ -12,7 +12,7 @@ namespace ld3d
 		
 		virtual void												ConfineCursor(bool confine)									= 0;
 
-
+		virtual void												ShowCursor(bool show)										= 0;
 
 	protected:
 		Cursor(void){}

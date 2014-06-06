@@ -189,6 +189,10 @@ namespace ld3d
 				return;
 			}
 			
+			if(m_pTexture->GetWidth () > width || m_pTexture->GetHeight() > height)
+			{
+				return;
+			}
 			m_pTexture->UpdateTextureBGRA8(buffer);
 
 			/*void* pData = m_pTexture->Map();

@@ -14,8 +14,20 @@
 #include "VoxelObjectTemplate.h"
 
 
+
+static ld3d::GameObjectManagerPtr				g_pManager;
+
+namespace ld3d
+{
+	GameObjectManagerPtr GetManager()
+	{
+		return g_pManager;
+	}
+}
+
 _DLL_API ld3d::Package* CreatePackage(ld3d::GameObjectManagerPtr pManager)
 {
+	g_pManager = pManager;
 	return new ld3d::VoxelPackage(pManager);
 }
 
@@ -23,6 +35,7 @@ _DLL_API ld3d::Package* CreatePackage(ld3d::GameObjectManagerPtr pManager)
 _DLL_API void DestroyPackage(ld3d::Package* pPackage)
 {
 	delete (ld3d::VoxelPackage*)pPackage;
+	g_pManager.reset();
 }
 
 namespace ld3d

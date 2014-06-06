@@ -18,4 +18,7 @@ namespace ld3d
 	typedef std::shared_ptr<VoxelWorldImpl>					VoxelWorldImplPtr;
 	typedef std::shared_ptr<VoxelWorldMaterialManager>		VoxelWorldMaterialManagerPtr;
 
+
+	GameObjectManagerPtr									GetManager();
+
 }

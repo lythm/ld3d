@@ -46,6 +46,6 @@ namespace ld3d
 		int														m_worldSizeY;
 		int														m_worldSizeZ;
 
-		VoxelWorldRegion*										m_pRegion;
+		std::shared_ptr<VoxelWorldRegion>						m_pRegion;
 	};
 }
