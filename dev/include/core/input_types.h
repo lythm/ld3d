@@ -61,7 +61,7 @@ namespace ld3d
 		key_slash          	= 0x35,
 		key_rshift         	= 0x36,
 		key_multiply       	= 0x37,
-		key_lmenu          	= 0x38,
+		key_lalt          	= 0x38,
 		key_space          	= 0x39,
 		key_capital        	= 0x3A,
 		key_f1             	= 0x3B,

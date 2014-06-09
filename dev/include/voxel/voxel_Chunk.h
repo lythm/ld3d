@@ -13,7 +13,7 @@ namespace ld3d
 		public:
 
 			// if data is null, empty chunk is constructed.
-			Chunk(uint8 data[]);
+			Chunk(ChunkManagerPtr pChunkManager, uint8 data[]);
 
 			// non virtual, do not subclass
 			~Chunk(void);
@@ -83,6 +83,12 @@ namespace ld3d
 			void											SetData(uint8 data[]);
 			uint8*											GetData();
 			bool											IsModified() const;
+
+			void											SetUserData(void* pData);
+			void*											GetUserData();
+
+			ChunkManagerPtr									GetChunkManager();
+			
 		private:
 			uint8											m_data[CHUNK_SIZE * CHUNK_SIZE * CHUNK_SIZE];
 			ChunkKey										m_key;
@@ -91,6 +97,10 @@ namespace ld3d
 			bool											m_dirty;
 
 			bool											m_modified;
+
+			void*											m_userData;
+
+			ChunkManagerPtr									m_pChunkManager;
 		};
 	}
 }

@@ -28,6 +28,13 @@ namespace ld3d
 		}
 		bool VoxelEditor::Initialize(CoreApiPtr pCore)
 		{
+
+			voxel::ChunkMeshizerPtr pMeshizer = std::make_shared<voxel::ChunkMeshizer>();
+
+			
+
+
+
 			m_pCore = pCore;
 			pCore->GetCursor()->ConfineCursor(true);
 			pCore->GetCursor()->ShowCursor(false);
@@ -101,10 +108,18 @@ namespace ld3d
 			using namespace ld3d;
 			Event_KeyboardState* pState = (Event_KeyboardState*)pEvent.get();
 
-			if(pState->key_code == key_escape && pState->keyboard_state->KeyDown(key_escape) == false)
+			if(pState->key_code == key_escape && pState->IsKeyUp())
 			{
 				m_pCore->QuitApp();
 			}
+			if(pState->key_code == key_return && pState->IsKeyUp())
+			{
+				if(pState->keyboard_state->KeyDown(key_lalt))
+				{
+					m_pCore->GetScreen()->SetWindowed(!m_pCore->GetScreen()->IsWindowed());
+				}
+			}
+
 			return;
 		}
 		void VoxelEditor::_on_resize(ld3d::EventPtr pEvent)

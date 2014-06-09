@@ -67,7 +67,7 @@ namespace ld3d
 		}
 		ChunkPtr ChunkManager::AllocChunk(uint8 data[])
 		{
-			return std::make_shared<Chunk>(data);
+			return std::make_shared<Chunk>(shared_from_this(), data);
 		}
 		void ChunkManager::UpdateBlock(const Coord& c)
 		{

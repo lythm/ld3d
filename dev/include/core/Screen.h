@@ -2,7 +2,7 @@
 
 namespace ld3d
 {
-	class Screen
+	class _DLL_CLASS Screen
 	{
 	public:
 		Screen(CoreApiPtr pCore);

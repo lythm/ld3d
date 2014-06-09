@@ -211,7 +211,7 @@ namespace ld3d
 	}
 	void WinRawInput::ProcessKeyboard(RAWINPUT* pInput)
 	{
-		m_keyState.keys[pInput->data.keyboard.MakeCode] = (pInput->data.keyboard.Flags == 0) ? 0x80 : 0;
+		m_keyState.keys[pInput->data.keyboard.MakeCode] = (pInput->data.keyboard.Flags & RI_KEY_BREAK) ? 0 : 0x80;
 		
 		m_pKeyStateEvent->key_code = pInput->data.keyboard.MakeCode;
 		m_pKeyStateEvent->keyboard_state = &m_keyState;

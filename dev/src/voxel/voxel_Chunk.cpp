@@ -6,8 +6,9 @@ namespace ld3d
 {
 	namespace voxel
 	{
-		Chunk::Chunk(uint8 data[])
+		Chunk::Chunk(ChunkManagerPtr pChunkManager, uint8 data[])
 		{
+			m_pChunkManager = pChunkManager;
 			if(data == nullptr)
 			{
 				memset(m_data, 0, CHUNK_SIZE * CHUNK_SIZE * CHUNK_SIZE);
@@ -19,6 +20,8 @@ namespace ld3d
 			m_modified = false;
 			m_dirty = false;
 			m_counter = 0;
+
+			m_userData = nullptr;
 		}
 
 		Chunk::~Chunk(void)
@@ -54,6 +57,18 @@ namespace ld3d
 		bool Chunk::IsModified() const
 		{
 			return m_modified;
+		}
+		void Chunk::SetUserData(void* pData)
+		{
+			m_userData = pData;
+		}
+		void* Chunk::GetUserData()
+		{
+			return m_userData;
+		}
+		ChunkManagerPtr Chunk::GetChunkManager()
+		{
+			return m_pChunkManager;
 		}
 	}
 }

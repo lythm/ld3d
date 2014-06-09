@@ -8,7 +8,7 @@ namespace ld3d
 {
 	namespace voxel
 	{
-		class ChunkManager
+		class ChunkManager : public std::enable_shared_from_this<ChunkManager>
 		{
 		public:
 			ChunkManager(void);

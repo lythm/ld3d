@@ -64,6 +64,15 @@ namespace ld3d
 		}
 			
 
+		bool						IsKeyUp()
+		{
+			return keyboard_state->KeyDown(key_code) == false;
+		}
+		bool						IsKeyDown()
+		{
+			return IsKeyUp() == false;
+		}
+
 		uint32						key_code;
 		KeyState*					keyboard_state;
 

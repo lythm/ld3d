@@ -18,11 +18,7 @@ namespace client
 		using namespace ld3d;
 		using namespace ld3d::voxel;
 
-		Chunk ck(nullptr);
 
-		ck[0] = 1;
-
-		uint8 v = ck[0];
 		return true;
 	}
 	void GameClient::Release()
