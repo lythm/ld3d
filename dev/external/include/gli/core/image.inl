@@ -26,10 +26,47 @@
 /// @author Christophe Riccio
 ///////////////////////////////////////////////////////////////////////////////////
 
-namespace gli
+namespace gli{
+namespace detail
 {
+	storage::size_type imageAddressing(
+		storage const & Storage,
+		storage::size_type const & LayerOffset, 
+		storage::size_type const & FaceOffset, 
+		storage::size_type const & LevelOffset);
+
+	image::size_type texelLinearAdressing(
+		image::dimensions1_type const & Dimensions,
+		image::dimensions1_type const & TexelCoord);
+
+	image::size_type texelLinearAdressing(
+		image::dimensions2_type const & Dimensions,
+		image::dimensions2_type const & TexelCoord);
+
+	image::size_type texelLinearAdressing(
+		image::dimensions3_type const & Dimensions,
+		image::dimensions3_type const & TexelCoord);
+
+	image::size_type texelMortonAdressing(
+		image::dimensions1_type const & Dimensions,
+		image::dimensions1_type const & TexelCoord);
+
+	image::size_type texelMortonAdressing(
+		image::dimensions2_type const & Dimensions,
+		image::dimensions2_type const & TexelCoord);
+
+	image::size_type texelMortonAdressing(
+		image::dimensions3_type const & Dimensions,
+		image::dimensions3_type const & TexelCoord);
+}//namespace detail
+
 	inline image::image() :
-		View(0, 0, 0, 0, 0, 0)
+		BaseLayer(0), 
+		MaxLayer(0), 
+		BaseFace(0), 
+		MaxFace(0), 
+		BaseLevel(0), 
+		MaxLevel(0)
 	{}
 
 	inline image::image
@@ -41,9 +78,15 @@ namespace gli
 		Storage(
 			1, 1, 1, 
 			storage::dimensions_type(Dimensions), 
+			FORMAT_NULL,
 			BlockSize, 
 			storage::dimensions_type(BlockDimensions)),
-		View(0, 0, 0, 0, 0, 0)
+		BaseLayer(0), 
+		MaxLayer(0), 
+		BaseFace(0), 
+		MaxFace(0), 
+		BaseLevel(0), 
+		MaxLevel(0)
 	{}
 
 	inline image::image
@@ -54,19 +97,40 @@ namespace gli
 		Storage(
 			1, 1, 1, 
 			storage::dimensions_type(Dimensions),
+			Format,
 			block_size(Format),
 			block_dimensions(Format)),
-		View(0, 0, 0, 0, 0, 0)
+		BaseLayer(0), 
+		MaxLayer(0), 
+		BaseFace(0), 
+		MaxFace(0), 
+		BaseLevel(0), 
+		MaxLevel(0)
 	{}
 
 	inline image::image
 	(
 		storage const & Storage,
-		detail::view const & View
+		size_type BaseLayer,
+		size_type MaxLayer,
+		size_type BaseFace,
+		size_type MaxFace,
+		size_type BaseLevel,
+		size_type MaxLevel
 	) :
 		Storage(Storage),
-		View(View)
+		BaseLayer(BaseLayer), 
+		MaxLayer(MaxLayer), 
+		BaseFace(BaseFace), 
+		MaxFace(MaxFace), 
+		BaseLevel(BaseLevel), 
+		MaxLevel(MaxLevel)
 	{}
+
+	inline image::operator storage() const
+	{
+		return this->Storage;
+	}
 
 	inline bool image::empty() const
 	{
@@ -77,20 +141,28 @@ namespace gli
 	{
 		assert(!this->empty());
 
-		return this->Storage.levelSize(this->View.BaseLevel);
+		return this->Storage.levelSize(this->BaseLevel);
+	}
+
+	template <typename genType>
+	inline image::size_type image::size() const
+	{
+		assert(sizeof(genType) <= this->Storage.blockSize());
+
+		return this->size() / sizeof(genType);
 	}
 
 	inline image::dimensions_type image::dimensions() const
 	{
-		return image::dimensions_type(this->Storage.dimensions(this->View.BaseLevel));
+		return image::dimensions_type(this->Storage.dimensions(this->BaseLevel));
 	}
 
 	inline void * image::data()
 	{
 		assert(!this->empty());
 
-		size_type const offset = detail::linearAddressing(
-			this->Storage, this->View.BaseLayer, this->View.BaseFace, this->View.BaseLevel);
+		size_type const offset = detail::imageAddressing(
+			this->Storage, this->BaseLayer, this->BaseFace, this->BaseLevel);
 
 		return this->Storage.data() + offset;
 	}
@@ -99,8 +171,8 @@ namespace gli
 	{
 		assert(!this->empty());
 		
-		size_type const offset = detail::linearAddressing(
-			this->Storage, this->View.BaseLayer, this->View.BaseFace, this->View.BaseLevel);
+		size_type const offset = detail::imageAddressing(
+			this->Storage, this->BaseLayer, this->BaseFace, this->BaseLevel);
 
 		return this->Storage.data() + offset;
 	}
@@ -123,28 +195,68 @@ namespace gli
 		return reinterpret_cast<genType const *>(this->data());
 	}
 
-	inline bool operator== (image const & ImageA, image const & ImageB)
+	inline void image::clear()
 	{
-		if(!glm::all(glm::equal(ImageA.dimensions(), ImageB.dimensions())))
-			return false;
+		assert(!this->empty());
 
-		if(ImageA.size() != ImageB.size())
-			return false;
-
-		if(ImageA.data() == ImageB.data())
-			return true;
-
-		for(image::size_type i(0); i < ImageA.size(); ++i)
-		{
-			if(*(ImageA.data<glm::byte>() + i) != *(ImageB.data<glm::byte>() + i))
-				return false;
-		}
-
-		return true;
+		memset(this->data<glm::byte>(), 0, this->size<glm::byte>());
 	}
 
-	inline bool operator!= (image const & ImageA, image const & ImageB)
+	template <typename genType>
+	inline void image::clear(genType const & Texel)
 	{
-		return !(ImageA == ImageB);
+		assert(!this->empty());
+		assert(this->Storage.blockSize() == sizeof(genType));
+
+		for(size_type TexelIndex = 0; TexelIndex < this->size<genType>(); ++TexelIndex)
+			*(this->data<genType>() + TexelIndex) = Texel;
+	}
+
+	template <typename genType>
+	genType image::load(dimensions_type const & TexelCoord)
+	{
+		assert(!this->empty());
+		assert(this->Storage.blockSize() == sizeof(genType));
+
+		return *(this->data<genType>() + detail::texelLinearAdressing(this->dimensions(), TexelCoord));
+	}
+
+	template <typename genType>
+	void image::store(dimensions_type const & TexelCoord, genType const & Data)
+	{
+		assert(!this->empty());
+		assert(this->Storage.blockSize() == sizeof(genType));
+
+		*(this->data<genType>() + detail::texelLinearAdressing(this->dimensions(), TexelCoord)) = Data;
+	}
+
+	inline image::size_type image::baseLayer() const
+	{
+		return this->BaseLayer;
+	}
+
+	inline image::size_type image::maxLayer() const
+	{
+		return this->MaxLayer;
+	}
+
+	inline image::size_type image::baseFace() const
+	{
+		return this->BaseFace;
+	}
+
+	inline image::size_type image::maxFace() const
+	{
+		return this->MaxFace;
+	}
+
+	inline image::size_type image::baseLevel() const
+	{
+		return this->BaseLevel;
+	}
+
+	inline image::size_type image::maxLevel() const
+	{
+		return this->MaxLevel;
 	}
 }//namespace gli

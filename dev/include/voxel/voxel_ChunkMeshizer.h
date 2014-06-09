@@ -28,6 +28,7 @@ namespace ld3d
 
 				uint8									type;
 				uint32									materials[face_count];
+				math::Vector3							uv[face_count];
 			};
 
 
@@ -39,6 +40,13 @@ namespace ld3d
 
 			struct VoxelMesh
 			{
+				//
+				// vector3 pos
+				// vector3 normal
+				// vector3 uv
+				// vector4 color(ao);
+				//
+
 				void*									vertexBuffer;
 				uint32									vertex_count;
 				uint8									type;

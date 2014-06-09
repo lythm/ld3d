@@ -81,16 +81,16 @@ namespace detail
 
 }//namespace detail
 
-	inline void saveStorageDDS
+	inline void save_dds
 	(
 		storage const & Storage, 
-		std::string const & Filename
+		char const * Filename
 	)
 	{
 		if(Storage.empty())
 			return;
 
-		std::ofstream File(Filename.c_str(), std::ios::out | std::ios::binary);
+		std::ofstream File(Filename, std::ios::out | std::ios::binary);
 		if (!File)
 			return;
 
@@ -151,13 +151,44 @@ namespace detail
 			HeaderDesc10.arraySize = glm::uint32(Storage.layers());
 			HeaderDesc10.resourceDimension = detail::D3D10_RESOURCE_DIMENSION_TEXTURE2D;
 			HeaderDesc10.miscFlag = 0;//Storage.levels() > 0 ? detail::D3D10_RESOURCE_MISC_GENERATE_MIPS : 0;
-			HeaderDesc10.dxgiFormat = detail::DXGI_FORMAT(Desc.Format);
+			HeaderDesc10.Format = static_cast<dxgiFormat>(Desc.Format);
 			HeaderDesc10.reserved = 0;
 			File.write((char*)&HeaderDesc10, sizeof(HeaderDesc10));
 		}
 
-		std::size_t Size = Storage.size();
-		File.write((char*)(Storage.data()), Size);
+		if(HeaderDesc.format.fourCC != detail::D3DFMT_DX10 && !Desc.Compressed && Desc.Component >= 3)
+		{
+			storage Copy = gli::copy(Storage);
+
+			switch(Desc.Component)
+			{
+			default:
+				assert(0);
+				break;
+			case 3:
+				for(std::size_t Offset = 0; Offset < Copy.size() / 3; ++Offset)
+				{
+					glm::u8vec3 Src = *(reinterpret_cast<glm::u8vec3 const *>(Storage.data()) + Offset);
+					*(reinterpret_cast<glm::u8vec3*>(Copy.data()) + Offset) = glm::u8vec3(Src.z, Src.y, Src.x);
+				}
+				break;
+			case 4:
+				for(std::size_t Offset = 0; Offset < Copy.size() / 4; ++Offset)
+				{
+					glm::u8vec4 Src = *(reinterpret_cast<glm::u8vec4 const *>(Storage.data()) + Offset);
+					*(reinterpret_cast<glm::u8vec4*>(Copy.data()) + Offset) = glm::u8vec4(Src.z, Src.y, Src.x, Src.w);
+				}
+				break;
+			}
+
+			std::size_t Size = Copy.size();
+			File.write((char*)(Copy.data()), Size);
+		}
+		else
+		{
+			std::size_t Size = Storage.size();
+			File.write((char*)(Storage.data()), Size);
+		}
 
 		assert(!File.fail() && !File.bad());
 	}

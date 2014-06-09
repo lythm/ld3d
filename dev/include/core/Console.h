@@ -30,6 +30,7 @@ namespace ld3d
 		void												_on_cmd_show_debug_panel(const CommandLine& cl, std::function<void (const std::string&)>);
 		void												_on_cmd_set_windowed(const CommandLine& cl, std::function<void (const std::string&)>);
 		void												_on_cmd_set_resolution(const CommandLine& cl, std::function<void (const std::string&)>);
+		void												_on_cmd_get_gl_ext(const CommandLine& cl, std::function<void (const std::string&)>);
 
 		
 	private:

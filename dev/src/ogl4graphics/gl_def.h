@@ -94,6 +94,7 @@ extern PFNGLTEXSTORAGE2DMULTISAMPLEPROC					glTexStorage2DMultisample;
 extern PFNGLTEXSTORAGE3DPROC							glTexStorage3D;
 extern PFNGLTEXSUBIMAGE3DPROC							glTexSubImage3D;
 extern PFNGLCOMPRESSEDTEXSUBIMAGE2DPROC					glCompressedTexSubImage2D;
+extern PFNGLCOMPRESSEDTEXSUBIMAGE3DPROC					glCompressedTexSubImage3D;
 
 // sampler
 extern PFNGLGENSAMPLERSPROC								glGenSamplers;

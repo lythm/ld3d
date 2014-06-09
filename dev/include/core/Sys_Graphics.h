@@ -91,6 +91,8 @@ namespace ld3d
 		virtual void									OnResizeRenderWindow(int cx, int cy)											= 0;
 		virtual void									ResizeRenderWindow(int cx, int cy, bool fullscreen = false)						= 0;
 		virtual bool									IsFullscreen()																	= 0;
+
+		virtual const std::vector<std::string>&			GetGLExtensions()																= 0;
 	protected:
 		Sys_Graphics(void){}
 		virtual ~Sys_Graphics(void){}

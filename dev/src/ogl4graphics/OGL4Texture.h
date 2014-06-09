@@ -2,6 +2,12 @@
 
 #include "core/Texture.h"
 
+
+namespace gli
+{
+	class storage;
+
+};
 namespace ld3d
 {
 	class OGL4Texture : public Texture
@@ -23,13 +29,14 @@ namespace ld3d
 		bool										Create2DMS(G_FORMAT format, int w, int h, int samples);
 		bool										Create2DShadow(G_FORMAT format, int w, int h);
 		bool										Create3D(G_FORMAT format, int w, int h, int d, int lvls, bool dynamic);
-
+		bool										Create2DArray(G_FORMAT format, int w, int h, int lvls, int layers, bool dynamic);
 		int											GetWidth() const;
 		int											GetHeight() const;
 		int											GetDepth() const;
 		int											GetLvls() const;
+		int											GetLayers() const;
 		bool										CreateFromFile(const char* szFile);
-
+		bool										CreateArrayFromFiles(const std::vector<std::string>& files);
 		void*										Map();
 		void										UnMap();
 
@@ -39,6 +46,9 @@ namespace ld3d
 
 		void										UpdateTextureBGRA8(const void* data);
 	private:
+		bool										CreateCubemapFromFile(const gli::storage& s);
+		bool										Create2DFromFile(const gli::storage& s);
+		bool										Create2DArrayFromFile(const gli::storage& s);
 		unsigned int								FormatSize(GLenum format);
 
 		GLenum										TransferFormat(GLenum format);
@@ -58,7 +68,7 @@ namespace ld3d
 		SamplerStatePtr								m_pSampler;
 
 		int											m_lvls;
-
+		int											m_layers;
 		bool										m_bMS;
 	};
 }

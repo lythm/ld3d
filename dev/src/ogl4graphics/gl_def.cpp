@@ -84,6 +84,7 @@ PFNGLTEXSTORAGE2DPROC								glTexStorage2D									= nullptr;
 PFNGLTEXSTORAGE2DMULTISAMPLEPROC					glTexStorage2DMultisample						= nullptr;
 PFNGLTEXSTORAGE3DPROC								glTexStorage3D									= nullptr;
 PFNGLCOMPRESSEDTEXSUBIMAGE2DPROC					glCompressedTexSubImage2D						= nullptr;
+PFNGLCOMPRESSEDTEXSUBIMAGE3DPROC					glCompressedTexSubImage3D						= nullptr;
 // sampler
 PFNGLGENSAMPLERSPROC								glGenSamplers									= nullptr;
 PFNGLDELETESAMPLERSPROC								glDeleteSamplers								= nullptr;

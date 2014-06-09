@@ -123,14 +123,14 @@ namespace detail
 	struct ddsHeader10
 	{
 		ddsHeader10() :
-			dxgiFormat(DXGI_FORMAT_UNKNOWN),
+			Format(DXGI_FORMAT_UNKNOWN),
 			resourceDimension(D3D10_RESOURCE_DIMENSION_UNKNOWN),
 			miscFlag(0),
 			arraySize(1),
 			reserved(0)
 		{}
 
-		DXGI_FORMAT					dxgiFormat;
+		dxgiFormat					Format;
 		D3D10_RESOURCE_DIMENSION	resourceDimension;
 		glm::uint32					miscFlag; // D3D10_RESOURCE_MISC_GENERATE_MIPS
 		glm::uint32					arraySize;
@@ -149,6 +149,12 @@ namespace detail
 		case D3DFMT_DXT4:
 		case D3DFMT_DXT5:
 			return RGBA_DXT5;
+		case D3DFMT_ATI1:
+		case D3DFMT_AT1N:
+			return R_ATI1N_UNORM;
+		case D3DFMT_ATI2:
+		case D3DFMT_AT2N:
+			return RG_ATI2N_UNORM;
 		case D3DFMT_R16F:
 			return R16F;
 		case D3DFMT_G16R16F:
@@ -186,7 +192,7 @@ namespace detail
 		}
 	}
 
-	inline gli::format format_dds2gli_cast(DXGI_FORMAT const & Format)
+	inline gli::format format_dds2gli_cast(dxgiFormat const & Format)
 	{
 		static gli::format const Cast[] = 
 		{
@@ -297,12 +303,12 @@ namespace detail
 	}
 }//namespace detail
 
-inline storage loadStorageDDS
+inline storage load_dds
 (
-	std::string const & Filename
+	char const * Filename
 )
 {
-	std::ifstream FileIn(Filename.c_str(), std::ios::in | std::ios::binary);
+	std::ifstream FileIn(Filename, std::ios::in | std::ios::binary);
 	assert(!FileIn.fail());
 
 	if(FileIn.fail())
@@ -324,7 +330,7 @@ inline storage loadStorageDDS
 
 	gli::format Format(gli::FORMAT_NULL);
 	if(HeaderDesc.format.fourCC == detail::D3DFMT_DX10)
-		Format = detail::format_dds2gli_cast(HeaderDesc10.dxgiFormat);
+		Format = detail::format_dds2gli_cast(HeaderDesc10.Format);
 	else if(HeaderDesc.format.flags & detail::DDPF_FOURCC)
 		Format = detail::format_fourcc2gli_cast(HeaderDesc.format.flags, HeaderDesc.format.fourCC);
 	else if(HeaderDesc.format.flags & detail::DDPF_RGB)

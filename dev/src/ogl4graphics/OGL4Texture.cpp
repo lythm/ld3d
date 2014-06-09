@@ -20,6 +20,7 @@ namespace ld3d
 		m_bDynamic				= false;
 		m_bMS					= false;
 		m_lvls					= 1;
+		m_layers				= 1;
 	}
 
 
@@ -98,6 +99,38 @@ namespace ld3d
 		m_format = OGL4Convert::TextureFormatToGL(format);
 
 		m_pboBytes = FormatSize(m_format) * m_width * m_height;
+		return true;
+	}
+	bool OGL4Texture::Create2DArray(G_FORMAT format, int w, int h, int lvls, int layers, bool dynamic)
+	{
+		if(layers <= 0)
+		{
+			return false;
+		}
+		m_lvls = lvls;
+
+		if(m_lvls == 0)
+		{
+			m_lvls = math::log2(w);
+		}
+
+		m_layers = layers;
+
+		m_bDynamic = dynamic;
+
+		glGenTextures(1, &m_texture);
+
+		glBindTexture(GL_TEXTURE_2D_ARRAY, m_texture);
+
+		glTexStorage3D(GL_TEXTURE_2D_ARRAY, m_lvls, OGL4Convert::TextureFormatToGL(format), w, h, m_layers);
+
+		m_width = w;
+		m_height = h;
+		m_type = TEX_2D_ARRAY;
+
+		m_format = OGL4Convert::TextureFormatToGL(format);
+
+		m_pboBytes = FormatSize(m_format) * m_width * m_height * m_layers;
 		return true;
 	}
 
@@ -432,110 +465,75 @@ namespace ld3d
 	{
 		return m_texture;
 	}
-	//bool OGL4Texture::CreateFromFile(const char* szFile, bool dynamic)
-	//{
-	//	m_bDynamic = dynamic;
 
-	//	m_texture = SOIL_load_OGL_texture(szFile, SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_MIPMAPS);
-
-	//	if(m_texture == 0)
-	//		return false;
-
-	//	
-	//	m_type = TEX_2D;
-	//	
-	//	// todo
-	//	/*m_width = w;
-	//	m_lvls = 1;
-	//	m_height = h;
-	//	m_depth = d;
-
-	//	m_format = OGL4Convert::TextureFormatToGL(format);
-
-	//	m_pboBytes = FormatSize(m_format) * m_width * m_height * m_depth;*/
-
-
-	//	return true;
-	//}
-
-	bool OGL4Texture::CreateFromFile(const char* szFile)
+	bool OGL4Texture::Create2DFromFile(const gli::storage& s)
 	{
-		m_bDynamic = false;
+		// texture 2d
+		gli::texture2D tex(s);
 
-		glGenTextures(1, &m_texture);
-
-		gli::storage s = gli::loadStorageDDS(szFile);
-
-		size_t faces = s.faces();
-
-		if(faces == 1)
+		if(tex.empty())
 		{
-			// texture 2d
-			gli::texture2D tex(s);
+			return false;
+		}
 
-			if(tex.empty())
+		glBindTexture(GL_TEXTURE_2D, m_texture);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_BASE_LEVEL, 0);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, GLint(tex.levels() - 1));
+
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+
+
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_SWIZZLE_R, GL_RED);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_SWIZZLE_G, GL_GREEN);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_SWIZZLE_B, GL_BLUE);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_SWIZZLE_A, GL_ALPHA);
+		glTexStorage2D(GL_TEXTURE_2D,
+			GLint(tex.levels()),
+			GLenum(gli::internal_format(tex.format())),
+			GLsizei(tex.dimensions().x),
+			GLsizei(tex.dimensions().y));
+		if(gli::is_compressed(tex.format()))
+		{
+			for(gli::texture2D::size_type Level = 0; Level < tex.levels(); ++Level)
 			{
-				return false;
+				glCompressedTexSubImage2D(GL_TEXTURE_2D,
+					GLint(Level),
+					0, 0,
+					GLsizei(tex[Level].dimensions().x),
+					GLsizei(tex[Level].dimensions().y),
+					GLenum(gli::internal_format(tex.format())),
+					GLsizei(tex[Level].size()),
+					tex[Level].data());
 			}
-
-			glBindTexture(GL_TEXTURE_2D, m_texture);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_BASE_LEVEL, 0);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, GLint(tex.levels() - 1));
-
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-
-
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_SWIZZLE_R, GL_RED);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_SWIZZLE_G, GL_GREEN);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_SWIZZLE_B, GL_BLUE);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_SWIZZLE_A, GL_ALPHA);
-			glTexStorage2D(GL_TEXTURE_2D,
-				GLint(tex.levels()),
-				GLenum(gli::internal_format(tex.format())),
-				GLsizei(tex.dimensions().x),
-				GLsizei(tex.dimensions().y));
-			if(gli::is_compressed(tex.format()))
+		}
+		else
+		{
+			for(gli::texture2D::size_type Level = 0; Level < tex.levels(); ++Level)
 			{
-				for(gli::texture2D::size_type Level = 0; Level < tex.levels(); ++Level)
-				{
-					glCompressedTexSubImage2D(GL_TEXTURE_2D,
-						GLint(Level),
-						0, 0,
-						GLsizei(tex[Level].dimensions().x),
-						GLsizei(tex[Level].dimensions().y),
-						GLenum(gli::internal_format(tex.format())),
-						GLsizei(tex[Level].size()),
-						tex[Level].data());
-				}
+				glTexSubImage2D(GL_TEXTURE_2D,
+					GLint(Level),
+					0, 0,
+					GLsizei(tex[Level].dimensions().x),
+					GLsizei(tex[Level].dimensions().y),
+					GLenum(gli::external_format(tex.format())),
+					GLenum(gli::type_format(tex.format())),
+					tex[Level].data());
 			}
-			else
-			{
-				for(gli::texture2D::size_type Level = 0; Level < tex.levels(); ++Level)
-				{
-					glTexSubImage2D(GL_TEXTURE_2D,
-						GLint(Level),
-						0, 0,
-						GLsizei(tex[Level].dimensions().x),
-						GLsizei(tex[Level].dimensions().y),
-						GLenum(gli::external_format(tex.format())),
-						GLenum(gli::type_format(tex.format())),
-						tex[Level].data());
-				}
-			}
-
-
-			m_type = TEX_2D;
-			m_width = tex.dimensions().x;
-			m_height = tex.dimensions().y;
-			m_lvls = (int)tex.levels();
-			m_depth = 0;
-
-			m_format = GLenum(gli::internal_format(tex.format()));
-			return true;
 		}
 
 
+		m_type = TEX_2D;
+		m_width = tex.dimensions().x;
+		m_height = tex.dimensions().y;
+		m_lvls = (int)tex.levels();
+		m_depth = 0;
+
+		m_format = GLenum(gli::internal_format(tex.format()));
+		return true;
+	}
+	bool OGL4Texture::CreateCubemapFromFile(const gli::storage& s)
+	{
 		// cube map
 		gli::textureCube tex(s);
 
@@ -614,6 +612,114 @@ namespace ld3d
 
 		m_format = GLenum(gli::internal_format(tex.format()));
 		return true;
+	}
+	bool OGL4Texture::Create2DArrayFromFile(const gli::storage& s)
+	{
+		// texture 2d
+		gli::texture2DArray tex(s);
+
+		if(tex.empty())
+		{
+			return false;
+		}
+
+		glBindTexture(GL_TEXTURE_2D_ARRAY, m_texture);
+		glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_BASE_LEVEL, 0);
+		glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_MAX_LEVEL, GLint(tex.levels() - 1));
+
+		glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+
+
+		glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_SWIZZLE_R, GL_RED);
+		glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_SWIZZLE_G, GL_GREEN);
+		glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_SWIZZLE_B, GL_BLUE);
+		glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_SWIZZLE_A, GL_ALPHA);
+
+		//glTexStorage3D(GL_TEXTURE_2D_ARRAY, mipLevelCount, GL_RGBA8, width, height, layerCount);
+
+		glTexStorage3D(GL_TEXTURE_2D_ARRAY,
+			GLint(tex.levels()),
+			GLenum(gli::internal_format(tex.format())),
+			GLsizei(tex.dimensions().x),
+			GLsizei(tex.dimensions().y),
+			(GLint)tex.layers());
+
+
+		for(gli::texture2DArray::size_type layer = 0; layer < tex.layers(); ++layer)
+		{
+			for(gli::texture2DArray::size_type level = 0; level < tex.levels(); ++level)
+			{
+				if(gli::is_compressed(tex.format()))
+				{
+					glCompressedTexSubImage3D(GL_TEXTURE_2D_ARRAY,
+							GLint(level),
+							0, 0, layer,
+							GLsizei(tex[layer][level].dimensions().x),
+							GLsizei(tex[layer][level].dimensions().y),
+							GLsizei(tex.layers()),
+							GLenum(gli::internal_format(tex[layer].format())),
+							GLsizei(tex[layer][level].size()),
+							tex[layer][level].data());
+					
+				}
+				else
+				{
+					
+					glTexSubImage3D(GL_TEXTURE_2D_ARRAY,
+							GLint(level),
+							0, 0, layer,
+							GLsizei(tex[layer][level].dimensions().x),
+							GLsizei(tex[layer][level].dimensions().y),
+							GLsizei(tex.layers()),
+							GLenum(gli::external_format(tex[layer].format())),
+							GLenum(gli::type_format(tex[layer].format())),
+							tex[layer][level].data());
+					
+				}
+			}
+		}
+
+		m_type = TEX_2D_ARRAY;
+		m_width = tex.dimensions().x;
+		m_height = tex.dimensions().y;
+		m_lvls = (int)tex.levels();
+		m_layers = tex.layers();
+		m_depth = 0;
+
+		m_format = GLenum(gli::internal_format(tex.format()));
+		return true;
+	}
+	bool OGL4Texture::CreateFromFile(const char* szFile)
+	{
+		m_bDynamic = false;
+
+		glGenTextures(1, &m_texture);
+
+		gli::storage s = gli::load_dds(szFile);
+
+		size_t layers = s.layers();
+
+		if(layers > 1)
+		{
+			if(s.faces() > 1)
+			{
+				// not support
+				return false;
+			}
+
+			return Create2DArrayFromFile(s);
+		}
+
+		size_t faces = s.faces();
+
+		if(faces == 1)
+		{
+			return Create2DFromFile(s);
+		}
+
+		return CreateCubemapFromFile(s);
+		
 
 	}
 
@@ -651,6 +757,15 @@ namespace ld3d
 		glBindTexture(OGL4Convert::TexTypeToGLTarget(m_type), m_texture);
 		glGenerateMipmap(OGL4Convert::TexTypeToGLTarget(m_type));
 
+	}
+	int	OGL4Texture::GetLayers() const
+	{
+		return m_layers;
+	}
+	bool OGL4Texture::CreateArrayFromFiles(const std::vector<std::string>& files)
+	{
+
+		return false;
 	}
 
 }

@@ -641,4 +641,8 @@ namespace ld3d
 	{
 		return m_pCurrentRW->IsFullscreen();
 	}
+	const std::vector<std::string>& OGL4Graphics::GetGLExtensions()
+	{
+		return m_pLoader->GetExt();
+	}
 }

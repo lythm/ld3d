@@ -38,20 +38,31 @@
 #include <cstring>
 
 // GLM
-#include <glm/glm.hpp>
-#include <glm/gtx/number_precision.hpp>
-#include <glm/gtx/raw_data.hpp>
-#include <glm/gtx/gradient_paint.hpp>
-#include <glm/gtx/component_wise.hpp>
-#include <glm/gtx/integer.hpp>
-#include <glm/gtx/multiple.hpp>
+#define GLM_FORCE_RADIANS
+#include "../glm/glm.hpp"
+#include "../glm/gtx/component_wise.hpp"
+#include "../glm/gtx/gradient_paint.hpp"
+#include "../glm/gtx/integer.hpp"
+#include "../glm/gtx/bit.hpp"
+#include "../glm/gtx/multiple.hpp"
+#include "../glm/gtx/number_precision.hpp"
+#include "../glm/gtx/raw_data.hpp"
+#include "../glm/gtx/scalar_relational.hpp"
 
 #include "shared_ptr.hpp"
 #include "header.hpp"
 #include "format.hpp"
 
-namespace gli
+namespace gli{
+namespace detail
 {
+	typedef std::size_t size_type;
+	typedef glm::uint dimensions1_type;
+	typedef glm::uvec2 dimensions2_type;
+	typedef glm::uvec3 dimensions3_type;
+	typedef glm::uvec4 dimensions4_type;
+}//namespace detail
+
 	class storage
 	{
 	public:
@@ -65,23 +76,24 @@ namespace gli
 		typedef glm::vec3 texcoord3_type;
 		typedef glm::vec4 texcoord4_type;
 		typedef std::size_t size_type;
-        typedef gli::format format_type;
+		typedef gli::format format_type;
 
 	public:
 		storage();
 
-		explicit storage(
-			size_type const & Layers, 
+		storage(
+			size_type const & Layers,
 			size_type const & Faces,
 			size_type const & Levels,
 			format_type const & Format,
 			dimensions_type const & Dimensions);
 
-		explicit storage(
-			size_type const & Layers, 
+		storage(
+			size_type const & Layers,
 			size_type const & Faces,
 			size_type const & Levels,
 			dimensions_type const & Dimensions,
+			format_type const & Format,
 			size_type const & BlockSize,
 			dimensions_type const & BlockDimensions);
 
@@ -99,9 +111,16 @@ namespace gli
 		glm::byte * data();
 		glm::byte const * data() const;
 
-		size_type levelSize(size_type const & Level) const;
-		size_type faceSize() const;
-		size_type layerSize() const;
+		size_type levelSize(
+			size_type const & Level) const;
+		size_type faceSize(
+			size_type const & BaseLevel,
+			size_type const & MaxLevel) const;
+		size_type layerSize(
+			size_type const & BaseFace,
+			size_type const & MaxFace,
+			size_type const & BaseLevel,
+			size_type const & MaxLevel) const;
 
 	private:
 		struct impl
@@ -178,12 +197,13 @@ namespace gli
 
 	std::size_t block_size(format const & Format);
 	glm::uvec3 block_dimensions(format const & Format);
-	std::size_t bits_per_pixel(format const & Format);
 	std::size_t component_count(format const & Format);
 	bool is_compressed(format const & Format);
-	internalFormat internal_format(format const & Format);
-	externalFormat external_format(format const & Format);
-	typeFormat type_format(format const & Format);
+
+	std::size_t level_count(storage::dimensions1_type const & Dimensions);
+	std::size_t level_count(storage::dimensions2_type const & Dimensions);
+	std::size_t level_count(storage::dimensions3_type const & Dimensions);
+
 }//namespace gli
 
 #include "storage.inl"

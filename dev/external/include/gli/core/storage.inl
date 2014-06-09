@@ -82,6 +82,16 @@ enum D3DFORMAT
 	D3DFMT_DXT4                 = GLI_MAKEFOURCC('D', 'X', 'T', '4'),
 	D3DFMT_DXT5                 = GLI_MAKEFOURCC('D', 'X', 'T', '5'),
 
+	D3DFMT_ATI1                 = GLI_MAKEFOURCC('A', 'T', 'I', '1'),
+	D3DFMT_AT1N                 = GLI_MAKEFOURCC('A', 'T', '1', 'N'),
+	D3DFMT_ATI2                 = GLI_MAKEFOURCC('A', 'T', 'I', '2'),
+	D3DFMT_AT2N                 = GLI_MAKEFOURCC('A', 'T', '2', 'N'),
+
+	D3DFMT_ETC1                 = GLI_MAKEFOURCC('E', 'T', 'C', '1'),
+
+	D3DFMT_POWERVR_2BPP         = GLI_MAKEFOURCC('P', 'T', 'C', '2'),
+	D3DFMT_POWERVR_4BPP         = GLI_MAKEFOURCC('P', 'T', 'C', '4'),
+
 	D3DFMT_D16_LOCKABLE         = 70,
 	D3DFMT_D32                  = 71,
 	D3DFMT_D15S1                = 73,
@@ -118,111 +128,6 @@ enum D3DFORMAT
 	D3DFMT_FORCE_DWORD          = 0x7fffffff
 };
 
-enum DXGI_FORMAT 
-{
-	DXGI_FORMAT_UNKNOWN                      = 0,
-	DXGI_FORMAT_R32G32B32A32_TYPELESS        = 1,
-	DXGI_FORMAT_R32G32B32A32_FLOAT           = 2,
-	DXGI_FORMAT_R32G32B32A32_UINT            = 3,
-	DXGI_FORMAT_R32G32B32A32_SINT            = 4,
-	DXGI_FORMAT_R32G32B32_TYPELESS           = 5,
-	DXGI_FORMAT_R32G32B32_FLOAT              = 6,
-	DXGI_FORMAT_R32G32B32_UINT               = 7,
-	DXGI_FORMAT_R32G32B32_SINT               = 8,
-	DXGI_FORMAT_R16G16B16A16_TYPELESS        = 9,
-	DXGI_FORMAT_R16G16B16A16_FLOAT           = 10,
-	DXGI_FORMAT_R16G16B16A16_UNORM           = 11,
-	DXGI_FORMAT_R16G16B16A16_UINT            = 12,
-	DXGI_FORMAT_R16G16B16A16_SNORM           = 13,
-	DXGI_FORMAT_R16G16B16A16_SINT            = 14,
-	DXGI_FORMAT_R32G32_TYPELESS              = 15,
-	DXGI_FORMAT_R32G32_FLOAT                 = 16,
-	DXGI_FORMAT_R32G32_UINT                  = 17,
-	DXGI_FORMAT_R32G32_SINT                  = 18,
-	DXGI_FORMAT_R32G8X24_TYPELESS            = 19,
-	DXGI_FORMAT_D32_FLOAT_S8X24_UINT         = 20,
-	DXGI_FORMAT_R32_FLOAT_X8X24_TYPELESS     = 21,
-	DXGI_FORMAT_X32_TYPELESS_G8X24_UINT      = 22,
-	DXGI_FORMAT_R10G10B10A2_TYPELESS         = 23,
-	DXGI_FORMAT_R10G10B10A2_UNORM            = 24,
-	DXGI_FORMAT_R10G10B10A2_UINT             = 25,
-	DXGI_FORMAT_R11G11B10_FLOAT              = 26,
-	DXGI_FORMAT_R8G8B8A8_TYPELESS            = 27,
-	DXGI_FORMAT_R8G8B8A8_UNORM               = 28,
-	DXGI_FORMAT_R8G8B8A8_UNORM_SRGB          = 29,
-	DXGI_FORMAT_R8G8B8A8_UINT                = 30,
-	DXGI_FORMAT_R8G8B8A8_SNORM               = 31,
-	DXGI_FORMAT_R8G8B8A8_SINT                = 32,
-	DXGI_FORMAT_R16G16_TYPELESS              = 33,
-	DXGI_FORMAT_R16G16_FLOAT                 = 34,
-	DXGI_FORMAT_R16G16_UNORM                 = 35,
-	DXGI_FORMAT_R16G16_UINT                  = 36,
-	DXGI_FORMAT_R16G16_SNORM                 = 37,
-	DXGI_FORMAT_R16G16_SINT                  = 38,
-	DXGI_FORMAT_R32_TYPELESS                 = 39,
-	DXGI_FORMAT_D32_FLOAT                    = 40,
-	DXGI_FORMAT_R32_FLOAT                    = 41,
-	DXGI_FORMAT_R32_UINT                     = 42,
-	DXGI_FORMAT_R32_SINT                     = 43,
-	DXGI_FORMAT_R24G8_TYPELESS               = 44,
-	DXGI_FORMAT_D24_UNORM_S8_UINT            = 45,
-	DXGI_FORMAT_R24_UNORM_X8_TYPELESS        = 46,
-	DXGI_FORMAT_X24_TYPELESS_G8_UINT         = 47,
-	DXGI_FORMAT_R8G8_TYPELESS                = 48,
-	DXGI_FORMAT_R8G8_UNORM                   = 49,
-	DXGI_FORMAT_R8G8_UINT                    = 50,
-	DXGI_FORMAT_R8G8_SNORM                   = 51,
-	DXGI_FORMAT_R8G8_SINT                    = 52,
-	DXGI_FORMAT_R16_TYPELESS                 = 53,
-	DXGI_FORMAT_R16_FLOAT                    = 54,
-	DXGI_FORMAT_D16_UNORM                    = 55,
-	DXGI_FORMAT_R16_UNORM                    = 56,
-	DXGI_FORMAT_R16_UINT                     = 57,
-	DXGI_FORMAT_R16_SNORM                    = 58,
-	DXGI_FORMAT_R16_SINT                     = 59,
-	DXGI_FORMAT_R8_TYPELESS                  = 60,
-	DXGI_FORMAT_R8_UNORM                     = 61,
-	DXGI_FORMAT_R8_UINT                      = 62,
-	DXGI_FORMAT_R8_SNORM                     = 63,
-	DXGI_FORMAT_R8_SINT                      = 64,
-	DXGI_FORMAT_A8_UNORM                     = 65,
-	DXGI_FORMAT_R1_UNORM                     = 66,
-	DXGI_FORMAT_R9G9B9E5_SHAREDEXP           = 67,
-	DXGI_FORMAT_R8G8_B8G8_UNORM              = 68,
-	DXGI_FORMAT_G8R8_G8B8_UNORM              = 69,
-	DXGI_FORMAT_BC1_TYPELESS                 = 70,
-	DXGI_FORMAT_BC1_UNORM                    = 71,
-	DXGI_FORMAT_BC1_UNORM_SRGB               = 72,
-	DXGI_FORMAT_BC2_TYPELESS                 = 73,
-	DXGI_FORMAT_BC2_UNORM                    = 74,
-	DXGI_FORMAT_BC2_UNORM_SRGB               = 75,
-	DXGI_FORMAT_BC3_TYPELESS                 = 76,
-	DXGI_FORMAT_BC3_UNORM                    = 77,
-	DXGI_FORMAT_BC3_UNORM_SRGB               = 78,
-	DXGI_FORMAT_BC4_TYPELESS                 = 79,
-	DXGI_FORMAT_BC4_UNORM                    = 80,
-	DXGI_FORMAT_BC4_SNORM                    = 81,
-	DXGI_FORMAT_BC5_TYPELESS                 = 82,
-	DXGI_FORMAT_BC5_UNORM                    = 83,
-	DXGI_FORMAT_BC5_SNORM                    = 84,
-	DXGI_FORMAT_B5G6R5_UNORM                 = 85,
-	DXGI_FORMAT_B5G5R5A1_UNORM               = 86,
-	DXGI_FORMAT_B8G8R8A8_UNORM               = 87,
-	DXGI_FORMAT_B8G8R8X8_UNORM               = 88,
-	DXGI_FORMAT_R10G10B10_XR_BIAS_A2_UNORM   = 89,
-	DXGI_FORMAT_B8G8R8A8_TYPELESS            = 90,
-	DXGI_FORMAT_B8G8R8A8_UNORM_SRGB          = 91,
-	DXGI_FORMAT_B8G8R8X8_TYPELESS            = 92,
-	DXGI_FORMAT_B8G8R8X8_UNORM_SRGB          = 93,
-	DXGI_FORMAT_BC6H_TYPELESS                = 94,
-	DXGI_FORMAT_BC6H_UF16                    = 95,
-	DXGI_FORMAT_BC6H_SF16                    = 96,
-	DXGI_FORMAT_BC7_TYPELESS                 = 97,
-	DXGI_FORMAT_BC7_UNORM                    = 98,
-	DXGI_FORMAT_BC7_UNORM_SRGB               = 99,
-	DXGI_FORMAT_FORCE_UINT                   = 0xffffffffUL 
-};
-
 enum DDPF
 {
 	DDPF_ALPHAPIXELS = 0x1,
@@ -246,7 +151,7 @@ struct format_desc
 	typeFormat Type;
 	glm::uint Flags;
 	glm::uint32 FourCC;
-	glm::uint32 Format; //http://msdn.microsoft.com/en-us/library/windows/desktop/bb173059(v=vs.85).aspx
+	dxgiFormat Format; //http://msdn.microsoft.com/en-us/library/windows/desktop/bb173059(v=vs.85).aspx
 /*
 	glm::uint32 RBitMask;
 	glm::uint32 GBitMask;
@@ -271,7 +176,7 @@ inline format_desc const getFormatInfo(format const & Format)
 		{  4, glm::uvec3(1), 32,  2, false, INTERNAL_RG16_UNORM, EXTERNAL_RG, EXTERNAL_RG, TYPE_U16, DDPF_LUMINANCE|DDPF_ALPHAPIXELS, D3DFMT_G16R16, DXGI_FORMAT_R16G16_UNORM},			//RG16_UNORM,
 		{  6, glm::uvec3(1), 48,  3, false, INTERNAL_RGB16_UNORM, EXTERNAL_RGB, EXTERNAL_BGR, TYPE_U16, DDPF_RGB, D3DFMT_UNKNOWN, DXGI_FORMAT_B8G8R8X8_TYPELESS},						//RGB16_UNORM,
 		{  8, glm::uvec3(1), 64,  4, false, INTERNAL_RGBA16_UNORM, EXTERNAL_RGBA, EXTERNAL_BGRA, TYPE_U16, DDPF_RGB|DDPF_ALPHA, D3DFMT_A16B16G16R16, DXGI_FORMAT_R16G16B16A16_UNORM},	//RGBA16_UNORM,
-			
+
 		// snorm formats
 		{  1, glm::uvec3(1),  8,  1, false, INTERNAL_R8_SNORM, EXTERNAL_RED, EXTERNAL_RED, TYPE_I8, DDPF_FOURCC, D3DFMT_DX10, DXGI_FORMAT_R8_SNORM},					//R8_SNORM,
 		{  2, glm::uvec3(1), 16,  2, false, INTERNAL_RG8_SNORM, EXTERNAL_RG, EXTERNAL_RG, TYPE_I8, DDPF_FOURCC, D3DFMT_DX10, DXGI_FORMAT_R8G8_SNORM},					//RG8_SNORM,
@@ -343,17 +248,38 @@ inline format_desc const getFormatInfo(format const & Format)
 		{  8, glm::uvec3(1), 64,  2, false, INTERNAL_D32FS8X24, EXTERNAL_DEPTH, EXTERNAL_DEPTH, TYPE_NONE, DDPF_FOURCC, D3DFMT_DX10, DXGI_FORMAT_D32_FLOAT_S8X24_UINT},		//D32FS8X24,
 
 		/// Compressed formats
-		{  8, glm::uvec3(4, 4, 1), 4,  3, true, INTERNAL_RGB_DXT1, EXTERNAL_NONE, EXTERNAL_NONE, TYPE_NONE, DDPF_FOURCC, D3DFMT_DXT1, DXGI_FORMAT_BC1_UNORM},				//RGB_DXT1,
-		{  8, glm::uvec3(4, 4, 1), 4,  4, true, INTERNAL_RGBA_DXT1, EXTERNAL_NONE, EXTERNAL_NONE, TYPE_NONE, DDPF_FOURCC | DDPF_ALPHAPIXELS, D3DFMT_DXT1, DXGI_FORMAT_BC1_UNORM},		//RGBA_DXT1,
-		{ 16, glm::uvec3(4, 4, 1), 8,  4, true, INTERNAL_RGBA_DXT3, EXTERNAL_NONE, EXTERNAL_NONE, TYPE_NONE, DDPF_FOURCC | DDPF_ALPHAPIXELS, D3DFMT_DXT3, DXGI_FORMAT_BC2_UNORM},		//RGBA_DXT3,
-		{ 16, glm::uvec3(4, 4, 1), 8,  4, true, INTERNAL_RGBA_DXT5, EXTERNAL_NONE, EXTERNAL_NONE, TYPE_NONE, DDPF_FOURCC | DDPF_ALPHAPIXELS, D3DFMT_DXT5, DXGI_FORMAT_BC3_UNORM},		//RGBA_DXT5,
-		{  8, glm::uvec3(4, 4, 1), 4,  1, true, INTERNAL_R_ATI1N_UNORM, EXTERNAL_NONE, EXTERNAL_NONE, TYPE_NONE, DDPF_FOURCC, D3DFMT_DX10, DXGI_FORMAT_BC4_UNORM},			//R_ATI1N_UNORM,
-		{  8, glm::uvec3(4, 4, 1), 4,  1, true, INTERNAL_R_ATI1N_SNORM, EXTERNAL_NONE, EXTERNAL_NONE, TYPE_NONE, DDPF_FOURCC, D3DFMT_DX10, DXGI_FORMAT_BC4_SNORM},			//R_ATI1N_SNORM,
-		{ 16, glm::uvec3(4, 4, 1), 8,  2, true, INTERNAL_RG_ATI2N_UNORM, EXTERNAL_NONE, EXTERNAL_NONE, TYPE_NONE, DDPF_FOURCC, D3DFMT_DX10, DXGI_FORMAT_BC5_UNORM},			//RG_ATI2N_UNORM,
-		{ 16, glm::uvec3(4, 4, 1), 8,  2, true, INTERNAL_RG_ATI2N_SNORM, EXTERNAL_NONE, EXTERNAL_NONE, TYPE_NONE, DDPF_FOURCC, D3DFMT_DX10, DXGI_FORMAT_BC5_SNORM},			//RG_ATI2N_SNORM,
-		{ 16, glm::uvec3(4, 4, 1), 8,  3, true, INTERNAL_RGB_BP_UNSIGNED_FLOAT, EXTERNAL_NONE, EXTERNAL_NONE, TYPE_NONE, DDPF_FOURCC, D3DFMT_DX10, DXGI_FORMAT_BC6H_UF16},	//RGB_BP_UF16,
-		{ 16, glm::uvec3(4, 4, 1), 8,  3, true, INTERNAL_RGB_BP_SIGNED_FLOAT, EXTERNAL_NONE, EXTERNAL_NONE, TYPE_NONE, DDPF_FOURCC, D3DFMT_DX10, DXGI_FORMAT_BC6H_SF16},	//RGB_BP_SF16,
-		{ 16, glm::uvec3(4, 4, 1), 8,  3, true, INTERNAL_RGB_BP_UNORM, EXTERNAL_NONE, EXTERNAL_NONE, TYPE_NONE, DDPF_FOURCC, D3DFMT_DX10, DXGI_FORMAT_BC7_UNORM},			//RGB_BP_UNORM,
+		{  8, glm::uvec3(4, 4, 1), 4,  3, true, INTERNAL_RGB_DXT1, EXTERNAL_RGB_DXT1, EXTERNAL_RGB_DXT1, TYPE_NONE, DDPF_FOURCC, D3DFMT_DXT1, DXGI_FORMAT_BC1_UNORM},				//RGB_DXT1,
+		{  8, glm::uvec3(4, 4, 1), 4,  4, true, INTERNAL_RGBA_DXT1, EXTERNAL_RGBA_DXT1, EXTERNAL_RGBA_DXT1, TYPE_NONE, DDPF_FOURCC | DDPF_ALPHAPIXELS, D3DFMT_DXT1, DXGI_FORMAT_BC1_UNORM},		//RGBA_DXT1,
+		{ 16, glm::uvec3(4, 4, 1), 8,  4, true, INTERNAL_RGBA_DXT3, EXTERNAL_RGBA_DXT3, EXTERNAL_RGBA_DXT3, TYPE_NONE, DDPF_FOURCC | DDPF_ALPHAPIXELS, D3DFMT_DXT3, DXGI_FORMAT_BC2_UNORM},		//RGBA_DXT3,
+		{ 16, glm::uvec3(4, 4, 1), 8,  4, true, INTERNAL_RGBA_DXT5, EXTERNAL_RGBA_DXT5, EXTERNAL_RGBA_DXT5, TYPE_NONE, DDPF_FOURCC | DDPF_ALPHAPIXELS, D3DFMT_DXT5, DXGI_FORMAT_BC3_UNORM},		//RGBA_DXT5,
+		{  8, glm::uvec3(4, 4, 1), 4,  1, true, INTERNAL_R_ATI1N_UNORM, EXTERNAL_R_ATI1N_UNORM, EXTERNAL_R_ATI1N_UNORM, TYPE_NONE, DDPF_FOURCC, D3DFMT_DX10, DXGI_FORMAT_BC4_UNORM},			//R_ATI1N_UNORM,
+		{  8, glm::uvec3(4, 4, 1), 4,  1, true, INTERNAL_R_ATI1N_SNORM, EXTERNAL_R_ATI1N_SNORM, EXTERNAL_R_ATI1N_SNORM, TYPE_NONE, DDPF_FOURCC, D3DFMT_DX10, DXGI_FORMAT_BC4_SNORM},			//R_ATI1N_SNORM,
+		{ 16, glm::uvec3(4, 4, 1), 8,  2, true, INTERNAL_RG_ATI2N_UNORM, EXTERNAL_RG_ATI2N_UNORM, EXTERNAL_RG_ATI2N_UNORM, TYPE_NONE, DDPF_FOURCC, D3DFMT_DX10, DXGI_FORMAT_BC5_UNORM},			//RG_ATI2N_UNORM,
+		{ 16, glm::uvec3(4, 4, 1), 8,  2, true, INTERNAL_RG_ATI2N_SNORM, EXTERNAL_RG_ATI2N_SNORM, EXTERNAL_RG_ATI2N_SNORM, TYPE_NONE, DDPF_FOURCC, D3DFMT_DX10, DXGI_FORMAT_BC5_SNORM},			//RG_ATI2N_SNORM,
+		{ 16, glm::uvec3(4, 4, 1), 8,  3, true, INTERNAL_RGB_BP_UNSIGNED_FLOAT, EXTERNAL_RGB_BP_UNSIGNED_FLOAT, EXTERNAL_RGB_BP_UNSIGNED_FLOAT, TYPE_NONE, DDPF_FOURCC, D3DFMT_DX10, DXGI_FORMAT_BC6H_UF16},		//RGB_BP_UF16,
+		{ 16, glm::uvec3(4, 4, 1), 8,  3, true, INTERNAL_RGB_BP_SIGNED_FLOAT, EXTERNAL_RGB_BP_SIGNED_FLOAT, EXTERNAL_RGB_BP_SIGNED_FLOAT, TYPE_NONE, DDPF_FOURCC, D3DFMT_DX10, DXGI_FORMAT_BC6H_SF16},				//RGB_BP_SF16,
+		{ 16, glm::uvec3(4, 4, 1), 8,  3, true, INTERNAL_RGB_BP_UNORM, EXTERNAL_RGB_BP_UNORM, EXTERNAL_RGB_BP_UNORM, TYPE_NONE, DDPF_FOURCC, D3DFMT_DX10, DXGI_FORMAT_BC7_UNORM},									//RGB_BP_UNORM,
+		{  8, glm::uvec3(4, 4, 1), 4,  3, true, INTERNAL_RGB_PVRTC_4BPPV1, EXTERNAL_RGB_PVRTC_4BPPV1, EXTERNAL_RGB_PVRTC_4BPPV1, TYPE_NONE, DDPF_FOURCC, D3DFMT_POWERVR_4BPP, DXGI_FORMAT_UNKNOWN},			//RGB_PVRTC_4BPPV1,
+		{  4, glm::uvec3(4, 4, 1), 2,  3, true, INTERNAL_RGB_PVRTC_2BPPV1, EXTERNAL_RGB_PVRTC_2BPPV1, EXTERNAL_RGB_PVRTC_2BPPV1, TYPE_NONE, DDPF_FOURCC, D3DFMT_POWERVR_2BPP, DXGI_FORMAT_UNKNOWN},			//RGB_PVRTC_2BPPV1,
+		{  8, glm::uvec3(4, 4, 1), 4,  4, true, INTERNAL_RGB_PVRTC_4BPPV1, EXTERNAL_RGBA_PVRTC_4BPPV1, EXTERNAL_RGBA_PVRTC_4BPPV1, TYPE_NONE, DDPF_FOURCC, D3DFMT_POWERVR_4BPP, DXGI_FORMAT_UNKNOWN},		//RGBA_PVRTC_4BPPV1,
+		{  4, glm::uvec3(4, 4, 1), 2,  4, true, INTERNAL_RGB_PVRTC_2BPPV1, EXTERNAL_RGBA_PVRTC_2BPPV1, EXTERNAL_RGBA_PVRTC_2BPPV1, TYPE_NONE, DDPF_FOURCC, D3DFMT_POWERVR_2BPP, DXGI_FORMAT_UNKNOWN},		//RGBA_PVRTC_2BPPV1,
+		{  8, glm::uvec3(4, 4, 1), 4,  3, true, INTERNAL_ATC_RGB, EXTERNAL_ATC_RGB, EXTERNAL_ATC_RGB, TYPE_NONE, DDPF_FOURCC, D3DFMT_ETC1, DXGI_FORMAT_UNKNOWN},																	//ATC_RGB,
+		{ 16, glm::uvec3(4, 4, 1), 4,  4, true, INTERNAL_ATC_RGBA_EXPLICIT_ALPHA, EXTERNAL_ATC_RGBA_EXPLICIT_ALPHA, EXTERNAL_ATC_RGBA_EXPLICIT_ALPHA, TYPE_NONE, DDPF_FOURCC, D3DFMT_ETC1, DXGI_FORMAT_UNKNOWN},					//ATC_RGBA_EXPLICIT_ALPHA,
+		{ 16, glm::uvec3(4, 4, 1), 4,  4, true, INTERNAL_ATC_RGBA_INTERPOLATED_ALPHA, EXTERNAL_ATC_RGBA_INTERPOLATED_ALPHA, EXTERNAL_ATC_RGBA_INTERPOLATED_ALPHA, TYPE_NONE, DDPF_FOURCC, D3DFMT_ETC1, DXGI_FORMAT_UNKNOWN},		//ATC_RGBA_INTERPOLATED_ALPHA,
+		{ 16, glm::uvec3(4, 4, 1), 0,  4, true, INTERNAL_RGBA_ASTC_4x4, EXTERNAL_RGBA_ASTC_4x4, EXTERNAL_RGBA_ASTC_4x4, TYPE_NONE, DDPF_FOURCC, D3DFMT_UNKNOWN, DXGI_FORMAT_UNKNOWN},				//RGBA_ASTC_4x4,
+		{ 16, glm::uvec3(5, 4, 1), 0,  4, true, INTERNAL_RGBA_ASTC_5x4, EXTERNAL_RGBA_ASTC_5x4, EXTERNAL_RGBA_ASTC_5x4, TYPE_NONE, DDPF_FOURCC, D3DFMT_UNKNOWN, DXGI_FORMAT_UNKNOWN},				//RGBA_ASTC_5x4,
+		{ 16, glm::uvec3(5, 5, 1), 0,  4, true, INTERNAL_RGBA_ASTC_5x5, EXTERNAL_RGBA_ASTC_5x5, EXTERNAL_RGBA_ASTC_5x5, TYPE_NONE, DDPF_FOURCC, D3DFMT_UNKNOWN, DXGI_FORMAT_UNKNOWN},				//RGBA_ASTC_5x5,
+		{ 16, glm::uvec3(6, 5, 1), 0,  4, true, INTERNAL_RGBA_ASTC_6x5, EXTERNAL_RGBA_ASTC_6x5, EXTERNAL_RGBA_ASTC_6x5, TYPE_NONE, DDPF_FOURCC, D3DFMT_UNKNOWN, DXGI_FORMAT_UNKNOWN},				//RGBA_ASTC_6x5,
+		{ 16, glm::uvec3(6, 6, 1), 0,  4, true, INTERNAL_RGBA_ASTC_6x6, EXTERNAL_RGBA_ASTC_6x6, EXTERNAL_RGBA_ASTC_6x6, TYPE_NONE, DDPF_FOURCC, D3DFMT_UNKNOWN, DXGI_FORMAT_UNKNOWN},				//RGBA_ASTC_6x6,
+		{ 16, glm::uvec3(8, 5, 1), 0,  4, true, INTERNAL_RGBA_ASTC_8x5, EXTERNAL_RGBA_ASTC_8x5, EXTERNAL_RGBA_ASTC_8x5, TYPE_NONE, DDPF_FOURCC, D3DFMT_UNKNOWN, DXGI_FORMAT_UNKNOWN},				//RGBA_ASTC_8x5,
+		{ 16, glm::uvec3(8, 6, 1), 0,  4, true, INTERNAL_RGBA_ASTC_8x6, EXTERNAL_RGBA_ASTC_8x6, EXTERNAL_RGBA_ASTC_8x6, TYPE_NONE, DDPF_FOURCC, D3DFMT_UNKNOWN, DXGI_FORMAT_UNKNOWN},				//RGBA_ASTC_8x6,
+		{ 16, glm::uvec3(8, 8, 1), 0,  4, true, INTERNAL_RGBA_ASTC_8x8, EXTERNAL_RGBA_ASTC_8x8, EXTERNAL_RGBA_ASTC_8x8, TYPE_NONE, DDPF_FOURCC, D3DFMT_UNKNOWN, DXGI_FORMAT_UNKNOWN},				//RGBA_ASTC_8x8,
+		{ 16, glm::uvec3(10, 5, 1), 0,  4, true, INTERNAL_RGBA_ASTC_10x5, EXTERNAL_RGBA_ASTC_10x5, EXTERNAL_RGBA_ASTC_10x5, TYPE_NONE, DDPF_FOURCC, D3DFMT_UNKNOWN, DXGI_FORMAT_UNKNOWN},			//RGBA_ASTC_10x5,
+		{ 16, glm::uvec3(10, 6, 1), 0,  4, true, INTERNAL_RGBA_ASTC_10x6, EXTERNAL_RGBA_ASTC_10x6, EXTERNAL_RGBA_ASTC_10x6, TYPE_NONE, DDPF_FOURCC, D3DFMT_UNKNOWN, DXGI_FORMAT_UNKNOWN},			//RGBA_ASTC_10x6,
+		{ 16, glm::uvec3(10, 8, 1), 0,  4, true, INTERNAL_RGBA_ASTC_10x8, EXTERNAL_RGBA_ASTC_10x8, EXTERNAL_RGBA_ASTC_10x8, TYPE_NONE, DDPF_FOURCC, D3DFMT_UNKNOWN, DXGI_FORMAT_UNKNOWN},			//RGBA_ASTC_10x8,
+		{ 16, glm::uvec3(10, 10, 1), 0,  4, true, INTERNAL_RGBA_ASTC_10x10, EXTERNAL_RGBA_ASTC_10x10, EXTERNAL_RGBA_ASTC_10x10, TYPE_NONE, DDPF_FOURCC, D3DFMT_UNKNOWN, DXGI_FORMAT_UNKNOWN},		//RGBA_ASTC_10x10,
+		{ 16, glm::uvec3(12, 10, 1), 0,  4, true, INTERNAL_RGBA_ASTC_12x10, EXTERNAL_RGBA_ASTC_12x10, EXTERNAL_RGBA_ASTC_12x10, TYPE_NONE, DDPF_FOURCC, D3DFMT_UNKNOWN, DXGI_FORMAT_UNKNOWN},		//RGBA_ASTC_12x10,
+		{ 16, glm::uvec3(12, 12, 1), 0,  4, true, INTERNAL_RGBA_ASTC_12x12, EXTERNAL_RGBA_ASTC_12x12, EXTERNAL_RGBA_ASTC_12x12, TYPE_NONE, DDPF_FOURCC, D3DFMT_UNKNOWN, DXGI_FORMAT_UNKNOWN},		//RGBA_ASTC_12x12,
 
 		// sRGB formats
 		{  3, glm::uvec3(1), 24,  3, false, INTERNAL_SRGB8, EXTERNAL_RGB, EXTERNAL_BGR, TYPE_U8, DDPF_FOURCC, D3DFMT_DX10, DXGI_FORMAT_B8G8R8X8_UNORM_SRGB},					//SRGB8,
@@ -363,7 +289,28 @@ inline format_desc const getFormatInfo(format const & Format)
 		{ 16, glm::uvec3(4, 4, 1), 8,  4, true, INTERNAL_SRGB_ALPHA_DXT3, EXTERNAL_NONE, EXTERNAL_NONE, TYPE_NONE, DDPF_FOURCC, D3DFMT_DX10, DXGI_FORMAT_BC2_UNORM_SRGB},		//sRGB_DXT3,
 		{ 16, glm::uvec3(4, 4, 1), 8,  4, true, INTERNAL_SRGB_ALPHA_DXT5, EXTERNAL_NONE, EXTERNAL_NONE, TYPE_NONE, DDPF_FOURCC, D3DFMT_DX10, DXGI_FORMAT_BC3_UNORM_SRGB},		//sRGB_DXT5,
 		{ 16, glm::uvec3(4, 4, 1), 8,  3, true, INTERNAL_SRGB_BP_UNORM, EXTERNAL_NONE, EXTERNAL_NONE, TYPE_NONE, DDPF_FOURCC, D3DFMT_DX10, DXGI_FORMAT_BC7_UNORM_SRGB},			//sRGB_BP,
+		{  8, glm::uvec3(4, 4, 1), 4,  3, true, INTERNAL_SRGB_PVRTC_2BPPV1, EXTERNAL_RGB_PVRTC_4BPPV1, EXTERNAL_RGB_PVRTC_4BPPV1, TYPE_NONE, DDPF_FOURCC, D3DFMT_POWERVR_4BPP, DXGI_FORMAT_UNKNOWN},				//RGB_PVRTC_4BPPV1,
+		{  4, glm::uvec3(4, 4, 1), 2,  3, true, INTERNAL_SRGB_PVRTC_4BPPV1, EXTERNAL_RGB_PVRTC_2BPPV1, EXTERNAL_RGB_PVRTC_2BPPV1, TYPE_NONE, DDPF_FOURCC, D3DFMT_POWERVR_2BPP, DXGI_FORMAT_UNKNOWN},				//RGB_PVRTC_2BPPV1,
+		{  8, glm::uvec3(4, 4, 1), 4,  4, true, INTERNAL_SRGB_ALPHA_PVRTC_2BPPV1, EXTERNAL_RGBA_PVRTC_4BPPV1, EXTERNAL_RGBA_PVRTC_4BPPV1, TYPE_NONE, DDPF_FOURCC, D3DFMT_POWERVR_4BPP, DXGI_FORMAT_UNKNOWN},		//RGBA_PVRTC_4BPPV1,
+		{  4, glm::uvec3(4, 4, 1), 2,  4, true, INTERNAL_SRGB_ALPHA_PVRTC_4BPPV1, EXTERNAL_RGBA_PVRTC_2BPPV1, EXTERNAL_RGBA_PVRTC_2BPPV1, TYPE_NONE, DDPF_FOURCC, D3DFMT_POWERVR_2BPP, DXGI_FORMAT_UNKNOWN},		//RGBA_PVRTC_2BPPV1,
+		{ 16, glm::uvec3(4, 4, 1), 0,  4, true, INTERNAL_SRGB8_ALPHA8_ASTC_4x4, EXTERNAL_RGBA_ASTC_4x4, EXTERNAL_RGBA_ASTC_4x4, TYPE_NONE, DDPF_FOURCC, D3DFMT_UNKNOWN, DXGI_FORMAT_UNKNOWN},						//RGBA_ASTC_4x4,
+		{ 16, glm::uvec3(5, 4, 1), 0,  4, true, INTERNAL_SRGB8_ALPHA8_ASTC_5x4, EXTERNAL_RGBA_ASTC_5x4, EXTERNAL_RGBA_ASTC_5x4, TYPE_NONE, DDPF_FOURCC, D3DFMT_UNKNOWN, DXGI_FORMAT_UNKNOWN},						//RGBA_ASTC_5x4,
+		{ 16, glm::uvec3(5, 5, 1), 0,  4, true, INTERNAL_SRGB8_ALPHA8_ASTC_5x5, EXTERNAL_RGBA_ASTC_5x5, EXTERNAL_RGBA_ASTC_5x5, TYPE_NONE, DDPF_FOURCC, D3DFMT_UNKNOWN, DXGI_FORMAT_UNKNOWN},						//RGBA_ASTC_5x5,
+		{ 16, glm::uvec3(6, 5, 1), 0,  4, true, INTERNAL_SRGB8_ALPHA8_ASTC_6x5, EXTERNAL_RGBA_ASTC_6x5, EXTERNAL_RGBA_ASTC_6x5, TYPE_NONE, DDPF_FOURCC, D3DFMT_UNKNOWN, DXGI_FORMAT_UNKNOWN},						//RGBA_ASTC_6x5,
+		{ 16, glm::uvec3(6, 6, 1), 0,  4, true, INTERNAL_SRGB8_ALPHA8_ASTC_6x6, EXTERNAL_RGBA_ASTC_6x6, EXTERNAL_RGBA_ASTC_6x6, TYPE_NONE, DDPF_FOURCC, D3DFMT_UNKNOWN, DXGI_FORMAT_UNKNOWN},						//RGBA_ASTC_6x6,
+		{ 16, glm::uvec3(8, 5, 1), 0,  4, true, INTERNAL_SRGB8_ALPHA8_ASTC_8x5, EXTERNAL_RGBA_ASTC_8x5, EXTERNAL_RGBA_ASTC_8x5, TYPE_NONE, DDPF_FOURCC, D3DFMT_UNKNOWN, DXGI_FORMAT_UNKNOWN},						//RGBA_ASTC_8x5,
+		{ 16, glm::uvec3(8, 6, 1), 0,  4, true, INTERNAL_SRGB8_ALPHA8_ASTC_8x6, EXTERNAL_RGBA_ASTC_8x6, EXTERNAL_RGBA_ASTC_8x6, TYPE_NONE, DDPF_FOURCC, D3DFMT_UNKNOWN, DXGI_FORMAT_UNKNOWN},						//RGBA_ASTC_8x6,
+		{ 16, glm::uvec3(8, 8, 1), 0,  4, true, INTERNAL_SRGB8_ALPHA8_ASTC_8x8, EXTERNAL_RGBA_ASTC_8x8, EXTERNAL_RGBA_ASTC_8x8, TYPE_NONE, DDPF_FOURCC, D3DFMT_UNKNOWN, DXGI_FORMAT_UNKNOWN},						//RGBA_ASTC_8x8,
+		{ 16, glm::uvec3(10, 5, 1), 0,  4, true, INTERNAL_SRGB8_ALPHA8_ASTC_10x5, EXTERNAL_RGBA_ASTC_10x5, EXTERNAL_RGBA_ASTC_10x5, TYPE_NONE, DDPF_FOURCC, D3DFMT_UNKNOWN, DXGI_FORMAT_UNKNOWN},					//SRGB8_ALPHA8_ASTC_10x5,
+		{ 16, glm::uvec3(10, 6, 1), 0,  4, true, INTERNAL_SRGB8_ALPHA8_ASTC_10x6, EXTERNAL_RGBA_ASTC_10x6, EXTERNAL_RGBA_ASTC_10x6, TYPE_NONE, DDPF_FOURCC, D3DFMT_UNKNOWN, DXGI_FORMAT_UNKNOWN},					//SRGB8_ALPHA8_ASTC_10x6,
+		{ 16, glm::uvec3(10, 8, 1), 0,  4, true, INTERNAL_SRGB8_ALPHA8_ASTC_10x8, EXTERNAL_RGBA_ASTC_10x8, EXTERNAL_RGBA_ASTC_10x8, TYPE_NONE, DDPF_FOURCC, D3DFMT_UNKNOWN, DXGI_FORMAT_UNKNOWN},					//SRGB8_ALPHA8_ASTC_10x8,
+		{ 16, glm::uvec3(10, 10, 1), 0,  4, true, INTERNAL_SRGB8_ALPHA8_ASTC_10x10, EXTERNAL_RGBA_ASTC_10x10, EXTERNAL_RGBA_ASTC_10x10, TYPE_NONE, DDPF_FOURCC, D3DFMT_UNKNOWN, DXGI_FORMAT_UNKNOWN},				//SRGB8_ALPHA8_ASTC_10x10,
+		{ 16, glm::uvec3(12, 10, 1), 0,  4, true, INTERNAL_SRGB8_ALPHA8_ASTC_12x10, EXTERNAL_RGBA_ASTC_12x10, EXTERNAL_RGBA_ASTC_12x10, TYPE_NONE, DDPF_FOURCC, D3DFMT_UNKNOWN, DXGI_FORMAT_UNKNOWN},				//SRGB8_ALPHA8_ASTC_12x10,
+		{ 16, glm::uvec3(12, 12, 1), 0,  4, true, INTERNAL_SRGB8_ALPHA8_ASTC_12x12, EXTERNAL_RGBA_ASTC_12x12, EXTERNAL_RGBA_ASTC_12x12, TYPE_NONE, DDPF_FOURCC, D3DFMT_UNKNOWN, DXGI_FORMAT_UNKNOWN},				//SRGB8_ALPHA8_ASTC_12x12,
 	};
+
+	std::size_t const Count = sizeof(Desc) / sizeof(format_desc);
+	GLM_STATIC_ASSERT(Count == gli::FORMAT_MAX, "GLI error: format descriptor list doesn't match number of supported formats");
 
 	return Desc[Format];
 };
@@ -404,43 +351,54 @@ inline format_desc const getFormatInfo(format const & Format)
 
 	inline storage::storage
 	(
-		size_type const & Layers, 
+		size_type const & Layers,
 		size_type const & Faces,
 		size_type const & Levels,
 		format_type const & Format,
 		dimensions_type const & Dimensions
 	) :
 		Impl(new impl(
-			Layers, 
-			Faces, 
-			Levels, 
-			Format, 
-			Dimensions, 
-			gli::block_size(Format), 
+			Layers,
+			Faces,
+			Levels,
+			Format,
+			Dimensions,
+			gli::block_size(Format),
 			gli::block_dimensions(Format)))
 	{
-		Impl->Data.resize(this->layerSize() * Layers);
+		assert(Layers > 0);
+		assert(Faces > 0);
+		assert(Levels > 0);
+		assert(glm::all(glm::greaterThan(Dimensions, dimensions_type(0))));
+
+		Impl->Data.resize(this->layerSize(0, Faces - 1, 0, Levels - 1) * Layers, 0);
 	}
 
 	inline storage::storage
 	(
-		size_type const & Layers, 
+		size_type const & Layers,
 		size_type const & Faces,
 		size_type const & Levels,
 		dimensions_type const & Dimensions,
+		format_type const & Format,
 		size_type const & BlockSize,
 		dimensions_type const & BlockDimensions
-	) : 
+	) :
 		Impl(new impl(
-			Layers, 
-			Faces, 
-			Levels, 
-			FORMAT_NULL, 
-			Dimensions, 
-			BlockSize, 
+			Layers,
+			Faces,
+			Levels,
+			Format,
+			Dimensions,
+			BlockSize,
 			BlockDimensions))
 	{
-		Impl->Data.resize(this->layerSize() * Layers);	
+		assert(Layers > 0);
+		assert(Faces > 0);
+		assert(Levels > 0);
+		assert(glm::all(glm::greaterThan(Dimensions, dimensions_type(0))));
+
+		Impl->Data.resize(this->layerSize(0, Faces - 1, 0, Levels - 1) * Layers, 0);
 	}
 
 	inline bool storage::empty() const
@@ -489,7 +447,7 @@ inline format_desc const getFormatInfo(format const & Format)
 	{
 		assert(Level < this->Impl->Levels);
 
-		return glm::max(this->Impl->Dimensions >> storage::dimensions_type(Level), storage::dimensions_type(1));
+		return glm::max(this->Impl->Dimensions >> storage::dimensions_type(static_cast<glm::uint>(Level)), storage::dimensions_type(static_cast<glm::uint>(1)));
 	}
 
 	inline storage::size_type storage::size() const
@@ -518,29 +476,40 @@ inline format_desc const getFormatInfo(format const & Format)
 		storage::size_type const & Level
 	) const
 	{
-		assert(Level < this->Impl->Levels);
+		assert(Level < this->levels());
 
 		return this->blockSize() * glm::compMul(glm::higherMultiple(
-			this->dimensions(Level), 
-			this->blockDimensions()) / this->blockDimensions()); 
+			this->dimensions(Level),
+			this->blockDimensions()) / this->blockDimensions());
 	}
 
-	inline storage::size_type storage::faceSize() const
+	inline storage::size_type storage::faceSize(
+		size_type const & BaseLevel,
+		size_type const & MaxLevel) const
 	{
+		assert(MaxLevel < this->levels());
+		
 		size_type FaceSize(0);
 
 		// The size of a face is the sum of the size of each level.
-		for(storage::size_type Level(0); Level < this->levels(); ++Level)
+		for(storage::size_type Level(BaseLevel); Level <= MaxLevel; ++Level)
 			FaceSize += this->levelSize(Level);
 
 		return FaceSize;// * TexelSize;
 	}
 
-	inline storage::size_type storage::layerSize() const
+	inline storage::size_type storage::layerSize(
+		size_type const & BaseFace,
+		size_type const & MaxFace,
+		size_type const & BaseLevel,
+		size_type const & MaxLevel) const
 	{
+		assert(MaxFace < this->faces());
+		assert(MaxLevel < this->levels());
+
 		// The size of a layer is the sum of the size of each face.
 		// All the faces have the same size.
-		return this->faceSize() * this->faces();
+		return this->faceSize(BaseLevel, MaxLevel) * (MaxFace - BaseFace + 1);
 	}
 
 /*
@@ -565,7 +534,7 @@ inline format_desc const getFormatInfo(format const & Format)
 
 		memcpy(
 			SubStorage.data(), 
-			Storage.data() + Storage.linearAddressing(Offset, 0, 0), 
+			Storage.data() + Storage.imageAddressing(Offset, 0, 0), 
 			Storage.layerSize() * Size);
 
 		return SubStorage;
@@ -590,7 +559,7 @@ inline format_desc const getFormatInfo(format const & Format)
 
 		memcpy(
 			SubStorage.data(), 
-			Storage.data() + Storage.linearAddressing(0, storage::size_type(Face), 0), 
+			Storage.data() + Storage.imageAddressing(0, storage::size_type(Face), 0), 
 			Storage.faceSize());
 
 		return SubStorage;
@@ -616,7 +585,7 @@ inline format_desc const getFormatInfo(format const & Format)
 
 		memcpy(
 			SubStorage.data(), 
-			Storage.data() + Storage.linearAddressing(0, 0, Level), 
+			Storage.data() + Storage.imageAddressing(0, 0, Level), 
 			Storage.levelSize(Level));
 
 		return SubStorage;
@@ -637,8 +606,8 @@ inline format_desc const getFormatInfo(format const & Format)
 		assert(SourceStorage.layers() <= SourceLayerOffset + SourceLayerSize);
 		assert(DestinationStorage.layers() <= DestinationLayerOffset + SourceLayerSize);
 
-		std::size_t OffsetSrc = SourceStorage.linearAddressing(SourceLayerOffset, 0, 0);
-		std::size_t OffsetDst = DestinationStorage.linearAddressing(DestinationLayerOffset, 0, 0);
+		std::size_t OffsetSrc = SourceStorage.imageAddressing(SourceLayerOffset, 0, 0);
+		std::size_t OffsetDst = DestinationStorage.imageAddressing(DestinationLayerOffset, 0, 0);
 
 		memcpy(
 			DestinationStorage.data() + OffsetDst * DestinationStorage.blockSize(), 
@@ -656,11 +625,6 @@ inline format_desc const getFormatInfo(format const & Format)
 		return detail::getFormatInfo(Format).BlockDimensions;
 	}
 
-	inline std::size_t bits_per_pixel(format const & Format)
-	{
-		return detail::getFormatInfo(Format).BBP;
-	}
-
 	inline std::size_t component_count(format const & Format)
 	{
 		return detail::getFormatInfo(Format).Component;
@@ -671,18 +635,19 @@ inline format_desc const getFormatInfo(format const & Format)
 		return detail::getFormatInfo(Format).Compressed;
 	}
 
-	inline internalFormat internal_format(format const & Format)
+	inline std::size_t level_count(storage::dimensions1_type const & Size)
 	{
-		return detail::getFormatInfo(Format).Internal;
+		return glm::log2(Size) + 1;
 	}
 
-	inline externalFormat external_format(format const & Format)
+	inline std::size_t level_count(storage::dimensions2_type const & Size)
 	{
-		return detail::getFormatInfo(Format).ExternalShuffle;
+		return glm::log2(glm::compMax(Size)) + 1;
 	}
 
-	inline typeFormat type_format(format const & Format)
+	inline std::size_t level_count(storage::dimensions3_type const & Size)
 	{
-		return detail::getFormatInfo(Format).Type;
+		return glm::log2(glm::compMax(Size)) + 1;
 	}
+
 }//namespace gli

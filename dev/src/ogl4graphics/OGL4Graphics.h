@@ -66,6 +66,8 @@ namespace ld3d
 		void									ResetViewport();
 
 		bool									IsFullscreen();
+
+		const std::vector<std::string>&			GetGLExtensions();
 	private:
 		GraphicsSetting							m_setting;
 

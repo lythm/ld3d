@@ -302,7 +302,17 @@ namespace ld3d
 
 		LOAD_API(glCompressedTexSubImage2D,								PFNGLCOMPRESSEDTEXSUBIMAGE2DPROC);
 
+		LOAD_API(glCompressedTexSubImage3D,								PFNGLCOMPRESSEDTEXSUBIMAGE3DPROC);
+
 		return true;
+	}
+	const std::vector<std::string>& OGL4Loader::GetExt()
+	{
+
+		GLint v = 0;
+		glGetIntegerv(GL_MAX_ARRAY_TEXTURE_LAYERS, &v);
+
+		return m_exts;
 	}
 }
 

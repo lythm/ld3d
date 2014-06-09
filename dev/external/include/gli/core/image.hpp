@@ -27,8 +27,6 @@
 ///
 /// @defgroup core_image Image 
 /// @ingroup core
-/// 
-/// Image1D 
 ///////////////////////////////////////////////////////////////////////////////////
 
 #ifndef GLI_CORE_IMAGE_INCLUDED
@@ -40,10 +38,13 @@
 
 namespace gli
 {
-	//template <typename addressing = linearAddressing>
+	/// Image
 	class image
 	{
 	public:
+		typedef storage::dimensions1_type dimensions1_type;
+		typedef storage::dimensions2_type dimensions2_type;
+		typedef storage::dimensions3_type dimensions3_type;
 		typedef storage::dimensions3_type dimensions_type;
 		typedef storage::size_type size_type;
 
@@ -63,33 +64,51 @@ namespace gli
 		/// Reference an exiting storage constructor
 		explicit image(
 			storage const & Storage,
-			detail::view const & View);
+			size_type BaseLayer, size_type MaxLayer,
+			size_type BaseFace, size_type MaxFace,
+			size_type BaseLevel, size_type MaxLevel);
 
 		/// Cast an image into a storage
-		//operator storage
+		operator storage() const;
 
 		bool empty() const;
-		size_type size() const;
 		dimensions_type dimensions() const;
 
+		size_type size() const;
 		void * data();
 		void const * data() const;
 
+		template <typename genType>
+		size_type size() const;
 		template <typename genType>
 		genType * data();
 		template <typename genType>
 		genType const * data() const;
 
-		bool isReference() const;
+		void clear();
+		template <typename genType>
+		void clear(genType const & Texel);
+		template <typename genType>
+		genType load(dimensions_type const & TexelCoord);
+		template <typename genType>
+		void store(dimensions_type const & TexelCoord, genType const & Data);
+
+		size_type baseLayer() const;
+		size_type maxLayer() const;
+		size_type baseFace() const;
+		size_type maxFace() const;
+		size_type baseLevel() const;
+		size_type maxLevel() const;
 
 	private:
 		storage Storage;
-		detail::view View;
+		size_type BaseLayer; 
+		size_type MaxLayer; 
+		size_type BaseFace;
+		size_type MaxFace;
+		size_type BaseLevel;
+		size_type MaxLevel;
 	};
-
-	bool operator== (image const & ImageA, image const & ImageB);
-
-	bool operator!= (image const & ImageA, image const & ImageB);
 }//namespace gli
 
 #include "image.inl"

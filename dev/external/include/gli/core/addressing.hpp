@@ -34,33 +34,108 @@
 namespace gli{
 namespace detail
 {
-	storage::size_type linearAddressing(
+	size_type imageAddressing(
 		storage const & Storage,
-		storage::size_type const & LayerOffset, 
-		storage::size_type const & FaceOffset, 
-		storage::size_type const & LevelOffset);
+		size_type const & LayerOffset, 
+		size_type const & FaceOffset, 
+		size_type const & LevelOffset);
+
+	size_type texelLinearAdressing(
+		dimensions1_type const & Dimensions,
+		dimensions1_type const & TexelCoord);
+
+	size_type texelLinearAdressing(
+		dimensions2_type const & Dimensions,
+		dimensions2_type const & TexelCoord);
+
+	size_type texelLinearAdressing(
+		dimensions3_type const & Dimensions,
+		dimensions3_type const & TexelCoord);
+
+	size_type texelMortonAdressing(
+		dimensions1_type const & Dimensions,
+		dimensions1_type const & TexelCoord);
+
+	size_type texelMortonAdressing(
+		dimensions2_type const & Dimensions,
+		dimensions2_type const & TexelCoord);
+
+	size_type texelMortonAdressing(
+		dimensions3_type const & Dimensions,
+		dimensions3_type const & TexelCoord);
 
 }//namespace detail
-
-	struct addressing
+/*
+	template <typename texture>
+	class sampler
 	{
-		virtual storage::size_type operator() (
-			storage const & Storage,
-			storage::size_type const & LayerOffset, 
-			storage::size_type const & FaceOffset, 
-			storage::size_type const & LevelOffset) const = 0;
-	};
+		enum wrap
+		{
+			MIRROR,
+			CLAMP_TO_EDGE
+		};
 
-	class linearAddressing : public addressing
-	{
+		enum filter
+		{
+			NEAREST,
+			LINEAR,
+			CUBIC
+		};
+
 	public:
-		virtual storage::size_type operator() (
-			storage const & Storage,
-			storage::size_type const & LayerOffset, 
-			storage::size_type const & FaceOffset, 
-			storage::size_type const & LevelOffset) const;
-	};
+		sampler(texture const & Texture)
+		{
+			switch(Texture.format())
+			{
+			default:
+				break;
+			case RGB_DXT1:
+				Impl.reset(new impl_fetch_dxt1());
+				break;
+			}
+		}
 
+		template <typename genType>
+		genType operator() (texture::dimension_type const & Dimensions) const
+
+	private:
+		struct impl
+		{
+			virtual ~impl(){}
+
+			template <typename genType>
+			virtual genType operator() (texture::dimension_type const & Dimensions) const = 0;
+		};
+
+		class impl_fetch_color : public impl
+		{
+		public: 
+			impl_fetch_color(){}
+
+			template <typename genType>
+			virtual genType operator() (
+				texture const & Texture,
+				texture::texcoord_type const & Texcoord) const;
+
+		private:
+
+		};
+
+		class impl_fetch_dxt1 : public impl
+		{
+		public:
+			impl_fetch_dxt1(){}
+
+			template <typename genType>
+			virtual genType operator() (texture::dimension_type const & Dimensions) const;
+
+		private:
+
+		};
+
+		shared_ptr<impl> Impl;
+	};
+*/
 }//namespace gli
 
 #include "addressing.inl"

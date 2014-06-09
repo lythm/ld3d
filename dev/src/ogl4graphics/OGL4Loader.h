@@ -13,6 +13,8 @@ namespace ld3d
 		void										Unload();
 
 		bool										IsExtSupported(const std::string& ext);
+
+		const std::vector<std::string>&				GetExt();
 	private:
 		bool										load_module();
 		bool										load_version();

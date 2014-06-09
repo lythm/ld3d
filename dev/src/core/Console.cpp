@@ -9,6 +9,7 @@
 #include "core/Event.h"
 #include "core/WebpageRenderer.h"
 #include "core/Screen.h"
+#include "core/Sys_Graphics.h"
 
 #include "core_utils.h"
 
@@ -50,6 +51,7 @@ namespace ld3d
 		RegisterConsoleCommand("show_debug_panel", std::bind(&Console::_on_cmd_show_debug_panel, this, std::placeholders::_1, std::placeholders::_2));
 		RegisterConsoleCommand("set_windowed", std::bind(&Console::_on_cmd_set_windowed, this, std::placeholders::_1, std::placeholders::_2));
 		RegisterConsoleCommand("set_resolution", std::bind(&Console::_on_cmd_set_resolution, this, std::placeholders::_1, std::placeholders::_2));
+		RegisterConsoleCommand("get_gl_ext", std::bind(&Console::_on_cmd_get_gl_ext, this, std::placeholders::_1, std::placeholders::_2));
 		
 		return true;
 	}
@@ -227,6 +229,23 @@ namespace ld3d
 		ScreenPtr pScreen = m_pCore->GetScreen();
 
 		pScreen->SetResolution(w, h);
+	}
+	void Console::_on_cmd_get_gl_ext(const CommandLine& cl, std::function<void (const std::string&)>)
+	{
+		if(cl.GetParamCount() != 0)
+		{
+			WriteLine("invalid parameters");
+			return;
+		}
+
+		std::vector<std::string> exts = m_pCore->GetSysGraphics()->GetGLExtensions();
+
+		for(auto s : exts)
+		{
+			WriteLine(s);
+
+			logger() << s << "\n";
+		}
 	}
 }
 

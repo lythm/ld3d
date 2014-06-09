@@ -120,6 +120,8 @@ namespace ld3d
 
 		TEX_2DMS,
 
+		TEX_2D_ARRAY,
+
 		TEX_RENDERTARGET,
 		TEX_DEPTHSTENCIL,
 

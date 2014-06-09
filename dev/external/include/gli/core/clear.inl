@@ -29,15 +29,15 @@
 namespace gli
 {
 	template <typename genType>
-	inline image2D clear
+	inline image clear
 	(
-		image2D const & Image, 
+		image const & Image, 
 		genType const & Texel
 	)
 	{
-		image2D Result = Image;
-		for(std::size_t i = 0; i < Image.capacity() / sizeof(genType); ++i)
-			Image.data<genType>()[i] = Texel;
+		image Result = Image;
+		for(std::size_t i = 0; i < Image.size() / sizeof(genType); ++i)
+			*static_cast<genType*>(Image.data)[i] = Texel;
 		return Result;
 	}
 
