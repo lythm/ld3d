@@ -33,7 +33,7 @@ namespace ld3d
 
 			if(pRegion == nullptr)
 			{
-				pRegion = std::make_shared<Region>();
+				pRegion = std::allocate_shared<Region, std_allocator_adapter<Region>>(GetAllocator());
 				pRegion->Initialize(m_pWorld, c);
 
 				m_loadingQueue.push_back(pRegion);

@@ -64,6 +64,7 @@ namespace ld3d
 	}
 	void CorePackage::RegisterTemplates()
 	{
+		
 		GameObjectTemplate* pTpl = new Tpl_Cube(m_pManager, "Cube");
 		m_tpls.push_back(pTpl);
 

@@ -20,9 +20,12 @@ namespace ld3d
 		MaterialPtr Compiler::CompileFromStream(Sys_GraphicsPtr pGraphics, DataStream* pStream, const boost::filesystem::path& filename)
 		{
 			uint64 size = pStream->Size();
-			char* szSrc = new char[size + 1];
+			//char* szSrc = new char[size + 1];
+			char* szSrc = (char*)mem_alloc(size + 1);
+
 			szSrc[size] = 0;
-			SCOPE_EXIT(delete szSrc);
+			//SCOPE_EXIT(delete szSrc);
+			SCOPE_EXIT(mem_free(szSrc));
 
 			pStream->Read(szSrc, size);
 

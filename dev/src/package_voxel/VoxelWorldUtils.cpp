@@ -364,6 +364,7 @@ namespace ld3d
 		sub.vertexCount				= 0;
 		sub.vertexBuffer			= nullptr;
 
+
 		if(mesh.size() != 0)
 		{
 			sub.type = mesh[0].type;

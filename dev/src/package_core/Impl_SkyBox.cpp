@@ -14,14 +14,7 @@ namespace ld3d
 	}
 	void Impl_SkyBox::Update(float dt)
 	{
-		m_pRD->world_matrix = m_pObject->GetWorldTransform();
-
-		math::Vector3 pos = m_pRD->world_matrix.GetTranslation();
 		
-		if(m_pWorldPos)
-		{
-			m_pWorldPos->SetParameterVector(pos);
-		}
 
 	}
 
@@ -130,6 +123,14 @@ namespace ld3d
 	}
 	void Impl_SkyBox::on_event_frustum_cull(EventPtr pEvent)
 	{
+		m_pRD->world_matrix = m_pObject->GetWorldTransform();
+
+		math::Vector3 pos = m_pRD->world_matrix.GetTranslation();
+		
+		if(m_pWorldPos)
+		{
+			m_pWorldPos->SetParameterVector(pos);
+		}
 		m_pManager->GetRenderManager()->AddRenderData(layer_sky, m_pRD);
 	}
 }

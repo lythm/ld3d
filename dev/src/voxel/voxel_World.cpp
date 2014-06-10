@@ -13,6 +13,13 @@ namespace ld3d
 {
 	namespace voxel
 	{
+		static Allocator*				g_pAllocator = nullptr;
+		Allocator*						GetAllocator()
+		{
+			return g_pAllocator;
+		}
+
+
 		World::World(void)
 		{
 			m_worldBound = Bound(Coord(-0x10000000/2 * (int32)CHUNK_SIZE, -128 * (int32)CHUNK_SIZE, -0x10000000/2 * (int32)CHUNK_SIZE), 
@@ -24,24 +31,27 @@ namespace ld3d
 		World::~World(void)
 		{
 		}
-		bool World::Initialize(WorldGenPtr pGen)
+		bool World::Initialize(WorldGenPtr pGen, Allocator* pAlloc)
 		{
-			m_pChunkManager = std::make_shared<ChunkManager>();
-			m_pRegionManager = std::make_shared<RegionManager>();
+			g_pAllocator = pAlloc;
+
+			m_pChunkManager		= std::allocate_shared<ChunkManager, std_allocator_adapter<ChunkManager>>(GetAllocator());//std::make_shared<ChunkManager>();
+			m_pRegionManager	= std::allocate_shared<RegionManager, std_allocator_adapter<RegionManager>>(GetAllocator());//std::make_shared<RegionManager>();
+
 			if(m_pRegionManager->Initialize(shared_from_this()) == false)
 			{
 				return false;
 			}
 			m_pGen = pGen;
 
-			m_pGen = std::make_shared<WorldGen>();
+			m_pGen = std::allocate_shared<WorldGen, std_allocator_adapter<WorldGen>>(GetAllocator());//std::make_shared<WorldGen>();
 
 			m_pGen->Initialize();
 
 			m_pGen->SetWorld(shared_from_this());
 
 
-			m_pGen->AddPass(std::make_shared<WorldGenPass_Heightmap>());
+			m_pGen->AddPass(std::allocate_shared<WorldGenPass_Heightmap, std_allocator_adapter<WorldGenPass_Heightmap>>(GetAllocator()));
 
 		//	m_pGen->GenChunk(Coord(0, 0, 0));
 

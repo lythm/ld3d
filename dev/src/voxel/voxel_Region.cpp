@@ -2,6 +2,7 @@
 #include "voxel/voxel_Region.h"
 #include "voxel/voxel_World.h"
 #include "voxel/voxel_WorldGen.h"
+#include "voxel_ChunkManager.h"
 
 namespace ld3d
 {
@@ -58,26 +59,13 @@ namespace ld3d
 				for(int32 z = 0; z < REGION_SIZE; ++z)
 				{
 					double h = p.Get(double(x + region_origin.x) / double(ex), double(z + region_origin.z) / double(ez));
+					height_map[z * REGION_SIZE + x] = h * (REGION_HEIGHT / 2.0f);
 
+					Coord c(x + region_origin.x, h * (REGION_HEIGHT / 2.0f), z + region_origin.z);
+					m_pChunkManager->ReplaceBlock(c, 1);
 				}
 			}
 
-
-			for(int32 x = 0; x < REGION_CHUNK_LENGTH; ++x)
-			{
-				for(int32 z = 0; z < REGION_CHUNK_LENGTH; ++z)
-				{
-					Coord c = Coord(x, 0, z) * CHUNK_SIZE + region_origin;
-
-					double h = p.Get(double(c.x) / double(ex), double(c.z) / double(ez));
-					
-					height_map[x + z * REGION_SIZE] = (h * REGION_HEIGHT) / 2;
-
-
-				}
-			}
-
-			
 			
 		/*	uint8 chunk_data[CHUNK_SIZE * CHUNK_SIZE * CHUNK_SIZE];
 			

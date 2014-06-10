@@ -30,8 +30,11 @@ namespace ld3d
 			}
 
 			pChunk->SetBlock(c - key.ToChunkOrigin(), type);
-			pChunk->SetDirty(true);
-			m_dirtyList.push_back(pChunk);
+			if(pChunk->IsDirty() == false)
+			{
+				pChunk->SetDirty(true);
+				m_dirtyList.push_back(pChunk);
+			}
 			return true;
 		}
 		ChunkPtr ChunkManager::CreateChunk(const ChunkKey& key, uint8 data[])
@@ -67,6 +70,10 @@ namespace ld3d
 		}
 		ChunkPtr ChunkManager::AllocChunk(uint8 data[])
 		{
+			if(GetAllocator() != nullptr)
+			{
+				return std::allocate_shared<Chunk, std_allocator_adapter<Chunk> >(GetAllocator(), shared_from_this(), data);
+			}
 			return std::make_shared<Chunk>(shared_from_this(), data);
 		}
 		void ChunkManager::UpdateBlock(const Coord& c)

@@ -32,9 +32,6 @@ namespace ld3d
 			voxel::ChunkMeshizerPtr pMeshizer = std::make_shared<voxel::ChunkMeshizer>();
 
 			
-
-
-
 			m_pCore = pCore;
 			pCore->GetCursor()->ConfineCursor(true);
 			pCore->GetCursor()->ShowCursor(false);
@@ -42,10 +39,6 @@ namespace ld3d
 			pCore->AddEventHandler(EV_KEYBOARD_STATE, boost::bind(&VoxelEditor::_on_key_state, this, _1));
 			pCore->AddEventHandler(EV_RESIZE_FRAMEBUFFER, boost::bind(&VoxelEditor::_on_resize, this, _1));
 
-
-			WorldPtr pWorld = std::make_shared<World>();
-
-			pWorld->Initialize(nullptr);
 
 			m_pGrid = pCore->CreateGameObject("Grid");
 
@@ -61,19 +54,21 @@ namespace ld3d
 			CameraDataPtr pMD = std::dynamic_pointer_cast<CameraData>(pCore->CreateGameObjectComponent("Camera"));
 			m_pCamera->AddComponent(pMD);
 
+			GameObjectComponentPtr pSkyBox = pCore->CreateGameObjectComponent("SkyBox");
+			m_pCamera->AddComponent(pSkyBox);
+
 			CameraController_FreePtr pController = std::dynamic_pointer_cast<CameraController_Free>(pCore->CreateGameObjectComponent("CameraFreeController"));
 			pController->SetSpeed(50);
 			//	pController->Enable(false);
 			m_pCamera->AddComponent(pController);
 
-			GameObjectComponentPtr pSkyBox = pCore->CreateGameObjectComponent("SkyBox");
-			m_pCamera->AddComponent(pSkyBox);
+			
 
 
 			m_pCamera->SetTranslation(0, 20, 0);
 
 			m_pWorld = std::make_shared<World>();
-			m_pWorld->Initialize(nullptr);
+			m_pWorld->Initialize(nullptr, m_pCore->GetAllocator());
 
 
 			GameObjectPtr pObj = pCore->CreateGameObject("Box");
