@@ -343,9 +343,9 @@ namespace ld3d
 
 		RenderTexturePtr pOutput = m_pPostEffectManager->GetInput();
 
-		m_pGraphics->SetRenderTarget(pOutput);
-		m_pGraphics->ClearRenderTarget(0, m_clearClr);
-
+		SetRenderTarget(pOutput);
+		ClearRenderTarget(0, m_clearClr);
+		ClearDepthBuffer(CLEAR_DEPTH, 1.0f, 0);
 		for(uint32 i = 0; i < m_pRenderQueue->GetRenderDataCount(layer_sky); ++i)
 		{
 			RenderDataPtr pData = m_pRenderQueue->GetRenderData(layer_sky, i);

@@ -127,10 +127,8 @@ namespace ld3d
 
 		math::Vector3 pos = m_pRD->world_matrix.GetTranslation();
 		
-		if(m_pWorldPos)
-		{
-			m_pWorldPos->SetParameterVector(pos);
-		}
+		m_pWorldPos->SetParameterVector(pos);
+		
 		m_pManager->GetRenderManager()->AddRenderData(layer_sky, m_pRD);
 	}
 }
