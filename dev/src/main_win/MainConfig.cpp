@@ -129,6 +129,11 @@ namespace ld3d
 
 		m_sysSetting.graphics.sysMod = graphics.text().get();
 
+		xml_attribute vsync = graphics.attribute("vsync");
+		if(vsync)
+		{
+			m_sysSetting.graphics.vsync = vsync.as_bool();
+		}
 
 		xml_node sound = sys.child("sys_sound");
 		if(sound == false)

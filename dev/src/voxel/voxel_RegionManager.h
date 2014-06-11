@@ -16,6 +16,7 @@ namespace ld3d
 			void											Release();
 
 			RegionPtr										LoadRegion(const Coord& c);
+			RegionPtr										LoadRegionSync(const Coord& c);
 			void											UnloadRegion(RegionPtr pRegion);
 
 			void											Update();

@@ -28,6 +28,7 @@ namespace ld3d
 		int h = m_pCore->GetRenderManager()->GetFrameBufferHeight();
 
 		m_pCore->AddEventHandler(EV_RESIZE_FRAMEBUFFER, std::bind(&DebugPanel::_on_resize, this, std::placeholders::_1));
+		m_pCore->AddEventHandler(EV_END_FRAME, std::bind(&DebugPanel::_on_end_frame, this, std::placeholders::_1));
 
 		m_pOverlay = m_pCore->GetUIManager()->CreateHtmlOverlay("sys_debug_panel", math::RectI(0, 0, w, h / 2), "file:///assets/standard/gui/debug_panel/index.html");
 
@@ -45,33 +46,7 @@ namespace ld3d
 	{
 		m_pOverlay->Show(show);
 	}
-	void DebugPanel::Update(float dt)
-	{
-		if(m_pOverlay->IsVisible() == false)
-		{
-			return;
-		}
-		m_updateDeltaTime += dt;
-
-		if(m_updateDeltaTime < 0.5f)
-		{
-			return;
-		}
-
-		m_updateDeltaTime = 0;
 	
-		std::stringstream str;
-
-		str.precision(3);
-		str.setf( std::ios::fixed, std:: ios::floatfield );
-
-		AppendFPS(str);
-		AppendMemPool(str);
-		AppendLines(str);
-		std::string content = str.str();
-		m_pOverlay->GetWebpageRenderer()->ExecuteJS("set_content('" +  content  + "');");
-
-	}
 	void DebugPanel::AppendLines(std::stringstream& steam)
 	{
 		for(int i = 0; i < m_lines.size(); ++i)
@@ -124,5 +99,36 @@ namespace ld3d
 		m_lines.push_back("");
 
 		return &m_lines[m_lines.size() - 1];
+	}
+	void DebugPanel::_on_end_frame(EventPtr pEvent)
+	{
+		if(m_pOverlay->IsVisible() == false)
+		{
+			return;
+		}
+
+		std::shared_ptr<Event_EndFrame> pEnd = std::dynamic_pointer_cast<Event_EndFrame>(pEvent);
+
+		float dt = pEnd->dt;
+		
+		m_updateDeltaTime += dt;
+
+		if(m_updateDeltaTime < 0.1f)
+		{
+			return;
+		}
+
+		m_updateDeltaTime = 0;
+	
+		std::stringstream str;
+
+		str.precision(3);
+		str.setf( std::ios::fixed, std:: ios::floatfield );
+
+		AppendFPS(str);
+		AppendMemPool(str);
+		AppendLines(str);
+		std::string content = str.str();
+		m_pOverlay->GetWebpageRenderer()->ExecuteJS("set_content('" +  content  + "');");
 	}
 }

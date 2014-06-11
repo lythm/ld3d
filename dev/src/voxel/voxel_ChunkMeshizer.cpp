@@ -80,7 +80,8 @@ namespace ld3d
 
 		ChunkMeshizer::~ChunkMeshizer(void)
 		{
-
+			m_materialMap.clear();
+			m_templates.clear();
 		}
 		void ChunkMeshizer::GenerateMesh(ChunkPtr pChunk, const Coord& base_coord, std::vector<VoxelMesh>& result)
 		{

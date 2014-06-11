@@ -42,6 +42,23 @@ namespace ld3d
 
 			return pRegion;
 		}
+		RegionPtr RegionManager::LoadRegionSync(const Coord& c)
+		{
+			RegionPtr pRegion = FindRegion(c);
+
+			if(pRegion == nullptr)
+			{
+				pRegion = std::allocate_shared<Region, std_allocator_adapter<Region>>(GetAllocator());
+				pRegion->Initialize(m_pWorld, c);
+				
+				pRegion->Load();
+				pRegion->SetLoaded(true);
+
+				m_regions.push_back(pRegion);
+			}
+
+			return pRegion;
+		}
 		void RegionManager::UnloadRegion(RegionPtr pRegion)
 		{
 			pRegion->DecRef();
@@ -77,8 +94,6 @@ namespace ld3d
 			m_loadingQueue.erase(it);
 			
 			return true;
-
-			
 		}
 		bool RegionManager::ProcessUnloadingQueue()
 		{

@@ -1,5 +1,6 @@
 #include "voxel_pch.h"
 #include "VoxelWorldImpl2.h"
+#include "VoxelWorldRendererImpl2.h"
 
 namespace ld3d
 {
@@ -58,7 +59,15 @@ namespace ld3d
 			m_pWorld = m_pManager->alloc_object<voxel::World>();
 		}
 
-		return m_pWorld->Create(name, nullptr, m_pManager->GetAllocator());
+		if(false == m_pWorld->Create(name, nullptr, m_pManager->GetAllocator()))
+		{
+			return false;
+		}
+
+		ResetComponents();
+
+		return true;
+
 	}
 	void VoxelWorldImpl2::DestroyWorld()
 	{
@@ -70,9 +79,15 @@ namespace ld3d
 		m_pWorld->Destroy();
 		m_pWorld = nullptr;
 
+		ResetComponents();
+
 	}
 	void VoxelWorldImpl2::Update(float dt)
 	{
+		if(m_pWorld)
+		{
+			m_pWorld->Update(dt);
+		}
 	}
 	bool VoxelWorldImpl2::OnAttach()
 	{
@@ -96,14 +111,36 @@ namespace ld3d
 				&VoxelWorldImpl2::GetWorldSizeZ,
 				&VoxelWorldImpl2::SetWorldSizeZ);
 
+		CreateWorld("empty");
 
-		
+		m_hEndFrame = m_pManager->AddEventHandler(EV_END_FRAME, std::bind(&VoxelWorldImpl2::_on_end_frame, this, std::placeholders::_1));
 		return true;
 	}
 	void VoxelWorldImpl2::OnDetach()
 	{
+		m_pManager->RemoveEventHandler(m_hEndFrame);
 		ClearPropertySet();
 
 		DestroyWorld();
+	}
+	voxel::WorldPtr VoxelWorldImpl2::GetWorld()
+	{
+		return m_pWorld;
+	}
+	void VoxelWorldImpl2::ResetComponents()
+	{
+		std::shared_ptr<VoxelWorldRendererImpl2> pRenderer = std::dynamic_pointer_cast<VoxelWorldRendererImpl2>(m_pObject->GetComponent("VoxelWorldRenderer"));
+
+		if(pRenderer != nullptr)
+		{
+			pRenderer->ResetWorld(m_pWorld);
+		}
+	}
+	void VoxelWorldImpl2::_on_end_frame(EventPtr pEvent)
+	{
+		if(m_pWorld)
+		{
+			m_pWorld->UpdateLoaderProcess();
+		}
 	}
 }

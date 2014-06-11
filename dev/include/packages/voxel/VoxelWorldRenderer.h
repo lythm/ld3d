@@ -10,6 +10,8 @@ namespace ld3d
 		virtual const bool&									GetShowBound()								= 0;
 		virtual void										SetShowBound(const bool& show)				= 0;
 
+		virtual void										BindWorldViewPort(GameObjectPtr pNode){}
+
 	protected:
 		VoxelWorldRenderer(GameObjectManagerPtr pManager) : GameObjectComponent("VoxelWorldRenderer", pManager){}
 		virtual ~VoxelWorldRenderer(void){}

@@ -57,13 +57,19 @@ namespace ld3d
 	}
 	void CoreApi::RunFrame()
 	{
-		m_frameMetric.BeginFrame();
-
 		float frame_step = 1.0f / 30.0f;
 
 		m_pSysTime->Update();
 
 		float dt = m_pSysTime->Second() - m_lastFrameTime;
+
+
+		std::shared_ptr<Event_BeginFrame> pBeginFrameEvent = alloc_object<Event_BeginFrame>(dt);
+		std::shared_ptr<Event_EndFrame> pEndFrameEvent = alloc_object<Event_EndFrame>(dt);
+		m_pEventDispatcher->DispatchEvent(pBeginFrameEvent);
+
+		m_frameMetric.BeginFrame();
+				
 		m_lastFrameTime = m_pSysTime->Second();
 
 		while(dt > frame_step)
@@ -78,7 +84,9 @@ namespace ld3d
 
 		m_frameMetric.EndFrame();
 
-		m_pDebugPanel->Update(dt);
+
+		m_pEventDispatcher->DispatchEvent(pEndFrameEvent);
+
 		UpdateFPS();
 	}
 	bool CoreApi::LoadMod(const std::string& name)

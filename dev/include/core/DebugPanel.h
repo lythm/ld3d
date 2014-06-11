@@ -13,12 +13,11 @@ namespace ld3d
 
 		void									Show(bool show);
 
-		void									Update(float dt);
-
 		std::string*							AddLine();
 
 	private:
 		void									_on_resize(EventPtr pEvent);
+		void									_on_end_frame(EventPtr pEvent);
 
 		void									AppendFPS(std::stringstream& stream);
 		void									AppendMemPool(std::stringstream& stream);

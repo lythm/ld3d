@@ -19,6 +19,7 @@ namespace ld3d
 			multiSampleCount	= 1;
 			multiSampleQuality	= 0;
 			backBufferCount		= 2;
+			vsync				= false;
 		}
 		std::string							sysMod;
 		void*								wnd;
@@ -30,7 +31,7 @@ namespace ld3d
 		int									multiSampleCount;
 		int									multiSampleQuality;
 		int									backBufferCount;
-
+		bool								vsync;
 	};
 
 	struct SoundSetting

@@ -19,6 +19,8 @@ namespace ld3d
 
 		void										BindWorldViewPort(GameObjectPtr pNode);
 		void										MoveViewPortTo(uint32 x, uint32 y, uint32 z);
+
+		void										ResetWorld(voxel::WorldPtr pWorld);
 	private:
 
 		bool										OnAttach();

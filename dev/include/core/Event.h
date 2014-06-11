@@ -25,6 +25,9 @@ namespace ld3d
 		EV_MOUSE_WHEEL,
 		EV_MOUSE_BUTTON,
 
+		EV_BEGIN_FRAME,
+		EV_END_FRAME,
+
 		
 		EV_SYS_EVENT_COUNT,
 
@@ -43,7 +46,25 @@ namespace ld3d
 
 		uint32								id;
 	};
+	class Event_BeginFrame : public Event
+	{
+	public:
+		Event_BeginFrame(float _dt) : Event(EV_BEGIN_FRAME)
+		{
+			dt = _dt;
+		}
 
+		float								dt;
+	};
+	class Event_EndFrame : public Event
+	{
+	public:
+		Event_EndFrame(float _dt) : Event(EV_END_FRAME)
+		{
+			dt = _dt;
+		}
+		float								dt;
+	};
 	class Event_MouseState : public Event
 	{
 	public:

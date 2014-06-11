@@ -28,7 +28,12 @@ namespace ld3d
 
 		void										Update(float dt);
 
+		void										_on_end_frame(EventPtr pEvent);
+		voxel::WorldPtr								GetWorld();
 	private:
+
+		void										ResetComponents();
+
 		bool										OnAttach();
 		void										OnDetach();
 	private:
@@ -38,6 +43,8 @@ namespace ld3d
 		int											m_worldSizeZ;
 
 		voxel::WorldPtr								m_pWorld;
+
+		EventHandlerID								m_hEndFrame;
 	};
 
 

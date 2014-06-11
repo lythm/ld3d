@@ -133,17 +133,17 @@ namespace ld3d
 		{
 			for(auto chunk : m_dirtyList)
 			{
-				if(_on_update_dirty_chunk)
+				for(auto handler : m_dirtyChunkHandlers)
 				{
-					_on_update_dirty_chunk(chunk);
+					handler(chunk);
 				}
 			}
 			
 			ClearDirtyChunks();
 		}
-		void ChunkManager::SetDirtyChunkHandler(const std::function<void (ChunkPtr)>& handler)
+		void ChunkManager::AddDirtyChunkHandler(const std::function<void (ChunkPtr)>& handler)
 		{
-			_on_update_dirty_chunk = handler;
+			m_dirtyChunkHandlers.push_back(handler);
 		}
 	}
 }

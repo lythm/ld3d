@@ -149,10 +149,12 @@ namespace ld3d
 		
 		void World::Update(float dt)
 		{
-			m_pRegionManager->Update();
 			m_pChunkManager->Update(dt);
 		}
-
+		void World::UpdateLoaderProcess()
+		{
+			m_pRegionManager->Update();
+		}
 		ChunkManagerPtr	World::GetChunkManager()
 		{
 			return m_pChunkManager;
@@ -198,9 +200,9 @@ namespace ld3d
 		{
 			return m_pGen;
 		}
-		void World::SetDirtyChunkHandler(const std::function<void (ChunkPtr)>& handler)
+		void World::AddDirtyChunkHandler(const std::function<void (ChunkPtr)>& handler)
 		{
-			m_pChunkManager->SetDirtyChunkHandler(handler);
+			m_pChunkManager->AddDirtyChunkHandler(handler);
 		}
 	}
 }

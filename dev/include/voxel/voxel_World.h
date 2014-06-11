@@ -36,7 +36,7 @@ namespace ld3d
 			void											ClearDirtyChunks();
 
 			void											Update(float dt);
-
+			void											UpdateLoaderProcess();
 			ChunkManagerPtr									GetChunkManager();
 			RegionManagerPtr								GetRegionManager();
 
@@ -52,7 +52,7 @@ namespace ld3d
 
 			WorldGenPtr										GetWorldGen();
 
-			void											SetDirtyChunkHandler(const std::function<void (ChunkPtr)>& handler);
+			void											AddDirtyChunkHandler(const std::function<void (ChunkPtr)>& handler);
 		private:
 		
 			

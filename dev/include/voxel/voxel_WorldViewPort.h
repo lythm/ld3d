@@ -23,6 +23,11 @@ namespace ld3d
 			void														Update();
 
 			Coord														GetBaseCoord();
+
+			void														SetDirtyChunkHandler(const std::function<void (ChunkPtr)>& handler);
+
+			const std::list<ChunkPtr>									GetDirtyChunkList();
+			void														ClearDirtyChunkList();
 		private:
 			void														UpdateRegionBuffer();
 			bool														InitRegionBuffer();

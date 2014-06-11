@@ -199,7 +199,7 @@ namespace ld3d
 			return false;
 		}
 
-		m_pMainRW->EnableVSync(false);
+		m_pMainRW->EnableVSync(setting.vsync);
 
 		_ENABLE_GL_DEBUG_;
 

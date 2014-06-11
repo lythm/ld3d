@@ -189,7 +189,14 @@ namespace ld3d
 					RegionPtr pRegion = FindInCache(c);
 					if(pRegion == nullptr)
 					{
-						pRegion = m_pRegionManager->LoadRegion(c);
+						if(m_centerRegionCoord.x == c.x && m_centerRegionCoord.z == c.z)
+						{
+							pRegion = m_pRegionManager->LoadRegionSync(c);
+						}
+						else
+						{
+							pRegion = m_pRegionManager->LoadRegion(c);
+						}
 					}
 					m_regionBuffer[x + z * (dx + 1)] = pRegion;
 				}
@@ -198,6 +205,18 @@ namespace ld3d
 		Coord WorldViewport::GetBaseCoord()
 		{
 			return m_pWorld->ToRegionOrigin(m_center);
+		}
+		void WorldViewport::SetDirtyChunkHandler(const std::function<void (ChunkPtr)>& handler)
+		{
+			m_pWorld->AddDirtyChunkHandler(handler);
+		}
+		const std::list<ChunkPtr> WorldViewport::GetDirtyChunkList()
+		{
+			return m_pWorld->GetDirtyChunks();
+		}
+		void WorldViewport::ClearDirtyChunkList()
+		{
+			m_pWorld->ClearDirtyChunks();
 		}
 	}
 }

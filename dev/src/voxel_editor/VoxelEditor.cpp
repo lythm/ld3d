@@ -44,8 +44,8 @@ namespace ld3d
 
 			GridRendererPtr pGridRenderer = std::dynamic_pointer_cast<GridRenderer>(pCore->CreateGameObjectComponent("GridRenderer"));
 
-			pGridRenderer->SetSize(200);
-			pGridRenderer->SetGridSize(8);
+			pGridRenderer->SetSize(1024);
+			pGridRenderer->SetGridSize(16);
 
 			m_pGrid->AddComponent(pGridRenderer);
 			
@@ -65,6 +65,9 @@ namespace ld3d
 			m_pCamera->SetTranslation(0, 20, 0);
 
 			m_pWorld = m_pCore->CreatGameObjectFromTemplate("VoxelWorld", "world001");
+
+			VoxelWorldRendererPtr pWorldRenderer = std::dynamic_pointer_cast<VoxelWorldRenderer>(m_pWorld->GetComponent("VoxelWorldRenderer"));
+			pWorldRenderer->BindWorldViewPort(m_pCamera);
 
 
 			GameObjectPtr pObj = pCore->CreateGameObject("Box");

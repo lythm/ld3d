@@ -275,7 +275,8 @@ namespace ld3d
 		setting.input.wnd = GetWnd();
 		setting.graphics.wnd = GetWnd();
 		setting.input.sysMod = "";
-		
+		setting.main_wnd = GetWnd();
+
 		setting.app_delegate.CenterWindow = std::bind(&MainApp::CenterWindow, this);
 		setting.app_delegate.ExitApp = std::bind(&MainApp::ExitApp, this);
 		setting.app_delegate.GetWindowSize = std::bind(&MainApp::GetClientSize, this, std::placeholders::_1, std::placeholders::_2);

@@ -36,7 +36,7 @@ namespace ld3d
 
 			void											Update(float dt);
 
-			void											SetDirtyChunkHandler(const std::function<void (ChunkPtr)>& handler);
+			void											AddDirtyChunkHandler(const std::function<void (ChunkPtr)>& handler);
 		private:
 			ChunkPtr										AllocChunk(uint8 data[]);
 		private:
@@ -53,7 +53,7 @@ namespace ld3d
 			ChunkMap										m_chunkmap;
 			std::list<ChunkPtr>								m_dirtyList;
 
-			std::function<void (ChunkPtr)>					_on_update_dirty_chunk;
+			std::vector<std::function<void(ChunkPtr)>>		m_dirtyChunkHandlers;
 		};
 	}
 }
