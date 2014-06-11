@@ -31,9 +31,11 @@ namespace ld3d
 		World::~World(void)
 		{
 		}
-		bool World::Initialize(WorldGenPtr pGen, Allocator* pAlloc)
+		bool World::Create(const std::string& name, WorldGenPtr pGen, Allocator* pAlloc)
 		{
 			g_pAllocator = pAlloc;
+
+			m_name = name;
 
 			m_pChunkManager		= std::allocate_shared<ChunkManager, std_allocator_adapter<ChunkManager>>(GetAllocator());//std::make_shared<ChunkManager>();
 			m_pRegionManager	= std::allocate_shared<RegionManager, std_allocator_adapter<RegionManager>>(GetAllocator());//std::make_shared<RegionManager>();
@@ -58,7 +60,7 @@ namespace ld3d
 			
 			return true;
 		}
-		void World::Release()
+		void World::Destroy()
 		{
 			m_pChunkManager->Clear();
 			m_pChunkManager.reset();
@@ -148,8 +150,9 @@ namespace ld3d
 		void World::Update(float dt)
 		{
 			m_pRegionManager->Update();
+			m_pChunkManager->Update(dt);
 		}
-				
+
 		ChunkManagerPtr	World::GetChunkManager()
 		{
 			return m_pChunkManager;
@@ -195,7 +198,10 @@ namespace ld3d
 		{
 			return m_pGen;
 		}
-		
+		void World::SetDirtyChunkHandler(const std::function<void (ChunkPtr)>& handler)
+		{
+			m_pChunkManager->SetDirtyChunkHandler(handler);
+		}
 	}
 }
 

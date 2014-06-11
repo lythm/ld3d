@@ -118,7 +118,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>platform.lib;utils.lib;core.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>voxel.lib;platform.lib;utils.lib;core.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -182,8 +182,10 @@
     <ClInclude Include="VoxelWorldDataSet.h" />
     <ClInclude Include="VoxelWorldGeneratorImpl.h" />
     <ClInclude Include="VoxelWorldImpl.h" />
+    <ClInclude Include="VoxelWorldImpl2.h" />
     <ClInclude Include="VoxelWorldMaterialManager.h" />
     <ClInclude Include="VoxelWorldMesh.h" />
+    <ClInclude Include="VoxelWorldRendererImpl2.h" />
     <ClInclude Include="VoxelWorldUtils.h" />
     <ClInclude Include="VoxelWorldOctTree.h" />
     <ClInclude Include="VoxelWorldRegion.h" />
@@ -202,8 +204,10 @@
     <ClCompile Include="VoxelWorldDataSet.cpp" />
     <ClCompile Include="VoxelWorldGeneratorImpl.cpp" />
     <ClCompile Include="VoxelWorldImpl.cpp" />
+    <ClCompile Include="VoxelWorldImpl2.cpp" />
     <ClCompile Include="VoxelWorldMaterialManager.cpp" />
     <ClCompile Include="VoxelWorldMesh.cpp" />
+    <ClCompile Include="VoxelWorldRendererImpl2.cpp" />
     <ClCompile Include="VoxelWorldUtils.cpp" />
     <ClCompile Include="VoxelWorldOctTree.cpp" />
     <ClCompile Include="VoxelWorldRegion.cpp" />

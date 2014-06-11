@@ -2,7 +2,7 @@
 
 namespace ld3d
 {
-	class DebugPanel
+	class _DLL_CLASS DebugPanel
 	{
 	public:
 		DebugPanel(void);
@@ -15,16 +15,21 @@ namespace ld3d
 
 		void									Update(float dt);
 
+		std::string*							AddLine();
+
 	private:
 		void									_on_resize(EventPtr pEvent);
 
 		void									AppendFPS(std::stringstream& stream);
 		void									AppendMemPool(std::stringstream& stream);
+		void									AppendLines(std::stringstream& steam);
 	private:
 		HtmlOverlayPtr							m_pOverlay;
 		CoreApiPtr								m_pCore;
 
 		float									m_updateDeltaTime;
+
+		std::vector<std::string>				m_lines;
 	};
 
 

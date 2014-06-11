@@ -6,7 +6,7 @@ namespace ld3d
 {
 	namespace voxel
 	{
-		ChunkManager::ChunkManager(void)
+		ChunkManager::ChunkManager(void) : m_chunkmap(GetAllocator())
 		{
 		}
 
@@ -27,6 +27,7 @@ namespace ld3d
 			if(pChunk == nullptr)
 			{
 				pChunk = CreateChunk(key, nullptr);
+				AddChunk(pChunk);
 			}
 
 			pChunk->SetBlock(c - key.ToChunkOrigin(), type);
@@ -39,11 +40,27 @@ namespace ld3d
 		}
 		ChunkPtr ChunkManager::CreateChunk(const ChunkKey& key, uint8 data[])
 		{
+			
 			ChunkPtr pChunk = AllocChunk(data);
 			pChunk->SetKey(key);
-			m_chunkmap[key.AsUint64()] = pChunk;
+			
+			
+			//m_chunkmap[key.AsUint64()] = pChunk;
 
 			return pChunk;
+		}
+		bool ChunkManager::AddChunk(ChunkPtr pChunk)
+		{
+			uint64 key = pChunk->GetKey().AsUint64();
+
+			auto it = m_chunkmap.find(key);
+			if(it != m_chunkmap.end())
+			{
+				return false;
+			}
+			m_chunkmap[key] = pChunk;
+
+			return true;
 		}
 		bool ChunkManager::RemoveBlock(const Coord& c)
 		{
@@ -99,6 +116,34 @@ namespace ld3d
 		{
 			ClearDirtyChunks();
 			m_chunkmap.clear();
+		}
+		void ChunkManager::RemoveChunk(const ChunkKey& key)
+		{
+			auto it = m_chunkmap.find(key.AsUint64());
+
+			if(it == m_chunkmap.end())
+			{
+				return;
+			}
+
+			m_chunkmap.erase(it);
+
+		}
+		void ChunkManager::Update(float dt)
+		{
+			for(auto chunk : m_dirtyList)
+			{
+				if(_on_update_dirty_chunk)
+				{
+					_on_update_dirty_chunk(chunk);
+				}
+			}
+			
+			ClearDirtyChunks();
+		}
+		void ChunkManager::SetDirtyChunkHandler(const std::function<void (ChunkPtr)>& handler)
+		{
+			_on_update_dirty_chunk = handler;
 		}
 	}
 }

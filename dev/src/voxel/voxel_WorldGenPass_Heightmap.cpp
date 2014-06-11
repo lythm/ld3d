@@ -64,7 +64,7 @@ namespace ld3d
 			}
 
 			ChunkPtr pChunk = pGen->GetWorld()->GetChunkManager()->CreateChunk(ChunkKey(chunk_origin), chunk_data);
-
+			pGen->GetWorld()->GetChunkManager()->AddChunk(pChunk);
 			return true;
 		}
 	}

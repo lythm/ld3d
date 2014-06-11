@@ -195,6 +195,10 @@ namespace ld3d
 				}
 			}
 		}
+		Coord WorldViewport::GetBaseCoord()
+		{
+			return m_pWorld->ToRegionOrigin(m_center);
+		}
 	}
 }
 

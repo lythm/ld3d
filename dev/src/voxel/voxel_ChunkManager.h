@@ -31,11 +31,29 @@ namespace ld3d
 
 			ChunkPtr										CreateChunk(const ChunkKey& key, uint8 data[]);
 
+			bool											AddChunk(ChunkPtr pChunk);
+			void											RemoveChunk(const ChunkKey& key);
+
+			void											Update(float dt);
+
+			void											SetDirtyChunkHandler(const std::function<void (ChunkPtr)>& handler);
 		private:
 			ChunkPtr										AllocChunk(uint8 data[]);
 		private:
-			std::unordered_map<uint64, ChunkPtr>			m_chunkmap;
+
+			typedef 
+			std::unordered_map<uint64, 
+					ChunkPtr, 
+					std::hash<uint64>, 
+					std::equal_to<uint64>,
+					std_allocator_adapter<
+						std::pair<const uint64, ChunkPtr>
+					>>										ChunkMap;										
+					
+			ChunkMap										m_chunkmap;
 			std::list<ChunkPtr>								m_dirtyList;
+
+			std::function<void (ChunkPtr)>					_on_update_dirty_chunk;
 		};
 	}
 }

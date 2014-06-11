@@ -15,9 +15,9 @@ namespace ld3d
 			World(void);
 			virtual ~World(void);
 
-			bool											Initialize(WorldGenPtr pGen, Allocator* pAlloc = nullptr);
+			bool											Create(const std::string& name, WorldGenPtr pGen, Allocator* pAlloc = nullptr);
 
-			void											Release();
+			void											Destroy();
 
 			bool											AddBlock(const Coord& c, uint8 type);
 			bool											ReplaceBlock(const Coord& c, uint8 type);
@@ -40,13 +40,19 @@ namespace ld3d
 			ChunkManagerPtr									GetChunkManager();
 			RegionManagerPtr								GetRegionManager();
 
+			// in global space
 			Coord											ToRegionOrigin(const Coord& c) const;
+			// global to region space
 			Coord											ToRegionCoord(const Coord& c) const;
 
+			// in global space
 			Coord											ToChunkOrigin(const Coord& c) const;
+			// global to chunk space
 			Coord											ToChunkCoord(const Coord& c) const;
 
 			WorldGenPtr										GetWorldGen();
+
+			void											SetDirtyChunkHandler(const std::function<void (ChunkPtr)>& handler);
 		private:
 		
 			
@@ -56,6 +62,8 @@ namespace ld3d
 
 			RegionManagerPtr								m_pRegionManager;
 			ChunkManagerPtr									m_pChunkManager;
+
+			std::string										m_name;
 		};
 	}
 }

@@ -67,9 +67,17 @@ namespace ld3d
 
 		AppendFPS(str);
 		AppendMemPool(str);
+		AppendLines(str);
 		std::string content = str.str();
 		m_pOverlay->GetWebpageRenderer()->ExecuteJS("set_content('" +  content  + "');");
 
+	}
+	void DebugPanel::AppendLines(std::stringstream& steam)
+	{
+		for(int i = 0; i < m_lines.size(); ++i)
+		{
+			steam << m_lines[i] << "<br>";
+		}
 	}
 	void DebugPanel::AppendFPS(std::stringstream& stream)
 	{
@@ -110,5 +118,11 @@ namespace ld3d
 		Event_ResizeFrameBuffer* pResize = (Event_ResizeFrameBuffer*)pEvent.get();
 		
 		m_pOverlay->Resize(pResize->w, pResize->h / 2);
+	}
+	std::string* DebugPanel::AddLine()
+	{
+		m_lines.push_back("");
+
+		return &m_lines[m_lines.size() - 1];
 	}
 }

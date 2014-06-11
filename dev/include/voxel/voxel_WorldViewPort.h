@@ -21,6 +21,8 @@ namespace ld3d
 			void														Close();
 
 			void														Update();
+
+			Coord														GetBaseCoord();
 		private:
 			void														UpdateRegionBuffer();
 			bool														InitRegionBuffer();

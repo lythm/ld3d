@@ -5,7 +5,7 @@
 
 #include "packages/voxel/VoxelType.h"
 
-
+#include "voxel/voxel_all.h"
 
 namespace ld3d
 {

@@ -99,6 +99,12 @@
     <ClInclude Include="..\..\include\packages\voxel\voxel_all.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="VoxelWorldImpl2.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="VoxelWorldRendererImpl2.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="voxel_pch.cpp">
@@ -156,6 +162,12 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="VoxelWorldCollisionDataImpl.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="VoxelWorldImpl2.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="VoxelWorldRendererImpl2.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

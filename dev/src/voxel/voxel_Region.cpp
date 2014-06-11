@@ -49,7 +49,11 @@ namespace ld3d
 
 
 
-			Coord region_origin = m_pWorld->ToRegionOrigin(m_coord);
+			//Coord region_origin = m_pWorld->ToRegionOrigin(m_coord);
+			Coord region_origin = m_coord;
+			region_origin.x *= REGION_SIZE;
+			region_origin.y *= REGION_HEIGHT;
+			region_origin.z *= REGION_SIZE;
 
 			uint16 height_map[REGION_SIZE * REGION_SIZE];
 
@@ -152,6 +156,32 @@ namespace ld3d
 		
 		bool Region::Unload()
 		{
+
+			Coord region_origin = m_coord;
+			region_origin.x *= REGION_SIZE;
+			region_origin.y *= REGION_HEIGHT;
+			region_origin.z *= REGION_SIZE;
+
+			for(int32 x = 0; x < REGION_CHUNK_LENGTH; ++x)
+			{
+				for(int32 y = 0; y < REGION_CHUNK_HEIGHT; ++y)
+				{
+					for(int32 z = 0; z < REGION_CHUNK_LENGTH; ++z)
+					{
+						Coord chunk_coord(x, y, z);
+						chunk_coord *= CHUNK_SIZE;
+
+						chunk_coord += region_origin;
+
+						ChunkKey key(chunk_coord);
+
+						m_pChunkManager->RemoveChunk(key);
+						
+					}
+				}
+			}
+
+
 			return Save();
 		}
 	}

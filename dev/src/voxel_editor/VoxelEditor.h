@@ -27,10 +27,10 @@ namespace ld3d
 
 			CoreApiPtr								m_pCore;
 
-			WorldPtr								m_pWorld;
+			
+			GameObjectPtr							m_pWorld;
 
-			WorldViewportPtr						m_pWorldVP;
-
+			std::string*							m_debugInfo;
 		};
 	}
 }

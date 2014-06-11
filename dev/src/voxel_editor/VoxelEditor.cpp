@@ -62,13 +62,9 @@ namespace ld3d
 			//	pController->Enable(false);
 			m_pCamera->AddComponent(pController);
 
-			
-
-
 			m_pCamera->SetTranslation(0, 20, 0);
 
-			m_pWorld = std::make_shared<World>();
-			m_pWorld->Initialize(nullptr, m_pCore->GetAllocator());
+			m_pWorld = m_pCore->CreatGameObjectFromTemplate("VoxelWorld", "world001");
 
 
 			GameObjectPtr pObj = pCore->CreateGameObject("Box");
@@ -77,25 +73,25 @@ namespace ld3d
 
 			pRenderer->SetAABBox(math::AABBox(math::Vector3(-10, -10, -10), math::Vector3(10, 10, 10)));
 
+			m_debugInfo = m_pCore->GetDebugPanel()->AddLine();
 
-
-			m_pWorldVP = std::make_shared<WorldViewport>();
-
-			m_pWorldVP->Open(m_pWorld, Coord(), REGION_SIZE * 3 - 1);
-
+			*m_debugInfo = "hello";
 			return true;
 		}
 		void VoxelEditor::Release()
 		{
-			m_pWorldVP->Close();
-
-			m_pWorld->Release();
+			m_pWorld = nullptr;
 		}
 		bool VoxelEditor::Update(float dt)
 		{
-			m_pWorld->Update(dt);
+			math::Vector3 pos = m_pCamera->GetTranslation();
 
-			m_pWorldVP->Update();
+			std::stringstream s;
+			s.precision(3);
+			s.setf( std::ios::fixed, std:: ios::floatfield );
+			s << "<font style=\"color:#ff9999;\">camera pos: " << pos.x << "," << pos.y << "," << pos.z <<"</font>";
+
+			*m_debugInfo = s.str();
 			return true;
 		}
 		void VoxelEditor::_on_key_state(ld3d::EventPtr pEvent)
