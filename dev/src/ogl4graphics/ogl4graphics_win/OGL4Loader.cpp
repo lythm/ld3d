@@ -71,6 +71,12 @@ namespace ld3d
 		{
 			return false;
 		}
+
+
+
+		GLint v = 0;
+		glGetIntegerv(GL_MAX_ARRAY_TEXTURE_LAYERS, &v);
+
 		return true;
 	}
 	bool OGL4Loader::load_wgl()

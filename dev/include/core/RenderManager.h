@@ -90,7 +90,7 @@ namespace ld3d
 
 		MaterialPtr									CreateMaterialFromFile(const char* szFile);
 		TexturePtr									CreateTextureFromFile(const char* szFile);
-
+		TexturePtr									Create2DTextureArrayFromFileList(const std::vector<std::string>& files);
 		void										AddPostEffect(PostEffectPtr pEffect);
 
 		void										AddCamera(CameraPtr pCamera);

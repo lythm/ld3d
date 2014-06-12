@@ -7,6 +7,11 @@ namespace ld3d
 	Impl_CameraData::Impl_CameraData(GameObjectManagerPtr pManager) : CameraData(pManager)
 	{
 		SetVersion(g_packageVersion);
+
+		m_np				= 0.1f;
+		m_fp				= 1000.0f;
+		m_aspect			= 4.0f/3.0f;
+		m_fov				= 0.25f * math::MATH_PI;
 	}
 
 
@@ -18,8 +23,11 @@ namespace ld3d
 	{
 		m_pCamera = m_pManager->alloc_object<Camera>();
 
-		float aspect = float(800) / float(600);
-		m_pCamera->PerspectiveFovLH(1.0f/ 4.0f * math::MATH_PI, aspect, 0.1f, 1000);
+		int w = m_pManager->GetCoreApi()->GetScreen()->GetFramebufferWidth();
+		int h = m_pManager->GetCoreApi()->GetScreen()->GetFramebufferHeight();
+
+		m_aspect = float(w) / float(h);
+		m_pCamera->PerspectiveFovLH(m_fov, m_aspect, m_np, m_fp);
 		
 		m_pManager->GetRenderManager()->AddCamera(m_pCamera);
 
@@ -74,5 +82,25 @@ namespace ld3d
 		{
 			m_pCamera->SetViewport(vp);
 		}
+	}
+	void Impl_CameraData::SetNearPlane(float np)
+	{
+		m_np = np;
+		m_pCamera->PerspectiveFovLH(m_fov, m_aspect, m_np, m_fp);
+	}
+	void Impl_CameraData::SetFarPlane(float fp)
+	{
+		m_fp = fp;
+		m_pCamera->PerspectiveFovLH(m_fov, m_aspect, m_np, m_fp);
+	}
+	void Impl_CameraData::SetAspect(float aspect)
+	{
+		m_aspect = aspect;
+		m_pCamera->PerspectiveFovLH(m_fov, m_aspect, m_np, m_fp);
+	}
+	void Impl_CameraData::SetFOV(float fov)
+	{
+		m_fov = fov;
+		m_pCamera->PerspectiveFovLH(m_fov, m_aspect, m_np, m_fp);
 	}
 }

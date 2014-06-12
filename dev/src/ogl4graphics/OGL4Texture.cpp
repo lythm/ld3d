@@ -653,29 +653,29 @@ namespace ld3d
 				if(gli::is_compressed(tex.format()))
 				{
 					glCompressedTexSubImage3D(GL_TEXTURE_2D_ARRAY,
-							GLint(level),
-							0, 0, layer,
-							GLsizei(tex[layer][level].dimensions().x),
-							GLsizei(tex[layer][level].dimensions().y),
-							GLsizei(tex.layers()),
-							GLenum(gli::internal_format(tex[layer].format())),
-							GLsizei(tex[layer][level].size()),
-							tex[layer][level].data());
-					
+						GLint(level),
+						0, 0, layer,
+						GLsizei(tex[layer][level].dimensions().x),
+						GLsizei(tex[layer][level].dimensions().y),
+						GLsizei(1),
+						GLenum(gli::internal_format(tex[layer].format())),
+						GLsizei(tex[layer][level].size()),
+						tex[layer][level].data());
+
 				}
 				else
 				{
-					
+
 					glTexSubImage3D(GL_TEXTURE_2D_ARRAY,
-							GLint(level),
-							0, 0, layer,
-							GLsizei(tex[layer][level].dimensions().x),
-							GLsizei(tex[layer][level].dimensions().y),
-							GLsizei(tex.layers()),
-							GLenum(gli::external_format(tex[layer].format())),
-							GLenum(gli::type_format(tex[layer].format())),
-							tex[layer][level].data());
-					
+						GLint(level),
+						0, 0, layer,
+						GLsizei(tex[layer][level].dimensions().x),
+						GLsizei(tex[layer][level].dimensions().y),
+						GLsizei(1),
+						GLenum(gli::external_format(tex[layer].format())),
+						GLenum(gli::type_format(tex[layer].format())),
+						tex[layer][level].data());
+
 				}
 			}
 		}
@@ -719,7 +719,7 @@ namespace ld3d
 		}
 
 		return CreateCubemapFromFile(s);
-		
+
 
 	}
 
@@ -762,10 +762,94 @@ namespace ld3d
 	{
 		return m_layers;
 	}
-	bool OGL4Texture::CreateArrayFromFiles(const std::vector<std::string>& files)
+	bool OGL4Texture::Create2DArrayFromFiles(const std::vector<std::string>& files)
 	{
+		if(files.size() == 0)
+		{
+			return false;
+		}
 
-		return false;
+		m_bDynamic = false;
+
+		glGenTextures(1, &m_texture);
+		glBindTexture(GL_TEXTURE_2D_ARRAY, m_texture);
+
+		glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+
+
+		glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_SWIZZLE_R, GL_RED);
+		glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_SWIZZLE_G, GL_GREEN);
+		glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_SWIZZLE_B, GL_BLUE);
+		glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_SWIZZLE_A, GL_ALPHA);
+		glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_BASE_LEVEL, 0);
+
+
+		m_layers = files.size();
+
+		for(size_t layer = 0; layer < files.size(); ++layer)
+		{
+			gli::storage s = gli::load_dds(files[layer].c_str());
+
+			gli::texture2D tex(s);
+
+			if(tex.empty())
+			{
+				return false;
+			}
+
+			if(layer == 0)
+			{
+				int l = tex.layers();
+
+				glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_MAX_LEVEL, GLint(tex.levels() - 1));
+				glTexStorage3D(GL_TEXTURE_2D_ARRAY,
+					GLint(tex.levels()),
+					GLenum(gli::internal_format(tex.format())),
+					GLsizei(tex.dimensions().x),
+					GLsizei(tex.dimensions().y),
+					(GLint)m_layers);
+
+				m_width = tex.dimensions().x;
+				m_height = tex.dimensions().y;
+				m_lvls = (int)tex.levels();
+				m_format = GLenum(gli::internal_format(tex.format()));
+			}
+
+			for(gli::texture2DArray::size_type level = 0; level < tex.levels(); ++level)
+			{
+				if(gli::is_compressed(tex.format()))
+				{
+					glCompressedTexSubImage3D(GL_TEXTURE_2D_ARRAY,
+							GLint(level),
+							0, 0, layer,
+							GLsizei(tex[level].dimensions().x),
+							GLsizei(tex[level].dimensions().y),
+							GLsizei(1),
+							GLenum(gli::internal_format(tex.format())),
+							GLsizei(tex[level].size()),
+							tex[level].data());
+				}
+				else
+				{
+
+					glTexSubImage3D(GL_TEXTURE_2D_ARRAY,
+							GLint(level),
+							0, 0, layer,
+							GLsizei(tex[level].dimensions().x),
+							GLsizei(tex[level].dimensions().y),
+							GLsizei(1),
+							GLenum(gli::external_format(tex.format())),
+							GLenum(gli::type_format(tex.format())),
+							tex[level].data());
+
+				}
+				
+			}
+		}
+
+		m_type = TEX_2D_ARRAY;
+		m_depth = 0;
+		return true;
 	}
-
 }

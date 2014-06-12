@@ -36,7 +36,7 @@ namespace ld3d
 		int											GetLvls() const;
 		int											GetLayers() const;
 		bool										CreateFromFile(const char* szFile);
-		bool										CreateArrayFromFiles(const std::vector<std::string>& files);
+		bool										Create2DArrayFromFiles(const std::vector<std::string>& files);
 		void*										Map();
 		void										UnMap();
 

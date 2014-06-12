@@ -24,19 +24,26 @@ namespace ld3d
 
 			Coord														GetBaseCoord();
 
-			void														SetDirtyChunkHandler(const std::function<void (ChunkPtr)>& handler);
+			void														SetDirtyChunkHandler(const std::function<void (const Coord&, ChunkPtr)>& handler);
 
 			const std::list<ChunkPtr>									GetDirtyChunkList();
 			void														ClearDirtyChunkList();
+
+			void														SetRegionLoadedHandler(const std::function<void (RegionPtr)>& handler);
+			void														SetRegionUnloadedHandler(const std::function<void (RegionPtr)>& handler);
 		private:
-			void														UpdateRegionBuffer();
+			void														UpdateRegionBuffer(bool sync);
 			bool														InitRegionBuffer();
 			void														ReleaseRegionBuffer();
 
+			RegionPtr													FindInBuffer(const Coord& c);
 			RegionPtr													FindInCache(const Coord& c);
+			RegionPtr													GetFromCache(const Coord& c);
 			void														AddToCache(RegionPtr pRegion);
 
 			void														UpdateRegionCache();
+
+			void														_on_dirty_chunk(ChunkPtr pChunk);
 		private:
 			WorldPtr													m_pWorld;
 			RegionManagerPtr											m_pRegionManager;
@@ -46,6 +53,11 @@ namespace ld3d
 
 			std::vector<RegionPtr>										m_regionBuffer;
 			std::list<RegionPtr>										m_regionCache;
+
+			std::function<void (const Coord&, ChunkPtr)>				handler_dirty_chunk;
+
+			std::function<void (RegionPtr)>								handler_region_loaded;
+			std::function<void (RegionPtr)>								handler_region_unloaded;
 		};
 	}
 }

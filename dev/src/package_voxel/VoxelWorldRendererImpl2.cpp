@@ -29,6 +29,18 @@ namespace ld3d
 	bool VoxelWorldRendererImpl2::OnAttach()
 	{
 		
+
+		std::vector<std::string> files;
+		files.push_back("./assets/voxel/texture/dirt.dds");
+		files.push_back("./assets/voxel/texture/rock.dds");
+		//files.push_back("./assets/voxel/texture/sand.dds");
+
+		TexturePtr pTex = m_pManager->GetRenderManager()->Create2DTextureArrayFromFileList(files);
+
+
+	//	TexturePtr pTex1 = m_pManager->GetRenderManager()->CreateTextureFromFile("./assets/voxel/texture/block.dds");
+
+
 		RegisterProperty<bool, VoxelWorldRendererImpl2>(this,
 				"Show Bound",
 				&VoxelWorldRendererImpl2::GetShowBound,
@@ -43,6 +55,7 @@ namespace ld3d
 			ResetWorld(pWorld->GetWorld());
 		}
 
+		
 		return true;
 	}
 	void VoxelWorldRendererImpl2::OnDetach()
@@ -90,6 +103,14 @@ namespace ld3d
 
 		m_pWorldVP = m_pManager->alloc_object<voxel::WorldViewport>();
 
-		m_pWorldVP->Open(pWorld, voxel::Coord(0, 0, 0), voxel::REGION_SIZE * 3);
+		if(false == m_pWorldVP->Open(pWorld, voxel::Coord(0, 0, 0), voxel::REGION_SIZE * 3))
+		{
+			return;
+		}
+
+		const std::list<voxel::ChunkPtr>& dcl = m_pWorldVP->GetDirtyChunkList();
+
+
+
 	}
 }

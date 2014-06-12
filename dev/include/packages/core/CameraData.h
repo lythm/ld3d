@@ -13,5 +13,10 @@ namespace ld3d
 		virtual void						UpdateCamera()									= 0;
 		virtual void						SetViewport(const math::RectI& vp)				= 0;
 
+		virtual void						SetNearPlane(float np)							= 0;
+		virtual void						SetFarPlane(float fp)							= 0;
+		virtual void						SetAspect(float aspect)							= 0;
+		virtual void						SetFOV(float fov)								= 0;
+
 	};
 }

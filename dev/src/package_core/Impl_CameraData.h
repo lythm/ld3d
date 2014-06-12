@@ -19,7 +19,17 @@ namespace ld3d
 		void						Update(float dt);
 		void						UpdateCamera();
 		CameraPtr					GetCamera();
+
+		void						SetNearPlane(float np);
+		void						SetFarPlane(float fp);
+		void						SetAspect(float aspect);
+		void						SetFOV(float fov);
 	private:
 		CameraPtr					m_pCamera;
+
+		float						m_np;
+		float						m_fp;
+		float						m_aspect;
+		float						m_fov;
 	};
 }

@@ -10,7 +10,7 @@ namespace ld3d
 			math::Vector3										pos;
 			math::Vector3										normal;
 			math::Vector2										uv;
-			math::Color4										ao;
+			math::Vector4										ao;
 		};
 
 
@@ -19,6 +19,7 @@ namespace ld3d
 			void*												vertexBuffer;
 			uint32												vertexCount;
 			uint8												type;
+			uint32												material_id;
 		};
 
 		VoxelWorldMesh(void);

@@ -741,4 +741,8 @@ namespace ld3d
 	{
 		return m_pGraphics->IsFullscreen();
 	}
+	TexturePtr RenderManager::Create2DTextureArrayFromFileList(const std::vector<std::string>& files)
+	{
+		return m_pGraphics->Create2DArrayFromFiles(files);
+	}
 }

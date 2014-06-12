@@ -74,6 +74,10 @@ namespace ld3d
 		virtual TexturePtr								CreateTexture3D(G_FORMAT format, int w, int h, int d, int lvls, bool dynamic)	= 0;
 
 		virtual TexturePtr								CreateTextureFromFile(const char* szFile)										= 0;
+		
+		// all files must be same dimention and miplvls
+		// dimention and miplvls read from first file
+		virtual TexturePtr								Create2DArrayFromFiles(const std::vector<std::string>& files)					= 0;
 
 		virtual SamplerStatePtr							CreateSampler()																	= 0;
 

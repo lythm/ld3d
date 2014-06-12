@@ -53,7 +53,7 @@ namespace ld3d
 
 			CameraDataPtr pMD = std::dynamic_pointer_cast<CameraData>(pCore->CreateGameObjectComponent("Camera"));
 			m_pCamera->AddComponent(pMD);
-
+			pMD->SetFarPlane(2048.0f);
 			GameObjectComponentPtr pSkyBox = pCore->CreateGameObjectComponent("SkyBox");
 			m_pCamera->AddComponent(pSkyBox);
 

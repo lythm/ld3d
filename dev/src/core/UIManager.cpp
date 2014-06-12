@@ -74,8 +74,6 @@ namespace ld3d
 			return;
 		}
 
-		pRoot->SortChildren();
-
 		std::list<OverlayPtr> child_list = pRoot->GetChildList();
 		std::list<OverlayPtr>::reverse_iterator begin = child_list.rbegin();
 		std::list<OverlayPtr>::reverse_iterator end = child_list.rend();

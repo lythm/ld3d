@@ -35,7 +35,5 @@ namespace ld3d
 			std::list<RegionPtr>							m_unloadingQueue;
 
 		};
-
-
 	}
 }

@@ -56,6 +56,9 @@ namespace ld3d
 	}
 	void DebugPanel::AppendFPS(std::stringstream& stream)
 	{
+		int w = m_pCore->GetRenderManager()->GetFrameBufferWidth();
+		int h = m_pCore->GetRenderManager()->GetFrameBufferHeight();
+
 		float avg = m_pCore->GetFrameMetric().GetAvgFPS();
 		float fps = m_pCore->GetFrameMetric().GetFPS();
 
@@ -69,6 +72,10 @@ namespace ld3d
 			<< ", "
 			<< 1000.0f / avg
 			<< "ms"
+			<< " resolution: "
+			<< w
+			<< "x"
+			<< h
 			<< "<br>";
 
 	}

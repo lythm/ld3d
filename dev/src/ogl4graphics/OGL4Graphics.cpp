@@ -645,4 +645,14 @@ namespace ld3d
 	{
 		return m_pLoader->GetExt();
 	}
+	TexturePtr OGL4Graphics::Create2DArrayFromFiles(const std::vector<std::string>& files)
+	{
+		OGL4TexturePtr pTex = std::make_shared<OGL4Texture>();
+		if(pTex->Create2DArrayFromFiles(files) == false)
+		{
+			pTex->Release();
+			pTex.reset();
+		}
+		return pTex;
+	}
 }

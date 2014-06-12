@@ -3,6 +3,8 @@
 #include "voxel/voxel_World.h"
 #include "voxel_RegionManager.h"
 #include "voxel/voxel_Region.h"
+#include "voxel/voxel_Chunk.h"
+
 namespace ld3d
 {
 	namespace voxel
@@ -35,6 +37,8 @@ namespace ld3d
 		{
 			m_pWorld = pWorld;
 			m_center = center;
+			m_center.y = 0;
+
 			m_size = size;
 			m_pRegionManager = pWorld->GetRegionManager();
 
@@ -42,6 +46,9 @@ namespace ld3d
 			{
 				return false;
 			}
+
+
+			m_pWorld->AddDirtyChunkHandler(std::bind(&WorldViewport::_on_dirty_chunk, this, std::placeholders::_1));
 
 			return true;
 		}
@@ -56,7 +63,7 @@ namespace ld3d
 		}
 		bool WorldViewport::InitRegionBuffer()
 		{
-			UpdateRegionBuffer();
+			UpdateRegionBuffer(true);
 			return true;
 		}
 		void WorldViewport::ReleaseRegionBuffer()
@@ -80,10 +87,11 @@ namespace ld3d
 		void WorldViewport::Update()
 		{
 			Coord center_coord = m_center / (REGION_SIZE);
-			
+			center_coord.y = 0;
+
 			if(center_coord != m_centerRegionCoord)
 			{
-				UpdateRegionBuffer();
+				UpdateRegionBuffer(false);
 			}
 
 			UpdateRegionCache();
@@ -91,9 +99,12 @@ namespace ld3d
 		void WorldViewport::UpdateRegionCache()
 		{
 			Coord center_coord = m_center / (REGION_SIZE);
+			center_coord.y = 0;
 
 			Coord min_coord = (m_center - m_size / 2) / (REGION_SIZE);
+			min_coord.y = 0;
 			Coord max_coord = (m_center + m_size / 2) / (REGION_SIZE);
+			max_coord.y = 0;
 
 			uint32 dx = max_coord.x - min_coord.x;
 			uint32 dz = max_coord.z - min_coord.z;
@@ -132,6 +143,30 @@ namespace ld3d
 		}
 		RegionPtr WorldViewport::FindInCache(const Coord& c)
 		{
+			for(auto r : m_regionCache)
+			{
+				if(r->GetRegionCoord() == c)
+				{
+					return r;
+				}
+			}
+
+			return nullptr;
+		}
+		RegionPtr WorldViewport::FindInBuffer(const Coord& c)
+		{
+			for(auto r : m_regionBuffer)
+			{
+				if(r->GetRegionCoord() == c)
+				{
+					return r;
+				}
+			}
+
+			return nullptr;
+		}
+		RegionPtr WorldViewport::GetFromCache(const Coord& c)
+		{
 			std::list<RegionPtr>::iterator it = m_regionCache.begin();
 			for(; it != m_regionCache.end(); ++it)
 			{
@@ -157,12 +192,15 @@ namespace ld3d
 		{
 			m_regionCache.push_back(pRegion);
 		}
-		void WorldViewport::UpdateRegionBuffer()
+		void WorldViewport::UpdateRegionBuffer(bool sync)
 		{
 			m_centerRegionCoord = m_center / REGION_SIZE;
-			
+			m_centerRegionCoord.y = 0;
+
 			Coord min_coord = (m_center - m_size / 2) / REGION_SIZE;
+			min_coord.y = 0;
 			Coord max_coord = (m_center + m_size / 2) / REGION_SIZE;
+			max_coord.y = 0;
 
 			uint32 dx = max_coord.x - min_coord.x;
 			uint32 dz = max_coord.z - min_coord.z;
@@ -186,10 +224,10 @@ namespace ld3d
 					Coord c(x, 0, z);
 					c += min_coord;
 
-					RegionPtr pRegion = FindInCache(c);
+					RegionPtr pRegion = GetFromCache(c);
 					if(pRegion == nullptr)
 					{
-						if(m_centerRegionCoord.x == c.x && m_centerRegionCoord.z == c.z)
+						if(sync)
 						{
 							pRegion = m_pRegionManager->LoadRegionSync(c);
 						}
@@ -206,9 +244,9 @@ namespace ld3d
 		{
 			return m_pWorld->ToRegionOrigin(m_center);
 		}
-		void WorldViewport::SetDirtyChunkHandler(const std::function<void (ChunkPtr)>& handler)
+		void WorldViewport::SetDirtyChunkHandler(const std::function<void (const Coord&, ChunkPtr)>& handler)
 		{
-			m_pWorld->AddDirtyChunkHandler(handler);
+			handler_dirty_chunk = handler;
 		}
 		const std::list<ChunkPtr> WorldViewport::GetDirtyChunkList()
 		{
@@ -217,6 +255,28 @@ namespace ld3d
 		void WorldViewport::ClearDirtyChunkList()
 		{
 			m_pWorld->ClearDirtyChunks();
+		}
+		void WorldViewport::_on_dirty_chunk(ChunkPtr pChunk)
+		{
+			if(handler_dirty_chunk == nullptr)
+			{
+				return;
+			}
+			const ChunkKey& key = pChunk->GetKey();
+
+			Coord c = key.ToChunkOrigin();
+
+			c = m_pWorld->ToRegionCoord(c);
+
+			handler_dirty_chunk(c, pChunk);
+		}
+		void WorldViewport::SetRegionLoadedHandler(const std::function<void (RegionPtr)>& handler)
+		{
+			handler_region_loaded = handler;
+		}
+		void WorldViewport::SetRegionUnloadedHandler(const std::function<void (RegionPtr)>& handler)
+		{
+			handler_region_unloaded = handler;
 		}
 	}
 }

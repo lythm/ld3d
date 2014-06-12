@@ -37,7 +37,7 @@ namespace ld3d
 	{
 		return m_pCore->GetSysGraphics()->GetFrameBufferWidth();
 	}
-	uint32 Screen::GetFrameBufferHeight()
+	uint32 Screen::GetFramebufferHeight()
 	{
 		return m_pCore->GetSysGraphics()->GetFrameBufferHeight();
 	}
@@ -48,7 +48,7 @@ namespace ld3d
 	void Screen::SetWindowed(bool windowed)
 	{
 		int cx = GetFramebufferWidth();
-		int cy = GetFrameBufferHeight();
+		int cy = GetFramebufferHeight();
 		SetResolution(cx, cy, !windowed);
 	}
 }

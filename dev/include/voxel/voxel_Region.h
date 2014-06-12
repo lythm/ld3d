@@ -26,6 +26,7 @@ namespace ld3d
 			const Coord&											GetRegionCoord() const;
 			void													SetRegionCoord(const Coord& coord);
 
+			const Coord&											GetRegionOrigin() const;
 			bool													IsLoaded() const;
 			void													SetLoaded(bool loaded);
 

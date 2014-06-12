@@ -137,9 +137,18 @@ namespace ld3d
 
 			m_pChunkManager.reset();
 		}
-		const Coord& Region::GetRegionCoord() const
+		const Coord&  Region::GetRegionCoord() const
 		{
 			return m_coord;
+		}
+		const Coord& Region::GetRegionOrigin() const
+		{
+			Coord ori = m_coord;
+			ori.x *= REGION_SIZE;
+			ori.y *= REGION_HEIGHT;
+			ori.z *= REGION_SIZE;
+
+			return ori;
 		}
 		void Region::SetRegionCoord(const Coord& coord)
 		{

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <main>
   <sys>
-    <sys_graphics w="1600" h="900" windowed="true" vsync="true">sys/ogl4graphics_x64.dll</sys_graphics>
+    <sys_graphics w="1024" h="640" windowed="true" vsync="false">sys/ogl4graphics_x64.dll</sys_graphics>
     <sys_sound max_channels="100">sys/fmod_sound_x64.dll</sys_sound>
     <sys_network>sys/network_x64.dll</sys_network>
     <sys_physics></sys_physics>

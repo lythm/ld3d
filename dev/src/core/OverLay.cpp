@@ -58,6 +58,9 @@ namespace ld3d
 		
 		m_pParent = pParent;
 		m_pParent->m_children.push_back(shared_from_this());
+
+		m_pParent->SortChildren();
+
 	}
 	void Overlay::Unlink()
 	{
@@ -80,6 +83,11 @@ namespace ld3d
 	void Overlay::SetZOrder(int32 z)
 	{
 		m_zOrder = z;
+
+		if(m_pParent)
+		{
+			m_pParent->SortChildren();
+		}
 	}
 	bool Overlay::IsVisible()
 	{

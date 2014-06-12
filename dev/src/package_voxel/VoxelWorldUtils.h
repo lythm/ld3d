@@ -14,7 +14,7 @@ namespace ld3d
 			math::Vector3			normal;
 			math::Vector2			uv[4];
 			uint8					type;
-			math::Color4			ao[4];
+			math::Vector4			ao[4];
 		};
 		struct FaceRegion
 		{

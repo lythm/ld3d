@@ -16,7 +16,7 @@ namespace ld3d
 		uint32													GetRenderWindowWidth();
 		uint32													GetRenderWindowHeight();
 		uint32													GetFramebufferWidth();
-		uint32													GetFrameBufferHeight();
+		uint32													GetFramebufferHeight();
 	private:
 		CoreApiPtr												m_pCore;
 	};

@@ -87,7 +87,7 @@ namespace ld3d
 		inline
 			void Bound::UpdateCenter()
 		{
-			m_center = (m_max + m_min) * 0.5;
+			m_center = (m_max + m_min) * 0.5f;
 			
 			m_extentX = m_max.x - m_min.x;
 			m_extentY = m_max.y - m_min.y;
