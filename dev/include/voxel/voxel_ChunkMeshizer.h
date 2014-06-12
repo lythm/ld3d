@@ -108,7 +108,7 @@ namespace ld3d
 			ChunkMeshizer(void);
 			virtual ~ChunkMeshizer(void);
 
-			void										GenerateMesh(ChunkPtr pChunk, const Coord& base_coord, std::vector<VoxelMesh>& result);
+			virtual void								GenerateMesh(ChunkPtr pChunk, const Coord& base_coord, std::vector<VoxelMesh>& result);
 			void										AddVoxelMaterial(uint8 type, const VoxelMaterial& mat);
 		private:
 			static void									InitializeCubeVertex(uint32 size);

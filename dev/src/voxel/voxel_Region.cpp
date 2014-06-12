@@ -3,6 +3,7 @@
 #include "voxel/voxel_World.h"
 #include "voxel/voxel_WorldGen.h"
 #include "voxel_ChunkManager.h"
+#include "voxel_OctTree.h"
 
 namespace ld3d
 {
@@ -22,6 +23,8 @@ namespace ld3d
 		bool Region::Load()
 		{
 			GenRegion();
+
+			m_pChunkManager->ClearDirtyChunks();
 			return true;
 		}
 		bool Region::Save()
@@ -128,6 +131,7 @@ namespace ld3d
 			m_coord			= coord;
 			m_loaded		= false;
 
+			m_pOctTree		= std::allocate_shared<OctTree, std_allocator_adapter<OctTree>>(GetAllocator());
 			return true;
 		}
 		void Region::Release()
@@ -141,7 +145,7 @@ namespace ld3d
 		{
 			return m_coord;
 		}
-		const Coord& Region::GetRegionOrigin() const
+		Coord Region::GetRegionOrigin() const
 		{
 			Coord ori = m_coord;
 			ori.x *= REGION_SIZE;

@@ -73,10 +73,6 @@ namespace ld3d
 		}
 
 
-
-		GLint v = 0;
-		glGetIntegerv(GL_MAX_ARRAY_TEXTURE_LAYERS, &v);
-
 		return true;
 	}
 	bool OGL4Loader::load_wgl()
@@ -314,10 +310,6 @@ namespace ld3d
 	}
 	const std::vector<std::string>& OGL4Loader::GetExt()
 	{
-
-		GLint v = 0;
-		glGetIntegerv(GL_MAX_ARRAY_TEXTURE_LAYERS, &v);
-
 		return m_exts;
 	}
 }

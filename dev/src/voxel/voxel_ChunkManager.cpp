@@ -8,6 +8,7 @@ namespace ld3d
 	{
 		ChunkManager::ChunkManager(void) : m_chunkmap(GetAllocator())
 		{
+			
 		}
 
 
@@ -30,12 +31,11 @@ namespace ld3d
 				AddChunk(pChunk);
 			}
 
-			pChunk->SetBlock(c - key.ToChunkOrigin(), type);
 			if(pChunk->IsDirty() == false)
 			{
-				pChunk->SetDirty(true);
 				m_dirtyList.push_back(pChunk);
 			}
+			pChunk->SetBlock(c - key.ToChunkOrigin(), type);
 			return true;
 		}
 		ChunkPtr ChunkManager::CreateChunk(const ChunkKey& key, uint8 data[])

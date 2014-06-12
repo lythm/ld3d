@@ -33,8 +33,9 @@ namespace ld3d
 			m_center = c;
 		}
 		
-		bool WorldViewport::Open(WorldPtr pWorld, const Coord& center, uint32 size)
+		bool WorldViewport::Open(WorldPtr pWorld, const Coord& center, uint32 size, ChunkMeshizerPtr pMeshizer)
 		{
+			m_pMeshizer = pMeshizer;
 			m_pWorld = pWorld;
 			m_center = center;
 			m_center.y = 0;
@@ -113,7 +114,7 @@ namespace ld3d
 
 			std::list<RegionPtr>::iterator it = m_regionCache.begin();
 
-			uint32 cache_margin = 1;
+			int32 cache_margin = 2;
 
 			for(it; it != m_regionCache.end(); ++it)
 			{

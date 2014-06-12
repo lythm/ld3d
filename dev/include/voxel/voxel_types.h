@@ -38,7 +38,11 @@ namespace ld3d
 		class WorldViewport;
 		class RegionManager;
 		class ChunkMeshizer;
+		class OctTree;
+		class ChunkMesh;
 
+		typedef std::shared_ptr<ChunkMesh>										ChunkMeshPtr;
+		typedef std::shared_ptr<OctTree>										OctTreePtr;
 		typedef std::shared_ptr<ChunkMeshizer>									ChunkMeshizerPtr;
 		typedef std::shared_ptr<RegionManager>									RegionManagerPtr;
 		typedef std::shared_ptr<WorldViewport>									WorldViewportPtr;

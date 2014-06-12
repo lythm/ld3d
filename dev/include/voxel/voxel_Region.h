@@ -26,7 +26,7 @@ namespace ld3d
 			const Coord&											GetRegionCoord() const;
 			void													SetRegionCoord(const Coord& coord);
 
-			const Coord&											GetRegionOrigin() const;
+			Coord													GetRegionOrigin() const;
 			bool													IsLoaded() const;
 			void													SetLoaded(bool loaded);
 
@@ -41,6 +41,9 @@ namespace ld3d
 			bool													m_loaded;
 
 			WorldPtr												m_pWorld;
+
+			OctTreePtr												m_pOctTree;
+
 		};
 	}
 }

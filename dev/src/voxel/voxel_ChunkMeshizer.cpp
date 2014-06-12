@@ -2,6 +2,7 @@
 #include "voxel/voxel_ChunkMeshizer.h"
 #include "voxel/voxel_Chunk.h"
 #include "voxel_ChunkManager.h"
+#include "voxel/voxel_ChunkMesh.h"
 
 namespace ld3d
 {
@@ -247,7 +248,8 @@ namespace ld3d
 			
 
 			VoxelMesh sub;
-			sub.vertex_buffer.resize(mesh.size() * 6);
+			//sub.vertex_buffer.resize(mesh.size() * 6);
+			sub.vertex_buffer.reserve(mesh.size() * 6);
 
 			sub.material_id		= mesh[0].material;
 			sub.type			= mesh[0].type;
