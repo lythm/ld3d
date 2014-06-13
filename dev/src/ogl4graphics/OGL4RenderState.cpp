@@ -178,7 +178,7 @@ namespace ld3d
 	}
 	void OGL4RenderState::AddCommand(const std::function<void ()>& command)
 	{
-		if(command == false)
+		if(!command)
 		{
 			return;
 		}

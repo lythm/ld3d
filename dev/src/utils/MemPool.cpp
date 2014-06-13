@@ -61,7 +61,7 @@ namespace ld3d
 
 		if(it == m_Slots.end())
 		{
-			delete mem;
+			delete (char*)mem;
 			return;
 		}
 

@@ -1,7 +1,8 @@
 #pragma once
 
 #ifdef __APPLE__
-#include <OpenGL/OpenGL.h>
+//#include <OpenGL/OpenGL.h>
+//#include <OpenGL/gl3.h>
 #include <OpenGL/gl3.h>
 #endif
 

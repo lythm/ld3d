@@ -27,7 +27,7 @@ namespace ld3d
 
 		static std::string									ProcessInclude(const boost::filesystem::path& basePath, 
 																const std::string& source, 
-																std::vector<IncludeInfo>& inc_list = std::vector<IncludeInfo>());
+																std::vector<IncludeInfo>& inc_list);
 
 		static std::vector<IncludeInfo>						ExtractIncludeList(const std::string& source);
 

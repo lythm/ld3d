@@ -11,7 +11,7 @@
 
 #include "core/RenderWindow.h"
 
-#include <Cocoa/Cocoa.h>
+//#include <Cocoa/Cocoa.h>
 namespace ld3d
 {
     class OGL4RenderWindow : public RenderWindow
@@ -21,7 +21,7 @@ namespace ld3d
         virtual ~OGL4RenderWindow();
         
         
-        bool                    Create(NSWindow* window);
+      //  bool                    Create(NSWindow* window);
         void                    Destroy();
         
         

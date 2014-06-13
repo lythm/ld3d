@@ -23,7 +23,7 @@ namespace ld3d
 		// insert after me
 		void										Insert(LinkedNodePtr pNode)
 		{
-			Insert(std::dynamic_pointer_cast<T>(shared_from_this()), pNode);
+			Insert(std::dynamic_pointer_cast<T>(std::enable_shared_from_this<Linked<T>>::shared_from_this()), pNode);
 		}
 		// insert after pPos
 		static void									Insert(LinkedNodePtr pPos, LinkedNodePtr pNode)

@@ -92,7 +92,7 @@ namespace math
 
 		for(int i = 0; i < max_planes; ++i)
 		{
-			float l = m_planes[i].normal.Length();
+			//float l = m_planes[i].normal.Length();
 			m_planes[i].Normalize();
 
 		}

@@ -20,12 +20,7 @@ namespace ld3d
 			print(boost::lexical_cast<std::string>(value));
 			return *this;
 		}
-		template<>
-		Logger&															operator<<(const bool& value)
-		{
-			value ? print("true") : print("false");
-			return *this;
-		}
+		
 
 
 	private:
@@ -36,6 +31,13 @@ namespace ld3d
 	private:
 		std::function<void (const std::string& log)>					_write;
 	};
+    
+    template<>
+    Logger& Logger::operator<<(const bool& value)
+    {
+        value ? print("true") : print("false");
+        return *this;
+    }
 
 
 }
