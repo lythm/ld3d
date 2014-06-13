@@ -223,8 +223,8 @@ namespace ld3d
 		double result = 0.0f;
 		double amp = m_Amplitude;
 
-		vec[0]*=m_Frequency;
-		vec[1]*=m_Frequency;
+		vec[0]*=freq;
+		vec[1]*=freq;
 
 		for( int i=0; i<terms; i++ )
 		{
