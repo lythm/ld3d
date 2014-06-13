@@ -31,6 +31,10 @@ namespace ld3d
 
 			void														SetRegionLoadedHandler(const std::function<void (RegionPtr)>& handler);
 			void														SetRegionUnloadedHandler(const std::function<void (RegionPtr)>& handler);
+
+			void														SetViewportSize(uint32 size);
+
+			void														FrustumCull(const math::ViewFrustum& vf);
 		private:
 			void														UpdateRegionBuffer(bool sync);
 			bool														InitRegionBuffer();

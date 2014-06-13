@@ -45,7 +45,7 @@ namespace ld3d
 		m_projMatrix = proj;
 	}
 
-	const ViewFrustum& BaseCamera::GetViewFrustum() const
+	const math::ViewFrustum& BaseCamera::GetViewFrustum() const
 	{
 		return m_frustum;
 	}

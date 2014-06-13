@@ -5,7 +5,7 @@ namespace ld3d
 {
 	namespace voxel
 	{
-		class Region : public RefCount
+		class Region : public RefCount, public std::enable_shared_from_this<Region>
 		{
 		public:
 			Region();
@@ -14,8 +14,9 @@ namespace ld3d
 			bool													Initialize(WorldPtr pWorld, const Coord& coord);
 			void													Release();
 
-			bool													Load();
-			bool													Unload();
+			bool													Load(ChunkLoaderPtr pLoader, bool sync = false);
+			
+			bool													Unload(ChunkLoaderPtr pLoader, bool sync = false);
 			bool													Save();
 
 			bool													GenChunk(const Coord& chunk_origin);
@@ -30,6 +31,11 @@ namespace ld3d
 			bool													IsLoaded() const;
 			void													SetLoaded(bool loaded);
 
+			float*													GetHeightmap();
+			void													GenHeightmap();
+		private:
+			
+
 		private:
 			
 			bool													m_modified;
@@ -42,8 +48,7 @@ namespace ld3d
 
 			WorldPtr												m_pWorld;
 
-			OctTreePtr												m_pOctTree;
-
+			float*													m_heightMap;
 		};
 	}
 }

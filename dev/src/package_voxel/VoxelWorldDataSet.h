@@ -26,7 +26,7 @@ namespace ld3d
 
 		void													UpdateMesh();
 
-		VoxelWorldChunk*										FrustumCull(const ViewFrustum& vf);
+		VoxelWorldChunk*										FrustumCull(const math::ViewFrustum& vf);
 
 		uint32													GetFaceCount();
 

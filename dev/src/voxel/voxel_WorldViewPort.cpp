@@ -75,13 +75,13 @@ namespace ld3d
 				{
 					continue;
 				}
-				m_pRegionManager->UnloadRegion(r);
+				m_pRegionManager->UnloadRegionSync(r);
 			}
 			m_regionBuffer.clear();
 
 			for(auto r : m_regionCache)
 			{
-				m_pRegionManager->UnloadRegion(r);
+				m_pRegionManager->UnloadRegionSync(r);
 			}
 			m_regionCache.clear();
 		}
@@ -278,6 +278,16 @@ namespace ld3d
 		void WorldViewport::SetRegionUnloadedHandler(const std::function<void (RegionPtr)>& handler)
 		{
 			handler_region_unloaded = handler;
+		}
+		void WorldViewport::SetViewportSize(uint32 size)
+		{
+			m_size = size;
+			UpdateRegionBuffer(false);
+			UpdateRegionCache();
+		}
+		void WorldViewport::FrustumCull(const math::ViewFrustum& vf)
+		{
+
 		}
 	}
 }

@@ -249,6 +249,9 @@
     <ClInclude Include="..\..\include\core\HtmlTexture.h" />
     <ClInclude Include="..\..\include\core\OSWindow.h" />
     <ClInclude Include="WinWindow.h" />
+    <ClInclude Include="..\..\include\math\math_viewfrustum.h">
+      <Filter>math</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="math">

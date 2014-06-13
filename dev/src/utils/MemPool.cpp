@@ -221,6 +221,8 @@ namespace ld3d
 	}
 	void MemSlot::Update()
 	{
+		return;
+
 		if(m_blockCount - m_reservedBlockCount > m_shrinkStep)
 		{
 			Shrink(m_shrinkStep);

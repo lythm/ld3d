@@ -240,9 +240,9 @@ namespace ld3d
 		{
 			return false;
 		}
-#ifndef _DEBUG
-		ShowDebugPanel(false);
-#endif
+//#ifndef _DEBUG
+		//ShowDebugPanel(false);
+//#endif
 		m_pGameManager = alloc_object<GameManager>();
 
 		if(false == LoadMod(setting.mod))

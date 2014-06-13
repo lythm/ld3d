@@ -355,7 +355,7 @@ namespace ld3d
 		pChunk->SetDirtyListNext(m_pDirtyList);
 		m_pDirtyList = pChunk;
 	}
-	void VoxelWorldRegion::FrustumCull(const ViewFrustum& vf)
+	void VoxelWorldRegion::FrustumCull(const math::ViewFrustum& vf)
 	{
 		m_pRenderList = nullptr;
 

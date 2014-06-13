@@ -200,7 +200,7 @@ namespace ld3d
 	{
 		return m_pTexture;
 	}
-	bool SpotLight::IsAffecting(const ViewFrustum& frustum)
+	bool SpotLight::IsAffecting(const math::ViewFrustum& frustum)
 	{
 		float radius = tanf(math::D2R(m_angle)) * m_range;
 
@@ -219,7 +219,7 @@ namespace ld3d
 
 		math::Matrix44 world = GetWorldTM();
 		world.Invert();
-		ViewFrustum iv = frustum;
+		math::ViewFrustum iv = frustum;
 		iv.Transform(world);
 
 		return iv.IntersectBox(box);

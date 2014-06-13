@@ -22,7 +22,7 @@ namespace ld3d
 		void					Release();
 		void					RenderLight(RenderManagerPtr pRenderManager);
 
-		bool					IsAffecting(const ViewFrustum& frustum);
+		bool					IsAffecting(const math::ViewFrustum& frustum);
 
 	private:
 		void					DrawLightVolumn(RenderManagerPtr pRenderManager);

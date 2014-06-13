@@ -800,8 +800,6 @@ namespace ld3d
 
 			if(layer == 0)
 			{
-				int l = tex.layers();
-
 				glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_MAX_LEVEL, GLint(tex.levels() - 1));
 				glTexStorage3D(GL_TEXTURE_2D_ARRAY,
 					GLint(tex.levels()),

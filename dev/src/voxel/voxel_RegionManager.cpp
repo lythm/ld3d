@@ -1,6 +1,8 @@
 #include "voxel_pch.h"
 #include "voxel_RegionManager.h"
 #include "voxel/voxel_Region.h"
+#include "voxel_ChunkLoader.h"
+#include "voxel/voxel_World.h"
 
 namespace ld3d
 {
@@ -8,6 +10,7 @@ namespace ld3d
 	{
 		RegionManager::RegionManager(void)
 		{
+
 		}
 
 
@@ -17,13 +20,17 @@ namespace ld3d
 		bool RegionManager::Initialize(WorldPtr pWorld)
 		{
 			m_pWorld = pWorld;
+			m_pChunkLoader = std::allocate_shared<ChunkLoader, std_allocator_adapter<ChunkLoader>>(GetAllocator());
+			if(m_pChunkLoader->Initialize(m_pWorld->GetChunkManager()) == false)
+			{
+				return false;
+			}
 			return true;
 		}
 		void RegionManager::Release()
 		{
-			m_loadingQueue.clear();
-
-			while(ProcessUnloadingQueue());
+			m_pChunkLoader->Release();
+			m_pChunkLoader.reset();
 
 			m_pWorld.reset();
 		}
@@ -35,11 +42,10 @@ namespace ld3d
 			{
 				pRegion = std::allocate_shared<Region, std_allocator_adapter<Region>>(GetAllocator());
 				pRegion->Initialize(m_pWorld, c);
+				pRegion->Load(m_pChunkLoader);
 
-				m_loadingQueue.push_back(pRegion);
 				m_regions.push_back(pRegion);
 			}
-
 			return pRegion;
 		}
 		RegionPtr RegionManager::LoadRegionSync(const Coord& c)
@@ -51,13 +57,23 @@ namespace ld3d
 				pRegion = std::allocate_shared<Region, std_allocator_adapter<Region>>(GetAllocator());
 				pRegion->Initialize(m_pWorld, c);
 				
-				pRegion->Load();
-				pRegion->SetLoaded(true);
+				pRegion->Load(m_pChunkLoader, true);
 
 				m_regions.push_back(pRegion);
 			}
 
 			return pRegion;
+		}
+		void RegionManager::UnloadRegionSync(RegionPtr pRegion)
+		{
+			pRegion->DecRef();
+
+			if(pRegion->GetRef() == 0)
+			{
+				pRegion->Unload(m_pChunkLoader, true);
+
+				m_regions.remove(pRegion);
+			}
 		}
 		void RegionManager::UnloadRegion(RegionPtr pRegion)
 		{
@@ -65,55 +81,18 @@ namespace ld3d
 
 			if(pRegion->GetRef() == 0)
 			{
-				m_unloadingQueue.push_back(pRegion);
+				pRegion->Unload(m_pChunkLoader);
+
+				m_pChunkLoader->ReleaseRegion(pRegion);
+
 				m_regions.remove(pRegion);
 			}
 		}
 		void RegionManager::Update()
 		{
-			if(ProcessLoadingQueue() == true)
-			{
-				return;
-			}
-
-			ProcessUnloadingQueue();
+			m_pChunkLoader->Update();
 		}
-		bool RegionManager::ProcessLoadingQueue()
-		{
-			std::list<RegionPtr>::iterator it = m_loadingQueue.begin();
-
-			if(it == m_loadingQueue.end())
-			{
-				return false;
-			}
-
-			(*it)->Load();
-				
-			(*it)->SetLoaded(true);
-
-			m_loadingQueue.erase(it);
-			
-			return true;
-		}
-		bool RegionManager::ProcessUnloadingQueue()
-		{
-			std::list<RegionPtr>::iterator it = m_unloadingQueue.begin();
-			if(it == m_unloadingQueue.end())
-			{
-				return false;
-			}
-
-			assert((*it)->IsLoaded() == true);
-
-			(*it)->Unload();
-			(*it)->SetLoaded(false);
-			
-			(*it)->Release();
-
-			m_unloadingQueue.erase(it);
-
-			return true;
-		}
+		
 		RegionPtr RegionManager::FindRegion(const Coord& c)
 		{
 			for(auto r : m_regions)

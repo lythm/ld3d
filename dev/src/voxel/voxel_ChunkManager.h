@@ -21,7 +21,6 @@ namespace ld3d
 			uint8											GetBlock(const Coord& c);
 			void											UpdateBlock(const Coord& c);
 
-
 			ChunkPtr										FindChunk(const ChunkKey& key);
 
 			const std::list<ChunkPtr>&						GetDirtyChunks() const;

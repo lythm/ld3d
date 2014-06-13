@@ -109,7 +109,7 @@ namespace ld3d
 
 		return pLight->m_pNext;
 	}
-	LightPtr LightManager::GetNextAffectingLight(LightPtr pLight, const ViewFrustum& frustum)
+	LightPtr LightManager::GetNextAffectingLight(LightPtr pLight, const math::ViewFrustum& frustum)
 	{
 		LightPtr pNode = GetNextLight(pLight);
 		

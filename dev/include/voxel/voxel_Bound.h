@@ -11,6 +11,7 @@ namespace ld3d
 		public:
 
 			Bound(const Coord& min_coord, const Coord& max_coord);
+			Bound(const math::AABBox& box);
 			Bound();
 
 			~Bound(void);
@@ -35,6 +36,12 @@ namespace ld3d
 			bool											Inside(const Coord& pt) const;
 
 			Coord											PointNormal(const Coord& pt);
+
+			// precision lost
+			math::AABBox									ToAABBox() const
+			{
+				return math::AABBox(m_min.ToVector3(), m_max.ToVector3());
+			}
 		private:
 			void											UpdateValid();
 			void											UpdateCenter();
@@ -74,6 +81,15 @@ namespace ld3d
 			UpdateValid();
 			UpdateCenter();
 		}
+		inline
+			Bound::Bound(const math::AABBox& box)
+		{
+			m_min = box.GetMinCoord();
+			m_max = box.GetMaxCoord();
+			UpdateValid();
+			UpdateCenter();
+		}
+
 		inline
 			Bound::Bound(const Coord& min_coord, const Coord& max_coord) : m_max(max_coord), m_min(min_coord)
 		{

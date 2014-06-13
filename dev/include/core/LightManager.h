@@ -18,7 +18,7 @@ namespace ld3d
 		
 		LightPtr								GetNextLight(LightPtr pLight);
 
-		LightPtr								GetNextAffectingLight(LightPtr pLight, const ViewFrustum& frustum);
+		LightPtr								GetNextAffectingLight(LightPtr pLight, const math::ViewFrustum& frustum);
 
 		void									RenderLights(CameraPtr pCamera);
 		void									RenderShadowMaps(CameraPtr pCamera);

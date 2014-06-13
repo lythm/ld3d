@@ -23,7 +23,7 @@ namespace ld3d
 
 		bool													InRegion(uint32 x, uint32 y, uint32 z);
 
-		void													FrustumCull(const ViewFrustum& vf);
+		void													FrustumCull(const math::ViewFrustum& vf);
 
 		VoxelWorldChunk*										GetRenderList();
 

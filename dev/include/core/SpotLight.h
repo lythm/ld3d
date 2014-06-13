@@ -26,7 +26,7 @@ namespace ld3d
 		void							SetTexture(TexturePtr pTex);
 		TexturePtr						GetTexture();
 
-		bool							IsAffecting(const ViewFrustum& frustum);
+		bool							IsAffecting(const math::ViewFrustum& frustum);
 	private:
 		void							UpdateLightVolume();
 		void							UpdateLightProjMatrix();

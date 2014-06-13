@@ -1,7 +1,7 @@
 #pragma once
 #include <boost/enable_shared_from_this.hpp>
 
-#include "core/ViewFrustum.h"
+//#include "core/ViewFrustum.h"
 
 namespace ld3d
 {
@@ -17,7 +17,7 @@ namespace ld3d
 		virtual void							RenderLight(RenderManagerPtr pRenderer);
 		virtual void							Update();
 		virtual void							RenderShadowMap(RenderManagerPtr pRenderer);
-		virtual bool							IsAffecting(const ViewFrustum& frustum);
+		virtual bool							IsAffecting(const math::ViewFrustum& frustum);
 		virtual void							Release();
 		virtual const math::Matrix44&			GetWorldTM();
 		virtual void							SetWorldTM(const math::Matrix44& world);

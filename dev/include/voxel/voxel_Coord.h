@@ -13,6 +13,12 @@ namespace ld3d
 				y = _y;
 				z = _z;
 			}
+			Coord(const math::Vector3& v)
+			{
+				x = v.x;
+				y = v.y;
+				z = v.z;
+			}
 			Coord()
 			{
 				x = 0;
@@ -90,6 +96,12 @@ namespace ld3d
 			uint64						Length()
 			{
 				return sqrt(x * x + y * y + z * z);
+			}
+
+			// precision lost
+			math::Vector3				ToVector3() const
+			{
+				return math::Vector3((float)x, (float)y, (float)z);
 			}
 
 			int32						x;

@@ -64,7 +64,7 @@ namespace ld3d
 			return false;
 		}
 
-		ResetComponents();
+		ResetComponents(m_pWorld);
 
 		return true;
 
@@ -76,10 +76,10 @@ namespace ld3d
 			return;
 		}
 
+		ResetComponents(nullptr);
+
 		m_pWorld->Destroy();
 		m_pWorld = nullptr;
-
-		ResetComponents();
 
 	}
 	void VoxelWorldImpl2::Update(float dt)
@@ -127,13 +127,13 @@ namespace ld3d
 	{
 		return m_pWorld;
 	}
-	void VoxelWorldImpl2::ResetComponents()
+	void VoxelWorldImpl2::ResetComponents(voxel::WorldPtr pWorld)
 	{
 		std::shared_ptr<VoxelWorldRendererImpl2> pRenderer = std::dynamic_pointer_cast<VoxelWorldRendererImpl2>(m_pObject->GetComponent("VoxelWorldRenderer"));
 
 		if(pRenderer != nullptr)
 		{
-			pRenderer->ResetWorld(m_pWorld);
+			pRenderer->ResetWorld(pWorld);
 		}
 	}
 	void VoxelWorldImpl2::_on_end_frame(EventPtr pEvent)

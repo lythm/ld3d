@@ -24,6 +24,11 @@ namespace ld3d
 		void						SetFarPlane(float fp);
 		void						SetAspect(float aspect);
 		void						SetFOV(float fov);
+
+		void						SetAutoAspect(bool autoAspect);
+	private:
+		void						_on_event_framebuffer_resize(EventPtr pEvent);
+
 	private:
 		CameraPtr					m_pCamera;
 
@@ -31,5 +36,9 @@ namespace ld3d
 		float						m_fp;
 		float						m_aspect;
 		float						m_fov;
+
+		bool						m_autoAspect;
+
+		EventHandlerID				m_ehOnFrameBufferResize;
 	};
 }

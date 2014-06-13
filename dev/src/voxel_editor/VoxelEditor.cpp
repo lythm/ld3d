@@ -79,10 +79,14 @@ namespace ld3d
 			m_debugInfo = m_pCore->GetDebugPanel()->AddLine();
 
 			*m_debugInfo = "hello";
+
+			m_pCore->RegisterConsoleCommand("set_camera_speed", std::bind(&VoxelEditor::_on_cmd_set_camera_speed, this, std::placeholders::_1, std::placeholders::_2));
 			return true;
 		}
 		void VoxelEditor::Release()
 		{
+			m_pCore->RemoveConsoleCommand("set_camera_speed");		
+
 			m_pWorld = nullptr;
 		}
 		bool VoxelEditor::Update(float dt)
@@ -119,6 +123,30 @@ namespace ld3d
 		void VoxelEditor::_on_resize(ld3d::EventPtr pEvent)
 		{
 			Event_ResizeFrameBuffer* pResize = (Event_ResizeFrameBuffer*)pEvent.get();
+		}
+		void VoxelEditor::_on_cmd_set_camera_speed(const ld3d::CommandLine& cl, std::function<void (const std::string&)> writeln)
+		{
+			if(cl.GetParamCount() != 1)
+			{
+				writeln("invalid parameter count");
+				return;
+			}
+
+			float speed = 0;
+			try
+			{
+				speed = boost::lexical_cast<float>(cl.GetParam(0));
+			}
+			catch(...)
+			{
+				writeln("invalid parameter");
+				return;
+			}
+
+			CameraController_FreePtr pController = std::dynamic_pointer_cast<CameraController_Free>(m_pCamera->GetComponent("CameraFreeController"));
+			pController->SetSpeed(speed);
+
+			writeln("camera speed: " + cl.GetParam(0));
 		}
 	}
 }

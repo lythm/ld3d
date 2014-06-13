@@ -122,16 +122,16 @@ namespace ld3d
 		int							h;
 	};
 
-	class ViewFrustum;
+
 	class Event_FrustumCull : public Event
 	{
 	public:
-		Event_FrustumCull(ViewFrustum* vf) : Event(EV_FRUSTUM_CULL)
+		Event_FrustumCull(math::ViewFrustum* vf) : Event(EV_FRUSTUM_CULL)
 		{
 			m_pViewFrustum	= vf;
 		}
 
-		ViewFrustum*					m_pViewFrustum;
+		math::ViewFrustum*					m_pViewFrustum;
 	};
 
 #if defined(WIN32) || defined(WIN64)

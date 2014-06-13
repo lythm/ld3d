@@ -132,7 +132,7 @@ namespace ld3d
 		
 		m_lightTM = view * proj;
 
-		ViewFrustum vf;
+		math::ViewFrustum vf;
 		vf.Update(view, proj);
 
 		m_pRenderManager->EmitViewFrustumCullEvent(vf);

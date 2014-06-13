@@ -18,22 +18,20 @@ namespace ld3d
 			RegionPtr										LoadRegion(const Coord& c);
 			RegionPtr										LoadRegionSync(const Coord& c);
 			void											UnloadRegion(RegionPtr pRegion);
+			void											UnloadRegionSync(RegionPtr pRegion);
 
 			void											Update();
 
 			RegionPtr										FindRegion(const Coord& c);
 
 		private:
-			bool											ProcessLoadingQueue();
-			bool											ProcessUnloadingQueue();
+			
 		private:
 			WorldPtr										m_pWorld;
-
-
+			
 			std::list<RegionPtr>							m_regions;
-			std::list<RegionPtr>							m_loadingQueue;
-			std::list<RegionPtr>							m_unloadingQueue;
-
+			
+			ChunkLoaderPtr									m_pChunkLoader;
 		};
 	}
 }

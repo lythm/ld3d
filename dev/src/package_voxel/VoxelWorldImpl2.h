@@ -32,7 +32,7 @@ namespace ld3d
 		voxel::WorldPtr								GetWorld();
 	private:
 
-		void										ResetComponents();
+		void										ResetComponents(voxel::WorldPtr pWorld);
 
 		bool										OnAttach();
 		void										OnDetach();

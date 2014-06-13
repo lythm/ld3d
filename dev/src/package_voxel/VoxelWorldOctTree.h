@@ -25,7 +25,7 @@ namespace ld3d
 
 		bool								AddChunk(VoxelWorldChunk* pChunk);
 		
-		void								FrustumCull(const ViewFrustum& vf, std::function<void (VoxelWorldChunk*)> op);
+		void								FrustumCull(const math::ViewFrustum& vf, std::function<void (VoxelWorldChunk*)> op);
 
 		bool								RayPick(const math::Ray& r, Real& t);
 

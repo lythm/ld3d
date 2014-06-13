@@ -142,7 +142,7 @@ namespace ld3d
 
 		return m_modifiedWorldTM;
 	}
-	bool PointLight::IsAffecting(const ViewFrustum& frustum)
+	bool PointLight::IsAffecting(const math::ViewFrustum& frustum)
 	{
 		math::Vector3 pos = GetWorldTM().GetRow3(3);
 

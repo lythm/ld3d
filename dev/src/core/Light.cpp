@@ -39,7 +39,7 @@ namespace ld3d
 		return m_type;
 	}
 	
-	bool Light::IsAffecting(const ViewFrustum& frustum)
+	bool Light::IsAffecting(const math::ViewFrustum& frustum)
 	{
 		return true;
 	}

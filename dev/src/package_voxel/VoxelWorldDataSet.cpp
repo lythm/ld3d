@@ -67,7 +67,7 @@ namespace ld3d
 		m_pRegion->RemoveBlock(x, y, z);
 	}
 
-	VoxelWorldChunk* VoxelWorldDataSet::FrustumCull(const ViewFrustum& vf)
+	VoxelWorldChunk* VoxelWorldDataSet::FrustumCull(const math::ViewFrustum& vf)
 	{
 		if(m_pRegion == nullptr)
 		{

@@ -30,12 +30,12 @@ namespace ld3d
 	{
 		
 
-		std::vector<std::string> files;
-		files.push_back("./assets/voxel/texture/dirt.dds");
-		files.push_back("./assets/voxel/texture/rock.dds");
-		//files.push_back("./assets/voxel/texture/sand.dds");
+		//std::vector<std::string> files;
+		//files.push_back("./assets/voxel/texture/dirt.dds");
+		//files.push_back("./assets/voxel/texture/rock.dds");
+		////files.push_back("./assets/voxel/texture/sand.dds");
 
-		TexturePtr pTex = m_pManager->GetRenderManager()->Create2DTextureArrayFromFileList(files);
+		//TexturePtr pTex = m_pManager->GetRenderManager()->Create2DTextureArrayFromFileList(files);
 
 
 	//	TexturePtr pTex1 = m_pManager->GetRenderManager()->CreateTextureFromFile("./assets/voxel/texture/block.dds");
@@ -107,8 +107,10 @@ namespace ld3d
 		{
 			return;
 		}
-
-		const std::list<voxel::ChunkPtr>& dcl = m_pWorldVP->GetDirtyChunkList();
-
+	}
+	void VoxelWorldRendererImpl2::SetWorldViewPort(const voxel::Coord& center, uint32 size)
+	{
+		m_pWorldVP->MoveTo(center);
+		m_pWorldVP->SetViewportSize(size);
 	}
 }

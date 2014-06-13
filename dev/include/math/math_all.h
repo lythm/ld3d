@@ -59,6 +59,9 @@
 	#include <math/math_aabbox.h>
 #endif
 
+#ifndef __MATH_VIEWFRUSTUM_H__
+	#include <math/math_viewfrustum.h>
+#endif
 #ifndef __MATH_ALG_H__
 	#include <math/math_alg.h>
 #endif

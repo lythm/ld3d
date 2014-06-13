@@ -21,6 +21,7 @@ namespace ld3d
 		void										MoveViewPortTo(uint32 x, uint32 y, uint32 z);
 
 		void										ResetWorld(voxel::WorldPtr pWorld);
+		void										SetWorldViewPort(const voxel::Coord& center, uint32 size);
 	private:
 
 		bool										OnAttach();

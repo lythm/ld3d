@@ -101,13 +101,13 @@ namespace ld3d
 		m_worldSizeZ = z;
 	}
 	
-	VoxelWorldChunk* VoxelWorldImpl::FrustumCull(ViewFrustum* pVF)
+	VoxelWorldChunk* VoxelWorldImpl::FrustumCull(math::ViewFrustum* pVF)
 	{
 		if(m_pDataSet == nullptr)
 		{
 			return nullptr;
 		}
-		ViewFrustum vf = *pVF;
+		math::ViewFrustum vf = *pVF;
 
 		math::Matrix44 world = m_pObject->GetWorldTransform();
 		world.Invert();

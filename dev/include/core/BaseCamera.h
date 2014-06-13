@@ -1,5 +1,5 @@
 #pragma once
-#include "core/ViewFrustum.h"
+//#include "core/ViewFrustum.h"
 
 namespace ld3d
 {
@@ -22,7 +22,7 @@ namespace ld3d
 		void													SetViewMatrix(const math::Matrix44& view);
 		void													SetProjMatrix(const math::Matrix44& proj);
 
-		const ViewFrustum&										GetViewFrustum() const;
+		const math::ViewFrustum&								GetViewFrustum() const;
 		void													UpdateViewFrustum();
 
 		math::Vector3											GetAxisX();
@@ -33,7 +33,7 @@ namespace ld3d
 		math::Matrix44											m_viewMatrix;
 		math::Matrix44											m_projMatrix;
 
-		ViewFrustum												m_frustum;
+		math::ViewFrustum										m_frustum;
 	};
 }
 
