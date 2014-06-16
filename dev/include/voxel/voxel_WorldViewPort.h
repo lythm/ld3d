@@ -35,6 +35,8 @@ namespace ld3d
 			void														SetViewportSize(uint32 size);
 
 			void														FrustumCull(const math::ViewFrustum& vf);
+
+			
 		private:
 			void														UpdateRegionBuffer(bool sync);
 			bool														InitRegionBuffer();
@@ -47,6 +49,7 @@ namespace ld3d
 
 			void														UpdateRegionCache();
 
+			void														_on_chunk_loaded(RegionPtr pRegion, ChunkPtr pChunk);
 			void														_on_dirty_chunk(ChunkPtr pChunk);
 		private:
 			WorldPtr													m_pWorld;

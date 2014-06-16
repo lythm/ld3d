@@ -2,7 +2,7 @@
 #include "voxel_ChunkLoader.h"
 #include "voxel_ChunkManager.h"
 #include "voxel/voxel_Region.h"
-
+#include "voxel/voxel_Chunk.h"
 namespace ld3d
 {
 	namespace voxel
@@ -29,7 +29,7 @@ namespace ld3d
 		}
 		void ChunkLoader::Update()
 		{
-			for(int i = 0; i < 1000; ++i)
+			for(int i = 0; i < 10; ++i)
 			{
 				if(ProcessLoadingQueue() == false)
 				{
@@ -37,7 +37,12 @@ namespace ld3d
 				}
 			}
 
-			for(int i = 0; i < 1000; ++i)
+
+			if(m_loadingQueue.size() != 0)
+			{
+				return;
+			}
+			for(int i = 0; i < 10; ++i)
 			{
 				if(ProcessUnloadingQueue() == false)
 				{
@@ -45,7 +50,7 @@ namespace ld3d
 				}
 			}
 		}
-		bool ChunkLoader::_do_load_chunk(RegionPtr pRegion, const ChunkKey& key)
+		bool ChunkLoader::_do_load_chunk(RegionPtr pRegion, const ChunkKey& key, const std::function<void(RegionPtr, ChunkPtr)>& on_loaded)
 		{
 			ChunkPtr pChunk = m_pChunkManager->FindChunk(key);
 			if(pChunk != nullptr)
@@ -53,29 +58,24 @@ namespace ld3d
 				return true;
 			}
 
-			// load chunk
-			float* height_map = pRegion->GetHeightmap();
 
-			Coord region_origin = pRegion->GetRegionOrigin();
-			Coord chunk_origin = key.ToChunkOrigin();
-
-			Coord dc = chunk_origin - region_origin;
-
-			for(int x = 0; x < CHUNK_SIZE; ++x)
+			pChunk = m_pChunkManager->CreateChunk(key, nullptr);
+			
+			if(false == pRegion->LoadChunk(pChunk))
 			{
-				for(int z = 0; z < CHUNK_SIZE; ++z)
-				{
-					int rx = x + dc.x;
-					int rz = z + dc.z;
-					float h = height_map[rz * REGION_SIZE + rx] * 100;
-
-					if(h < chunk_origin.y)
-					{
-						continue;
-					}
-				}
+				return false;
 			}
+			
+			if(pChunk->IsDirty() == true)
+			{
+				if(on_loaded != nullptr)
+				{
+					on_loaded(pRegion, pChunk);
+				}
 
+				pChunk->SetDirty(false);
+				m_pChunkManager->AddChunk(pChunk);
+			}
 			return true;
 		}
 		bool ChunkLoader::ProcessLoadingQueue()
@@ -87,7 +87,7 @@ namespace ld3d
 
 			const ChunkInfo& info = m_loadingQueue.front();
 
-			bool ret = _do_load_chunk(info.pRegion, info.key);
+			bool ret = _do_load_chunk(info.pRegion, info.key, info.on_loaded);
 
 			m_loadingQueue.pop();
 			
@@ -101,12 +101,9 @@ namespace ld3d
 				return true;
 			}
 
-
-			// save chunk
+			pRegion->UnloadChunk(pChunk);
 
 			m_pChunkManager->RemoveChunk(key);
-
-			// unload chunk
 
 			return true;
 		}
@@ -135,16 +132,16 @@ namespace ld3d
 
 			return ret;
 		}
-		bool ChunkLoader::LoadChunkSync(RegionPtr pRegion, const ChunkKey& key)
+		bool ChunkLoader::LoadChunkSync(RegionPtr pRegion, const ChunkKey& key, const std::function<void(RegionPtr, ChunkPtr)>& on_loaded)
 		{
-			return _do_load_chunk(pRegion, key);
+			return _do_load_chunk(pRegion, key, on_loaded);
 		}
-		void ChunkLoader::LoadChunk(RegionPtr pRegion , const ChunkKey& key)
+		void ChunkLoader::LoadChunk(RegionPtr pRegion , const ChunkKey& key, const std::function<void(RegionPtr, ChunkPtr)>& on_loaded)
 		{
 			ChunkInfo info;
 			info.pRegion	= pRegion;
 			info.key		= key;
-			
+			info.on_loaded	= on_loaded;
 			m_loadingQueue.push(info);
 		}
 		bool ChunkLoader::UnloadChunkSync(RegionPtr pRegion, const ChunkKey& key)
@@ -166,6 +163,14 @@ namespace ld3d
 			info.key		= ChunkKey();
 
 			m_unloadingQueue.push(info);
+		}
+		uint32 ChunkLoader::GetLoadingQueueSize() const
+		{
+			return (uint32)m_loadingQueue.size();
+		}
+		uint32 ChunkLoader::GetUnloadingQueueSize() const
+		{
+			return (uint32)m_unloadingQueue.size();
 		}
 	}
 }

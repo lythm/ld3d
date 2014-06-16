@@ -9,6 +9,8 @@
 #include "voxel/voxel_Region.h"
 #include "voxel/voxel_WorldViewPort.h"
 #include "voxel_RegionManager.h"
+#include "voxel_ChunkLoader.h"
+
 namespace ld3d
 {
 	namespace voxel
@@ -205,6 +207,18 @@ namespace ld3d
 		void World::AddDirtyChunkHandler(const std::function<void (ChunkPtr)>& handler)
 		{
 			m_pChunkManager->AddDirtyChunkHandler(handler);
+		}
+		uint32 World::GetLoadingQueueSize() const
+		{
+			return m_pRegionManager->GetChunkLoader()->GetLoadingQueueSize();
+		}
+		uint32 World::GetUnloadingQueueSize() const
+		{
+			return m_pRegionManager->GetChunkLoader()->GetUnloadingQueueSize();
+		}
+		uint32 World::GetChunkCount() const
+		{
+			return m_pChunkManager->GetChunkCount();
 		}
 	}
 }

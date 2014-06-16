@@ -22,17 +22,20 @@ namespace ld3d
 			bool									Initialize(ChunkManagerPtr pManager);
 			void									Release();
 
-			void									LoadChunk(RegionPtr pRegion, const ChunkKey& key);
-			bool									LoadChunkSync(RegionPtr pRegion, const ChunkKey& key);
+			void									LoadChunk(RegionPtr pRegion, const ChunkKey& key, const std::function<void(RegionPtr, ChunkPtr)>& on_loaded);
+			bool									LoadChunkSync(RegionPtr pRegion, const ChunkKey& key, const std::function<void(RegionPtr, ChunkPtr)>& on_loaded);
 			void									UnloadChunk(RegionPtr pRegion, const ChunkKey& key);
 			bool									UnloadChunkSync(RegionPtr pRegion, const ChunkKey& key);
 			void									ReleaseRegion(RegionPtr pRegion);
 			void									Update();
+
+			uint32									GetLoadingQueueSize() const;
+			uint32									GetUnloadingQueueSize() const;
 		private:
 			bool									ProcessLoadingQueue();
 			bool									ProcessUnloadingQueue();
 
-			bool									_do_load_chunk(RegionPtr pRegion, const ChunkKey& key);
+			bool									_do_load_chunk(RegionPtr pRegion, const ChunkKey& key, const std::function<void(RegionPtr, ChunkPtr)>& on_loaded);
 			bool									_do_unload_chunk(RegionPtr pRegion, const ChunkKey& key);
 		private:
 
@@ -42,6 +45,9 @@ namespace ld3d
 			{
 				ChunkKey							key;
 				RegionPtr							pRegion;
+
+				std::function<void(RegionPtr, 
+						ChunkPtr)>					on_loaded;
 			};
 
 

@@ -53,6 +53,11 @@ namespace ld3d
 			WorldGenPtr										GetWorldGen();
 
 			void											AddDirtyChunkHandler(const std::function<void (ChunkPtr)>& handler);
+
+			uint32											GetLoadingQueueSize() const;
+			uint32											GetUnloadingQueueSize() const;
+
+			uint32											GetChunkCount() const;
 		private:
 		
 			

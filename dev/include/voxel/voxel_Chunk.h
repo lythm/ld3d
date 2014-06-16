@@ -89,6 +89,8 @@ namespace ld3d
 
 			ChunkManagerPtr									GetChunkManager();
 			
+			ChunkMeshPtr									GetMesh();
+			void											SetMesh(ChunkMeshPtr pMesh);
 		private:
 			uint8											m_data[CHUNK_SIZE * CHUNK_SIZE * CHUNK_SIZE];
 			ChunkKey										m_key;
@@ -101,6 +103,8 @@ namespace ld3d
 			void*											m_userData;
 
 			ChunkManagerPtr									m_pChunkManager;
+
+			ChunkMeshPtr									m_pMesh;
 		};
 	}
 }

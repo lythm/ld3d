@@ -14,9 +14,9 @@ namespace ld3d
 			bool													Initialize(WorldPtr pWorld, const Coord& coord);
 			void													Release();
 
-			bool													Load(ChunkLoaderPtr pLoader, bool sync = false);
-			
+			bool													Load(ChunkLoaderPtr pLoader, bool sync = false, const std::function<void(RegionPtr, ChunkPtr)>& on_chunk_loaded = std::function<void(RegionPtr, ChunkPtr)>());
 			bool													Unload(ChunkLoaderPtr pLoader, bool sync = false);
+
 			bool													Save();
 
 			bool													GenChunk(const Coord& chunk_origin);
@@ -33,6 +33,11 @@ namespace ld3d
 
 			float*													GetHeightmap();
 			void													GenHeightmap();
+
+			bool													LoadChunk(ChunkPtr pChunk);
+			bool													UnloadChunk(ChunkPtr pChunk);
+
+
 		private:
 			
 
@@ -49,6 +54,8 @@ namespace ld3d
 			WorldPtr												m_pWorld;
 
 			float*													m_heightMap;
+
+			math::AABBox											m_heightMapAABBox;
 		};
 	}
 }

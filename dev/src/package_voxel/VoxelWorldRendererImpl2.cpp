@@ -55,7 +55,6 @@ namespace ld3d
 			ResetWorld(pWorld->GetWorld());
 		}
 
-		
 		return true;
 	}
 	void VoxelWorldRendererImpl2::OnDetach()
@@ -103,7 +102,7 @@ namespace ld3d
 
 		m_pWorldVP = m_pManager->alloc_object<voxel::WorldViewport>();
 
-		if(false == m_pWorldVP->Open(pWorld, voxel::Coord(0, 0, 0), voxel::REGION_SIZE * 3, nullptr))
+		if(false == m_pWorldVP->Open(pWorld, voxel::Coord(0, 0, 0), voxel::REGION_SIZE * 3, m_pMeshizer))
 		{
 			return;
 		}

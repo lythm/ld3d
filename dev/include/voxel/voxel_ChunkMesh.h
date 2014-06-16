@@ -7,41 +7,48 @@ namespace ld3d
 {
 	namespace voxel
 	{
-		class ChunkMesh
+		class _DLL_CLASS ChunkMesh
 		{
 		public:
 
-			struct Vertex
+			struct VoxelVertex
 			{
-				math::Vector3 pos;
-				math::Vector3 normal;
-				math::Vector3 uv;
-				math::Vector4 color;
+				math::Vector3										pos;
+				math::Vector3										normal;
+				math::Vector3										uv;
+				math::Vector4										ao;
 			};
+
+
 			struct Subset
 			{
-				//
-				// vector3 pos
-				// vector3 normal
-				// vector3 uv
-				// vector4 color(ao);
-				//
-
-
-				std::vector<Vertex>							vertex_buffer;
-				uint8										type;
-				uint32										material_id;
+				void*												vertexBuffer;
+				uint32												vertexCount;
+				uint8												type;
+				uint32												material_id;
 			};
+
 			ChunkMesh(void);
 			virtual ~ChunkMesh(void);
 
-			bool											UpdateMesh(WorldPtr pWorld, const ChunkKey& key);
 
+			bool													Reset();
+			bool													AllocVertexBuffer(uint32 nVerts);
+			void*													GetVertexBuffer();
+
+			uint32													GetVertexCount();
+
+			void													AddSubset(const Subset& sub);
+
+			uint32													GetSubsetCount();
+			const Subset&											GetSubset(uint32 index);
 		private:
-			void*											m_pVertexBuffer;
-			Coord											m_chunkCoord;
 
-			std::vector<Subset>								m_subsets;
+			void*													m_pVertexBuffer;
+			uint32													m_nVertexCount;
+			uint32													m_vertexBufferBytes;
+
+			std::vector<Subset>										m_subsets;
 		};
 	}
 }

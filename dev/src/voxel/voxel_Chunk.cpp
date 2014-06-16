@@ -70,5 +70,13 @@ namespace ld3d
 		{
 			return m_pChunkManager;
 		}
+		ChunkMeshPtr Chunk::GetMesh()
+		{
+			return m_pMesh;
+		}
+		void Chunk::SetMesh(ChunkMeshPtr pMesh)
+		{
+			m_pMesh = pMesh;
+		}
 	}
 }

@@ -83,35 +83,14 @@ namespace ld3d
 
 			};
 
-
-			struct VoxelMesh
-			{
-				//
-				// vector3 pos
-				// vector3 normal
-				// vector3 uv
-				// vector4 color(ao);
-				//
-				struct Vertex
-				{
-					math::Vector3 pos;
-					math::Vector3 normal;
-					math::Vector3 uv;
-					math::Vector4 color;
-				};
-
-				std::vector<Vertex>						vertex_buffer;
-				uint8									type;
-				uint32									material_id;
-			};
-
 			ChunkMeshizer(void);
 			virtual ~ChunkMeshizer(void);
 
-			virtual void								GenerateMesh(ChunkPtr pChunk, const Coord& base_coord, std::vector<VoxelMesh>& result);
+			virtual void								GenerateMesh(ChunkPtr pChunk, const Coord& base_coord, ChunkMeshPtr pMesh);
 			void										AddVoxelMaterial(uint8 type, const VoxelMaterial& mat);
 		private:
 			static void									InitializeCubeVertex(uint32 size);
+
 		private:
 
 			struct VoxelFace

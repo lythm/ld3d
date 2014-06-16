@@ -34,7 +34,7 @@ namespace ld3d
 
 			m_pWorld.reset();
 		}
-		RegionPtr RegionManager::LoadRegion(const Coord& c)
+		RegionPtr RegionManager::LoadRegion(const Coord& c, const std::function<void(RegionPtr, ChunkPtr)>& on_chunk_loaded)
 		{
 			RegionPtr pRegion = FindRegion(c);
 
@@ -42,13 +42,13 @@ namespace ld3d
 			{
 				pRegion = std::allocate_shared<Region, std_allocator_adapter<Region>>(GetAllocator());
 				pRegion->Initialize(m_pWorld, c);
-				pRegion->Load(m_pChunkLoader);
+				pRegion->Load(m_pChunkLoader, false, on_chunk_loaded);
 
 				m_regions.push_back(pRegion);
 			}
 			return pRegion;
 		}
-		RegionPtr RegionManager::LoadRegionSync(const Coord& c)
+		RegionPtr RegionManager::LoadRegionSync(const Coord& c, const std::function<void(RegionPtr, ChunkPtr)>& on_chunk_loaded)
 		{
 			RegionPtr pRegion = FindRegion(c);
 
@@ -57,7 +57,7 @@ namespace ld3d
 				pRegion = std::allocate_shared<Region, std_allocator_adapter<Region>>(GetAllocator());
 				pRegion->Initialize(m_pWorld, c);
 				
-				pRegion->Load(m_pChunkLoader, true);
+				pRegion->Load(m_pChunkLoader, true, on_chunk_loaded);
 
 				m_regions.push_back(pRegion);
 			}
@@ -72,6 +72,7 @@ namespace ld3d
 			{
 				pRegion->Unload(m_pChunkLoader, true);
 
+				pRegion->Release();
 				m_regions.remove(pRegion);
 			}
 		}
@@ -105,6 +106,10 @@ namespace ld3d
 			}
 
 			return RegionPtr();
+		}
+		ChunkLoaderPtr RegionManager::GetChunkLoader()
+		{
+			return m_pChunkLoader;
 		}
 	}
 }

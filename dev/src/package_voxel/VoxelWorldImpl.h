@@ -13,6 +13,9 @@ namespace ld3d
 		VoxelWorldImpl(GameObjectManagerPtr pManager);
 		virtual ~VoxelWorldImpl(void);
 
+		uint32										GetLoadingQueueSize(){return 0;}
+		uint32										GetUnloadingQueueSize(){return 0;}
+
 		void										Update(float dt);
 		
 		const int&									GetVoxelSize();

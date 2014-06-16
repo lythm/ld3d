@@ -11,7 +11,7 @@ namespace ld3d
 		ChunkMeshizer::VoxelFace ChunkMeshizer::s_Cube[6];
 
 
-		// index : 0 - 1 - 2, 1 - 2 - 3
+		// index : 0 - 1 - 2, 1 - 3 - 2
 		void ChunkMeshizer::InitializeCubeVertex(uint32 size)
 		{
 			// -x
@@ -76,6 +76,11 @@ namespace ld3d
 		ChunkMeshizer::ChunkMeshizer(void)
 		{
 			InitializeCubeVertex(BLOCK_SIZE);
+
+			VoxelMaterial mat;
+			mat.type = 1;
+
+			AddVoxelMaterial(1, mat);
 		}
 
 
@@ -84,14 +89,15 @@ namespace ld3d
 			m_materialMap.clear();
 			m_templates.clear();
 		}
-		void ChunkMeshizer::GenerateMesh(ChunkPtr pChunk, const Coord& base_coord, std::vector<VoxelMesh>& result)
+		void ChunkMeshizer::GenerateMesh(ChunkPtr pChunk, const Coord& base_coord, ChunkMeshPtr pMesh)
 		{
 			ChunkManagerPtr pChunkManager = pChunk->GetChunkManager();
 
-			if(pChunk->IsEmpty())
+			/*if(pChunk->IsEmpty())
 			{
 				return;
 			}
+*/
 
 			Coord chunk_base = pChunk->GetKey().ToChunkOrigin();
 
@@ -105,6 +111,14 @@ namespace ld3d
 				{
 					for(int32 z = 0; z < CHUNK_SIZE; ++z)
 					{
+						uint8 type = pChunk->GetBlock(x, y, z);
+
+						if(type == VT_EMPTY)
+						{
+							continue;
+						}
+
+
 						//if(is_templated_mesh)
 						//{
 						//	// replace by template mesh
@@ -113,9 +127,7 @@ namespace ld3d
 
 
 						// cube block
-
-						uint8 type = pChunk->GetBlock(x, y, z);
-
+						
 						std::map<uint8, VoxelMaterial>::iterator it = m_materialMap.find(type);
 						if(it == m_materialMap.end())
 						{
@@ -124,12 +136,6 @@ namespace ld3d
 						}
 
 						const VoxelMaterial& mat = it->second;
-
-						if(type == VT_EMPTY)
-						{
-							continue;
-						}
-
 
 
 						// -x
@@ -239,88 +245,84 @@ namespace ld3d
 
 			std::sort(mesh.begin(), mesh.end(), [](VoxelFace& a,VoxelFace& b){return a.material < b.material;});
 
-			result.clear();
-
 			if(mesh.size() == 0)
 			{
 				return;
 			}
 			
+			pMesh->Reset();
 
-			VoxelMesh sub;
-			//sub.vertex_buffer.resize(mesh.size() * 6);
-			sub.vertex_buffer.reserve(mesh.size() * 6);
+			ChunkMesh::Subset sub;
+			sub.type = VT_EMPTY;
+			sub.vertexCount				= 0;
+			sub.vertexBuffer			= nullptr;
 
-			sub.material_id		= mesh[0].material;
-			sub.type			= mesh[0].type;
 
-			int vert_index		= 0;
+			sub.type = mesh[0].type;
+
+			pMesh->AllocVertexBuffer(mesh.size() * 6);
+			
+			ChunkMesh::VoxelVertex* pData = (ChunkMesh::VoxelVertex*)pMesh->GetVertexBuffer();
+			
+			sub.vertexBuffer = pData;
 
 			for(size_t i = 0; i < mesh.size(); ++i)
 			{
 				const VoxelFace& face = mesh[i];
 
-				if(face.material != sub.material_id && sub.vertex_buffer.size() != 0)
+				if(face.type != sub.type && sub.vertexCount != 0)
 				{
-					result.push_back(sub);
+					pMesh->AddSubset(sub);
 
-					sub.type			= face.type;
-					sub.material_id		= face.material;
-					vert_index			= 0;
-
-					sub.vertex_buffer.clear();
+					sub.type = face.type;
+					sub.vertexCount = 0;
+					sub.vertexBuffer = pData;
 				}
 
-				VoxelMesh::Vertex v;
+				pData->pos = face.verts[0] + vertex_offset;
+				pData->normal = face.normal;
+				pData->uv = face.uv[0];
+				pData->ao = face.ao[0];
+				++pData;
+				sub.vertexCount++;
 
-				v.pos			= face.verts[0] + vertex_offset;
-				v.normal		= face.normal;
-				v.uv			= face.uv[0];
-				v.color			= face.ao[0];
+				pData->pos = face.verts[1] + vertex_offset;
+				pData->normal = face.normal;
+				pData->uv = face.uv[1];
+				pData->ao = face.ao[1];
+				++pData;
+				sub.vertexCount++;
 
-				sub.vertex_buffer.push_back(v);
+				pData->pos = face.verts[2] + vertex_offset;
+				pData->normal = face.normal;
+				pData->uv = face.uv[2];
+				pData->ao = face.ao[2];
+				++pData;
+				sub.vertexCount++;
 
-				v.pos			= face.verts[1] + vertex_offset;
-				v.normal		= face.normal;
-				v.uv			= face.uv[1];
-				v.color			= face.ao[1];
+				pData->pos = face.verts[1] + vertex_offset;
+				pData->normal = face.normal;
+				pData->uv = face.uv[1];
+				pData->ao = face.ao[1];
+				++pData;
+				sub.vertexCount++;
 
-				sub.vertex_buffer.push_back(v);
+				pData->pos = face.verts[3] + vertex_offset;
+				pData->normal = face.normal;
+				pData->uv = face.uv[3];
+				pData->ao = face.ao[3];
+				++pData;
+				sub.vertexCount++;
 
-				v.pos			= face.verts[2] + vertex_offset;
-				v.normal		= face.normal;
-				v.uv			= face.uv[2];
-				v.color			= face.ao[2];
+				pData->pos = face.verts[2] + vertex_offset;
+				pData->normal = face.normal;
+				pData->uv = face.uv[2];
+				pData->ao = face.ao[2];
 
-				sub.vertex_buffer.push_back(v);
-
-
-				v.pos			= face.verts[1] + vertex_offset;
-				v.normal		= face.normal;
-				v.uv			= face.uv[1];
-				v.color			= face.ao[1];
-
-				sub.vertex_buffer.push_back(v);
-				
-
-				v.pos			= face.verts[3] + vertex_offset;
-				v.normal		= face.normal;
-				v.uv			= face.uv[3];
-				v.color			= face.ao[3];
-
-				sub.vertex_buffer.push_back(v);
-
-				v.pos			= face.verts[2] + vertex_offset;
-				v.normal		= face.normal;
-				v.uv			= face.uv[2];
-				v.color			= face.ao[2];
-
-				sub.vertex_buffer.push_back(v);
-
+				++pData;
+				sub.vertexCount++;
 			}
-
-			result.push_back(sub);
-
+			pMesh->AddSubset(sub);
 		}
 		void ChunkMeshizer::AddVoxelMaterial(uint8 type, const VoxelMaterial& mat)
 		{

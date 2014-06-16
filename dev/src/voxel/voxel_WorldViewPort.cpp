@@ -4,6 +4,8 @@
 #include "voxel_RegionManager.h"
 #include "voxel/voxel_Region.h"
 #include "voxel/voxel_Chunk.h"
+#include "voxel/voxel_ChunkMeshizer.h"
+#include "voxel/voxel_ChunkMesh.h"
 
 namespace ld3d
 {
@@ -230,11 +232,11 @@ namespace ld3d
 					{
 						if(sync)
 						{
-							pRegion = m_pRegionManager->LoadRegionSync(c);
+							pRegion = m_pRegionManager->LoadRegionSync(c, std::bind(&WorldViewport::_on_chunk_loaded, this, std::placeholders::_1, std::placeholders::_2));
 						}
 						else
 						{
-							pRegion = m_pRegionManager->LoadRegion(c);
+							pRegion = m_pRegionManager->LoadRegion(c, std::bind(&WorldViewport::_on_chunk_loaded, this, std::placeholders::_1, std::placeholders::_2));
 						}
 					}
 					m_regionBuffer[x + z * (dx + 1)] = pRegion;
@@ -287,7 +289,31 @@ namespace ld3d
 		}
 		void WorldViewport::FrustumCull(const math::ViewFrustum& vf)
 		{
+			if(m_pMeshizer == nullptr)
+			{
+				return;
+			}
+		}
 
+		void WorldViewport::_on_chunk_loaded(RegionPtr pRegion, ChunkPtr pChunk)
+		{
+			if(m_pMeshizer == nullptr)
+			{
+				return;
+			}
+			
+			ChunkMeshPtr pMesh = pChunk->GetMesh();
+
+			if(pMesh != nullptr)
+			{
+				return;
+			}
+
+			pMesh = std::allocate_shared<ChunkMesh, std_allocator_adapter<ChunkMesh>>(GetAllocator());
+			m_pMeshizer->GenerateMesh(pChunk, Coord(0, 0, 0), pMesh);
+
+			pChunk->SetMesh(pMesh);
+	
 		}
 	}
 }

@@ -96,7 +96,15 @@ namespace ld3d
 			std::stringstream s;
 			s.precision(3);
 			s.setf( std::ios::fixed, std:: ios::floatfield );
-			s << "<font style=\"color:#ff9999;\">camera pos: " << pos.x << "," << pos.y << "," << pos.z <<"</font>";
+			s << "<font style=\"color:#ff9999;\">camera pos: " << pos.x << "," << pos.y << "," << pos.z <<"</font><br>";
+
+
+			VoxelWorldPtr pWorld = std::dynamic_pointer_cast<VoxelWorld>(m_pWorld->GetComponent("VoxelWorld"));
+			
+			s << "loading queue: " << pWorld->GetLoadingQueueSize() 
+				<< " unloading queue: " << pWorld->GetUnloadingQueueSize()
+				<< " chunks: " << pWorld->GetChunkCount();
+
 
 			*m_debugInfo = s.str();
 			return true;

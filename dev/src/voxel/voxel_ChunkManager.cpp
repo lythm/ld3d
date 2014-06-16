@@ -40,12 +40,8 @@ namespace ld3d
 		}
 		ChunkPtr ChunkManager::CreateChunk(const ChunkKey& key, uint8 data[])
 		{
-			
 			ChunkPtr pChunk = AllocChunk(data);
 			pChunk->SetKey(key);
-			
-			
-			//m_chunkmap[key.AsUint64()] = pChunk;
 
 			return pChunk;
 		}
@@ -60,6 +56,10 @@ namespace ld3d
 			}
 			m_chunkmap[key] = pChunk;
 
+			if(pChunk->IsDirty())
+			{
+				m_dirtyList.push_back(pChunk);
+			}
 			return true;
 		}
 		bool ChunkManager::RemoveBlock(const Coord& c)
@@ -144,6 +144,10 @@ namespace ld3d
 		void ChunkManager::AddDirtyChunkHandler(const std::function<void (ChunkPtr)>& handler)
 		{
 			m_dirtyChunkHandlers.push_back(handler);
+		}
+		uint32 ChunkManager::GetChunkCount() const
+		{
+			return (uint32)m_chunkmap.size();
 		}
 	}
 }

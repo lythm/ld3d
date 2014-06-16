@@ -15,8 +15,8 @@ namespace ld3d
 			bool											Initialize(WorldPtr pWorld);
 			void											Release();
 
-			RegionPtr										LoadRegion(const Coord& c);
-			RegionPtr										LoadRegionSync(const Coord& c);
+			RegionPtr										LoadRegion(const Coord& c, const std::function<void(RegionPtr, ChunkPtr)>& on_chunk_loaded = std::function<void(RegionPtr, ChunkPtr)>());
+			RegionPtr										LoadRegionSync(const Coord& c, const std::function<void(RegionPtr, ChunkPtr)>& on_chunk_loaded = std::function<void(RegionPtr, ChunkPtr)>());
 			void											UnloadRegion(RegionPtr pRegion);
 			void											UnloadRegionSync(RegionPtr pRegion);
 
@@ -24,6 +24,7 @@ namespace ld3d
 
 			RegionPtr										FindRegion(const Coord& c);
 
+			ChunkLoaderPtr									GetChunkLoader();
 		private:
 			
 		private:

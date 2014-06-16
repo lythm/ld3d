@@ -36,6 +36,8 @@ namespace ld3d
 			void											Update(float dt);
 
 			void											AddDirtyChunkHandler(const std::function<void (ChunkPtr)>& handler);
+
+			uint32											GetChunkCount() const;
 		private:
 			ChunkPtr										AllocChunk(uint8 data[]);
 		private:

@@ -20,9 +20,14 @@ namespace ld3d
 			print(boost::lexical_cast<std::string>(value));
 			return *this;
 		}
-		
-
-
+#ifdef _WIN32
+		template<>
+		Logger& operator<< <bool>(const bool& value)
+		{
+			value ? print("true") : print("false");
+			return *this;
+		}
+#endif
 	private:
 		void															print(const std::string& str)
 		{
@@ -32,12 +37,14 @@ namespace ld3d
 		std::function<void (const std::string& log)>					_write;
 	};
     
+#ifdef __APPLE__
     template<>
-    Logger& Logger::operator<<(const bool& value)
+    Logger& Logger::operator<< <bool>(const bool& value)
     {
         value ? print("true") : print("false");
         return *this;
     }
+#endif
 
 
 }

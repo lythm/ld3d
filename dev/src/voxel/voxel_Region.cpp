@@ -4,6 +4,7 @@
 #include "voxel/voxel_WorldGen.h"
 #include "voxel_ChunkManager.h"
 #include "voxel_ChunkLoader.h"
+#include "voxel/voxel_Chunk.h"
 
 namespace ld3d
 {
@@ -22,7 +23,7 @@ namespace ld3d
 		{
 
 		}
-		bool Region::Load(ChunkLoaderPtr pLoader, bool sync)
+		bool Region::Load(ChunkLoaderPtr pLoader, bool sync, const std::function<void(RegionPtr, ChunkPtr)>& on_chunk_loaded)
 		{
 			Coord region_origin = m_coord;
 			region_origin.x *= REGION_SIZE;
@@ -37,24 +38,31 @@ namespace ld3d
 			{
 				for(int32 z = 0; z < REGION_CHUNK_LENGTH; ++z)
 				{
-					for(int32 y = 0; y < 16; ++y)
+					for(int32 y = 0; y < REGION_CHUNK_HEIGHT; ++y)
 					{
 						Coord chunk_coord(x, y, z);
+
 						chunk_coord *= CHUNK_SIZE;
 
+						math::AABBox chunk_aabbox(chunk_coord.ToVector3(), (chunk_coord + Coord(CHUNK_SIZE, CHUNK_SIZE, CHUNK_SIZE)).ToVector3()); 
+
+
+						if(math::AABBoxIntersectAABBoxTest(m_heightMapAABBox, chunk_aabbox) == math::intersect_none)
+						{
+							continue;
+						}
 						chunk_coord += region_origin;
 
 						ChunkKey key(chunk_coord);
 
 						if(sync)
 						{
-							pLoader->LoadChunkSync(shared_from_this(), key);
+							pLoader->LoadChunkSync(shared_from_this(), key, on_chunk_loaded);
 						}
 						else
 						{
-							pLoader->LoadChunk(shared_from_this(), key);
+							pLoader->LoadChunk(shared_from_this(), key, on_chunk_loaded);
 						}
-
 					}
 				}
 			}
@@ -91,14 +99,23 @@ namespace ld3d
 			region_origin.y *= REGION_HEIGHT;
 			region_origin.z *= REGION_SIZE;
 
+			double max_h = 0;
+
 			for(int32 x = 0; x < REGION_SIZE; ++x)
 			{
 				for(int32 z = 0; z < REGION_SIZE; ++z)
 				{
 					double h = p.Get(double(x + region_origin.x) / double(ex), double(z + region_origin.z) / double(ez));
 					m_heightMap[z * REGION_SIZE + x] = h * (REGION_HEIGHT / 2.0f);
+
+					if(h > max_h)
+					{
+						max_h = h;
+					}
 				}
 			}
+
+			m_heightMapAABBox.Make(math::Vector3(0, 0, 0), math::Vector3(REGION_SIZE, max_h, REGION_SIZE));
 		}
 		bool Region::GenRegion()
 		{
@@ -187,6 +204,7 @@ namespace ld3d
 			m_coord			= coord;
 			m_loaded		= false;
 
+			m_heightMapAABBox.Make(math::Vector3(0, 0, 0), math::Vector3(REGION_SIZE, REGION_HEIGHT, REGION_SIZE));
 			return true;
 		}
 		void Region::Release()
@@ -239,7 +257,7 @@ namespace ld3d
 			{
 				for(int32 z = 0; z < REGION_CHUNK_LENGTH; ++z)
 				{
-					for(int32 y = 0; y < 16; ++y)
+					for(int32 y = 0; y < REGION_CHUNK_HEIGHT; ++y)
 					{
 						Coord chunk_coord(x, y, z);
 						chunk_coord *= CHUNK_SIZE;
@@ -247,6 +265,11 @@ namespace ld3d
 						chunk_coord += region_origin;
 
 						ChunkKey key(chunk_coord);
+
+						if(nullptr == m_pChunkManager->FindChunk(key))
+						{
+							continue;
+						}
 
 						if(sync)
 						{
@@ -271,6 +294,54 @@ namespace ld3d
 				GenHeightmap();
 			}
 			return m_heightMap;
+		}
+		bool Region::LoadChunk(ChunkPtr pChunk)
+		{
+			// load chunk
+			const ChunkKey& key = pChunk->GetKey();
+
+			float* height_map = GetHeightmap();
+
+			Coord region_origin = GetRegionOrigin();
+			Coord chunk_origin = key.ToChunkOrigin();
+
+			Coord dc = chunk_origin - region_origin;
+
+			for(int x = 0; x < CHUNK_SIZE; ++x)
+			{
+				for(int z = 0; z < CHUNK_SIZE; ++z)
+				{
+					int rx = x + dc.x;
+					int rz = z + dc.z;
+					float h = height_map[rz * REGION_SIZE + rx] * 100;
+
+					if(h < (chunk_origin.y))
+					{
+						continue;
+					}
+
+					float dy = h - chunk_origin.y;
+
+					dy = dy > CHUNK_SIZE ? CHUNK_SIZE : dy;
+
+					for(int y = 0; y < dy; ++y)
+					{
+						pChunk->SetBlock(x, y, z, 1);
+					}
+				}
+			}
+
+			return true;
+		}
+		bool Region::UnloadChunk(ChunkPtr pChunk)
+		{
+			// save or not
+			if(pChunk->IsModified() == true)
+			{
+				// save
+			}
+
+			return true;
 		}
 	}
 }
