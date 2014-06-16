@@ -23,7 +23,7 @@ namespace ld3d
 		void										ResetWorld(voxel::WorldPtr pWorld);
 		void										SetWorldViewPort(const voxel::Coord& center, uint32 size);
 	private:
-
+		void										on_event_frustumcull(EventPtr pEvent);
 		bool										OnAttach();
 		void										OnDetach();
 	private:
@@ -33,5 +33,7 @@ namespace ld3d
 
 		voxel::WorldViewportPtr						m_pWorldVP;
 		voxel::ChunkMeshizerPtr						m_pMeshizer;
+
+		EventHandlerID								m_hFrustumCull;
 	};
 }

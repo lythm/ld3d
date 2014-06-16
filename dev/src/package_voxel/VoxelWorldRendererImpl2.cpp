@@ -55,10 +55,15 @@ namespace ld3d
 			ResetWorld(pWorld->GetWorld());
 		}
 
+
+
+		m_hFrustumCull = m_pManager->AddEventHandler(EV_FRUSTUM_CULL, boost::bind(&VoxelWorldRendererImpl2::on_event_frustumcull, this, _1));
 		return true;
 	}
 	void VoxelWorldRendererImpl2::OnDetach()
 	{
+		m_pManager->RemoveEventHandler(m_hFrustumCull);
+
 		if(m_pWorldVP)
 		{
 			m_pWorldVP->Close();
@@ -111,5 +116,23 @@ namespace ld3d
 	{
 		m_pWorldVP->MoveTo(center);
 		m_pWorldVP->SetViewportSize(size);
+	}
+	void VoxelWorldRendererImpl2::on_event_frustumcull(EventPtr pEvent)
+	{
+		/*if(m_bShowBound)
+		{
+			m_pAABBoxRD->SetWorldMatrix(m_pObject->GetWorldTransform());
+			m_pAABBoxRD->SetBox(math::AABBox(
+				math::Vector3(0, 0, 0),
+				math::Vector3(m_pWorld->GetWorldSizeX(), m_pWorld->GetWorldSizeY(), m_pWorld->GetWorldSizeZ())));
+			m_pManager->GetRenderManager()->AddRenderData(layer_forward, m_pAABBoxRD->GetRenderData());
+		}*/
+
+		std::shared_ptr<Event_FrustumCull> e = std::dynamic_pointer_cast<Event_FrustumCull>(pEvent);
+
+		m_pWorldVP->FrustumCull(*(e->m_pViewFrustum));
+				
+		//m_pManager->GetRenderManager()->AddRenderData(layer_deferred, m_pRenderData);
+
 	}
 }

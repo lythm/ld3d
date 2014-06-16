@@ -40,8 +40,9 @@ namespace ld3d
 		class ChunkMeshizer;
 		class ChunkMesh;
 		class ChunkLoader;
+		class OctTree;
 
-
+		typedef std::shared_ptr<OctTree>										OctTreePtr;
 		typedef std::shared_ptr<ChunkMesh>										ChunkMeshPtr;
 		typedef std::shared_ptr<ChunkLoader>									ChunkLoaderPtr;
 		typedef std::shared_ptr<ChunkMeshizer>									ChunkMeshizerPtr;

@@ -56,6 +56,8 @@ namespace ld3d
 			float*													m_heightMap;
 
 			math::AABBox											m_heightMapAABBox;
+
+			OctTreePtr												m_pOctTree;
 		};
 	}
 }

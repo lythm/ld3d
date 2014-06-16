@@ -5,6 +5,7 @@
 #include "voxel_ChunkManager.h"
 #include "voxel_ChunkLoader.h"
 #include "voxel/voxel_Chunk.h"
+#include "voxel_OctTree.h"
 
 namespace ld3d
 {
@@ -133,7 +134,6 @@ namespace ld3d
 
 			uint16 height_map[REGION_SIZE * REGION_SIZE];
 
-
 			for(int32 x = 0; x < REGION_SIZE; ++x)
 			{
 				for(int32 z = 0; z < REGION_SIZE; ++z)
@@ -205,6 +205,9 @@ namespace ld3d
 			m_loaded		= false;
 
 			m_heightMapAABBox.Make(math::Vector3(0, 0, 0), math::Vector3(REGION_SIZE, REGION_HEIGHT, REGION_SIZE));
+
+			m_pOctTree = std::allocate_shared<OctTree, std_allocator_adapter<OctTree>>(GetAllocator(), GetRegionOrigin());
+
 			return true;
 		}
 		void Region::Release()
