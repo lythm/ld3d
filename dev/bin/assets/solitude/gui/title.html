@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title> Solitude </title>
+<style type="text/css"> 
+body { margin: 0px; overflow: hidden; }
+div {margin: 0px; overflow: hidden; }
+</style>
+
+<link href="jquery-ui/css/pepper-grinder/jquery-ui-1.10.4.custom.css" rel="stylesheet">
+<script src="jquery-ui/js/jquery-1.10.2.js"></script>
+<script src="jquery-ui/js/jquery-ui-1.10.4.js"></script>
+<script language="javascript" >
+$(function(){
+	$( "#date" ).datepicker({
+			inline: true
+		});
+	$("#dialog").dialog({
+		           autoOpen: true,
+					modal:true,
+                 show: {
+
+                     effect: "blind",
+
+                     duration: 1000
+
+                 },
+
+                 hide: {
+
+                     effect: "blind",
+
+                     duration: 1000
+
+                 }
+
+             });
+
+});
+</script>
+
+</head>
+
+<body>
+<h2 class="demoHeaders">Datepicker</h2>
+<input type="text" name="date" id="date">
+
+<div id="dialog" title="dialog">Start Game</div>
+
+</body>
+
+
+</html>
