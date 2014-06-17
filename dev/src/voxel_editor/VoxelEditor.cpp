@@ -33,6 +33,11 @@ namespace ld3d
 
 			
 			m_pCore = pCore;
+
+			m_pCore->GetRenderManager()->SetGlobalAmbient(math::Color4(0.4, 0.4f, 0.4f, 1.0f));
+			m_pCore->GetRenderManager()->SetClearColor(math::Color4(0.1f, 0.2f, 0.3f, 1));
+
+
 			pCore->GetCursor()->ConfineCursor(true);
 			pCore->GetCursor()->ShowCursor(false);
 
@@ -58,11 +63,18 @@ namespace ld3d
 			m_pCamera->AddComponent(pSkyBox);
 
 			CameraController_FreePtr pController = std::dynamic_pointer_cast<CameraController_Free>(pCore->CreateGameObjectComponent("CameraFreeController"));
-			pController->SetSpeed(50);
+			pController->SetSpeed(10);
 			//	pController->Enable(false);
 			m_pCamera->AddComponent(pController);
 
 			m_pCamera->SetTranslation(0, 20, 0);
+
+
+			GameObjectPtr pLight = m_pCore->CreatGameObjectFromTemplate("SkyLight", "light");
+
+			pLight->SetTranslation(-20, 60, 30);
+			pLight->LookAt(math::Vector3(0, 0, 0));
+			
 
 			m_pWorld = m_pCore->CreatGameObjectFromTemplate("VoxelWorld", "world001");
 
@@ -81,11 +93,14 @@ namespace ld3d
 			*m_debugInfo = "hello";
 
 			m_pCore->RegisterConsoleCommand("set_camera_speed", std::bind(&VoxelEditor::_on_cmd_set_camera_speed, this, std::placeholders::_1, std::placeholders::_2));
+			m_pCore->RegisterConsoleCommand("move_to", std::bind(&VoxelEditor::_on_cmd_move_to, this, std::placeholders::_1, std::placeholders::_2));
+			
 			return true;
 		}
 		void VoxelEditor::Release()
 		{
 			m_pCore->RemoveConsoleCommand("set_camera_speed");		
+			m_pCore->RemoveConsoleCommand("move_to");		
 
 			m_pWorld = nullptr;
 		}
@@ -155,6 +170,32 @@ namespace ld3d
 			pController->SetSpeed(speed);
 
 			writeln("camera speed: " + cl.GetParam(0));
+		}
+
+		void VoxelEditor::_on_cmd_move_to(const ld3d::CommandLine& cl, std::function<void (const std::string&)> writeln)
+		{
+			if(cl.GetParamCount() != 2)
+			{
+				writeln("invalid parameter count");
+				return;
+			}
+
+			uint32 x = 0;
+			uint32 z = 0;
+			try
+			{
+				x = boost::lexical_cast<uint32>(cl.GetParam(0));
+				z = boost::lexical_cast<uint32>(cl.GetParam(1));
+			}
+			catch(...)
+			{
+				writeln("invalid parameter");
+				return;
+			}
+			math::Vector3 pos = m_pCamera->GetTranslation();
+
+			m_pCamera->SetTranslation(x, pos.y, z);
+
 		}
 	}
 }

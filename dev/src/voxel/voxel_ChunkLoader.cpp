@@ -29,7 +29,7 @@ namespace ld3d
 		}
 		void ChunkLoader::Update()
 		{
-			for(int i = 0; i < 10; ++i)
+			for(int i = 0; i < 1; ++i)
 			{
 				if(ProcessLoadingQueue() == false)
 				{
@@ -42,7 +42,7 @@ namespace ld3d
 			{
 				return;
 			}
-			for(int i = 0; i < 10; ++i)
+			for(int i = 0; i < 1; ++i)
 			{
 				if(ProcessUnloadingQueue() == false)
 				{
@@ -68,13 +68,14 @@ namespace ld3d
 			
 			if(pChunk->IsDirty() == true)
 			{
+				pChunk->SetDirty(false);
+				m_pChunkManager->AddChunk(pChunk);
+
 				if(on_loaded != nullptr)
 				{
 					on_loaded(pRegion, pChunk);
 				}
 
-				pChunk->SetDirty(false);
-				m_pChunkManager->AddChunk(pChunk);
 			}
 			return true;
 		}

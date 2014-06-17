@@ -68,7 +68,14 @@ namespace ld3d
 		}
 		bool ChunkManager::IsEmpty(const Coord& c)
 		{
-			return GetBlock(c) == VT_EMPTY;
+			if(GetBlock(c) == VT_EMPTY)
+			{
+				return true;
+			}
+
+			return false;
+
+			//return GetBlock(c) == VT_EMPTY;
 		}
 		uint8 ChunkManager::GetBlock(const Coord& c)
 		{

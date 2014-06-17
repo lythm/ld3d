@@ -23,7 +23,7 @@ namespace ld3d
 			void														Update();
 
 			Coord														GetBaseCoord();
-
+			const Coord	&												GetCenterCoord() const;
 			void														SetDirtyChunkHandler(const std::function<void (const Coord&, ChunkPtr)>& handler);
 
 			const std::list<ChunkPtr>									GetDirtyChunkList();
@@ -67,6 +67,8 @@ namespace ld3d
 			std::function<void (RegionPtr)>								handler_region_unloaded;
 
 			MeshizerPtr													m_pMeshizer;
+
+
 		};
 	}
 }

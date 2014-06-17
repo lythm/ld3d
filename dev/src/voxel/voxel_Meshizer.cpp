@@ -20,6 +20,11 @@ namespace ld3d
 			s_Cube[0].verts[2] = math::Vector3(0, 1, 0);
 			s_Cube[0].verts[3] = math::Vector3(0, 1, 1);
 
+			s_Cube[0].ao[0]		= math::Vector4(1, 1, 1, 1);
+			s_Cube[0].ao[1]		= math::Vector4(1, 1, 1, 1);
+			s_Cube[0].ao[2]		= math::Vector4(1, 1, 1, 1);
+			s_Cube[0].ao[3]		= math::Vector4(1, 1, 1, 1);
+			
 			s_Cube[0].normal = math::Vector3(-1, 0, 0);
 
 			// +x
@@ -27,6 +32,11 @@ namespace ld3d
 			s_Cube[1].verts[1] = math::Vector3(1, 1, 0);
 			s_Cube[1].verts[2] = math::Vector3(1, 0, 1);
 			s_Cube[1].verts[3] = math::Vector3(1, 1, 1);
+			
+			s_Cube[1].ao[0]		= math::Vector4(1, 1, 1, 1);
+			s_Cube[1].ao[1]		= math::Vector4(1, 1, 1, 1);
+			s_Cube[1].ao[2]		= math::Vector4(1, 1, 1, 1);
+			s_Cube[1].ao[3]		= math::Vector4(1, 1, 1, 1);
 
 			s_Cube[1].normal = math::Vector3(1, 0, 0);
 
@@ -36,6 +46,11 @@ namespace ld3d
 			s_Cube[2].verts[2] = math::Vector3(0, 0, 1);
 			s_Cube[2].verts[3] = math::Vector3(1, 0, 1);
 
+			s_Cube[2].ao[0]		= math::Vector4(1, 1, 1, 1);
+			s_Cube[2].ao[1]		= math::Vector4(1, 1, 1, 1);
+			s_Cube[2].ao[2]		= math::Vector4(1, 1, 1, 1);
+			s_Cube[2].ao[3]		= math::Vector4(1, 1, 1, 1);
+
 			s_Cube[2].normal = math::Vector3(0, -1, 0);
 
 			// +y
@@ -43,6 +58,11 @@ namespace ld3d
 			s_Cube[3].verts[1] = math::Vector3(0, 1, 1);
 			s_Cube[3].verts[2] = math::Vector3(1, 1, 0);
 			s_Cube[3].verts[3] = math::Vector3(1, 1, 1);
+			
+			s_Cube[3].ao[0]		= math::Vector4(1, 1, 1, 1);
+			s_Cube[3].ao[1]		= math::Vector4(1, 1, 1, 1);
+			s_Cube[3].ao[2]		= math::Vector4(1, 1, 1, 1);
+			s_Cube[3].ao[3]		= math::Vector4(1, 1, 1, 1);
 
 			s_Cube[3].normal = math::Vector3(0, 1, 0);
 
@@ -53,6 +73,11 @@ namespace ld3d
 			s_Cube[4].verts[2] = math::Vector3(1, 0, 0);
 			s_Cube[4].verts[3] = math::Vector3(1, 1, 0);
 
+			s_Cube[4].ao[0]		= math::Vector4(1, 1, 1, 1);
+			s_Cube[4].ao[1]		= math::Vector4(1, 1, 1, 1);
+			s_Cube[4].ao[2]		= math::Vector4(1, 1, 1, 1);
+			s_Cube[4].ao[3]		= math::Vector4(1, 1, 1, 1);
+
 			s_Cube[4].normal = math::Vector3(0, 0, -1);
 
 			// +z
@@ -60,6 +85,11 @@ namespace ld3d
 			s_Cube[5].verts[1] = math::Vector3(1, 0, 1);
 			s_Cube[5].verts[2] = math::Vector3(0, 1, 1);
 			s_Cube[5].verts[3] = math::Vector3(1, 1, 1);
+
+			s_Cube[5].ao[0]		= math::Vector4(1, 1, 1, 1);
+			s_Cube[5].ao[1]		= math::Vector4(1, 1, 1, 1);
+			s_Cube[5].ao[2]		= math::Vector4(1, 1, 1, 1);
+			s_Cube[5].ao[3]		= math::Vector4(1, 1, 1, 1);
 
 			s_Cube[5].normal = math::Vector3(0, 0, 1);
 

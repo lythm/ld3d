@@ -88,7 +88,7 @@ namespace ld3d
 				m_heightMap = (float*)GetAllocator()->Alloc(sizeof(float) * REGION_SIZE * REGION_SIZE);
 			}
 
-			PerlinNoise p(3, 1, 1, rand());
+			PerlinNoise p(3, 128, 4096, rand());
 
 			const Bound& bound = m_pWorld->GetBound();
 
@@ -108,6 +108,11 @@ namespace ld3d
 				{
 					double h = p.Get(double(x + region_origin.x) / double(ex), double(z + region_origin.z) / double(ez));
 					m_heightMap[z * REGION_SIZE + x] = h * (REGION_HEIGHT / 2.0f);
+
+					if(m_heightMap[z * REGION_SIZE + x] < 0)
+					{
+						m_heightMap[z * REGION_SIZE + x] = 0;
+					}
 
 					if(h > max_h)
 					{
@@ -317,7 +322,7 @@ namespace ld3d
 				{
 					int rx = x + dc.x;
 					int rz = z + dc.z;
-					float h = height_map[rz * REGION_SIZE + rx] * 100;
+					float h = height_map[rz * REGION_SIZE + rx] * 1024;
 
 					if(h < (chunk_origin.y))
 					{
@@ -328,6 +333,10 @@ namespace ld3d
 
 					dy = dy > CHUNK_SIZE ? CHUNK_SIZE : dy;
 
+					if(dy == 0)
+					{
+						dy = 1;
+					}
 					for(int y = 0; y < dy; ++y)
 					{
 						pChunk->SetBlock(x, y, z, 1);

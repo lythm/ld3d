@@ -43,6 +43,8 @@ namespace ld3d
 			m_center.y = 0;
 
 			m_size = size;
+
+			
 			m_pRegionManager = pWorld->GetRegionManager();
 
 			if(InitRegionBuffer() == false)
@@ -330,6 +332,10 @@ namespace ld3d
 
 			pChunk->SetMesh(pMesh);
 	
+		}
+		const Coord& WorldViewport::GetCenterCoord() const
+		{
+			return m_center;
 		}
 	}
 }

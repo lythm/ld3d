@@ -60,6 +60,7 @@ namespace ld3d
 
 		RenderDataPtr								m_pRenderData;
 
+		AABBoxRenderDataPtr							m_pAABBoxRenderData;
 		uint32										m_nVBBytes;
 		uint32										m_nVBCurrent;
 		uint32										m_nVBOffset;

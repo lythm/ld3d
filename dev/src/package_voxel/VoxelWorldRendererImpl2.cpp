@@ -13,7 +13,7 @@ namespace ld3d
 		SetVersion(g_packageVersion);
 
 
-		m_nVBBytes						= 1024 * 1024 * 4;
+		m_nVBBytes						= 1024 * 1024 * 32;
 		m_nVBCurrent					= 0;
 		m_nVBOffset						= 0;
 		m_nVertexStride					= 0;
@@ -70,13 +70,17 @@ namespace ld3d
 		m_pRenderData			= m_pManager->alloc_object<RenderData>();
 		m_pRenderData->fr_draw	= std::bind(&VoxelWorldRendererImpl2::Render, this, std::placeholders::_1);
 		m_pRenderData->dr_draw	= std::bind(&VoxelWorldRendererImpl2::Render, this, std::placeholders::_1);
-//		m_pRenderData->sm_draw	= std::bind(&VoxelWorldRendererImpl2::RenderShadowMapGeo, this, std::placeholders::_1, std::placeholders::_2);
+		m_pRenderData->sm_draw	= std::bind(&VoxelWorldRendererImpl2::RenderShadowMapGeo, this, std::placeholders::_1, std::placeholders::_2);
 		
 		MaterialPtr pMaterial = m_pRenderManager->CreateMaterialFromFile("./assets/voxel/material/voxel_world.material");
 		if(pMaterial == nullptr)
 		{
 			return false;
 		}
+
+		TexturePtr pTex = m_pRenderManager->CreateTextureFromFile("./assets/voxel/texture/rock.dds");
+
+		pMaterial->GetParameterByName("diffuse_map")->SetParameterTexture(pTex);
 
 		m_materials.push_back(pMaterial);
 
@@ -102,12 +106,18 @@ namespace ld3d
 		m_nVertexStride			= layout.VertexStride();
 		m_nVertexCount			= 0;
 
+
+		m_pAABBoxRenderData = m_pManager->alloc_object<AABBoxRenderData>();
+		m_pAABBoxRenderData->Initialize(m_pRenderManager);
+
 		m_renderList.reserve(20000);
 		return true;
 	}
 	void VoxelWorldRendererImpl2::OnDetach()
 	{
 		ClearPropertySet();
+
+		m_pAABBoxRenderData->Release();
 
 		m_pManager->RemoveEventHandler(m_hFrustumCull);
 
@@ -194,6 +204,16 @@ namespace ld3d
 		m_pWorldVP->FrustumCull(*(e->m_pViewFrustum), std::bind(&VoxelWorldRendererImpl2::_add_mesh, this, std::placeholders::_1, std::placeholders::_2));
 
 		m_pManager->GetRenderManager()->AddRenderData(layer_deferred, m_pRenderData);
+
+
+		using namespace voxel;
+		voxel::Coord center = m_pWorldVP->GetCenterCoord();
+
+		float size = voxel::REGION_SIZE * 3 / 2;
+
+		m_pAABBoxRenderData->SetBox(math::AABBox((center - Coord(size, size, size)).ToVector3(), (center + Coord(size, size, size)).ToVector3()));
+
+		m_pManager->GetRenderManager()->AddRenderData(layer_forward, m_pAABBoxRenderData->GetRenderData());
 
 	}
 	void VoxelWorldRendererImpl2::_add_mesh(const voxel::Coord& base, voxel::ChunkMeshPtr pMesh)
@@ -367,6 +387,7 @@ namespace ld3d
 
 
 		Draw(pGraphics, pMat, m_nVBOffset / m_nVertexStride);
+
 	}
 	void VoxelWorldRendererImpl2::_render_smg(size_t begin, size_t end, MaterialPtr pMaterial)
 	{
@@ -379,7 +400,9 @@ namespace ld3d
 		Sys_GraphicsPtr pGraphics = m_pRenderManager->GetSysGraphics();
 		GPUBufferPtr pVB = m_pGeometry->GetVertexBuffer();
 
-		m_pRenderManager->SetMatrixBlock(pMat, m_worldMatrix);
+		math::Matrix44 world = math::MatrixTranslation(m_renderList[begin].base.ToVector3());
+
+		m_pRenderManager->SetMatrixBlock(pMat, world);
 
 		m_nVertexCount = 0;
 		m_nVBOffset = m_nVBCurrent;
