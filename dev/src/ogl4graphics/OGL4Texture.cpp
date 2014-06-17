@@ -26,6 +26,7 @@ namespace ld3d
 
 	OGL4Texture::~OGL4Texture(void)
 	{
+		Release();
 	}
 	TEXTURE_TYPE OGL4Texture::GetType()
 	{
@@ -33,10 +34,16 @@ namespace ld3d
 	}
 	void OGL4Texture::Release()
 	{
-		glDeleteBuffers(1, &m_pbo);
-		m_pbo = 0;
-		glDeleteTextures(1, &m_texture);
-		m_texture = 0;
+		if(m_pbo)
+		{
+			glDeleteBuffers(1, &m_pbo);
+			m_pbo = 0;
+		}
+		if(m_texture)
+		{
+			glDeleteTextures(1, &m_texture);
+			m_texture = 0;
+		}
 	}
 	bool OGL4Texture::Create1D(G_FORMAT format, int l, int lvls, bool dynamic)
 	{

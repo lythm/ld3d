@@ -6,7 +6,7 @@ namespace ld3d
 {
 	namespace voxel
 	{
-		class _DLL_CLASS ChunkMeshizer
+		class _DLL_CLASS Meshizer
 		{
 		public:
 
@@ -83,8 +83,8 @@ namespace ld3d
 
 			};
 
-			ChunkMeshizer(void);
-			virtual ~ChunkMeshizer(void);
+			Meshizer(void);
+			virtual ~Meshizer(void);
 
 			virtual void								GenerateMesh(ChunkPtr pChunk, const Coord& base_coord, ChunkMeshPtr pMesh);
 			void										AddVoxelMaterial(uint8 type, const VoxelMaterial& mat);

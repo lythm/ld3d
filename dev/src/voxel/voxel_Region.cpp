@@ -207,7 +207,7 @@ namespace ld3d
 			m_heightMapAABBox.Make(math::Vector3(0, 0, 0), math::Vector3(REGION_SIZE, REGION_HEIGHT, REGION_SIZE));
 
 			m_pOctTree = std::allocate_shared<OctTree, std_allocator_adapter<OctTree>>(GetAllocator(), GetRegionOrigin());
-
+			m_pOctTree->SetBound(math::AABBox(math::Vector3(0, 0, 0), math::Vector3(REGION_SIZE, REGION_HEIGHT, REGION_SIZE)));
 			return true;
 		}
 		void Region::Release()
@@ -222,6 +222,7 @@ namespace ld3d
 			m_coord = Coord();
 
 			m_pChunkManager.reset();
+			m_pOctTree.reset();
 		}
 		const Coord&  Region::GetRegionCoord() const
 		{
@@ -334,6 +335,7 @@ namespace ld3d
 				}
 			}
 
+			m_pOctTree->AddChunk(pChunk);
 			return true;
 		}
 		bool Region::UnloadChunk(ChunkPtr pChunk)
@@ -344,7 +346,13 @@ namespace ld3d
 				// save
 			}
 
+			m_pOctTree->RemoveChunk(pChunk);
+
 			return true;
+		}
+		void Region::FrustumCull(const math::ViewFrustum& vf, const std::function<void(ChunkMeshPtr)>& op)
+		{
+			m_pOctTree->FrustumCull(vf, op);
 		}
 	}
 }

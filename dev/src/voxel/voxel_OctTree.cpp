@@ -57,11 +57,56 @@ namespace ld3d
 
 			return _add_chunk(pChunk);
 		}
+		void OctTree::RemoveChunk(ChunkPtr pChunk)
+		{
+			_remove_chunk(pChunk);
+		}
+		void OctTree::_remove_chunk(ChunkPtr pChunk)
+		{
+			math::AABBox bound;
+
+			math::Vector3 coord = pChunk->GetKey().ToChunkOrigin().ToVector3() - m_regionOrigin.ToVector3();
+			bound.Make(coord, math::Vector3(
+				coord.x + CHUNK_SIZE * BLOCK_SIZE,
+				coord.y + CHUNK_SIZE * BLOCK_SIZE,
+				coord.z + CHUNK_SIZE * BLOCK_SIZE));
+
+
+			if(m_bbox.Inside(bound.GetCenter()) == false)
+			{
+				return;
+			}
+
+			int len = int(m_bbox.GetMaxCoord().x - m_bbox.GetMinCoord().x);
+			if(len == CHUNK_SIZE * BLOCK_SIZE)
+			{
+				m_pChunk = nullptr;
+				return;
+			}
+
+			math::AABBox sub[8];
+
+			SubDivideBound(m_bbox, sub);
+
+			for(int i = 0; i < 8; ++i)
+			{
+				if(sub[i].Inside(bound.GetCenter()))
+				{
+					if(m_pChildren[i] == nullptr)
+					{
+						m_pChildren[i] = std::allocate_shared<OctTree, std_allocator_adapter<OctTree>>(GetAllocator(), m_regionOrigin);
+						m_pChildren[i]->SetBound(sub[i]);
+					}
+					m_pChildren[i]->_remove_chunk(pChunk);
+					return;
+				}
+			}
+		}
 		bool OctTree::_add_chunk(ChunkPtr pChunk)
 		{
 			math::AABBox bound;
 
-			math::Vector3 coord = pChunk->GetKey().ToChunkOrigin().ToVector3();
+			math::Vector3 coord = pChunk->GetKey().ToChunkOrigin().ToVector3() - m_regionOrigin.ToVector3();
 			bound.Make(coord, math::Vector3(
 				coord.x + CHUNK_SIZE * BLOCK_SIZE,
 				coord.y + CHUNK_SIZE * BLOCK_SIZE,
@@ -136,7 +181,7 @@ namespace ld3d
 
 			return true;
 		}
-		void OctTree::FrustumCull(const math::ViewFrustum& vf, std::function<void (ChunkPtr)> op)
+		void OctTree::FrustumCull(const math::ViewFrustum& vf, std::function<void (ChunkMeshPtr)> op)
 		{
 			if(vf.IntersectBox(m_bbox) == false)
 			{
@@ -144,7 +189,16 @@ namespace ld3d
 			}
 			if(IsLeaf())
 			{
-				op(m_pChunk);
+				if(m_pChunk == nullptr)
+				{
+					return;
+				}
+				ChunkMeshPtr pMesh = m_pChunk->GetMesh();
+
+				if(pMesh)
+				{
+					op(pMesh);
+				}
 				return;
 			}
 

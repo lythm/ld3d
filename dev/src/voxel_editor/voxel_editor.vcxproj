@@ -107,7 +107,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;VOXEL_EDITOR_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeaderFile>voxel_editor_pch.h</PrecompiledHeaderFile>
-      <AdditionalOptions>/Zm121 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>-Zm131 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

@@ -90,13 +90,13 @@
     <ClInclude Include="voxel_RegionManager.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\voxel\voxel_ChunkMeshizer.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="voxel_OctTree.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="voxel_ChunkLoader.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\voxel\voxel_Meshizer.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
@@ -158,13 +158,13 @@
     <ClCompile Include="voxel_RegionManager.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="voxel_ChunkMeshizer.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="voxel_OctTree.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="voxel_ChunkLoader.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="voxel_Meshizer.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

@@ -4,7 +4,7 @@
 #include "voxel_RegionManager.h"
 #include "voxel/voxel_Region.h"
 #include "voxel/voxel_Chunk.h"
-#include "voxel/voxel_ChunkMeshizer.h"
+#include "voxel/voxel_Meshizer.h"
 #include "voxel/voxel_ChunkMesh.h"
 
 namespace ld3d
@@ -35,7 +35,7 @@ namespace ld3d
 			m_center = c;
 		}
 		
-		bool WorldViewport::Open(WorldPtr pWorld, const Coord& center, uint32 size, ChunkMeshizerPtr pMeshizer)
+		bool WorldViewport::Open(WorldPtr pWorld, const Coord& center, uint32 size, MeshizerPtr pMeshizer)
 		{
 			m_pMeshizer = pMeshizer;
 			m_pWorld = pWorld;
@@ -287,12 +287,25 @@ namespace ld3d
 			UpdateRegionBuffer(false);
 			UpdateRegionCache();
 		}
-		void WorldViewport::FrustumCull(const math::ViewFrustum& vf)
+		void WorldViewport::FrustumCull(const math::ViewFrustum& vf, const std::function<void(const Coord&, ChunkMeshPtr)>& op)
 		{
 			if(m_pMeshizer == nullptr)
 			{
 				return;
 			}
+
+			for(auto r : m_regionBuffer)
+			{
+				const Coord& region_pos = r->GetRegionOrigin();
+
+				math::ViewFrustum v = vf;
+				math::Vector3 trans = region_pos.ToVector3();
+				
+				v.Transform(math::MatrixTranslation(-trans));
+
+				r->FrustumCull(v, std::bind(op, region_pos, std::placeholders::_1));
+			}
+
 		}
 
 		void WorldViewport::_on_chunk_loaded(RegionPtr pRegion, ChunkPtr pChunk)
@@ -310,7 +323,10 @@ namespace ld3d
 			}
 
 			pMesh = std::allocate_shared<ChunkMesh, std_allocator_adapter<ChunkMesh>>(GetAllocator());
-			m_pMeshizer->GenerateMesh(pChunk, Coord(0, 0, 0), pMesh);
+
+			Coord chunk_mesh_base = pChunk->GetKey().ToChunkOrigin() - pRegion->GetRegionOrigin();
+
+			m_pMeshizer->GenerateMesh(pChunk, chunk_mesh_base, pMesh);
 
 			pChunk->SetMesh(pMesh);
 	

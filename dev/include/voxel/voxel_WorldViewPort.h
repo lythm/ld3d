@@ -17,7 +17,7 @@ namespace ld3d
 
 			bool														Inside(const Coord& coord) const;
 
-			bool														Open(WorldPtr pWorld, const Coord& center, uint32 size, ChunkMeshizerPtr pMeshizer);
+			bool														Open(WorldPtr pWorld, const Coord& center, uint32 size, MeshizerPtr pMeshizer);
 			void														Close();
 
 			void														Update();
@@ -34,7 +34,7 @@ namespace ld3d
 
 			void														SetViewportSize(uint32 size);
 
-			void														FrustumCull(const math::ViewFrustum& vf);
+			void														FrustumCull(const math::ViewFrustum& vf, const std::function<void(const Coord&, ChunkMeshPtr)>& op);
 
 			
 		private:
@@ -66,7 +66,7 @@ namespace ld3d
 			std::function<void (RegionPtr)>								handler_region_loaded;
 			std::function<void (RegionPtr)>								handler_region_unloaded;
 
-			ChunkMeshizerPtr											m_pMeshizer;
+			MeshizerPtr													m_pMeshizer;
 		};
 	}
 }

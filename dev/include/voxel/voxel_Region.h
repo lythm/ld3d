@@ -37,9 +37,8 @@ namespace ld3d
 			bool													LoadChunk(ChunkPtr pChunk);
 			bool													UnloadChunk(ChunkPtr pChunk);
 
-
+			void													FrustumCull(const math::ViewFrustum& vf, const std::function<void(ChunkMeshPtr)>& op);
 		private:
-			
 
 		private:
 			

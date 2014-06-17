@@ -1,5 +1,5 @@
 #include "voxel_pch.h"
-#include "voxel/voxel_ChunkMeshizer.h"
+#include "voxel/voxel_Meshizer.h"
 #include "voxel/voxel_Chunk.h"
 #include "voxel_ChunkManager.h"
 #include "voxel/voxel_ChunkMesh.h"
@@ -8,11 +8,11 @@ namespace ld3d
 {
 	namespace voxel
 	{
-		ChunkMeshizer::VoxelFace ChunkMeshizer::s_Cube[6];
+		Meshizer::VoxelFace Meshizer::s_Cube[6];
 
 
 		// index : 0 - 1 - 2, 1 - 3 - 2
-		void ChunkMeshizer::InitializeCubeVertex(uint32 size)
+		void Meshizer::InitializeCubeVertex(uint32 size)
 		{
 			// -x
 			s_Cube[0].verts[0] = math::Vector3(0, 0, 0);
@@ -73,23 +73,18 @@ namespace ld3d
 			}
 		}
 
-		ChunkMeshizer::ChunkMeshizer(void)
+		Meshizer::Meshizer(void)
 		{
 			InitializeCubeVertex(BLOCK_SIZE);
-
-			VoxelMaterial mat;
-			mat.type = 1;
-
-			AddVoxelMaterial(1, mat);
 		}
 
 
-		ChunkMeshizer::~ChunkMeshizer(void)
+		Meshizer::~Meshizer(void)
 		{
 			m_materialMap.clear();
 			m_templates.clear();
 		}
-		void ChunkMeshizer::GenerateMesh(ChunkPtr pChunk, const Coord& base_coord, ChunkMeshPtr pMesh)
+		void Meshizer::GenerateMesh(ChunkPtr pChunk, const Coord& base_coord, ChunkMeshPtr pMesh)
 		{
 			ChunkManagerPtr pChunkManager = pChunk->GetChunkManager();
 
@@ -142,6 +137,10 @@ namespace ld3d
 						if(pChunkManager->IsEmpty(Coord(x - 1, y, z) + chunk_base))
 						{
 							VoxelFace face = s_Cube[0];
+							face.verts[0] += math::Vector3(x, y, z);
+							face.verts[1] += math::Vector3(x, y, z);
+							face.verts[2] += math::Vector3(x, y, z);
+							face.verts[3] += math::Vector3(x, y, z);
 							
 							face.uv[0] = mat.uv[VoxelMaterial::n_x][0];
 							face.uv[1] = mat.uv[VoxelMaterial::n_x][1];
@@ -159,7 +158,11 @@ namespace ld3d
 						if(pChunkManager->IsEmpty(Coord(x + 1, y, z) + chunk_base))
 						{
 							VoxelFace face = s_Cube[1];
-							
+							face.verts[0] += math::Vector3(x, y, z);
+							face.verts[1] += math::Vector3(x, y, z);
+							face.verts[2] += math::Vector3(x, y, z);
+							face.verts[3] += math::Vector3(x, y, z);
+
 							face.uv[0] = mat.uv[VoxelMaterial::p_x][0];
 							face.uv[1] = mat.uv[VoxelMaterial::p_x][1];
 							face.uv[2] = mat.uv[VoxelMaterial::p_x][2];
@@ -176,7 +179,11 @@ namespace ld3d
 						if(pChunkManager->IsEmpty(Coord(x , y - 1, z) + chunk_base))
 						{
 							VoxelFace face = s_Cube[2];
-							
+							face.verts[0] += math::Vector3(x, y, z);
+							face.verts[1] += math::Vector3(x, y, z);
+							face.verts[2] += math::Vector3(x, y, z);
+							face.verts[3] += math::Vector3(x, y, z);
+
 							face.uv[0] = mat.uv[VoxelMaterial::n_y][0];
 							face.uv[1] = mat.uv[VoxelMaterial::n_y][1];
 							face.uv[2] = mat.uv[VoxelMaterial::n_y][2];
@@ -193,7 +200,11 @@ namespace ld3d
 						if(pChunkManager->IsEmpty(Coord(x, y + 1, z) + chunk_base))
 						{
 							VoxelFace face = s_Cube[3];
-							
+							face.verts[0] += math::Vector3(x, y, z);
+							face.verts[1] += math::Vector3(x, y, z);
+							face.verts[2] += math::Vector3(x, y, z);
+							face.verts[3] += math::Vector3(x, y, z);
+
 							face.uv[0] = mat.uv[VoxelMaterial::p_y][0];
 							face.uv[1] = mat.uv[VoxelMaterial::p_y][1];
 							face.uv[2] = mat.uv[VoxelMaterial::p_y][2];
@@ -210,7 +221,11 @@ namespace ld3d
 						if(pChunkManager->IsEmpty(Coord(x, y, z - 1) + chunk_base))
 						{
 							VoxelFace face = s_Cube[4];
-							
+							face.verts[0] += math::Vector3(x, y, z);
+							face.verts[1] += math::Vector3(x, y, z);
+							face.verts[2] += math::Vector3(x, y, z);
+							face.verts[3] += math::Vector3(x, y, z);
+
 							face.uv[0] = mat.uv[VoxelMaterial::n_z][0];
 							face.uv[1] = mat.uv[VoxelMaterial::n_z][1];
 							face.uv[2] = mat.uv[VoxelMaterial::n_z][2];
@@ -227,7 +242,11 @@ namespace ld3d
 						if(pChunkManager->IsEmpty(Coord(x, y, z + 1) + chunk_base))
 						{
 							VoxelFace face = s_Cube[5];
-							
+							face.verts[0] += math::Vector3(x, y, z);
+							face.verts[1] += math::Vector3(x, y, z);
+							face.verts[2] += math::Vector3(x, y, z);
+							face.verts[3] += math::Vector3(x, y, z);
+
 							face.uv[0] = mat.uv[VoxelMaterial::p_z][0];
 							face.uv[1] = mat.uv[VoxelMaterial::p_z][1];
 							face.uv[2] = mat.uv[VoxelMaterial::p_z][2];
@@ -256,10 +275,9 @@ namespace ld3d
 			sub.type = VT_EMPTY;
 			sub.vertexCount				= 0;
 			sub.vertexBuffer			= nullptr;
-
-
-			sub.type = mesh[0].type;
-
+			
+			sub.type					= mesh[0].type;
+			sub.material_id				= mesh[0].material;
 			pMesh->AllocVertexBuffer(mesh.size() * 6);
 			
 			ChunkMesh::VoxelVertex* pData = (ChunkMesh::VoxelVertex*)pMesh->GetVertexBuffer();
@@ -274,9 +292,10 @@ namespace ld3d
 				{
 					pMesh->AddSubset(sub);
 
-					sub.type = face.type;
-					sub.vertexCount = 0;
-					sub.vertexBuffer = pData;
+					sub.type			= face.type;
+					sub.material_id		= face.material;
+					sub.vertexCount		= 0;
+					sub.vertexBuffer	= pData;
 				}
 
 				pData->pos = face.verts[0] + vertex_offset;
@@ -324,7 +343,7 @@ namespace ld3d
 			}
 			pMesh->AddSubset(sub);
 		}
-		void ChunkMeshizer::AddVoxelMaterial(uint8 type, const VoxelMaterial& mat)
+		void Meshizer::AddVoxelMaterial(uint8 type, const VoxelMaterial& mat)
 		{
 			m_materialMap[type] = mat;
 		}

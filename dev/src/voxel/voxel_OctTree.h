@@ -27,14 +27,15 @@ namespace ld3d
 			bool								IsLeaf() const;
 
 			bool								AddChunk(ChunkPtr pChunk);
-
-			void								FrustumCull(const math::ViewFrustum& vf, std::function<void (ChunkPtr)> op);
+			void								RemoveChunk(ChunkPtr pChunk);
+			void								FrustumCull(const math::ViewFrustum& vf, std::function<void (ChunkMeshPtr)> op);
 
 			bool								RayPick(const math::Ray& r, Real& t);
 
 		private:
 			bool								SubDivideBound(const math::AABBox& bound, math::AABBox Bounds[8]);
 			bool								_add_chunk(ChunkPtr pChunk);
+			void								_remove_chunk(ChunkPtr pChunk);
 		private:
 
 			OctTreePtr							m_pChildren[8];

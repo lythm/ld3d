@@ -29,7 +29,7 @@ namespace ld3d
 		bool VoxelEditor::Initialize(CoreApiPtr pCore)
 		{
 
-			voxel::ChunkMeshizerPtr pMeshizer = std::make_shared<voxel::ChunkMeshizer>();
+			voxel::MeshizerPtr pMeshizer = std::make_shared<voxel::Meshizer>();
 
 			
 			m_pCore = pCore;
