@@ -78,7 +78,7 @@ namespace ld3d
 			return false;
 		}
 
-		TexturePtr pTex = m_pRenderManager->CreateTextureFromFile("./assets/voxel/texture/rock.dds");
+		TexturePtr pTex = m_pRenderManager->CreateTextureFromFile("./assets/voxel/texture/dirt.dds");
 
 		pMaterial->GetParameterByName("diffuse_map")->SetParameterTexture(pTex);
 

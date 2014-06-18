@@ -41,7 +41,10 @@ namespace ld3d
 		class ChunkMesh;
 		class ChunkLoader;
 		class OctTree;
+		class PoolManager;
 
+
+		typedef std::shared_ptr<PoolManager>									PoolManagerPtr;
 		typedef std::shared_ptr<OctTree>										OctTreePtr;
 		typedef std::shared_ptr<ChunkMesh>										ChunkMeshPtr;
 		typedef std::shared_ptr<ChunkLoader>									ChunkLoaderPtr;

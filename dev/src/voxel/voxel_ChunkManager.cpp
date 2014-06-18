@@ -1,6 +1,7 @@
 #include "voxel_pch.h"
 #include "voxel_ChunkManager.h"
 #include "voxel/voxel_Chunk.h"
+#include "voxel_PoolManager.h"
 
 namespace ld3d
 {
@@ -94,11 +95,14 @@ namespace ld3d
 		}
 		ChunkPtr ChunkManager::AllocChunk(uint8 data[])
 		{
-			if(GetAllocator() != nullptr)
-			{
-				return std::allocate_shared<Chunk, std_allocator_adapter<Chunk> >(GetAllocator(), shared_from_this(), data);
-			}
-			return std::make_shared<Chunk>(shared_from_this(), data);
+			return GetPoolManager()->AllocChunk(shared_from_this(), data);
+
+
+			//if(GetAllocator() != nullptr)
+			//{
+			//	return std::allocate_shared<Chunk, std_allocator_adapter<Chunk> >(GetAllocator(), shared_from_this(), data);
+			//}
+			//return std::make_shared<Chunk>(shared_from_this(), data);
 		}
 		void ChunkManager::UpdateBlock(const Coord& c)
 		{

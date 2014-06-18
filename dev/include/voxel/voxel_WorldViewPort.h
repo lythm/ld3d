@@ -36,7 +36,7 @@ namespace ld3d
 
 			void														FrustumCull(const math::ViewFrustum& vf, const std::function<void(const Coord&, ChunkMeshPtr)>& op);
 
-			
+			bool														RayPick(const math::Ray& r, Coord& block, float& t, math::Vector3& normal);
 		private:
 			void														UpdateRegionBuffer(bool sync);
 			bool														InitRegionBuffer();
@@ -67,7 +67,6 @@ namespace ld3d
 			std::function<void (RegionPtr)>								handler_region_unloaded;
 
 			MeshizerPtr													m_pMeshizer;
-
 
 		};
 	}

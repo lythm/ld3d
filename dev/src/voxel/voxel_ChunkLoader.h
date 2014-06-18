@@ -35,6 +35,8 @@ namespace ld3d
 			bool									ProcessLoadingQueue();
 			bool									ProcessUnloadingQueue();
 
+			bool									CancelLoading(const ChunkKey& key);
+
 			bool									_do_load_chunk(RegionPtr pRegion, const ChunkKey& key, const std::function<void(RegionPtr, ChunkPtr)>& on_loaded);
 			bool									_do_unload_chunk(RegionPtr pRegion, const ChunkKey& key);
 		private:
@@ -45,13 +47,14 @@ namespace ld3d
 			{
 				ChunkKey							key;
 				RegionPtr							pRegion;
+				bool								canceled;
 
 				std::function<void(RegionPtr, 
 						ChunkPtr)>					on_loaded;
 			};
 
 
-			typedef std::queue<ChunkInfo, std::list<ChunkInfo, std_allocator_adapter<ChunkInfo>>>	ChunkQueue;
+			typedef std::deque<ChunkInfo, std_allocator_adapter<ChunkInfo>>	ChunkQueue;
 
 			ChunkQueue	m_loadingQueue;
 			

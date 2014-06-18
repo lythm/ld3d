@@ -1,6 +1,7 @@
 #include "voxel_pch.h"
 #include "voxel_OctTree.h"
 #include "voxel/voxel_Chunk.h"
+#include "voxel_PoolManager.h"
 
 namespace ld3d
 {
@@ -94,8 +95,7 @@ namespace ld3d
 				{
 					if(m_pChildren[i] == nullptr)
 					{
-						m_pChildren[i] = std::allocate_shared<OctTree, std_allocator_adapter<OctTree>>(GetAllocator(), m_regionOrigin);
-						m_pChildren[i]->SetBound(sub[i]);
+						continue;
 					}
 					m_pChildren[i]->_remove_chunk(pChunk);
 					return;
@@ -135,7 +135,7 @@ namespace ld3d
 				{
 					if(m_pChildren[i] == nullptr)
 					{
-						m_pChildren[i] = std::allocate_shared<OctTree, std_allocator_adapter<OctTree>>(GetAllocator(), m_regionOrigin);
+						m_pChildren[i] = GetPoolManager()->AllocOctTree(m_regionOrigin);
 						m_pChildren[i]->SetBound(sub[i]);
 					}
 					return m_pChildren[i]->_add_chunk(pChunk);

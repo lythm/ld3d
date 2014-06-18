@@ -81,16 +81,27 @@ namespace ld3d
 		}
 		bool ChunkLoader::ProcessLoadingQueue()
 		{
-			if(0 == m_loadingQueue.size())
+			ChunkInfo info;
+			
+			while(m_loadingQueue.size() != 0)
+			{
+				info = m_loadingQueue.front();
+				if(info.canceled == true)
+				{
+					m_loadingQueue.pop_front();
+					continue;
+				}
+				break;
+			}
+
+			if(m_loadingQueue.size() == 0)
 			{
 				return false;
 			}
 
-			const ChunkInfo& info = m_loadingQueue.front();
-
 			bool ret = _do_load_chunk(info.pRegion, info.key, info.on_loaded);
 
-			m_loadingQueue.pop();
+			m_loadingQueue.pop_front();
 			
 			return ret;
 		}
@@ -123,13 +134,13 @@ namespace ld3d
 			{
 				info.pRegion->Release();
 				info.pRegion.reset();
-				m_unloadingQueue.pop();
+				m_unloadingQueue.pop_front();
 				return true;
 			}
 
 			bool ret = _do_unload_chunk(info.pRegion, info.key);
 			
-			m_unloadingQueue.pop();
+			m_unloadingQueue.pop_front();
 
 			return ret;
 		}
@@ -143,7 +154,8 @@ namespace ld3d
 			info.pRegion	= pRegion;
 			info.key		= key;
 			info.on_loaded	= on_loaded;
-			m_loadingQueue.push(info);
+			info.canceled	= false;
+			m_loadingQueue.push_back(info);
 		}
 		bool ChunkLoader::UnloadChunkSync(RegionPtr pRegion, const ChunkKey& key)
 		{
@@ -151,11 +163,15 @@ namespace ld3d
 		}
 		void ChunkLoader::UnloadChunk(RegionPtr pRegion , const ChunkKey& key)
 		{
+			if(CancelLoading(key) == true)
+			{
+				return;
+			}
 			ChunkInfo info;
 			info.pRegion	= pRegion;
 			info.key		= key;
-
-			m_unloadingQueue.push(info);
+			info.canceled	= false;
+			m_unloadingQueue.push_back(info);
 		}
 		void ChunkLoader::ReleaseRegion(RegionPtr pRegion)
 		{
@@ -163,7 +179,7 @@ namespace ld3d
 			info.pRegion	= pRegion;
 			info.key		= ChunkKey();
 
-			m_unloadingQueue.push(info);
+			m_unloadingQueue.push_back(info);
 		}
 		uint32 ChunkLoader::GetLoadingQueueSize() const
 		{
@@ -172,6 +188,20 @@ namespace ld3d
 		uint32 ChunkLoader::GetUnloadingQueueSize() const
 		{
 			return (uint32)m_unloadingQueue.size();
+		}
+		bool ChunkLoader::CancelLoading(const ChunkKey& key)
+		{
+			ChunkQueue::iterator it = m_loadingQueue.begin();
+			for(;it != m_loadingQueue.end(); ++it)
+			{
+				if(it->key == key)
+				{
+					it->canceled = true;
+					return true;
+				}
+			}
+
+			return false;
 		}
 	}
 }

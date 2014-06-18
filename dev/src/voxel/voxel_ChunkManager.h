@@ -8,6 +8,7 @@ namespace ld3d
 {
 	namespace voxel
 	{
+		
 		class ChunkManager : public std::enable_shared_from_this<ChunkManager>
 		{
 		public:
@@ -43,14 +44,14 @@ namespace ld3d
 		private:
 
 			typedef 
-			std::unordered_map<uint64, 
-					ChunkPtr, 
-					std::hash<uint64>, 
-					std::equal_to<uint64>,
-					std_allocator_adapter<
-						std::pair<const uint64, ChunkPtr>
-					>>										ChunkMap;										
-					
+				std::unordered_map<uint64, 
+				ChunkPtr, 
+				std::hash<uint64>, 
+				std::equal_to<uint64>,
+				std_allocator_adapter<
+				std::pair<const uint64, ChunkPtr>
+				>>											ChunkMap;										
+
 			ChunkMap										m_chunkmap;
 			std::list<ChunkPtr>								m_dirtyList;
 

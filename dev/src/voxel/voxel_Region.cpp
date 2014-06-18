@@ -6,6 +6,7 @@
 #include "voxel_ChunkLoader.h"
 #include "voxel/voxel_Chunk.h"
 #include "voxel_OctTree.h"
+#include "voxel_PoolManager.h"
 
 namespace ld3d
 {
@@ -73,14 +74,7 @@ namespace ld3d
 		{
 			return true;
 		}
-		bool Region::GenChunk(const Coord& chunk_origin)
-		{
-			//	WorldGenPtr pGen = m_pWorld->GetWorldGen();
-
-			//	pGen->GenChunk(chunk_origin);
-
-			return true;
-		}
+		
 		void Region::GenHeightmap()
 		{
 			if(m_heightMap == nullptr)
@@ -211,7 +205,7 @@ namespace ld3d
 
 			m_heightMapAABBox.Make(math::Vector3(0, 0, 0), math::Vector3(REGION_SIZE, REGION_HEIGHT, REGION_SIZE));
 
-			m_pOctTree = std::allocate_shared<OctTree, std_allocator_adapter<OctTree>>(GetAllocator(), GetRegionOrigin());
+			m_pOctTree = GetPoolManager()->AllocOctTree(GetRegionOrigin());
 			m_pOctTree->SetBound(math::AABBox(math::Vector3(0, 0, 0), math::Vector3(REGION_SIZE, REGION_HEIGHT, REGION_SIZE)));
 			return true;
 		}
@@ -362,6 +356,57 @@ namespace ld3d
 		void Region::FrustumCull(const math::ViewFrustum& vf, const std::function<void(ChunkMeshPtr)>& op)
 		{
 			m_pOctTree->FrustumCull(vf, op);
+		}
+		bool Region::RayPick(const math::Ray& r, Coord& block, float& t, math::Vector3& normal)
+		{
+			using namespace math;
+			const Coord& region_origin = GetRegionOrigin();
+
+			math::Vector3 trans = region_origin.ToVector3();
+				
+			math::Ray rr = r;
+
+			math::TransformRay(rr, math::MatrixTranslation(-trans));
+
+			AABBox box(Vector3(0, 0, 0), Vector3(REGION_SIZE, REGION_HEIGHT, REGION_SIZE));
+
+			float t0, t1;
+			if(RayIntersect(rr, box, t0, t1) == intersect_none)
+			{
+				return false;
+			}
+
+			Ray new_r;
+			new_r.o = (t0 >= 0) ? r.GetPos(t0) : r.o;
+			new_r.d = r.d;
+
+			Real dt = 0;
+
+			Coord region_o = GetRegionOrigin();
+			while(true)
+			{
+				Vector3 p = new_r.GetPos(dt);
+
+				if(m_pChunkManager->IsEmpty(Coord(p) + region_o) == false)
+				{
+					Vector3 min_coord((uint32)p.x, (uint32)p.y, (uint32)p.z);
+
+					box.Make(min_coord, min_coord + Vector3(BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE));
+
+					if(intersect_intersect == RayIntersect(r, box, t0, t1))
+					{
+						block = Coord(p) + region_o;
+						t = t0;
+						Vector3 pt = r.GetPos(t0);
+						normal = box.PointNormal(pt);
+						return true;
+					}
+				}
+
+				dt += BLOCK_SIZE;
+			}
+
+			return false;
 		}
 	}
 }

@@ -1,5 +1,7 @@
 #pragma once
 
+#include <boost/pool/pool.hpp>
+
 #include "voxel/voxel_types.h"
 #include "voxel/voxel_Coord.h"
 #include "voxel/voxel_ChunkKey.h"

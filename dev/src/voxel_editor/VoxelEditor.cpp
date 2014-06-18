@@ -180,12 +180,12 @@ namespace ld3d
 				return;
 			}
 
-			uint32 x = 0;
-			uint32 z = 0;
+			int32 x = 0;
+			int32 z = 0;
 			try
 			{
-				x = boost::lexical_cast<uint32>(cl.GetParam(0));
-				z = boost::lexical_cast<uint32>(cl.GetParam(1));
+				x = boost::lexical_cast<int32>(cl.GetParam(0));
+				z = boost::lexical_cast<int32>(cl.GetParam(1));
 			}
 			catch(...)
 			{

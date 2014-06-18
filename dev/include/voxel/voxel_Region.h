@@ -19,7 +19,7 @@ namespace ld3d
 
 			bool													Save();
 
-			bool													GenChunk(const Coord& chunk_origin);
+
 			bool													GenRegion();
 			bool													IsModified() const;
 			void													SetModified();
@@ -38,6 +38,8 @@ namespace ld3d
 			bool													UnloadChunk(ChunkPtr pChunk);
 
 			void													FrustumCull(const math::ViewFrustum& vf, const std::function<void(ChunkMeshPtr)>& op);
+
+			bool													RayPick(const math::Ray& r, Coord& block, float& t, math::Vector3& normal);
 		private:
 
 		private:

@@ -113,7 +113,7 @@
       <PrecompiledHeaderFile>voxel_pch.h</PrecompiledHeaderFile>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
-      <AdditionalOptions>-Zm123 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>-Zm136 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -151,7 +151,7 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;EXT_VOXEL_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <PrecompiledHeaderFile>voxel_pch.h</PrecompiledHeaderFile>
-      <AdditionalOptions>-Zm122 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>-Zm136 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

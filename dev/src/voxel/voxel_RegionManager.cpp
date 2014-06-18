@@ -3,6 +3,7 @@
 #include "voxel/voxel_Region.h"
 #include "voxel_ChunkLoader.h"
 #include "voxel/voxel_World.h"
+#include "voxel_PoolManager.h"
 
 namespace ld3d
 {

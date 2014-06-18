@@ -6,6 +6,7 @@
 #include "voxel/voxel_Chunk.h"
 #include "voxel/voxel_Meshizer.h"
 #include "voxel/voxel_ChunkMesh.h"
+#include "voxel_PoolManager.h"
 
 namespace ld3d
 {
@@ -32,6 +33,10 @@ namespace ld3d
 		
 		void WorldViewport::MoveTo(const Coord& c)
 		{
+			if(c.x < 0)
+			{
+				int i = 0;
+			}
 			m_center = c;
 		}
 		
@@ -263,15 +268,18 @@ namespace ld3d
 		}
 		void WorldViewport::_on_dirty_chunk(ChunkPtr pChunk)
 		{
-			if(handler_dirty_chunk == nullptr)
-			{
-				return;
-			}
 			const ChunkKey& key = pChunk->GetKey();
 
 			Coord c = key.ToChunkOrigin();
 
 			c = m_pWorld->ToRegionCoord(c);
+
+
+
+			if(handler_dirty_chunk == nullptr)
+			{
+				return;
+			}
 
 			handler_dirty_chunk(c, pChunk);
 		}
@@ -324,7 +332,7 @@ namespace ld3d
 				return;
 			}
 
-			pMesh = std::allocate_shared<ChunkMesh, std_allocator_adapter<ChunkMesh>>(GetAllocator());
+			pMesh = GetPoolManager()->AllocChunkMesh();
 
 			Coord chunk_mesh_base = pChunk->GetKey().ToChunkOrigin() - pRegion->GetRegionOrigin();
 
@@ -336,6 +344,34 @@ namespace ld3d
 		const Coord& WorldViewport::GetCenterCoord() const
 		{
 			return m_center;
+		}
+		bool WorldViewport::RayPick(const math::Ray& r, Coord& block, float& t, math::Vector3& normal)
+		{
+			bool ret				= false;
+			float min_t				= std::numeric_limits<float>::max();
+			Coord min_block;
+			math::Vector3 min_normal;
+			for(auto region : m_regionBuffer)
+			{
+				if(region->RayPick(r, block, t, normal) == false)
+				{
+					continue;
+				}
+				ret = true;
+
+				if(t < min_t)
+				{
+					min_t = t;
+					min_block = block;
+					min_normal = normal;
+				}
+			}
+
+			t			= min_t;
+			block		= min_block;
+			normal		= min_normal;
+
+			return ret;
 		}
 	}
 }
