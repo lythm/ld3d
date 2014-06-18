@@ -10,7 +10,7 @@ namespace ld3d
 		class MaterialParser : public BaseParser
 		{
 		public:
-			MaterialParser(BaseParser* parent, Logger& logger = Logger());
+			MaterialParser(BaseParser* parent, const Logger& logger = Logger());
 			virtual ~MaterialParser();
 
 			bool												Parse(Lexer* lexer, const boost::filesystem::path& dir = "./");

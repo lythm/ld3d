@@ -7,7 +7,7 @@ namespace ld3d
 		class _DLL_CLASS BaseParser
 		{
 		public:
-			BaseParser(BaseParser* parent, Logger& logger = Logger());
+			BaseParser(BaseParser* parent, const Logger& logger = Logger());
 			virtual ~BaseParser(void);
 
 			virtual bool										Parse(Lexer* lexer, const boost::filesystem::path& dir = "./")											= 0;

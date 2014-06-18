@@ -10,7 +10,6 @@
 		07AF188F17C5F51A0053C45D /* ArcBall.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07AF188A17C5F51A0053C45D /* ArcBall.cpp */; };
 		07AF189017C5F51A0053C45D /* AssetsManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07AF188B17C5F51A0053C45D /* AssetsManager.cpp */; };
 		07AF189117C5F51A0053C45D /* BaseCamera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07AF188C17C5F51A0053C45D /* BaseCamera.cpp */; };
-		07AF189217C5F51A0053C45D /* BBoxRenderData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07AF188D17C5F51A0053C45D /* BBoxRenderData.cpp */; };
 		07AF189317C5F51A0053C45D /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07AF188E17C5F51A0053C45D /* Camera.cpp */; };
 		07AF18CD17C5F5830053C45D /* core_pch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07AF189417C5F5830053C45D /* core_pch.cpp */; };
 		07AF18CE17C5F5830053C45D /* core_pch.h in Headers */ = {isa = PBXBuildFile; fileRef = 07AF189517C5F5830053C45D /* core_pch.h */; };
@@ -75,7 +74,6 @@
 		07AF188A17C5F51A0053C45D /* ArcBall.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ArcBall.cpp; path = ../ArcBall.cpp; sourceTree = "<group>"; };
 		07AF188B17C5F51A0053C45D /* AssetsManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AssetsManager.cpp; path = ../AssetsManager.cpp; sourceTree = "<group>"; };
 		07AF188C17C5F51A0053C45D /* BaseCamera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BaseCamera.cpp; path = ../BaseCamera.cpp; sourceTree = "<group>"; };
-		07AF188D17C5F51A0053C45D /* BBoxRenderData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BBoxRenderData.cpp; path = ../BBoxRenderData.cpp; sourceTree = "<group>"; };
 		07AF188E17C5F51A0053C45D /* Camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Camera.cpp; path = ../Camera.cpp; sourceTree = "<group>"; };
 		07AF189417C5F5830053C45D /* core_pch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = core_pch.cpp; path = ../core_pch.cpp; sourceTree = "<group>"; };
 		07AF189517C5F5830053C45D /* core_pch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = core_pch.h; path = ../core_pch.h; sourceTree = "<group>"; };
@@ -208,7 +206,6 @@
 				07AF188A17C5F51A0053C45D /* ArcBall.cpp */,
 				07AF188B17C5F51A0053C45D /* AssetsManager.cpp */,
 				07AF188C17C5F51A0053C45D /* BaseCamera.cpp */,
-				07AF188D17C5F51A0053C45D /* BBoxRenderData.cpp */,
 				07AF188E17C5F51A0053C45D /* Camera.cpp */,
 				07AF188417C5F4F30053C45D /* Products */,
 			);
@@ -292,7 +289,6 @@
 				07AF188F17C5F51A0053C45D /* ArcBall.cpp in Sources */,
 				07AF189017C5F51A0053C45D /* AssetsManager.cpp in Sources */,
 				07AF189117C5F51A0053C45D /* BaseCamera.cpp in Sources */,
-				07AF189217C5F51A0053C45D /* BBoxRenderData.cpp in Sources */,
 				07AF189317C5F51A0053C45D /* Camera.cpp in Sources */,
 				07AF18CD17C5F5830053C45D /* core_pch.cpp in Sources */,
 				07AF18CF17C5F5830053C45D /* core_utils.cpp in Sources */,
@@ -366,8 +362,8 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = NO;
-				GCC_PREFIX_HEADER = "";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = core_pch.h;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -398,8 +394,8 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = NO;
-				GCC_PREFIX_HEADER = "";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = core_pch.h;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;

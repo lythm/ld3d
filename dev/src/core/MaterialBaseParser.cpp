@@ -5,7 +5,7 @@ namespace ld3d
 {
 	namespace material_script
 	{
-		BaseParser::BaseParser(BaseParser* parent, Logger& logger)
+		BaseParser::BaseParser(BaseParser* parent, const Logger& logger)
 		{
 			m_logger = logger;
 			m_parent = parent;
@@ -43,7 +43,7 @@ namespace ld3d
 						return v;
 					}
 				}
-				return false;
+				return nullptr;
 			}
 
 			BaseParser* pNode = m_parent;
@@ -60,7 +60,7 @@ namespace ld3d
 				pNode = pNode->Parent();
 			}
 
-			return false;
+			return nullptr;
 		}
 		bool BaseParser::str_i_cmp(const std::string& s1, const std::string& s2)
 		{

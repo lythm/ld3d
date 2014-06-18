@@ -20,7 +20,7 @@ namespace ld3d
 			print(boost::lexical_cast<std::string>(value));
 			return *this;
 		}
-#ifdef _WIN32
+#if defined(_WIN32)
 		template<>
 		Logger& operator<< <bool>(const bool& value)
 		{

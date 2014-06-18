@@ -13,7 +13,7 @@
 #include <vector>
 #include <boost/filesystem.hpp>
 #include <boost/signals2.hpp>
-
+#include <boost/pool/pool.hpp>
 #include <string>
 #include <math/math_all.h>
 

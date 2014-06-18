@@ -2,6 +2,7 @@
 
 #include "core/Sys_Input.h"
 
+#if defined(_WIN32)
 namespace ld3d
 {
 	class WinRawInput : public Sys_Input
@@ -44,3 +45,5 @@ namespace ld3d
 		uint8*												m_inputBuffer;
 	};
 }
+
+#endif

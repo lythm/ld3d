@@ -3,6 +3,7 @@
 
 #include "core/Cursor.h"
 
+#ifdef _WIN32
 namespace ld3d
 {
 	class WinCursor : public Cursor
@@ -27,3 +28,5 @@ namespace ld3d
 
 
 }
+
+#endif
