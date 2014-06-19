@@ -3,6 +3,11 @@
 #include "voxel_ChunkManager.h"
 #include "voxel/voxel_Region.h"
 #include "voxel/voxel_Chunk.h"
+#include "voxel/voxel_Meshizer.h"
+#include "voxel_PoolManager.h"
+#include "voxel_VoxelUtils.h"
+#include "voxel_RegionManager.h"
+
 namespace ld3d
 {
 	namespace voxel
@@ -15,9 +20,13 @@ namespace ld3d
 		ChunkLoader::~ChunkLoader(void)
 		{
 		}
-		bool ChunkLoader::Initialize(ChunkManagerPtr pManager)
+		bool ChunkLoader::Initialize(ChunkManagerPtr pChunkManager, RegionManagerPtr pRegionManager, MeshizerPtr pMeshizer)
 		{
-			m_pChunkManager = pManager;
+			m_pChunkManager		= pChunkManager;
+			m_pRegionManager	= pRegionManager;
+			m_pMeshizer			= pMeshizer;
+
+			
 			return true;
 		}
 		void ChunkLoader::Release()
@@ -50,7 +59,38 @@ namespace ld3d
 				}
 			}
 		}
-		bool ChunkLoader::_do_load_chunk(RegionPtr pRegion, const ChunkKey& key, const std::function<void(RegionPtr, ChunkPtr)>& on_loaded)
+		bool ChunkLoader::GenerateChunkMesh(ChunkPtr pChunk)
+		{
+			if(m_pMeshizer == nullptr)
+			{
+				return false;
+			}
+			
+			if(pChunk == nullptr)
+			{
+				return false;
+			}
+
+			ChunkMeshPtr pMesh = pChunk->GetMesh();
+
+			if(pMesh == nullptr)
+			{
+				pMesh = GetPoolManager()->AllocChunkMesh();
+			}
+
+			Coord chunk_origin = pChunk->GetKey().ToChunkOrigin();
+			Coord region_origin = VoxelUtils::ToRegionOrigin(chunk_origin);
+
+
+			Coord chunk_mesh_base = chunk_origin - region_origin;
+
+			m_pMeshizer->GenerateMesh(pChunk, chunk_mesh_base, pMesh);
+
+			pChunk->SetMesh(pMesh);
+
+			return true;
+		}
+		bool ChunkLoader::_do_load_chunk(const ChunkKey& key)
 		{
 			ChunkPtr pChunk = m_pChunkManager->FindChunk(key);
 			if(pChunk != nullptr)
@@ -58,10 +98,9 @@ namespace ld3d
 				return true;
 			}
 
-
 			pChunk = m_pChunkManager->CreateChunk(key, nullptr);
 			
-			if(false == pRegion->LoadChunk(pChunk))
+			if(false == GenerateChunk(pChunk))
 			{
 				return false;
 			}
@@ -70,13 +109,12 @@ namespace ld3d
 			{
 				pChunk->SetDirty(false);
 				m_pChunkManager->AddChunk(pChunk);
-
-				if(on_loaded != nullptr)
-				{
-					on_loaded(pRegion, pChunk);
-				}
-
 			}
+
+			GenerateChunkMesh(pChunk);
+
+			m_pRegionManager->AddChunk(pChunk);
+
 			return true;
 		}
 		bool ChunkLoader::ProcessLoadingQueue()
@@ -99,7 +137,7 @@ namespace ld3d
 				return false;
 			}
 
-			bool ret = _do_load_chunk(info.pRegion, info.key, info.on_loaded);
+			bool ret = _do_load_chunk(info.key);
 
 			m_loadingQueue.pop_front();
 			
@@ -146,7 +184,7 @@ namespace ld3d
 		}
 		bool ChunkLoader::LoadChunkSync(RegionPtr pRegion, const ChunkKey& key, const std::function<void(RegionPtr, ChunkPtr)>& on_loaded)
 		{
-			return _do_load_chunk(pRegion, key, on_loaded);
+			return _do_load_chunk(key);
 		}
 		void ChunkLoader::LoadChunk(RegionPtr pRegion , const ChunkKey& key, const std::function<void(RegionPtr, ChunkPtr)>& on_loaded)
 		{
@@ -202,6 +240,52 @@ namespace ld3d
 			}
 
 			return false;
+		}
+		void ChunkLoader::SetMeshizer(MeshizerPtr pMeshizer)
+		{
+			m_pMeshizer = pMeshizer;
+		}
+		bool ChunkLoader::GenerateChunk(ChunkPtr pChunk)
+		{
+			// load chunk
+			const ChunkKey& key = pChunk->GetKey();
+
+			Coord chunk_origin = key.ToChunkOrigin();
+			Coord region_origin = VoxelUtils::ToRegionOrigin(chunk_origin);
+			
+			Coord dc = chunk_origin - region_origin;
+
+			for(int x = 0; x < CHUNK_SIZE; ++x)
+			{
+				for(int z = 0; z < CHUNK_SIZE; ++z)
+				{
+					float h = 512;
+
+					if(h < (chunk_origin.y))
+					{
+						continue;
+					}
+
+					float dy = h - chunk_origin.y;
+
+					dy = dy > CHUNK_SIZE ? CHUNK_SIZE : dy;
+
+					if(dy == 0)
+					{
+						dy = 1;
+					}
+					for(int y = 0; y < dy; ++y)
+					{
+						pChunk->SetBlock(x, y, z, 1);
+					}
+				}
+			}
+
+			return pChunk->IsDirty();
+		}
+		bool ChunkLoader::RequestChunk(const ChunkKey& key)
+		{
+			return _do_load_chunk(key);
 		}
 	}
 }

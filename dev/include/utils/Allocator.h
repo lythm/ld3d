@@ -13,8 +13,7 @@ namespace ld3d
 
 		virtual void								Update(){}
 
-		virtual uint64								GetTotalBytes()						= 0;
-		virtual uint64								GetBytesLeft()						= 0;
+		virtual uint64								GetAllocatedBytes()					= 0;
 	protected:
 
 		Allocator(void){}
@@ -100,4 +99,44 @@ namespace ld3d
 	private:
 		Allocator*				m_pAllocator;
 	};
+
+
+
+
+	inline
+		void*												mem_alloc(Allocator* a, uint64 bytes)
+	{
+		return a->Alloc(bytes);
+	}
+	inline
+		void												mem_free(Allocator* a, void* pMem)
+	{
+		a->Free(pMem);
+	}
+
+	template<typename T> inline
+		std::shared_ptr<T>									alloc_object(Allocator* a)
+	{
+		return std::allocate_shared<T, std_allocator_adapter<T> >(a);
+	}
+
+	template<typename T, typename TP> inline
+		std::shared_ptr<T>									alloc_object(Allocator* a, const TP& p)
+	{
+		return std::allocate_shared<T, std_allocator_adapter<T> >(a, p);
+	}
+
+
+
+	template<typename T, typename TP1, typename TP2> inline
+		std::shared_ptr<T>									alloc_object(Allocator* a, const TP1& p1, const TP2& p2)
+	{
+		return std::allocate_shared<T, std_allocator_adapter<T> >(a, p1, p2);
+	}
+
+	template<typename T, typename TP1, typename TP2, typename TP3> inline
+		std::shared_ptr<T>									alloc_object(Allocator* a, const TP1& p1, const TP2& p2, const TP3& p3)
+	{
+		return std::allocate_shared<T, std_allocator_adapter<T> >(a, p1, p2, p3);
+	}
 }

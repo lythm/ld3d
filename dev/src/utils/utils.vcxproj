@@ -180,7 +180,9 @@
     <ClCompile Include="MemPool.cpp" />
     <ClCompile Include="MiniDump.cpp" />
     <ClCompile Include="PerlinNoise.cpp" />
+    <ClCompile Include="PoolAllocator.cpp" />
     <ClCompile Include="PropertySet.cpp" />
+    <ClCompile Include="StdAllocator.cpp" />
     <ClCompile Include="TaskManager.cpp" />
     <ClCompile Include="Unicode.cpp" />
     <ClCompile Include="utils_pch.cpp">
@@ -194,6 +196,7 @@
     <ClCompile Include="Version.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\include\utils\Allocator.h" />
     <ClInclude Include="..\..\include\utils\CommandLine.h" />
     <ClInclude Include="..\..\include\utils\ConcurrentQueue.h" />
     <ClInclude Include="..\..\include\utils\Config.h" />
@@ -203,9 +206,11 @@
     <ClInclude Include="..\..\include\utils\MemPool.h" />
     <ClInclude Include="..\..\include\utils\MiniDump.h" />
     <ClInclude Include="..\..\include\utils\PerlinNoise.h" />
+    <ClInclude Include="..\..\include\utils\PoolAllocator.h" />
     <ClInclude Include="..\..\include\utils\PropertySet.h" />
     <ClInclude Include="..\..\include\utils\RefCount.h" />
     <ClInclude Include="..\..\include\utils\scope_exit.h" />
+    <ClInclude Include="..\..\include\utils\StdAllocator.h" />
     <ClInclude Include="..\..\include\utils\TaskManager.h" />
     <ClInclude Include="..\..\include\utils\Unicode.h" />
     <ClInclude Include="..\..\include\utils\utils_all.h" />

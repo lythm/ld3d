@@ -33,29 +33,38 @@ namespace ld3d
 		World::~World(void)
 		{
 		}
-		bool World::Create(const std::string& name, WorldGenPtr pGen, Allocator* pAlloc)
+		bool World::Create(const std::string& name, WorldGenPtr pGen, MeshizerPtr pMeshizer, Allocator* pAlloc)
 		{
 			g_pAllocator = pAlloc;
 
 			m_name = name;
 
-			m_pChunkManager		= std::allocate_shared<ChunkManager, std_allocator_adapter<ChunkManager>>(GetAllocator());//std::make_shared<ChunkManager>();
-			m_pRegionManager	= std::allocate_shared<RegionManager, std_allocator_adapter<RegionManager>>(GetAllocator());//std::make_shared<RegionManager>();
+			m_pChunkManager		= alloc_object<ChunkManager>(GetAllocator());//std::make_shared<ChunkManager>();
+			
 
+			m_pRegionManager	= alloc_object<RegionManager>(GetAllocator());//std::make_shared<RegionManager>();
+			
 			if(m_pRegionManager->Initialize(shared_from_this()) == false)
 			{
 				return false;
 			}
+
+			m_pChunkLoader		= alloc_object<ChunkLoader>(GetAllocator());
+			if(m_pChunkLoader->Initialize(m_pChunkManager, m_pRegionManager, pMeshizer) == false)
+			{
+				return false;
+			}
+			
 			m_pGen = pGen;
 
-			m_pGen = std::allocate_shared<WorldGen, std_allocator_adapter<WorldGen>>(GetAllocator());//std::make_shared<WorldGen>();
+			m_pGen = alloc_object<WorldGen>(GetAllocator());//std::make_shared<WorldGen>();
 
 			m_pGen->Initialize();
 
 			m_pGen->SetWorld(shared_from_this());
 
 
-			m_pGen->AddPass(std::allocate_shared<WorldGenPass_Heightmap, std_allocator_adapter<WorldGenPass_Heightmap>>(GetAllocator()));
+			m_pGen->AddPass(alloc_object<WorldGenPass_Heightmap>(GetAllocator()));
 
 		//	m_pGen->GenChunk(Coord(0, 0, 0));
 
@@ -68,6 +77,8 @@ namespace ld3d
 			m_pChunkManager.reset();
 			m_pRegionManager->Release();
 			m_pRegionManager.reset();
+			m_pChunkLoader->Release();
+			m_pChunkLoader.reset();
 
 		}
 		bool World::AddBlock(const Coord& c, uint8 type)
@@ -155,7 +166,7 @@ namespace ld3d
 		}
 		void World::UpdateLoaderProcess()
 		{
-			m_pRegionManager->Update();
+			m_pChunkLoader->Update();
 		}
 		ChunkManagerPtr	World::GetChunkManager()
 		{
@@ -166,40 +177,7 @@ namespace ld3d
 			return m_pRegionManager;
 		}
 
-		Coord World::ToRegionOrigin(const Coord& c) const
-		{
-			Coord region_coord = ToRegionCoord(c);
-
-			region_coord.x *= REGION_SIZE;
-			region_coord.y *= REGION_HEIGHT;
-			region_coord.z *= REGION_SIZE;
-
-
-			region_coord.y = 0;
-			return region_coord;
-		}
-		Coord World::ToRegionCoord(const Coord& c) const
-		{
-			int64 c_x = uint64(c.x) / (REGION_SIZE);
-			int64 c_y = uint64(c.y) / (REGION_HEIGHT);
-			int64 c_z = uint64(c.z) / (REGION_SIZE);
-			
-			return Coord(c_x, 0, c_z);
-		}
-		Coord World::ToChunkOrigin(const Coord& c) const
-		{
-			Coord chunk_coord = ToChunkCoord(c);
-			return chunk_coord * CHUNK_SIZE;
-
-		}
-		Coord World::ToChunkCoord(const Coord& c) const
-		{
-			int64 c_x = uint64(c.x) / (CHUNK_SIZE);
-			int64 c_y = uint64(c.y) / (CHUNK_SIZE);
-			int64 c_z = uint64(c.z) / (CHUNK_SIZE);
-			
-			return Coord(c_x, c_y, c_z);
-		}
+		
 		WorldGenPtr World::GetWorldGen()
 		{
 			return m_pGen;
@@ -210,15 +188,23 @@ namespace ld3d
 		}
 		uint32 World::GetLoadingQueueSize() const
 		{
-			return m_pRegionManager->GetChunkLoader()->GetLoadingQueueSize();
+			return m_pChunkLoader->GetLoadingQueueSize();
 		}
 		uint32 World::GetUnloadingQueueSize() const
 		{
-			return m_pRegionManager->GetChunkLoader()->GetUnloadingQueueSize();
+			return m_pChunkLoader->GetUnloadingQueueSize();
 		}
 		uint32 World::GetChunkCount() const
 		{
 			return m_pChunkManager->GetChunkCount();
+		}
+		void World::SetMeshizer(MeshizerPtr pMeshizer)
+		{
+			m_pChunkLoader->SetMeshizer(pMeshizer);
+		}
+		ChunkLoaderPtr World::GetChunkLoader()
+		{
+			return m_pChunkLoader;
 		}
 	}
 }

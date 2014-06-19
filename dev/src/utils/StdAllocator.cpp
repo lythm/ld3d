@@ -1,5 +1,5 @@
-#include "core_pch.h"
-#include "core/StdAllocator.h"
+#include "utils_pch.h"
+#include "utils/StdAllocator.h"
 
 namespace ld3d
 {
@@ -19,12 +19,5 @@ namespace ld3d
 	{
 		delete mem;
 	}
-	uint64 StdAllocator::GetTotalBytes()
-	{
-		return 0;
-	}
-	uint64 StdAllocator::GetBytesLeft()
-	{
-		return 0;
-	}
+	
 }

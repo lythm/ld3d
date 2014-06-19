@@ -5,7 +5,7 @@
 #include "voxel_ChunkManager.h"
 #include "voxel_ChunkLoader.h"
 #include "voxel/voxel_Chunk.h"
-#include "voxel_OctTree.h"
+#include "voxel_Octree.h"
 #include "voxel_PoolManager.h"
 
 namespace ld3d
@@ -29,7 +29,7 @@ namespace ld3d
 		{
 			Coord region_origin = m_coord;
 			region_origin.x *= REGION_SIZE;
-			region_origin.y *= REGION_HEIGHT;
+			region_origin.y *= REGION_SIZE;
 			region_origin.z *= REGION_SIZE;
 
 
@@ -40,7 +40,7 @@ namespace ld3d
 			{
 				for(int32 z = 0; z < REGION_CHUNK_LENGTH; ++z)
 				{
-					for(int32 y = 0; y < REGION_CHUNK_HEIGHT; ++y)
+					for(int32 y = 0; y < REGION_CHUNK_LENGTH; ++y)
 					{
 						Coord chunk_coord(x, y, z);
 
@@ -91,7 +91,7 @@ namespace ld3d
 
 			Coord region_origin = m_coord;
 			region_origin.x *= REGION_SIZE;
-			region_origin.y *= REGION_HEIGHT;
+			region_origin.y *= REGION_SIZE;
 			region_origin.z *= REGION_SIZE;
 
 			double max_h = 0;
@@ -101,7 +101,7 @@ namespace ld3d
 				for(int32 z = 0; z < REGION_SIZE; ++z)
 				{
 					double h = p.Get(double(x + region_origin.x) / double(ex), double(z + region_origin.z) / double(ez));
-					m_heightMap[z * REGION_SIZE + x] = h * (REGION_HEIGHT / 2.0f);
+					m_heightMap[z * REGION_SIZE + x] = h * (REGION_SIZE / 2.0f);
 
 					if(m_heightMap[z * REGION_SIZE + x] < 0)
 					{
@@ -128,7 +128,7 @@ namespace ld3d
 			//Coord region_origin = m_pWorld->ToRegionOrigin(m_coord);
 			Coord region_origin = m_coord;
 			region_origin.x *= REGION_SIZE;
-			region_origin.y *= REGION_HEIGHT;
+			region_origin.y *= REGION_SIZE;
 			region_origin.z *= REGION_SIZE;
 
 			uint16 height_map[REGION_SIZE * REGION_SIZE];
@@ -138,9 +138,9 @@ namespace ld3d
 				for(int32 z = 0; z < REGION_SIZE; ++z)
 				{
 					double h = p.Get(double(x + region_origin.x) / double(ex), double(z + region_origin.z) / double(ez));
-					height_map[z * REGION_SIZE + x] = h * (REGION_HEIGHT / 2.0f);
+					height_map[z * REGION_SIZE + x] = h * (REGION_SIZE / 2.0f);
 
-					Coord c(x + region_origin.x, h * (REGION_HEIGHT / 2.0f), z + region_origin.z);
+					Coord c(x + region_origin.x, h * (REGION_SIZE / 2.0f), z + region_origin.z);
 					m_pChunkManager->ReplaceBlock(c, 1);
 				}
 			}
@@ -157,7 +157,7 @@ namespace ld3d
 			Coord c = Coord(x, 0, z) + chunk_origin;
 
 			double h = p.Get(double(c.x) / double(ex), double(c.z) / double(ez));
-			c.y = (h * REGION_HEIGHT) / 2;
+			c.y = (h * REGION_SIZE) / 2;
 
 			c -= chunk_origin;
 
@@ -203,10 +203,10 @@ namespace ld3d
 			m_coord			= coord;
 			m_loaded		= false;
 
-			m_heightMapAABBox.Make(math::Vector3(0, 0, 0), math::Vector3(REGION_SIZE, REGION_HEIGHT, REGION_SIZE));
+			m_heightMapAABBox.Make(math::Vector3(0, 0, 0), math::Vector3(REGION_SIZE, REGION_SIZE, REGION_SIZE));
 
 			m_pOctTree = GetPoolManager()->AllocOctTree(GetRegionOrigin());
-			m_pOctTree->SetBound(math::AABBox(math::Vector3(0, 0, 0), math::Vector3(REGION_SIZE, REGION_HEIGHT, REGION_SIZE)));
+			m_pOctTree->SetBound(math::AABBox(math::Vector3(0, 0, 0), math::Vector3(REGION_SIZE, REGION_SIZE, REGION_SIZE)));
 			return true;
 		}
 		void Region::Release()
@@ -231,7 +231,7 @@ namespace ld3d
 		{
 			Coord ori = m_coord;
 			ori.x *= REGION_SIZE;
-			ori.y *= REGION_HEIGHT;
+			ori.y *= REGION_SIZE;
 			ori.z *= REGION_SIZE;
 
 			return ori;
@@ -253,14 +253,14 @@ namespace ld3d
 		{
 			Coord region_origin = m_coord;
 			region_origin.x *= REGION_SIZE;
-			region_origin.y *= REGION_HEIGHT;
+			region_origin.y *= REGION_SIZE;
 			region_origin.z *= REGION_SIZE;
 
 			for(int32 x = 0; x < REGION_CHUNK_LENGTH; ++x)
 			{
 				for(int32 z = 0; z < REGION_CHUNK_LENGTH; ++z)
 				{
-					for(int32 y = 0; y < REGION_CHUNK_HEIGHT; ++y)
+					for(int32 y = 0; y < REGION_CHUNK_LENGTH; ++y)
 					{
 						Coord chunk_coord(x, y, z);
 						chunk_coord *= CHUNK_SIZE;
@@ -368,7 +368,7 @@ namespace ld3d
 
 			math::TransformRay(rr, math::MatrixTranslation(-trans));
 
-			AABBox box(Vector3(0, 0, 0), Vector3(REGION_SIZE, REGION_HEIGHT, REGION_SIZE));
+			AABBox box(Vector3(0, 0, 0), Vector3(REGION_SIZE, REGION_SIZE, REGION_SIZE));
 
 			float t0, t1;
 			if(RayIntersect(rr, box, t0, t1) == intersect_none)
@@ -407,6 +407,10 @@ namespace ld3d
 			}
 
 			return false;
+		}
+		void Region::AddChunk(ChunkPtr pChunk)
+		{
+			m_pOctTree->AddChunk(pChunk);
 		}
 	}
 }

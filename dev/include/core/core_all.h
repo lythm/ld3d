@@ -9,6 +9,8 @@
 
 #include <boost/filesystem.hpp>
 
+#include <boost/pool/pool.hpp>
+
 #include "core/input_types.h"
 
 #include "core/core_ptr.h"
@@ -20,10 +22,6 @@
 #include "core/Serializer.h"
 
 #include "core/DataStream_File.h"
-
-
-
-#include "core/PoolAllocator.h"
 
 #include "core/property_types.h"
 #include "core/GameObject.h"

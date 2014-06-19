@@ -1,7 +1,6 @@
 #pragma once
 
 #include "core/CoreApi.h"
-#include "core/Allocator.h"
 
 namespace ld3d
 {
@@ -19,13 +18,13 @@ namespace ld3d
 	template<typename T> inline
 		std::shared_ptr<T>									alloc_object()
 	{
-		return std::allocate_shared<T, std_allocator_adapter<T> >(CoreApi::GetAllocator());
+		return alloc_object<T>(CoreApi::GetAllocator());
 	}
 
 	template<typename T, typename TP> inline
 		std::shared_ptr<T>									alloc_object(const TP& p)
 	{
-		return std::allocate_shared<T, std_allocator_adapter<T> >(CoreApi::GetAllocator(), p);
+		return alloc_object<T>(CoreApi::GetAllocator(), p);
 	}
 
 
@@ -33,13 +32,17 @@ namespace ld3d
 	template<typename T, typename TP1, typename TP2> inline
 		std::shared_ptr<T>									alloc_object(const TP1& p1, const TP2& p2)
 	{
-		return std::allocate_shared<T, std_allocator_adapter<T> >(CoreApi::GetAllocator(), p1, p2);
+		return alloc_object<T>(CoreApi::GetAllocator(), p1, p2);
+	}
+
+	template<typename T, typename TP1, typename TP2, typename TP3> inline
+		std::shared_ptr<T>									alloc_object(const TP1& p1, const TP2& p2, const TP3& p3)
+	{
+		return alloc_object<T>(CoreApi::GetAllocator(), p1, p2, p3);
 	}
 	inline
 		Logger&												logger()
 	{
 		return CoreApi::logger();
 	}
-
-	
 }

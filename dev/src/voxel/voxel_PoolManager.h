@@ -14,7 +14,7 @@ namespace ld3d
 
 			ChunkPtr										AllocChunk(ChunkManagerPtr pManager, uint8 data[]);
 			ChunkMeshPtr									AllocChunkMesh();
-			OctTreePtr										AllocOctTree(const Coord& region_origin);
+			OctreePtr										AllocOctTree(const Coord& region_origin);
 		private:
 			boost::pool<pool_allocator>						m_meshPool;
 			boost::pool<pool_allocator>						m_chunkPool;

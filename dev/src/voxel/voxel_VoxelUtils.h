@@ -1,13 +1,16 @@
 #pragma once
+
+#include "voxel/voxel_Coord.h"
+
 namespace ld3d
 {
 	namespace voxel
 	{
-		class HeightmapUtils
+		class VoxelUtils
 		{
 		private:
-			HeightmapUtils(void);
-			virtual ~HeightmapUtils(void);
+			VoxelUtils(void);
+			virtual ~VoxelUtils(void);
 
 
 		public:
@@ -15,6 +18,15 @@ namespace ld3d
 
 			static bool								Perlin(float* height_map, int d, int octaves,float freq,float amp,int seed);
 
+			// in global space
+			static Coord							ToRegionOrigin(const Coord& c);
+			// global to region space
+			static Coord							ToRegionCoord(const Coord& c);
+
+			// in global space
+			static Coord							ToChunkOrigin(const Coord& c);
+			// global to chunk space
+			static Coord							ToChunkCoord(const Coord& c);
 		private:
 			static float							_rand (float min, float max);
 			static float							_fractal_rand(float v);

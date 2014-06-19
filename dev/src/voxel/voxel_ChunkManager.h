@@ -39,7 +39,13 @@ namespace ld3d
 			void											AddDirtyChunkHandler(const std::function<void (ChunkPtr)>& handler);
 
 			uint32											GetChunkCount() const;
+
+			void											PickChunk(const Coord& center, uint32 radius, const std::function<void(const ChunkKey&, ChunkPtr)>& op);
+			void											PickChunkDiff(const Coord& center, uint32 radius, const Coord& refer_center, uint32 refer_radius, const std::function<void(ChunkPtr)>& op);
 		private:
+			void											PickChunkSlice_XZ(const Coord& center, uint32 radius, const std::function<void(const ChunkKey&, ChunkPtr)>& op);
+			
+
 			ChunkPtr										AllocChunk(uint8 data[]);
 		private:
 

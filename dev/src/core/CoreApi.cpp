@@ -14,8 +14,6 @@
 
 
 #include "core/Event.h"
-#include "core/PoolAllocator.h"
-#include "core/StdAllocator.h"
 #include "core/Scene.h"
 
 #include "core/GameObject.h"

@@ -63,7 +63,7 @@ namespace ld3d
 			m_pCamera->AddComponent(pSkyBox);
 
 			CameraController_FreePtr pController = std::dynamic_pointer_cast<CameraController_Free>(pCore->CreateGameObjectComponent("CameraFreeController"));
-			pController->SetSpeed(10);
+			pController->SetSpeed(100);
 			//	pController->Enable(false);
 			m_pCamera->AddComponent(pController);
 

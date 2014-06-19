@@ -25,8 +25,6 @@
     <ClCompile Include="PointLight.cpp" />
     <ClCompile Include="SpotLight.cpp" />
     <ClCompile Include="LightManager.cpp" />
-    <ClCompile Include="PoolAllocator.cpp" />
-    <ClCompile Include="StdAllocator.cpp" />
     <ClCompile Include="SkyLight.cpp" />
     <ClCompile Include="PostEffect_SSAO.cpp" />
     <ClCompile Include="PostEffect.cpp" />
@@ -124,9 +122,6 @@
     <ClInclude Include="..\..\include\core\property_types.h" />
     <ClInclude Include="..\..\include\core\Shader.h" />
     <ClInclude Include="..\..\include\core\RenderState.h" />
-    <ClInclude Include="..\..\include\core\Allocator.h" />
-    <ClInclude Include="..\..\include\core\PoolAllocator.h" />
-    <ClInclude Include="..\..\include\core\StdAllocator.h" />
     <ClInclude Include="..\..\include\core\SkyLight.h" />
     <ClInclude Include="..\..\include\core\PostEffect.h" />
     <ClInclude Include="..\..\include\core\DataStream_Mem.h" />

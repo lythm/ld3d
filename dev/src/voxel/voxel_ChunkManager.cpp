@@ -9,7 +9,7 @@ namespace ld3d
 	{
 		ChunkManager::ChunkManager(void) : m_chunkmap(GetAllocator())
 		{
-			
+	
 		}
 
 
@@ -159,6 +159,57 @@ namespace ld3d
 		uint32 ChunkManager::GetChunkCount() const
 		{
 			return (uint32)m_chunkmap.size();
+		}
+		void ChunkManager::PickChunk(const Coord& center, uint32 radius, const std::function<void(const ChunkKey&, ChunkPtr)>& op)
+		{
+			if(op == nullptr)
+			{
+				return;
+			}
+
+			for(int32 y = -(int32)radius; y <= (int32)radius; y += CHUNK_SIZE)
+			{
+				int32 r = sqrtf(float(radius * radius) - float(y * y));
+				
+				PickChunkSlice_XZ(Coord(center.x, center.y + y, center.z), r, op);
+
+			}
+		}
+		void ChunkManager::PickChunkSlice_XZ(const Coord& center, uint32 radius, const std::function<void(const ChunkKey&, ChunkPtr)>& op)
+		{
+			for(int32 z = -(int32)radius; z <= (int32)radius; z += CHUNK_SIZE)
+			{
+				int32 x_abs = sqrtf(float(radius * radius) - float(z * z));
+
+				for(int32 x = -x_abs; x <= x_abs; x+= CHUNK_SIZE)
+				{
+					ChunkKey key(Coord(x, 0, z) + center);
+
+					ChunkPtr pChunk = FindChunk(key);
+					op(key, pChunk);
+				}
+			}
+		}
+		void ChunkManager::PickChunkDiff(const Coord& center, uint32 radius, const Coord& refer_center, uint32 refer_radius, const std::function<void(ChunkPtr)>& op)
+		{
+			//if((center - refer_center).Length() > (radius + refer_radius))
+			//{
+			//	PickChunk(center, radius, op);
+			//	return;
+			//}
+
+			//for(int32 y = -(int32)radius; y <= (int32)radius; y += CHUNK_SIZE)
+			//{
+			//	int32 r_xz = sqrtf(float(radius * radius) - float(y * y));
+			//	int32 rr_xz = sqrtf(float(refer_radius * refer_radius) - float(y * y));
+
+
+			//	for(int32 z = -r_xz; z <= r_xz; z += CHUNK_SIZE)
+			//	{
+			//		//for(int x = 
+			//	}
+			//}
+
 		}
 	}
 }

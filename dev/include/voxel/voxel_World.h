@@ -15,7 +15,7 @@ namespace ld3d
 			World(void);
 			virtual ~World(void);
 
-			bool											Create(const std::string& name, WorldGenPtr pGen, Allocator* pAlloc = nullptr);
+			bool											Create(const std::string& name, WorldGenPtr pGen, MeshizerPtr pMeshizer, Allocator* pAlloc = nullptr);
 
 			void											Destroy();
 
@@ -40,15 +40,8 @@ namespace ld3d
 			ChunkManagerPtr									GetChunkManager();
 			RegionManagerPtr								GetRegionManager();
 
-			// in global space
-			Coord											ToRegionOrigin(const Coord& c) const;
-			// global to region space
-			Coord											ToRegionCoord(const Coord& c) const;
-
-			// in global space
-			Coord											ToChunkOrigin(const Coord& c) const;
-			// global to chunk space
-			Coord											ToChunkCoord(const Coord& c) const;
+			void											SetMeshizer(MeshizerPtr pMeshizer);
+			
 
 			WorldGenPtr										GetWorldGen();
 
@@ -58,6 +51,8 @@ namespace ld3d
 			uint32											GetUnloadingQueueSize() const;
 
 			uint32											GetChunkCount() const;
+
+			ChunkLoaderPtr									GetChunkLoader();
 		private:
 		
 			
@@ -67,7 +62,7 @@ namespace ld3d
 
 			RegionManagerPtr								m_pRegionManager;
 			ChunkManagerPtr									m_pChunkManager;
-
+			ChunkLoaderPtr									m_pChunkLoader;
 			std::string										m_name;
 		};
 	}

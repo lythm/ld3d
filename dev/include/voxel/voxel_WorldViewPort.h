@@ -1,6 +1,7 @@
 #pragma once
 
 #include "voxel/voxel_Coord.h"
+#include "voxel/voxel_ChunkKey.h"
 
 namespace ld3d
 {
@@ -9,6 +10,12 @@ namespace ld3d
 		class _DLL_CLASS WorldViewport : public std::enable_shared_from_this<WorldViewport>
 		{
 		public:
+			struct VPSphere
+			{
+				Coord													center;
+				uint32													radius;
+			};
+
 			WorldViewport();
 			virtual ~WorldViewport(void);
 
@@ -17,7 +24,7 @@ namespace ld3d
 
 			bool														Inside(const Coord& coord) const;
 
-			bool														Open(WorldPtr pWorld, const Coord& center, uint32 size, MeshizerPtr pMeshizer);
+			bool														Open(WorldPtr pWorld, const Coord& center, uint32 raidus, MeshizerPtr pMeshizer);
 			void														Close();
 
 			void														Update();
@@ -51,6 +58,7 @@ namespace ld3d
 
 			void														_on_chunk_loaded(RegionPtr pRegion, ChunkPtr pChunk);
 			void														_on_dirty_chunk(ChunkPtr pChunk);
+			void														_on_pick_chunk(const ChunkKey& key, ChunkPtr pChunk);
 		private:
 			WorldPtr													m_pWorld;
 			RegionManagerPtr											m_pRegionManager;
@@ -68,6 +76,8 @@ namespace ld3d
 
 			MeshizerPtr													m_pMeshizer;
 
+			VPSphere													m_VP;
+			VPSphere													m_lastVP;
 		};
 	}
 }

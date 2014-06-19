@@ -1,5 +1,5 @@
 #include "voxel_pch.h"
-#include "voxel_OctTree.h"
+#include "voxel_Octree.h"
 #include "voxel/voxel_Chunk.h"
 #include "voxel_PoolManager.h"
 
@@ -7,18 +7,18 @@ namespace ld3d
 {
 	namespace voxel
 	{
-		OctTree::OctTree(const Coord& region_origin)
+		Octree::Octree(const Coord& region_origin)
 		{
 			m_regionOrigin			= region_origin;
 			m_pChunk				= nullptr;
 
 			for(int i = 0; i < 8; ++i)
 			{
-				m_pChildren[i] = OctTreePtr();
+				m_pChildren[i] = OctreePtr();
 			}
 		}
 
-		OctTree::~OctTree(void)
+		Octree::~Octree(void)
 		{
 			for(int i = 0; i < 8; ++i)
 			{
@@ -26,30 +26,30 @@ namespace ld3d
 			}
 			m_pChunk = nullptr;
 		}
-		const math::AABBox& OctTree::GetBound() const
+		const math::AABBox& Octree::GetBound() const
 		{
 			return m_bbox;
 		}
-		void OctTree::SetBound(const math::AABBox& bound)
+		void Octree::SetBound(const math::AABBox& bound)
 		{
 			m_bbox = bound;
 		}
 
-		void OctTree::SetChild(int iChild, OctTreePtr pChild)
+		void Octree::SetChild(int iChild, OctreePtr pChild)
 		{
 			m_pChildren[iChild] = pChild;
 		}
-		OctTreePtr OctTree::GetChild(int iChild)
+		OctreePtr Octree::GetChild(int iChild)
 		{
 			return m_pChildren[iChild];
 		}
 
-		bool OctTree::IsLeaf() const
+		bool Octree::IsLeaf() const
 		{
 			return m_pChunk != nullptr;
 		}
 
-		bool OctTree::AddChunk(ChunkPtr pChunk)
+		bool Octree::AddChunk(ChunkPtr pChunk)
 		{
 			if(pChunk == nullptr)
 			{
@@ -58,11 +58,11 @@ namespace ld3d
 
 			return _add_chunk(pChunk);
 		}
-		void OctTree::RemoveChunk(ChunkPtr pChunk)
+		void Octree::RemoveChunk(ChunkPtr pChunk)
 		{
 			_remove_chunk(pChunk);
 		}
-		void OctTree::_remove_chunk(ChunkPtr pChunk)
+		void Octree::_remove_chunk(ChunkPtr pChunk)
 		{
 			math::AABBox bound;
 
@@ -102,7 +102,7 @@ namespace ld3d
 				}
 			}
 		}
-		bool OctTree::_add_chunk(ChunkPtr pChunk)
+		bool Octree::_add_chunk(ChunkPtr pChunk)
 		{
 			math::AABBox bound;
 
@@ -145,7 +145,7 @@ namespace ld3d
 			return false;
 		}
 
-		bool OctTree::SubDivideBound(const math::AABBox& bound, math::AABBox Bounds[8])
+		bool Octree::SubDivideBound(const math::AABBox& bound, math::AABBox Bounds[8])
 		{
 			/*
 			z
@@ -181,7 +181,7 @@ namespace ld3d
 
 			return true;
 		}
-		void OctTree::FrustumCull(const math::ViewFrustum& vf, std::function<void (ChunkMeshPtr)> op)
+		void Octree::FrustumCull(const math::ViewFrustum& vf, std::function<void (ChunkMeshPtr)> op)
 		{
 			if(vf.IntersectBox(m_bbox) == false)
 			{
@@ -213,7 +213,7 @@ namespace ld3d
 			}
 
 		}
-		bool OctTree::RayPick(const math::Ray& r, Real& t)
+		bool Octree::RayPick(const math::Ray& r, Real& t)
 		{
 			Real t0, t1;
 			if(math::RayIntersect(r, m_bbox, t0, t1) == math::intersect_none)

@@ -6,8 +6,6 @@
 #include "core/RenderManager.h"
 #include "core/Event.h"
 #include "core/WebpageRenderer.h"
-#include "core/Allocator.h"
-
 #include "core_utils.h"
 namespace ld3d
 {
@@ -81,18 +79,11 @@ namespace ld3d
 	}
 	void DebugPanel::AppendMemPool(std::stringstream& stream)
 	{
-		uint32 total	= m_pCore->GetAllocator()->GetTotalBytes();
-		uint32 free		= m_pCore->GetAllocator()->GetBytesLeft();
+		uint32 alloc	= m_pCore->GetAllocator()->GetAllocatedBytes();
 		stream << "[mempool] "
-			<< "total: " 
-			<< total
-			<< "(" << float(total) / float(1024 * 1024) <<"M)"
-			<< " free: "
-			<< free
-			<< "(" << float(free) / float(1024 * 1024) <<"M)"
-			<< " allocated: "
-			<< total - free
-			<< "(" << float(total - free) / float(1024 * 1024) <<"M)"
+			<< "allocated: " 
+			<< alloc
+			<< "(" << float(alloc) / float(1024 * 1024) <<"M)"
 			<< "<br>";
 	}
 	void DebugPanel::_on_resize(EventPtr pEvent)

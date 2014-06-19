@@ -172,9 +172,11 @@ namespace ld3d
 			return;
 		}
 
+		pWorld->SetMeshizer(m_pMeshizer);
+
 		m_pWorldVP = m_pManager->alloc_object<voxel::WorldViewport>();
 
-		if(false == m_pWorldVP->Open(pWorld, voxel::Coord(0, 0, 0), voxel::REGION_SIZE * 3, m_pMeshizer))
+		if(false == m_pWorldVP->Open(pWorld, voxel::Coord(8, 128 + 8, 8), 128, m_pMeshizer))
 		{
 			return;
 		}

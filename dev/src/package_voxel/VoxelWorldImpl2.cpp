@@ -59,7 +59,7 @@ namespace ld3d
 			m_pWorld = m_pManager->alloc_object<voxel::World>();
 		}
 
-		if(false == m_pWorld->Create(name, nullptr, m_pManager->GetAllocator()))
+		if(false == m_pWorld->Create(name, nullptr, nullptr, m_pManager->GetAllocator()))
 		{
 			return false;
 		}

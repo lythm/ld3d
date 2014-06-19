@@ -8,7 +8,7 @@ namespace ld3d
 {
 	namespace voxel
 	{
-		class _DLL_CLASS Chunk
+		class _DLL_CLASS Chunk : public RefCount
 		{
 		public:
 

@@ -7,7 +7,9 @@
 #include "voxel/voxel_Meshizer.h"
 #include "voxel/voxel_ChunkMesh.h"
 #include "voxel_PoolManager.h"
-
+#include "voxel_VoxelUtils.h"
+#include "voxel_ChunkManager.h"
+#include "voxel_ChunkLoader.h"
 namespace ld3d
 {
 	namespace voxel
@@ -40,25 +42,31 @@ namespace ld3d
 			m_center = c;
 		}
 		
-		bool WorldViewport::Open(WorldPtr pWorld, const Coord& center, uint32 size, MeshizerPtr pMeshizer)
+		bool WorldViewport::Open(WorldPtr pWorld, const Coord& center, uint32 radius, MeshizerPtr pMeshizer)
 		{
 			m_pMeshizer = pMeshizer;
 			m_pWorld = pWorld;
 			m_center = center;
 			m_center.y = 0;
 
-			m_size = size;
+			m_VP.center = center;
+			m_VP.radius = radius;
+
+			m_lastVP = m_VP;
 
 			
 			m_pRegionManager = pWorld->GetRegionManager();
 
-			if(InitRegionBuffer() == false)
+			/*if(InitRegionBuffer() == false)
 			{
 				return false;
 			}
-
+*/
 
 			m_pWorld->AddDirtyChunkHandler(std::bind(&WorldViewport::_on_dirty_chunk, this, std::placeholders::_1));
+
+
+			m_pWorld->GetChunkManager()->PickChunk(m_VP.center, m_VP.radius, std::bind(&WorldViewport::_on_pick_chunk, this, std::placeholders::_1, std::placeholders::_2));
 
 			return true;
 		}
@@ -96,6 +104,8 @@ namespace ld3d
 		}
 		void WorldViewport::Update()
 		{
+			return;
+
 			Coord center_coord = m_center / (REGION_SIZE);
 			center_coord.y = 0;
 
@@ -252,7 +262,7 @@ namespace ld3d
 		}
 		Coord WorldViewport::GetBaseCoord()
 		{
-			return m_pWorld->ToRegionOrigin(m_center);
+			return VoxelUtils::ToRegionOrigin(m_center);
 		}
 		void WorldViewport::SetDirtyChunkHandler(const std::function<void (const Coord&, ChunkPtr)>& handler)
 		{
@@ -272,7 +282,7 @@ namespace ld3d
 
 			Coord c = key.ToChunkOrigin();
 
-			c = m_pWorld->ToRegionCoord(c);
+			c = VoxelUtils::ToRegionCoord(c);
 
 
 
@@ -299,23 +309,7 @@ namespace ld3d
 		}
 		void WorldViewport::FrustumCull(const math::ViewFrustum& vf, const std::function<void(const Coord&, ChunkMeshPtr)>& op)
 		{
-			if(m_pMeshizer == nullptr)
-			{
-				return;
-			}
-
-			for(auto r : m_regionBuffer)
-			{
-				const Coord& region_pos = r->GetRegionOrigin();
-
-				math::ViewFrustum v = vf;
-				math::Vector3 trans = region_pos.ToVector3();
-				
-				v.Transform(math::MatrixTranslation(-trans));
-
-				r->FrustumCull(v, std::bind(op, region_pos, std::placeholders::_1));
-			}
-
+			m_pRegionManager->FrustumCull(vf, op);
 		}
 
 		void WorldViewport::_on_chunk_loaded(RegionPtr pRegion, ChunkPtr pChunk)
@@ -372,6 +366,10 @@ namespace ld3d
 			normal		= min_normal;
 
 			return ret;
+		}
+		void WorldViewport::_on_pick_chunk(const ChunkKey& key, ChunkPtr pChunk)
+		{
+			//m_pWorld->GetChunkLoader()->RequestChunk(key);
 		}
 	}
 }

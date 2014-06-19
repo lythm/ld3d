@@ -19,7 +19,7 @@ namespace ld3d
 			ChunkLoader(void);
 			virtual ~ChunkLoader(void);
 
-			bool									Initialize(ChunkManagerPtr pManager);
+			bool									Initialize(ChunkManagerPtr pChunkManager, RegionManagerPtr pRegionManager, MeshizerPtr pMeshizer);
 			void									Release();
 
 			void									LoadChunk(RegionPtr pRegion, const ChunkKey& key, const std::function<void(RegionPtr, ChunkPtr)>& on_loaded);
@@ -31,17 +31,25 @@ namespace ld3d
 
 			uint32									GetLoadingQueueSize() const;
 			uint32									GetUnloadingQueueSize() const;
+
+			void									SetMeshizer(MeshizerPtr pMeshizer);
+
+			bool									RequestChunk(const ChunkKey& key);
 		private:
 			bool									ProcessLoadingQueue();
 			bool									ProcessUnloadingQueue();
 
 			bool									CancelLoading(const ChunkKey& key);
 
-			bool									_do_load_chunk(RegionPtr pRegion, const ChunkKey& key, const std::function<void(RegionPtr, ChunkPtr)>& on_loaded);
+			bool									_do_load_chunk(const ChunkKey& key);
+			bool									GenerateChunkMesh(ChunkPtr pChunk);
+			bool									GenerateChunk(ChunkPtr pChunk);
 			bool									_do_unload_chunk(RegionPtr pRegion, const ChunkKey& key);
 		private:
 
 			ChunkManagerPtr							m_pChunkManager;
+			RegionManagerPtr						m_pRegionManager;
+			MeshizerPtr								m_pMeshizer;
 
 			struct ChunkInfo
 			{

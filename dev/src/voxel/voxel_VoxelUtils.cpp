@@ -1,5 +1,5 @@
 #include "voxel_pch.h"
-#include "voxel_HeightmapUtils.h"
+#include "voxel_VoxelUtils.h"
 
 
 
@@ -7,15 +7,48 @@ namespace ld3d
 {
 	namespace voxel
 	{
-		HeightmapUtils::HeightmapUtils(void)
+		VoxelUtils::VoxelUtils(void)
 		{
 		}
 
 
-		HeightmapUtils::~HeightmapUtils(void)
+		VoxelUtils::~VoxelUtils(void)
 		{
 		}
-		bool HeightmapUtils::Perlin(float* height_map, int d, int octaves,float freq,float amp,int seed)
+		Coord VoxelUtils::ToRegionOrigin(const Coord& c)
+		{
+			Coord region_coord = ToRegionCoord(c);
+
+			region_coord.x *= REGION_SIZE;
+			region_coord.y *= REGION_SIZE;
+			region_coord.z *= REGION_SIZE;
+
+
+			return region_coord;
+		}
+		Coord VoxelUtils::ToRegionCoord(const Coord& c)
+		{
+			int64 c_x = uint64(c.x) / (REGION_SIZE);
+			int64 c_y = uint64(c.y) / (REGION_SIZE);
+			int64 c_z = uint64(c.z) / (REGION_SIZE);
+			
+			return Coord(c_x, c_y, c_z);
+		}
+		Coord VoxelUtils::ToChunkOrigin(const Coord& c)
+		{
+			Coord chunk_coord = ToChunkCoord(c);
+			return chunk_coord * CHUNK_SIZE;
+
+		}
+		Coord VoxelUtils::ToChunkCoord(const Coord& c)
+		{
+			int64 c_x = uint64(c.x) / (CHUNK_SIZE);
+			int64 c_y = uint64(c.y) / (CHUNK_SIZE);
+			int64 c_z = uint64(c.z) / (CHUNK_SIZE);
+			
+			return Coord(c_x, c_y, c_z);
+		}
+		bool VoxelUtils::Perlin(float* height_map, int d, int octaves,float freq,float amp,int seed)
 		{
 			PerlinNoise pn(octaves, freq, amp, seed);
 
@@ -28,7 +61,7 @@ namespace ld3d
 			}
 			return true;
 		}
-		bool HeightmapUtils::Fractal(float* height_map, int d, float s, int rand_seed)
+		bool VoxelUtils::Fractal(float* height_map, int d, float s, int rand_seed)
 		{
 			int seed = rand_seed;
 
@@ -104,17 +137,17 @@ namespace ld3d
 
 			return true;
 		}
-		float HeightmapUtils::_rand (float min, float max)
+		float VoxelUtils::_rand (float min, float max)
 		{
 			int r = rand();
 			float x = (float)(r & 0x7fff) / (float)0x7fff;
 			return (x * (max - min) + min);
 		} 
-		float HeightmapUtils::_fractal_rand(float v)
+		float VoxelUtils::_fractal_rand(float v)
 		{
 			return _rand(-v, v);
 		}
-		float HeightmapUtils::_fractal_avg_DiamondVals (int x, int z, int stride, int size, int segs, float *hm)
+		float VoxelUtils::_fractal_avg_DiamondVals (int x, int z, int stride, int size, int segs, float *hm)
 		{
 			if (x == 0)
 			{
@@ -152,7 +185,7 @@ namespace ld3d
 				hm[(x*size) + z+stride]) * .25f);
 		}
 
-		float HeightmapUtils::_fractal_avg_SquareVals (int x, int z, int stride, int size, float *hm)
+		float VoxelUtils::_fractal_avg_SquareVals (int x, int z, int stride, int size, float *hm)
 		{
 			return ((float) (hm[((x-stride)*size) + z-stride] +
 				hm[((x-stride)*size) + z+stride] +

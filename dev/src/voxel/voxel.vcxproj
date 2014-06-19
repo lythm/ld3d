@@ -169,24 +169,22 @@
     <ClInclude Include="..\..\include\voxel\voxel_WorldGenPass_Water.h" />
     <ClInclude Include="..\..\include\voxel\voxel_WorldViewPort.h" />
     <ClInclude Include="voxel_ChunkLoader.h" />
-    <ClInclude Include="voxel_OctTree.h" />
+    <ClInclude Include="voxel_Octree.h" />
     <ClInclude Include="voxel_ChunkManager.h" />
-    <ClInclude Include="voxel_MeshUtils.h" />
-    <ClInclude Include="voxel_HeightmapUtils.h" />
+    <ClInclude Include="voxel_VoxelUtils.h" />
     <ClInclude Include="voxel_pch.h" />
     <ClInclude Include="voxel_PoolManager.h" />
     <ClInclude Include="voxel_RegionManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="voxel_ChunkLoader.cpp" />
-    <ClCompile Include="voxel_OctTree.cpp" />
+    <ClCompile Include="voxel_Octree.cpp" />
     <ClCompile Include="voxel_Meshizer.cpp" />
     <ClCompile Include="voxel_ChunkManager.cpp" />
-    <ClCompile Include="voxel_MeshUtils.cpp" />
     <ClCompile Include="voxel_Chunk.cpp" />
     <ClCompile Include="voxel_ChunkMesh.cpp" />
     <ClCompile Include="voxel_Entity.cpp" />
-    <ClCompile Include="voxel_HeightmapUtils.cpp" />
+    <ClCompile Include="voxel_VoxelUtils.cpp" />
     <ClCompile Include="voxel_PoolManager.cpp" />
     <ClCompile Include="voxel_Region.cpp" />
     <ClCompile Include="voxel_pch.cpp">

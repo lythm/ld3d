@@ -40,6 +40,8 @@ namespace ld3d
 			void													FrustumCull(const math::ViewFrustum& vf, const std::function<void(ChunkMeshPtr)>& op);
 
 			bool													RayPick(const math::Ray& r, Coord& block, float& t, math::Vector3& normal);
+
+			void													AddChunk(ChunkPtr pChunk);
 		private:
 
 		private:
@@ -58,7 +60,7 @@ namespace ld3d
 
 			math::AABBox											m_heightMapAABBox;
 
-			OctTreePtr												m_pOctTree;
+			OctreePtr												m_pOctTree;
 		};
 	}
 }

@@ -23,10 +23,9 @@ namespace ld3d
 		const uint32 CHUNK_SIZE													= 16;										// int block
 		const uint32 BLOCK_SIZE													= 1;
 
-		const uint32 REGION_CHUNK_HEIGHT										= 8;										// in chunk
 		const uint32 REGION_CHUNK_LENGTH										= 8;										// in chunk
 		const uint32 REGION_SIZE												= REGION_CHUNK_LENGTH * CHUNK_SIZE;			// in block
-		const uint32 REGION_HEIGHT												= REGION_CHUNK_HEIGHT * CHUNK_SIZE;			// in block
+		
 		
 
 		class World;
@@ -40,12 +39,12 @@ namespace ld3d
 		class Meshizer;
 		class ChunkMesh;
 		class ChunkLoader;
-		class OctTree;
+		class Octree;
 		class PoolManager;
 
 
 		typedef std::shared_ptr<PoolManager>									PoolManagerPtr;
-		typedef std::shared_ptr<OctTree>										OctTreePtr;
+		typedef std::shared_ptr<Octree>										OctreePtr;
 		typedef std::shared_ptr<ChunkMesh>										ChunkMeshPtr;
 		typedef std::shared_ptr<ChunkLoader>									ChunkLoaderPtr;
 		typedef std::shared_ptr<Meshizer>										MeshizerPtr;

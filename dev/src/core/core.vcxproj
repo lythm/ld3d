@@ -165,7 +165,6 @@
   <ItemGroup>
     <ClInclude Include="..\..\include\core\AABBoxRenderData.h" />
     <ClInclude Include="..\..\include\core\ActionManager.h" />
-    <ClInclude Include="..\..\include\core\Allocator.h" />
     <ClInclude Include="..\..\include\core\AppDelegate.h" />
     <ClInclude Include="..\..\include\core\ArcBall.h" />
     <ClInclude Include="..\..\include\core\AssetsManager.h" />
@@ -229,7 +228,6 @@
     <ClInclude Include="..\..\include\core\RenderStateParser.h" />
     <ClInclude Include="..\..\include\core\RenderTarget.h" />
     <ClInclude Include="..\..\include\core\PointLight.h" />
-    <ClInclude Include="..\..\include\core\PoolAllocator.h" />
     <ClInclude Include="..\..\include\core\PostEffect.h" />
     <ClInclude Include="..\..\include\core\property_types.h" />
     <ClInclude Include="..\..\include\core\RenderData.h" />
@@ -249,7 +247,6 @@
     <ClInclude Include="..\..\include\core\Sound.h" />
     <ClInclude Include="..\..\include\core\SoundChannel.h" />
     <ClInclude Include="..\..\include\core\SpotLight.h" />
-    <ClInclude Include="..\..\include\core\StdAllocator.h" />
     <ClInclude Include="..\..\include\core\SubMesh.h" />
     <ClInclude Include="..\..\include\core\SysManager.h" />
     <ClInclude Include="..\..\include\core\SysSettings.h" />
@@ -354,7 +351,6 @@
     <ClCompile Include="PassParser.cpp" />
     <ClCompile Include="PhysicsManager.cpp" />
     <ClCompile Include="PointLight.cpp" />
-    <ClCompile Include="PoolAllocator.cpp" />
     <ClCompile Include="PostEffectManager.cpp" />
     <ClCompile Include="PostEffect_BilateralBlur.cpp" />
     <ClCompile Include="PostEffect_FinalCompose.cpp" />
@@ -373,7 +369,6 @@
     <ClCompile Include="Screen.cpp" />
     <ClCompile Include="SkyLight.cpp" />
     <ClCompile Include="SpotLight.cpp" />
-    <ClCompile Include="StdAllocator.cpp" />
     <ClCompile Include="SubMesh.cpp" />
     <ClCompile Include="SysManager.cpp" />
     <ClCompile Include="TechniqueParser.cpp" />

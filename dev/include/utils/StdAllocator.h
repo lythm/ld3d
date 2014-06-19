@@ -1,10 +1,10 @@
 #pragma once
 
-#include "core/Allocator.h"
+#include "utils/Allocator.h"
 
 namespace ld3d
 {
-	class _DLL_CLASS StdAllocator : public Allocator
+	class StdAllocator : public Allocator
 	{
 	public:
 		StdAllocator(void);
@@ -12,10 +12,7 @@ namespace ld3d
 
 		void*								Alloc(uint64 bytes);
 		void								Free(void* mem);
-
-		uint64								GetTotalBytes();
-		uint64								GetBytesLeft();
-
+		uint64								GetAllocatedBytes(){return 0;}
 	private:
 		
 	};

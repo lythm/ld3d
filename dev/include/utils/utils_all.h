@@ -2,6 +2,7 @@
 
 #include <memory>
 #include <functional>
+#include <boost/pool/pool.hpp>
 
 #include "utils/utils_helper.h"
 #include "utils/MemPool.h"
@@ -16,3 +17,6 @@
 #include "utils/Linked.h"
 #include "utils/RefCount.h"
 #include "utils/CommandLine.h"
+#include "utils/Allocator.h"
+#include "utils/StdAllocator.h"
+#include "utils/PoolAllocator.h"

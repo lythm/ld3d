@@ -3,7 +3,7 @@
 
 #include "voxel/voxel_ChunkMesh.h"
 #include "voxel/voxel_Chunk.h"
-#include "voxel_OctTree.h"
+#include "voxel_Octree.h"
 
 namespace ld3d
 {
@@ -13,7 +13,7 @@ namespace ld3d
 		PoolManager::PoolManager(void) : 
 			m_meshPool(sizeof(ChunkMesh), 1024), 
 			m_chunkPool(sizeof(Chunk), 1024),
-			m_octTreePool(sizeof(OctTree), 1024)
+			m_octTreePool(sizeof(Octree), 1024)
 		{
 		}
 
@@ -33,10 +33,10 @@ namespace ld3d
 			void* p = m_meshPool.malloc();
 			return ChunkMeshPtr(new(p)ChunkMesh(), [&](ChunkMesh* pData){if(pData == nullptr) return; pData->~ChunkMesh(); m_meshPool.free(pData);});
 		}
-		OctTreePtr PoolManager::AllocOctTree(const Coord& region_origin)
+		OctreePtr PoolManager::AllocOctTree(const Coord& region_origin)
 		{
 			void* p = m_octTreePool.malloc();
-			return OctTreePtr(new(p)OctTree(region_origin), [&](OctTree* pData){if(pData == nullptr) return; pData->~OctTree(); m_octTreePool.free(pData);});
+			return OctreePtr(new(p)Octree(region_origin), [&](Octree* pData){if(pData == nullptr) return; pData->~Octree(); m_octTreePool.free(pData);});
 		}
 	}
 }

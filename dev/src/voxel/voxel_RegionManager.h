@@ -22,17 +22,17 @@ namespace ld3d
 
 			void											Update();
 
-			RegionPtr										FindRegion(const Coord& c);
+			RegionPtr										FindRegionByRegionCoord(const Coord& c);
 
-			ChunkLoaderPtr									GetChunkLoader();
+			void											AddChunk(ChunkPtr pChunk);
+			void											FrustumCull(const math::ViewFrustum& vf, const std::function<void(const Coord&, ChunkMeshPtr)>& op);
 		private:
 			
 		private:
 			WorldPtr										m_pWorld;
 			
 			std::list<RegionPtr>							m_regions;
-			
-			ChunkLoaderPtr									m_pChunkLoader;
+
 		};
 	}
 }

@@ -7,7 +7,7 @@ namespace ld3d
 {
 	namespace voxel
 	{
-		class OctTree
+		class Octree
 		{
 		public:
 			
@@ -15,14 +15,14 @@ namespace ld3d
 			{
 				INVALID_FACE_ID			= -1,
 			};
-			OctTree(const Coord& region_origin);
-			virtual ~OctTree(void);
+			Octree(const Coord& region_origin);
+			virtual ~Octree(void);
 
 			const math::AABBox&					GetBound() const;
 			void								SetBound(const math::AABBox& bound);
 
-			void								SetChild(int iChild, OctTreePtr pChild);
-			OctTreePtr							GetChild(int iChild);
+			void								SetChild(int iChild, OctreePtr pChild);
+			OctreePtr							GetChild(int iChild);
 
 			bool								IsLeaf() const;
 
@@ -38,7 +38,7 @@ namespace ld3d
 			void								_remove_chunk(ChunkPtr pChunk);
 		private:
 
-			OctTreePtr							m_pChildren[8];
+			OctreePtr							m_pChildren[8];
 
 			math::AABBox						m_bbox;
 
