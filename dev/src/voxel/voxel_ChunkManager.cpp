@@ -63,6 +63,10 @@ namespace ld3d
 			}
 			return true;
 		}
+		void ChunkManager::UpdateChunkNeighbour(ChunkPtr pChunk)
+		{
+
+		}
 		bool ChunkManager::RemoveBlock(const Coord& c)
 		{
 			return ReplaceBlock(c, VT_EMPTY);

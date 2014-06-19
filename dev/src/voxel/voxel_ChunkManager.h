@@ -45,7 +45,7 @@ namespace ld3d
 		private:
 			void											PickChunkSlice_XZ(const Coord& center, uint32 radius, const std::function<void(const ChunkKey&, ChunkPtr)>& op);
 			
-
+			void											UpdateChunkNeighbour(ChunkPtr pChunk);
 			ChunkPtr										AllocChunk(uint8 data[]);
 		private:
 

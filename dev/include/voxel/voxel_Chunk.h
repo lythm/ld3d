@@ -3,6 +3,7 @@
 #include "voxel/voxel_ChunkKey.h"
 
 #include "voxel/voxel_Coord.h"
+#include <bitset>
 
 namespace ld3d
 {
@@ -11,7 +12,17 @@ namespace ld3d
 		class _DLL_CLASS Chunk : public RefCount
 		{
 		public:
+			enum
+			{
+				n_x			= 2,
+				p_x			= 3,
+				n_y			= 4,
+				p_y			= 5,
+				n_z			= 6,
+				p_z			= 7,
+				all			= 0xfc,
 
+			};
 			// if data is null, empty chunk is constructed.
 			Chunk(ChunkManagerPtr pChunkManager, uint8 data[]);
 
@@ -24,16 +35,6 @@ namespace ld3d
 				return m_counter == 0;
 			}
 
-			uint8&											operator[](uint32 index)
-			{
-				return m_data[index];
-			}
-
-			const uint8&									operator[](uint32 index) const
-			{
-				return m_data[index];
-			}
-			
 			uint8											GetBlock(uint32 x, uint32 y, uint32 z)
 			{
 				uint32 index = ToIndex(x, y, z);
@@ -53,7 +54,8 @@ namespace ld3d
 				}
 
 				m_data[index]	= val;
-		
+				UpdateAllNeighBour(x, y, z, val != VT_EMPTY);
+
 				SetDirty(true);
 				m_modified = true;
 			}
@@ -71,7 +73,12 @@ namespace ld3d
 			{
 				return ToIndex(c.x, c.y, c.z);
 			}
-
+			static void										ToCoord(uint32 index, Coord& c)
+			{
+				c.y = index / (CHUNK_SIZE * CHUNK_SIZE);
+				c.z = (index % (CHUNK_SIZE * CHUNK_SIZE)) / CHUNK_SIZE;
+				c.x = (index % (CHUNK_SIZE * CHUNK_SIZE)) % CHUNK_SIZE;
+			}
 			const ChunkKey&									GetKey() const;
 			void											SetKey(const ChunkKey& key);
 
@@ -91,8 +98,21 @@ namespace ld3d
 			
 			ChunkMeshPtr									GetMesh();
 			void											SetMesh(ChunkMeshPtr pMesh);
+
+			// set this block neightbour flag
+			void											SetNeightbourFlag(int32 x, int32 y, int32 z, int32 neighbour, bool val);
+			void											SetNeightbourFlag(int32 index, int32 neighbour, bool val);
+			bool											CheckNeighbourFlag(int32 x, int32 y, int32 z, int32 neighbour);
+			bool											CheckNeighbourFlag(int32 index, int32 neighbour);
+
+			uint8											GetNeighbourFlag(int32 x, int32 y, int32 z);
+			uint8											GetNeighbourFlag(int32 index);
+		private:
+			bool											_check_coord_range(int32 x, int32 y, int32 z);
+			void											UpdateAllNeighBour(int32 x, int32 y, int32 z, bool val);
 		private:
 			uint8											m_data[CHUNK_SIZE * CHUNK_SIZE * CHUNK_SIZE];
+			uint8											m_neighbour[CHUNK_SIZE * CHUNK_SIZE * CHUNK_SIZE];
 			ChunkKey										m_key;
 
 			int32											m_counter;

@@ -9,9 +9,13 @@ namespace ld3d
 		Chunk::Chunk(ChunkManagerPtr pChunkManager, uint8 data[])
 		{
 			m_pChunkManager = pChunkManager;
+
+			memset(m_neighbour, 0, CHUNK_SIZE * CHUNK_SIZE * CHUNK_SIZE);
+
 			if(data == nullptr)
 			{
 				memset(m_data, 0, CHUNK_SIZE * CHUNK_SIZE * CHUNK_SIZE);
+
 			}
 			else
 			{
@@ -77,6 +81,60 @@ namespace ld3d
 		void Chunk::SetMesh(ChunkMeshPtr pMesh)
 		{
 			m_pMesh = pMesh;
+		}
+
+		bool Chunk::_check_coord_range(int32 x, int32 y, int32 z)
+		{
+			return (x >= 0 && x < CHUNK_SIZE) && ( y >= 0 && y < CHUNK_SIZE) && (z >= 0 && z < CHUNK_SIZE);
+		}
+		void Chunk::SetNeightbourFlag(int32 x, int32 y, int32 z, int32 neighbour, bool val)
+		{
+			if(_check_coord_range(x, y, z) == false)
+			{
+				return;
+			}
+			int32 index = ToIndex(x, y, z);
+			SetNeightbourFlag(index, neighbour, val);
+		}
+		void Chunk::SetNeightbourFlag(int32 index, int32 neighbour, bool val)
+		{
+			if(val)
+			{
+				m_neighbour[index] |= (1 << neighbour);
+			}
+			else
+			{
+				m_neighbour[index] &= ~(1 << neighbour);
+			}
+		}
+		void Chunk::UpdateAllNeighBour(int32 x, int32 y, int32 z, bool val)
+		{
+			SetNeightbourFlag(x - 1, y, z, p_x, val != VT_EMPTY);
+			SetNeightbourFlag(x + 1, y, z, n_x, val != VT_EMPTY);
+
+			SetNeightbourFlag(x, y - 1, z, p_y, val != VT_EMPTY);
+			SetNeightbourFlag(x, y + 1, z, n_y, val != VT_EMPTY);
+
+			SetNeightbourFlag(x, y, z - 1, p_z, val != VT_EMPTY);
+			SetNeightbourFlag(x, y, z + 1, n_z, val != VT_EMPTY);
+		}
+		bool Chunk::CheckNeighbourFlag(int32 x, int32 y, int32 z, int32 neighbour)
+		{
+			int32 index = ToIndex(x, y, z);
+			return CheckNeighbourFlag(index, neighbour);
+		}
+		bool Chunk::CheckNeighbourFlag(int32 index, int32 neighbour)
+		{
+			return (m_neighbour[index] & (1 << neighbour)) != 0;
+		}
+		uint8 Chunk::GetNeighbourFlag(int32 x, int32 y, int32 z)
+		{
+			int32 index = ToIndex(x, y, z);
+			return GetNeighbourFlag(index);
+		}
+		uint8 Chunk::GetNeighbourFlag(int32 index)
+		{
+			return m_neighbour[index];
 		}
 	}
 }

@@ -107,14 +107,13 @@ namespace ld3d
 			
 			if(pChunk->IsDirty() == true)
 			{
-				pChunk->SetDirty(false);
+				//pChunk->SetDirty(false);
 				m_pChunkManager->AddChunk(pChunk);
+				//	GenerateChunkMesh(pChunk);
+
+				m_pRegionManager->AddChunk(pChunk);
 			}
-
-			GenerateChunkMesh(pChunk);
-
-			m_pRegionManager->AddChunk(pChunk);
-
+			
 			return true;
 		}
 		bool ChunkLoader::ProcessLoadingQueue()
@@ -245,6 +244,10 @@ namespace ld3d
 		{
 			m_pMeshizer = pMeshizer;
 		}
+		bool ChunkLoader::RequestChunkMesh(ChunkPtr pChunk)
+		{
+			return GenerateChunkMesh(pChunk);
+		}
 		bool ChunkLoader::GenerateChunk(ChunkPtr pChunk)
 		{
 			// load chunk
@@ -259,7 +262,7 @@ namespace ld3d
 			{
 				for(int z = 0; z < CHUNK_SIZE; ++z)
 				{
-					float h = 512;
+					float h = 64;
 
 					if(h < (chunk_origin.y))
 					{

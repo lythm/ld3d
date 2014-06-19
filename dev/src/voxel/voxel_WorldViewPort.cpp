@@ -67,7 +67,12 @@ namespace ld3d
 
 
 			m_pWorld->GetChunkManager()->PickChunk(m_VP.center, m_VP.radius, std::bind(&WorldViewport::_on_pick_chunk, this, std::placeholders::_1, std::placeholders::_2));
+			const std::list<ChunkPtr>& chunks = m_pWorld->GetChunkManager()->GetDirtyChunks();
 
+			for(auto ch : chunks)
+			{
+				m_pWorld->GetChunkLoader()->RequestChunkMesh(ch);
+			}
 			return true;
 		}
 		void WorldViewport::Close()
@@ -369,7 +374,7 @@ namespace ld3d
 		}
 		void WorldViewport::_on_pick_chunk(const ChunkKey& key, ChunkPtr pChunk)
 		{
-			//m_pWorld->GetChunkLoader()->RequestChunk(key);
+			m_pWorld->GetChunkLoader()->RequestChunk(key);
 		}
 	}
 }

@@ -35,6 +35,7 @@ namespace ld3d
 			void									SetMeshizer(MeshizerPtr pMeshizer);
 
 			bool									RequestChunk(const ChunkKey& key);
+			bool									RequestChunkMesh(ChunkPtr pChunk);
 		private:
 			bool									ProcessLoadingQueue();
 			bool									ProcessUnloadingQueue();

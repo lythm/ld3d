@@ -129,6 +129,7 @@ namespace ld3d
 			math::Vector3 vertex_offset( base_coord.x, base_coord.y, base_coord.z);
 
 			std::vector<VoxelFace, std_allocator_adapter<VoxelFace>>			mesh(GetAllocator());
+			mesh.reserve(10000);
 
 			for(int32 x = 0; x < CHUNK_SIZE; ++x)
 			{
