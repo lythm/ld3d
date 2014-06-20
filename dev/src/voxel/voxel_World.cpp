@@ -151,10 +151,6 @@ namespace ld3d
 			return m_worldBound;
 		}
 		
-		const std::list<ChunkPtr>& World::GetDirtyChunks() const
-		{
-			return m_pChunkManager->GetDirtyChunks();
-		}
 		void World::ClearDirtyChunks()
 		{
 			m_pChunkManager->ClearDirtyChunks();

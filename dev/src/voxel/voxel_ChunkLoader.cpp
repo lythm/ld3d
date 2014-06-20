@@ -107,10 +107,8 @@ namespace ld3d
 			
 			if(pChunk->IsDirty() == true)
 			{
-				//pChunk->SetDirty(false);
+				pChunk->SetDirty(false);
 				m_pChunkManager->AddChunk(pChunk);
-				//	GenerateChunkMesh(pChunk);
-
 				m_pRegionManager->AddChunk(pChunk);
 			}
 			
@@ -262,7 +260,7 @@ namespace ld3d
 			{
 				for(int z = 0; z < CHUNK_SIZE; ++z)
 				{
-					float h = 64;
+					float h = 512;
 
 					if(h < (chunk_origin.y))
 					{
@@ -289,6 +287,51 @@ namespace ld3d
 		bool ChunkLoader::RequestChunk(const ChunkKey& key)
 		{
 			return _do_load_chunk(key);
+		}
+		bool ChunkLoader::RequestChunk(const Coord& center, uint32 radius)
+		{
+			m_pChunkManager->PickChunk(center, radius, [&](const ChunkKey& key, ChunkPtr pChunk)
+			{
+				if(pChunk != nullptr)
+				{
+					return;
+				}
+				RequestChunk(key);
+			});
+
+			m_pChunkManager->PickChunk(center, radius, [&](const ChunkKey& key, ChunkPtr pChunk)
+			{
+				if(pChunk == nullptr)
+				{
+					return;
+				}
+				RequestChunkMesh(pChunk);
+			});
+
+			
+			return true;
+		}
+		bool ChunkLoader::RequestChunkDiffSet(const Coord& center, uint32 radius, const Coord& refer_center, uint32 refer_radius)
+		{
+			m_pChunkManager->PickChunkDiffSet(center, radius, refer_center, refer_radius, [&](const ChunkKey& key, ChunkPtr pChunk)
+			{
+				if(pChunk != nullptr)
+				{
+					return;
+				}
+				RequestChunk(key);
+			});
+
+			m_pChunkManager->PickChunkDiffSet(center, radius, refer_center, refer_radius, [&](const ChunkKey& key, ChunkPtr pChunk)
+			{
+				if(pChunk == nullptr)
+				{
+					return;
+				}
+				RequestChunkMesh(pChunk);
+			});
+
+			return true;
 		}
 	}
 }

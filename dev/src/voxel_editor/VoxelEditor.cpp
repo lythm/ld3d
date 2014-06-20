@@ -108,10 +108,16 @@ namespace ld3d
 		{
 			math::Vector3 pos = m_pCamera->GetTranslation();
 
+			CameraDataPtr pMD = std::dynamic_pointer_cast<CameraData>(m_pCamera->GetComponent("Camera"));
+			CameraPtr pCD = pMD->GetCamera();
+			math::Vector3 axis_z = pCD->GetAxisZ();
+
 			std::stringstream s;
 			s.precision(3);
 			s.setf( std::ios::fixed, std:: ios::floatfield );
-			s << "<font style=\"color:#ff9999;\">camera pos: " << pos.x << "," << pos.y << "," << pos.z <<"</font><br>";
+			s << "<font style=\"color:#ff9999;\">[camera] " << 
+					"pos: " << pos.x << "," << pos.y << "," << pos.z <<
+					"dir: " << axis_z.x << "," << axis_z.y << "," << axis_z.z <<"</font><br>";
 
 
 			VoxelWorldPtr pWorld = std::dynamic_pointer_cast<VoxelWorld>(m_pWorld->GetComponent("VoxelWorld"));

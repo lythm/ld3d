@@ -7,9 +7,9 @@ namespace ld3d
 {
 	namespace voxel
 	{
-		ChunkManager::ChunkManager(void) : m_chunkmap(GetAllocator())
+		ChunkManager::ChunkManager(void) : m_chunkmap(GetAllocator()), m_dirtyList(GetAllocator())
 		{
-	
+
 		}
 
 
@@ -87,7 +87,7 @@ namespace ld3d
 			ChunkKey key(c);
 
 			ChunkPtr pChunk = FindChunk(key);
-			
+
 			return pChunk ? pChunk->GetBlock((c - key.ToChunkOrigin())) : VT_EMPTY;
 
 		}
@@ -115,7 +115,7 @@ namespace ld3d
 			pChunk ? pChunk->Update() : void(0);
 
 		}
-		const std::list<ChunkPtr>& ChunkManager::GetDirtyChunks() const
+		const ChunkManager::DirtyChunkList& ChunkManager::GetDirtyChunks() const
 		{
 			return m_dirtyList;
 		}
@@ -153,7 +153,7 @@ namespace ld3d
 					handler(chunk);
 				}
 			}
-			
+
 			ClearDirtyChunks();
 		}
 		void ChunkManager::AddDirtyChunkHandler(const std::function<void (ChunkPtr)>& handler)
@@ -171,48 +171,124 @@ namespace ld3d
 				return;
 			}
 
-			for(int32 y = -(int32)radius; y <= (int32)radius; y += CHUNK_SIZE)
-			{
-				int32 r = sqrtf(float(radius * radius) - float(y * y));
-				
-				PickChunkSlice_XZ(Coord(center.x, center.y + y, center.z), r, op);
+			int32 round = radius / CHUNK_SIZE * CHUNK_SIZE;
 
+			for(int32 y = -(int32)round; y <= (int32)round; y += CHUNK_SIZE)
+			{
+				PickChunkSlice(y, center, radius, op);
 			}
 		}
-		void ChunkManager::PickChunkSlice_XZ(const Coord& center, uint32 radius, const std::function<void(const ChunkKey&, ChunkPtr)>& op)
+		void ChunkManager::PickChunkSlice(int32 sy, const Coord& center, uint32 radius, const std::function<void(const ChunkKey&, ChunkPtr)>& op)
 		{
-			for(int32 z = -(int32)radius; z <= (int32)radius; z += CHUNK_SIZE)
-			{
-				int32 x_abs = sqrtf(float(radius * radius) - float(z * z));
+			int32 r = sqrtf(float(radius * radius) - float(sy * sy));
+			int32 round_z = r / CHUNK_SIZE * CHUNK_SIZE;
 
-				for(int32 x = -x_abs; x <= x_abs; x+= CHUNK_SIZE)
+			for(int32 z = -(int32)round_z; z <= (int32)round_z; z += CHUNK_SIZE)
+			{
+				int32 x_abs = sqrtf(float(r * r) - float(z * z));
+
+				int32 round_x = x_abs / CHUNK_SIZE * CHUNK_SIZE;
+
+				for(int32 x = -round_x; x <= round_x; x+= CHUNK_SIZE)
 				{
-					ChunkKey key(Coord(x, 0, z) + center);
+					ChunkKey key(Coord(x, sy, z) + center);
 
 					ChunkPtr pChunk = FindChunk(key);
 					op(key, pChunk);
 				}
 			}
 		}
-		void ChunkManager::PickChunkDiff(const Coord& center, uint32 radius, const Coord& refer_center, uint32 refer_radius, const std::function<void(ChunkPtr)>& op)
+		void ChunkManager::PickChunkDiffSet1(const Coord& center, uint32 radius, const Coord& refer_center, uint32 refer_radius, const std::function<void(const ChunkKey&, ChunkPtr)>& op)
 		{
-			//if((center - refer_center).Length() > (radius + refer_radius))
-			//{
-			//	PickChunk(center, radius, op);
-			//	return;
-			//}
+			if(op == nullptr)
+			{
+				return;
+			}
 
-			//for(int32 y = -(int32)radius; y <= (int32)radius; y += CHUNK_SIZE)
-			//{
-			//	int32 r_xz = sqrtf(float(radius * radius) - float(y * y));
-			//	int32 rr_xz = sqrtf(float(refer_radius * refer_radius) - float(y * y));
+			std::vector<ChunkKey> keys;
 
+			PickChunk(refer_center, refer_radius, [&](const ChunkKey& key, ChunkPtr pChunk)
+			{
+				keys.push_back(key);
+			});
 
-			//	for(int32 z = -r_xz; z <= r_xz; z += CHUNK_SIZE)
-			//	{
-			//		//for(int x = 
-			//	}
-			//}
+			PickChunk(center, radius, [&](const ChunkKey& key, ChunkPtr pChunk)
+			{
+				if(std::find(keys.begin(), keys.end(), key) == keys.end())
+				{
+					op(key, pChunk);
+				}
+
+			});
+		}
+		void ChunkManager::PickChunkDiffSet(const Coord& center, uint32 radius, const Coord& refer_center, uint32 refer_radius, const std::function<void(const ChunkKey&, ChunkPtr)>& op)
+		{
+			if(op == nullptr)
+			{
+				return;
+			}
+
+			if((center - refer_center).Length() > (radius + refer_radius))
+			{
+				PickChunk(center, radius, op);
+				return;
+			}
+
+			int32 round = radius / CHUNK_SIZE * CHUNK_SIZE;
+			for(int32 y = -(int32)round; y <= (int32)round; y += CHUNK_SIZE)
+			{
+				PickChunkDiffSetSlice(y, center, radius, refer_center, refer_radius,  op);
+			}
+		}
+		void ChunkManager::PickChunkDiffSetSlice(int32 sy, const Coord& center, uint32 radius, const Coord& refer_center, uint32 refer_radius, const std::function<void(const ChunkKey&, ChunkPtr)>& op)
+		{
+			int32 slice_radius = sqrtf(float(radius * radius) - float(sy * sy));
+			int32 round_slice_radius = slice_radius / CHUNK_SIZE * CHUNK_SIZE;
+
+			for(int32 z = -round_slice_radius; z <= round_slice_radius; z += CHUNK_SIZE)
+			{
+				int32 slice_x_len = sqrtf(float(slice_radius * slice_radius) - float(z * z));
+				int32 round_slice_x_len = slice_x_len / CHUNK_SIZE * CHUNK_SIZE;
+
+				for(int32 x = -round_slice_x_len; x <= round_slice_x_len; x+= CHUNK_SIZE)
+				{
+					Coord c = Coord(x, sy, z) + center;
+
+					if(InSphere(c, refer_center, refer_radius))
+					{
+						continue;
+					}
+					ChunkKey key(c);
+
+					ChunkPtr pChunk = FindChunk(key);
+					op(key, pChunk);
+				}
+			}
+		}
+		bool ChunkManager::InSphere(const Coord& c, const Coord& center, uint32 radius)
+		{
+			Coord rc = c - center;
+
+			int32 round_y = radius / CHUNK_SIZE * CHUNK_SIZE;
+			if(rc.y >= -round_y && rc.y <= round_y)
+			{
+				int32 r = sqrtf(float(radius * radius) - float(rc.y * rc.y));
+				int32 round_z = r / CHUNK_SIZE * CHUNK_SIZE;
+
+				if(rc.z >=-(int32)round_z && rc.z <= (int32)round_z)
+				{
+					int32 x_abs = sqrtf(float(r * r) - float(rc.z * rc.z));
+
+					int32 round_x = x_abs / CHUNK_SIZE * CHUNK_SIZE;
+
+					if(rc.x >= -round_x&& rc.x <= round_x)
+					{
+						return true;
+					}
+				}
+			}
+
+			return false;
 
 		}
 	}

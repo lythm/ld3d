@@ -151,7 +151,7 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;CORE_EXT_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <PrecompiledHeaderFile>core_ext_pch.h</PrecompiledHeaderFile>
-      <AdditionalOptions>-Zm110 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>-Zm121 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

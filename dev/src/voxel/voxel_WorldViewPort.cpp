@@ -42,9 +42,8 @@ namespace ld3d
 			m_center = c;
 		}
 		
-		bool WorldViewport::Open(WorldPtr pWorld, const Coord& center, uint32 radius, MeshizerPtr pMeshizer)
+		bool WorldViewport::Open(WorldPtr pWorld, const Coord& center, uint32 radius)
 		{
-			m_pMeshizer = pMeshizer;
 			m_pWorld = pWorld;
 			m_center = center;
 			m_center.y = 0;
@@ -54,7 +53,10 @@ namespace ld3d
 
 			m_lastVP = m_VP;
 
-			
+			m_lastVP.center.x -= 32;
+			m_lastVP.center.z -= 32;
+			m_lastVP.center.y -= 32;
+
 			m_pRegionManager = pWorld->GetRegionManager();
 
 			/*if(InitRegionBuffer() == false)
@@ -66,13 +68,10 @@ namespace ld3d
 			m_pWorld->AddDirtyChunkHandler(std::bind(&WorldViewport::_on_dirty_chunk, this, std::placeholders::_1));
 
 
-			m_pWorld->GetChunkManager()->PickChunk(m_VP.center, m_VP.radius, std::bind(&WorldViewport::_on_pick_chunk, this, std::placeholders::_1, std::placeholders::_2));
-			const std::list<ChunkPtr>& chunks = m_pWorld->GetChunkManager()->GetDirtyChunks();
+			//m_pWorld->GetChunkLoader()->RequestChunk(m_VP.center, m_VP.radius);
 
-			for(auto ch : chunks)
-			{
-				m_pWorld->GetChunkLoader()->RequestChunkMesh(ch);
-			}
+			m_pWorld->GetChunkLoader()->RequestChunkDiffSet(m_VP.center, m_VP.radius, m_lastVP.center, m_lastVP.radius);
+			
 			return true;
 		}
 		void WorldViewport::Close()
@@ -254,11 +253,11 @@ namespace ld3d
 					{
 						if(sync)
 						{
-							pRegion = m_pRegionManager->LoadRegionSync(c, std::bind(&WorldViewport::_on_chunk_loaded, this, std::placeholders::_1, std::placeholders::_2));
+//							pRegion = m_pRegionManager->LoadRegionSync(c, std::bind(&WorldViewport::_on_chunk_loaded, this, std::placeholders::_1, std::placeholders::_2));
 						}
 						else
 						{
-							pRegion = m_pRegionManager->LoadRegion(c, std::bind(&WorldViewport::_on_chunk_loaded, this, std::placeholders::_1, std::placeholders::_2));
+	//						pRegion = m_pRegionManager->LoadRegion(c, std::bind(&WorldViewport::_on_chunk_loaded, this, std::placeholders::_1, std::placeholders::_2));
 						}
 					}
 					m_regionBuffer[x + z * (dx + 1)] = pRegion;
@@ -273,10 +272,7 @@ namespace ld3d
 		{
 			handler_dirty_chunk = handler;
 		}
-		const std::list<ChunkPtr> WorldViewport::GetDirtyChunkList()
-		{
-			return m_pWorld->GetDirtyChunks();
-		}
+		
 		void WorldViewport::ClearDirtyChunkList()
 		{
 			m_pWorld->ClearDirtyChunks();
@@ -317,29 +313,6 @@ namespace ld3d
 			m_pRegionManager->FrustumCull(vf, op);
 		}
 
-		void WorldViewport::_on_chunk_loaded(RegionPtr pRegion, ChunkPtr pChunk)
-		{
-			if(m_pMeshizer == nullptr)
-			{
-				return;
-			}
-			
-			ChunkMeshPtr pMesh = pChunk->GetMesh();
-
-			if(pMesh != nullptr)
-			{
-				return;
-			}
-
-			pMesh = GetPoolManager()->AllocChunkMesh();
-
-			Coord chunk_mesh_base = pChunk->GetKey().ToChunkOrigin() - pRegion->GetRegionOrigin();
-
-			m_pMeshizer->GenerateMesh(pChunk, chunk_mesh_base, pMesh);
-
-			pChunk->SetMesh(pMesh);
-	
-		}
 		const Coord& WorldViewport::GetCenterCoord() const
 		{
 			return m_center;

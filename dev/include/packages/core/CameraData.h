@@ -17,6 +17,6 @@ namespace ld3d
 		virtual void						SetFarPlane(float fp)							= 0;
 		virtual void						SetAspect(float aspect)							= 0;
 		virtual void						SetFOV(float fov)								= 0;
-
+		virtual CameraPtr					GetCamera()										= 0;
 	};
 }

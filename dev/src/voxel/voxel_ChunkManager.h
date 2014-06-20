@@ -12,6 +12,7 @@ namespace ld3d
 		class ChunkManager : public std::enable_shared_from_this<ChunkManager>
 		{
 		public:
+			typedef std::list<ChunkPtr, std_allocator_adapter<ChunkPtr>>	DirtyChunkList;
 			ChunkManager(void);
 			virtual ~ChunkManager(void);
 
@@ -24,7 +25,7 @@ namespace ld3d
 
 			ChunkPtr										FindChunk(const ChunkKey& key);
 
-			const std::list<ChunkPtr>&						GetDirtyChunks() const;
+			const DirtyChunkList&							GetDirtyChunks() const;
 			void											ClearDirtyChunks();
 
 			void											Clear();
@@ -41,10 +42,12 @@ namespace ld3d
 			uint32											GetChunkCount() const;
 
 			void											PickChunk(const Coord& center, uint32 radius, const std::function<void(const ChunkKey&, ChunkPtr)>& op);
-			void											PickChunkDiff(const Coord& center, uint32 radius, const Coord& refer_center, uint32 refer_radius, const std::function<void(ChunkPtr)>& op);
+			void											PickChunkDiffSet(const Coord& center, uint32 radius, const Coord& refer_center, uint32 refer_radius, const std::function<void(const ChunkKey&, ChunkPtr)>& op);
+			void											PickChunkDiffSet1(const Coord& center, uint32 radius, const Coord& refer_center, uint32 refer_radius, const std::function<void(const ChunkKey&, ChunkPtr)>& op);
 		private:
-			void											PickChunkSlice_XZ(const Coord& center, uint32 radius, const std::function<void(const ChunkKey&, ChunkPtr)>& op);
-			
+			bool											InSphere(const Coord& c, const Coord& center, uint32 radius);
+			void											PickChunkSlice(int32 sy, const Coord& center, uint32 radius, const std::function<void(const ChunkKey&, ChunkPtr)>& op);
+			void											PickChunkDiffSetSlice(int32 sy, const Coord& center, uint32 radius, const Coord& refer_center, uint32 refer_radius, const std::function<void(const ChunkKey&, ChunkPtr)>& op);
 			void											UpdateChunkNeighbour(ChunkPtr pChunk);
 			ChunkPtr										AllocChunk(uint8 data[]);
 		private:
@@ -59,7 +62,7 @@ namespace ld3d
 				>>											ChunkMap;										
 
 			ChunkMap										m_chunkmap;
-			std::list<ChunkPtr>								m_dirtyList;
+			DirtyChunkList									m_dirtyList;
 
 			std::vector<std::function<void(ChunkPtr)>>		m_dirtyChunkHandlers;
 		};

@@ -32,7 +32,6 @@ namespace ld3d
 
 			ChunkPtr										FindChunk(const ChunkKey& key);
 
-			const std::list<ChunkPtr>&						GetDirtyChunks() const;
 			void											ClearDirtyChunks();
 
 			void											Update(float dt);

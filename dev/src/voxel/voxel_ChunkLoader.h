@@ -34,6 +34,8 @@ namespace ld3d
 
 			void									SetMeshizer(MeshizerPtr pMeshizer);
 
+			bool									RequestChunkDiffSet(const Coord& center, uint32 radius, const Coord& refer_center, uint32 refer_radius);
+			bool									RequestChunk(const Coord& center, uint32 radius);
 			bool									RequestChunk(const ChunkKey& key);
 			bool									RequestChunkMesh(ChunkPtr pChunk);
 		private:

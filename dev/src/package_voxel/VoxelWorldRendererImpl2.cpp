@@ -40,6 +40,12 @@ namespace ld3d
 				&VoxelWorldRendererImpl2::GetShowBound,
 				&VoxelWorldRendererImpl2::SetShowBound);
 		
+
+		m_pRenderManager		= m_pManager->GetRenderManager();
+		m_pAABBoxRenderData = m_pManager->alloc_object<AABBoxRenderData>();
+		m_pAABBoxRenderData->Initialize(m_pRenderManager);
+
+
 		using namespace voxel;
 
 		Meshizer::VoxelMaterial mat;
@@ -65,7 +71,7 @@ namespace ld3d
 		
 		m_hFrustumCull = m_pManager->AddEventHandler(EV_FRUSTUM_CULL, boost::bind(&VoxelWorldRendererImpl2::on_event_frustumcull, this, _1));
 
-		m_pRenderManager		= m_pManager->GetRenderManager();
+		
 
 		m_pRenderData			= m_pManager->alloc_object<RenderData>();
 		m_pRenderData->fr_draw	= std::bind(&VoxelWorldRendererImpl2::Render, this, std::placeholders::_1);
@@ -107,8 +113,7 @@ namespace ld3d
 		m_nVertexCount			= 0;
 
 
-		m_pAABBoxRenderData = m_pManager->alloc_object<AABBoxRenderData>();
-		m_pAABBoxRenderData->Initialize(m_pRenderManager);
+		
 
 		m_renderList.reserve(20000);
 		return true;
@@ -176,10 +181,20 @@ namespace ld3d
 
 		m_pWorldVP = m_pManager->alloc_object<voxel::WorldViewport>();
 
-		if(false == m_pWorldVP->Open(pWorld, voxel::Coord(8, 128 + 8, 8), 128, m_pMeshizer))
+		using namespace voxel;
+
+		//voxel::Coord center = m_pWorldVP->GetCenterCoord();
+		voxel::Coord center = voxel::Coord(8, 128 + 8, 8);
+		uint32 raidius = 64;
+
+		if(false == m_pWorldVP->Open(pWorld, center, raidius))
 		{
 			return;
 		}
+
+		m_pAABBoxRenderData->SetBox(math::AABBox((center - Coord(raidius, raidius, raidius)).ToVector3(), (center + Coord(raidius, raidius, raidius)).ToVector3()));
+
+
 	}
 	void VoxelWorldRendererImpl2::SetWorldViewPort(const voxel::Coord& center, uint32 size)
 	{
@@ -206,14 +221,6 @@ namespace ld3d
 		m_pWorldVP->FrustumCull(*(e->m_pViewFrustum), std::bind(&VoxelWorldRendererImpl2::_add_mesh, this, std::placeholders::_1, std::placeholders::_2));
 
 		m_pManager->GetRenderManager()->AddRenderData(layer_deferred, m_pRenderData);
-
-
-		using namespace voxel;
-		voxel::Coord center = m_pWorldVP->GetCenterCoord();
-
-		float size = voxel::REGION_SIZE * 3 / 2;
-
-		m_pAABBoxRenderData->SetBox(math::AABBox((center - Coord(size, size, size)).ToVector3(), (center + Coord(size, size, size)).ToVector3()));
 
 		m_pManager->GetRenderManager()->AddRenderData(layer_forward, m_pAABBoxRenderData->GetRenderData());
 

@@ -24,7 +24,7 @@ namespace ld3d
 
 			bool														Inside(const Coord& coord) const;
 
-			bool														Open(WorldPtr pWorld, const Coord& center, uint32 raidus, MeshizerPtr pMeshizer);
+			bool														Open(WorldPtr pWorld, const Coord& center, uint32 raidus);
 			void														Close();
 
 			void														Update();
@@ -33,7 +33,7 @@ namespace ld3d
 			const Coord	&												GetCenterCoord() const;
 			void														SetDirtyChunkHandler(const std::function<void (const Coord&, ChunkPtr)>& handler);
 
-			const std::list<ChunkPtr>									GetDirtyChunkList();
+			
 			void														ClearDirtyChunkList();
 
 			void														SetRegionLoadedHandler(const std::function<void (RegionPtr)>& handler);
@@ -56,7 +56,6 @@ namespace ld3d
 
 			void														UpdateRegionCache();
 
-			void														_on_chunk_loaded(RegionPtr pRegion, ChunkPtr pChunk);
 			void														_on_dirty_chunk(ChunkPtr pChunk);
 			void														_on_pick_chunk(const ChunkKey& key, ChunkPtr pChunk);
 		private:
@@ -73,8 +72,6 @@ namespace ld3d
 
 			std::function<void (RegionPtr)>								handler_region_loaded;
 			std::function<void (RegionPtr)>								handler_region_unloaded;
-
-			MeshizerPtr													m_pMeshizer;
 
 			VPSphere													m_VP;
 			VPSphere													m_lastVP;
