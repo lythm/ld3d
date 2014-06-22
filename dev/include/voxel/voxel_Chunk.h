@@ -20,7 +20,7 @@ namespace ld3d
 				p_y			= 5,
 				n_z			= 6,
 				p_z			= 7,
-				all			= 0xfc,
+				all_bits	= 0xfc,
 
 			};
 			// if data is null, empty chunk is constructed.
@@ -107,7 +107,19 @@ namespace ld3d
 
 			uint8											GetNeighbourFlag(int32 x, int32 y, int32 z);
 			uint8											GetNeighbourFlag(int32 index);
+
+
+			void											SetChunkNeighbour(uint32 neighbour, bool val);
+			bool											GetChunkNeightbour(uint32 neighbour);
+
+			void											OnNeibourChunkLoaded(ChunkPtr pChunk);
+
+			bool											AllNeighbourLoaded();
 		private:
+
+			void											SetBit(uint8& bits, uint32 pos, bool val);
+			bool											GetBit(uint8 bits, uint32 pos);
+
 			bool											_check_coord_range(int32 x, int32 y, int32 z);
 			void											UpdateAllNeighBour(int32 x, int32 y, int32 z, bool val);
 		private:
@@ -125,6 +137,8 @@ namespace ld3d
 			ChunkManagerPtr									m_pChunkManager;
 
 			ChunkMeshPtr									m_pMesh;
+
+			uint8											m_chunkNeighbour;
 		};
 	}
 }

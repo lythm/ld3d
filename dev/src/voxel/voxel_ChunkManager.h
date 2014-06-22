@@ -50,6 +50,8 @@ namespace ld3d
 			void											PickChunkDiffSetSlice(int32 sy, const Coord& center, uint32 radius, const Coord& refer_center, uint32 refer_radius, const std::function<void(const ChunkKey&, ChunkPtr)>& op);
 			void											UpdateChunkNeighbour(ChunkPtr pChunk);
 			ChunkPtr										AllocChunk(uint8 data[]);
+
+		
 		private:
 
 			typedef 

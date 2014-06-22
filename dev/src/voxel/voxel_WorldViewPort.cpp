@@ -42,8 +42,10 @@ namespace ld3d
 
 			m_pWorld->AddDirtyChunkHandler(std::bind(&WorldViewport::_on_dirty_chunk, this, std::placeholders::_1));
 			
+			uint64 t = os_get_tick();
+			m_pLoader->RequestChunk(m_VP.center, m_VP.radius);
 
-			m_pLoader->RequestChunkAsync(m_VP.center, m_VP.radius);
+			uint64 dt = os_get_tick() - t;
 
 			m_lastVP = m_VP;
 			return true;

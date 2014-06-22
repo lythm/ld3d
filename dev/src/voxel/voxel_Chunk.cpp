@@ -26,6 +26,8 @@ namespace ld3d
 			m_counter = 0;
 
 			m_userData = nullptr;
+
+			m_chunkNeighbour = 0;
 		}
 
 		Chunk::~Chunk(void)
@@ -98,14 +100,8 @@ namespace ld3d
 		}
 		void Chunk::SetNeightbourFlag(int32 index, int32 neighbour, bool val)
 		{
-			if(val)
-			{
-				m_neighbour[index] |= (1 << neighbour);
-			}
-			else
-			{
-				m_neighbour[index] &= ~(1 << neighbour);
-			}
+			SetBit(m_neighbour[index], neighbour, val);
+
 		}
 		void Chunk::UpdateAllNeighBour(int32 x, int32 y, int32 z, bool val)
 		{
@@ -121,11 +117,12 @@ namespace ld3d
 		bool Chunk::CheckNeighbourFlag(int32 x, int32 y, int32 z, int32 neighbour)
 		{
 			int32 index = ToIndex(x, y, z);
+
 			return CheckNeighbourFlag(index, neighbour);
 		}
 		bool Chunk::CheckNeighbourFlag(int32 index, int32 neighbour)
 		{
-			return (m_neighbour[index] & (1 << neighbour)) != 0;
+			return GetBit(m_neighbour[index], neighbour);
 		}
 		uint8 Chunk::GetNeighbourFlag(int32 x, int32 y, int32 z)
 		{
@@ -135,6 +132,37 @@ namespace ld3d
 		uint8 Chunk::GetNeighbourFlag(int32 index)
 		{
 			return m_neighbour[index];
+		}
+		void Chunk::OnNeibourChunkLoaded(ChunkPtr pChunk)
+		{
+
+		}
+		void Chunk::SetChunkNeighbour(uint32 neighbour, bool val)
+		{
+			SetBit(m_chunkNeighbour, neighbour, val);
+		}
+		bool Chunk::GetChunkNeightbour(uint32 neighbour)
+		{
+			return GetBit(m_chunkNeighbour, neighbour);
+		}
+		void Chunk::SetBit(uint8& bits, uint32 pos, bool val)
+		{
+			if(val)
+			{
+				bits |= (1 << pos);
+			}
+			else
+			{
+				bits &= ~(1 << pos);
+			}
+		}
+		bool Chunk::GetBit(uint8 bits, uint32 pos)
+		{
+			return (bits & (1 << pos)) != 0;
+		}
+		bool Chunk::AllNeighbourLoaded()
+		{
+			return m_chunkNeighbour == all_bits; 
 		}
 	}
 }

@@ -2,7 +2,7 @@
 #include "voxel_ChunkManager.h"
 #include "voxel/voxel_Chunk.h"
 #include "voxel_PoolManager.h"
-
+#include "voxel_VoxelUtils.h"
 namespace ld3d
 {
 	namespace voxel
@@ -65,7 +65,10 @@ namespace ld3d
 		}
 		void ChunkManager::UpdateChunkNeighbour(ChunkPtr pChunk)
 		{
+			const ChunkKey& key = pChunk->GetKey();
 
+			Coord n_coord = key.ToChunkOrigin();
+			n_coord = VoxelUtils::ToChunkCoord(n_coord);
 		}
 		bool ChunkManager::RemoveBlock(const Coord& c)
 		{
@@ -326,5 +329,6 @@ namespace ld3d
 			return false;
 
 		}
+		
 	}
 }
