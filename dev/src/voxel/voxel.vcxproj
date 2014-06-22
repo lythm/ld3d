@@ -168,6 +168,7 @@
     <ClInclude Include="..\..\include\voxel\voxel_WorldGenPass_Plants.h" />
     <ClInclude Include="..\..\include\voxel\voxel_WorldGenPass_Water.h" />
     <ClInclude Include="..\..\include\voxel\voxel_WorldViewPort.h" />
+    <ClInclude Include="ChunkLoaderWorker.h" />
     <ClInclude Include="voxel_ChunkLoader.h" />
     <ClInclude Include="voxel_Octree.h" />
     <ClInclude Include="voxel_ChunkManager.h" />
@@ -177,6 +178,7 @@
     <ClInclude Include="voxel_RegionManager.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ChunkLoaderWorker.cpp" />
     <ClCompile Include="voxel_ChunkLoader.cpp" />
     <ClCompile Include="voxel_Octree.cpp" />
     <ClCompile Include="voxel_Meshizer.cpp" />

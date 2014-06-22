@@ -183,9 +183,10 @@ namespace ld3d
 
 		using namespace voxel;
 
-		//voxel::Coord center = m_pWorldVP->GetCenterCoord();
-		voxel::Coord center = voxel::Coord(8, 128 + 8, 8);
-		uint32 raidius = 64;
+		voxel::Coord center = Coord(0, 0, 0);
+
+		//voxel::Coord center = Coord(7, 3, 12);
+		uint32 raidius = 128;
 
 		if(false == m_pWorldVP->Open(pWorld, center, raidius))
 		{
@@ -199,7 +200,7 @@ namespace ld3d
 	void VoxelWorldRendererImpl2::SetWorldViewPort(const voxel::Coord& center, uint32 size)
 	{
 		m_pWorldVP->MoveTo(center);
-		m_pWorldVP->SetViewportSize(size);
+		m_pWorldVP->SetRadius(size);
 	}
 	void VoxelWorldRendererImpl2::on_event_frustumcull(EventPtr pEvent)
 	{

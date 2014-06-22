@@ -9,7 +9,7 @@ namespace ld3d
 		SetVersion(g_packageVersion);
 
 		m_np				= 0.1f;
-		m_fp				= 1000.0f;
+		m_fp				= 200.0f;;
 		m_aspect			= 4.0f/3.0f;
 		m_fov				= 0.25f * math::MATH_PI;
 

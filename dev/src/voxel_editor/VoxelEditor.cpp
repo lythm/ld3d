@@ -58,12 +58,12 @@ namespace ld3d
 
 			CameraDataPtr pMD = std::dynamic_pointer_cast<CameraData>(pCore->CreateGameObjectComponent("Camera"));
 			m_pCamera->AddComponent(pMD);
-			pMD->SetFarPlane(2048.0f);
+			pMD->SetFarPlane(100);
 			GameObjectComponentPtr pSkyBox = pCore->CreateGameObjectComponent("SkyBox");
 			m_pCamera->AddComponent(pSkyBox);
 
 			CameraController_FreePtr pController = std::dynamic_pointer_cast<CameraController_Free>(pCore->CreateGameObjectComponent("CameraFreeController"));
-			pController->SetSpeed(100);
+			pController->SetSpeed(5);
 			//	pController->Enable(false);
 			m_pCamera->AddComponent(pController);
 
@@ -180,27 +180,27 @@ namespace ld3d
 
 		void VoxelEditor::_on_cmd_move_to(const ld3d::CommandLine& cl, std::function<void (const std::string&)> writeln)
 		{
-			if(cl.GetParamCount() != 2)
+			if(cl.GetParamCount() != 3)
 			{
 				writeln("invalid parameter count");
 				return;
 			}
 
 			int32 x = 0;
+			int32 y = 0;
 			int32 z = 0;
 			try
 			{
 				x = boost::lexical_cast<int32>(cl.GetParam(0));
-				z = boost::lexical_cast<int32>(cl.GetParam(1));
+				y = boost::lexical_cast<int32>(cl.GetParam(1));
+				z = boost::lexical_cast<int32>(cl.GetParam(2));
 			}
 			catch(...)
 			{
 				writeln("invalid parameter");
 				return;
 			}
-			math::Vector3 pos = m_pCamera->GetTranslation();
-
-			m_pCamera->SetTranslation(x, pos.y, z);
+			m_pCamera->SetTranslation(x, y, z);
 
 		}
 	}

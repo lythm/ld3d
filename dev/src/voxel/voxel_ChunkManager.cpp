@@ -164,7 +164,7 @@ namespace ld3d
 		{
 			return (uint32)m_chunkmap.size();
 		}
-		void ChunkManager::PickChunk(const Coord& center, uint32 radius, const std::function<void(const ChunkKey&, ChunkPtr)>& op)
+		/*void ChunkManager::PickChunk(const Coord& center, uint32 radius, const std::function<void(const ChunkKey&, ChunkPtr)>& op)
 		{
 			if(op == nullptr)
 			{
@@ -197,7 +197,41 @@ namespace ld3d
 					op(key, pChunk);
 				}
 			}
+		}*/
+
+		void ChunkManager::PickChunk(const Coord& center, uint32 radius, const std::function<void(const ChunkKey&, ChunkPtr)>& op)
+		{
+			if(op == nullptr)
+			{
+				return;
+			}
+
+			radius /= CHUNK_SIZE;
+
+			for(int32 y = -(int32)radius; y <= (int32)radius; ++y)
+			{
+				PickChunkSlice(y, center, radius, op);
+			}
 		}
+		void ChunkManager::PickChunkSlice(int32 sy, const Coord& center, uint32 radius, const std::function<void(const ChunkKey&, ChunkPtr)>& op)
+		{
+			float r = sqrtf(radius * radius - sy * sy);
+
+			for(int32 z = -r; z <= r; ++z)
+			{
+				float x_abs = sqrtf(r * r - z * z);
+
+				for(int32 x = -x_abs; x <= x_abs; ++x)
+				{
+					Coord c = Coord(x, sy, z) + center / CHUNK_SIZE;
+					ChunkKey key(c * CHUNK_SIZE);
+
+					ChunkPtr pChunk = FindChunk(key);
+					op(key, pChunk);
+				}
+			}
+		}
+
 		void ChunkManager::PickChunkDiffSet1(const Coord& center, uint32 radius, const Coord& refer_center, uint32 refer_radius, const std::function<void(const ChunkKey&, ChunkPtr)>& op)
 		{
 			if(op == nullptr)
@@ -234,30 +268,31 @@ namespace ld3d
 				return;
 			}
 
-			int32 round = radius / CHUNK_SIZE * CHUNK_SIZE;
-			for(int32 y = -(int32)round; y <= (int32)round; y += CHUNK_SIZE)
+			radius /= CHUNK_SIZE;
+
+			for(int32 y = -(int32)radius; y <= (int32)radius; ++y)
 			{
 				PickChunkDiffSetSlice(y, center, radius, refer_center, refer_radius,  op);
 			}
 		}
 		void ChunkManager::PickChunkDiffSetSlice(int32 sy, const Coord& center, uint32 radius, const Coord& refer_center, uint32 refer_radius, const std::function<void(const ChunkKey&, ChunkPtr)>& op)
 		{
-			int32 slice_radius = sqrtf(float(radius * radius) - float(sy * sy));
-			int32 round_slice_radius = slice_radius / CHUNK_SIZE * CHUNK_SIZE;
+			float r = sqrtf(radius * radius - sy * sy);
 
-			for(int32 z = -round_slice_radius; z <= round_slice_radius; z += CHUNK_SIZE)
+			for(int32 z = -r; z <= r; ++z)
 			{
-				int32 slice_x_len = sqrtf(float(slice_radius * slice_radius) - float(z * z));
-				int32 round_slice_x_len = slice_x_len / CHUNK_SIZE * CHUNK_SIZE;
+				float x_abs = sqrtf(r * r - z * z);
 
-				for(int32 x = -round_slice_x_len; x <= round_slice_x_len; x+= CHUNK_SIZE)
+				for(int32 x = -x_abs; x <= x_abs; ++x)
 				{
-					Coord c = Coord(x, sy, z) + center;
+					Coord c = Coord(x, sy, z) + center / CHUNK_SIZE;
+					c *= CHUNK_SIZE;
 
 					if(InSphere(c, refer_center, refer_radius))
 					{
 						continue;
 					}
+
 					ChunkKey key(c);
 
 					ChunkPtr pChunk = FindChunk(key);
@@ -269,19 +304,19 @@ namespace ld3d
 		{
 			Coord rc = c - center;
 
-			int32 round_y = radius / CHUNK_SIZE * CHUNK_SIZE;
-			if(rc.y >= -round_y && rc.y <= round_y)
+			rc /= CHUNK_SIZE;
+
+			radius = radius / CHUNK_SIZE;
+
+			if(rc.y >= -radius && rc.y <= radius)
 			{
-				int32 r = sqrtf(float(radius * radius) - float(rc.y * rc.y));
-				int32 round_z = r / CHUNK_SIZE * CHUNK_SIZE;
-
-				if(rc.z >=-(int32)round_z && rc.z <= (int32)round_z)
+				float r = sqrtf(radius * radius - rc.y * rc.y);
+				
+				if(rc.z >=-r && rc.z <= r)
 				{
-					int32 x_abs = sqrtf(float(r * r) - float(rc.z * rc.z));
+					float x_abs = sqrtf(r * r - rc.z * rc.z);
 
-					int32 round_x = x_abs / CHUNK_SIZE * CHUNK_SIZE;
-
-					if(rc.x >= -round_x&& rc.x <= round_x)
+					if(rc.x >= -x_abs&& rc.x <= x_abs)
 					{
 						return true;
 					}
