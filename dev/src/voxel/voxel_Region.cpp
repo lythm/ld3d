@@ -79,7 +79,7 @@ namespace ld3d
 		{
 			if(m_heightMap == nullptr)
 			{
-				m_heightMap = (float*)GetAllocator()->Alloc(sizeof(float) * REGION_SIZE * REGION_SIZE);
+				m_heightMap = (float*)allocator()->Alloc(sizeof(float) * REGION_SIZE * REGION_SIZE);
 			}
 
 			PerlinNoise p(3, 128, 4096, rand());
@@ -205,7 +205,7 @@ namespace ld3d
 
 			m_heightMapAABBox.Make(math::Vector3(0, 0, 0), math::Vector3(REGION_SIZE, REGION_SIZE, REGION_SIZE));
 
-			m_pOctTree = GetPoolManager()->AllocOctTree(GetRegionOrigin());
+			m_pOctTree = pool_manager()->AllocOctTree(GetRegionOrigin());
 			m_pOctTree->SetBound(math::AABBox(math::Vector3(0, 0, 0), math::Vector3(REGION_SIZE, REGION_SIZE, REGION_SIZE)));
 			return true;
 		}
@@ -213,7 +213,7 @@ namespace ld3d
 		{
 			if(m_heightMap != nullptr)
 			{
-				GetAllocator()->Free(m_heightMap);
+				allocator()->Free(m_heightMap);
 				m_heightMap = nullptr;
 			}
 

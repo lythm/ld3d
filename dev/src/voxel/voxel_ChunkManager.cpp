@@ -7,7 +7,7 @@ namespace ld3d
 {
 	namespace voxel
 	{
-		ChunkManager::ChunkManager(void) : m_chunkmap(GetAllocator()), m_dirtyList(GetAllocator())
+		ChunkManager::ChunkManager(void) : m_chunkmap(allocator()), m_dirtyList(allocator())
 		{
 
 		}
@@ -102,7 +102,7 @@ namespace ld3d
 		}
 		ChunkPtr ChunkManager::AllocChunk(uint8 data[])
 		{
-			return GetPoolManager()->AllocChunk(shared_from_this(), data);
+			return pool_manager()->AllocChunk(shared_from_this(), data);
 
 
 			//if(GetAllocator() != nullptr)
@@ -329,6 +329,38 @@ namespace ld3d
 			return false;
 
 		}
-		
+
+		void ChunkManager::PickAdjacentChunks(const ChunkKey& key, const std::function<void(const ChunkKey&, ChunkPtr)>& op)
+		{
+			Coord this_coord = key.ToChunkCoord();
+
+			ChunkPtr pChunk;
+			ChunkKey chunk_key;
+
+			chunk_key.FromChunkCoord(this_coord + Coord(-1, 0, 0));
+			pChunk = FindChunk(chunk_key);
+			op(chunk_key, pChunk);
+
+			chunk_key.FromChunkCoord(this_coord + Coord(+1, 0, 0));
+			pChunk = FindChunk(chunk_key);
+			op(chunk_key, pChunk);
+
+			chunk_key.FromChunkCoord(this_coord + Coord(0, -1, 0));
+			pChunk = FindChunk(chunk_key);
+			op(chunk_key, pChunk);
+
+			chunk_key.FromChunkCoord(this_coord + Coord(0, +1, 0));
+			pChunk = FindChunk(chunk_key);
+			op(chunk_key, pChunk);
+
+			chunk_key.FromChunkCoord(this_coord + Coord(0, 0, -1));
+			pChunk = FindChunk(chunk_key);
+			op(chunk_key, pChunk);
+
+			chunk_key.FromChunkCoord(this_coord + Coord(0, 0, +1));
+			pChunk = FindChunk(chunk_key);
+			op(chunk_key, pChunk);
+
+		}
 	}
 }

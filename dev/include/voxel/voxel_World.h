@@ -15,7 +15,7 @@ namespace ld3d
 			World(void);
 			virtual ~World(void);
 
-			bool											Create(const std::string& name, WorldGenPtr pGen, MeshizerPtr pMeshizer, Allocator* pAlloc = nullptr);
+			bool											Create(const std::string& name, WorldGenPtr pGen, MeshizerPtr pMeshizer, Allocator* pAlloc = nullptr, Logger logger = Logger());
 
 			void											Destroy();
 

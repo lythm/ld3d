@@ -13,7 +13,7 @@ namespace ld3d
 {
 	namespace voxel
 	{
-		ChunkLoader::ChunkLoader(void) : m_loadingQueue(GetAllocator()), m_unloadingQueue(GetAllocator())
+		ChunkLoader::ChunkLoader(void) : m_loadingQueue(allocator()), m_unloadingQueue(allocator())
 		{
 		}
 
@@ -78,7 +78,7 @@ namespace ld3d
 				return false;
 			}
 			
-			pMesh = GetPoolManager()->AllocChunkMesh();
+			pMesh = pool_manager()->AllocChunkMesh();
 			
 
 			Coord chunk_origin = pChunk->GetKey().ToChunkOrigin();
@@ -117,7 +117,40 @@ namespace ld3d
 				m_pChunkManager->AddChunk(pChunk);
 				m_pRegionManager->AddChunk(pChunk);
 			}
+			else
+			{
+				pChunk = nullptr;
+			}
 
+			Coord this_coord = key.ToChunkCoord();
+			m_pChunkManager->PickAdjacentChunks(key, [&](const ChunkKey& adjKey, ChunkPtr pAdj)
+			{
+				if(pChunk != nullptr)
+				{
+					pChunk->GetAdjacency().OnAdjacentChunkLoaded(adjKey.ToChunkCoord(), pAdj);
+				}
+
+				if(pAdj == nullptr)
+				{
+					return;
+				}
+
+				pAdj->GetAdjacency().OnAdjacentChunkLoaded(this_coord, pChunk);
+
+				if(pAdj != nullptr)
+				{
+					if(false == pChunk->GetAdjacency().IsVisible())
+					{
+						ChunkMeshPtr pMesh = pChunk->GetMesh();
+						if(pMesh)
+						{
+							pMesh->Reset();
+						}
+					}
+				}
+
+			});
+			
 			return true;
 		}
 		bool ChunkLoader::ProcessLoadingQueue()
@@ -258,6 +291,21 @@ namespace ld3d
 		}
 		bool ChunkLoader::RequestChunkMesh(ChunkPtr pChunk)
 		{
+			if(pChunk == nullptr)
+			{
+				return false;
+			}
+
+			if(false == pChunk->GetAdjacency().IsVisible())
+			{
+				ChunkMeshPtr pMesh = pChunk->GetMesh();
+				if(pMesh)
+				{
+					pMesh->Reset();
+				}
+				return false;
+			}
+
 			return GenerateChunkMesh(pChunk);
 		}
 		bool ChunkLoader::GenerateChunk(ChunkPtr pChunk)
@@ -404,6 +452,24 @@ namespace ld3d
 		}
 		bool ChunkLoader::RequestChunkMeshAsync(const ChunkKey& key)
 		{
+			ChunkPtr pChunk = m_pChunkManager->FindChunk(key);
+
+			if(pChunk == nullptr)
+			{
+				return false;
+			}
+
+			if(false == pChunk->GetAdjacency().IsVisible())
+			{
+				ChunkMeshPtr pMesh = pChunk->GetMesh();
+				if(pMesh)
+				{
+					pMesh->Reset();
+				}
+				return false;
+			}
+
+
 			LoaderCommand cmd;
 			cmd.id = LoaderCommand::gen_chunkmesh;
 			cmd.key = key;

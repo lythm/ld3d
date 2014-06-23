@@ -47,6 +47,7 @@ namespace ld3d
 
 			uint64 dt = os_get_tick() - t;
 
+			logger() << "request chunk: " << dt << "ms\n";
 			m_lastVP = m_VP;
 			return true;
 		}

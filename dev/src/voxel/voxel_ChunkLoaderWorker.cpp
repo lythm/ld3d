@@ -1,5 +1,5 @@
 #include "voxel_pch.h"
-#include "ChunkLoaderWorker.h"
+#include "voxel_ChunkLoaderWorker.h"
 
 namespace ld3d
 {

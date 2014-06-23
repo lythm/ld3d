@@ -18,7 +18,8 @@ namespace ld3d
 {
 	namespace voxel
 	{
-		Allocator*						GetAllocator();
+		Allocator*						allocator();
+		Logger&							logger();
 
 		struct pool_allocator
 		{
@@ -27,15 +28,15 @@ namespace ld3d
 
 			static char * malloc(const size_type bytes)
 			{ 
-				return reinterpret_cast<char *>(GetAllocator()->Alloc(bytes)); 
+				return reinterpret_cast<char *>(allocator()->Alloc(bytes)); 
 			}
 			static void free(char * const block)
 			{ 
-				GetAllocator()->Free(block);
+				allocator()->Free(block);
 			}
 		};
 
 
-		PoolManagerPtr					GetPoolManager();
+		PoolManagerPtr					pool_manager();
 	}
 }

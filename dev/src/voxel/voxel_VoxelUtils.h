@@ -27,6 +27,8 @@ namespace ld3d
 			static Coord							ToChunkOrigin(const Coord& c);
 			// global to chunk space
 			static Coord							ToChunkCoord(const Coord& c);
+
+			
 		private:
 			static float							_rand (float min, float max);
 			static float							_fractal_rand(float v);

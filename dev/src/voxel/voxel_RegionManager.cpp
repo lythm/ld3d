@@ -35,7 +35,7 @@ namespace ld3d
 
 			if(pRegion == nullptr)
 			{
-				pRegion = std::allocate_shared<Region, std_allocator_adapter<Region>>(GetAllocator());
+				pRegion = std::allocate_shared<Region, std_allocator_adapter<Region>>(allocator());
 				pRegion->Initialize(m_pWorld, c);
 			//	pRegion->Load(m_pChunkLoader, false, on_chunk_loaded);
 
@@ -49,7 +49,7 @@ namespace ld3d
 
 			if(pRegion == nullptr)
 			{
-				pRegion = std::allocate_shared<Region, std_allocator_adapter<Region>>(GetAllocator());
+				pRegion = std::allocate_shared<Region, std_allocator_adapter<Region>>(allocator());
 				pRegion->Initialize(m_pWorld, c);
 				
 			//	pRegion->Load(m_pChunkLoader, true, on_chunk_loaded);
@@ -112,7 +112,7 @@ namespace ld3d
 						
 			if(pRegion == nullptr)
 			{
-				pRegion = alloc_object<Region>(GetAllocator());
+				pRegion = alloc_object<Region>(allocator());
 				pRegion->Initialize(m_pWorld, region_coord);
 			
 				m_regions.push_back(pRegion);

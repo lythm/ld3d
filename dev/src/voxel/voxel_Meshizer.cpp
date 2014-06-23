@@ -125,10 +125,11 @@ namespace ld3d
 */
 
 			Coord chunk_base = pChunk->GetKey().ToChunkOrigin();
+			ChunkAdjacency& adj = pChunk->GetAdjacency();
 
 			math::Vector3 vertex_offset( base_coord.x, base_coord.y, base_coord.z);
 
-			std::vector<VoxelFace, std_allocator_adapter<VoxelFace>>			mesh(GetAllocator());
+			std::vector<VoxelFace, std_allocator_adapter<VoxelFace>>			mesh(allocator());
 			mesh.reserve(10000);
 
 			for(int32 x = 0; x < CHUNK_SIZE; ++x)
@@ -165,7 +166,8 @@ namespace ld3d
 
 
 						// -x
-						if(pChunkManager->IsEmpty(Coord(x - 1, y, z) + chunk_base))
+						//if(pChunkManager->IsEmpty(Coord(x - 1, y, z) + chunk_base))
+						if(adj.CheckBlockAdjacency(x, y, z, ChunkAdjacency::n_x) == false)
 						{
 							VoxelFace face = s_Cube[0];
 							face.verts[0] += math::Vector3(x, y, z);
@@ -186,7 +188,8 @@ namespace ld3d
 						}
 
 						// +x
-						if(pChunkManager->IsEmpty(Coord(x + 1, y, z) + chunk_base))
+						//if(pChunkManager->IsEmpty(Coord(x + 1, y, z) + chunk_base))
+						if(adj.CheckBlockAdjacency(x, y, z, ChunkAdjacency::p_x) == false)
 						{
 							VoxelFace face = s_Cube[1];
 							face.verts[0] += math::Vector3(x, y, z);
@@ -207,7 +210,8 @@ namespace ld3d
 						}
 
 						// -y
-						if(pChunkManager->IsEmpty(Coord(x , y - 1, z) + chunk_base))
+						//if(pChunkManager->IsEmpty(Coord(x , y - 1, z) + chunk_base))
+						if(adj.CheckBlockAdjacency(x, y, z, ChunkAdjacency::n_y) == false)
 						{
 							VoxelFace face = s_Cube[2];
 							face.verts[0] += math::Vector3(x, y, z);
@@ -228,7 +232,8 @@ namespace ld3d
 						}
 
 						// +y
-						if(pChunkManager->IsEmpty(Coord(x, y + 1, z) + chunk_base))
+						//if(pChunkManager->IsEmpty(Coord(x, y + 1, z) + chunk_base))
+						if(adj.CheckBlockAdjacency(x, y, z, ChunkAdjacency::p_y) == false)
 						{
 							VoxelFace face = s_Cube[3];
 							face.verts[0] += math::Vector3(x, y, z);
@@ -249,7 +254,8 @@ namespace ld3d
 						}
 
 						// -z
-						if(pChunkManager->IsEmpty(Coord(x, y, z - 1) + chunk_base))
+						//if(pChunkManager->IsEmpty(Coord(x, y, z - 1) + chunk_base))
+						if(adj.CheckBlockAdjacency(x, y, z, ChunkAdjacency::n_z) == false)
 						{
 							VoxelFace face = s_Cube[4];
 							face.verts[0] += math::Vector3(x, y, z);
@@ -270,7 +276,8 @@ namespace ld3d
 						}
 
 						// +z
-						if(pChunkManager->IsEmpty(Coord(x, y, z + 1) + chunk_base))
+						//if(pChunkManager->IsEmpty(Coord(x, y, z + 1) + chunk_base))
+						if(adj.CheckBlockAdjacency(x, y, z, ChunkAdjacency::p_z) == false)
 						{
 							VoxelFace face = s_Cube[5];
 							face.verts[0] += math::Vector3(x, y, z);

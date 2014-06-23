@@ -3,26 +3,16 @@
 #include "voxel/voxel_ChunkKey.h"
 
 #include "voxel/voxel_Coord.h"
-#include <bitset>
+#include "voxel/voxel_ChunkAdjacency.h"
 
 namespace ld3d
 {
 	namespace voxel
 	{
-		class _DLL_CLASS Chunk : public RefCount
+		class _DLL_CLASS Chunk : public RefCount, public std::enable_shared_from_this<Chunk>
 		{
 		public:
-			enum
-			{
-				n_x			= 2,
-				p_x			= 3,
-				n_y			= 4,
-				p_y			= 5,
-				n_z			= 6,
-				p_z			= 7,
-				all_bits	= 0xfc,
-
-			};
+			
 			// if data is null, empty chunk is constructed.
 			Chunk(ChunkManagerPtr pChunkManager, uint8 data[]);
 
@@ -54,7 +44,8 @@ namespace ld3d
 				}
 
 				m_data[index]	= val;
-				UpdateAllNeighBour(x, y, z, val != VT_EMPTY);
+
+				m_adjacency.OnBlockChange(x, y, z, val != VT_EMPTY);
 
 				SetDirty(true);
 				m_modified = true;
@@ -99,32 +90,11 @@ namespace ld3d
 			ChunkMeshPtr									GetMesh();
 			void											SetMesh(ChunkMeshPtr pMesh);
 
-			// set this block neightbour flag
-			void											SetNeightbourFlag(int32 x, int32 y, int32 z, int32 neighbour, bool val);
-			void											SetNeightbourFlag(int32 index, int32 neighbour, bool val);
-			bool											CheckNeighbourFlag(int32 x, int32 y, int32 z, int32 neighbour);
-			bool											CheckNeighbourFlag(int32 index, int32 neighbour);
-
-			uint8											GetNeighbourFlag(int32 x, int32 y, int32 z);
-			uint8											GetNeighbourFlag(int32 index);
-
-
-			void											SetChunkNeighbour(uint32 neighbour, bool val);
-			bool											GetChunkNeightbour(uint32 neighbour);
-
-			void											OnNeibourChunkLoaded(ChunkPtr pChunk);
-
-			bool											AllNeighbourLoaded();
+			ChunkAdjacency&									GetAdjacency();
 		private:
-
-			void											SetBit(uint8& bits, uint32 pos, bool val);
-			bool											GetBit(uint8 bits, uint32 pos);
-
-			bool											_check_coord_range(int32 x, int32 y, int32 z);
-			void											UpdateAllNeighBour(int32 x, int32 y, int32 z, bool val);
+						
 		private:
 			uint8											m_data[CHUNK_SIZE * CHUNK_SIZE * CHUNK_SIZE];
-			uint8											m_neighbour[CHUNK_SIZE * CHUNK_SIZE * CHUNK_SIZE];
 			ChunkKey										m_key;
 
 			int32											m_counter;
@@ -138,7 +108,7 @@ namespace ld3d
 
 			ChunkMeshPtr									m_pMesh;
 
-			uint8											m_chunkNeighbour;
+			ChunkAdjacency									m_adjacency;
 		};
 	}
 }

@@ -27,7 +27,7 @@ namespace ld3d
 		const uint32 REGION_SIZE												= REGION_CHUNK_LENGTH * CHUNK_SIZE;			// in block
 		
 		
-
+		
 		class World;
 		class WorldGen;
 		class WorldGenPass;

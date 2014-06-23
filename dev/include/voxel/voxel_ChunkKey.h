@@ -50,7 +50,19 @@ namespace ld3d
 
 				return Coord(x, y, z );
 			}
+			Coord												ToChunkCoord() const
+			{
+				int32 c_x = (m_key >> 36) & 0x000000000fffffff;
+				int8 c_y = (m_key >> 28) & 0x00000000000000ff;
+				int32 c_z = m_key & 0x000000000fffffff;
 
+
+				c_x = c_x << 4 >> 4;
+				c_z = c_z << 4 >> 4;
+
+
+				return Coord(c_x, c_y, c_z );
+			}
 			void												FromCoord(const Coord& coord)
 			{
 				uint64 c_x = uint64(coord.x) / CHUNK_SIZE;
@@ -61,7 +73,16 @@ namespace ld3d
 					((c_y & 0x00000000000000ff) << 28) |
 					 (c_z & 0x000000000fffffff));
 			}
+			void												FromChunkCoord(const Coord& chunk_coord)
+			{
+				uint64 c_x = uint64(chunk_coord.x);
+				uint64 c_y = uint64(chunk_coord.y);
+				uint64 c_z = uint64(chunk_coord.z);
 
+				m_key = (((c_x & 0x000000000fffffff) << 36 ) | 
+					((c_y & 0x00000000000000ff) << 28) |
+					 (c_z & 0x000000000fffffff));
+			}
 
 			bool operator ==(const ChunkKey& key) const
 			{

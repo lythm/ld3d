@@ -135,7 +135,7 @@ namespace ld3d
 				{
 					if(m_pChildren[i] == nullptr)
 					{
-						m_pChildren[i] = GetPoolManager()->AllocOctTree(m_regionOrigin);
+						m_pChildren[i] = pool_manager()->AllocOctTree(m_regionOrigin);
 						m_pChildren[i]->SetBound(sub[i]);
 					}
 					return m_pChildren[i]->_add_chunk(pChunk);
