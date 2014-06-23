@@ -67,6 +67,8 @@ namespace ld3d
 			TaskQueue																				m_out;
 			MeshizerPtr																				m_pMeshizer;
 			boost::thread																			m_thread;
+
+			PerlinNoise																				m_noise;
 		};
 	}
 }

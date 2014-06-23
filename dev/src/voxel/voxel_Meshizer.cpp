@@ -24,7 +24,7 @@ namespace ld3d
 			s_Cube[0].ao[1]		= math::Vector4(1, 1, 1, 1);
 			s_Cube[0].ao[2]		= math::Vector4(1, 1, 1, 1);
 			s_Cube[0].ao[3]		= math::Vector4(1, 1, 1, 1);
-			
+
 			s_Cube[0].normal = math::Vector3(-1, 0, 0);
 
 			// +x
@@ -32,7 +32,7 @@ namespace ld3d
 			s_Cube[1].verts[1] = math::Vector3(1, 1, 0);
 			s_Cube[1].verts[2] = math::Vector3(1, 0, 1);
 			s_Cube[1].verts[3] = math::Vector3(1, 1, 1);
-			
+
 			s_Cube[1].ao[0]		= math::Vector4(1, 1, 1, 1);
 			s_Cube[1].ao[1]		= math::Vector4(1, 1, 1, 1);
 			s_Cube[1].ao[2]		= math::Vector4(1, 1, 1, 1);
@@ -58,7 +58,7 @@ namespace ld3d
 			s_Cube[3].verts[1] = math::Vector3(0, 1, 1);
 			s_Cube[3].verts[2] = math::Vector3(1, 1, 0);
 			s_Cube[3].verts[3] = math::Vector3(1, 1, 1);
-			
+
 			s_Cube[3].ao[0]		= math::Vector4(1, 1, 1, 1);
 			s_Cube[3].ao[1]		= math::Vector4(1, 1, 1, 1);
 			s_Cube[3].ao[2]		= math::Vector4(1, 1, 1, 1);
@@ -114,6 +114,74 @@ namespace ld3d
 			m_materialMap.clear();
 			m_templates.clear();
 		}
+		void Meshizer::GenerateFaceAO(const ChunkKey& key, uint8* chunk_data, const ChunkAdjacency& adj, VoxelFace& face)
+		{
+			//Coord chunk_coord = key.ToChunkOrigin();
+			//
+			//for(int i = 0; i < 4; ++i)
+			//{
+			//	float ao = 0;
+
+			//	if(adj.CheckBlockAdjacency(face.verts[i].x + c_x + 0.5, face.verts[i].y + c_y + 0.5, face.verts[i].z + c_z + 0.5f))
+			//	{
+			//		ao ++;
+			//	}
+
+
+			//	if(pRegion->Empty(face.verts[i].x + c_x + 0.5, face.verts[i].y + c_y + 0.5, face.verts[i].z + c_z - 0.5f))
+			//	{
+			//		ao ++;
+			//	}
+
+
+			//	if(pRegion->Empty(face.verts[i].x + c_x -0.5 , face.verts[i].y + c_y + 0.5, face.verts[i].z + c_z + 0.5))
+			//	{
+			//		ao ++;
+			//	}
+
+
+			//	if(pRegion->Empty(face.verts[i].x + c_x - 0.5, face.verts[i].y + c_y + 0.5, face.verts[i].z + c_z - 0.5))
+			//	{
+			//		ao ++;
+			//	}
+
+
+			//	///
+			//	if(pRegion->Empty(face.verts[i].x + c_x + 0.5, face.verts[i].y + c_y - 0.5, face.verts[i].z + c_z + 0.5f))
+			//	{
+			//		ao ++;
+			//	}
+
+
+			//	if(pRegion->Empty(face.verts[i].x + c_x + 0.5, face.verts[i].y + c_y - 0.5, face.verts[i].z + c_z - 0.5f))
+			//	{
+			//		ao ++;
+			//	}
+
+
+			//	if(pRegion->Empty(face.verts[i].x + c_x -0.5 , face.verts[i].y + c_y - 0.5, face.verts[i].z + c_z + 0.5))
+			//	{
+			//		ao ++;
+			//	}
+
+
+			//	if(pRegion->Empty(face.verts[i].x + c_x - 0.5, face.verts[i].y + c_y - 0.5, face.verts[i].z + c_z - 0.5))
+			//	{
+			//		ao ++;
+			//	}
+
+
+
+			//	ao = ao / 8.0f ;
+
+			//	ao += 0.3f;
+			//	ao = ao > 1? 1 : ao;
+
+			//	face.ao[i] = math::Vector4(ao, ao, ao, 1);
+
+			//	//face.ao[i] = math::Color4(1, 1, 1, 1);
+			//}
+		}
 		void Meshizer::DoGenerateMesh(const ChunkKey& key, uint8* chunk_data, const ChunkAdjacency& adj, const Coord& base_coord, ChunkMeshPtr pMesh)
 		{
 			Coord chunk_base = key.ToChunkOrigin();
@@ -147,7 +215,7 @@ namespace ld3d
 
 
 						// cube block
-						
+
 						std::map<uint8, VoxelMaterial>::iterator it = m_materialMap.find(type);
 						if(it == m_materialMap.end())
 						{
@@ -167,7 +235,7 @@ namespace ld3d
 							face.verts[1] += math::Vector3(x, y, z);
 							face.verts[2] += math::Vector3(x, y, z);
 							face.verts[3] += math::Vector3(x, y, z);
-							
+
 							face.uv[0] = mat.uv[VoxelMaterial::n_x][0];
 							face.uv[1] = mat.uv[VoxelMaterial::n_x][1];
 							face.uv[2] = mat.uv[VoxelMaterial::n_x][2];
@@ -176,7 +244,7 @@ namespace ld3d
 
 							face.material = mat.materials[VoxelMaterial::n_x];
 							face.type = type;
-							
+
 							mesh.push_back(face);
 						}
 
@@ -198,7 +266,7 @@ namespace ld3d
 
 							face.material = mat.materials[VoxelMaterial::p_x];
 							face.type = type;
-							
+
 							mesh.push_back(face);
 						}
 
@@ -220,7 +288,7 @@ namespace ld3d
 
 							face.material = mat.materials[VoxelMaterial::n_y];
 							face.type = type;
-							
+
 							mesh.push_back(face);
 						}
 
@@ -242,7 +310,7 @@ namespace ld3d
 
 							face.material = mat.materials[VoxelMaterial::p_y];
 							face.type = type;
-							
+
 							mesh.push_back(face);
 						}
 
@@ -264,7 +332,7 @@ namespace ld3d
 
 							face.material = mat.materials[VoxelMaterial::n_z];
 							face.type = type;
-							
+
 							mesh.push_back(face);
 						}
 
@@ -286,7 +354,7 @@ namespace ld3d
 
 							face.material = mat.materials[VoxelMaterial::p_z];
 							face.type = type;
-							
+
 							mesh.push_back(face);
 						}
 					}
@@ -299,20 +367,35 @@ namespace ld3d
 			{
 				return;
 			}
-			
+
+			for(auto& face : mesh)
+			{
+				float ao = ((float)rand() / RAND_MAX) / 2.0f + 0.5f;
+				face.ao[0] = math::Vector4(ao, ao, ao, 1);
+
+				ao = ((float)rand() / RAND_MAX) / 2.0f + 0.5f;
+				face.ao[1] = math::Vector4(ao, ao, ao, 1);
+
+				ao = ((float)rand() / RAND_MAX) / 2.0f + 0.5f;
+				face.ao[2] = math::Vector4(ao, ao, ao, 1);
+
+				ao = ((float)rand() / RAND_MAX) / 2.0f + 0.5f;
+				face.ao[3] = math::Vector4(ao, ao, ao, 1);
+			}
+
 			pMesh->Reset();
 
 			ChunkMesh::Subset sub;
 			sub.type = VT_EMPTY;
 			sub.vertexCount				= 0;
 			sub.vertexBuffer			= nullptr;
-			
+
 			sub.type					= mesh[0].type;
 			sub.material_id				= mesh[0].material;
 			pMesh->AllocVertexBuffer(mesh.size() * 6);
-			
+
 			ChunkMesh::VoxelVertex* pData = (ChunkMesh::VoxelVertex*)pMesh->GetVertexBuffer();
-			
+
 			sub.vertexBuffer = pData;
 
 			for(size_t i = 0; i < mesh.size(); ++i)
@@ -380,9 +463,9 @@ namespace ld3d
 
 			/*if(pChunk->IsEmpty())
 			{
-				return;
+			return;
 			}
-*/
+			*/
 
 			Coord chunk_base = pChunk->GetKey().ToChunkOrigin();
 			ChunkAdjacency& adj = pChunk->GetAdjacency();
@@ -414,7 +497,7 @@ namespace ld3d
 
 
 						// cube block
-						
+
 						std::map<uint8, VoxelMaterial>::iterator it = m_materialMap.find(type);
 						if(it == m_materialMap.end())
 						{
@@ -434,7 +517,7 @@ namespace ld3d
 							face.verts[1] += math::Vector3(x, y, z);
 							face.verts[2] += math::Vector3(x, y, z);
 							face.verts[3] += math::Vector3(x, y, z);
-							
+
 							face.uv[0] = mat.uv[VoxelMaterial::n_x][0];
 							face.uv[1] = mat.uv[VoxelMaterial::n_x][1];
 							face.uv[2] = mat.uv[VoxelMaterial::n_x][2];
@@ -443,7 +526,7 @@ namespace ld3d
 
 							face.material = mat.materials[VoxelMaterial::n_x];
 							face.type = type;
-							
+
 							mesh.push_back(face);
 						}
 
@@ -465,7 +548,7 @@ namespace ld3d
 
 							face.material = mat.materials[VoxelMaterial::p_x];
 							face.type = type;
-							
+
 							mesh.push_back(face);
 						}
 
@@ -487,7 +570,7 @@ namespace ld3d
 
 							face.material = mat.materials[VoxelMaterial::n_y];
 							face.type = type;
-							
+
 							mesh.push_back(face);
 						}
 
@@ -509,7 +592,7 @@ namespace ld3d
 
 							face.material = mat.materials[VoxelMaterial::p_y];
 							face.type = type;
-							
+
 							mesh.push_back(face);
 						}
 
@@ -531,7 +614,7 @@ namespace ld3d
 
 							face.material = mat.materials[VoxelMaterial::n_z];
 							face.type = type;
-							
+
 							mesh.push_back(face);
 						}
 
@@ -553,7 +636,7 @@ namespace ld3d
 
 							face.material = mat.materials[VoxelMaterial::p_z];
 							face.type = type;
-							
+
 							mesh.push_back(face);
 						}
 					}
@@ -566,20 +649,20 @@ namespace ld3d
 			{
 				return;
 			}
-			
+
 			pMesh->Reset();
 
 			ChunkMesh::Subset sub;
 			sub.type = VT_EMPTY;
 			sub.vertexCount				= 0;
 			sub.vertexBuffer			= nullptr;
-			
+
 			sub.type					= mesh[0].type;
 			sub.material_id				= mesh[0].material;
 			pMesh->AllocVertexBuffer(mesh.size() * 6);
-			
+
 			ChunkMesh::VoxelVertex* pData = (ChunkMesh::VoxelVertex*)pMesh->GetVertexBuffer();
-			
+
 			sub.vertexBuffer = pData;
 
 			for(size_t i = 0; i < mesh.size(); ++i)

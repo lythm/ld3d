@@ -20,13 +20,18 @@ namespace ld3d
 			return perlin_noise_2D(vec);
 		};
 
+		
+
+		double														perlin_noise_2D(double vec[2]);
+		double														perlin_noise_3D(double vec[3]);
 	private:
 		void														init_perlin(int n,double p);
-		double														perlin_noise_2D(double vec[2]);
-
+		
 		double														noise1(double arg);
 		double														noise2(double vec[2]);
 		double														noise3(double vec[3]);
+		
+		
 		void														normalize2(double v[2]);
 		void														normalize3(double v[3]);
 		void														init(void);

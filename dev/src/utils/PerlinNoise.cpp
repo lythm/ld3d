@@ -237,4 +237,28 @@ namespace ld3d
 
 		return result;
 	}
+
+	double PerlinNoise::perlin_noise_3D(double vec[3])
+	{
+		int terms    = m_Octaves;
+		double freq   = m_Frequency;
+		double result = 0.0f;
+		double amp = m_Amplitude;
+
+		vec[0]*=freq;
+		vec[1]*=freq;
+		vec[2]*=freq;
+
+		for( int i=0; i<terms; i++ )
+		{
+			result += noise3(vec)*amp;
+			vec[0] *= 2.0f;
+			vec[1] *= 2.0f;
+			vec[2] *= 2.0f;
+			amp*=0.5f;
+		}
+
+
+		return result;
+	}
 }

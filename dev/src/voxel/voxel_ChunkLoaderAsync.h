@@ -25,7 +25,7 @@ namespace ld3d
 
 			void													_handle_load_chunk_ret(ChunkLoaderWorker::Task& t);
 			void													_handle_gen_mesh(ChunkLoaderWorker::Task& t);
-			bool													GenerateChunkMesh(ChunkPtr pChunk);
+
 		private:
 			ChunkManagerPtr											m_pChunkManager;
 			RegionManagerPtr										m_pRegionManager;

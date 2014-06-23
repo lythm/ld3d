@@ -8,7 +8,7 @@ namespace ld3d
 {
 	namespace voxel
 	{
-		ChunkLoaderWorker::ChunkLoaderWorker(uint16 inQueueSize, uint16 outQueueSize) : m_in(inQueueSize), m_out(outQueueSize)
+		ChunkLoaderWorker::ChunkLoaderWorker(uint16 inQueueSize, uint16 outQueueSize) : m_in(inQueueSize), m_out(outQueueSize), m_noise(1, 10, 1, os_get_tick())
 		{
 		}
 
@@ -62,6 +62,7 @@ namespace ld3d
 		}
 		void ChunkLoaderWorker::_load_chunk(Task& t)
 		{
+
 			// load chunk
 			const ChunkKey& key = t.key;
 
@@ -72,27 +73,33 @@ namespace ld3d
 			{
 				for(int z = 0; z < CHUNK_SIZE; ++z)
 				{
-					float h = 0;
-
-					if(h < (chunk_origin.y))
+					for(int y = 0; y < CHUNK_SIZE; ++y)
 					{
-						continue;
-					}
+						if( (y + chunk_origin.y) > 50)
+						{
+							continue;
+						}
+						double vec[3];
+						vec[0] = x + chunk_origin.x;
+						vec[1] = y + chunk_origin.y;
+						vec[2] = z + chunk_origin.z;
+					
 
-					float dy = h - chunk_origin.y;
+						vec[0] /= 1000;
+						vec[1] /= 1000;
+						vec[2] /= 1000;
 
-					dy = dy > CHUNK_SIZE ? CHUNK_SIZE : dy;
+						double h = m_noise.perlin_noise_3D(vec);
 
-					if(dy == 0)
-					{
-						dy = 1;
-					}
-					for(int y = 0; y < dy; ++y)
-					{
-						uint32 index = Chunk::ToIndex(x, y, z);
-						t.chunk_data[index] = 1;
-						t.chunk_empty = false;
-						t.chunk_adjacency.OnBlockChange(x, y, z, true);
+						h -= (y + chunk_origin.y) / 100;
+
+						if(h > 0 && h < 1)
+						{
+							uint32 index = Chunk::ToIndex(x, y, z);
+							t.chunk_data[index] = 1;
+							t.chunk_empty = false;
+							t.chunk_adjacency.OnBlockChange(x, y, z, true);
+						}
 					}
 				}
 			}

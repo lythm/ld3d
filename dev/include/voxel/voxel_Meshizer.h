@@ -9,6 +9,16 @@ namespace ld3d
 	{
 		class _DLL_CLASS Meshizer
 		{
+			struct VoxelFace
+			{
+				math::Vector3			verts[4];
+				math::Vector3			normal;
+				math::Vector3			uv[4];
+				uint8					type;
+				uint32					material;
+				math::Vector4			ao[4];
+			};
+
 		public:
 
 			struct VoxelMaterial
@@ -92,18 +102,10 @@ namespace ld3d
 			void										AddVoxelMaterial(uint8 type, const VoxelMaterial& mat);
 		private:
 			static void									InitializeCubeVertex(uint32 size);
-
+			void										GenerateFaceAO(const ChunkKey& key, uint8* chunk_data, const ChunkAdjacency& adj, VoxelFace& face);
 		private:
 
-			struct VoxelFace
-			{
-				math::Vector3			verts[4];
-				math::Vector3			normal;
-				math::Vector3			uv[4];
-				uint8					type;
-				uint32					material;
-				math::Vector4			ao[4];
-			};
+			
 
 			std::map<uint8, VoxelMaterial>				m_materialMap;
 

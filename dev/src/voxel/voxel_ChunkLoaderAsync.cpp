@@ -222,41 +222,6 @@ namespace ld3d
 		{
 			return m_pendingCount;
 		}
-		bool ChunkLoaderAsync::GenerateChunkMesh(ChunkPtr pChunk)
-		{
-			if(m_pMeshizer == nullptr)
-			{
-				return false;
-			}
-
-			if(pChunk == nullptr)
-			{
-				return false;
-			}
-
-			ChunkMeshPtr pMesh = pChunk->GetMesh();
-			if(pMesh != nullptr)
-			{
-				return false;
-			}
-			
-			pMesh = pool_manager()->AllocChunkMesh();
-			
-
-			Coord chunk_origin = pChunk->GetKey().ToChunkOrigin();
-			Coord region_origin = VoxelUtils::ToRegionOrigin(chunk_origin);
-
-
-			Coord chunk_mesh_base = chunk_origin - region_origin;
-			
-			m_pMeshizer->GenerateMesh(pChunk, chunk_mesh_base, pMesh);
-			if(pMesh->GetSubsetCount() == 0)
-			{
-				return false;
-			}
-			pChunk->SetMesh(pMesh);
-
-			return true;
-		}
+		
 	}
 }
