@@ -26,6 +26,18 @@ namespace ld3d
 
 			m_subsets.clear();
 		}
+		void ChunkMesh::Release()
+		{
+			if(m_pVertexBuffer)
+			{
+				allocator()->Free(m_pVertexBuffer);
+				m_pVertexBuffer = nullptr;
+			}
+
+			m_subsets.clear();
+
+			Reset();
+		}
 		bool ChunkMesh::Reset()
 		{
 			m_nVertexCount				= 0;

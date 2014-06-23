@@ -58,8 +58,36 @@ namespace ld3d
 		{
 			m_pWorld = m_pManager->alloc_object<voxel::World>();
 		}
+		using namespace voxel;
 
-		if(false == m_pWorld->Create(name, nullptr, nullptr, m_pManager->GetAllocator(), m_pManager->logger()))
+		Meshizer::VoxelMaterial mat;
+		mat.type = 1;
+		mat.materials[0] = 0;
+		mat.materials[1] = 0;
+		mat.materials[2] = 0;
+		mat.materials[3] = 0;
+		mat.materials[4] = 0;
+		mat.materials[5] = 0;
+		
+		
+
+		m_pMeshizer = m_pManager->alloc_object<voxel::Meshizer>();
+
+		m_pMeshizer->AddVoxelMaterial(1, mat);
+
+		MaterialPtr pMaterial = m_pManager->GetRenderManager()->CreateMaterialFromFile("./assets/voxel/material/voxel_world.material");
+		if(pMaterial == nullptr)
+		{
+			return false;
+		}
+
+		TexturePtr pTex = m_pManager->GetRenderManager()->CreateTextureFromFile("./assets/voxel/texture/dirt.dds");
+
+		pMaterial->GetParameterByName("diffuse_map")->SetParameterTexture(pTex);
+
+		m_materials.push_back(pMaterial);
+
+		if(false == m_pWorld->Create(name, nullptr, m_pMeshizer, m_pManager->GetAllocator(), m_pManager->logger()))
 		{
 			return false;
 		}
@@ -120,7 +148,12 @@ namespace ld3d
 	{
 		m_pManager->RemoveEventHandler(m_hEndFrame);
 		ClearPropertySet();
-
+		for(auto pMaterial : m_materials)
+		{
+			pMaterial->Release();
+		}
+		m_materials.clear();
+		m_pMeshizer.reset();
 		DestroyWorld();
 	}
 	voxel::WorldPtr VoxelWorldImpl2::GetWorld()
@@ -133,7 +166,7 @@ namespace ld3d
 
 		if(pRenderer != nullptr)
 		{
-			pRenderer->ResetWorld(pWorld);
+			pRenderer->ResetWorld(pWorld, m_materials);
 		}
 	}
 	void VoxelWorldImpl2::_on_end_frame(EventPtr pEvent)
@@ -169,5 +202,9 @@ namespace ld3d
 		}
 
 		return m_pWorld->GetChunkCount();
+	}
+	const std::vector<MaterialPtr>& VoxelWorldImpl2::GetMaterials()
+	{
+		return m_materials;
 	}
 }

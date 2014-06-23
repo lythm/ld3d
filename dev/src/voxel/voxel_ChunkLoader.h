@@ -10,25 +10,16 @@ namespace ld3d
 		{
 		public:
 
-			
-
 			ChunkLoader(void);
 			virtual ~ChunkLoader(void);
 
 			bool													Initialize(ChunkManagerPtr pChunkManager, RegionManagerPtr pRegionManager, MeshizerPtr pMeshizer);
 			void													Release();
 
-			void													LoadChunk(RegionPtr pRegion, const ChunkKey& key, const std::function<void(RegionPtr, ChunkPtr)>& on_loaded);
-			bool													LoadChunkSync(RegionPtr pRegion, const ChunkKey& key, const std::function<void(RegionPtr, ChunkPtr)>& on_loaded);
-			void													UnloadChunk(RegionPtr pRegion, const ChunkKey& key);
-			bool													UnloadChunkSync(RegionPtr pRegion, const ChunkKey& key);
-			void													ReleaseRegion(RegionPtr pRegion);
 			void													Update();
 
 			uint32													GetLoadingQueueSize() const;
 			uint32													GetUnloadingQueueSize() const;
-
-			void													SetMeshizer(MeshizerPtr pMeshizer);
 
 			bool													RequestChunkDiffSet(const Coord& center, uint32 radius, const Coord& refer_center, uint32 refer_radius);
 			bool													RequestChunk(const Coord& center, uint32 radius);

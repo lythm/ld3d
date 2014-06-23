@@ -105,6 +105,9 @@
     <ClInclude Include="..\..\include\voxel\voxel_ChunkAdjacency.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="voxel_ChunkLoaderAsync.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="voxel_pch.cpp">
@@ -177,6 +180,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="voxel_ChunkAdjacency.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="voxel_ChunkLoaderAsync.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

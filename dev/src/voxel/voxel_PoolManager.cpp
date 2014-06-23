@@ -21,11 +21,11 @@ namespace ld3d
 		PoolManager::~PoolManager(void)
 		{
 		}
-		ChunkPtr PoolManager::AllocChunk(ChunkManagerPtr pManager, uint8 data[])
+		ChunkPtr PoolManager::AllocChunk(ChunkManagerPtr pManager, const ChunkKey& key, uint8 data[])
 		{
 			void* p = m_chunkPool.malloc();
 			
-			return ChunkPtr(new(p)Chunk(pManager, data), [&](Chunk* pData){if(pData ==nullptr) return; pData->~Chunk();m_chunkPool.free(pData);});
+			return ChunkPtr(new(p)Chunk(pManager, key, data), [&](Chunk* pData){if(pData ==nullptr) return; pData->~Chunk();m_chunkPool.free(pData);});
 
 		}
 		ChunkMeshPtr PoolManager::AllocChunkMesh()

@@ -4,8 +4,9 @@
 
 #include <boost/pool/pool.hpp>
 #include <boost/lockfree/spsc_queue.hpp>
-#include <thread>
-#include <chrono>
+#include <boost/thread.hpp>
+
+#include <boost/chrono.hpp>
 
 #include "utils/utils_all.h"
 

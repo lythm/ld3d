@@ -253,6 +253,9 @@ namespace ld3d
 
 			return found;
 		}
-
+		const Coord& Octree::GetRegionOrigin() const
+		{
+			return m_regionOrigin;
+		}
 	}
 }

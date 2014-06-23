@@ -27,7 +27,7 @@ namespace ld3d
 		void										BindWorldViewPort(GameObjectPtr pNode);
 		void										MoveViewPortTo(uint32 x, uint32 y, uint32 z);
 
-		void										ResetWorld(voxel::WorldPtr pWorld);
+		void										ResetWorld(voxel::WorldPtr pWorld, const std::vector<MaterialPtr>& mats);
 		void										SetWorldViewPort(const voxel::Coord& center, uint32 size);
 	private:
 		void										on_event_frustumcull(EventPtr pEvent);
@@ -47,17 +47,12 @@ namespace ld3d
 		GameObjectPtr								m_pViewPortRoot;
 
 		voxel::WorldViewportPtr						m_pWorldVP;
-		voxel::MeshizerPtr							m_pMeshizer;
-
+		
 		EventHandlerID								m_hFrustumCull;
 
 		
 		RenderList									m_renderList;
-
-
-		std::vector<MaterialPtr>					m_materials;
-
-
+				
 		RenderDataPtr								m_pRenderData;
 
 		AABBoxRenderDataPtr							m_pAABBoxRenderData;
@@ -72,6 +67,6 @@ namespace ld3d
 		RenderManagerPtr							m_pRenderManager;
 
 		math::Matrix44								m_worldMatrix;
-
+		std::vector<MaterialPtr>					m_materials;
 	};
 }

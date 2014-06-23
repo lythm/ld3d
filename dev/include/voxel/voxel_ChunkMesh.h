@@ -31,7 +31,7 @@ namespace ld3d
 			ChunkMesh(void);
 			virtual ~ChunkMesh(void);
 
-
+			void													Release();
 			bool													Reset();
 			bool													AllocVertexBuffer(uint32 nVerts);
 			void*													GetVertexBuffer();

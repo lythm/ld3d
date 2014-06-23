@@ -1,6 +1,7 @@
 #pragma once
 
 #include "voxel/voxel_Coord.h"
+#include "voxel/voxel_ChunkKey.h"
 
 namespace ld3d
 {
@@ -12,7 +13,7 @@ namespace ld3d
 			PoolManager(void);
 			virtual ~PoolManager(void);
 
-			ChunkPtr										AllocChunk(ChunkManagerPtr pManager, uint8 data[]);
+			ChunkPtr										AllocChunk(ChunkManagerPtr pManager, const ChunkKey& key, uint8 data[]);
 			ChunkMeshPtr									AllocChunkMesh();
 			OctreePtr										AllocOctTree(const Coord& region_origin);
 		private:

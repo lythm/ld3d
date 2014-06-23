@@ -10,6 +10,7 @@
 #include "voxel/voxel_WorldViewPort.h"
 #include "voxel_RegionManager.h"
 #include "voxel_ChunkLoader.h"
+#include "voxel_ChunkLoaderAsync.h"
 
 namespace ld3d
 {
@@ -60,6 +61,12 @@ namespace ld3d
 				return false;
 			}
 			
+			m_pChunkLoaderAsync = alloc_object<ChunkLoaderAsync>(allocator());
+			if(m_pChunkLoaderAsync->Initialize(m_pChunkManager, m_pRegionManager, pMeshizer) == false)
+			{
+				return false;
+			}
+
 			m_pGen = pGen;
 
 			m_pGen = alloc_object<WorldGen>(allocator());//std::make_shared<WorldGen>();
@@ -84,6 +91,8 @@ namespace ld3d
 			m_pRegionManager.reset();
 			m_pChunkLoader->Release();
 			m_pChunkLoader.reset();
+			m_pChunkLoaderAsync->Release();
+			m_pChunkLoaderAsync.reset();
 
 		}
 		bool World::AddBlock(const Coord& c, uint8 type)
@@ -168,6 +177,8 @@ namespace ld3d
 		void World::UpdateLoaderProcess()
 		{
 			m_pChunkLoader->Update();
+
+			m_pChunkLoaderAsync->Update();
 		}
 		ChunkManagerPtr	World::GetChunkManager()
 		{
@@ -189,7 +200,8 @@ namespace ld3d
 		}
 		uint32 World::GetLoadingQueueSize() const
 		{
-			return m_pChunkLoader->GetLoadingQueueSize();
+			//return m_pChunkLoader->GetLoadingQueueSize();
+			return m_pChunkLoaderAsync->GetLoadingQueueSize();
 		}
 		uint32 World::GetUnloadingQueueSize() const
 		{
@@ -199,13 +211,14 @@ namespace ld3d
 		{
 			return m_pChunkManager->GetChunkCount();
 		}
-		void World::SetMeshizer(MeshizerPtr pMeshizer)
-		{
-			m_pChunkLoader->SetMeshizer(pMeshizer);
-		}
+		
 		ChunkLoaderPtr World::GetChunkLoader()
 		{
 			return m_pChunkLoader;
+		}
+		ChunkLoaderAsyncPtr	World::GetChunkLoaderAsync()
+		{
+			return m_pChunkLoaderAsync;
 		}
 	}
 }

@@ -33,6 +33,7 @@ namespace ld3d
 
 		void										_on_end_frame(EventPtr pEvent);
 		voxel::WorldPtr								GetWorld();
+		const std::vector<MaterialPtr>&				GetMaterials();
 	private:
 
 		void										ResetComponents(voxel::WorldPtr pWorld);
@@ -48,6 +49,9 @@ namespace ld3d
 		voxel::WorldPtr								m_pWorld;
 
 		EventHandlerID								m_hEndFrame;
+
+		voxel::MeshizerPtr							m_pMeshizer;
+		std::vector<MaterialPtr>					m_materials;
 	};
 
 

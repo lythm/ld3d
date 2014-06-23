@@ -6,14 +6,24 @@ namespace ld3d
 {
 	namespace voxel
 	{
-		ChunkAdjacency::ChunkAdjacency(Chunk* pChunk)
+		ChunkAdjacency::ChunkAdjacency(const ChunkKey& key)
 		{
-			m_pChunk = pChunk;
+			m_key = key;
 			Reset();
 		}
-
+		ChunkAdjacency::ChunkAdjacency()
+		{
+			Reset();
+		}
 		ChunkAdjacency::~ChunkAdjacency(void)
 		{
+		}
+		ChunkAdjacency::ChunkAdjacency(const ChunkAdjacency& other)
+		{
+			memcpy(m_blockAdjacency, other.m_blockAdjacency, sizeof(uint8) * CHUNK_SIZE * CHUNK_SIZE * CHUNK_SIZE);
+			m_key = other.m_key;
+			m_visible = other.m_visible;
+
 		}
 		void ChunkAdjacency::Reset()
 		{
@@ -67,7 +77,7 @@ namespace ld3d
 
 		void ChunkAdjacency::OnAdjacentChunkLoaded(const Coord& chunk_coord, ChunkPtr pChunk)
 		{
-			const ChunkKey& this_key = m_pChunk->GetKey();
+			const ChunkKey& this_key = m_key;
 
 			Coord this_coord = this_key.ToChunkCoord();
 

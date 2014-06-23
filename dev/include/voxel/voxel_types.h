@@ -41,10 +41,11 @@ namespace ld3d
 		class ChunkLoader;
 		class Octree;
 		class PoolManager;
+		class ChunkLoaderAsync;
 
-
+		typedef std::shared_ptr<ChunkLoaderAsync>								ChunkLoaderAsyncPtr;
 		typedef std::shared_ptr<PoolManager>									PoolManagerPtr;
-		typedef std::shared_ptr<Octree>										OctreePtr;
+		typedef std::shared_ptr<Octree>											OctreePtr;
 		typedef std::shared_ptr<ChunkMesh>										ChunkMeshPtr;
 		typedef std::shared_ptr<ChunkLoader>									ChunkLoaderPtr;
 		typedef std::shared_ptr<Meshizer>										MeshizerPtr;
@@ -58,5 +59,7 @@ namespace ld3d
 		typedef std::shared_ptr<ChunkManager>									ChunkManagerPtr;
 
 
+
+		
 	}		
 }

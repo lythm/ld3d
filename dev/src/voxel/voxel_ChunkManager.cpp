@@ -41,8 +41,7 @@ namespace ld3d
 		}
 		ChunkPtr ChunkManager::CreateChunk(const ChunkKey& key, uint8 data[])
 		{
-			ChunkPtr pChunk = AllocChunk(data);
-			pChunk->SetKey(key);
+			ChunkPtr pChunk = AllocChunk(key, data);
 
 			return pChunk;
 		}
@@ -100,9 +99,9 @@ namespace ld3d
 
 			return it == m_chunkmap.end() ? nullptr : it->second;
 		}
-		ChunkPtr ChunkManager::AllocChunk(uint8 data[])
+		ChunkPtr ChunkManager::AllocChunk(const ChunkKey& key, uint8 data[])
 		{
-			return pool_manager()->AllocChunk(shared_from_this(), data);
+			return pool_manager()->AllocChunk(shared_from_this(), key, data);
 
 
 			//if(GetAllocator() != nullptr)

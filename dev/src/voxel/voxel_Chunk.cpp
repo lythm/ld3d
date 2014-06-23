@@ -6,10 +6,10 @@ namespace ld3d
 {
 	namespace voxel
 	{
-		Chunk::Chunk(ChunkManagerPtr pChunkManager, uint8 data[]) : m_adjacency(this)
+		Chunk::Chunk(ChunkManagerPtr pChunkManager, const ChunkKey& key, uint8 data[]) : m_adjacency(key)
 		{
 			m_pChunkManager = pChunkManager;
-
+			m_key = key;
 			if(data == nullptr)
 			{
 				memset(m_data, 0, CHUNK_SIZE * CHUNK_SIZE * CHUNK_SIZE);
@@ -24,8 +24,6 @@ namespace ld3d
 			m_counter = 0;
 
 			m_userData = nullptr;
-
-		//	m_adjacency.Reset(std::weak_ptr<Chunk>(shared_from_this()));
 		}
 
 		Chunk::~Chunk(void)
@@ -86,6 +84,10 @@ namespace ld3d
 		ChunkAdjacency&	Chunk::GetAdjacency()
 		{
 			return m_adjacency;
+		}
+		void Chunk::SetAdjacency(const ChunkAdjacency& adj)
+		{
+			m_adjacency = adj;
 		}
 	}
 }

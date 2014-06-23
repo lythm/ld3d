@@ -198,12 +198,12 @@ namespace ld3d
 
 			if(m_loadingQueue.size() == 0)
 			{
-				return ret;
+				return false;
 			}
 			
 			m_loadingQueue.pop_front();
 
-			return ret;
+			return true;
 		}
 		bool ChunkLoader::_do_unload_chunk(RegionPtr pRegion, const ChunkKey& key)
 		{
@@ -212,8 +212,6 @@ namespace ld3d
 			{
 				return true;
 			}
-
-			pRegion->UnloadChunk(pChunk);
 
 			m_pChunkManager->RemoveChunk(key);
 
@@ -242,26 +240,7 @@ namespace ld3d
 
 			return true;
 		}
-		bool ChunkLoader::LoadChunkSync(RegionPtr pRegion, const ChunkKey& key, const std::function<void(RegionPtr, ChunkPtr)>& on_loaded)
-		{
-			return _do_load_chunk(key);
-		}
-		void ChunkLoader::LoadChunk(RegionPtr pRegion , const ChunkKey& key, const std::function<void(RegionPtr, ChunkPtr)>& on_loaded)
-		{
 
-		}
-		bool ChunkLoader::UnloadChunkSync(RegionPtr pRegion, const ChunkKey& key)
-		{
-			return _do_unload_chunk(pRegion, key);
-		}
-		void ChunkLoader::UnloadChunk(RegionPtr pRegion , const ChunkKey& key)
-		{
-			if(CancelLoading(key) == true)
-			{
-				return;
-			}
-
-		}
 
 		uint32 ChunkLoader::GetLoadingQueueSize() const
 		{
@@ -285,10 +264,7 @@ namespace ld3d
 
 			return false;
 		}
-		void ChunkLoader::SetMeshizer(MeshizerPtr pMeshizer)
-		{
-			m_pMeshizer = pMeshizer;
-		}
+
 		bool ChunkLoader::RequestChunkMesh(ChunkPtr pChunk)
 		{
 			if(pChunk == nullptr)
@@ -436,7 +412,7 @@ namespace ld3d
 				{
 					return;
 				}
-				RequestChunk(key);
+				RequestChunkAsync(key);
 			});
 
 			m_pChunkManager->PickChunkDiffSet(center, radius, refer_center, refer_radius, [&](const ChunkKey& key, ChunkPtr pChunk)

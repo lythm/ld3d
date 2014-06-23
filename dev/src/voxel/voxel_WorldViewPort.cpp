@@ -10,6 +10,8 @@
 #include "voxel_VoxelUtils.h"
 #include "voxel_ChunkManager.h"
 #include "voxel_ChunkLoader.h"
+#include "voxel_ChunkLoaderAsync.h"
+
 namespace ld3d
 {
 	namespace voxel
@@ -34,6 +36,7 @@ namespace ld3d
 		{
 			m_pWorld = pWorld;
 			m_pLoader = pWorld->GetChunkLoader();
+			m_pLoaderAsync = pWorld->GetChunkLoaderAsync();
 			m_pRegionManager = pWorld->GetRegionManager();
 
 
@@ -136,7 +139,8 @@ namespace ld3d
 			{
 				return;
 			}
-			m_pLoader->RequestChunkDiffSetAsync(m_VP.center, m_VP.radius, m_lastVP.center, m_lastVP.radius);
+			//m_pLoader->RequestChunkDiffSetAsync(m_VP.center, m_VP.radius, m_lastVP.center, m_lastVP.radius);
+			m_pLoaderAsync->RequestChunkDiffSetAsync(m_VP.center, m_VP.radius, m_lastVP.center, m_lastVP.radius);
 
 			m_lastVP.center = m_VP.center;
 			m_lastVP.radius = m_VP.radius;

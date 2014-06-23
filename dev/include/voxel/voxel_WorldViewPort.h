@@ -48,6 +48,7 @@ namespace ld3d
 		private:
 			WorldPtr													m_pWorld;
 			ChunkLoaderPtr												m_pLoader;
+			ChunkLoaderAsyncPtr											m_pLoaderAsync;
 			RegionManagerPtr											m_pRegionManager;
 			
 			std::function<void (const Coord&, ChunkPtr)>				handler_dirty_chunk;

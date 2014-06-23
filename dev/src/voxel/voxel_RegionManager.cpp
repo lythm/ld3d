@@ -91,14 +91,7 @@ namespace ld3d
 		
 		RegionPtr RegionManager::FindRegionByRegionCoord(const Coord& c)
 		{
-			for(auto r : m_regions)
-			{
-				if(r->GetRegionCoord() == c)
-				{
-					r->IncRef();
-					return r;
-				}
-			}
+			
 
 			return RegionPtr();
 		}

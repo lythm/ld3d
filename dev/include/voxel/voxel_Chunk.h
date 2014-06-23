@@ -14,7 +14,7 @@ namespace ld3d
 		public:
 			
 			// if data is null, empty chunk is constructed.
-			Chunk(ChunkManagerPtr pChunkManager, uint8 data[]);
+			Chunk(ChunkManagerPtr pChunkManager, const ChunkKey& key, uint8 data[]);
 
 			// non virtual, do not subclass
 			~Chunk(void);
@@ -91,6 +91,7 @@ namespace ld3d
 			void											SetMesh(ChunkMeshPtr pMesh);
 
 			ChunkAdjacency&									GetAdjacency();
+			void											SetAdjacency(const ChunkAdjacency& adj);
 		private:
 						
 		private:

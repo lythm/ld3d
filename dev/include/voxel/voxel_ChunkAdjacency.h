@@ -1,6 +1,8 @@
 #pragma once
 
 #include "voxel/voxel_Coord.h"
+#include "voxel/voxel_ChunkKey.h"
+
 namespace ld3d
 {
 	namespace voxel
@@ -18,8 +20,9 @@ namespace ld3d
 				p_z						= 7,
 				all_vector				= 0xfc,
 			};
-			
-			ChunkAdjacency(Chunk* pChunk);
+			ChunkAdjacency();
+			ChunkAdjacency(const ChunkKey& key);
+			ChunkAdjacency(const ChunkAdjacency& other);
 			~ChunkAdjacency(void);
 
 			void											Reset();
@@ -42,8 +45,8 @@ namespace ld3d
 			bool											GetBit(uint8 bits, uint32 pos) const;
 		private:
 			uint8											m_blockAdjacency[CHUNK_SIZE * CHUNK_SIZE * CHUNK_SIZE];
-			Chunk*											m_pChunk;
 			bool											m_visible;
+			ChunkKey										m_key;
 		};
 	}
 }

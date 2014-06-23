@@ -48,25 +48,12 @@ namespace ld3d
 
 		using namespace voxel;
 
-		Meshizer::VoxelMaterial mat;
-		mat.type = 1;
-		mat.materials[0] = 0;
-		mat.materials[1] = 0;
-		mat.materials[2] = 0;
-		mat.materials[3] = 0;
-		mat.materials[4] = 0;
-		mat.materials[5] = 0;
 		
-		
-
-		m_pMeshizer = m_pManager->alloc_object<voxel::Meshizer>();
-
-		m_pMeshizer->AddVoxelMaterial(1, mat);
 
 		std::shared_ptr<VoxelWorldImpl2> pWorld = std::dynamic_pointer_cast<VoxelWorldImpl2>(m_pObject->GetComponent("VoxelWorld"));
 		if(pWorld != nullptr)
 		{
-			ResetWorld(pWorld->GetWorld());
+			ResetWorld(pWorld->GetWorld(), pWorld->GetMaterials());
 		}
 		
 		m_hFrustumCull = m_pManager->AddEventHandler(EV_FRUSTUM_CULL, boost::bind(&VoxelWorldRendererImpl2::on_event_frustumcull, this, _1));
@@ -78,17 +65,7 @@ namespace ld3d
 		m_pRenderData->dr_draw	= std::bind(&VoxelWorldRendererImpl2::Render, this, std::placeholders::_1);
 		m_pRenderData->sm_draw	= std::bind(&VoxelWorldRendererImpl2::RenderShadowMapGeo, this, std::placeholders::_1, std::placeholders::_2);
 		
-		MaterialPtr pMaterial = m_pRenderManager->CreateMaterialFromFile("./assets/voxel/material/voxel_world.material");
-		if(pMaterial == nullptr)
-		{
-			return false;
-		}
-
-		TexturePtr pTex = m_pRenderManager->CreateTextureFromFile("./assets/voxel/texture/dirt.dds");
-
-		pMaterial->GetParameterByName("diffuse_map")->SetParameterTexture(pTex);
-
-		m_materials.push_back(pMaterial);
+		
 
 		VertexLayout layout;
 		layout.AddAttribute(G_FORMAT_R32G32B32_FLOAT);
@@ -130,18 +107,14 @@ namespace ld3d
 		
 		m_pRenderData.reset();
 
-		for(auto pMaterial : m_materials)
-		{
-			pMaterial->Release();
-		}
-		m_materials.clear();
+		
 
 		if(m_pWorldVP)
 		{
 			m_pWorldVP->Close();
 			m_pWorldVP.reset();
 		}
-		m_pMeshizer.reset();
+		
 	
 	}
 	void VoxelWorldRendererImpl2::Update(float dt)
@@ -164,7 +137,7 @@ namespace ld3d
 	{
 		m_pWorldVP->MoveTo(voxel::Coord(x, y, z));
 	}
-	void VoxelWorldRendererImpl2::ResetWorld(voxel::WorldPtr pWorld)
+	void VoxelWorldRendererImpl2::ResetWorld(voxel::WorldPtr pWorld, const std::vector<MaterialPtr>& mats)
 	{
 		if(m_pWorldVP)
 		{
@@ -176,9 +149,7 @@ namespace ld3d
 		{
 			return;
 		}
-
-		pWorld->SetMeshizer(m_pMeshizer);
-
+		m_materials = mats;
 		m_pWorldVP = m_pManager->alloc_object<voxel::WorldViewport>();
 
 		using namespace voxel;

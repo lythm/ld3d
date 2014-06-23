@@ -169,6 +169,7 @@
     <ClInclude Include="..\..\include\voxel\voxel_WorldGenPass_Plants.h" />
     <ClInclude Include="..\..\include\voxel\voxel_WorldGenPass_Water.h" />
     <ClInclude Include="..\..\include\voxel\voxel_WorldViewPort.h" />
+    <ClInclude Include="voxel_ChunkLoaderAsync.h" />
     <ClInclude Include="voxel_ChunkLoaderWorker.h" />
     <ClInclude Include="voxel_ChunkLoader.h" />
     <ClInclude Include="voxel_Octree.h" />
@@ -180,6 +181,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="voxel_ChunkAdjacency.cpp" />
+    <ClCompile Include="voxel_ChunkLoaderAsync.cpp" />
     <ClCompile Include="voxel_ChunkLoaderWorker.cpp" />
     <ClCompile Include="voxel_ChunkLoader.cpp" />
     <ClCompile Include="voxel_Octree.cpp" />

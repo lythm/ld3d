@@ -39,9 +39,6 @@ namespace ld3d
 			ChunkManagerPtr									GetChunkManager();
 			RegionManagerPtr								GetRegionManager();
 
-			void											SetMeshizer(MeshizerPtr pMeshizer);
-			
-
 			WorldGenPtr										GetWorldGen();
 
 			void											AddDirtyChunkHandler(const std::function<void (ChunkPtr)>& handler);
@@ -52,6 +49,7 @@ namespace ld3d
 			uint32											GetChunkCount() const;
 
 			ChunkLoaderPtr									GetChunkLoader();
+			ChunkLoaderAsyncPtr								GetChunkLoaderAsync();
 		private:
 		
 			
@@ -62,6 +60,7 @@ namespace ld3d
 			RegionManagerPtr								m_pRegionManager;
 			ChunkManagerPtr									m_pChunkManager;
 			ChunkLoaderPtr									m_pChunkLoader;
+			ChunkLoaderAsyncPtr								m_pChunkLoaderAsync;
 			std::string										m_name;
 		};
 	}

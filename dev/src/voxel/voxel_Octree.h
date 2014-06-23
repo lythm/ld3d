@@ -31,7 +31,7 @@ namespace ld3d
 			void								FrustumCull(const math::ViewFrustum& vf, std::function<void (ChunkMeshPtr)> op);
 
 			bool								RayPick(const math::Ray& r, Real& t);
-
+			const Coord&						GetRegionOrigin() const;
 		private:
 			bool								SubDivideBound(const math::AABBox& bound, math::AABBox Bounds[8]);
 			bool								_add_chunk(ChunkPtr pChunk);
