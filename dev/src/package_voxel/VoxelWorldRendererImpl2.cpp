@@ -157,7 +157,7 @@ namespace ld3d
 		voxel::Coord center = Coord(0, 0, 0);
 
 		//voxel::Coord center = Coord(7, 3, 12);
-		uint32 raidius = 256;
+		uint32 raidius = 64;
 
 		
 		if(false == m_pWorldVP->Open(pWorld, center, raidius))

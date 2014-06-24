@@ -177,7 +177,7 @@ namespace ld3d
 		}
 		uint32 World::GetLoadingQueueSize() const
 		{
-			return m_pChunkLoader->GetLoadingQueueSize();
+			return m_pChunkLoader->GetPendingCount();
 		}
 		
 		uint32 World::GetChunkCount() const

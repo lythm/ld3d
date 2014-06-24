@@ -63,13 +63,7 @@ namespace ld3d
 			}
 			return true;
 		}
-		void ChunkManager::UpdateChunkNeighbour(ChunkPtr pChunk)
-		{
-			const ChunkKey& key = pChunk->GetKey();
 
-			Coord n_coord = key.ToChunkOrigin();
-			n_coord = VoxelUtils::ToChunkCoord(n_coord);
-		}
 		bool ChunkManager::RemoveBlock(const Coord& c)
 		{
 			return ReplaceBlock(c, VT_EMPTY);
@@ -157,42 +151,8 @@ namespace ld3d
 		{
 			return (uint32)m_chunkmap.size();
 		}
-		/*void ChunkManager::PickChunk(const Coord& center, uint32 radius, const std::function<void(const ChunkKey&, ChunkPtr)>& op)
-		{
-			if(op == nullptr)
-			{
-				return;
-			}
-
-			int32 round = radius / CHUNK_SIZE * CHUNK_SIZE;
-
-			for(int32 y = -(int32)round; y <= (int32)round; y += CHUNK_SIZE)
-			{
-				PickChunkSlice(y, center, radius, op);
-			}
-		}
-		void ChunkManager::PickChunkSlice(int32 sy, const Coord& center, uint32 radius, const std::function<void(const ChunkKey&, ChunkPtr)>& op)
-		{
-			int32 r = sqrtf(float(radius * radius) - float(sy * sy));
-			int32 round_z = r / CHUNK_SIZE * CHUNK_SIZE;
-
-			for(int32 z = -(int32)round_z; z <= (int32)round_z; z += CHUNK_SIZE)
-			{
-				int32 x_abs = sqrtf(float(r * r) - float(z * z));
-
-				int32 round_x = x_abs / CHUNK_SIZE * CHUNK_SIZE;
-
-				for(int32 x = -round_x; x <= round_x; x+= CHUNK_SIZE)
-				{
-					ChunkKey key(Coord(x, sy, z) + center);
-
-					ChunkPtr pChunk = FindChunk(key);
-					op(key, pChunk);
-				}
-			}
-		}*/
-
-		void ChunkManager::PickChunk(const Coord& center, uint32 radius, const std::function<void(const ChunkKey&, ChunkPtr)>& op)
+		
+		void ChunkManager::PickChunk(const Coord& center, uint32 radius, const std::function<void(const ChunkKey&)>& op)
 		{
 			if(op == nullptr)
 			{
@@ -206,7 +166,7 @@ namespace ld3d
 				PickChunkSlice(y, center, radius, op);
 			}
 		}
-		void ChunkManager::PickChunkSlice(int32 sy, const Coord& center, uint32 radius, const std::function<void(const ChunkKey&, ChunkPtr)>& op)
+		void ChunkManager::PickChunkSlice(int32 sy, const Coord& center, uint32 radius, const std::function<void(const ChunkKey&)>& op)
 		{
 			float r = sqrtf((float(radius * radius) - float(sy * sy)));
 
@@ -219,13 +179,12 @@ namespace ld3d
 					Coord c = Coord(x, sy, z) + center / CHUNK_SIZE;
 					ChunkKey key(c * CHUNK_SIZE);
 
-					ChunkPtr pChunk = FindChunk(key);
-					op(key, pChunk);
+					op(key);
 				}
 			}
 		}
 
-		void ChunkManager::PickChunkDiffSet1(const Coord& center, uint32 radius, const Coord& refer_center, uint32 refer_radius, const std::function<void(const ChunkKey&, ChunkPtr)>& op)
+		void ChunkManager::PickChunkDiffSet1(const Coord& center, uint32 radius, const Coord& refer_center, uint32 refer_radius, const std::function<void(const ChunkKey&)>& op)
 		{
 			if(op == nullptr)
 			{
@@ -234,21 +193,21 @@ namespace ld3d
 
 			std::vector<ChunkKey> keys;
 
-			PickChunk(refer_center, refer_radius, [&](const ChunkKey& key, ChunkPtr pChunk)
+			PickChunk(refer_center, refer_radius, [&](const ChunkKey& key)
 			{
 				keys.push_back(key);
 			});
 
-			PickChunk(center, radius, [&](const ChunkKey& key, ChunkPtr pChunk)
+			PickChunk(center, radius, [&](const ChunkKey& key)
 			{
 				if(std::find(keys.begin(), keys.end(), key) == keys.end())
 				{
-					op(key, pChunk);
+					op(key);
 				}
 
 			});
 		}
-		void ChunkManager::PickChunkDiffSet(const Coord& center, uint32 radius, const Coord& refer_center, uint32 refer_radius, const std::function<void(const ChunkKey&, ChunkPtr)>& op)
+		void ChunkManager::PickChunkDiffSet(const Coord& center, uint32 radius, const Coord& refer_center, uint32 refer_radius, const std::function<void(const ChunkKey&)>& op)
 		{
 			if(op == nullptr)
 			{
@@ -268,7 +227,7 @@ namespace ld3d
 				PickChunkDiffSetSlice(y, center, radius, refer_center, refer_radius,  op);
 			}
 		}
-		void ChunkManager::PickChunkDiffSetSlice(int32 sy, const Coord& center, uint32 radius, const Coord& refer_center, uint32 refer_radius, const std::function<void(const ChunkKey&, ChunkPtr)>& op)
+		void ChunkManager::PickChunkDiffSetSlice(int32 sy, const Coord& center, uint32 radius, const Coord& refer_center, uint32 refer_radius, const std::function<void(const ChunkKey&)>& op)
 		{
 			float r = sqrtf(float(radius * radius) - float(sy * sy));
 
@@ -287,9 +246,7 @@ namespace ld3d
 					}
 
 					ChunkKey key(c);
-
-					ChunkPtr pChunk = FindChunk(key);
-					op(key, pChunk);
+					op(key);
 				}
 			}
 		}
@@ -352,5 +309,6 @@ namespace ld3d
 			op(chunk_key, pChunk);
 
 		}
+
 	}
 }

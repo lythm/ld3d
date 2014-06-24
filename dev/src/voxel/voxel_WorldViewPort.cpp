@@ -42,12 +42,12 @@ namespace ld3d
 
 			m_pWorld->AddDirtyChunkHandler(std::bind(&WorldViewport::_on_dirty_chunk, this, std::placeholders::_1));
 			
-			uint64 t = os_get_tick();
-			m_pLoader->RequestChunk(m_VP.center, m_VP.radius);
+			m_pLoader->RequestChunkAsync(m_VP.center, m_VP.radius);
 
-			uint64 dt = os_get_tick() - t;
-
-			logger() << "request chunk: " << dt << "ms\n";
+			/*while(m_pLoader->GetPendingCount() != 0)
+			{
+				m_pLoader->Update();
+			}*/
 			m_lastVP = m_VP;
 			return true;
 		}
@@ -137,6 +137,14 @@ namespace ld3d
 				return;
 			}
 			m_pLoader->RequestChunkDiffSetAsync(m_VP.center, m_VP.radius, m_lastVP.center, m_lastVP.radius);
+
+
+
+			m_pWorld->GetChunkManager()->PickChunkDiffSet(m_lastVP.center, m_lastVP.radius, m_VP.center, m_VP.radius, [&](const ChunkKey& key)
+			{
+				m_pLoader->RequestUnloadChunk(key);
+			});
+
 
 			m_lastVP.center = m_VP.center;
 			m_lastVP.radius = m_VP.radius;

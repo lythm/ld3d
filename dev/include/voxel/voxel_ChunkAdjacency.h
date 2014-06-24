@@ -41,8 +41,7 @@ namespace ld3d
 			bool											CheckVisiblity() const;
 
 			bool											CheckCorrd(int32 x, int32 y, int32 z);
-			void											SetBit(uint8& bits, uint32 pos, bool val);
-			bool											GetBit(uint8 bits, uint32 pos) const;
+			
 		private:
 			uint8											m_blockAdjacency[CHUNK_SIZE * CHUNK_SIZE * CHUNK_SIZE];
 			bool											m_visible;

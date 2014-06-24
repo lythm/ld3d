@@ -11,11 +11,11 @@ namespace ld3d
 			m_pChunkManager = pChunkManager;
 			m_key = key;
 			
-			m_modified = false;
-			m_dirty = false;
+			m_stateBits = 0;
 			m_counter = 0;
-
 			m_userData = nullptr;
+
+			SetGenerated(true);
 		}
 
 
@@ -35,11 +35,11 @@ namespace ld3d
 		}
 		bool Chunk::IsDirty() const
 		{
-			return m_dirty;
+			return utils_get_bit(m_stateBits, state_dirty);
 		}
 		void Chunk::SetDirty(bool dirty)
 		{
-			m_dirty = dirty;
+			utils_set_bit(m_stateBits, state_dirty, dirty);
 		}
 		void Chunk::SetData(const ChunkData& data)
 		{
@@ -49,10 +49,6 @@ namespace ld3d
 		ChunkData& Chunk::GetData()
 		{
 			return m_data;
-		}
-		bool Chunk::IsModified() const
-		{
-			return m_modified;
 		}
 		void Chunk::SetUserData(void* pData)
 		{
@@ -82,6 +78,14 @@ namespace ld3d
 		void Chunk::SetAdjacency(const ChunkAdjacency& adj)
 		{
 			m_adjacency = adj;
+		}
+		void Chunk::SetGenerated(bool val)
+		{
+			utils_set_bit(m_stateBits, state_generated, val);
+		}
+		bool Chunk::IsGenerated() const
+		{
+			return utils_get_bit(m_stateBits, state_generated);
 		}
 	}
 }

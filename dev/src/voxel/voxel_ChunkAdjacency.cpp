@@ -31,21 +31,7 @@ namespace ld3d
 			m_visible = true;
 			memset(m_blockAdjacency, 0, CHUNK_SIZE * CHUNK_SIZE * CHUNK_SIZE);
 		}
-		void ChunkAdjacency::SetBit(uint8& bits, uint32 pos, bool val)
-		{
-			if(val)
-			{
-				bits |= (1 << pos);
-			}
-			else
-			{
-				bits &= ~(1 << pos);
-			}
-		}
-		bool ChunkAdjacency::GetBit(uint8 bits, uint32 pos) const 
-		{
-			return (bits & (1 << pos)) != 0;
-		}
+		
 		void ChunkAdjacency::SetBlockAdjacency(int32 x, int32 y, int32 z, int32 v, bool val)
 		{
 			if(CheckCorrd(x, y, z) == false)
@@ -53,7 +39,7 @@ namespace ld3d
 				return;
 			}
 			int32 index = Chunk::ToIndex(x, y, z);
-			SetBit(m_blockAdjacency[index], v, val);
+			utils_set_bit(m_blockAdjacency[index], v, val);
 		}
 
 		void ChunkAdjacency::OnBlockChange(int32 x, int32 y, int32 z, bool val)
@@ -72,7 +58,7 @@ namespace ld3d
 		{
 			int32 index = Chunk::ToIndex(x, y, z);
 
-			return GetBit(m_blockAdjacency[index], neighbour);
+			return utils_get_bit(m_blockAdjacency[index], neighbour);
 		}
 
 

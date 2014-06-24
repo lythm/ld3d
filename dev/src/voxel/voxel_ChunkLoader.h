@@ -16,24 +16,19 @@ namespace ld3d
 			void													Release();
 			void													Update();
 
-			uint32													GetLoadingQueueSize() const;
-
-			bool													RequestChunk(const ChunkKey& key);
-			bool													RequestChunk(const Coord& center, uint32 radius);
-			bool													RequestChunkMesh(ChunkPtr pChunk);
-
+			uint32													GetPendingCount() const;
 
 			bool													RequestChunkDiffSetAsync(const Coord& center, uint32 radius, const Coord& refer_center, uint32 refer_radius);
 			bool													RequestChunkAsync(const ChunkKey& key);
 			bool													RequestChunkAsync(const Coord& center, uint32 radius);
-			bool													RequestChunkMeshAsync(const ChunkKey& key);
+			bool													RequestUnloadChunk(const ChunkKey& key);
 		private:
-
+			
 			void													_handle_load_chunk_ret(ChunkLoaderWorker::Task& t);
 			void													_handle_gen_mesh(ChunkLoaderWorker::Task& t);
 
 			void													_gen_chunk(const ChunkKey& key, uint8* chunk_data, ChunkAdjacency& adj);
-			bool													GenerateChunkMesh(ChunkPtr pChunk);
+
 			void													UpdateChunkAdjacency(ChunkPtr pChunk);
 		private:
 			ChunkManagerPtr											m_pChunkManager;

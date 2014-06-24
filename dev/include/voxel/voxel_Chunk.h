@@ -13,7 +13,11 @@ namespace ld3d
 		class _DLL_CLASS Chunk : public RefCount<int32>, public std::enable_shared_from_this<Chunk>
 		{
 		public:
-			
+			enum
+			{
+				state_dirty				= 0,
+				state_generated			= 1,
+			};
 			// if data is null, empty chunk is constructed.
 			Chunk(ChunkManagerPtr pChunkManager, const ChunkKey& key, const ChunkData& data);
 
@@ -45,8 +49,8 @@ namespace ld3d
 
 				m_adjacency.OnBlockChange(x, y, z, val != VT_EMPTY);
 
+				SetGenerated(false);
 				SetDirty(true);
-				m_modified = true;
 			}
 			void											SetBlock(const Coord& c, uint8 val)
 			{
@@ -77,7 +81,6 @@ namespace ld3d
 
 			void											SetData(const ChunkData& data);
 			ChunkData&										GetData();
-			bool											IsModified() const;
 
 			void											SetUserData(void* pData);
 			void*											GetUserData();
@@ -89,16 +92,15 @@ namespace ld3d
 
 			ChunkAdjacency&									GetAdjacency();
 			void											SetAdjacency(const ChunkAdjacency& adj);
+
+			void											SetGenerated(bool val);
+			bool											IsGenerated() const;
 		private:
 						
 		private:
 			ChunkKey										m_key;
 
 			int32											m_counter;
-			bool											m_dirty;
-
-			bool											m_modified;
-
 			void*											m_userData;
 
 			ChunkManagerPtr									m_pChunkManager;
@@ -107,6 +109,8 @@ namespace ld3d
 
 			ChunkAdjacency									m_adjacency;
 			ChunkData										m_data;
+
+			uint8											m_stateBits;
 		};
 	}
 }

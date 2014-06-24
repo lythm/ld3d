@@ -44,7 +44,7 @@ namespace ld3d
 			
 		private:
 			WorldPtr													m_pWorld;
-			ChunkLoaderPtr											m_pLoader;
+			ChunkLoaderPtr												m_pLoader;
 			OctreeManagerPtr											m_pOctreeManager;
 			
 			std::function<void (const Coord&, ChunkPtr)>				handler_dirty_chunk;
@@ -54,4 +54,3 @@ namespace ld3d
 		};
 	}
 }
-

@@ -58,23 +58,10 @@ namespace ld3d
 		}
 		bool ChunkLoader::RequestChunkDiffSetAsync(const Coord& center, uint32 radius, const Coord& refer_center, uint32 refer_radius)
 		{
-			m_pChunkManager->PickChunkDiffSet(center, radius, refer_center, refer_radius, [&](const ChunkKey& key, ChunkPtr pChunk)
+			m_pChunkManager->PickChunkDiffSet(center, radius, refer_center, refer_radius, [&](const ChunkKey& key)
 			{
-				if(pChunk != nullptr)
-				{
-					return;
-				}
 				RequestChunkAsync(key);
 			});
-
-			/*m_pChunkManager->PickChunkDiffSet(center, radius, refer_center, refer_radius, [&](const ChunkKey& key, ChunkPtr pChunk)
-			{
-				if(pChunk == nullptr)
-				{
-					return;
-				}
-				RequestChunkMeshAsync(key);
-			});*/
 
 			return true;
 		}
@@ -83,7 +70,8 @@ namespace ld3d
 			ChunkPtr pChunk = m_pChunkManager->FindChunk(key);
 			if(pChunk != nullptr)
 			{
-				return false;
+				pChunk->IncRef();
+				return true;
 			}
 
 			ChunkLoaderWorker::Task t;
@@ -97,29 +85,7 @@ namespace ld3d
 			m_pendingCount++;
 			return true;
 		}
-		bool ChunkLoader::RequestChunkMeshAsync(const ChunkKey& key)
-		{
-			/*ChunkPtr pChunk = m_pChunkManager->FindChunk(key);
-
-			if(pChunk == nullptr)
-			{
-				return false;
-			}
-
-			if(false == pChunk->GetAdjacency().IsVisible())
-			{
-				ChunkMeshPtr pMesh = pChunk->GetMesh();
-				if(pMesh)
-				{
-					pMesh->Reset();
-				}
-				return false;
-			}
-
-			return true;*/
-
-			return true;
-		}
+		
 		void ChunkLoader::_handle_gen_mesh(ChunkLoaderWorker::Task& t)
 		{
 			ChunkPtr pChunk = m_pChunkManager->FindChunk(t.key);
@@ -173,7 +139,7 @@ namespace ld3d
 			}
 			ChunkPtr pChunk = m_pChunkManager->CreateChunk(t.key, t.chunk_data.GetData());
 			pChunk->SetAdjacency(t.chunk_adjacency);
-
+			pChunk->SetGenerated(true);
 			m_pChunkManager->AddChunk(pChunk);
 			UpdateChunkAdjacency(pChunk);
 
@@ -190,44 +156,21 @@ namespace ld3d
 			m_worker.PushTask(t);
 		}
 
-		uint32 ChunkLoader::GetLoadingQueueSize() const
+		uint32 ChunkLoader::GetPendingCount() const
 		{
 			return m_pendingCount;
 		}
 		bool ChunkLoader::RequestChunkAsync(const Coord& center, uint32 radius)
 		{
-			m_pChunkManager->PickChunk(center, radius, [&](const ChunkKey& key, ChunkPtr pChunk)
+			m_pChunkManager->PickChunk(center, radius, [&](const ChunkKey& key)
 			{
-				if(pChunk != nullptr)
-				{
-					return;
-				}
 				RequestChunkAsync(key);
 			});
 
 			return true;
 		}
 
-		bool ChunkLoader::RequestChunk(const ChunkKey& key)
-		{
-			ChunkPtr pChunk = m_pChunkManager->FindChunk(key);
-			if(pChunk != nullptr)
-			{
-				return false;
-			}
-			
-			pChunk = m_pChunkManager->CreateChunk(key, nullptr);
-
-			bool ret = m_worker.GenerateChunk(key, pChunk->GetData(), pChunk->GetAdjacency());
-			if(ret == true)
-			{
-				m_pChunkManager->AddChunk(pChunk);
-				
-				UpdateChunkAdjacency(pChunk);
-			}
-
-			return ret;
-		}
+		
 		void ChunkLoader::UpdateChunkAdjacency(ChunkPtr pChunk)
 		{
 			const ChunkKey& key = pChunk->GetKey();
@@ -262,90 +205,24 @@ namespace ld3d
 			});
 		}
 
-		bool ChunkLoader::RequestChunk(const Coord& center, uint32 radius)
+
+		bool ChunkLoader::RequestUnloadChunk(const ChunkKey& key)
 		{
-			m_pChunkManager->PickChunk(center, radius, [&](const ChunkKey& key, ChunkPtr pChunk)
-			{
-				if(pChunk != nullptr)
-				{
-					return;
-				}
-				RequestChunk(key);
-			});
-
-			m_pChunkManager->PickChunk(center, radius, [&](const ChunkKey& key, ChunkPtr pChunk)
-			{
-				if(pChunk == nullptr)
-				{
-					return;
-				}
-				RequestChunkMesh(pChunk);
-			});
-
-
-			return true;
-		}
-		bool ChunkLoader::RequestChunkMesh(ChunkPtr pChunk)
-		{
+			ChunkPtr pChunk = m_pChunkManager->FindChunk(key);
 			if(pChunk == nullptr)
 			{
-				return false;
+				return true;
 			}
-
-			if(false == pChunk->GetAdjacency().IsVisible())
+			pChunk->DecRef();
+			if(pChunk->GetRef() != 0)
 			{
-				ChunkMeshPtr pMesh = pChunk->GetMesh();
-				if(pMesh)
-				{
-					pMesh->Reset();
-				}
-				return false;
-			}
-			
-
-			bool ret = GenerateChunkMesh(pChunk);
-			if(ret)
-			{
-				m_pOctreeManager->AddChunk(pChunk);
+				return true;
 			}
 
-			return ret;
-		}
-		bool ChunkLoader::GenerateChunkMesh(ChunkPtr pChunk)
-		{
-			if(m_pMeshizer == nullptr)
-			{
-				return false;
-			}
-
-			if(pChunk == nullptr)
-			{
-				return false;
-			}
-
-			ChunkMeshPtr pMesh = pChunk->GetMesh();
-			if(pMesh != nullptr)
-			{
-				return false;
-			}
-			
-			pMesh = pool_manager()->AllocChunkMesh();
-			
-
-			Coord chunk_origin = pChunk->GetKey().ToChunkOrigin();
-			Coord region_origin = VoxelUtils::ToRegionOrigin(chunk_origin);
-
-
-			Coord chunk_mesh_base = chunk_origin - region_origin;
-
-			m_pMeshizer->GenerateMesh(pChunk, chunk_mesh_base, pMesh);
-			if(pMesh->GetSubsetCount() == 0)
-			{
-				return false;
-			}
-			pChunk->SetMesh(pMesh);
-
+			m_pOctreeManager->RemoveChunk(pChunk);
+			m_pChunkManager->RemoveChunk(key);
 			return true;
 		}
+		
 	}
 }
