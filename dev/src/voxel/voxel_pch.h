@@ -7,6 +7,7 @@
 #include <boost/thread.hpp>
 
 #include <boost/chrono.hpp>
+#include <boost/circular_buffer.hpp>
 
 #include "utils/utils_all.h"
 

@@ -11,7 +11,7 @@ namespace ld3d
 {
 	namespace voxel
 	{
-		ChunkLoader::ChunkLoader(void) : m_worker(50000, 50000)
+		ChunkLoader::ChunkLoader(void) : m_worker(5000, 5000)
 		{
 			m_pendingCount = 0;
 		}
@@ -56,21 +56,32 @@ namespace ld3d
 				}
 			}
 		}
-		bool ChunkLoader::RequestChunkDiffSetAsync(const Coord& center, uint32 radius, const Coord& refer_center, uint32 refer_radius)
+		bool ChunkLoader::RequestChunkDiffSetAsync(const Coord& center, uint32 radius, const Coord& refer_center, uint32 refer_radius, const std::function<void(ChunkPtr)>& on_loaded)
 		{
-			m_pChunkManager->PickChunkDiffSet(center, radius, refer_center, refer_radius, [&](const ChunkKey& key)
+			m_pChunkManager->PickChunkDiffSet1(center, radius, refer_center, refer_radius, [&](const ChunkKey& key)
 			{
-				RequestChunkAsync(key);
+				RequestChunkAsync(key, on_loaded);
 			});
 
 			return true;
 		}
-		bool ChunkLoader::RequestChunkAsync(const ChunkKey& key)
+		bool ChunkLoader::RequestChunkAsync(const ChunkKey& key, const std::function<void(ChunkPtr)>& on_loaded)
 		{
 			ChunkPtr pChunk = m_pChunkManager->FindChunk(key);
 			if(pChunk != nullptr)
 			{
 				pChunk->IncRef();
+
+				if(on_loaded)
+				{
+					on_loaded(pChunk);
+				}
+
+
+				if(pChunk->GetMesh() == nullptr)
+				{
+					
+				}
 				return true;
 			}
 
@@ -80,7 +91,7 @@ namespace ld3d
 			
 			t.chunk_adjacency = ChunkAdjacency(key);
 			t.key = key;
-
+			t.on_loaded = on_loaded;
 			m_worker.PushTask(t);
 			m_pendingCount++;
 			return true;
@@ -141,7 +152,13 @@ namespace ld3d
 			pChunk->SetAdjacency(t.chunk_adjacency);
 			pChunk->SetGenerated(true);
 			m_pChunkManager->AddChunk(pChunk);
-			UpdateChunkAdjacency(pChunk);
+			UpdateChunkAdjacency(t.key);
+
+
+			if(t.on_loaded)
+			{
+				t.on_loaded(pChunk);
+			}
 
 			if(false == pChunk->GetAdjacency().IsVisible())
 			{
@@ -153,6 +170,8 @@ namespace ld3d
 
 			t.ev = ChunkLoaderWorker::ev_gen_mesh;
 			++m_pendingCount;
+
+
 			m_worker.PushTask(t);
 		}
 
@@ -160,20 +179,20 @@ namespace ld3d
 		{
 			return m_pendingCount;
 		}
-		bool ChunkLoader::RequestChunkAsync(const Coord& center, uint32 radius)
+		bool ChunkLoader::RequestChunkAsync(const Coord& center, uint32 radius, const std::function<void(ChunkPtr)>& on_loaded)
 		{
 			m_pChunkManager->PickChunk(center, radius, [&](const ChunkKey& key)
 			{
-				RequestChunkAsync(key);
+				RequestChunkAsync(key, on_loaded);
 			});
 
 			return true;
 		}
 
 		
-		void ChunkLoader::UpdateChunkAdjacency(ChunkPtr pChunk)
+		void ChunkLoader::UpdateChunkAdjacency(const ChunkKey& key)
 		{
-			const ChunkKey& key = pChunk->GetKey();
+			ChunkPtr pChunk = m_pChunkManager->FindChunk(key);
 
 			Coord this_coord = key.ToChunkCoord();
 			m_pChunkManager->PickAdjacentChunks(key, [&](const ChunkKey& adjKey, ChunkPtr pAdj)
@@ -190,22 +209,34 @@ namespace ld3d
 
 				pAdj->GetAdjacency().OnAdjacentChunkLoaded(this_coord, pChunk);
 
-				if(pAdj != nullptr)
+				/*if(pAdj != nullptr)
 				{
-					if(false == pChunk->GetAdjacency().IsVisible())
+					if(false == pAdj->GetAdjacency().IsVisible())
 					{
-						ChunkMeshPtr pMesh = pChunk->GetMesh();
+						ChunkMeshPtr pMesh = pAdj->GetMesh();
 						if(pMesh)
 						{
 							pMesh->Reset();
 						}
 					}
-				}
+				}*/
 
 			});
 		}
 
+		bool ChunkLoader::RequestUnloadChunk(ChunkPtr pChunk)
+		{
+			pChunk->DecRef();
+			if(pChunk->GetRef() != 0)
+			{
+				return true;
+			}
 
+			m_pOctreeManager->RemoveChunk(pChunk);
+			m_pChunkManager->RemoveChunk(pChunk);
+			UpdateChunkAdjacency(pChunk->GetKey());
+			return true;
+		}
 		bool ChunkLoader::RequestUnloadChunk(const ChunkKey& key)
 		{
 			ChunkPtr pChunk = m_pChunkManager->FindChunk(key);
@@ -221,6 +252,8 @@ namespace ld3d
 
 			m_pOctreeManager->RemoveChunk(pChunk);
 			m_pChunkManager->RemoveChunk(key);
+			UpdateChunkAdjacency(key);
+			
 			return true;
 		}
 		

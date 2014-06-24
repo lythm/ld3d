@@ -35,6 +35,7 @@ namespace ld3d
 
 			bool											AddChunk(ChunkPtr pChunk);
 			void											RemoveChunk(const ChunkKey& key);
+			void											RemoveChunk(ChunkPtr pChunk);
 
 			void											Update(float dt);
 

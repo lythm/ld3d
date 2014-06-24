@@ -71,11 +71,12 @@ namespace ld3d
 		}
 		void World::Destroy()
 		{
+			m_pChunkLoader->Release();
+			m_pChunkLoader.reset();
+
 			m_pChunkManager->Clear();
 			m_pChunkManager.reset();
 
-			m_pChunkLoader->Release();
-			m_pChunkLoader.reset();
 			m_pOctreeManager.reset();
 
 		}

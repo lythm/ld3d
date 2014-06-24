@@ -1,6 +1,7 @@
 #pragma once
 
 #include <boost/pool/pool.hpp>
+#include <boost/circular_buffer.hpp>
 
 #include "voxel/voxel_types.h"
 #include "voxel/voxel_Coord.h"

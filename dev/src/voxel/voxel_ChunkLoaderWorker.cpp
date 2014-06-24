@@ -11,7 +11,7 @@ namespace ld3d
 		ChunkLoaderWorker::ChunkLoaderWorker(uint16 inQueueSize, uint16 outQueueSize) : 
 			m_in(inQueueSize), 
 			m_out(outQueueSize), 
-			m_noise(1, 20, 1, (int)os_get_tick())
+			m_noise(1, 5, 1, (int)os_get_tick())
 		{
 		}
 
@@ -119,7 +119,7 @@ namespace ld3d
 					
 
 						vec[0] /= 1000;
-						vec[1] /= 100;
+						vec[1] /= 1000;
 						vec[2] /= 1000;
 
 						double h = m_noise.perlin_noise_3D(vec);

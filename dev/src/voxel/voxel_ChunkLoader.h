@@ -18,10 +18,12 @@ namespace ld3d
 
 			uint32													GetPendingCount() const;
 
-			bool													RequestChunkDiffSetAsync(const Coord& center, uint32 radius, const Coord& refer_center, uint32 refer_radius);
-			bool													RequestChunkAsync(const ChunkKey& key);
-			bool													RequestChunkAsync(const Coord& center, uint32 radius);
+			bool													RequestChunkDiffSetAsync(const Coord& center, uint32 radius, const Coord& refer_center, uint32 refer_radius, const std::function<void(ChunkPtr)>& on_loaded);
+			bool													RequestChunkAsync(const ChunkKey& key, const std::function<void(ChunkPtr)>& on_loaded);
+			bool													RequestChunkAsync(const Coord& center, uint32 radius, const std::function<void(ChunkPtr)>& on_loaded);
 			bool													RequestUnloadChunk(const ChunkKey& key);
+			bool													RequestUnloadChunk(ChunkPtr pChunk);
+			
 		private:
 			
 			void													_handle_load_chunk_ret(ChunkLoaderWorker::Task& t);
@@ -29,7 +31,7 @@ namespace ld3d
 
 			void													_gen_chunk(const ChunkKey& key, uint8* chunk_data, ChunkAdjacency& adj);
 
-			void													UpdateChunkAdjacency(ChunkPtr pChunk);
+			void													UpdateChunkAdjacency(const ChunkKey& key);
 		private:
 			ChunkManagerPtr											m_pChunkManager;
 			OctreeManagerPtr										m_pOctreeManager;

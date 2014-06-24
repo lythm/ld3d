@@ -155,8 +155,6 @@ namespace ld3d
 		using namespace voxel;
 
 		voxel::Coord center = Coord(0, 0, 0);
-
-		//voxel::Coord center = Coord(7, 3, 12);
 		uint32 raidius = 64;
 
 		

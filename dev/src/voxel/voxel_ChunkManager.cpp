@@ -129,8 +129,12 @@ namespace ld3d
 			}
 
 			m_chunkmap.erase(it);
-
 		}
+		void ChunkManager::RemoveChunk(ChunkPtr pChunk)
+		{
+			RemoveChunk(pChunk->GetKey());
+		}
+
 		void ChunkManager::Update(float dt)
 		{
 			for(auto chunk : m_dirtyList)
@@ -214,11 +218,11 @@ namespace ld3d
 				return;
 			}
 
-			if((center - refer_center).Length() > (radius + refer_radius))
+			/*if((center - refer_center).Length() > (radius + refer_radius))
 			{
 				PickChunk(center, radius, op);
 				return;
-			}
+			}*/
 
 			radius /= CHUNK_SIZE;
 

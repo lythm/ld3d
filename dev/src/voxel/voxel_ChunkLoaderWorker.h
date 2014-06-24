@@ -29,13 +29,15 @@ namespace ld3d
 			};
 			struct Task
 			{
-				uint32											ev;
-				ChunkKey										key;
-				ChunkData										chunk_data;
-				ChunkAdjacency									chunk_adjacency;
-				bool											chunk_empty;
+				uint32												ev;
+				ChunkKey											key;
+				ChunkData											chunk_data;
+				ChunkAdjacency										chunk_adjacency;
+				bool												chunk_empty;
 
-				ChunkMeshPtr									mesh;
+				ChunkMeshPtr										mesh;
+
+				std::function<void(ChunkPtr)>						on_loaded;
 
 			};
 			struct TaskResult
