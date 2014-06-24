@@ -2,6 +2,7 @@
 
 namespace ld3d
 {
+	template<typename T>
 	class RefCount
 	{
 	public:
@@ -17,7 +18,7 @@ namespace ld3d
 		{
 			--m_ref;
 		}
-		int			GetRef() const
+		T			GetRef() const
 		{
 			return m_ref;
 		}
@@ -28,6 +29,6 @@ namespace ld3d
 		const RefCount& operator=(const RefCount& other);
 	private:
 
-		int			m_ref;
+		T			m_ref;
 	};
 }

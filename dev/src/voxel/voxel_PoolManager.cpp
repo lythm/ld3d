@@ -21,7 +21,7 @@ namespace ld3d
 		PoolManager::~PoolManager(void)
 		{
 		}
-		ChunkPtr PoolManager::AllocChunk(ChunkManagerPtr pManager, const ChunkKey& key, uint8 data[])
+		ChunkPtr PoolManager::AllocChunk(ChunkManagerPtr pManager, const ChunkKey& key, const ChunkData& data)
 		{
 			void* p = m_chunkPool.malloc();
 			

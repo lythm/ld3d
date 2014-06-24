@@ -6,11 +6,9 @@
 
 #include "voxel/voxel_WorldGenPass_Heightmap.h"
 #include "voxel_ChunkManager.h"
-#include "voxel/voxel_Region.h"
 #include "voxel/voxel_WorldViewPort.h"
-#include "voxel_RegionManager.h"
 #include "voxel_ChunkLoader.h"
-#include "voxel_ChunkLoaderAsync.h"
+#include "voxel_OctreeManager.h"
 
 namespace ld3d
 {
@@ -47,22 +45,10 @@ namespace ld3d
 
 			m_pChunkManager		= alloc_object<ChunkManager>(allocator());//std::make_shared<ChunkManager>();
 			
-
-			m_pRegionManager	= alloc_object<RegionManager>(allocator());//std::make_shared<RegionManager>();
+			m_pOctreeManager	= alloc_object<OctreeManager>(allocator());
 			
-			if(m_pRegionManager->Initialize(shared_from_this()) == false)
-			{
-				return false;
-			}
-
-			m_pChunkLoader		= alloc_object<ChunkLoader>(allocator());
-			if(m_pChunkLoader->Initialize(m_pChunkManager, m_pRegionManager, pMeshizer) == false)
-			{
-				return false;
-			}
-			
-			m_pChunkLoaderAsync = alloc_object<ChunkLoaderAsync>(allocator());
-			if(m_pChunkLoaderAsync->Initialize(m_pChunkManager, m_pRegionManager, pMeshizer) == false)
+			m_pChunkLoader = alloc_object<ChunkLoader>(allocator());
+			if(m_pChunkLoader->Initialize(m_pChunkManager, m_pOctreeManager, pMeshizer) == false)
 			{
 				return false;
 			}
@@ -87,12 +73,10 @@ namespace ld3d
 		{
 			m_pChunkManager->Clear();
 			m_pChunkManager.reset();
-			m_pRegionManager->Release();
-			m_pRegionManager.reset();
+
 			m_pChunkLoader->Release();
 			m_pChunkLoader.reset();
-			m_pChunkLoaderAsync->Release();
-			m_pChunkLoaderAsync.reset();
+			m_pOctreeManager.reset();
 
 		}
 		bool World::AddBlock(const Coord& c, uint8 type)
@@ -177,18 +161,11 @@ namespace ld3d
 		void World::UpdateLoaderProcess()
 		{
 			m_pChunkLoader->Update();
-
-			m_pChunkLoaderAsync->Update();
 		}
 		ChunkManagerPtr	World::GetChunkManager()
 		{
 			return m_pChunkManager;
 		}
-		RegionManagerPtr World::GetRegionManager()
-		{
-			return m_pRegionManager;
-		}
-
 		
 		WorldGenPtr World::GetWorldGen()
 		{
@@ -200,25 +177,21 @@ namespace ld3d
 		}
 		uint32 World::GetLoadingQueueSize() const
 		{
-			//return m_pChunkLoader->GetLoadingQueueSize();
-			return m_pChunkLoaderAsync->GetLoadingQueueSize();
+			return m_pChunkLoader->GetLoadingQueueSize();
 		}
-		uint32 World::GetUnloadingQueueSize() const
-		{
-			return m_pChunkLoader->GetUnloadingQueueSize();
-		}
+		
 		uint32 World::GetChunkCount() const
 		{
 			return m_pChunkManager->GetChunkCount();
 		}
 		
-		ChunkLoaderPtr World::GetChunkLoader()
+		ChunkLoaderPtr	World::GetChunkLoaderAsync()
 		{
 			return m_pChunkLoader;
 		}
-		ChunkLoaderAsyncPtr	World::GetChunkLoaderAsync()
+		OctreeManagerPtr World::GetOctreeManager()
 		{
-			return m_pChunkLoaderAsync;
+			return m_pOctreeManager;
 		}
 	}
 }

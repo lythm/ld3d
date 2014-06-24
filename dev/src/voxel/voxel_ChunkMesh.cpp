@@ -14,8 +14,6 @@ namespace ld3d
 			m_vertexBufferBytes			= 0;
 
 		}
-
-
 		ChunkMesh::~ChunkMesh(void)
 		{
 			if(m_pVertexBuffer)

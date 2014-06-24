@@ -2,6 +2,7 @@
 
 #include "voxel/voxel_Coord.h"
 #include "voxel/voxel_ChunkKey.h"
+#include "voxel/voxel_ChunkData.h"
 
 
 namespace ld3d
@@ -30,7 +31,7 @@ namespace ld3d
 
 			void											Clear();
 
-			ChunkPtr										CreateChunk(const ChunkKey& key, uint8 data[]);
+			ChunkPtr										CreateChunk(const ChunkKey& key, const ChunkData& data);
 
 			bool											AddChunk(ChunkPtr pChunk);
 			void											RemoveChunk(const ChunkKey& key);
@@ -52,8 +53,6 @@ namespace ld3d
 			void											PickChunkSlice(int32 sy, const Coord& center, uint32 radius, const std::function<void(const ChunkKey&, ChunkPtr)>& op);
 			void											PickChunkDiffSetSlice(int32 sy, const Coord& center, uint32 radius, const Coord& refer_center, uint32 refer_radius, const std::function<void(const ChunkKey&, ChunkPtr)>& op);
 			void											UpdateChunkNeighbour(ChunkPtr pChunk);
-			ChunkPtr										AllocChunk(const ChunkKey& key, uint8 data[]);
-
 		
 		private:
 

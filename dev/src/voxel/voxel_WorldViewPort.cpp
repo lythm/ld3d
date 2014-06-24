@@ -1,8 +1,7 @@
 #include "voxel_pch.h"
 #include "voxel/voxel_WorldViewPort.h"
 #include "voxel/voxel_World.h"
-#include "voxel_RegionManager.h"
-#include "voxel/voxel_Region.h"
+#include "voxel_OctreeManager.h"
 #include "voxel/voxel_Chunk.h"
 #include "voxel/voxel_Meshizer.h"
 #include "voxel/voxel_ChunkMesh.h"
@@ -10,7 +9,6 @@
 #include "voxel_VoxelUtils.h"
 #include "voxel_ChunkManager.h"
 #include "voxel_ChunkLoader.h"
-#include "voxel_ChunkLoaderAsync.h"
 
 namespace ld3d
 {
@@ -35,9 +33,8 @@ namespace ld3d
 		bool WorldViewport::Open(WorldPtr pWorld, const Coord& center, uint32 radius)
 		{
 			m_pWorld = pWorld;
-			m_pLoader = pWorld->GetChunkLoader();
-			m_pLoaderAsync = pWorld->GetChunkLoaderAsync();
-			m_pRegionManager = pWorld->GetRegionManager();
+			m_pLoader = pWorld->GetChunkLoaderAsync();
+			m_pOctreeManager = pWorld->GetOctreeManager();
 
 
 			m_VP.center = center;
@@ -57,7 +54,7 @@ namespace ld3d
 		void WorldViewport::Close()
 		{
 			m_pWorld.reset();
-			m_pRegionManager.reset();
+			m_pOctreeManager.reset();
 			m_pLoader.reset();
 		}
 		
@@ -95,7 +92,7 @@ namespace ld3d
 		
 		void WorldViewport::FrustumCull(const math::ViewFrustum& vf, const std::function<void(const Coord&, ChunkMeshPtr)>& op)
 		{
-			m_pRegionManager->FrustumCull(vf, op);
+			m_pOctreeManager->FrustumCull(vf, op);
 		}
 
 		const Coord& WorldViewport::GetCenterCoord() const
@@ -139,8 +136,7 @@ namespace ld3d
 			{
 				return;
 			}
-			//m_pLoader->RequestChunkDiffSetAsync(m_VP.center, m_VP.radius, m_lastVP.center, m_lastVP.radius);
-			m_pLoaderAsync->RequestChunkDiffSetAsync(m_VP.center, m_VP.radius, m_lastVP.center, m_lastVP.radius);
+			m_pLoader->RequestChunkDiffSetAsync(m_VP.center, m_VP.radius, m_lastVP.center, m_lastVP.radius);
 
 			m_lastVP.center = m_VP.center;
 			m_lastVP.radius = m_VP.radius;

@@ -79,7 +79,7 @@ namespace ld3d
 	}
 	void DebugPanel::AppendMemPool(std::stringstream& stream)
 	{
-		uint32 alloc	= m_pCore->GetAllocator()->GetAllocatedBytes();
+		uint64 alloc	= m_pCore->GetAllocator()->GetAllocatedBytes();
 		stream << "[mempool] "
 			<< "allocated: " 
 			<< alloc

@@ -23,7 +23,6 @@ namespace ld3d
 		virtual void										SetWorldSizeZ(const int& z)					= 0;
 
 		virtual uint32										GetLoadingQueueSize()						= 0;
-		virtual uint32										GetUnloadingQueueSize()						= 0;
 		virtual uint32										GetChunkCount(){return 0;}
 	protected:
 		VoxelWorld(GameObjectManagerPtr pManager) : GameObjectComponent("VoxelWorld", pManager){}

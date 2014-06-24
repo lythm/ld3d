@@ -3,6 +3,8 @@
 #include "voxel/voxel_Chunk.h"
 #include "voxel_PoolManager.h"
 #include "voxel_VoxelUtils.h"
+
+
 namespace ld3d
 {
 	namespace voxel
@@ -11,8 +13,7 @@ namespace ld3d
 		{
 
 		}
-
-
+		
 		ChunkManager::~ChunkManager(void)
 		{
 		}
@@ -28,7 +29,7 @@ namespace ld3d
 
 			if(pChunk == nullptr)
 			{
-				pChunk = CreateChunk(key, nullptr);
+				pChunk = CreateChunk(key, ChunkData());
 				AddChunk(pChunk);
 			}
 
@@ -39,9 +40,9 @@ namespace ld3d
 			pChunk->SetBlock(c - key.ToChunkOrigin(), type);
 			return true;
 		}
-		ChunkPtr ChunkManager::CreateChunk(const ChunkKey& key, uint8 data[])
+		ChunkPtr ChunkManager::CreateChunk(const ChunkKey& key, const ChunkData& data)
 		{
-			ChunkPtr pChunk = AllocChunk(key, data);
+			ChunkPtr pChunk = pool_manager()->AllocChunk(shared_from_this(), key, data);
 
 			return pChunk;
 		}
@@ -99,17 +100,7 @@ namespace ld3d
 
 			return it == m_chunkmap.end() ? nullptr : it->second;
 		}
-		ChunkPtr ChunkManager::AllocChunk(const ChunkKey& key, uint8 data[])
-		{
-			return pool_manager()->AllocChunk(shared_from_this(), key, data);
-
-
-			//if(GetAllocator() != nullptr)
-			//{
-			//	return std::allocate_shared<Chunk, std_allocator_adapter<Chunk> >(GetAllocator(), shared_from_this(), data);
-			//}
-			//return std::make_shared<Chunk>(shared_from_this(), data);
-		}
+		
 		void ChunkManager::UpdateBlock(const Coord& c)
 		{
 			ChunkPtr pChunk = FindChunk(ChunkKey(c));
@@ -217,13 +208,13 @@ namespace ld3d
 		}
 		void ChunkManager::PickChunkSlice(int32 sy, const Coord& center, uint32 radius, const std::function<void(const ChunkKey&, ChunkPtr)>& op)
 		{
-			float r = sqrtf(radius * radius - sy * sy);
+			float r = sqrtf((float(radius * radius) - float(sy * sy)));
 
-			for(int32 z = -r; z <= r; ++z)
+			for(int32 z = -(int32)r; z <= (int32)r; ++z)
 			{
 				float x_abs = sqrtf(r * r - z * z);
 
-				for(int32 x = -x_abs; x <= x_abs; ++x)
+				for(int32 x = -(int32)x_abs; x <= (int32)x_abs; ++x)
 				{
 					Coord c = Coord(x, sy, z) + center / CHUNK_SIZE;
 					ChunkKey key(c * CHUNK_SIZE);
@@ -279,13 +270,13 @@ namespace ld3d
 		}
 		void ChunkManager::PickChunkDiffSetSlice(int32 sy, const Coord& center, uint32 radius, const Coord& refer_center, uint32 refer_radius, const std::function<void(const ChunkKey&, ChunkPtr)>& op)
 		{
-			float r = sqrtf(radius * radius - sy * sy);
+			float r = sqrtf(float(radius * radius) - float(sy * sy));
 
-			for(int32 z = -r; z <= r; ++z)
+			for(int32 z = -(int32)r; z <= (int32)r; ++z)
 			{
 				float x_abs = sqrtf(r * r - z * z);
 
-				for(int32 x = -x_abs; x <= x_abs; ++x)
+				for(int32 x = -(int32)x_abs; x <= (int32)x_abs; ++x)
 				{
 					Coord c = Coord(x, sy, z) + center / CHUNK_SIZE;
 					c *= CHUNK_SIZE;
@@ -310,15 +301,15 @@ namespace ld3d
 
 			radius = radius / CHUNK_SIZE;
 
-			if(rc.y >= -radius && rc.y <= radius)
+			if(rc.y >= -(int32)radius && rc.y <= (int32)radius)
 			{
-				float r = sqrtf(radius * radius - rc.y * rc.y);
+				float r = sqrtf(float(radius * radius) - float(rc.y * rc.y));
 				
 				if(rc.z >=-r && rc.z <= r)
 				{
 					float x_abs = sqrtf(r * r - rc.z * rc.z);
 
-					if(rc.x >= -x_abs&& rc.x <= x_abs)
+					if(rc.x >= -(int32)x_abs&& rc.x <= (int32)x_abs)
 					{
 						return true;
 					}

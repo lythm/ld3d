@@ -23,7 +23,6 @@ namespace ld3d
 		void										SetWorldSizeZ(const int& z);
 
 		uint32										GetLoadingQueueSize();
-		uint32										GetUnloadingQueueSize();
 		uint32										GetChunkCount();
 
 		bool										CreateWorld(const std::string& name);

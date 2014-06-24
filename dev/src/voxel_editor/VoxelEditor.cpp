@@ -34,7 +34,7 @@ namespace ld3d
 			
 			m_pCore = pCore;
 
-			m_pCore->GetRenderManager()->SetGlobalAmbient(math::Color4(0.4, 0.4f, 0.4f, 1.0f));
+			m_pCore->GetRenderManager()->SetGlobalAmbient(math::Color4(0.4f, 0.4f, 0.4f, 1.0f));
 			m_pCore->GetRenderManager()->SetClearColor(math::Color4(0.1f, 0.2f, 0.3f, 1));
 
 
@@ -122,8 +122,7 @@ namespace ld3d
 
 			VoxelWorldPtr pWorld = std::dynamic_pointer_cast<VoxelWorld>(m_pWorld->GetComponent("VoxelWorld"));
 			
-			s << "loading queue: " << pWorld->GetLoadingQueueSize() 
-				<< " unloading queue: " << pWorld->GetUnloadingQueueSize()
+			s << "[chunk loader] pending chunk: " << pWorld->GetLoadingQueueSize() 
 				<< " chunks: " << pWorld->GetChunkCount();
 
 

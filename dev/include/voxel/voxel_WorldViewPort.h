@@ -33,9 +33,6 @@ namespace ld3d
 			
 			void														ClearDirtyChunkList();
 
-			void														SetRegionLoadedHandler(const std::function<void (RegionPtr)>& handler);
-			void														SetRegionUnloadedHandler(const std::function<void (RegionPtr)>& handler);
-
 			void														SetRadius(uint32 radius);
 			void														FrustumCull(const math::ViewFrustum& vf, const std::function<void(const Coord&, ChunkMeshPtr)>& op);
 
@@ -47,9 +44,8 @@ namespace ld3d
 			
 		private:
 			WorldPtr													m_pWorld;
-			ChunkLoaderPtr												m_pLoader;
-			ChunkLoaderAsyncPtr											m_pLoaderAsync;
-			RegionManagerPtr											m_pRegionManager;
+			ChunkLoaderPtr											m_pLoader;
+			OctreeManagerPtr											m_pOctreeManager;
 			
 			std::function<void (const Coord&, ChunkPtr)>				handler_dirty_chunk;
 

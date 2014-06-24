@@ -15,9 +15,9 @@ namespace ld3d
 			}
 			Coord(const math::Vector3& v)
 			{
-				x = v.x;
-				y = v.y;
-				z = v.z;
+				x = (int32)v.x;
+				y = (int32)v.y;
+				z = (int32)v.z;
 			}
 			Coord()
 			{
@@ -84,6 +84,7 @@ namespace ld3d
 
 				return *this;
 			}
+
 			const Coord& operator/=(int32 s)
 			{
 				x /= s;
@@ -93,7 +94,7 @@ namespace ld3d
 				return *this;
 			}
 
-			uint64						Length()
+			double						Length()
 			{
 				return sqrt(x * x + y * y + z * z);
 			}

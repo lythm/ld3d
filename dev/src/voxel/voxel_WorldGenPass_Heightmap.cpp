@@ -40,7 +40,7 @@ namespace ld3d
 					Coord c = Coord(x, 0, z) + chunk_origin;
 
 					double h = p.Get(double(c.x) / double(ex), double(c.z) / double(ez));
-					c.y = (h * REGION_SIZE) / 2;
+					c.y = (int32)(h * REGION_SIZE) / 2;
 
 					c -= chunk_origin;
 

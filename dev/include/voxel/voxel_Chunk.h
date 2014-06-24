@@ -4,17 +4,18 @@
 
 #include "voxel/voxel_Coord.h"
 #include "voxel/voxel_ChunkAdjacency.h"
+#include "voxel/voxel_ChunkData.h"
 
 namespace ld3d
 {
 	namespace voxel
 	{
-		class _DLL_CLASS Chunk : public RefCount, public std::enable_shared_from_this<Chunk>
+		class _DLL_CLASS Chunk : public RefCount<int32>, public std::enable_shared_from_this<Chunk>
 		{
 		public:
 			
 			// if data is null, empty chunk is constructed.
-			Chunk(ChunkManagerPtr pChunkManager, const ChunkKey& key, uint8 data[]);
+			Chunk(ChunkManagerPtr pChunkManager, const ChunkKey& key, const ChunkData& data);
 
 			// non virtual, do not subclass
 			~Chunk(void);
@@ -27,8 +28,7 @@ namespace ld3d
 
 			uint8											GetBlock(uint32 x, uint32 y, uint32 z)
 			{
-				uint32 index = ToIndex(x, y, z);
-				return m_data[index];
+				return m_data.Get(x, y, z);
 			}
 			uint8											GetBlock(const Coord& c)
 			{
@@ -36,14 +36,12 @@ namespace ld3d
 			}
 			void											SetBlock(uint32 x, uint32 y, uint32 z, uint8 val)
 			{
-				uint32 index	= ToIndex(x, y, z);
-
-				if(m_data[index] != val)
+				if(m_data.Get(x, y, z) != val)
 				{
-					m_counter += val == VT_EMPTY ? -1 : m_data[index] == VT_EMPTY ? 1 : 0;
+					m_counter += val == VT_EMPTY ? -1 : m_data.Get(x, y, z) == VT_EMPTY ? 1 : 0;
 				}
 
-				m_data[index]	= val;
+				m_data.Set(x, y, z, val);
 
 				m_adjacency.OnBlockChange(x, y, z, val != VT_EMPTY);
 
@@ -57,12 +55,11 @@ namespace ld3d
 
 			static uint32									ToIndex(uint32 x, uint32 y, uint32 z)
 			{
-				uint32 index = y * CHUNK_SIZE * CHUNK_SIZE + z * CHUNK_SIZE + x;
-				return index;
+				return ChunkData::ToIndex(x, y, z);
 			}
 			static uint32									ToIndex(const Coord& c)
 			{
-				return ToIndex(c.x, c.y, c.z);
+				return ChunkData::ToIndex(c.x, c.y, c.z);
 			}
 			static void										ToCoord(uint32 index, Coord& c)
 			{
@@ -78,8 +75,8 @@ namespace ld3d
 			bool											IsDirty() const;
 			void											SetDirty(bool dirty);
 
-			void											SetData(uint8 data[]);
-			uint8*											GetData();
+			void											SetData(const ChunkData& data);
+			ChunkData&										GetData();
 			bool											IsModified() const;
 
 			void											SetUserData(void* pData);
@@ -95,7 +92,6 @@ namespace ld3d
 		private:
 						
 		private:
-			uint8											m_data[CHUNK_SIZE * CHUNK_SIZE * CHUNK_SIZE];
 			ChunkKey										m_key;
 
 			int32											m_counter;
@@ -110,6 +106,7 @@ namespace ld3d
 			ChunkMeshPtr									m_pMesh;
 
 			ChunkAdjacency									m_adjacency;
+			ChunkData										m_data;
 		};
 	}
 }

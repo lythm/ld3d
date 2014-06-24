@@ -32,7 +32,7 @@ namespace ld3d
 			int64 c_y = uint64(c.y) / (REGION_SIZE);
 			int64 c_z = uint64(c.z) / (REGION_SIZE);
 			
-			return Coord(c_x, c_y, c_z);
+			return Coord((int32)c_x, (int32)c_y, (int32)c_z);
 		}
 		Coord VoxelUtils::ToChunkOrigin(const Coord& c)
 		{
@@ -46,7 +46,7 @@ namespace ld3d
 			int64 c_y = uint64(c.y) / (CHUNK_SIZE);
 			int64 c_z = uint64(c.z) / (CHUNK_SIZE);
 			
-			return Coord(c_x, c_y, c_z);
+			return Coord((int32)c_x, (int32)c_y, (int32)c_z);
 		}
 		bool VoxelUtils::Perlin(float* height_map, int d, int octaves,float freq,float amp,int seed)
 		{
@@ -56,7 +56,7 @@ namespace ld3d
 			{
 				for(int z = 0; z < d; ++z)
 				{
-					height_map[x * d + z] = pn.Get(x, z);
+					height_map[x * d + z] = (float)pn.Get(x, z);
 				}
 			}
 			return true;

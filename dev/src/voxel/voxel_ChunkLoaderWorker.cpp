@@ -8,7 +8,10 @@ namespace ld3d
 {
 	namespace voxel
 	{
-		ChunkLoaderWorker::ChunkLoaderWorker(uint16 inQueueSize, uint16 outQueueSize) : m_in(inQueueSize), m_out(outQueueSize), m_noise(1, 10, 1, os_get_tick())
+		ChunkLoaderWorker::ChunkLoaderWorker(uint16 inQueueSize, uint16 outQueueSize) : 
+			m_in(inQueueSize), 
+			m_out(outQueueSize), 
+			m_noise(1, 20, 1, (int)os_get_tick())
 		{
 		}
 
@@ -62,47 +65,7 @@ namespace ld3d
 		}
 		void ChunkLoaderWorker::_load_chunk(Task& t)
 		{
-
-			// load chunk
-			const ChunkKey& key = t.key;
-
-			Coord chunk_origin = key.ToChunkOrigin();
-			memset(t.chunk_data, 0, CHUNK_SIZE * CHUNK_SIZE * CHUNK_SIZE);
-			t.chunk_empty = true;
-			for(int x = 0; x < CHUNK_SIZE; ++x)
-			{
-				for(int z = 0; z < CHUNK_SIZE; ++z)
-				{
-					for(int y = 0; y < CHUNK_SIZE; ++y)
-					{
-						if( (y + chunk_origin.y) > 50)
-						{
-							continue;
-						}
-						double vec[3];
-						vec[0] = x + chunk_origin.x;
-						vec[1] = y + chunk_origin.y;
-						vec[2] = z + chunk_origin.z;
-					
-
-						vec[0] /= 1000;
-						vec[1] /= 1000;
-						vec[2] /= 1000;
-
-						double h = m_noise.perlin_noise_3D(vec);
-
-						h -= (y + chunk_origin.y) / 100;
-
-						if(h > 0 && h < 1)
-						{
-							uint32 index = Chunk::ToIndex(x, y, z);
-							t.chunk_data[index] = 1;
-							t.chunk_empty = false;
-							t.chunk_adjacency.OnBlockChange(x, y, z, true);
-						}
-					}
-				}
-			}
+			t.chunk_empty = GenerateChunk(t.key, t.chunk_data, t.chunk_adjacency) == false;
 
 			while(m_out.push(t) == false)
 			{
@@ -130,6 +93,50 @@ namespace ld3d
 		bool ChunkLoaderWorker::PopTask(Task& task)
 		{
 			return m_out.pop(task);
+		}
+		bool ChunkLoaderWorker::GenerateChunk(const ChunkKey& key, ChunkData& chunk_data, ChunkAdjacency& adj)
+		{
+			// load chunk
+			chunk_data.Fill(0);
+
+			Coord chunk_origin = key.ToChunkOrigin();
+			
+			bool ret = false;
+			for(int x = 0; x < CHUNK_SIZE; ++x)
+			{
+				for(int z = 0; z < CHUNK_SIZE; ++z)
+				{
+					for(int y = 0; y < CHUNK_SIZE; ++y)
+					{
+						/*if( (y + chunk_origin.y) > 50)
+						{
+							continue;
+						}*/
+						double vec[3];
+						vec[0] = x + chunk_origin.x;
+						vec[1] = y + chunk_origin.y;
+						vec[2] = z + chunk_origin.z;
+					
+
+						vec[0] /= 1000;
+						vec[1] /= 100;
+						vec[2] /= 1000;
+
+						double h = m_noise.perlin_noise_3D(vec);
+
+						h -= (y + chunk_origin.y) / 100;
+
+						if(h > 0 && h < 1)
+						{
+							chunk_data.Set(x, y, z, 1);
+							ret = true;
+							adj.OnBlockChange(x, y, z, true);
+						}
+					}
+				}
+			}
+
+			return ret;
 		}
 	}
 }

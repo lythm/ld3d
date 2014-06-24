@@ -1,7 +1,7 @@
 #pragma once
 
-#include "voxel/voxel_ChunkKey.h"
-#include <queue>
+#include "voxel_ChunkLoaderWorker.h"
+
 namespace ld3d
 {
 	namespace voxel
@@ -9,70 +9,40 @@ namespace ld3d
 		class ChunkLoader
 		{
 		public:
-
 			ChunkLoader(void);
 			virtual ~ChunkLoader(void);
 
-			bool													Initialize(ChunkManagerPtr pChunkManager, RegionManagerPtr pRegionManager, MeshizerPtr pMeshizer);
+			bool													Initialize(ChunkManagerPtr pChunkManager, OctreeManagerPtr pOctreeManager, MeshizerPtr pMeshizer);
 			void													Release();
-
 			void													Update();
 
 			uint32													GetLoadingQueueSize() const;
-			uint32													GetUnloadingQueueSize() const;
 
-			bool													RequestChunkDiffSet(const Coord& center, uint32 radius, const Coord& refer_center, uint32 refer_radius);
+			bool													RequestChunk(const ChunkKey& key);
 			bool													RequestChunk(const Coord& center, uint32 radius);
 			bool													RequestChunkMesh(ChunkPtr pChunk);
-			
-			bool													RequestChunk(const ChunkKey& key);
 
 
-			bool													RequestChunkMeshAsync(const ChunkKey& key);
+			bool													RequestChunkDiffSetAsync(const Coord& center, uint32 radius, const Coord& refer_center, uint32 refer_radius);
 			bool													RequestChunkAsync(const ChunkKey& key);
 			bool													RequestChunkAsync(const Coord& center, uint32 radius);
-			bool													RequestChunkDiffSetAsync(const Coord& center, uint32 radius, const Coord& refer_center, uint32 refer_radius);
-
+			bool													RequestChunkMeshAsync(const ChunkKey& key);
 		private:
-			bool													ProcessLoadingQueue();
-			bool													ProcessUnloadingQueue();
 
-			bool													CancelLoading(const ChunkKey& key);
+			void													_handle_load_chunk_ret(ChunkLoaderWorker::Task& t);
+			void													_handle_gen_mesh(ChunkLoaderWorker::Task& t);
 
-			bool													_do_load_chunk(const ChunkKey& key);
+			void													_gen_chunk(const ChunkKey& key, uint8* chunk_data, ChunkAdjacency& adj);
 			bool													GenerateChunkMesh(ChunkPtr pChunk);
-			bool													GenerateChunk(ChunkPtr pChunk);
-			bool													_do_unload_chunk(RegionPtr pRegion, const ChunkKey& key);
+			void													UpdateChunkAdjacency(ChunkPtr pChunk);
 		private:
-
 			ChunkManagerPtr											m_pChunkManager;
-			RegionManagerPtr										m_pRegionManager;
+			OctreeManagerPtr										m_pOctreeManager;
 			MeshizerPtr												m_pMeshizer;
 
-			struct LoaderCommand
-			{
-				enum
-				{
-					load_chunk,
-					unload_chunk,
-					gen_chunkmesh,
-				};
-				uint32												id;
-				ChunkKey											key;
-				bool												canceled;
-			};
+			ChunkLoaderWorker										m_worker;
 
-
-			typedef std::deque<LoaderCommand, std_allocator_adapter<LoaderCommand>>	ChunkQueue;
-
-			ChunkQueue	m_loadingQueue;
-			
-			
-			ChunkQueue	m_unloadingQueue;
-
-			
+			int32													m_pendingCount;
 		};
-
-
 	}
 }

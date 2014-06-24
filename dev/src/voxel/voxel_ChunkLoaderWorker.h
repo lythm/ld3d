@@ -2,6 +2,7 @@
 
 #include "voxel/voxel_ChunkKey.h"
 #include "voxel/voxel_ChunkAdjacency.h"
+#include "voxel/voxel_ChunkData.h"
 
 namespace ld3d
 {
@@ -30,7 +31,7 @@ namespace ld3d
 			{
 				uint32											ev;
 				ChunkKey										key;
-				uint8*											chunk_data;
+				ChunkData										chunk_data;
 				ChunkAdjacency									chunk_adjacency;
 				bool											chunk_empty;
 
@@ -56,6 +57,10 @@ namespace ld3d
 
 			bool																					PushTask(const Task& task);
 			bool																					PopTask(Task& task);
+
+
+			bool																					GenerateChunk(const ChunkKey& key, ChunkData& chunk_data, ChunkAdjacency& adj);
+		
 
 			void																					SetMeshizer(MeshizerPtr pMeshizer);
 		private:

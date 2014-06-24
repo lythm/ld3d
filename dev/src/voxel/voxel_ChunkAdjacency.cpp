@@ -18,6 +18,7 @@ namespace ld3d
 		ChunkAdjacency::~ChunkAdjacency(void)
 		{
 		}
+
 		ChunkAdjacency::ChunkAdjacency(const ChunkAdjacency& other)
 		{
 			memcpy(m_blockAdjacency, other.m_blockAdjacency, sizeof(uint8) * CHUNK_SIZE * CHUNK_SIZE * CHUNK_SIZE);

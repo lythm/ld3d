@@ -148,6 +148,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\voxel\voxel_ChunkAdjacency.h" />
+    <ClInclude Include="..\..\include\voxel\voxel_ChunkData.h" />
     <ClInclude Include="..\..\include\voxel\voxel_Meshizer.h" />
     <ClInclude Include="..\..\include\voxel\voxel_Bound.h" />
     <ClInclude Include="..\..\include\voxel\voxel_Chunk.h" />
@@ -155,7 +156,6 @@
     <ClInclude Include="..\..\include\voxel\voxel_ChunkMesh.h" />
     <ClInclude Include="..\..\include\voxel\voxel_Coord.h" />
     <ClInclude Include="..\..\include\voxel\voxel_Entity.h" />
-    <ClInclude Include="..\..\include\voxel\voxel_Region.h" />
     <ClInclude Include="..\..\include\voxel\voxel_all.h" />
     <ClInclude Include="..\..\include\voxel\voxel_types.h" />
     <ClInclude Include="..\..\include\voxel\voxel_World.h" />
@@ -169,37 +169,34 @@
     <ClInclude Include="..\..\include\voxel\voxel_WorldGenPass_Plants.h" />
     <ClInclude Include="..\..\include\voxel\voxel_WorldGenPass_Water.h" />
     <ClInclude Include="..\..\include\voxel\voxel_WorldViewPort.h" />
-    <ClInclude Include="voxel_ChunkLoaderAsync.h" />
-    <ClInclude Include="voxel_ChunkLoaderWorker.h" />
     <ClInclude Include="voxel_ChunkLoader.h" />
+    <ClInclude Include="voxel_ChunkLoaderWorker.h" />
     <ClInclude Include="voxel_Octree.h" />
     <ClInclude Include="voxel_ChunkManager.h" />
+    <ClInclude Include="voxel_OctreeManager.h" />
     <ClInclude Include="voxel_VoxelUtils.h" />
     <ClInclude Include="voxel_pch.h" />
     <ClInclude Include="voxel_PoolManager.h" />
-    <ClInclude Include="voxel_RegionManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="voxel_ChunkAdjacency.cpp" />
-    <ClCompile Include="voxel_ChunkLoaderAsync.cpp" />
-    <ClCompile Include="voxel_ChunkLoaderWorker.cpp" />
     <ClCompile Include="voxel_ChunkLoader.cpp" />
+    <ClCompile Include="voxel_ChunkLoaderWorker.cpp" />
     <ClCompile Include="voxel_Octree.cpp" />
     <ClCompile Include="voxel_Meshizer.cpp" />
     <ClCompile Include="voxel_ChunkManager.cpp" />
     <ClCompile Include="voxel_Chunk.cpp" />
     <ClCompile Include="voxel_ChunkMesh.cpp" />
     <ClCompile Include="voxel_Entity.cpp" />
+    <ClCompile Include="voxel_OctreeManager.cpp" />
     <ClCompile Include="voxel_VoxelUtils.cpp" />
     <ClCompile Include="voxel_PoolManager.cpp" />
-    <ClCompile Include="voxel_Region.cpp" />
     <ClCompile Include="voxel_pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="voxel_RegionManager.cpp" />
     <ClCompile Include="voxel_World.cpp" />
     <ClCompile Include="voxel_WorldGen.cpp" />
     <ClCompile Include="voxel_WorldGenPass_Caves.cpp" />

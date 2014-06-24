@@ -37,19 +37,15 @@ namespace ld3d
 			void											Update(float dt);
 			void											UpdateLoaderProcess();
 			ChunkManagerPtr									GetChunkManager();
-			RegionManagerPtr								GetRegionManager();
-
+			OctreeManagerPtr								GetOctreeManager();
 			WorldGenPtr										GetWorldGen();
 
 			void											AddDirtyChunkHandler(const std::function<void (ChunkPtr)>& handler);
 
 			uint32											GetLoadingQueueSize() const;
-			uint32											GetUnloadingQueueSize() const;
-
 			uint32											GetChunkCount() const;
 
-			ChunkLoaderPtr									GetChunkLoader();
-			ChunkLoaderAsyncPtr								GetChunkLoaderAsync();
+			ChunkLoaderPtr								GetChunkLoaderAsync();
 		private:
 		
 			
@@ -57,10 +53,9 @@ namespace ld3d
 			WorldGenPtr										m_pGen;
 			Bound											m_worldBound;
 
-			RegionManagerPtr								m_pRegionManager;
+			OctreeManagerPtr								m_pOctreeManager;
 			ChunkManagerPtr									m_pChunkManager;
-			ChunkLoaderPtr									m_pChunkLoader;
-			ChunkLoaderAsyncPtr								m_pChunkLoaderAsync;
+			ChunkLoaderPtr								m_pChunkLoader;
 			std::string										m_name;
 		};
 	}

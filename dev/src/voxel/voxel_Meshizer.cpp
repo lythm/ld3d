@@ -96,10 +96,10 @@ namespace ld3d
 
 			for(int i = 0; i < 5; ++i)
 			{
-				s_Cube[i].verts[0] *= size;
-				s_Cube[i].verts[1] *= size;
-				s_Cube[i].verts[2] *= size;
-				s_Cube[i].verts[3] *= size;
+				s_Cube[i].verts[0] *= (float)size;
+				s_Cube[i].verts[1] *= (float)size;
+				s_Cube[i].verts[2] *= (float)size;
+				s_Cube[i].verts[3] *= (float)size;
 			}
 		}
 
@@ -182,11 +182,11 @@ namespace ld3d
 			//	//face.ao[i] = math::Color4(1, 1, 1, 1);
 			//}
 		}
-		void Meshizer::DoGenerateMesh(const ChunkKey& key, uint8* chunk_data, const ChunkAdjacency& adj, const Coord& base_coord, ChunkMeshPtr pMesh)
+		void Meshizer::DoGenerateMesh(const ChunkKey& key, const ChunkData& chunk_data, const ChunkAdjacency& adj, const Coord& base_coord, ChunkMeshPtr pMesh)
 		{
 			Coord chunk_base = key.ToChunkOrigin();
 
-			math::Vector3 vertex_offset( base_coord.x, base_coord.y, base_coord.z);
+			math::Vector3 vertex_offset( (float)base_coord.x, (float)base_coord.y, (float)base_coord.z);
 
 			std::vector<VoxelFace, std_allocator_adapter<VoxelFace>>			mesh(allocator());
 			mesh.reserve(10000);
@@ -197,9 +197,7 @@ namespace ld3d
 				{
 					for(int32 z = 0; z < CHUNK_SIZE; ++z)
 					{
-						uint32 index = Chunk::ToIndex(x, y, z);
-
-						uint8 type = chunk_data[index];
+						uint8 type = chunk_data.Get(x, y, z);
 
 						if(type == VT_EMPTY)
 						{
@@ -231,10 +229,10 @@ namespace ld3d
 						if(adj.CheckBlockAdjacency(x, y, z, ChunkAdjacency::n_x) == false)
 						{
 							VoxelFace face = s_Cube[0];
-							face.verts[0] += math::Vector3(x, y, z);
-							face.verts[1] += math::Vector3(x, y, z);
-							face.verts[2] += math::Vector3(x, y, z);
-							face.verts[3] += math::Vector3(x, y, z);
+							face.verts[0] += math::Vector3((float)x, (float)y, (float)z);
+							face.verts[1] += math::Vector3((float)x, (float)y, (float)z);
+							face.verts[2] += math::Vector3((float)x, (float)y, (float)z);
+							face.verts[3] += math::Vector3((float)x, (float)y, (float)z);
 
 							face.uv[0] = mat.uv[VoxelMaterial::n_x][0];
 							face.uv[1] = mat.uv[VoxelMaterial::n_x][1];
@@ -253,10 +251,10 @@ namespace ld3d
 						if(adj.CheckBlockAdjacency(x, y, z, ChunkAdjacency::p_x) == false)
 						{
 							VoxelFace face = s_Cube[1];
-							face.verts[0] += math::Vector3(x, y, z);
-							face.verts[1] += math::Vector3(x, y, z);
-							face.verts[2] += math::Vector3(x, y, z);
-							face.verts[3] += math::Vector3(x, y, z);
+							face.verts[0] += math::Vector3((float)x, (float)y, (float)z);
+							face.verts[1] += math::Vector3((float)x, (float)y, (float)z);
+							face.verts[2] += math::Vector3((float)x, (float)y, (float)z);
+							face.verts[3] += math::Vector3((float)x, (float)y, (float)z);
 
 							face.uv[0] = mat.uv[VoxelMaterial::p_x][0];
 							face.uv[1] = mat.uv[VoxelMaterial::p_x][1];
@@ -275,10 +273,10 @@ namespace ld3d
 						if(adj.CheckBlockAdjacency(x, y, z, ChunkAdjacency::n_y) == false)
 						{
 							VoxelFace face = s_Cube[2];
-							face.verts[0] += math::Vector3(x, y, z);
-							face.verts[1] += math::Vector3(x, y, z);
-							face.verts[2] += math::Vector3(x, y, z);
-							face.verts[3] += math::Vector3(x, y, z);
+							face.verts[0] += math::Vector3((float)x, (float)y, (float)z);
+							face.verts[1] += math::Vector3((float)x, (float)y, (float)z);
+							face.verts[2] += math::Vector3((float)x, (float)y, (float)z);
+							face.verts[3] += math::Vector3((float)x, (float)y, (float)z);
 
 							face.uv[0] = mat.uv[VoxelMaterial::n_y][0];
 							face.uv[1] = mat.uv[VoxelMaterial::n_y][1];
@@ -297,10 +295,10 @@ namespace ld3d
 						if(adj.CheckBlockAdjacency(x, y, z, ChunkAdjacency::p_y) == false)
 						{
 							VoxelFace face = s_Cube[3];
-							face.verts[0] += math::Vector3(x, y, z);
-							face.verts[1] += math::Vector3(x, y, z);
-							face.verts[2] += math::Vector3(x, y, z);
-							face.verts[3] += math::Vector3(x, y, z);
+							face.verts[0] += math::Vector3((float)x, (float)y, (float)z);
+							face.verts[1] += math::Vector3((float)x, (float)y, (float)z);
+							face.verts[2] += math::Vector3((float)x, (float)y, (float)z);
+							face.verts[3] += math::Vector3((float)x, (float)y, (float)z);
 
 							face.uv[0] = mat.uv[VoxelMaterial::p_y][0];
 							face.uv[1] = mat.uv[VoxelMaterial::p_y][1];
@@ -319,10 +317,10 @@ namespace ld3d
 						if(adj.CheckBlockAdjacency(x, y, z, ChunkAdjacency::n_z) == false)
 						{
 							VoxelFace face = s_Cube[4];
-							face.verts[0] += math::Vector3(x, y, z);
-							face.verts[1] += math::Vector3(x, y, z);
-							face.verts[2] += math::Vector3(x, y, z);
-							face.verts[3] += math::Vector3(x, y, z);
+							face.verts[0] += math::Vector3((float)x, (float)y, (float)z);
+							face.verts[1] += math::Vector3((float)x, (float)y, (float)z);
+							face.verts[2] += math::Vector3((float)x, (float)y, (float)z);
+							face.verts[3] += math::Vector3((float)x, (float)y, (float)z);
 
 							face.uv[0] = mat.uv[VoxelMaterial::n_z][0];
 							face.uv[1] = mat.uv[VoxelMaterial::n_z][1];
@@ -341,10 +339,10 @@ namespace ld3d
 						if(adj.CheckBlockAdjacency(x, y, z, ChunkAdjacency::p_z) == false)
 						{
 							VoxelFace face = s_Cube[5];
-							face.verts[0] += math::Vector3(x, y, z);
-							face.verts[1] += math::Vector3(x, y, z);
-							face.verts[2] += math::Vector3(x, y, z);
-							face.verts[3] += math::Vector3(x, y, z);
+							face.verts[0] += math::Vector3((float)x, (float)y, (float)z);
+							face.verts[1] += math::Vector3((float)x, (float)y, (float)z);
+							face.verts[2] += math::Vector3((float)x, (float)y, (float)z);
+							face.verts[3] += math::Vector3((float)x, (float)y, (float)z);
 
 							face.uv[0] = mat.uv[VoxelMaterial::p_z][0];
 							face.uv[1] = mat.uv[VoxelMaterial::p_z][1];
@@ -392,7 +390,7 @@ namespace ld3d
 
 			sub.type					= mesh[0].type;
 			sub.material_id				= mesh[0].material;
-			pMesh->AllocVertexBuffer(mesh.size() * 6);
+			pMesh->AllocVertexBuffer((uint32)mesh.size() * 6);
 
 			ChunkMesh::VoxelVertex* pData = (ChunkMesh::VoxelVertex*)pMesh->GetVertexBuffer();
 
@@ -470,7 +468,7 @@ namespace ld3d
 			Coord chunk_base = pChunk->GetKey().ToChunkOrigin();
 			ChunkAdjacency& adj = pChunk->GetAdjacency();
 
-			math::Vector3 vertex_offset( base_coord.x, base_coord.y, base_coord.z);
+			math::Vector3 vertex_offset( (float)base_coord.x, (float)base_coord.y, (float)base_coord.z);
 
 			std::vector<VoxelFace, std_allocator_adapter<VoxelFace>>			mesh(allocator());
 			mesh.reserve(10000);
@@ -513,10 +511,10 @@ namespace ld3d
 						if(adj.CheckBlockAdjacency(x, y, z, ChunkAdjacency::n_x) == false)
 						{
 							VoxelFace face = s_Cube[0];
-							face.verts[0] += math::Vector3(x, y, z);
-							face.verts[1] += math::Vector3(x, y, z);
-							face.verts[2] += math::Vector3(x, y, z);
-							face.verts[3] += math::Vector3(x, y, z);
+							face.verts[0] += math::Vector3((float)x, (float)y, (float)z);
+							face.verts[1] += math::Vector3((float)x, (float)y, (float)z);
+							face.verts[2] += math::Vector3((float)x, (float)y, (float)z);
+							face.verts[3] += math::Vector3((float)x, (float)y, (float)z);
 
 							face.uv[0] = mat.uv[VoxelMaterial::n_x][0];
 							face.uv[1] = mat.uv[VoxelMaterial::n_x][1];
@@ -535,10 +533,10 @@ namespace ld3d
 						if(adj.CheckBlockAdjacency(x, y, z, ChunkAdjacency::p_x) == false)
 						{
 							VoxelFace face = s_Cube[1];
-							face.verts[0] += math::Vector3(x, y, z);
-							face.verts[1] += math::Vector3(x, y, z);
-							face.verts[2] += math::Vector3(x, y, z);
-							face.verts[3] += math::Vector3(x, y, z);
+							face.verts[0] += math::Vector3((float)x, (float)y, (float)z);
+							face.verts[1] += math::Vector3((float)x, (float)y, (float)z);
+							face.verts[2] += math::Vector3((float)x, (float)y, (float)z);
+							face.verts[3] += math::Vector3((float)x, (float)y, (float)z);
 
 							face.uv[0] = mat.uv[VoxelMaterial::p_x][0];
 							face.uv[1] = mat.uv[VoxelMaterial::p_x][1];
@@ -557,10 +555,10 @@ namespace ld3d
 						if(adj.CheckBlockAdjacency(x, y, z, ChunkAdjacency::n_y) == false)
 						{
 							VoxelFace face = s_Cube[2];
-							face.verts[0] += math::Vector3(x, y, z);
-							face.verts[1] += math::Vector3(x, y, z);
-							face.verts[2] += math::Vector3(x, y, z);
-							face.verts[3] += math::Vector3(x, y, z);
+							face.verts[0] += math::Vector3((float)x, (float)y, (float)z);
+							face.verts[1] += math::Vector3((float)x, (float)y, (float)z);
+							face.verts[2] += math::Vector3((float)x, (float)y, (float)z);
+							face.verts[3] += math::Vector3((float)x, (float)y, (float)z);
 
 							face.uv[0] = mat.uv[VoxelMaterial::n_y][0];
 							face.uv[1] = mat.uv[VoxelMaterial::n_y][1];
@@ -579,10 +577,10 @@ namespace ld3d
 						if(adj.CheckBlockAdjacency(x, y, z, ChunkAdjacency::p_y) == false)
 						{
 							VoxelFace face = s_Cube[3];
-							face.verts[0] += math::Vector3(x, y, z);
-							face.verts[1] += math::Vector3(x, y, z);
-							face.verts[2] += math::Vector3(x, y, z);
-							face.verts[3] += math::Vector3(x, y, z);
+							face.verts[0] += math::Vector3((float)x, (float)y, (float)z);
+							face.verts[1] += math::Vector3((float)x, (float)y, (float)z);
+							face.verts[2] += math::Vector3((float)x, (float)y, (float)z);
+							face.verts[3] += math::Vector3((float)x, (float)y, (float)z);
 
 							face.uv[0] = mat.uv[VoxelMaterial::p_y][0];
 							face.uv[1] = mat.uv[VoxelMaterial::p_y][1];
@@ -601,10 +599,10 @@ namespace ld3d
 						if(adj.CheckBlockAdjacency(x, y, z, ChunkAdjacency::n_z) == false)
 						{
 							VoxelFace face = s_Cube[4];
-							face.verts[0] += math::Vector3(x, y, z);
-							face.verts[1] += math::Vector3(x, y, z);
-							face.verts[2] += math::Vector3(x, y, z);
-							face.verts[3] += math::Vector3(x, y, z);
+							face.verts[0] += math::Vector3((float)x, (float)y, (float)z);
+							face.verts[1] += math::Vector3((float)x, (float)y, (float)z);
+							face.verts[2] += math::Vector3((float)x, (float)y, (float)z);
+							face.verts[3] += math::Vector3((float)x, (float)y, (float)z);
 
 							face.uv[0] = mat.uv[VoxelMaterial::n_z][0];
 							face.uv[1] = mat.uv[VoxelMaterial::n_z][1];
@@ -623,10 +621,10 @@ namespace ld3d
 						if(adj.CheckBlockAdjacency(x, y, z, ChunkAdjacency::p_z) == false)
 						{
 							VoxelFace face = s_Cube[5];
-							face.verts[0] += math::Vector3(x, y, z);
-							face.verts[1] += math::Vector3(x, y, z);
-							face.verts[2] += math::Vector3(x, y, z);
-							face.verts[3] += math::Vector3(x, y, z);
+							face.verts[0] += math::Vector3((float)x, (float)y, (float)z);
+							face.verts[1] += math::Vector3((float)x, (float)y, (float)z);
+							face.verts[2] += math::Vector3((float)x, (float)y, (float)z);
+							face.verts[3] += math::Vector3((float)x, (float)y, (float)z);
 
 							face.uv[0] = mat.uv[VoxelMaterial::p_z][0];
 							face.uv[1] = mat.uv[VoxelMaterial::p_z][1];
@@ -659,7 +657,7 @@ namespace ld3d
 
 			sub.type					= mesh[0].type;
 			sub.material_id				= mesh[0].material;
-			pMesh->AllocVertexBuffer(mesh.size() * 6);
+			pMesh->AllocVertexBuffer((uint32)mesh.size() * 6);
 
 			ChunkMesh::VoxelVertex* pData = (ChunkMesh::VoxelVertex*)pMesh->GetVertexBuffer();
 

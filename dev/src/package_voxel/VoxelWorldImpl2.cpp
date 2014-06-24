@@ -185,15 +185,7 @@ namespace ld3d
 
 		return m_pWorld->GetLoadingQueueSize();
 	}
-	uint32 VoxelWorldImpl2::GetUnloadingQueueSize()
-	{
-		if(m_pWorld == nullptr)
-		{
-			return 0;
-		}
-
-		return m_pWorld->GetUnloadingQueueSize();
-	}
+	
 	uint32 VoxelWorldImpl2::GetChunkCount()
 	{
 		if(m_pWorld == nullptr)
