@@ -11,7 +11,7 @@ namespace ld3d
 {
 	namespace voxel
 	{
-		ChunkLoader::ChunkLoader(void) : m_worker(5000, 5000)
+		ChunkLoader::ChunkLoader(void) : m_worker(3000, 3000)
 		{
 			m_pendingCount = 0;
 		}
@@ -58,10 +58,24 @@ namespace ld3d
 		}
 		bool ChunkLoader::RequestChunkDiffSetAsync(const Coord& center, uint32 radius, const Coord& refer_center, uint32 refer_radius, const std::function<void(ChunkPtr)>& on_loaded)
 		{
-			m_pChunkManager->PickChunkDiffSet1(center, radius, refer_center, refer_radius, [&](const ChunkKey& key)
+			int a = 0;
+			int b = 0;
+			m_pChunkManager->PickChunkDiffSet(center, radius, refer_center, refer_radius, [&](const ChunkKey& key)
 			{
+				++a;
 				RequestChunkAsync(key, on_loaded);
 			});
+
+
+			/*m_pChunkManager->PickChunkDiffSet1(center, radius, refer_center, refer_radius, [&](const ChunkKey& key)
+			{
+				++b;
+			});
+
+			if(a != b)
+			{
+				int debug = 0;
+			}*/
 
 			return true;
 		}
@@ -77,11 +91,12 @@ namespace ld3d
 					on_loaded(pChunk);
 				}
 
-
-				if(pChunk->GetMesh() == nullptr)
+				ChunkMeshPtr pMesh = pChunk->GetMesh();
+				if(pMesh == nullptr || pMesh->GetSubsetCount() == 0)
 				{
-					
+					RequestMeshAsync(pChunk);
 				}
+
 				return true;
 			}
 
@@ -92,7 +107,7 @@ namespace ld3d
 			t.chunk_adjacency = ChunkAdjacency(key);
 			t.key = key;
 			t.on_loaded = on_loaded;
-			m_worker.PushTask(t);
+			PushTaskUntilSuccess(t);
 			m_pendingCount++;
 			return true;
 		}
@@ -139,13 +154,13 @@ namespace ld3d
 			t.mesh.reset();
 
 			m_pOctreeManager->AddChunk(pChunk);
-		
 		}
 		
 		void ChunkLoader::_handle_load_chunk_ret(ChunkLoaderWorker::Task& t)
 		{
 			if(t.chunk_empty)
 			{
+				UpdateChunkAdjacency(t.key);
 				return;
 			}
 			ChunkPtr pChunk = m_pChunkManager->CreateChunk(t.key, t.chunk_data.GetData());
@@ -160,19 +175,12 @@ namespace ld3d
 				t.on_loaded(pChunk);
 			}
 
-			if(false == pChunk->GetAdjacency().IsVisible())
-			{
-				return;
-			}
+			//if(false == pChunk->GetAdjacency().IsVisible())
+			//{
+			//	return;
+			//}
 
-			t.mesh = pool_manager()->AllocChunkMesh();
-			t.mesh->AllocVertexBuffer(80000);
-
-			t.ev = ChunkLoaderWorker::ev_gen_mesh;
-			++m_pendingCount;
-
-
-			m_worker.PushTask(t);
+			RequestMeshAsync(pChunk);
 		}
 
 		uint32 ChunkLoader::GetPendingCount() const
@@ -209,6 +217,10 @@ namespace ld3d
 
 				pAdj->GetAdjacency().OnAdjacentChunkLoaded(this_coord, pChunk);
 
+				/*if(pChunk != nullptr)
+				{
+					RequestMeshAsync(pAdj);
+				}*/
 				/*if(pAdj != nullptr)
 				{
 					if(false == pAdj->GetAdjacency().IsVisible())
@@ -256,6 +268,29 @@ namespace ld3d
 			
 			return true;
 		}
-		
+
+		void ChunkLoader::PushTaskUntilSuccess(ChunkLoaderWorker::Task& t)
+		{
+			while(m_worker.PushTask(t) == false)
+			{
+				Update();
+				boost::this_thread::sleep_for(boost::chrono::milliseconds(1));
+			}
+		}
+		bool ChunkLoader::RequestMeshAsync(ChunkPtr pChunk)
+		{
+			ChunkLoaderWorker::Task t;
+			t.key = pChunk->GetKey();
+			t.chunk_adjacency = pChunk->GetAdjacency();
+			t.chunk_data = pChunk->GetData();
+			t.ev = ChunkLoaderWorker::ev_gen_mesh;
+			t.mesh = pool_manager()->AllocChunkMesh();
+
+			++m_pendingCount;
+
+			PushTaskUntilSuccess(t);
+
+			return true;
+		}
 	}
 }

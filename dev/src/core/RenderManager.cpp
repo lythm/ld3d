@@ -284,14 +284,12 @@ namespace ld3d
 			{
 				RenderDataPtr pData = m_pRenderQueue->GetRenderData(iLayer, i);
 				
-				SetMatrixBlock(pData->material, pData->world_matrix);
-				
 				if(pData->fr_draw)
 				{
 					pData->fr_draw(shared_from_this());
 					continue;
 				}
-				
+				SetMatrixBlock(pData->material, pData->world_matrix);
 				DrawRenderData(pData);
 			}
 		}

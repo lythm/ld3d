@@ -18,7 +18,7 @@ namespace ld3d
 		{
 			if(m_pVertexBuffer)
 			{
-				allocator()->Free(m_pVertexBuffer);
+				delete m_pVertexBuffer;
 				m_pVertexBuffer = nullptr;
 			}
 
@@ -28,7 +28,7 @@ namespace ld3d
 		{
 			if(m_pVertexBuffer)
 			{
-				allocator()->Free(m_pVertexBuffer);
+				delete m_pVertexBuffer;
 				m_pVertexBuffer = nullptr;
 			}
 
@@ -52,9 +52,9 @@ namespace ld3d
 			{
 				if(m_pVertexBuffer)
 				{
-					allocator()->Free(m_pVertexBuffer);
+					delete m_pVertexBuffer;
 				}
-				m_pVertexBuffer = allocator()->Alloc(bytes_need);
+				m_pVertexBuffer = new char[bytes_need];
 				m_vertexBufferBytes = bytes_need;
 			}
 

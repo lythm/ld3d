@@ -33,9 +33,10 @@ namespace ld3d
 		bool WorldViewport::Open(WorldPtr pWorld, const Coord& center, uint32 radius)
 		{
 			m_pWorld = pWorld;
-			m_pLoader = pWorld->GetChunkLoaderAsync();
+			m_pLoader = pWorld->GetChunkLoader();
 			m_pOctreeManager = pWorld->GetOctreeManager();
 
+			radius = 128;
 
 			m_VP.center = center;
 			m_VP.radius = radius;
@@ -48,6 +49,13 @@ namespace ld3d
 			m_pWorld->AddDirtyChunkHandler(std::bind(&WorldViewport::_on_dirty_chunk, this, std::placeholders::_1));
 			
 			m_pLoader->RequestChunkAsync(m_VP.center, m_VP.radius, std::bind(&WorldViewport::AddChunkToCache, this, std::placeholders::_1));
+
+
+			/*VPSphere tmp = m_VP;
+
+			tmp.center += Coord(-14, -16, -16);
+
+			m_pLoader->RequestChunkDiffSetAsync(VoxelUtils::ToChunkOrigin(m_VP.center), m_VP.radius, VoxelUtils::ToChunkOrigin(tmp.center), tmp.radius, std::bind(&WorldViewport::AddChunkToCache, this, std::placeholders::_1));*/
 
 			while(m_pLoader->GetPendingCount() != 0)
 			{
@@ -72,6 +80,7 @@ namespace ld3d
 		
 		void WorldViewport::Update()
 		{
+		//	return;
 			UpdateVP();
 		}
 		
@@ -124,6 +133,7 @@ namespace ld3d
 
 			m_lastVP.center = m_VP.center;
 			m_lastVP.radius = m_VP.radius;
+
 		}
 		void WorldViewport::SetRadius(uint32 radius)
 		{

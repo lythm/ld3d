@@ -33,6 +33,8 @@ namespace ld3d
 		void										_on_end_frame(EventPtr pEvent);
 		voxel::WorldPtr								GetWorld();
 		const std::vector<MaterialPtr>&				GetMaterials();
+
+		int32										GetFaceCount();
 	private:
 
 		void										ResetComponents(voxel::WorldPtr pWorld);

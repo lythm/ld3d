@@ -4,6 +4,7 @@
 #include "voxel_VoxelUtils.h"
 #include "voxel_Octree.h"
 #include "voxel_PoolManager.h"
+#include "voxel/voxel_ChunkMesh.h"
 
 namespace ld3d
 {
@@ -11,6 +12,7 @@ namespace ld3d
 	{
 		OctreeManager::OctreeManager(void)
 		{
+			m_faceCount = 0;
 		}
 
 
@@ -39,6 +41,10 @@ namespace ld3d
 		}
 		void OctreeManager::AddChunk(ChunkPtr pChunk)
 		{
+			ChunkMeshPtr pMesh = pChunk->GetMesh();
+			m_faceCount += pMesh->GetVertexCount() / 3;
+
+
 			const Coord& chunk_origin = pChunk->GetKey().ToChunkOrigin();
 			Coord region_origin = VoxelUtils::ToRegionOrigin(chunk_origin);
 
@@ -57,6 +63,13 @@ namespace ld3d
 		}
 		void OctreeManager::RemoveChunk(ChunkPtr pChunk)
 		{
+			ChunkMeshPtr pMesh = pChunk->GetMesh();
+			
+			if(pMesh)
+			{
+				m_faceCount -= pMesh->GetVertexCount() / 3;
+			}
+
 			const Coord& chunk_origin = pChunk->GetKey().ToChunkOrigin();
 			Coord region_origin = VoxelUtils::ToRegionOrigin(chunk_origin);
 
@@ -138,5 +151,10 @@ namespace ld3d
 
 			return false;
 		}*/
+
+		int32 OctreeManager::GetFaceCount()
+		{
+			return m_faceCount;
+		}
 	}
 }

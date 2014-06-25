@@ -726,5 +726,66 @@ namespace ld3d
 		{
 			m_materialMap[type] = mat;
 		}
+		void Meshizer::GenerateChunkBox(const ChunkKey& key, const Coord& base_coord, ChunkMeshPtr pMesh)
+		{
+			uint32 nVerts = 24;
+
+			pMesh->AllocVertexBuffer(nVerts);
+			
+			ChunkMesh::VoxelVertex* data = (ChunkMesh::VoxelVertex*)pMesh->GetVertexBuffer();
+
+			math::Vector3 min_v, max_v;
+
+			min_v = base_coord.ToVector3();
+			max_v = min_v + math::Vector3(CHUNK_SIZE, CHUNK_SIZE, CHUNK_SIZE);
+
+			// verticle
+			data[0].pos = min_v;
+			data[1].pos = math::Vector3(min_v.x, max_v.y, min_v.z);
+
+			data[2].pos = math::Vector3(max_v.x, min_v.y, min_v.z);
+			data[3].pos = math::Vector3(max_v.x, max_v.y, min_v.z);
+
+			data[4].pos = math::Vector3(max_v.x, min_v.y, max_v.z);
+			data[5].pos = math::Vector3(max_v.x, max_v.y, max_v.z);
+
+			data[6].pos = math::Vector3(min_v.x, min_v.y, max_v.z);
+			data[7].pos = math::Vector3(min_v.x, max_v.y, max_v.z);
+
+			// top
+			data[8].pos = math::Vector3(min_v.x, max_v.y, min_v.z);
+			data[9].pos = math::Vector3(max_v.x, max_v.y, min_v.z);
+
+			data[10].pos = math::Vector3(max_v.x, max_v.y, min_v.z);
+			data[11].pos = math::Vector3(max_v.x, max_v.y, max_v.z);
+
+			data[12].pos = math::Vector3(max_v.x, max_v.y, max_v.z);
+			data[13].pos = math::Vector3(min_v.x, max_v.y, max_v.z);
+
+			data[14].pos = math::Vector3(min_v.x, max_v.y, min_v.z);
+			data[15].pos = math::Vector3(min_v.x, max_v.y, max_v.z);
+
+
+			// bottom
+			data[16].pos = math::Vector3(min_v.x, min_v.y, min_v.z);
+			data[17].pos = math::Vector3(max_v.x, min_v.y, min_v.z);
+
+			data[18].pos = math::Vector3(max_v.x, min_v.y, min_v.z);
+			data[19].pos = math::Vector3(max_v.x, min_v.y, max_v.z);
+
+			data[20].pos = math::Vector3(max_v.x, min_v.y, max_v.z);
+			data[21].pos = math::Vector3(min_v.x, min_v.y, max_v.z);
+
+			data[22].pos = math::Vector3(min_v.x, min_v.y, min_v.z);
+			data[23].pos = math::Vector3(min_v.x, min_v.y, max_v.z);
+
+			ChunkMesh::Subset sub;
+			sub.vertexBuffer = data;
+			sub.vertexCount = nVerts;
+			sub.type = -1;
+			sub.material_id = 1;
+
+			pMesh->AddSubset(sub);
+		}
 	}
 }

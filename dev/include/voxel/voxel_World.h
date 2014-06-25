@@ -45,7 +45,9 @@ namespace ld3d
 			uint32											GetLoadingQueueSize() const;
 			uint32											GetChunkCount() const;
 
-			ChunkLoaderPtr								GetChunkLoaderAsync();
+			int32											GetTotalFaceCount() const;
+
+			ChunkLoaderPtr									GetChunkLoader();
 		private:
 		
 			

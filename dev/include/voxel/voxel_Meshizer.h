@@ -101,6 +101,8 @@ namespace ld3d
 			void										DoGenerateMesh(const ChunkKey& key, const ChunkData& chunk_data, const ChunkAdjacency& adj, const Coord& base_coord, ChunkMeshPtr pMesh);
 			virtual void								GenerateMesh(ChunkPtr pChunk, const Coord& base_coord, ChunkMeshPtr pMesh);
 			void										AddVoxelMaterial(uint8 type, const VoxelMaterial& mat);
+
+			void										GenerateChunkBox(const ChunkKey& key, const Coord& base_coord, ChunkMeshPtr pMesh);
 		private:
 			static void									InitializeCubeVertex(uint32 size);
 			void										GenerateFaceAO(const ChunkKey& key, uint8* chunk_data, const ChunkAdjacency& adj, VoxelFace& face);

@@ -23,9 +23,10 @@ namespace ld3d
 			bool													RequestChunkAsync(const Coord& center, uint32 radius, const std::function<void(ChunkPtr)>& on_loaded);
 			bool													RequestUnloadChunk(const ChunkKey& key);
 			bool													RequestUnloadChunk(ChunkPtr pChunk);
+			bool													RequestMeshAsync(ChunkPtr pChunk);
 			
 		private:
-			
+			void													PushTaskUntilSuccess(ChunkLoaderWorker::Task& t);
 			void													_handle_load_chunk_ret(ChunkLoaderWorker::Task& t);
 			void													_handle_gen_mesh(ChunkLoaderWorker::Task& t);
 

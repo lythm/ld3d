@@ -167,7 +167,7 @@ namespace ld3d
 
 			for(int32 y = -(int32)radius; y <= (int32)radius; ++y)
 			{
-				PickChunkSlice(y, center, radius, op);
+				PickChunkSlice(y, VoxelUtils::ToChunkOrigin(center), radius, op);
 			}
 		}
 		void ChunkManager::PickChunkSlice(int32 sy, const Coord& center, uint32 radius, const std::function<void(const ChunkKey&)>& op)
@@ -228,7 +228,7 @@ namespace ld3d
 
 			for(int32 y = -(int32)radius; y <= (int32)radius; ++y)
 			{
-				PickChunkDiffSetSlice(y, center, radius, refer_center, refer_radius,  op);
+				PickChunkDiffSetSlice(y, VoxelUtils::ToChunkOrigin(center), radius, VoxelUtils::ToChunkOrigin(refer_center), refer_radius,  op);
 			}
 		}
 		void ChunkManager::PickChunkDiffSetSlice(int32 sy, const Coord& center, uint32 radius, const Coord& refer_center, uint32 refer_radius, const std::function<void(const ChunkKey&)>& op)

@@ -1,5 +1,6 @@
 #include "voxel_pch.h"
 #include "voxel/voxel_Chunk.h"
+#include "voxel/voxel_ChunkMesh.h"
 
 
 namespace ld3d
@@ -21,6 +22,11 @@ namespace ld3d
 
 		Chunk::~Chunk(void)
 		{
+			if(m_pMesh)
+			{
+				m_pMesh->Release();
+				m_pMesh.reset();
+			}
 		}
 		const ChunkKey& Chunk::GetKey() const
 		{

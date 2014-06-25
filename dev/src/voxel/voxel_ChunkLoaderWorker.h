@@ -76,6 +76,7 @@ namespace ld3d
 			boost::thread																			m_thread;
 
 			PerlinNoise																				m_noise;
+			PerlinNoise																				m_noiseBase;
 		};
 	}
 }

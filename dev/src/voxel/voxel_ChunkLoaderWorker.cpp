@@ -11,7 +11,8 @@ namespace ld3d
 		ChunkLoaderWorker::ChunkLoaderWorker(uint16 inQueueSize, uint16 outQueueSize) : 
 			m_in(inQueueSize), 
 			m_out(outQueueSize), 
-			m_noise(1, 5, 1, (int)os_get_tick())
+			m_noise(1, 50, 1, (int)os_get_tick()),
+			m_noiseBase(1, 10, 1, (int)os_get_tick())
 		{
 		}
 
@@ -126,6 +127,23 @@ namespace ld3d
 
 						h -= (y + chunk_origin.y) / 100;
 
+						double vec1[2];
+
+						vec1[0] = x + chunk_origin.x;
+						vec1[1] = z + chunk_origin.z;
+					
+
+						vec1[0] /= 1000;
+						vec1[1] /= 1000;
+
+						double b = m_noiseBase.perlin_noise_2D(vec1);
+
+						b *= 100;
+
+						if((y + chunk_origin.y) > b)
+						{
+							continue;
+						}
 						if(h > 0 && h < 1)
 						{
 							chunk_data.Set(x, y, z, 1);

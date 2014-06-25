@@ -24,6 +24,7 @@ namespace ld3d
 
 		virtual uint32										GetLoadingQueueSize()						= 0;
 		virtual uint32										GetChunkCount(){return 0;}
+		virtual int32										GetFaceCount(){return 0;}
 	protected:
 		VoxelWorld(GameObjectManagerPtr pManager) : GameObjectComponent("VoxelWorld", pManager){}
 		virtual ~VoxelWorld(void){}

@@ -60,6 +60,10 @@ namespace ld3d
 		}
 		using namespace voxel;
 
+		
+
+		m_pMeshizer = m_pManager->alloc_object<voxel::Meshizer>();
+
 		Meshizer::VoxelMaterial mat;
 		mat.type = 1;
 		mat.materials[0] = 0;
@@ -69,11 +73,9 @@ namespace ld3d
 		mat.materials[4] = 0;
 		mat.materials[5] = 0;
 		
+		m_pMeshizer->AddVoxelMaterial(mat.type, mat);
+
 		
-
-		m_pMeshizer = m_pManager->alloc_object<voxel::Meshizer>();
-
-		m_pMeshizer->AddVoxelMaterial(1, mat);
 
 		MaterialPtr pMaterial = m_pManager->GetRenderManager()->CreateMaterialFromFile("./assets/voxel/material/voxel_world.material");
 		if(pMaterial == nullptr)
@@ -85,6 +87,9 @@ namespace ld3d
 
 		pMaterial->GetParameterByName("diffuse_map")->SetParameterTexture(pTex);
 
+		m_materials.push_back(pMaterial);
+
+		pMaterial = m_pManager->GetRenderManager()->CreateMaterialFromFile("./assets/standard/material/simple_line.material");
 		m_materials.push_back(pMaterial);
 
 		if(false == m_pWorld->Create(name, nullptr, m_pMeshizer, m_pManager->GetAllocator(), m_pManager->logger()))
@@ -198,5 +203,14 @@ namespace ld3d
 	const std::vector<MaterialPtr>& VoxelWorldImpl2::GetMaterials()
 	{
 		return m_materials;
+	}
+	int32 VoxelWorldImpl2::GetFaceCount()
+	{
+		if(m_pWorld == nullptr)
+		{
+			return 0;
+		}
+
+		return m_pWorld->GetTotalFaceCount();
 	}
 }

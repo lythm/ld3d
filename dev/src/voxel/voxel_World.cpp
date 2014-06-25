@@ -186,13 +186,17 @@ namespace ld3d
 			return m_pChunkManager->GetChunkCount();
 		}
 		
-		ChunkLoaderPtr	World::GetChunkLoaderAsync()
+		ChunkLoaderPtr	World::GetChunkLoader()
 		{
 			return m_pChunkLoader;
 		}
 		OctreeManagerPtr World::GetOctreeManager()
 		{
 			return m_pOctreeManager;
+		}
+		int32 World::GetTotalFaceCount() const
+		{
+			return m_pOctreeManager->GetFaceCount();
 		}
 	}
 }

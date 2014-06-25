@@ -58,12 +58,12 @@ namespace ld3d
 
 			CameraDataPtr pMD = std::dynamic_pointer_cast<CameraData>(pCore->CreateGameObjectComponent("Camera"));
 			m_pCamera->AddComponent(pMD);
-			pMD->SetFarPlane(1000);
+			pMD->SetFarPlane(500);
 			GameObjectComponentPtr pSkyBox = pCore->CreateGameObjectComponent("SkyBox");
 			m_pCamera->AddComponent(pSkyBox);
 
 			CameraController_FreePtr pController = std::dynamic_pointer_cast<CameraController_Free>(pCore->CreateGameObjectComponent("CameraFreeController"));
-			pController->SetSpeed(20);
+			pController->SetSpeed(4);
 			//	pController->Enable(false);
 			m_pCamera->AddComponent(pController);
 
@@ -123,8 +123,8 @@ namespace ld3d
 			VoxelWorldPtr pWorld = std::dynamic_pointer_cast<VoxelWorld>(m_pWorld->GetComponent("VoxelWorld"));
 			
 			s << "[chunk loader] pending chunk: " << pWorld->GetLoadingQueueSize() 
-				<< " chunks: " << pWorld->GetChunkCount();
-
+				<< " chunks: " << pWorld->GetChunkCount()
+				<< " faces: " << pWorld->GetFaceCount();
 
 			*m_debugInfo = s.str();
 			return true;
