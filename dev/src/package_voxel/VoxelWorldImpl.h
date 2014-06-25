@@ -1,23 +1,15 @@
 #pragma once
 
 #include "packages/voxel/VoxelWorld.h"
-
 namespace ld3d
 {
-	class VoxelWorldChunk;
-	
 	class VoxelWorldImpl : public VoxelWorld
 	{
 	public:
-
 		VoxelWorldImpl(GameObjectManagerPtr pManager);
 		virtual ~VoxelWorldImpl(void);
 
-		uint32										GetLoadingQueueSize(){return 0;}
-		uint32										GetUnloadingQueueSize(){return 0;}
 
-		void										Update(float dt);
-		
 		const int&									GetVoxelSize();
 		void										SetVoxelSize(const int& size);
 
@@ -30,33 +22,38 @@ namespace ld3d
 		const int&									GetWorldSizeZ();
 		void										SetWorldSizeZ(const int& z);
 
-		VoxelWorldChunk*							FrustumCull(math::ViewFrustum* pVF);
+		uint32										GetLoadingQueueSize();
+		uint32										GetChunkCount();
 
-		VoxelWorldDataSetPtr						GetDataSet();
-		void										SetDataSet(VoxelWorldDataSetPtr pDataSet);
+		bool										CreateWorld(const std::string& name);
+		void										DestroyWorld();
 
-		bool										OnSerialize(DataStream* pStream);
-		bool										OnUnSerialize(DataStream* pStream, const Version& version);
+		void										Update(float dt);
 
-		const math::Matrix44&						GetWorldTransform();
-		
-		Contact										Intersect(const math::Ray& r);
-		Contact										Intersect(BoundPtr pBound);
+		void										_on_end_frame(EventPtr pEvent);
+		voxel::WorldPtr								GetWorld();
+		const std::vector<MaterialPtr>&				GetMaterials();
+
+		int32										GetFaceCount();
 	private:
 
-		Contact										_intersect_aabb(const BoundPtr pBound);
+		void										ResetComponents(voxel::WorldPtr pWorld);
 
 		bool										OnAttach();
 		void										OnDetach();
-
 	private:
 		int											m_voxelSize;
 		int											m_worldSizeX;
 		int											m_worldSizeY;
 		int											m_worldSizeZ;
 
-		VoxelWorldDataSetPtr						m_pDataSet;
+		voxel::WorldPtr								m_pWorld;
 
-		
+		EventHandlerID								m_hEndFrame;
+
+		voxel::MeshizerPtr							m_pMeshizer;
+		std::vector<MaterialPtr>					m_materials;
 	};
+
+
 }

@@ -29,11 +29,11 @@ namespace ld3d
 		};
 
 
-		static void											GenChunkMesh(VoxelWorldChunk* pChunk);
+	//	static void											GenChunkMesh(VoxelWorldChunk* pChunk);
 
 
-		static std::vector<FaceRegion>						ExtractRegion(uint8 faces[VOXEL_WORLD_CHUNK_SIZE][VOXEL_WORLD_CHUNK_SIZE]);
-		static bool											FindMaxRegion(uint8 faces[VOXEL_WORLD_CHUNK_SIZE][VOXEL_WORLD_CHUNK_SIZE], FaceRegion& r);
+//		static std::vector<FaceRegion>						ExtractRegion(uint8 faces[VOXEL_WORLD_CHUNK_SIZE][VOXEL_WORLD_CHUNK_SIZE]);
+	//	static bool											FindMaxRegion(uint8 faces[VOXEL_WORLD_CHUNK_SIZE][VOXEL_WORLD_CHUNK_SIZE], FaceRegion& r);
 	
 
 		/*static void										_voxel_index_to_region(uint32 chunk_key, uint32 index, uint32& x, uint32& y, uint32& z);

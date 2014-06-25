@@ -167,7 +167,6 @@
     <ClInclude Include="..\..\include\packages\voxel\VoxelType.h" />
     <ClInclude Include="..\..\include\packages\voxel\VoxelWorld.h" />
     <ClInclude Include="..\..\include\packages\voxel\VoxelWorldCollisionData.h" />
-    <ClInclude Include="..\..\include\packages\voxel\VoxelWorldGenerator.h" />
     <ClInclude Include="..\..\include\packages\voxel\VoxelWorldRenderer.h" />
     <ClInclude Include="..\..\include\packages\voxel\voxel_all.h" />
     <ClInclude Include="..\..\include\packages\voxel\voxel_ptr.h" />
@@ -175,21 +174,10 @@
     <ClInclude Include="VoxelObjectRendererImpl.h" />
     <ClInclude Include="VoxelObjectTemplate.h" />
     <ClInclude Include="VoxelPackage.h" />
-    <ClInclude Include="VoxelPool.h" />
-    <ClInclude Include="VoxelSerializer.h" />
-    <ClInclude Include="VoxelWorldChunk.h" />
     <ClInclude Include="VoxelWorldCollisionDataImpl.h" />
-    <ClInclude Include="VoxelWorldDataSet.h" />
-    <ClInclude Include="VoxelWorldGeneratorImpl.h" />
     <ClInclude Include="VoxelWorldImpl.h" />
-    <ClInclude Include="VoxelWorldImpl2.h" />
-    <ClInclude Include="VoxelWorldMaterialManager.h" />
-    <ClInclude Include="VoxelWorldMesh.h" />
-    <ClInclude Include="VoxelWorldRendererImpl2.h" />
-    <ClInclude Include="VoxelWorldUtils.h" />
-    <ClInclude Include="VoxelWorldOctTree.h" />
-    <ClInclude Include="VoxelWorldRegion.h" />
     <ClInclude Include="VoxelWorldRendererImpl.h" />
+    <ClInclude Include="VoxelWorldUtils.h" />
     <ClInclude Include="VoxelWorldTemplate.h" />
     <ClInclude Include="voxel_pch.h" />
   </ItemGroup>
@@ -198,21 +186,10 @@
     <ClCompile Include="VoxelObjectRendererImpl.cpp" />
     <ClCompile Include="VoxelObjectTemplate.cpp" />
     <ClCompile Include="VoxelPackage.cpp" />
-    <ClCompile Include="VoxelPool.cpp" />
-    <ClCompile Include="VoxelWorldChunk.cpp" />
     <ClCompile Include="VoxelWorldCollisionDataImpl.cpp" />
-    <ClCompile Include="VoxelWorldDataSet.cpp" />
-    <ClCompile Include="VoxelWorldGeneratorImpl.cpp" />
     <ClCompile Include="VoxelWorldImpl.cpp" />
-    <ClCompile Include="VoxelWorldImpl2.cpp" />
-    <ClCompile Include="VoxelWorldMaterialManager.cpp" />
-    <ClCompile Include="VoxelWorldMesh.cpp" />
-    <ClCompile Include="VoxelWorldRendererImpl2.cpp" />
-    <ClCompile Include="VoxelWorldUtils.cpp" />
-    <ClCompile Include="VoxelWorldOctTree.cpp" />
-    <ClCompile Include="VoxelWorldRegion.cpp" />
-    <ClCompile Include="VoxelSerializer.cpp" />
     <ClCompile Include="VoxelWorldRendererImpl.cpp" />
+    <ClCompile Include="VoxelWorldUtils.cpp" />
     <ClCompile Include="VoxelWorldTemplate.cpp" />
     <ClCompile Include="voxel_pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

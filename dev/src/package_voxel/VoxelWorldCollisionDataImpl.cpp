@@ -1,10 +1,9 @@
 #include "voxel_pch.h"
 #include "VoxelWorldCollisionDataImpl.h"
-#include "VoxelWorldImpl.h"
 
 namespace ld3d
 {
-	VoxelWorldCollisionDataImpl::VoxelWorldCollisionDataImpl(GameObjectManagerPtr pManager) : VoxelWorldCollisionData(pManager)
+	/*VoxelWorldCollisionDataImpl::VoxelWorldCollisionDataImpl(GameObjectManagerPtr pManager) : VoxelWorldCollisionData(pManager)
 	{
 		
 	}
@@ -68,5 +67,5 @@ namespace ld3d
 		}
 		
 		return m_pWorld->Intersect(pBound);
-	}
+	}*/
 }

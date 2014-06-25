@@ -4,7 +4,7 @@
 
 namespace ld3d
 {
-	class VoxelWorldCollisionDataImpl : public VoxelWorldCollisionData
+	/*class VoxelWorldCollisionDataImpl : public VoxelWorldCollisionData
 	{
 	public:
 		VoxelWorldCollisionDataImpl(GameObjectManagerPtr pManager);
@@ -28,7 +28,7 @@ namespace ld3d
 		VoxelWorldImplPtr							m_pWorld;
 
 
-	};
+	};*/
 
 
 }

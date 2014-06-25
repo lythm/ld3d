@@ -1,9 +1,6 @@
 #include "voxel_pch.h"
 #include "VoxelWorldImpl.h"
-#include "VoxelWorldChunk.h"
-#include "VoxelWorldDataSet.h"
-#include "VoxelWorldUtils.h"
-#include "VoxelWorldMaterialManager.h"
+#include "VoxelWorldRendererImpl.h"
 
 namespace ld3d
 {
@@ -15,64 +12,11 @@ namespace ld3d
 		m_worldSizeZ			= 10;
 		
 		SetVersion(g_packageVersion);
-
 	}
 
 
 	VoxelWorldImpl::~VoxelWorldImpl(void)
 	{
-	}
-	void VoxelWorldImpl::Update(float dt)
-	{
-		if(m_pDataSet)
-		{
-			m_pDataSet->UpdateMesh();
-		}
-	}
-	
-	bool VoxelWorldImpl::OnAttach()
-	{
-		RegisterProperty<int, VoxelWorldImpl>(this,
-				"Voxel Size",
-				&VoxelWorldImpl::GetVoxelSize,
-				&VoxelWorldImpl::SetVoxelSize);
-
-		RegisterProperty<int, VoxelWorldImpl>(this,
-				"World Size X",
-				&VoxelWorldImpl::GetWorldSizeX,
-				&VoxelWorldImpl::SetWorldSizeX);
-
-		RegisterProperty<int, VoxelWorldImpl>(this,
-				"World Size Y",
-				&VoxelWorldImpl::GetWorldSizeY,
-				&VoxelWorldImpl::SetWorldSizeY);
-
-		RegisterProperty<int, VoxelWorldImpl>(this,
-				"World Size Z",
-				&VoxelWorldImpl::GetWorldSizeZ,
-				&VoxelWorldImpl::SetWorldSizeZ);
-
-
-		
-
-		return true;
-	}
-	
-	const int& VoxelWorldImpl::GetVoxelSize()
-	{
-		return m_voxelSize;
-	}
-	void VoxelWorldImpl::SetVoxelSize(const int& blockSize)
-	{
-		m_voxelSize = blockSize;
-	}
-	void VoxelWorldImpl::OnDetach()
-	{
-		ClearPropertySet();
-
-		_release_and_reset(m_pDataSet);
-
-
 	}
 	const int& VoxelWorldImpl::GetWorldSizeX()
 	{
@@ -100,187 +44,173 @@ namespace ld3d
 	{
 		m_worldSizeZ = z;
 	}
-	
-	VoxelWorldChunk* VoxelWorldImpl::FrustumCull(math::ViewFrustum* pVF)
+	const int& VoxelWorldImpl::GetVoxelSize()
 	{
-		if(m_pDataSet == nullptr)
+		return m_voxelSize;
+	}
+	void VoxelWorldImpl::SetVoxelSize(const int& blockSize)
+	{
+		m_voxelSize = blockSize;
+	}
+	bool VoxelWorldImpl::CreateWorld(const std::string& name)
+	{
+		if(m_pWorld == nullptr)
 		{
-			return nullptr;
+			m_pWorld = m_pManager->alloc_object<voxel::World>();
 		}
-		math::ViewFrustum vf = *pVF;
+		using namespace voxel;
 
-		math::Matrix44 world = m_pObject->GetWorldTransform();
-		world.Invert();
-
-		vf.Transform(world);
 		
-		return m_pDataSet->FrustumCull(vf);
-	}
-	
-	VoxelWorldDataSetPtr VoxelWorldImpl::GetDataSet()
-	{
-		return m_pDataSet;
-	}
 
-	bool VoxelWorldImpl::OnSerialize(DataStream* pStream)
-	{
-		pStream->WriteInt32(m_worldSizeX);
-		pStream->WriteInt32(m_worldSizeY);
-		pStream->WriteInt32(m_worldSizeZ);
-		pStream->WriteInt32(m_voxelSize);
+		m_pMeshizer = m_pManager->alloc_object<voxel::Meshizer>();
 
-		if(m_pDataSet == nullptr)
-		{
-			pStream->WriteInt32(0);
-			return true;
-		}
+		Meshizer::VoxelMaterial mat;
+		mat.type = 1;
+		mat.materials[0] = 0;
+		mat.materials[1] = 0;
+		mat.materials[2] = 0;
+		mat.materials[3] = 0;
+		mat.materials[4] = 0;
+		mat.materials[5] = 0;
+		
+		m_pMeshizer->AddVoxelMaterial(mat.type, mat);
 
-		return m_pDataSet->Serialize(pStream);
-	}
-	bool VoxelWorldImpl::OnUnSerialize(DataStream* pStream, const Version& version)
-	{
-		if(version != GetVersion())
+		
+
+		MaterialPtr pMaterial = m_pManager->GetRenderManager()->CreateMaterialFromFile("./assets/voxel/material/voxel_world.material");
+		if(pMaterial == nullptr)
 		{
 			return false;
 		}
 
-		m_worldSizeX = pStream->ReadInt32();
-		m_worldSizeY = pStream->ReadInt32();
-		m_worldSizeZ = pStream->ReadInt32();
-		m_voxelSize = pStream->ReadInt32();
+		TexturePtr pTex = m_pManager->GetRenderManager()->CreateTextureFromFile("./assets/voxel/texture/dirt.dds");
 
-		if(m_pDataSet != nullptr)
+		pMaterial->GetParameterByName("diffuse_map")->SetParameterTexture(pTex);
+
+		m_materials.push_back(pMaterial);
+
+		pMaterial = m_pManager->GetRenderManager()->CreateMaterialFromFile("./assets/standard/material/simple_line.material");
+		m_materials.push_back(pMaterial);
+
+		if(false == m_pWorld->Create(name, nullptr, m_pMeshizer, m_pManager->GetAllocator(), m_pManager->logger()))
 		{
-			m_pDataSet->Release();
+			return false;
 		}
-		m_pDataSet = m_pManager->alloc_object<VoxelWorldDataSet>();
 
-		m_pDataSet->Initialize(m_worldSizeX, m_worldSizeY, m_worldSizeZ);
-		
-		return m_pDataSet->UnSerialize(pStream);
+		ResetComponents(m_pWorld);
+
+		return true;
+
 	}
-	void VoxelWorldImpl::SetDataSet(VoxelWorldDataSetPtr pDataSet)
+	void VoxelWorldImpl::DestroyWorld()
 	{
-		if(m_pDataSet != nullptr)
+		if(m_pWorld == nullptr)
 		{
-			m_pDataSet->Release();
-			m_pDataSet.reset();
+			return;
 		}
-		m_pDataSet = pDataSet;
+
+		ResetComponents(nullptr);
+
+		m_pWorld->Destroy();
+		m_pWorld = nullptr;
+
 	}
-	const math::Matrix44& VoxelWorldImpl::GetWorldTransform()
+	void VoxelWorldImpl::Update(float dt)
 	{
-		return m_pObject->GetWorldTransform();
+		if(m_pWorld)
+		{
+			m_pWorld->Update(dt);
+		}
 	}
-	Contact VoxelWorldImpl::Intersect(const math::Ray& r)
+	bool VoxelWorldImpl::OnAttach()
 	{
-		math::Matrix44 worldMatrix = m_pObject->GetWorldTransform();
+		RegisterProperty<int, VoxelWorldImpl>(this,
+				"Voxel Size",
+				&VoxelWorldImpl::GetVoxelSize,
+				&VoxelWorldImpl::SetVoxelSize);
 
-		math::Matrix44 invWorld = worldMatrix;
-		invWorld.Invert();
+		RegisterProperty<int, VoxelWorldImpl>(this,
+				"World Size X",
+				&VoxelWorldImpl::GetWorldSizeX,
+				&VoxelWorldImpl::SetWorldSizeX);
 
-		
+		RegisterProperty<int, VoxelWorldImpl>(this,
+				"World Size Y",
+				&VoxelWorldImpl::GetWorldSizeY,
+				&VoxelWorldImpl::SetWorldSizeY);
 
-		math::Ray local_r = r;
-		math::TransformRay(local_r, invWorld);
+		RegisterProperty<int, VoxelWorldImpl>(this,
+				"World Size Z",
+				&VoxelWorldImpl::GetWorldSizeZ,
+				&VoxelWorldImpl::SetWorldSizeZ);
 
-		Contact ret;
-		
-		math::Vector3 pt;
-		math::Vector3 normal;
+		CreateWorld("empty");
 
-		if(false == m_pDataSet->Intersect(local_r, pt, normal))
-		{
-			return ret;
-		}
-		ret.result = Contact::Yes;
-
-		ret.enter_point = pt;
-		math::TransformCoord(ret.enter_point, worldMatrix);
-
-		ret.normal = normal;
-		math::TransformNormal(ret.normal, worldMatrix);
-
-		return ret;
+		m_hEndFrame = m_pManager->AddEventHandler(EV_END_FRAME, std::bind(&VoxelWorldImpl::_on_end_frame, this, std::placeholders::_1));
+		return true;
 	}
-	Contact VoxelWorldImpl::Intersect(BoundPtr pBound)
+	void VoxelWorldImpl::OnDetach()
 	{
-		switch(pBound->type)
+		m_pManager->RemoveEventHandler(m_hEndFrame);
+		ClearPropertySet();
+		for(auto pMaterial : m_materials)
 		{
-		case Bound::bt_aabb:
-			return _intersect_aabb(pBound);
-		default:
-			assert(0);
-			break;
+			pMaterial->Release();
 		}
-
-
-		return Contact();
+		m_materials.clear();
+		m_pMeshizer.reset();
+		DestroyWorld();
 	}
-	Contact	VoxelWorldImpl::_intersect_aabb(const BoundPtr pBound)
+	voxel::WorldPtr VoxelWorldImpl::GetWorld()
 	{
-		Contact ret;
+		return m_pWorld;
+	}
+	void VoxelWorldImpl::ResetComponents(voxel::WorldPtr pWorld)
+	{
+		std::shared_ptr<VoxelWorldRendererImpl> pRenderer = std::dynamic_pointer_cast<VoxelWorldRendererImpl>(m_pObject->GetComponent("VoxelWorldRenderer"));
 
-		math::Matrix44 inv = m_pObject->GetWorldTransform();
-		inv.Invert();
-
-		Bound_AABBPtr pAABB = std::dynamic_pointer_cast<Bound_AABB>(pBound);
-		
-		math::AABBox box = pAABB->aabb;
-
-		math::TranslateAABB(box, pAABB->worldMatrix);
-		math::TranslateAABB(box, inv);
-
-
-		math::AABBox overlap;
-		
-		math::Vector3 penetration;
-		if(false == m_pDataSet->Intersect(box, overlap, penetration))
+		if(pRenderer != nullptr)
 		{
-			return ret;
+			pRenderer->ResetWorld(pWorld, m_materials);
+		}
+	}
+	void VoxelWorldImpl::_on_end_frame(EventPtr pEvent)
+	{
+		if(m_pWorld)
+		{
+			m_pWorld->UpdateLoaderProcess();
+		}
+	}
+	uint32 VoxelWorldImpl::GetLoadingQueueSize()
+	{
+		if(m_pWorld == nullptr)
+		{
+			return 0;
 		}
 
-		ret.result = Contact::Yes;
-
-		const math::Vector3& box_center = box.GetCenter();
-		const math::Vector3& overlap_center = overlap.GetCenter();
-		const math::Vector3& overlap_extent = overlap.GetExtent();
-
-		math::Vector3 sig = box_center - overlap_center;
-		
-		math::Vector3 offset(0, 0, 0);
-
-		int i_min = -1;
-		Real min_dst = math::MATH_REAL_INFINITY;
-
-		for(int i = 0; i < 3; ++i)
+		return m_pWorld->GetLoadingQueueSize();
+	}
+	
+	uint32 VoxelWorldImpl::GetChunkCount()
+	{
+		if(m_pWorld == nullptr)
 		{
-			if(overlap_extent[i] < min_dst)
-			{
-				min_dst = overlap_extent[i];
-				i_min = i;
-			}
+			return 0;
 		}
 
-		ret.enter_point = overlap_center;
-		ret.normal = math::Vector3(0, 0, 0);
-
-
-		if(box_center[i_min] > overlap_center[i_min])
+		return m_pWorld->GetChunkCount();
+	}
+	const std::vector<MaterialPtr>& VoxelWorldImpl::GetMaterials()
+	{
+		return m_materials;
+	}
+	int32 VoxelWorldImpl::GetFaceCount()
+	{
+		if(m_pWorld == nullptr)
 		{
-			ret.enter_point[i_min] += overlap_extent[i_min] / 2.0f;
-			ret.normal[i_min] = 1;
+			return 0;
 		}
-		else
-		{
-			ret.enter_point[i_min] -= overlap_extent[i_min] / 2.0f;
-			ret.normal[i_min] = -1;
-		}
-		
-		ret.enter_point += m_pObject->GetWorldTransform().GetTranslation();
-		ret.penetration = penetration[i_min];
-		
-		return ret;
+
+		return m_pWorld->GetTotalFaceCount();
 	}
 }
-

@@ -18,9 +18,6 @@
     <ClInclude Include="voxel_pch.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="VoxelSerializer.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="VoxelPackage.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -28,21 +25,6 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="VoxelObjectTemplate.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="VoxelPool.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="VoxelWorldDataSet.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="VoxelWorldChunk.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="VoxelWorldRegion.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="VoxelWorldOctTree.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\packages\voxel\voxel_ptr.h">
@@ -60,19 +42,7 @@
     <ClInclude Include="..\..\include\packages\voxel\VoxelWorld.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\packages\voxel\VoxelWorldGenerator.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\include\packages\voxel\VoxelWorldRenderer.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="VoxelWorldImpl.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="VoxelWorldRendererImpl.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="VoxelWorldGeneratorImpl.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="VoxelObjectImpl.h">
@@ -81,13 +51,7 @@
     <ClInclude Include="VoxelObjectRendererImpl.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="VoxelWorldMesh.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="VoxelWorldUtils.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="VoxelWorldMaterialManager.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\packages\voxel\VoxelWorldCollisionData.h">
@@ -99,18 +63,15 @@
     <ClInclude Include="..\..\include\packages\voxel\voxel_all.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="VoxelWorldImpl2.h">
+    <ClInclude Include="VoxelWorldImpl.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="VoxelWorldRendererImpl2.h">
+    <ClInclude Include="VoxelWorldRendererImpl.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="voxel_pch.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="VoxelSerializer.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="VoxelPackage.cpp">
@@ -122,52 +83,22 @@
     <ClCompile Include="VoxelObjectTemplate.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="VoxelPool.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="VoxelWorldDataSet.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="VoxelWorldRegion.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="VoxelWorldOctTree.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="VoxelWorldImpl.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="VoxelWorldRendererImpl.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="VoxelWorldGeneratorImpl.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="VoxelObjectImpl.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="VoxelObjectRendererImpl.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="VoxelWorldMesh.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="VoxelWorldChunk.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="VoxelWorldUtils.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="VoxelWorldMaterialManager.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="VoxelWorldCollisionDataImpl.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="VoxelWorldImpl2.cpp">
+    <ClCompile Include="VoxelWorldImpl.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="VoxelWorldRendererImpl2.cpp">
+    <ClCompile Include="VoxelWorldRendererImpl.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

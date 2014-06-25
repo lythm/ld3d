@@ -6,9 +6,6 @@
 #include "VoxelWorldRendererImpl.h"
 #include "VoxelObjectImpl.h"
 #include "VoxelObjectRendererImpl.h"
-#include "VoxelWorldGeneratorImpl.h"
-#include "VoxelWorldCollisionDataImpl.h"
-
 
 #include "VoxelWorldTemplate.h"
 #include "VoxelObjectTemplate.h"
@@ -49,20 +46,12 @@ namespace ld3d
 							"Voxel",
 							"Voxel World",
 							&Create_Component<VoxelWorldImpl>));
-		m_classes.push_back(ComponentClass("VoxelWorldGenerator",
-							"Voxel",
-							"Voxel World Generator",
-							&Create_Component<VoxelWorldGeneratorImpl>));
 		m_classes.push_back(ComponentClass("VoxelWorldRenderer",
 							"Voxel",
 							"Voxel World Renderer",
 							&Create_Component<VoxelWorldRendererImpl>));
 
-		m_classes.push_back(ComponentClass("VoxelWorldCollisionData",
-							"Voxel",
-							"Voxel World Collision Data",
-							&Create_Component<VoxelWorldCollisionDataImpl>));
-
+		
 		m_classes.push_back(ComponentClass("VoxelObject",
 							"Voxel",
 							"Voxel Object",

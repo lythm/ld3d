@@ -6,5 +6,4 @@
 #include "VoxelObjectRenderer.h"
 #include "VoxelWorld.h"
 #include "VoxelWorldRenderer.h"
-#include "VoxelWorldGenerator.h"
 #include "VoxelWorldCollisionData.h"
