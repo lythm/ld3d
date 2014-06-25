@@ -182,7 +182,7 @@ namespace ld3d
 			//	//face.ao[i] = math::Color4(1, 1, 1, 1);
 			//}
 		}
-		void Meshizer::DoGenerateMesh(const ChunkKey& key, const ChunkData& chunk_data, const ChunkAdjacency& adj, const Coord& base_coord, ChunkMeshPtr pMesh)
+		void Meshizer::DoGenerateMesh(const ChunkKey& key, const ChunkData& chunk_data, const ChunkAdjacency& adj, const Coord& base_coord, ChunkMesh* pMesh)
 		{
 			Coord chunk_base = key.ToChunkOrigin();
 
@@ -737,7 +737,7 @@ namespace ld3d
 			math::Vector3 min_v, max_v;
 
 			min_v = base_coord.ToVector3();
-			max_v = min_v + math::Vector3(CHUNK_SIZE, CHUNK_SIZE, CHUNK_SIZE);
+			max_v = min_v + math::Vector3((float)CHUNK_SIZE, (float)CHUNK_SIZE, (float)CHUNK_SIZE);
 
 			// verticle
 			data[0].pos = min_v;

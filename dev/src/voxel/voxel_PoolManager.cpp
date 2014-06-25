@@ -28,6 +28,20 @@ namespace ld3d
 			return ChunkPtr(new(p)Chunk(pManager, key, data), [&](Chunk* pData){if(pData ==nullptr) return; pData->~Chunk();m_chunkPool.free(pData);});
 
 		}
+		ChunkMesh* PoolManager::AllocChunkMeshRaw()
+		{
+			void* p = m_meshPool.malloc();
+			return new(p)ChunkMesh();
+		}
+		void PoolManager::FreeChunkMesh(ChunkMesh* pMesh)
+		{
+			if(pMesh == nullptr)
+			{
+				return;
+			}
+			pMesh->~ChunkMesh();
+			m_meshPool.free(pMesh);
+		}
 		ChunkMeshPtr PoolManager::AllocChunkMesh()
 		{
 			void* p = m_meshPool.malloc();

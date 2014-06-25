@@ -20,6 +20,7 @@ namespace ld3d
 			void											FrustumCull(const math::ViewFrustum& vf, const std::function<void(const Coord&, ChunkMeshPtr)>& op);
 
 			int32											GetFaceCount();
+			uint32											GetOctreeCount();
 		private:
 
 			OctreePtr										FindOctree(const Coord& region_origin);

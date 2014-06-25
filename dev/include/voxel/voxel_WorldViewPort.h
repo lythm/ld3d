@@ -7,6 +7,8 @@ namespace ld3d
 {
 	namespace voxel
 	{
+		class ChunkCache;
+
 		class _DLL_CLASS WorldViewport : public std::enable_shared_from_this<WorldViewport>
 		{
 		public:
@@ -42,7 +44,6 @@ namespace ld3d
 			
 			void														_on_dirty_chunk(ChunkPtr pChunk);
 			
-			void														AddChunkToCache(ChunkPtr pChunk);
 		private:
 			WorldPtr													m_pWorld;
 			ChunkLoaderPtr												m_pLoader;
@@ -53,7 +54,9 @@ namespace ld3d
 			VPSphere													m_VP;
 			VPSphere													m_lastVP;
 
-			boost::circular_buffer<ChunkPtr>							m_chunkCache;
+
+			std::shared_ptr<ChunkCache>									m_pChunkCache;
+
 		};
 	}
 }

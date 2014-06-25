@@ -118,20 +118,20 @@ namespace ld3d
 			if(pChunk == nullptr)
 			{
 				t.mesh->Release();
-				t.mesh.reset();
+				pool_manager()->FreeChunkMesh(t.mesh);
 				return;
 			}
 			if(pChunk->GetMesh() != nullptr)
 			{
 				t.mesh->Release();
-				t.mesh.reset();
+				pool_manager()->FreeChunkMesh(t.mesh);
 				return;
 			}
 
 			if(t.mesh->GetSubsetCount() == 0)
 			{
 				t.mesh->Release();
-				t.mesh.reset();
+				pool_manager()->FreeChunkMesh(t.mesh);
 				return;
 			}
 			ChunkMeshPtr pMesh = pool_manager()->AllocChunkMesh();
@@ -151,7 +151,7 @@ namespace ld3d
 
 			pChunk->SetMesh(pMesh);
 			t.mesh->Release();
-			t.mesh.reset();
+			pool_manager()->FreeChunkMesh(t.mesh);
 
 			m_pOctreeManager->AddChunk(pChunk);
 		}
@@ -284,7 +284,7 @@ namespace ld3d
 			t.chunk_adjacency = pChunk->GetAdjacency();
 			t.chunk_data = pChunk->GetData();
 			t.ev = ChunkLoaderWorker::ev_gen_mesh;
-			t.mesh = pool_manager()->AllocChunkMesh();
+			t.mesh = pool_manager()->AllocChunkMeshRaw();
 
 			++m_pendingCount;
 

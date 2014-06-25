@@ -35,7 +35,7 @@ namespace ld3d
 				ChunkAdjacency										chunk_adjacency;
 				bool												chunk_empty;
 
-				ChunkMeshPtr										mesh;
+				ChunkMesh*											mesh;
 
 				std::function<void(ChunkPtr)>						on_loaded;
 

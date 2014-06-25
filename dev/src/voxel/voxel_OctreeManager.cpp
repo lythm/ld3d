@@ -81,6 +81,12 @@ namespace ld3d
 			}
 			
 			pRoot->RemoveChunk(pChunk);
+
+			if(pRoot->GetChunkCount() == 0)
+			{
+				m_octrees.remove(pRoot);
+			}
+
 		}
 		void OctreeManager::FrustumCull(const math::ViewFrustum& vf, const std::function<void(const Coord&, ChunkMeshPtr)>& op)
 		{
@@ -155,6 +161,10 @@ namespace ld3d
 		int32 OctreeManager::GetFaceCount()
 		{
 			return m_faceCount;
+		}
+		uint32 OctreeManager::GetOctreeCount()
+		{
+			return m_octrees.size();
 		}
 	}
 }

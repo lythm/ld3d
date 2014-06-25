@@ -2,15 +2,24 @@
 #include "VoxelEditor.h"
 
 #include <unordered_map>
+extern "C" 
+{
+	#include "sigar/sigar.h"
+	#include "sigar/sigar_format.h"
+}
 
+
+sigar_t* sig;
 
 _DLL_API ld3d::GameInterface* CreateGame()
 {
+	
 	return new ld3d::voxel::VoxelEditor;
 }
 
 _DLL_API void DestroyGame(ld3d::GameInterface* pMod)
 {
+	
 	delete (ld3d::voxel::VoxelEditor*)pMod;
 }
 
@@ -20,11 +29,13 @@ namespace ld3d
 	{
 		VoxelEditor::VoxelEditor(void)
 		{
+		//	sigar_open(&sig);
 		}
 
 
 		VoxelEditor::~VoxelEditor(void)
 		{
+			//sigar_close(sig);
 		}
 		bool VoxelEditor::Initialize(CoreApiPtr pCore)
 		{
@@ -63,7 +74,7 @@ namespace ld3d
 			m_pCamera->AddComponent(pSkyBox);
 
 			CameraController_FreePtr pController = std::dynamic_pointer_cast<CameraController_Free>(pCore->CreateGameObjectComponent("CameraFreeController"));
-			pController->SetSpeed(4);
+			pController->SetSpeed(50);
 			//	pController->Enable(false);
 			m_pCamera->AddComponent(pController);
 

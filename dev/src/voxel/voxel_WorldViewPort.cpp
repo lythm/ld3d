@@ -9,6 +9,7 @@
 #include "voxel_VoxelUtils.h"
 #include "voxel_ChunkManager.h"
 #include "voxel_ChunkLoader.h"
+#include "voxel_ChunkCache.h"
 
 namespace ld3d
 {
@@ -18,6 +19,8 @@ namespace ld3d
 		{
 			m_VP.radius = 32;
 			m_lastVP.radius = 32;
+
+			m_pChunkCache = alloc_object<ChunkCache>(allocator(), nullptr);
 		}
 
 
@@ -36,7 +39,7 @@ namespace ld3d
 			m_pLoader = pWorld->GetChunkLoader();
 			m_pOctreeManager = pWorld->GetOctreeManager();
 
-			radius = 128;
+			radius = 32;
 
 			m_VP.center = center;
 			m_VP.radius = radius;
@@ -44,11 +47,16 @@ namespace ld3d
 			uint32 size = (radius * 2) / 16 + 3;
 			size = size * size * size;
 
-			m_chunkCache.set_capacity(size);
+		
+
+			m_pChunkCache->Initialize(m_pLoader, size);
 
 			m_pWorld->AddDirtyChunkHandler(std::bind(&WorldViewport::_on_dirty_chunk, this, std::placeholders::_1));
 			
-			m_pLoader->RequestChunkAsync(m_VP.center, m_VP.radius, std::bind(&WorldViewport::AddChunkToCache, this, std::placeholders::_1));
+			m_pLoader->RequestChunkAsync(m_VP.center, m_VP.radius, [&](ChunkPtr pChunk)
+			{
+				m_pChunkCache->AddChunk(pChunk);
+			});
 
 
 			/*VPSphere tmp = m_VP;
@@ -67,11 +75,8 @@ namespace ld3d
 		}
 		void WorldViewport::Close()
 		{
-			for(auto chunk : m_chunkCache)
-			{
-				m_pLoader->RequestUnloadChunk(chunk);
-			}
-			m_chunkCache.clear();
+			m_pChunkCache->Release();
+			m_pChunkCache.reset();
 
 			m_pWorld.reset();
 			m_pOctreeManager.reset();
@@ -129,7 +134,10 @@ namespace ld3d
 			{
 				return;
 			}
-			m_pLoader->RequestChunkDiffSetAsync(m_VP.center, m_VP.radius, m_lastVP.center, m_lastVP.radius, std::bind(&WorldViewport::AddChunkToCache, this, std::placeholders::_1));
+			m_pLoader->RequestChunkDiffSetAsync(m_VP.center, m_VP.radius, m_lastVP.center, m_lastVP.radius, [&](ChunkPtr pChunk)
+			{
+				m_pChunkCache->AddChunk(pChunk);
+			});
 
 			m_lastVP.center = m_VP.center;
 			m_lastVP.radius = m_VP.radius;
@@ -139,15 +147,7 @@ namespace ld3d
 		{
 			m_VP.radius = radius;
 		}
-		void WorldViewport::AddChunkToCache(ChunkPtr pChunk)
-		{
-			if(m_chunkCache.full())
-			{
-				ChunkPtr pRemove = m_chunkCache.front();
-				m_pLoader->RequestUnloadChunk(pRemove);
-			}
-			m_chunkCache.push_back(pChunk);
-		}
+		
 	}
 }
 

@@ -11,7 +11,7 @@ namespace ld3d
 		{
 			m_regionOrigin			= region_origin;
 			m_pChunk				= nullptr;
-
+			m_chunkCount			= 0;
 			for(int i = 0; i < 8; ++i)
 			{
 				m_pChildren[i] = OctreePtr();
@@ -56,13 +56,23 @@ namespace ld3d
 				return false;
 			}
 
-			return _add_chunk(pChunk);
+			bool ret = _add_chunk(pChunk);
+			if(ret == true)
+			{
+				++m_chunkCount;
+			}
+			return ret;
 		}
-		void Octree::RemoveChunk(ChunkPtr pChunk)
+		bool Octree::RemoveChunk(ChunkPtr pChunk)
 		{
-			_remove_chunk(pChunk);
+			bool ret = _remove_chunk(pChunk);
+			if(ret == true)
+			{
+				--m_chunkCount;
+			}
+			return ret;
 		}
-		void Octree::_remove_chunk(ChunkPtr pChunk)
+		bool Octree::_remove_chunk(ChunkPtr pChunk)
 		{
 			math::AABBox bound;
 
@@ -75,14 +85,18 @@ namespace ld3d
 
 			if(m_bbox.Inside(bound.GetCenter()) == false)
 			{
-				return;
+				return false;
 			}
 
 			int len = int(m_bbox.GetMaxCoord().x - m_bbox.GetMinCoord().x);
 			if(len == CHUNK_SIZE * BLOCK_SIZE)
 			{
+				if(m_pChunk == nullptr)
+				{
+					return false;
+				}
 				m_pChunk = nullptr;
-				return;
+				return true;
 			}
 
 			math::AABBox sub[8];
@@ -95,12 +109,13 @@ namespace ld3d
 				{
 					if(m_pChildren[i] == nullptr)
 					{
-						continue;
+						return false;
 					}
-					m_pChildren[i]->_remove_chunk(pChunk);
-					return;
+					return m_pChildren[i]->_remove_chunk(pChunk);
 				}
 			}
+
+			return false;
 		}
 		bool Octree::_add_chunk(ChunkPtr pChunk)
 		{
@@ -256,6 +271,10 @@ namespace ld3d
 		const Coord& Octree::GetRegionOrigin() const
 		{
 			return m_regionOrigin;
+		}
+		int32 Octree::GetChunkCount() const
+		{
+			return m_chunkCount;
 		}
 	}
 }

@@ -63,7 +63,7 @@ namespace ld3d
 				std::hash<uint64>, 
 				std::equal_to<uint64>,
 				std_allocator_adapter<
-				std::pair<const uint64, ChunkPtr>
+				std::pair<uint64, ChunkPtr>
 				>>											ChunkMap;										
 
 			ChunkMap										m_chunkmap;
