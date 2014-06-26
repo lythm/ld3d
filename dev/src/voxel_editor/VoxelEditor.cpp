@@ -29,13 +29,13 @@ namespace ld3d
 	{
 		VoxelEditor::VoxelEditor(void)
 		{
-			//	sigar_open(&sig);
+			sigar_open(&sig);
 		}
 
 
 		VoxelEditor::~VoxelEditor(void)
 		{
-			//sigar_close(sig);
+			sigar_close(sig);
 		}
 		bool VoxelEditor::Initialize(CoreApiPtr pCore)
 		{
@@ -119,6 +119,13 @@ namespace ld3d
 		}
 		bool VoxelEditor::Update(float dt)
 		{
+			sigar_pid_t pid = sigar_pid_get(sig);
+			sigar_proc_mem_t mem;
+			int status;
+
+			assert(SIGAR_OK == (status = sigar_proc_mem_get(sig, pid, &mem)));
+
+			
 			math::Vector3 pos = m_pCamera->GetTranslation();
 
 			CameraDataPtr pMD = std::dynamic_pointer_cast<CameraData>(m_pCamera->GetComponent("Camera"));
@@ -137,8 +144,9 @@ namespace ld3d
 			VoxelWorldRendererPtr pRenderer = std::dynamic_pointer_cast<VoxelWorldRenderer>(m_pWorld->GetComponent("VoxelWorldRenderer"));
 			s << "[chunk loader] pending chunk: " << pWorld->GetLoadingQueueSize() 
 				<< " chunks: " << pWorld->GetChunkCount()
-				<< " faces: " << pRenderer->GetRenderedFaceCount();
-
+				<< " faces: " << pRenderer->GetRenderedFaceCount()
+				<< "<br>";
+				s << "[mem]: " << double(mem.resident) / 1024.0 / 1024.0 << "M";
 			*m_debugInfo = s.str();
 			return true;
 		}

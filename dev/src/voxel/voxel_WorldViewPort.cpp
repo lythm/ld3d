@@ -39,7 +39,7 @@ namespace ld3d
 			m_pLoader = pWorld->GetChunkLoader();
 			m_pOctreeManager = pWorld->GetOctreeManager();
 
-			radius = 200;
+			radius = 64;
 
 			m_VP.center = center;
 			m_VP.radius = radius;
