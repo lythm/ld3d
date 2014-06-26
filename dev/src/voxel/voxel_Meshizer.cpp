@@ -191,11 +191,20 @@ namespace ld3d
 			std::vector<VoxelFace, std_allocator_adapter<VoxelFace>>			mesh(allocator());
 			mesh.reserve(10000);
 
-			for(int32 x = 0; x < CHUNK_SIZE; ++x)
+			uint32 lod = 0;
+
+			uint32 step = pow(2, lod);
+
+			if(step > 8)
 			{
-				for(int32 y = 0; y < CHUNK_SIZE; ++y)
+				return;
+			}
+
+			for(int32 x = 0; x < CHUNK_SIZE; x += step)
+			{
+				for(int32 y = 0; y < CHUNK_SIZE; y += step)
 				{
-					for(int32 z = 0; z < CHUNK_SIZE; ++z)
+					for(int32 z = 0; z < CHUNK_SIZE; z += step)
 					{
 						uint8 type = chunk_data.Get(x, y, z);
 
@@ -229,6 +238,12 @@ namespace ld3d
 						if(adj.CheckBlockAdjacency(x, y, z, ChunkAdjacency::n_x) == false)
 						{
 							VoxelFace face = s_Cube[0];
+
+							face.verts[0] *= step;
+							face.verts[1] *= step;
+							face.verts[2] *= step;
+							face.verts[3] *= step;
+
 							face.verts[0] += math::Vector3((float)x, (float)y, (float)z);
 							face.verts[1] += math::Vector3((float)x, (float)y, (float)z);
 							face.verts[2] += math::Vector3((float)x, (float)y, (float)z);
@@ -251,6 +266,12 @@ namespace ld3d
 						if(adj.CheckBlockAdjacency(x, y, z, ChunkAdjacency::p_x) == false)
 						{
 							VoxelFace face = s_Cube[1];
+
+							face.verts[0] *= step;
+							face.verts[1] *= step;
+							face.verts[2] *= step;
+							face.verts[3] *= step;
+
 							face.verts[0] += math::Vector3((float)x, (float)y, (float)z);
 							face.verts[1] += math::Vector3((float)x, (float)y, (float)z);
 							face.verts[2] += math::Vector3((float)x, (float)y, (float)z);
@@ -273,6 +294,12 @@ namespace ld3d
 						if(adj.CheckBlockAdjacency(x, y, z, ChunkAdjacency::n_y) == false)
 						{
 							VoxelFace face = s_Cube[2];
+
+							face.verts[0] *= step;
+							face.verts[1] *= step;
+							face.verts[2] *= step;
+							face.verts[3] *= step;
+
 							face.verts[0] += math::Vector3((float)x, (float)y, (float)z);
 							face.verts[1] += math::Vector3((float)x, (float)y, (float)z);
 							face.verts[2] += math::Vector3((float)x, (float)y, (float)z);
@@ -295,6 +322,12 @@ namespace ld3d
 						if(adj.CheckBlockAdjacency(x, y, z, ChunkAdjacency::p_y) == false)
 						{
 							VoxelFace face = s_Cube[3];
+
+							face.verts[0] *= step;
+							face.verts[1] *= step;
+							face.verts[2] *= step;
+							face.verts[3] *= step;
+
 							face.verts[0] += math::Vector3((float)x, (float)y, (float)z);
 							face.verts[1] += math::Vector3((float)x, (float)y, (float)z);
 							face.verts[2] += math::Vector3((float)x, (float)y, (float)z);
@@ -317,6 +350,12 @@ namespace ld3d
 						if(adj.CheckBlockAdjacency(x, y, z, ChunkAdjacency::n_z) == false)
 						{
 							VoxelFace face = s_Cube[4];
+
+							face.verts[0] *= step;
+							face.verts[1] *= step;
+							face.verts[2] *= step;
+							face.verts[3] *= step;
+
 							face.verts[0] += math::Vector3((float)x, (float)y, (float)z);
 							face.verts[1] += math::Vector3((float)x, (float)y, (float)z);
 							face.verts[2] += math::Vector3((float)x, (float)y, (float)z);
@@ -339,6 +378,12 @@ namespace ld3d
 						if(adj.CheckBlockAdjacency(x, y, z, ChunkAdjacency::p_z) == false)
 						{
 							VoxelFace face = s_Cube[5];
+
+							face.verts[0] *= step;
+							face.verts[1] *= step;
+							face.verts[2] *= step;
+							face.verts[3] *= step;
+
 							face.verts[0] += math::Vector3((float)x, (float)y, (float)z);
 							face.verts[1] += math::Vector3((float)x, (float)y, (float)z);
 							face.verts[2] += math::Vector3((float)x, (float)y, (float)z);

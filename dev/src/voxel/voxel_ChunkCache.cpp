@@ -78,5 +78,12 @@ namespace ld3d
 
 			return true;
 		}
+		void ChunkCache::RefreshMesh()
+		{
+			for(auto ch : m_chunks)
+			{
+				m_pLoader->RequestMeshAsync(ch, true);
+			}
+		}
 	}
 }

@@ -38,6 +38,7 @@ namespace ld3d
 			void														SetRadius(uint32 radius);
 			void														FrustumCull(const math::ViewFrustum& vf, const std::function<void(const Coord&, ChunkMeshPtr)>& op);
 
+			void														RefreshMesh();
 			//bool														RayPick(const math::Ray& r, Coord& block, float& t, math::Vector3& normal);
 		private:
 			void														UpdateVP();

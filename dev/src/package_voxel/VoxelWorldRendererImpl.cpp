@@ -212,6 +212,7 @@ namespace ld3d
 	}
 	void VoxelWorldRendererImpl::Draw(Sys_GraphicsPtr pSysGraphics, MaterialPtr pMaterial, int baseVertex)
 	{
+		m_renderedFaces += m_nVertexCount / 3;
 		if(m_nVertexCount == 0)
 		{
 			return;
@@ -230,6 +231,7 @@ namespace ld3d
 	}
 	void VoxelWorldRendererImpl::Render(RenderManagerPtr pManager)
 	{
+		m_renderedFaces = 0;
 		if(m_renderList.size() == 0)
 		{
 			return;
@@ -430,5 +432,13 @@ namespace ld3d
 
 		pVB->Unmap();
 		Draw(pGraphics, pMat, m_nVBOffset / m_nVertexStride);
+	}
+	void VoxelWorldRendererImpl::RefreshMesh()
+	{
+		m_pWorldVP->RefreshMesh();
+	}
+	uint32 VoxelWorldRendererImpl::GetRenderedFaceCount()
+	{
+		return m_renderedFaces;
 	}
 }

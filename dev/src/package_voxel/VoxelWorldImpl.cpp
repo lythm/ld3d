@@ -75,6 +75,14 @@ namespace ld3d
 		
 		m_pMeshizer->AddVoxelMaterial(mat.type, mat);
 
+		mat.type = 2;
+		mat.materials[0] = 1;
+		mat.materials[1] = 1;
+		mat.materials[2] = 1;
+		mat.materials[3] = 1;
+		mat.materials[4] = 1;
+		mat.materials[5] = 1;
+		m_pMeshizer->AddVoxelMaterial(mat.type, mat);
 		
 
 		MaterialPtr pMaterial = m_pManager->GetRenderManager()->CreateMaterialFromFile("./assets/voxel/material/voxel_world.material");
@@ -88,6 +96,14 @@ namespace ld3d
 		pMaterial->GetParameterByName("diffuse_map")->SetParameterTexture(pTex);
 
 		m_materials.push_back(pMaterial);
+
+
+		pMaterial = m_pManager->GetRenderManager()->CreateMaterialFromFile("./assets/voxel/material/voxel_world.material");
+		pTex = m_pManager->GetRenderManager()->CreateTextureFromFile("./assets/voxel/texture/rock.dds");
+
+		pMaterial->GetParameterByName("diffuse_map")->SetParameterTexture(pTex);
+		m_materials.push_back(pMaterial);
+
 
 		pMaterial = m_pManager->GetRenderManager()->CreateMaterialFromFile("./assets/standard/material/simple_line.material");
 		m_materials.push_back(pMaterial);

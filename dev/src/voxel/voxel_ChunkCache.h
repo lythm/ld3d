@@ -17,6 +17,8 @@ namespace ld3d
 			void													Update();
 
 			void													Flush();
+
+			void													RefreshMesh();
 		private:
 
 			typedef std::list<ChunkPtr, 

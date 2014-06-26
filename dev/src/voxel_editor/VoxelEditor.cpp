@@ -4,8 +4,8 @@
 #include <unordered_map>
 extern "C" 
 {
-	#include "sigar/sigar.h"
-	#include "sigar/sigar_format.h"
+#include "sigar/sigar.h"
+#include "sigar/sigar_format.h"
 }
 
 
@@ -13,13 +13,13 @@ sigar_t* sig;
 
 _DLL_API ld3d::GameInterface* CreateGame()
 {
-	
+
 	return new ld3d::voxel::VoxelEditor;
 }
 
 _DLL_API void DestroyGame(ld3d::GameInterface* pMod)
 {
-	
+
 	delete (ld3d::voxel::VoxelEditor*)pMod;
 }
 
@@ -29,7 +29,7 @@ namespace ld3d
 	{
 		VoxelEditor::VoxelEditor(void)
 		{
-		//	sigar_open(&sig);
+			//	sigar_open(&sig);
 		}
 
 
@@ -42,7 +42,7 @@ namespace ld3d
 
 			voxel::MeshizerPtr pMeshizer = std::make_shared<voxel::Meshizer>();
 
-			
+
 			m_pCore = pCore;
 
 			m_pCore->GetRenderManager()->SetGlobalAmbient(math::Color4(0.4f, 0.4f, 0.4f, 1.0f));
@@ -64,7 +64,7 @@ namespace ld3d
 			pGridRenderer->SetGridSize(16);
 
 			m_pGrid->AddComponent(pGridRenderer);
-			
+
 			m_pCamera= pCore->CreateGameObject("Camera");
 
 			CameraDataPtr pMD = std::dynamic_pointer_cast<CameraData>(pCore->CreateGameObjectComponent("Camera"));
@@ -74,7 +74,7 @@ namespace ld3d
 			m_pCamera->AddComponent(pSkyBox);
 
 			CameraController_FreePtr pController = std::dynamic_pointer_cast<CameraController_Free>(pCore->CreateGameObjectComponent("CameraFreeController"));
-			pController->SetSpeed(50);
+			pController->SetSpeed(5);
 			//	pController->Enable(false);
 			m_pCamera->AddComponent(pController);
 
@@ -85,7 +85,7 @@ namespace ld3d
 
 			pLight->SetTranslation(-20, 60, 30);
 			pLight->LookAt(math::Vector3(0, 0, 0));
-			
+
 
 			m_pWorld = m_pCore->CreatGameObjectFromTemplate("VoxelWorld", "world001");
 
@@ -105,13 +105,15 @@ namespace ld3d
 
 			m_pCore->RegisterConsoleCommand("set_camera_speed", std::bind(&VoxelEditor::_on_cmd_set_camera_speed, this, std::placeholders::_1, std::placeholders::_2));
 			m_pCore->RegisterConsoleCommand("move_to", std::bind(&VoxelEditor::_on_cmd_move_to, this, std::placeholders::_1, std::placeholders::_2));
-			
+			m_pCore->RegisterConsoleCommand("regen_mesh", std::bind(&VoxelEditor::_on_cmd_regen_mesh, this, std::placeholders::_1, std::placeholders::_2));
+
 			return true;
 		}
 		void VoxelEditor::Release()
 		{
 			m_pCore->RemoveConsoleCommand("set_camera_speed");		
 			m_pCore->RemoveConsoleCommand("move_to");		
+			m_pCore->RemoveConsoleCommand("regen_mesh");	
 
 			m_pWorld = nullptr;
 		}
@@ -127,15 +129,15 @@ namespace ld3d
 			s.precision(3);
 			s.setf( std::ios::fixed, std:: ios::floatfield );
 			s << "<font style=\"color:#ff9999;\">[camera] " << 
-					"pos: " << pos.x << "," << pos.y << "," << pos.z <<
-					"dir: " << axis_z.x << "," << axis_z.y << "," << axis_z.z <<"</font><br>";
+				"pos: " << pos.x << "," << pos.y << "," << pos.z <<
+				"dir: " << axis_z.x << "," << axis_z.y << "," << axis_z.z <<"</font><br>";
 
 
 			VoxelWorldPtr pWorld = std::dynamic_pointer_cast<VoxelWorld>(m_pWorld->GetComponent("VoxelWorld"));
-			
+			VoxelWorldRendererPtr pRenderer = std::dynamic_pointer_cast<VoxelWorldRenderer>(m_pWorld->GetComponent("VoxelWorldRenderer"));
 			s << "[chunk loader] pending chunk: " << pWorld->GetLoadingQueueSize() 
 				<< " chunks: " << pWorld->GetChunkCount()
-				<< " faces: " << pWorld->GetFaceCount();
+				<< " faces: " << pRenderer->GetRenderedFaceCount();
 
 			*m_debugInfo = s.str();
 			return true;
@@ -213,5 +215,11 @@ namespace ld3d
 			m_pCamera->SetTranslation(x, y, z);
 
 		}
+		void VoxelEditor::_on_cmd_regen_mesh(const ld3d::CommandLine& cl, std::function<void (const std::string&)> writeln)
+		{
+			VoxelWorldRendererPtr pRenderer = std::dynamic_pointer_cast<VoxelWorldRenderer>(m_pWorld->GetComponent("VoxelWorldRenderer"));
+			pRenderer->RefreshMesh();
+		}
 	}
 }
+

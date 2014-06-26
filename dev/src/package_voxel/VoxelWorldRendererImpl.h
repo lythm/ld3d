@@ -29,6 +29,11 @@ namespace ld3d
 
 		void										ResetWorld(voxel::WorldPtr pWorld, const std::vector<MaterialPtr>& mats);
 		void										SetWorldViewPort(const voxel::Coord& center, uint32 size);
+
+		void										RefreshMesh();
+
+		uint32										GetRenderedFaceCount();
+
 	private:
 		void										on_event_frustumcull(EventPtr pEvent);
 		bool										OnAttach();
@@ -68,5 +73,7 @@ namespace ld3d
 
 		math::Matrix44								m_worldMatrix;
 		std::vector<MaterialPtr>					m_materials;
+
+		uint32										m_renderedFaces;
 	};
 }

@@ -64,6 +64,7 @@ namespace ld3d
 
 		void ChunkAdjacency::OnAdjacentChunkLoaded(const Coord& chunk_coord, ChunkPtr pChunk)
 		{
+
 			const ChunkKey& this_key = m_key;
 
 			Coord this_coord = this_key.ToChunkCoord();

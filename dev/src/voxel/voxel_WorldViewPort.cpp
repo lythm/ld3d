@@ -39,7 +39,7 @@ namespace ld3d
 			m_pLoader = pWorld->GetChunkLoader();
 			m_pOctreeManager = pWorld->GetOctreeManager();
 
-			radius = 32;
+			radius = 200;
 
 			m_VP.center = center;
 			m_VP.radius = radius;
@@ -53,7 +53,7 @@ namespace ld3d
 
 			m_pWorld->AddDirtyChunkHandler(std::bind(&WorldViewport::_on_dirty_chunk, this, std::placeholders::_1));
 			
-			m_pLoader->RequestChunkAsync(m_VP.center, m_VP.radius, [&](ChunkPtr pChunk)
+			m_pLoader->RequestChunkAsync(m_VP.center, m_VP.radius, true, [&](ChunkPtr pChunk)
 			{
 				m_pChunkCache->AddChunk(pChunk);
 			});
@@ -128,13 +128,15 @@ namespace ld3d
 				
 		void WorldViewport::UpdateVP()
 		{
+			//return;
+
 			Coord dc = m_VP.center - m_lastVP.center;
 
 			if(abs(dc.x) < CHUNK_SIZE && abs(dc.y) < CHUNK_SIZE && abs(dc.z) < CHUNK_SIZE  && m_VP.radius == m_lastVP.radius)
 			{
 				return;
 			}
-			m_pLoader->RequestChunkDiffSetAsync(m_VP.center, m_VP.radius, m_lastVP.center, m_lastVP.radius, [&](ChunkPtr pChunk)
+			m_pLoader->RequestChunkDiffSetAsync(m_VP.center, m_VP.radius, m_lastVP.center, m_lastVP.radius, true, [&](ChunkPtr pChunk)
 			{
 				m_pChunkCache->AddChunk(pChunk);
 			});
@@ -147,7 +149,11 @@ namespace ld3d
 		{
 			m_VP.radius = radius;
 		}
-		
+
+		void WorldViewport::RefreshMesh()
+		{
+			m_pChunkCache->RefreshMesh();
+		}
 	}
 }
 

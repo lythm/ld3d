@@ -28,20 +28,20 @@ namespace ld3d
 		{
 			while(true)
 			{
-				Task t;
+				Command t;
 				while(m_in.pop(t) == false)
 				{
 					boost::this_thread::sleep_for(boost::chrono::milliseconds(1));
 				}
 
-				switch(t.ev)
+				switch(t.id)
 				{
-				case ev_exit:
+				case cmd_exit:
 					return;
-				case ev_load_chunk:
+				case cmd_load_chunk:
 					_load_chunk(t);
 					break;
-				case ev_gen_mesh:
+				case cmd_gen_mesh:
 					_gen_mesh(t);
 					break;
 				default:
@@ -49,12 +49,11 @@ namespace ld3d
 				}
 			}
 		}
-		void ChunkLoaderWorker::_gen_mesh(Task& t)
+		void ChunkLoaderWorker::_gen_mesh(Command& t)
 		{
 			Coord chunk_origin = t.key.ToChunkOrigin();
 			Coord region_origin = VoxelUtils::ToRegionOrigin(chunk_origin);
-
-
+			
 			Coord chunk_mesh_base = chunk_origin - region_origin;
 
 			m_pMeshizer->DoGenerateMesh(t.key, t.chunk_data, t.chunk_adjacency, chunk_mesh_base, t.mesh);
@@ -64,9 +63,15 @@ namespace ld3d
 				boost::this_thread::sleep_for(boost::chrono::milliseconds(1));
 			}
 		}
-		void ChunkLoaderWorker::_load_chunk(Task& t)
+		void ChunkLoaderWorker::_load_chunk(Command& t)
 		{
 			t.chunk_empty = GenerateChunk(t.key, t.chunk_data, t.chunk_adjacency) == false;
+
+			if(t.gen_mesh)
+			{
+				_gen_mesh(t);
+				return;
+			}
 
 			while(m_out.push(t) == false)
 			{
@@ -83,15 +88,15 @@ namespace ld3d
 		}
 		void ChunkLoaderWorker::Stop()
 		{
-			Task t;
-			t.ev = ev_exit;
+			Command t;
+			t.id = cmd_exit;
 			m_in.push(t);
 		}
-		bool ChunkLoaderWorker::PushTask(const Task& task)
+		bool ChunkLoaderWorker::PushTask(const Command& task)
 		{
 			return m_in.push(task);
 		}
-		bool ChunkLoaderWorker::PopTask(Task& task)
+		bool ChunkLoaderWorker::PopTask(Command& task)
 		{
 			return m_out.pop(task);
 		}
@@ -125,7 +130,7 @@ namespace ld3d
 
 						double h = m_noise.perlin_noise_3D(vec);
 
-						h -= (y + chunk_origin.y) / 100;
+						h -= double(y + chunk_origin.y) / 50.0;
 
 						double vec1[2];
 
@@ -146,7 +151,14 @@ namespace ld3d
 						}
 						if(h > 0 && h < 1)
 						{
-							chunk_data.Set(x, y, z, 1);
+							if(h > 0.5)
+							{
+								chunk_data.Set(x, y, z, 2);
+							}
+							else
+							{
+								chunk_data.Set(x, y, z, 1);
+							}
 							ret = true;
 							adj.OnBlockChange(x, y, z, true);
 						}

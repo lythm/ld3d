@@ -13,39 +13,29 @@ namespace ld3d
 		public:
 			enum
 			{
-				ev_exit,
-				ev_load_chunk,
-				ev_gen_mesh,
-				ev_unload_chunk,
+				cmd_exit,
+				cmd_load_chunk,
+				cmd_gen_mesh,
+				cmd_unload_chunk,
 
 			};
-
-			struct Subset
+				
+			struct Command
 			{
-				void*												vertexBuffer;
-				uint32												vertexCount;
-				uint8												type;
-				uint32												material_id;
-			};
-			struct Task
-			{
-				uint32												ev;
+				uint32												id;
 				ChunkKey											key;
 				ChunkData											chunk_data;
 				ChunkAdjacency										chunk_adjacency;
 				bool												chunk_empty;
-
+				bool												gen_mesh;
+				bool												force_regen;
 				ChunkMesh*											mesh;
 
 				std::function<void(ChunkPtr)>						on_loaded;
 
 			};
-			struct TaskResult
-			{
-
-			};
-
-			typedef boost::lockfree::spsc_queue<Task, boost::lockfree::fixed_sized<true>>			TaskQueue;
+			
+			typedef boost::lockfree::spsc_queue<Command, boost::lockfree::fixed_sized<true>>		CommandQueue;
 
 			ChunkLoaderWorker(uint16 inQueueSize, uint16 outQueueSize);
 			virtual ~ChunkLoaderWorker(void);
@@ -57,8 +47,8 @@ namespace ld3d
 			void																					Join();
 			
 
-			bool																					PushTask(const Task& task);
-			bool																					PopTask(Task& task);
+			bool																					PushTask(const Command& task);
+			bool																					PopTask(Command& task);
 
 
 			bool																					GenerateChunk(const ChunkKey& key, ChunkData& chunk_data, ChunkAdjacency& adj);
@@ -66,12 +56,12 @@ namespace ld3d
 
 			void																					SetMeshizer(MeshizerPtr pMeshizer);
 		private:
-			void																					_gen_mesh(Task& t);
-			void																					_load_chunk(Task& t);
+			void																					_gen_mesh(Command& t);
+			void																					_load_chunk(Command& t);
 			void																					_run();
 		private:
-			TaskQueue																				m_in;
-			TaskQueue																				m_out;
+			CommandQueue																			m_in;
+			CommandQueue																			m_out;
 			MeshizerPtr																				m_pMeshizer;
 			boost::thread																			m_thread;
 
