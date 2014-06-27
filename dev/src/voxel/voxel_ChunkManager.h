@@ -24,7 +24,7 @@ namespace ld3d
 			uint8											GetBlock(const Coord& c);
 			void											UpdateBlock(const Coord& c);
 
-			ChunkPtr										FindChunk(const ChunkKey& key);
+			ChunkPtr										FindChunk(const ChunkKey& key, bool& loaded);
 
 			const DirtyChunkList&							GetDirtyChunks() const;
 			void											ClearDirtyChunks();
@@ -33,6 +33,7 @@ namespace ld3d
 
 			ChunkPtr										CreateChunk(const ChunkKey& key, const ChunkData& data);
 
+			bool											AddChunk(const ChunkKey& chunk_key, ChunkPtr pChunk = nullptr);
 			bool											AddChunk(ChunkPtr pChunk);
 			void											RemoveChunk(const ChunkKey& key);
 			void											RemoveChunk(ChunkPtr pChunk);
@@ -48,8 +49,8 @@ namespace ld3d
 			void											PickChunkDiffSet1(const Coord& center, uint32 radius, const Coord& refer_center, uint32 refer_radius, const std::function<void(const ChunkKey&)>& op);
 
 			// -x +x -y +y -z +z
-			void											PickAdjacentChunks(const ChunkKey& key, const std::function<void(const ChunkKey& , ChunkPtr)>& op);
-
+			void											PickAdjacentChunks(const ChunkKey& key, const std::function<void(const ChunkKey& , ChunkPtr, bool)>& op);
+			void											PickSurroundingChunks(const ChunkKey& key, const std::function<void(const ChunkKey& , ChunkPtr, bool)>& op);
 		private:
 			bool											InSphere(const Coord& c, const Coord& center, uint32 radius);
 			void											PickChunkSlice(int32 sy, const Coord& center, uint32 radius, const std::function<void(const ChunkKey&)>& op);

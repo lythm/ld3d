@@ -81,7 +81,9 @@ namespace ld3d
 		}
 		bool ChunkLoader::RequestChunkAsync(const ChunkKey& key, bool gen_mesh, const std::function<void(ChunkPtr)>& on_loaded)
 		{
-			ChunkPtr pChunk = m_pChunkManager->FindChunk(key);
+			bool loaded = false;
+			ChunkPtr pChunk = m_pChunkManager->FindChunk(key, loaded);
+
 			if(pChunk != nullptr)
 			{
 				pChunk->IncRef();
@@ -101,6 +103,10 @@ namespace ld3d
 				return true;
 			}
 
+			if(loaded == true)
+			{
+				return true;
+			}
 			ChunkLoaderWorker::Command t;
 			t.id = ChunkLoaderWorker::cmd_load_chunk;
 			t.chunk_data.Fill(0);
@@ -120,7 +126,8 @@ namespace ld3d
 
 		void ChunkLoader::_handle_gen_mesh(ChunkLoaderWorker::Command& t)
 		{
-			ChunkPtr pChunk = m_pChunkManager->FindChunk(t.key);
+			bool loaded = false;
+			ChunkPtr pChunk = m_pChunkManager->FindChunk(t.key, loaded);
 			if(pChunk == nullptr)
 			{
 				t.mesh->Release();
@@ -178,15 +185,16 @@ namespace ld3d
 
 		void ChunkLoader::_handle_load_chunk_ret(ChunkLoaderWorker::Command& t)
 		{
-			if(t.chunk_empty)
+			ChunkPtr pChunk = nullptr;
+			if(t.chunk_empty == false)
 			{
-				UpdateChunkAdjacency(t.key);
-				return;
+				pChunk = m_pChunkManager->CreateChunk(t.key, t.chunk_data.GetData());
+				pChunk->SetAdjacency(t.chunk_adjacency);
+				pChunk->SetGenerated(true);
 			}
-			ChunkPtr pChunk = m_pChunkManager->CreateChunk(t.key, t.chunk_data.GetData());
-			pChunk->SetAdjacency(t.chunk_adjacency);
-			pChunk->SetGenerated(true);
-			m_pChunkManager->AddChunk(pChunk);
+			
+			m_pChunkManager->AddChunk(t.key, pChunk);
+			
 			UpdateChunkAdjacency(t.key);
 
 			//// test
@@ -231,22 +239,35 @@ namespace ld3d
 
 		void ChunkLoader::UpdateChunkAdjacency(const ChunkKey& key)
 		{
-			ChunkPtr pChunk = m_pChunkManager->FindChunk(key);
+			bool loaded = false;
+			ChunkPtr pChunk = m_pChunkManager->FindChunk(key, loaded);
+			if(loaded == false)
+			{
+				return;
+			}
 
 			Coord this_coord = key.ToChunkCoord();
-			m_pChunkManager->PickAdjacentChunks(key, [&](const ChunkKey& adjKey, ChunkPtr pAdj)
+			m_pChunkManager->PickSurroundingChunks(key, [&](const ChunkKey& adjKey, ChunkPtr pAdj, bool adjLoaded)
 			{
+				if(adjLoaded == false)
+				{
+					return;
+				}
 				if(pChunk != nullptr)
 				{
-					pChunk->GetAdjacency().OnAdjacentChunkLoaded(adjKey.ToChunkCoord(), pAdj);
+					pChunk->GetAdjacency().UpdateChunkAdjacency(adjKey, pAdj);
 				}
-
+				
 				if(pAdj == nullptr)
 				{
 					return;
 				}
-
-				pAdj->GetAdjacency().OnAdjacentChunkLoaded(this_coord, pChunk);
+				
+				pAdj->GetAdjacency().UpdateChunkAdjacency(key, pChunk);
+				if(pAdj->GetAdjacency().IsComplete())
+				{
+					RequestMeshAsync(pAdj);
+				}
 			});
 		}
 
@@ -265,15 +286,19 @@ namespace ld3d
 		}
 		bool ChunkLoader::RequestUnloadChunk(const ChunkKey& key)
 		{
-			ChunkPtr pChunk = m_pChunkManager->FindChunk(key);
-			if(pChunk == nullptr)
+			bool loaded = false;
+			ChunkPtr pChunk = m_pChunkManager->FindChunk(key, loaded);
+			if(loaded == false)
 			{
 				return true;
 			}
-			pChunk->DecRef();
-			if(pChunk->GetRef() != 0)
+			if(pChunk)
 			{
-				return true;
+				pChunk->DecRef();
+				if(pChunk->GetRef() != 0)
+				{
+					return true;
+				}
 			}
 
 			m_pOctreeManager->RemoveChunk(pChunk);

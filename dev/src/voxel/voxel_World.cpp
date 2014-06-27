@@ -126,8 +126,9 @@ namespace ld3d
 			{
 				return false;
 			}
+			bool loaded = false;
 
-			return m_pChunkManager->FindChunk(key);
+			return m_pChunkManager->FindChunk(key, loaded);
 		}
 		
 		void World::UpdateBlock(const Coord& c)

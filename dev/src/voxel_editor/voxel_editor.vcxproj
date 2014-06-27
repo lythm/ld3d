@@ -149,7 +149,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>sigar-x86-winnt.lib;platform.lib;core.lib;voxel.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>sigar_x64.lib;platform.lib;core.lib;voxel.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>

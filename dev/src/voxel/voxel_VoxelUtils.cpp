@@ -192,6 +192,14 @@ namespace ld3d
 				hm[((x+stride)*size) + z-stride] +
 				hm[((x+stride)*size) + z+stride]) * .25f);
 		}
+		Coord VoxelUtils::ChunkToChunk(const ChunkKey& k1, const Coord& c, const ChunkKey& k2)
+		{
+			Coord r = c;
+			r += k1.ToChunkOrigin();
+			r -= k2.ToChunkOrigin();
+
+			return r;
+		}
 	}
 }
 

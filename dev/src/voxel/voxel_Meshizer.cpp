@@ -193,7 +193,7 @@ namespace ld3d
 
 			uint32 lod = 0;
 
-			uint32 step = pow(2, lod);
+			float step = pow(2, lod);
 
 			if(step > 8)
 			{

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "voxel/voxel_Coord.h"
+#include "voxel/voxel_ChunkKey.h"
 
 namespace ld3d
 {
@@ -28,6 +29,7 @@ namespace ld3d
 			// global to chunk space
 			static Coord							ToChunkCoord(const Coord& c);
 
+			static Coord							ChunkToChunk(const ChunkKey& k1, const Coord& c, const ChunkKey& k2);
 			
 		private:
 			static float							_rand (float min, float max);

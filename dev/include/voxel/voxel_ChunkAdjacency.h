@@ -2,6 +2,7 @@
 
 #include "voxel/voxel_Coord.h"
 #include "voxel/voxel_ChunkKey.h"
+#include <bitset>
 
 namespace ld3d
 {
@@ -12,12 +13,12 @@ namespace ld3d
 		public:
 			enum 
 			{
-				n_x						= 2,
-				p_x						= 3,
-				n_y						= 4,
-				p_y						= 5,
-				n_z						= 6,
-				p_z						= 7,
+				n_x						= 1,
+				p_x						= 1 << 1,
+				n_y						= 1 << 2,
+				p_y						= 1 << 3,
+				n_z						= 1 << 4,
+				p_z						= 1 << 5,
 				all_vector				= 0xfc,
 			};
 			ChunkAdjacency();
@@ -27,25 +28,31 @@ namespace ld3d
 
 			void											Reset();
 
-			// set this block neightbour flag
-			void											SetBlockAdjacency(int32 x, int32 y, int32 z, int32 v, bool val);
 			bool											CheckBlockAdjacency(int32 x, int32 y, int32 z, int32 v) const;
 			
-			void											OnAdjacentChunkLoaded(const Coord& chunk_coord, ChunkPtr pChunk);
-			
+			void											UpdateChunkAdjacency(const ChunkKey& key, ChunkPtr pChunk);
 			void											OnBlockChange(int32 x, int32 y, int32 z, bool val);
 
 			bool											IsVisible() const;
+			bool											IsComplete() const;
 		private:
-
+			// set this block neightbour flag
 			bool											CheckVisiblity() const;
 
-			bool											CheckCorrd(int32 x, int32 y, int32 z);
+			bool											CheckCoord(int32 x, int32 y, int32 z) const;
 			
+			int32											ToIndex(int32 x, int32 y, int32 z) const;
+
+			Coord											ToAdjacentBlockCoord(const Coord& c, uint32 adj) const;
 		private:
-			uint8											m_blockAdjacency[CHUNK_SIZE * CHUNK_SIZE * CHUNK_SIZE];
 			bool											m_visible;
 			ChunkKey										m_key;
+
+			std::bitset<(CHUNK_SIZE + 2) *
+				(CHUNK_SIZE + 2) *
+				(CHUNK_SIZE + 2)>							m_blocks;
+
+			std::bitset<3 * 3 * 3>							m_adj;
 		};
 	}
 }

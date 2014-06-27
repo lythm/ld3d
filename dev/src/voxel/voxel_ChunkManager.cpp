@@ -25,14 +25,16 @@ namespace ld3d
 		{
 			ChunkKey key(c);
 
-			ChunkPtr pChunk = FindChunk(key);
-
-			if(pChunk == nullptr)
+			bool loaded = false;
+			ChunkPtr pChunk = FindChunk(key, loaded);
+			if(loaded == false)
 			{
-				pChunk = CreateChunk(key, ChunkData());
-				AddChunk(pChunk);
+				return false;
 			}
-
+			
+			pChunk = CreateChunk(key, ChunkData());
+			AddChunk(pChunk);
+			
 			if(pChunk->IsDirty() == false)
 			{
 				m_dirtyList.push_back(pChunk);
@@ -46,9 +48,9 @@ namespace ld3d
 
 			return pChunk;
 		}
-		bool ChunkManager::AddChunk(ChunkPtr pChunk)
+		bool ChunkManager::AddChunk(const ChunkKey& chunk_key, ChunkPtr pChunk)
 		{
-			uint64 key = pChunk->GetKey().AsUint64();
+			uint64 key = chunk_key.AsUint64();
 
 			auto it = m_chunkmap.find(key);
 			if(it != m_chunkmap.end())
@@ -57,10 +59,19 @@ namespace ld3d
 			}
 			m_chunkmap[key] = pChunk;
 
-			if(pChunk->IsDirty())
+			if(pChunk && pChunk->IsDirty())
 			{
 				m_dirtyList.push_back(pChunk);
 			}
+		
+			return true;
+		}
+		bool ChunkManager::AddChunk(ChunkPtr pChunk)
+		{
+			uint64 key = pChunk->GetKey().AsUint64();
+
+			AddChunk(key, pChunk);
+			
 			return true;
 		}
 
@@ -83,21 +94,25 @@ namespace ld3d
 		{
 			ChunkKey key(c);
 
-			ChunkPtr pChunk = FindChunk(key);
+			bool loaded = false;
+			ChunkPtr pChunk = FindChunk(key, loaded);
 
 			return pChunk ? pChunk->GetBlock((c - key.ToChunkOrigin())) : VT_EMPTY;
 
 		}
-		ChunkPtr ChunkManager::FindChunk(const ChunkKey& key)
+		ChunkPtr ChunkManager::FindChunk(const ChunkKey& key, bool& loaded)
 		{
 			auto it = m_chunkmap.find(key.AsUint64());
+
+			loaded = (it != m_chunkmap.end());
 
 			return it == m_chunkmap.end() ? nullptr : it->second;
 		}
 		
 		void ChunkManager::UpdateBlock(const Coord& c)
 		{
-			ChunkPtr pChunk = FindChunk(ChunkKey(c));
+			bool loaded = false;
+			ChunkPtr pChunk = FindChunk(ChunkKey(c), loaded);
 
 			pChunk ? pChunk->Update() : void(0);
 
@@ -281,38 +296,65 @@ namespace ld3d
 
 		}
 
-		void ChunkManager::PickAdjacentChunks(const ChunkKey& key, const std::function<void(const ChunkKey&, ChunkPtr)>& op)
+		void ChunkManager::PickAdjacentChunks(const ChunkKey& key, const std::function<void(const ChunkKey&, ChunkPtr, bool)>& op)
+		{
+			Coord this_coord = key.ToChunkCoord();
+
+			ChunkPtr pChunk;
+			ChunkKey chunk_key;
+			bool loaded = false;
+			chunk_key.FromChunkCoord(this_coord + Coord(-1, 0, 0));
+			pChunk = FindChunk(chunk_key, loaded);
+			op(chunk_key, pChunk, loaded);
+
+			chunk_key.FromChunkCoord(this_coord + Coord(+1, 0, 0));
+			pChunk = FindChunk(chunk_key, loaded);
+			op(chunk_key, pChunk, loaded);
+
+			chunk_key.FromChunkCoord(this_coord + Coord(0, -1, 0));
+			pChunk = FindChunk(chunk_key, loaded);
+			op(chunk_key, pChunk, loaded);
+
+			chunk_key.FromChunkCoord(this_coord + Coord(0, +1, 0));
+			pChunk = FindChunk(chunk_key, loaded);
+			op(chunk_key, pChunk, loaded);
+
+			chunk_key.FromChunkCoord(this_coord + Coord(0, 0, -1));
+			pChunk = FindChunk(chunk_key, loaded);
+			op(chunk_key, pChunk, loaded);
+
+			chunk_key.FromChunkCoord(this_coord + Coord(0, 0, +1));
+			pChunk = FindChunk(chunk_key, loaded);
+			op(chunk_key, pChunk, loaded);
+
+		}
+
+		void ChunkManager::PickSurroundingChunks(const ChunkKey& key, const std::function<void(const ChunkKey& , ChunkPtr, bool)>& op)
 		{
 			Coord this_coord = key.ToChunkCoord();
 
 			ChunkPtr pChunk;
 			ChunkKey chunk_key;
 
-			chunk_key.FromChunkCoord(this_coord + Coord(-1, 0, 0));
-			pChunk = FindChunk(chunk_key);
-			op(chunk_key, pChunk);
+			for(int x = -1; x <= 1; ++x)
+			{
 
-			chunk_key.FromChunkCoord(this_coord + Coord(+1, 0, 0));
-			pChunk = FindChunk(chunk_key);
-			op(chunk_key, pChunk);
+				for(int y = -1; y <= 1; ++y)
+				{
+					for(int z = -1; z <= 1; ++z)
+					{
+						if(x == 0 && y == 0 && z == 0)
+						{
+							continue;
+						}
 
-			chunk_key.FromChunkCoord(this_coord + Coord(0, -1, 0));
-			pChunk = FindChunk(chunk_key);
-			op(chunk_key, pChunk);
-
-			chunk_key.FromChunkCoord(this_coord + Coord(0, +1, 0));
-			pChunk = FindChunk(chunk_key);
-			op(chunk_key, pChunk);
-
-			chunk_key.FromChunkCoord(this_coord + Coord(0, 0, -1));
-			pChunk = FindChunk(chunk_key);
-			op(chunk_key, pChunk);
-
-			chunk_key.FromChunkCoord(this_coord + Coord(0, 0, +1));
-			pChunk = FindChunk(chunk_key);
-			op(chunk_key, pChunk);
-
+						bool loaded = false;
+						chunk_key.FromChunkCoord(this_coord + Coord(x, y, z));
+						pChunk = FindChunk(chunk_key, loaded);
+						op(chunk_key, pChunk, loaded);
+					}
+				}
+			}
 		}
-
 	}
 }

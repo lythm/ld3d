@@ -19,6 +19,10 @@ namespace ld3d
 		}
 		void ChunkCache::AddChunk(ChunkPtr pChunk)
 		{
+			if(pChunk == nullptr)
+			{
+				return;
+			}
 			auto find = m_chunkMap.find(pChunk->GetKey().AsUint64());
 			if(find != m_chunkMap.end())
 			{

@@ -63,6 +63,10 @@ namespace ld3d
 		}
 		void OctreeManager::RemoveChunk(ChunkPtr pChunk)
 		{
+			if(pChunk == nullptr)
+			{
+				return;
+			}
 			ChunkMeshPtr pMesh = pChunk->GetMesh();
 			
 			if(pMesh)
