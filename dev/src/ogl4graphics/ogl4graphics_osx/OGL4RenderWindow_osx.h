@@ -22,13 +22,36 @@ namespace ld3d
         
         
       //  bool                    Create(NSWindow* window);
-        void                    Destroy();
+		
+		
+		bool														Create(void* wnd, int w, int h, G_FORMAT color_format, G_FORMAT depth_format);
+		int															GetWidth();
+		int															GetHeight();
+		void														Release();
+		
+		void														OnResize(int cx, int cy);
+		void														Resize(int cx, int cy, bool fullscreen = false);
+		void														Present();
+		
+		//HGLRC														GetContext();
+		void														MakeCurrent();
+		
+		void														EnableVSync(bool bEnable);
+		void														CenterWindow();
+		void														AdjustWindow(int Width, int Height);
+		
+		bool														IsFullscreen();
         
         
     private:
         
         
     private:
+		void*														m_hWnd;
+		
+		int															m_width;
+		int															m_height;
+		bool														m_fullscreen;
         
     };
     

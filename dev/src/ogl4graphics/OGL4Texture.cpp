@@ -143,6 +143,9 @@ namespace ld3d
 
 	bool OGL4Texture::Create2DMS(G_FORMAT format, int w, int h, int samples)
 	{
+#ifdef __APPLE__
+		return false;
+#else
 		m_lvls = 1;
 		m_bDynamic = false;
 
@@ -163,6 +166,7 @@ namespace ld3d
 
 		m_bMS = true;
 		return true;
+#endif
 	}
 
 	bool OGL4Texture::Create3D(G_FORMAT format, int w, int h, int d, int lvls, bool dynamic)

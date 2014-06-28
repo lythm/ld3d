@@ -8,7 +8,17 @@
 
 #import "AppDelegate.h"
 
+
+#include "MainApp.h"
+
+
+
+
+MainApp*			g_pApp	= nullptr;
 @implementation AppDelegate
+
+
+
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
@@ -23,11 +33,16 @@
     
     [self.window center];
     
+	
+	g_pApp = new MainApp();
+	
+	g_pApp->Init();
 
 }
 
 -(void)applicationWillTerminate:(NSNotification *)notification
 {
+	g_pApp->Release();
     
 }
 -(BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)sender

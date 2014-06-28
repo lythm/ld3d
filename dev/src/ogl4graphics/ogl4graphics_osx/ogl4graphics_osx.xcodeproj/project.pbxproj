@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0711ADBB195F185B007E0411 /* OGL4Loader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0711ADBA195F185B007E0411 /* OGL4Loader.cpp */; };
 		07C350AC17C7D10B00FCAE85 /* gl_def.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07C350A217C7D10B00FCAE85 /* gl_def.cpp */; };
 		07C350AD17C7D10B00FCAE85 /* gl_def.h in Headers */ = {isa = PBXBuildFile; fileRef = 07C350A317C7D10B00FCAE85 /* gl_def.h */; };
 		07C350AE17C7D10B00FCAE85 /* OGL4Buffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07C350A417C7D10B00FCAE85 /* OGL4Buffer.cpp */; };
@@ -41,6 +42,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0711ADBA195F185B007E0411 /* OGL4Loader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OGL4Loader.cpp; sourceTree = "<group>"; };
 		07C3509B17C7D0FC00FCAE85 /* libogl4graphics_osx.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libogl4graphics_osx.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		07C350A217C7D10B00FCAE85 /* gl_def.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = gl_def.cpp; path = ../gl_def.cpp; sourceTree = "<group>"; };
 		07C350A317C7D10B00FCAE85 /* gl_def.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = gl_def.h; path = ../gl_def.h; sourceTree = "<group>"; };
@@ -89,6 +91,7 @@
 		07C3509217C7D0FC00FCAE85 = {
 			isa = PBXGroup;
 			children = (
+				0711ADBA195F185B007E0411 /* OGL4Loader.cpp */,
 				07FA9F2817CB3B4500CAD600 /* OGL4RenderWindow_osx.mm */,
 				07FA9F2917CB3B4500CAD600 /* OGL4RenderWindow_osx.h */,
 				07C350BF17C7D13700FCAE85 /* OGL4Loader.h */,
@@ -221,6 +224,7 @@
 				07C350D817C7D13700FCAE85 /* OGL4Sampler.cpp in Sources */,
 				07C350DA17C7D13700FCAE85 /* OGL4Shader.cpp in Sources */,
 				07C350DC17C7D13700FCAE85 /* OGL4ShaderCompiler.cpp in Sources */,
+				0711ADBB195F185B007E0411 /* OGL4Loader.cpp in Sources */,
 				07C350DE17C7D13700FCAE85 /* OGL4ShaderProgram.cpp in Sources */,
 				07C350E017C7D13700FCAE85 /* OGL4Texture.cpp in Sources */,
 				07FA9F2A17CB3B4500CAD600 /* OGL4RenderWindow_osx.mm in Sources */,
@@ -242,7 +246,7 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_C_LANGUAGE_STANDARD = c11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -259,9 +263,11 @@
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
+				SYMROOT = build;
+				USER_HEADER_SEARCH_PATHS = "../../../external/include ../../../include";
 			};
 			name = Debug;
 		};
@@ -278,13 +284,13 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_C_LANGUAGE_STANDARD = c11;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				SDKROOT = macosx;
 			};
 			name = Release;

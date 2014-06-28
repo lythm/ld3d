@@ -1,13 +1,15 @@
 #pragma once
 
-#ifdef __APPLE__
+#if 0
+//#ifdef __APPLE__
 //#include <OpenGL/OpenGL.h>
 //#include <OpenGL/gl3.h>
-#import <OpenGL/gl3.h>
+#include <OpenGL/gl3ext.h>
+#include <OpenGL/gl3.h>
 #endif
 
-
-#if defined(_WIN64) || defined(_WIN32)
+#if 1
+//#if defined(_WIN64) || defined(_WIN32)
 #include "glext/glcorearb.h"
 
 

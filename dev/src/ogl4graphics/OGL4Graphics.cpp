@@ -34,7 +34,7 @@ namespace ld3d
 	}
 	
 
-#if 1
+#if 0
 //#ifdef _DEBUG
 	void APIENTRY _DebugCallback(GLenum source, 
 		GLenum type, 
@@ -143,6 +143,18 @@ _DLL_API void DestroySys(ld3d::Sys_Graphics* pSys)
 }
 
 
+#ifdef __APPLE__
+_DLL_API ld3d::Sys_Graphics* CreateSysGraphics(ld3d::Logger& logger)
+{
+	return CreateSys(logger);
+}
+
+_DLL_API void DestroySysGraphics(ld3d::Sys_Graphics* pSys)
+{
+	DestroySys(pSys);
+}
+
+#endif
 
 
 namespace ld3d
@@ -431,7 +443,7 @@ namespace ld3d
 	void OGL4Graphics::SetRenderState(RenderStatePtr pState)
 	{
 		OGL4RenderState* pGLState = (OGL4RenderState*)pState.get();
-		pGLState? pGLState->Apply() : 0;
+		pGLState? pGLState->Apply() : void(0);
 	}
 	RenderWindowPtr OGL4Graphics::CreateRenderWindow(void* handle, int w, int h, G_FORMAT color_format, G_FORMAT ds_format, int backbufferCount, int multiSampleCount, int multiSampleQuality, bool windowed)
 	{
