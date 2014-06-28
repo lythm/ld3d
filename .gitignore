@@ -1,4 +1,4 @@
-﻿#project
+#project
 *.mod
 *.log
 
@@ -138,3 +138,5 @@ pip-log.txt
 
 # Mac crap
 .DS_Store
+
+*.a
