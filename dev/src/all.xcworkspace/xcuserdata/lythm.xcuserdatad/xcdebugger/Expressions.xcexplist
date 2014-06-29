@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "ld3d::OGL4RenderWindow::Create(void*, int, int, ld3d::G_FORMAT, ld3d::G_FORMAT):OGL4RenderWindow_osx.mm">
+         <PersistentStrings>
+            <PersistentString
+               value = "(char*)str">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>

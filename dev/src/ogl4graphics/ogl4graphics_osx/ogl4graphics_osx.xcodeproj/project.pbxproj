@@ -37,6 +37,7 @@
 		07C350DF17C7D13700FCAE85 /* OGL4ShaderProgram.h in Headers */ = {isa = PBXBuildFile; fileRef = 07C350CD17C7D13700FCAE85 /* OGL4ShaderProgram.h */; };
 		07C350E017C7D13700FCAE85 /* OGL4Texture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07C350CE17C7D13700FCAE85 /* OGL4Texture.cpp */; };
 		07C350E117C7D13700FCAE85 /* OGL4Texture.h in Headers */ = {isa = PBXBuildFile; fileRef = 07C350CF17C7D13700FCAE85 /* OGL4Texture.h */; };
+		07D9C5AB1960046F00F6C339 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07D9C5AA1960046F00F6C339 /* Cocoa.framework */; };
 		07FA9F2A17CB3B4500CAD600 /* OGL4RenderWindow_osx.mm in Sources */ = {isa = PBXBuildFile; fileRef = 07FA9F2817CB3B4500CAD600 /* OGL4RenderWindow_osx.mm */; };
 		07FA9F2B17CB3B4500CAD600 /* OGL4RenderWindow_osx.h in Headers */ = {isa = PBXBuildFile; fileRef = 07FA9F2917CB3B4500CAD600 /* OGL4RenderWindow_osx.h */; };
 /* End PBXBuildFile section */
@@ -73,6 +74,7 @@
 		07C350CD17C7D13700FCAE85 /* OGL4ShaderProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OGL4ShaderProgram.h; path = ../OGL4ShaderProgram.h; sourceTree = "<group>"; };
 		07C350CE17C7D13700FCAE85 /* OGL4Texture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OGL4Texture.cpp; path = ../OGL4Texture.cpp; sourceTree = "<group>"; };
 		07C350CF17C7D13700FCAE85 /* OGL4Texture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OGL4Texture.h; path = ../OGL4Texture.h; sourceTree = "<group>"; };
+		07D9C5AA1960046F00F6C339 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		07FA9F2817CB3B4500CAD600 /* OGL4RenderWindow_osx.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = OGL4RenderWindow_osx.mm; sourceTree = "<group>"; };
 		07FA9F2917CB3B4500CAD600 /* OGL4RenderWindow_osx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OGL4RenderWindow_osx.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -82,6 +84,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				07D9C5AB1960046F00F6C339 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -91,6 +94,7 @@
 		07C3509217C7D0FC00FCAE85 = {
 			isa = PBXGroup;
 			children = (
+				07D9C5AA1960046F00F6C339 /* Cocoa.framework */,
 				0711ADBA195F185B007E0411 /* OGL4Loader.cpp */,
 				07FA9F2817CB3B4500CAD600 /* OGL4RenderWindow_osx.mm */,
 				07FA9F2917CB3B4500CAD600 /* OGL4RenderWindow_osx.h */,

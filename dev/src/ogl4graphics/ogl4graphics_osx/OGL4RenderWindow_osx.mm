@@ -8,11 +8,12 @@
 
 #include "OGL4RenderWindow_osx.h"
 
-
+#import <Cocoa/Cocoa.h>
 namespace ld3d
 {
     OGL4RenderWindow::OGL4RenderWindow()
     {
+		m_window	= nullptr;
         
     }
     OGL4RenderWindow::~OGL4RenderWindow()
@@ -29,6 +30,7 @@ namespace ld3d
 	}
 	void OGL4RenderWindow::Release()
 	{
+		
 		//wglMakeCurrent(m_hDC, 0);
 		
 		//wglDeleteContext(m_hRC);
@@ -36,7 +38,7 @@ namespace ld3d
 		//DeleteDC(m_hDC);
 		//m_hDC = nullptr;
 		//m_hRC = nullptr;
-		m_hWnd = nullptr;
+		m_window = nullptr;
 	}
 	bool OGL4RenderWindow::Create(void* wnd, int w, int h, G_FORMAT color_format, G_FORMAT depth_format)
 	{
@@ -45,61 +47,37 @@ namespace ld3d
 			return false;
 		}
 		
-		m_hWnd = (void*)wnd;
+		m_window = wnd;
 		
 		AdjustWindow(w, h);
 		CenterWindow();
 		
-		//m_hDC = ::GetDC(m_hWnd);
-		
-		/*PIXELFORMATDESCRIPTOR pfd;
-		memset(&pfd, 0, sizeof(PIXELFORMATDESCRIPTOR));
-		pfd.nSize = sizeof(PIXELFORMATDESCRIPTOR);
-		pfd.dwFlags = PFD_DOUBLEBUFFER | PFD_SUPPORT_OPENGL | PFD_DRAW_TO_WINDOW;
-		pfd.iPixelType = PFD_TYPE_RGBA;
-		pfd.cColorBits = 32;
-		pfd.cDepthBits = 32;
-		pfd.iLayerType = PFD_MAIN_PLANE;
-		
-		int nPixelFormat = ChoosePixelFormat(m_hDC, &pfd);
-		if (nPixelFormat == 0)
-			return false;
-		
-		bool bResult = (SetPixelFormat(m_hDC, nPixelFormat, &pfd) != FALSE);
-		if (!bResult)
-			return false;
-		
-		HGLRC tempOpenGLContext = wglCreateContext(m_hDC);
-		wglMakeCurrent(m_hDC, tempOpenGLContext);
 		
 		
-		int attributes[] =
-		{
-			WGL_CONTEXT_MAJOR_VERSION_ARB, 3,
-			WGL_CONTEXT_MINOR_VERSION_ARB, 3,
-			WGL_CONTEXT_FLAGS_ARB, WGL_CONTEXT_FORWARD_COMPATIBLE_BIT_ARB |
-			WGL_CONTEXT_DEBUG_BIT_ARB,
-			WGL_CONTEXT_PROFILE_MASK_ARB, WGL_CONTEXT_CORE_PROFILE_BIT_ARB,
+		// Insert code here to initialize your application
+		NSOpenGLPixelFormatAttribute attributes[] = {
+			NSOpenGLPFAColorSize, 32,
+			NSOpenGLPFADepthSize, 24,
+			NSOpenGLPFAStencilSize, 8,
+			NSOpenGLPFADoubleBuffer,
+			NSOpenGLPFAAccelerated,
+			NSOpenGLPFAOpenGLProfile, NSOpenGLProfileVersion3_2Core,
 			0
 		};
-		PFNWGLCREATECONTEXTATTRIBSARBPROC wglCreateContextAttribsARB = (PFNWGLCREATECONTEXTATTRIBSARBPROC)wglGetProcAddress("wglCreateContextAttribsARB");
-		if(wglCreateContextAttribsARB == nullptr)
+		
+		NSOpenGLPixelFormat *pixelFormat = [[NSOpenGLPixelFormat alloc] initWithAttributes:attributes];
+		if (pixelFormat == nil)
 		{
-			m_hRC = tempOpenGLContext;
-			return true;
+			return false;
 		}
 		
-		m_hRC = wglCreateContextAttribsARB(m_hDC, NULL, attributes);
+		NSWindow* nsw = (NSWindow*)m_window;
 		
-		if(m_hRC == nullptr)
-		{
-			m_hRC = tempOpenGLContext;
-			return true;
-		}
+		NSOpenGLView *view = [[NSOpenGLView alloc] initWithFrame:nsw.frame pixelFormat:pixelFormat];
+		
+		[nsw setContentView:view];
+		
 		MakeCurrent();
-		
-		wglDeleteContext(tempOpenGLContext);
-		*/
 		m_width = w;
 		m_height = h;
 		return true;
@@ -108,14 +86,27 @@ namespace ld3d
 	
 	void OGL4RenderWindow::Present()
 	{
-		//SwapBuffers(m_hDC);
+		NSWindow* nsw = (NSWindow*)m_window;
+		
+		NSOpenGLView *view = [nsw contentView];
+		
+		NSOpenGLContext* context = [view openGLContext];
+		
+		[context flushBuffer];
 		
 	}
 	
 	void OGL4RenderWindow::MakeCurrent()
 	{
-	//	wglMakeCurrent(NULL, NULL);
-	//	wglMakeCurrent(m_hDC, m_hRC);
+		
+		NSWindow* nsw = (NSWindow*)m_window;
+		
+		NSOpenGLView *view = [nsw contentView];
+		
+		NSOpenGLContext* context = [view openGLContext];
+		
+		[context makeCurrentContext];
+
 	}
 	void OGL4RenderWindow::OnResize(int cx, int cy)
 	{
@@ -124,43 +115,52 @@ namespace ld3d
 	}
 	void OGL4RenderWindow::EnableVSync(bool bEnable)
 	{
-	//	bEnable ? wglSwapIntervalEXT(1) : wglSwapIntervalEXT(0);
+		NSWindow* nsw = (NSWindow*)m_window;
+		
+		NSOpenGLView *view = [nsw contentView];
+		
+		NSOpenGLContext* context = [view openGLContext];
+		
+		GLint v = bEnable ?  1 : 0;
+		[context setValues:&v forParameter:NSOpenGLCPSwapInterval];
+		
 	}
 	void OGL4RenderWindow::CenterWindow()
 	{
-	//	RECT	rtWindow = {0};
-	//	RECT	rtContainer = {0};
+		NSWindow* nsw = (NSWindow*)m_window;
 		
-	//	GetWindowRect(m_hWnd,&rtWindow);
-	//	rtWindow.right -= rtWindow.left;
-	//	rtWindow.bottom -= rtWindow.top;
+		[nsw center];
 		
-	//	rtContainer.right = GetSystemMetrics(SM_CXSCREEN);
-	//	rtContainer.bottom = GetSystemMetrics(SM_CYSCREEN);
-	//
-	//	SetWindowPos(m_hWnd,NULL,(rtContainer.right - rtWindow.right) / 2,(rtContainer.bottom - rtWindow.bottom) / 2,0,0,SWP_NOSIZE);
 	}
 	void OGL4RenderWindow::AdjustWindow(int Width, int Height )
 	{
-	/*	RECT WinRect;
-		RECT ClientRect;
+		NSSize size;
+		size.width = Width;
+		size.height = Height;
 		
-		GetWindowRect( m_hWnd, &WinRect );
-		GetClientRect( m_hWnd, &ClientRect );
+		NSWindow* nsw = (NSWindow*)m_window;
+		[nsw setContentSize:size];
 		
-		int ClientWidth  = ClientRect.right  - ClientRect.left;
-		int ClientHeight = ClientRect.bottom - ClientRect.top;
-		
-		int IncX = Width  - ClientWidth;
-		int IncY = Height - ClientHeight;
-		
-		SetWindowPos( m_hWnd, 0, WinRect.left, WinRect.top, WinRect.right - WinRect.left + IncX, WinRect.bottom - WinRect.top + IncY, SWP_NOZORDER );
-	*/
 		m_width			= Width;
 		m_height		= Height;
 	}
 	void OGL4RenderWindow::Resize(int cx, int cy, bool fullscreen)
 	{
+		
+		m_fullscreen = fullscreen;
+		if(m_fullscreen == false)
+		{
+			AdjustWindow(cx, cy);
+			CenterWindow();
+			m_width = cx;
+			m_height = cy;
+			
+		}
+		else
+		{
+			
+		}
+		
 	/*	LONG_PTR value = GetWindowLongPtr(m_hWnd, GWL_STYLE);
 		m_fullscreen = fullscreen;
 		if(fullscreen == false)

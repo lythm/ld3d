@@ -315,6 +315,13 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					/usr/local/include,
+					../../include,
+					../../external/include,
+				);
 				INFOPLIST_FILE = "main_osx/main_osx-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",

@@ -9,9 +9,12 @@
 #ifndef __ogl4graphics_osx__OGL4RenderWindow_osx__
 #define __ogl4graphics_osx__OGL4RenderWindow_osx__
 
+
+//#import <Cocoa/Cocoa.h>
+
 #include "core/RenderWindow.h"
 
-//#include <Cocoa/Cocoa.h>
+
 namespace ld3d
 {
     class OGL4RenderWindow : public RenderWindow
@@ -47,8 +50,9 @@ namespace ld3d
         
         
     private:
-		void*														m_hWnd;
-		
+	//	NSWindow*													m_window;
+		void*														m_window;
+	//	NSOpenGLContext*											m_context;
 		int															m_width;
 		int															m_height;
 		bool														m_fullscreen;

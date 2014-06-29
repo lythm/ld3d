@@ -1,6 +1,6 @@
 #pragma once
 
-#if 0
+#if 1
 //#ifdef __APPLE__
 //#include <OpenGL/OpenGL.h>
 //#include <OpenGL/gl3.h>
@@ -8,7 +8,7 @@
 #include <OpenGL/gl3.h>
 #endif
 
-#if 1
+#if 0
 //#if defined(_WIN64) || defined(_WIN32)
 #include "glext/glcorearb.h"
 

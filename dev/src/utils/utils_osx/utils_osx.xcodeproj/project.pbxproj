@@ -16,6 +16,9 @@
 		07284AD017C3A1AC0062CEF9 /* Version.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07284AC417C3A1AC0062CEF9 /* Version.cpp */; };
 		074D417118093C13007B0AD9 /* Config.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 074D416F18093C13007B0AD9 /* Config.cpp */; };
 		074D417218093C13007B0AD9 /* Lexer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 074D417018093C13007B0AD9 /* Lexer.cpp */; };
+		07D9C5B119601E0B00F6C339 /* PoolAllocator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07D9C5AD19601E0B00F6C339 /* PoolAllocator.cpp */; };
+		07D9C5B219601E0B00F6C339 /* StdAllocator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07D9C5AE19601E0B00F6C339 /* StdAllocator.cpp */; };
+		07D9C5B319601E0B00F6C339 /* TaskManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07D9C5AF19601E0B00F6C339 /* TaskManager.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +32,9 @@
 		07284AC417C3A1AC0062CEF9 /* Version.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Version.cpp; path = ../Version.cpp; sourceTree = "<group>"; };
 		074D416F18093C13007B0AD9 /* Config.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Config.cpp; path = ../Config.cpp; sourceTree = "<group>"; };
 		074D417018093C13007B0AD9 /* Lexer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Lexer.cpp; path = ../Lexer.cpp; sourceTree = "<group>"; };
+		07D9C5AD19601E0B00F6C339 /* PoolAllocator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PoolAllocator.cpp; path = ../PoolAllocator.cpp; sourceTree = "<group>"; };
+		07D9C5AE19601E0B00F6C339 /* StdAllocator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = StdAllocator.cpp; path = ../StdAllocator.cpp; sourceTree = "<group>"; };
+		07D9C5AF19601E0B00F6C339 /* TaskManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TaskManager.cpp; path = ../TaskManager.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,6 +51,9 @@
 		07284AA917C39D690062CEF9 = {
 			isa = PBXGroup;
 			children = (
+				07D9C5AD19601E0B00F6C339 /* PoolAllocator.cpp */,
+				07D9C5AE19601E0B00F6C339 /* StdAllocator.cpp */,
+				07D9C5AF19601E0B00F6C339 /* TaskManager.cpp */,
 				074D416F18093C13007B0AD9 /* Config.cpp */,
 				074D417018093C13007B0AD9 /* Lexer.cpp */,
 				07284AB917C3A1AC0062CEF9 /* MemPool.cpp */,
@@ -129,7 +138,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				07284AC517C3A1AC0062CEF9 /* MemPool.cpp in Sources */,
+				07D9C5B119601E0B00F6C339 /* PoolAllocator.cpp in Sources */,
+				07D9C5B319601E0B00F6C339 /* TaskManager.cpp in Sources */,
 				07284AC617C3A1AC0062CEF9 /* MiniDump.cpp in Sources */,
+				07D9C5B219601E0B00F6C339 /* StdAllocator.cpp in Sources */,
 				074D417218093C13007B0AD9 /* Lexer.cpp in Sources */,
 				07284AC717C3A1AC0062CEF9 /* PerlinNoise.cpp in Sources */,
 				07284AC817C3A1AC0062CEF9 /* PropertySet.cpp in Sources */,
