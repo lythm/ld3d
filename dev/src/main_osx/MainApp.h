@@ -11,7 +11,7 @@
 
 #include <iostream>
 
-
+//#include "utils/utils_all.h"
 class MainApp
 {
 public:
@@ -19,5 +19,9 @@ public:
 	virtual ~MainApp();
 	bool			Init();
 	void			Release();
+	
+	
+private:
+	//static ld3d::Logger	s_logger;
 };
 #endif /* defined(__main_osx__MainApp__) */

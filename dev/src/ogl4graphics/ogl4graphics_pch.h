@@ -8,8 +8,10 @@
 
 #include "core/core_ptr.h"
 
-#include "utils/utils_all.h"
-
+#include "utils/logger.h"
+#include "utils/utils_helper.h"
+#include "utils/Version.h"
+#include "utils/scope_exit.h"
 #include <vector>
 
 #include "core/g_format.h"
@@ -50,5 +52,5 @@ namespace ld3d
 	typedef std::shared_ptr<OGL4Loader>										OGL4LoaderPtr;
 
 
-	Logger&																	logger();
+	extern Logger&																	logger();
 }

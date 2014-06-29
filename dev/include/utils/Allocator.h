@@ -1,6 +1,6 @@
 #pragma once
 
-#include <platform/platform.h>
+#include "platform/platform.h"
 
 namespace ld3d
 {

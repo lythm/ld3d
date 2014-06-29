@@ -26,7 +26,7 @@
 namespace ld3d
 {
 
-	Logger												g_logger;
+	static Logger												g_logger;
 
 	Logger& logger()
 	{

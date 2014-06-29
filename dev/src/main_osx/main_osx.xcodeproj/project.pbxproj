@@ -8,12 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		0711ADB6195F0D8C007E0411 /* MainApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0711ADB4195F0D8C007E0411 /* MainApp.cpp */; };
-		0711ADB8195F16BB007E0411 /* libogl4graphics_osx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0711ADB7195F16BB007E0411 /* libogl4graphics_osx.a */; };
 		0711ADB9195F170F007E0411 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07FA9F2617C91D0900CAD600 /* OpenGL.framework */; };
 		0711ADBD195F1A29007E0411 /* libutils_osx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0711ADBC195F1A29007E0411 /* libutils_osx.a */; };
 		0711ADBF195F1A30007E0411 /* libplatform_osx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0711ADBE195F1A30007E0411 /* libplatform_osx.a */; };
-		076D32DF195F1C880071F6EC /* libboost_filesystem.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 076D32DE195F1C880071F6EC /* libboost_filesystem.a */; };
-		076D32E1195F1CF10071F6EC /* libboost_system.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 076D32E0195F1CF10071F6EC /* libboost_system.a */; };
+		071B946B195FCD8900F4E198 /* libboost_system.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 071B946A195FCD8900F4E198 /* libboost_system.a */; };
+		071B946D195FCD9E00F4E198 /* libboost_filesystem.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 071B946C195FCD9E00F4E198 /* libboost_filesystem.a */; };
+		071B946F195FD5C100F4E198 /* libogl4graphics_osx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 071B946E195FD5C100F4E198 /* libogl4graphics_osx.a */; };
 		07B3C25C17C36C33004F86AA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07B3C25B17C36C33004F86AA /* Cocoa.framework */; };
 		07B3C26617C36C33004F86AA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 07B3C26417C36C33004F86AA /* InfoPlist.strings */; };
 		07B3C26817C36C33004F86AA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 07B3C26717C36C33004F86AA /* main.m */; };
@@ -28,6 +28,9 @@
 		0711ADB7195F16BB007E0411 /* libogl4graphics_osx.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libogl4graphics_osx.a; path = ../ogl4graphics/ogl4graphics_osx/build/Debug/libogl4graphics_osx.a; sourceTree = "<group>"; };
 		0711ADBC195F1A29007E0411 /* libutils_osx.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libutils_osx.a; path = "../../../../../Library/Developer/Xcode/DerivedData/all-fzaibiesvozrhseeqhrxwrkhswck/Build/Products/Debug/libutils_osx.a"; sourceTree = "<group>"; };
 		0711ADBE195F1A30007E0411 /* libplatform_osx.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libplatform_osx.a; path = "../../../../../Library/Developer/Xcode/DerivedData/all-fzaibiesvozrhseeqhrxwrkhswck/Build/Products/Debug/libplatform_osx.a"; sourceTree = "<group>"; };
+		071B946A195FCD8900F4E198 /* libboost_system.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_system.a; path = ../../../../../sdk/boost_1_55_0/stage/lib/libboost_system.a; sourceTree = "<group>"; };
+		071B946C195FCD9E00F4E198 /* libboost_filesystem.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_filesystem.a; path = ../../../../../sdk/boost_1_55_0/stage/lib/libboost_filesystem.a; sourceTree = "<group>"; };
+		071B946E195FD5C100F4E198 /* libogl4graphics_osx.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libogl4graphics_osx.a; path = "../../../../../Library/Developer/Xcode/DerivedData/all-fzaibiesvozrhseeqhrxwrkhswck/Build/Products/Debug/libogl4graphics_osx.a"; sourceTree = "<group>"; };
 		076D32DE195F1C880071F6EC /* libboost_filesystem.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_filesystem.a; path = ../../lib/libboost_filesystem.a; sourceTree = "<group>"; };
 		076D32E0195F1CF10071F6EC /* libboost_system.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_system.a; path = ../../lib/libboost_system.a; sourceTree = "<group>"; };
 		07B3C25817C36C33004F86AA /* main_osx.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = main_osx.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -51,12 +54,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				076D32E1195F1CF10071F6EC /* libboost_system.a in Frameworks */,
-				076D32DF195F1C880071F6EC /* libboost_filesystem.a in Frameworks */,
+				071B946F195FD5C100F4E198 /* libogl4graphics_osx.a in Frameworks */,
+				071B946D195FCD9E00F4E198 /* libboost_filesystem.a in Frameworks */,
+				071B946B195FCD8900F4E198 /* libboost_system.a in Frameworks */,
 				0711ADBF195F1A30007E0411 /* libplatform_osx.a in Frameworks */,
 				0711ADBD195F1A29007E0411 /* libutils_osx.a in Frameworks */,
 				0711ADB9195F170F007E0411 /* OpenGL.framework in Frameworks */,
-				0711ADB8195F16BB007E0411 /* libogl4graphics_osx.a in Frameworks */,
 				07B3C25C17C36C33004F86AA /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -84,6 +87,9 @@
 		07B3C25A17C36C33004F86AA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				071B946E195FD5C100F4E198 /* libogl4graphics_osx.a */,
+				071B946C195FCD9E00F4E198 /* libboost_filesystem.a */,
+				071B946A195FCD8900F4E198 /* libboost_system.a */,
 				076D32E0195F1CF10071F6EC /* libboost_system.a */,
 				076D32DE195F1C880071F6EC /* libboost_filesystem.a */,
 				0711ADBE195F1A30007E0411 /* libplatform_osx.a */,
@@ -315,9 +321,10 @@
 					/Users/lythm/works/ld3d/dev/src/ogl4graphics/ogl4graphics_osx/build/Debug,
 					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/all-fzaibiesvozrhseeqhrxwrkhswck/Build/Products/Debug",
 					/Users/lythm/works/ld3d/dev/lib,
+					/Users/lythm/sdk/boost_1_55_0/stage/lib,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				WARNING_LDFLAGS = "-v";
+				WARNING_LDFLAGS = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -334,6 +341,7 @@
 					/Users/lythm/works/ld3d/dev/src/ogl4graphics/ogl4graphics_osx/build/Debug,
 					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/all-fzaibiesvozrhseeqhrxwrkhswck/Build/Products/Debug",
 					/Users/lythm/works/ld3d/dev/lib,
+					/Users/lythm/sdk/boost_1_55_0/stage/lib,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;

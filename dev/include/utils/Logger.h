@@ -38,7 +38,7 @@ namespace ld3d
 	};
     
 #ifdef __APPLE__
-    template<>
+    template<> inline
     Logger& Logger::operator<< <bool>(const bool& value)
     {
         value ? print("true") : print("false");

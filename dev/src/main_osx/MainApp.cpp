@@ -9,9 +9,8 @@
 #include "MainApp.h"
 
 #include "core/graphics_osx.h"
-
-
-ld3d::Logger	g_logger;
+#include "core/Sys_Graphics.h"
+ld3d::Logger	s_logger;
 MainApp::MainApp()
 {
 
@@ -25,7 +24,9 @@ bool MainApp::Init()
 {
 	using namespace ld3d;
 	
-	Sys_Graphics* pGraphics = CreateSysGraphics(g_logger);
+	Sys_Graphics* pGraphics = CreateSysGraphics(s_logger);
+	
+	pGraphics->initi
 	
 	return true;
 }
