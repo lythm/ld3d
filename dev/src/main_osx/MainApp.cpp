@@ -44,8 +44,11 @@ void MainApp::Release()
 }
 void MainApp::Update()
 {
+	//m_pGraphics->SetViewPort(0, 0, 100, 100);
 	m_pGraphics->ClearRenderTarget(0, math::Color4(0, 0.5, 0, 1));
 	
+	
+
 	m_pGraphics->Present();
 	
 }
