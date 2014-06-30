@@ -116,11 +116,13 @@ namespace ld3d
 		}
 		void Meshizer::GenerateFaceAO(const ChunkKey& key, const ChunkAdjacency& adj, VoxelFace& face)
 		{
+			return;
+
 			using namespace math;
 
 			for(int ivert = 0; ivert < 4; ++ivert)
 			{
-				float ao = 0;
+				float ao = 1;
 				Vector3 c = face.voxelCoord.ToVector3() + Vector3(0.5f, 0.5f, 0.5f);
 
 				Vector3 v = face.verts[ivert] - c;
@@ -145,11 +147,11 @@ namespace ld3d
 
 					Vector3 coord = (c + normals[i] * 2.0f);
 
-					ao += adj.CheckBlock(int32(coord.x), int32(coord.y), (int32)coord.z) ? 1 : 0;
+					ao += adj.CheckBlock(int32(coord.x), int32(coord.y), (int32)coord.z) ? -0.125f : 0;
 				}
-				ao /= (normals.size() - 1);
+			//	ao /= (normals.size() - 1);
 
-				ao = 1 - ao + 0.3f;
+				//ao = 1 - ao + 0.3f;;
 
 				face.ao[ivert] = ao > 1.0f ? 1.0f : ao;
 

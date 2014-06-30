@@ -44,8 +44,11 @@ namespace ld3d
 
 			uint32											GetChunkCount() const;
 
+
+			void											PickChunk(const Coord& center, uint32 radius, uint32 height, const std::function<void(const ChunkKey&)>& op);
 			void											PickChunk(const Coord& center, uint32 radius, const std::function<void(const ChunkKey&)>& op);
 			void											PickChunkDiffSet(const Coord& center, uint32 radius, const Coord& refer_center, uint32 refer_radius, const std::function<void(const ChunkKey&)>& op);
+			void											PickChunkDiffSet(const Coord& center, uint32 radius, uint32 height, const Coord& refer_center, uint32 refer_radius, uint32 refer_height, const std::function<void(const ChunkKey&)>& op);
 			void											PickChunkDiffSet1(const Coord& center, uint32 radius, const Coord& refer_center, uint32 refer_radius, const std::function<void(const ChunkKey&)>& op);
 
 			// -x +x -y +y -z +z
@@ -53,8 +56,11 @@ namespace ld3d
 			void											PickSurroundingChunks(const ChunkKey& key, const std::function<void(const ChunkKey& , ChunkPtr, bool)>& op);
 		private:
 			bool											InSphere(const Coord& c, const Coord& center, uint32 radius);
+			bool											InCylinder(const Coord& c, const Coord& center, uint32 radius, uint32 height);
 			void											PickChunkSlice(int32 sy, const Coord& center, uint32 radius, const std::function<void(const ChunkKey&)>& op);
+			void											PickChunkSliceCylinder(int32 sy, const Coord& center, uint32 radius, const std::function<void(const ChunkKey&)>& op);
 			void											PickChunkDiffSetSlice(int32 sy, const Coord& center, uint32 radius, const Coord& refer_center, uint32 refer_radius, const std::function<void(const ChunkKey&)>& op);
+			void											PickChunkDiffSetSliceCylinder(int32 sy, const Coord& center, uint32 radius, uint32 height, const Coord& refer_center, uint32 refer_radius, uint32 refer_height, const std::function<void(const ChunkKey&)>& op);
 		
 		private:
 

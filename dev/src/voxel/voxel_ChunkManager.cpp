@@ -170,7 +170,21 @@ namespace ld3d
 		{
 			return (uint32)m_chunkmap.size();
 		}
-		
+		void ChunkManager::PickChunk(const Coord& center, uint32 radius, uint32 height, const std::function<void(const ChunkKey&)>& op)
+		{
+			if(op == nullptr)
+			{
+				return;
+			}
+
+			height /= 2;
+			height /= CHUNK_SIZE;
+			radius /= CHUNK_SIZE;
+			for(int32 y = -(int32)height; y <= (int32)height; ++y)
+			{
+				PickChunkSliceCylinder(y, VoxelUtils::ToChunkOrigin(center), radius, op);
+			}
+		}
 		void ChunkManager::PickChunk(const Coord& center, uint32 radius, const std::function<void(const ChunkKey&)>& op)
 		{
 			if(op == nullptr)
@@ -183,6 +197,24 @@ namespace ld3d
 			for(int32 y = -(int32)radius; y <= (int32)radius; ++y)
 			{
 				PickChunkSlice(y, VoxelUtils::ToChunkOrigin(center), radius, op);
+			}
+		}
+		
+		void ChunkManager::PickChunkSliceCylinder(int32 sy, const Coord& center, uint32 radius, const std::function<void(const ChunkKey&)>& op)
+		{
+			float r = radius;//sqrtf((float(radius * radius) - float(sy * sy)));
+
+			for(int32 z = -(int32)r; z <= (int32)r; ++z)
+			{
+				float x_abs = sqrtf(r * r - z * z);
+
+				for(int32 x = -(int32)x_abs; x <= (int32)x_abs; ++x)
+				{
+					Coord c = Coord(x, sy, z) + center / CHUNK_SIZE;
+					ChunkKey key(c * CHUNK_SIZE);
+
+					op(key);
+				}
 			}
 		}
 		void ChunkManager::PickChunkSlice(int32 sy, const Coord& center, uint32 radius, const std::function<void(const ChunkKey&)>& op)
@@ -226,6 +258,31 @@ namespace ld3d
 
 			});
 		}
+		void ChunkManager::PickChunkDiffSet(const Coord& center, uint32 radius, uint32 height, const Coord& refer_center, uint32 refer_radius, uint32 refer_height, const std::function<void(const ChunkKey&)>& op)
+		{
+			if(op == nullptr)
+			{
+				return;
+			}
+
+			/*if((center - refer_center).Length() > (radius + refer_radius))
+			{
+				PickChunk(center, radius, op);
+				return;
+			}*/
+
+			height /= 2;
+			height /= CHUNK_SIZE;
+			radius /= CHUNK_SIZE;
+
+
+			for(int y = 0; y <= (int32)height; ++y)
+			//for(int32 y = -(int32)height; y <= (int32)height; ++y)
+			{
+				PickChunkDiffSetSliceCylinder(y, VoxelUtils::ToChunkOrigin(center), radius, height, VoxelUtils::ToChunkOrigin(refer_center), refer_radius,  refer_height, op);
+				PickChunkDiffSetSliceCylinder(-y, VoxelUtils::ToChunkOrigin(center), radius, height, VoxelUtils::ToChunkOrigin(refer_center), refer_radius,  refer_height, op);
+			}
+		}
 		void ChunkManager::PickChunkDiffSet(const Coord& center, uint32 radius, const Coord& refer_center, uint32 refer_radius, const std::function<void(const ChunkKey&)>& op)
 		{
 			if(op == nullptr)
@@ -268,6 +325,89 @@ namespace ld3d
 					op(key);
 				}
 			}
+		}
+		void ChunkManager::PickChunkDiffSetSliceCylinder(int32 sy, const Coord& center, uint32 radius, uint32 height, const Coord& refer_center, uint32 refer_radius, uint32 refer_height, const std::function<void(const ChunkKey&)>& op)
+		{
+			float r = radius;//sqrtf(float(radius * radius) - float(sy * sy));
+
+			for(int32 z = 0; z <= (int32)r; ++z)
+			//for(int32 z = -(int32)r; z <= (int32)r; ++z)
+			{
+				float x_abs = sqrtf(r * r - z * z);
+
+				for(int32 x = 0; x <= (int32)x_abs; ++x)
+				//for(int32 x = -(int32)x_abs; x <= (int32)x_abs; ++x)
+				{
+					Coord c = Coord(x, sy, z) + center / CHUNK_SIZE;
+					c *= CHUNK_SIZE;
+
+					if(InCylinder(c, refer_center, refer_radius, refer_height) == false)
+					{
+						ChunkKey key(c);
+						op(key);
+					}
+
+					c = Coord(-x, sy, z) + center / CHUNK_SIZE;
+					c *= CHUNK_SIZE;
+
+					if(InCylinder(c, refer_center, refer_radius, refer_height) == false)
+					{
+						ChunkKey key(c);
+						op(key);
+					}
+				}
+
+
+				for(int32 x = 0; x <= (int32)x_abs; ++x)
+				//for(int32 x = -(int32)x_abs; x <= (int32)x_abs; ++x)
+				{
+					Coord c = Coord(x, sy, -z) + center / CHUNK_SIZE;
+					c *= CHUNK_SIZE;
+
+					if(InCylinder(c, refer_center, refer_radius, refer_height) == false)
+					{
+						ChunkKey key(c);
+						op(key);
+					}
+
+					c = Coord(-x, sy, -z) + center / CHUNK_SIZE;
+					c *= CHUNK_SIZE;
+
+					if(InCylinder(c, refer_center, refer_radius, refer_height) == false)
+					{
+						ChunkKey key(c);
+						op(key);
+					}
+				}
+			}
+		}
+		bool ChunkManager::InCylinder(const Coord& c, const Coord& center, uint32 radius, uint32 height)
+		{
+			Coord rc = c - center;
+
+			rc /= CHUNK_SIZE;
+
+			height /= 2;
+			height /= CHUNK_SIZE;
+			radius = radius / CHUNK_SIZE;
+
+			if(rc.y >= -(int32)height && rc.y <= (int32)height)
+			{
+				float r = radius;//sqrtf(float(radius * radius) - float(rc.y * rc.y));
+				
+				if(rc.z >=-r && rc.z <= r)
+				{
+					float x_abs = sqrtf(r * r - rc.z * rc.z);
+
+					if(rc.x >= -(int32)x_abs&& rc.x <= (int32)x_abs)
+					{
+						return true;
+					}
+				}
+			}
+
+			return false;
+
 		}
 		bool ChunkManager::InSphere(const Coord& c, const Coord& center, uint32 radius)
 		{

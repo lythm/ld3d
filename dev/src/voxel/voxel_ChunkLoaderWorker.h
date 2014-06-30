@@ -50,10 +50,7 @@ namespace ld3d
 			bool																					PushTask(const Command& task);
 			bool																					PopTask(Command& task);
 
-
-			bool																					GenerateChunk(const ChunkKey& key, ChunkData& chunk_data, ChunkAdjacency& adj);
-		
-
+			void																					SetWorldGenerator(WorldGenPtr pWorldGen);
 			void																					SetMeshizer(MeshizerPtr pMeshizer);
 		private:
 			void																					_gen_mesh(Command& t);
@@ -64,9 +61,7 @@ namespace ld3d
 			CommandQueue																			m_out;
 			MeshizerPtr																				m_pMeshizer;
 			boost::thread																			m_thread;
-
-			PerlinNoise																				m_noise;
-			PerlinNoise																				m_noiseBase;
+			WorldGenPtr																				m_pGenerator;
 		};
 	}
 }

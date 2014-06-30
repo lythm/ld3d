@@ -39,12 +39,13 @@ namespace ld3d
 			m_pLoader = pWorld->GetChunkLoader();
 			m_pOctreeManager = pWorld->GetOctreeManager();
 
-			radius = 64;
-
+			radius = 128;
+			uint32 height = 128;
 			m_VP.center = center;
 			m_VP.radius = radius;
+			m_VP.height = height;
 
-			uint32 size = (radius * 2) / 16 + 3;
+			uint32 size = (radius * 2) / 16 + 10;
 			size = size * size * size;
 
 		
@@ -130,7 +131,7 @@ namespace ld3d
 
 			Coord dc = m_VP.center - m_lastVP.center;
 
-			if(abs(dc.x) < CHUNK_SIZE && abs(dc.y) < CHUNK_SIZE && abs(dc.z) < CHUNK_SIZE  && m_VP.radius == m_lastVP.radius)
+			if(abs(dc.x) < CHUNK_SIZE && abs(dc.y) < CHUNK_SIZE && abs(dc.z) < CHUNK_SIZE  && m_VP.radius == m_lastVP.radius && m_VP.height	== m_lastVP.height)
 			{
 				return;
 			}
@@ -139,8 +140,14 @@ namespace ld3d
 				m_pChunkCache->AddChunk(key);
 			});
 
+			/*m_pLoader->RequestChunkDiffSetAsync(m_VP.center, m_VP.radius, m_VP.height, m_lastVP.center, m_lastVP.radius, m_lastVP.height, false, [&](const ChunkKey& key)
+			{
+				m_pChunkCache->AddChunk(key);
+			});*/
+
 			m_lastVP.center = m_VP.center;
 			m_lastVP.radius = m_VP.radius;
+			m_lastVP.height = m_VP.height;
 
 		}
 		void WorldViewport::SetRadius(uint32 radius)

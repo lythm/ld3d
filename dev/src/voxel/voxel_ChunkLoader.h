@@ -15,20 +15,21 @@ namespace ld3d
 			ChunkLoader(void);
 			virtual ~ChunkLoader(void);
 
-			bool													Initialize(ChunkManagerPtr pChunkManager, OctreeManagerPtr pOctreeManager, MeshizerPtr pMeshizer);
+			bool													Initialize(ChunkManagerPtr pChunkManager, OctreeManagerPtr pOctreeManager, MeshizerPtr pMeshizer, WorldGenPtr pWorldGen);
 			void													Release();
 			void													Update();
 
 			uint32													GetPendingCount() const;
 
+			bool													RequestChunkDiffSetAsync(const Coord& center, uint32 radius, uint32 height, const Coord& refer_center, uint32 refer_radius, uint32 refer_height, bool gen_mesh, const ChunkLoadedHandler& on_loaded);
 			bool													RequestChunkDiffSetAsync(const Coord& center, uint32 radius, const Coord& refer_center, uint32 refer_radius, bool gen_mesh, const ChunkLoadedHandler& on_loaded);
 			bool													RequestChunkAsync(const ChunkKey& key, bool gen_mesh, const ChunkLoadedHandler& on_loaded);
 			bool													RequestChunkAsync(const Coord& center, uint32 radius, bool gen_mesh, const ChunkLoadedHandler& on_loaded);
+			bool													RequestChunkAsync(const Coord& center, uint32 radius, uint32 height, bool gen_mesh, const ChunkLoadedHandler& on_loaded);
 			bool													RequestUnloadChunk(const ChunkKey& key);
 			bool													RequestUnloadChunk(ChunkPtr pChunk);
 			bool													RequestMeshAsync(ChunkPtr pChunk, bool force = false);
 			
-			void													RequestUpdateAdjacency(const ChunkKey& key);
 		private:
 
 			void													PushTaskUntilSuccess(ChunkLoaderWorker::Command& t);

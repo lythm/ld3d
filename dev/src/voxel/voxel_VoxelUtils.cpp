@@ -50,7 +50,9 @@ namespace ld3d
 		}
 		bool VoxelUtils::Perlin(float* height_map, int d, int octaves,float freq,float amp,int seed)
 		{
-			PerlinNoise pn(octaves, freq, amp, seed);
+			PerlinNoise pn;
+			
+			pn.set_up(octaves, freq, amp, seed);
 
 			for(int x = 0; x < d;++x)
 			{

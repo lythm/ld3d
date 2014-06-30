@@ -20,12 +20,13 @@ namespace ld3d
 		ChunkLoader::~ChunkLoader(void)
 		{
 		}
-		bool ChunkLoader::Initialize(ChunkManagerPtr pChunkManager, OctreeManagerPtr pOctreeManager, MeshizerPtr pMeshizer)
+		bool ChunkLoader::Initialize(ChunkManagerPtr pChunkManager, OctreeManagerPtr pOctreeManager, MeshizerPtr pMeshizer, WorldGenPtr pWorldGen)
 		{
 			m_pChunkManager		= pChunkManager;
 			m_pOctreeManager	= pOctreeManager;
 			m_pMeshizer			= pMeshizer;
 
+			m_worker.SetWorldGenerator(pWorldGen);
 			m_worker.SetMeshizer(pMeshizer);
 			m_worker.Start();
 			return true;
@@ -55,6 +56,29 @@ namespace ld3d
 					break;
 				}
 			}
+		}
+		bool ChunkLoader::RequestChunkDiffSetAsync(const Coord& center, uint32 radius, uint32 height, const Coord& refer_center, uint32 refer_radius, uint32 refer_height, bool gen_mesh, const ChunkLoadedHandler& on_loaded)
+		{
+			int a = 0;
+			int b = 0;
+			m_pChunkManager->PickChunkDiffSet(center, radius, height, refer_center, refer_radius, refer_height, [&](const ChunkKey& key)
+			{
+				++a;
+				RequestChunkAsync(key, gen_mesh, on_loaded);
+			});
+
+
+			/*m_pChunkManager->PickChunkDiffSet1(center, radius, refer_center, refer_radius, [&](const ChunkKey& key)
+			{
+			++b;
+			});
+
+			if(a != b)
+			{
+			int debug = 0;
+			}*/
+
+			return true;
 		}
 		bool ChunkLoader::RequestChunkDiffSetAsync(const Coord& center, uint32 radius, const Coord& refer_center, uint32 refer_radius, bool gen_mesh, const ChunkLoadedHandler& on_loaded)
 		{
@@ -216,7 +240,7 @@ namespace ld3d
 				t.on_loaded(t.key);
 			}
 
-			if(t.gen_mesh)
+			if(t.gen_mesh && t.chunk_empty != false)
 			{
 				_handle_gen_mesh(t);
 			}
@@ -229,6 +253,15 @@ namespace ld3d
 		bool ChunkLoader::RequestChunkAsync(const Coord& center, uint32 radius, bool gen_mesh, const ChunkLoadedHandler& on_loaded)
 		{
 			m_pChunkManager->PickChunk(center, radius, [&](const ChunkKey& key)
+			{
+				RequestChunkAsync(key, gen_mesh, on_loaded);
+			});
+
+			return true;
+		}
+		bool ChunkLoader::RequestChunkAsync(const Coord& center, uint32 radius, uint32 height, bool gen_mesh, const ChunkLoadedHandler& on_loaded)
+		{
+			m_pChunkManager->PickChunk(center, radius, height, [&](const ChunkKey& key)
 			{
 				RequestChunkAsync(key, gen_mesh, on_loaded);
 			});
@@ -270,10 +303,7 @@ namespace ld3d
 				}
 			});
 		}
-		void ChunkLoader::RequestUpdateAdjacency(const ChunkKey& key)
-		{
-
-		}
+		
 		bool ChunkLoader::RequestUnloadChunk(ChunkPtr pChunk)
 		{
 			pChunk->DecRef();

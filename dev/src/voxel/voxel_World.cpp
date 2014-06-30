@@ -43,26 +43,27 @@ namespace ld3d
 
 			m_name = name;
 
+			m_pGen = pGen;
+
+			if(m_pGen == nullptr)
+			{
+				m_pGen = alloc_object<WorldGen>(allocator());//std::make_shared<WorldGen>();
+				m_pGen->Initialize();
+				m_pGen->AddPass(alloc_object<WorldGenPass_Heightmap>(allocator()));
+			}
+			m_pGen->SetWorld(shared_from_this());
+
 			m_pChunkManager		= alloc_object<ChunkManager>(allocator());//std::make_shared<ChunkManager>();
 			
 			m_pOctreeManager	= alloc_object<OctreeManager>(allocator());
 			
 			m_pChunkLoader = alloc_object<ChunkLoader>(allocator());
-			if(m_pChunkLoader->Initialize(m_pChunkManager, m_pOctreeManager, pMeshizer) == false)
+			if(m_pChunkLoader->Initialize(m_pChunkManager, m_pOctreeManager, pMeshizer, m_pGen) == false)
 			{
 				return false;
 			}
 
-			m_pGen = pGen;
-
-			m_pGen = alloc_object<WorldGen>(allocator());//std::make_shared<WorldGen>();
-
-			m_pGen->Initialize();
-
-			m_pGen->SetWorld(shared_from_this());
-
-
-			m_pGen->AddPass(alloc_object<WorldGenPass_Heightmap>(allocator()));
+			
 
 		//	m_pGen->GenChunk(Coord(0, 0, 0));
 

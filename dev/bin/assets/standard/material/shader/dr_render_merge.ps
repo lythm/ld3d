@@ -34,7 +34,9 @@ void main()
 
 	vec4 d = texture(_DR_G_BUFFER_2, uv);
 		
-	f_color.xyz = l.xyz * d.xyz + (l.w * d.xyz) * d.w;
+	//f_color.xyz = l.xyz * d.xyz + (l.w * d.xyz) * d.w;
+
+	f_color.xyz = (l.xyz * d.xyz + (l.w * d.xyz))* d.w;
 
 	float depth = dr_gbuffer_get_depth(_DR_G_BUFFER_0, uv);
 	

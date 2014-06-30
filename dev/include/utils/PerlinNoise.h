@@ -9,7 +9,7 @@ namespace ld3d
 	public:
 		virtual ~PerlinNoise(void);
 
-		PerlinNoise(int octaves,double freq,double amp,int seed);
+		PerlinNoise();
 
 
 		double														Get(double x,double y)
@@ -20,7 +20,7 @@ namespace ld3d
 			return perlin_noise_2D(vec);
 		};
 
-		
+		void														set_up(int octaves,double freq,double amp,int seed);
 
 		double														perlin_noise_2D(double vec[2]);
 		double														perlin_noise_3D(double vec[3]);

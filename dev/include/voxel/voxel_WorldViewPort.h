@@ -12,6 +12,12 @@ namespace ld3d
 		class _DLL_CLASS WorldViewport : public std::enable_shared_from_this<WorldViewport>
 		{
 		public:
+			struct VPCylinder
+			{
+				Coord													center;
+				uint32													radius;
+				uint32													height;
+			};
 			struct VPSphere
 			{
 				Coord													center;
@@ -52,8 +58,8 @@ namespace ld3d
 			
 			std::function<void (const Coord&, ChunkPtr)>				handler_dirty_chunk;
 
-			VPSphere													m_VP;
-			VPSphere													m_lastVP;
+			VPCylinder													m_VP;
+			VPCylinder													m_lastVP;
 
 
 			std::shared_ptr<ChunkCache>									m_pChunkCache;

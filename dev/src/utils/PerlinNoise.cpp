@@ -24,17 +24,25 @@
 
 namespace ld3d
 {
-	PerlinNoise::PerlinNoise(int octaves,double freq,double amp,int seed)
+	PerlinNoise::PerlinNoise()
+	{
+		m_Octaves = 1;
+		m_Frequency = 1;
+		m_Amplitude = 1;
+		m_Seed = 1;
+		m_Start = true;
+	}
+
+	PerlinNoise::~PerlinNoise(void)
+	{
+	}
+	void PerlinNoise::set_up(int octaves,double freq,double amp,int seed)
 	{
 		m_Octaves = octaves;
 		m_Frequency = freq;
 		m_Amplitude = amp;
 		m_Seed = seed;
 		m_Start = true;
-	}
-
-	PerlinNoise::~PerlinNoise(void)
-	{
 	}
 	double PerlinNoise::noise1(double arg)
 	{
