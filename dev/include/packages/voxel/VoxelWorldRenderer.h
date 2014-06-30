@@ -13,6 +13,8 @@ namespace ld3d
 		virtual void										BindWorldViewPort(GameObjectPtr pNode)		= 0;
 		virtual void										RefreshMesh(){};
 		virtual uint32										GetRenderedFaceCount()						= 0;
+		virtual uint32										GetRenderedVertexCount()					= 0;
+		virtual uint32										GetRenderedVertexBytes()					= 0;
 	protected:
 		VoxelWorldRenderer(GameObjectManagerPtr pManager) : GameObjectComponent("VoxelWorldRenderer", pManager){}
 		virtual ~VoxelWorldRenderer(void){}

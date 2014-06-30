@@ -39,7 +39,7 @@ namespace ld3d
 			m_pLoader = pWorld->GetChunkLoader();
 			m_pOctreeManager = pWorld->GetOctreeManager();
 
-			radius = 512;
+			radius = 64;
 
 			m_VP.center = center;
 			m_VP.radius = radius;
@@ -53,9 +53,9 @@ namespace ld3d
 
 			m_pWorld->AddDirtyChunkHandler(std::bind(&WorldViewport::_on_dirty_chunk, this, std::placeholders::_1));
 			
-			m_pLoader->RequestChunkAsync(m_VP.center, m_VP.radius, false, [&](ChunkPtr pChunk)
+			m_pLoader->RequestChunkAsync(m_VP.center, m_VP.radius, false, [&](const ChunkKey& key)
 			{
-				m_pChunkCache->AddChunk(pChunk);
+				m_pChunkCache->AddChunk(key);
 			});
 
 
@@ -106,8 +106,6 @@ namespace ld3d
 
 			c = VoxelUtils::ToRegionCoord(c);
 
-
-
 			if(handler_dirty_chunk == nullptr)
 			{
 				return;
@@ -136,9 +134,9 @@ namespace ld3d
 			{
 				return;
 			}
-			m_pLoader->RequestChunkDiffSetAsync(m_VP.center, m_VP.radius, m_lastVP.center, m_lastVP.radius, false, [&](ChunkPtr pChunk)
+			m_pLoader->RequestChunkDiffSetAsync(m_VP.center, m_VP.radius, m_lastVP.center, m_lastVP.radius, false, [&](const ChunkKey& key)
 			{
-				m_pChunkCache->AddChunk(pChunk);
+				m_pChunkCache->AddChunk(key);
 			});
 
 			m_lastVP.center = m_VP.center;
@@ -152,7 +150,7 @@ namespace ld3d
 
 		void WorldViewport::RefreshMesh()
 		{
-			m_pChunkCache->RefreshMesh();
+
 		}
 	}
 }

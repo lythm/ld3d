@@ -42,9 +42,6 @@
     <ClCompile Include="Lexer.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="ConcurrentQueue.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="TaskManager.cpp">
       <Filter>源文件</Filter>
     </ClCompile>

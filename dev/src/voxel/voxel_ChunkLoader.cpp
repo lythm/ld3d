@@ -56,7 +56,7 @@ namespace ld3d
 				}
 			}
 		}
-		bool ChunkLoader::RequestChunkDiffSetAsync(const Coord& center, uint32 radius, const Coord& refer_center, uint32 refer_radius, bool gen_mesh, const std::function<void(ChunkPtr)>& on_loaded)
+		bool ChunkLoader::RequestChunkDiffSetAsync(const Coord& center, uint32 radius, const Coord& refer_center, uint32 refer_radius, bool gen_mesh, const ChunkLoadedHandler& on_loaded)
 		{
 			int a = 0;
 			int b = 0;
@@ -79,7 +79,7 @@ namespace ld3d
 
 			return true;
 		}
-		bool ChunkLoader::RequestChunkAsync(const ChunkKey& key, bool gen_mesh, const std::function<void(ChunkPtr)>& on_loaded)
+		bool ChunkLoader::RequestChunkAsync(const ChunkKey& key, bool gen_mesh, const ChunkLoadedHandler& on_loaded)
 		{
 			bool loaded = false;
 			ChunkPtr pChunk = m_pChunkManager->FindChunk(key, loaded);
@@ -90,7 +90,7 @@ namespace ld3d
 
 				if(on_loaded)
 				{
-					on_loaded(pChunk);
+					on_loaded(key);
 				}
 
 				if(gen_mesh)
@@ -213,7 +213,7 @@ namespace ld3d
 
 			if(t.on_loaded)
 			{
-				t.on_loaded(pChunk);
+				t.on_loaded(t.key);
 			}
 
 			if(t.gen_mesh)
@@ -226,7 +226,7 @@ namespace ld3d
 		{
 			return m_pendingCount;
 		}
-		bool ChunkLoader::RequestChunkAsync(const Coord& center, uint32 radius, bool gen_mesh, const std::function<void(ChunkPtr)>& on_loaded)
+		bool ChunkLoader::RequestChunkAsync(const Coord& center, uint32 radius, bool gen_mesh, const ChunkLoadedHandler& on_loaded)
 		{
 			m_pChunkManager->PickChunk(center, radius, [&](const ChunkKey& key)
 			{
@@ -270,7 +270,10 @@ namespace ld3d
 				}
 			});
 		}
+		void ChunkLoader::RequestUpdateAdjacency(const ChunkKey& key)
+		{
 
+		}
 		bool ChunkLoader::RequestUnloadChunk(ChunkPtr pChunk)
 		{
 			pChunk->DecRef();

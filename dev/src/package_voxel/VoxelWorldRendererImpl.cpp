@@ -13,7 +13,7 @@ namespace ld3d
 		SetVersion(g_packageVersion);
 
 
-		m_nVBBytes						= 1024 * 1024 * 32;
+		m_nVBBytes						= 1024 * 1024 * 128;
 		m_nVBCurrent					= 0;
 		m_nVBOffset						= 0;
 		m_nVertexStride					= 0;
@@ -71,7 +71,7 @@ namespace ld3d
 		layout.AddAttribute(G_FORMAT_R32G32B32_FLOAT);
 		layout.AddAttribute(G_FORMAT_R32G32B32_FLOAT);
 		layout.AddAttribute(G_FORMAT_R32G32B32_FLOAT);
-		layout.AddAttribute(G_FORMAT_R32G32B32A32_FLOAT);
+		layout.AddAttribute(G_FORMAT_R32_FLOAT);
 		
 		m_pGeometry = m_pRenderManager->CreateGeometryData();
 		
@@ -212,7 +212,7 @@ namespace ld3d
 	}
 	void VoxelWorldRendererImpl::Draw(Sys_GraphicsPtr pSysGraphics, MaterialPtr pMaterial, int baseVertex)
 	{
-		m_renderedFaces += m_nVertexCount / 3;
+		m_renderedVertex += m_nVertexCount;
 		if(m_nVertexCount == 0)
 		{
 			return;
@@ -231,7 +231,7 @@ namespace ld3d
 	}
 	void VoxelWorldRendererImpl::Render(RenderManagerPtr pManager)
 	{
-		m_renderedFaces = 0;
+		m_renderedVertex = 0;
 		if(m_renderList.size() == 0)
 		{
 			return;
@@ -439,6 +439,14 @@ namespace ld3d
 	}
 	uint32 VoxelWorldRendererImpl::GetRenderedFaceCount()
 	{
-		return m_renderedFaces;
+		return m_renderedVertex / 3;
+	}
+	uint32 VoxelWorldRendererImpl::GetRenderedVertexCount()
+	{
+		return m_renderedVertex;
+	}
+	uint32 VoxelWorldRendererImpl::GetRenderedVertexBytes()
+	{
+		return m_renderedVertex * sizeof(voxel::ChunkMesh::VoxelVertex); 
 	}
 }

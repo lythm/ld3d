@@ -174,7 +174,6 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ConcurrentQueue.cpp" />
     <ClCompile Include="Config.cpp" />
     <ClCompile Include="Lexer.cpp" />
     <ClCompile Include="MemPool.cpp" />

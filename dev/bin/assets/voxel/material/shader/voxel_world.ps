@@ -5,7 +5,7 @@
 
 smooth in vec3 v_normal;
 smooth in vec3 tex_coord;
-smooth in vec4 v_ao;
+smooth in float v_ao;
 layout(location = 0) out vec4	G_BUFFER_0;
 layout(location = 1) out vec4	G_BUFFER_1;
 layout(location = 2) out vec4	G_BUFFER_2;
@@ -26,7 +26,7 @@ void main()
 
 //	diffuse += vec3(1, 1, 1);
 
-	diffuse = diffuse * v_ao.xyz;
+	diffuse = diffuse * vec3(v_ao, v_ao, v_ao);
 
 	G_BUFFER_2 = vec4(diffuse, specular);
 		

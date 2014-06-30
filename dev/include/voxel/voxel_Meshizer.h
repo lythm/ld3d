@@ -17,7 +17,8 @@ namespace ld3d
 				math::Vector3			uv[4];
 				uint8					type;
 				uint32					material;
-				math::Vector4			ao[4];
+				float					ao[4];
+				Coord					voxelCoord;
 			};
 
 		public:
@@ -98,14 +99,14 @@ namespace ld3d
 			Meshizer(void);
 			virtual ~Meshizer(void);
 
-			void										DoGenerateMesh(const ChunkKey& key, const ChunkData& chunk_data, const ChunkAdjacency& adj, const Coord& base_coord, ChunkMesh* pMesh);
-			virtual void								GenerateMesh(ChunkPtr pChunk, const Coord& base_coord, ChunkMeshPtr pMesh);
+			void										GenerateMesh(const ChunkKey& key, const ChunkData& chunk_data, const ChunkAdjacency& adj, const Coord& base_coord, ChunkMesh* pMesh);
+			virtual void								GenerateMesh1(ChunkPtr pChunk, const Coord& base_coord, ChunkMeshPtr pMesh);
 			void										AddVoxelMaterial(uint8 type, const VoxelMaterial& mat);
 
 			void										GenerateChunkBox(const ChunkKey& key, const Coord& base_coord, ChunkMeshPtr pMesh);
 		private:
 			static void									InitializeCubeVertex(uint32 size);
-			void										GenerateFaceAO(const ChunkKey& key, uint8* chunk_data, const ChunkAdjacency& adj, VoxelFace& face);
+			void										GenerateFaceAO(const ChunkKey& key, const ChunkAdjacency& adj, VoxelFace& face);
 		private:
 
 			

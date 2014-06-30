@@ -56,7 +56,7 @@ namespace ld3d
 			
 			Coord chunk_mesh_base = chunk_origin - region_origin;
 
-			m_pMeshizer->DoGenerateMesh(t.key, t.chunk_data, t.chunk_adjacency, chunk_mesh_base, t.mesh);
+			m_pMeshizer->GenerateMesh(t.key, t.chunk_data, t.chunk_adjacency, chunk_mesh_base, t.mesh);
 
 			while(m_out.push(t) == false)
 			{
@@ -144,6 +144,21 @@ namespace ld3d
 						double b = m_noiseBase.perlin_noise_2D(vec1);
 
 						b *= 100;
+
+						///// test
+
+						//if((y + chunk_origin.y) > 50 || (y + chunk_origin.y) < 0)
+						//{
+						//	continue;
+						//}
+						//
+
+						//chunk_data.Set(x, y, z, 2);
+						//adj.OnBlockChange(x, y, z, true);
+						//ret = true;
+						//continue;
+						//////// 
+
 
 						if((y + chunk_origin.y) > b)
 						{

@@ -123,7 +123,7 @@ namespace ld3d
 			sigar_proc_mem_t mem;
 			int status;
 
-			assert(SIGAR_OK == (status = sigar_proc_mem_get(sig, pid, &mem)));
+			status = sigar_proc_mem_get(sig, pid, &mem);
 
 			
 			math::Vector3 pos = m_pCamera->GetTranslation();
@@ -144,8 +144,11 @@ namespace ld3d
 			VoxelWorldRendererPtr pRenderer = std::dynamic_pointer_cast<VoxelWorldRenderer>(m_pWorld->GetComponent("VoxelWorldRenderer"));
 			s << "[chunk loader] pending chunk: " << pWorld->GetLoadingQueueSize() 
 				<< " chunks: " << pWorld->GetChunkCount()
-				<< " rendered faces: " << pRenderer->GetRenderedFaceCount()
 				<< " faces: " << pWorld->GetFaceCount()
+				<< "<br>";
+			s << "[world renderer] "<< " faces: " << pRenderer->GetRenderedFaceCount()
+				<< " vertex count: " << pRenderer->GetRenderedVertexCount()
+				<< " vertex bytes: " << pRenderer->GetRenderedVertexBytes() / 1024.0f / 1024.0f << "M"
 				<< "<br>";
 				s << "[mem]: " << double(mem.resident) / 1024.0 / 1024.0 << "M";
 			*m_debugInfo = s.str();

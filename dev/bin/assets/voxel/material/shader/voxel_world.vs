@@ -5,11 +5,11 @@
 layout(location = 0) in vec3 pos;
 layout(location = 1) in vec3 normal;
 layout(location = 2) in vec3 uv;
-layout(location = 3) in vec4 ao;
+layout(location = 3) in float ao;
 
 smooth out vec3 v_normal;
 smooth out vec3 tex_coord;
-smooth out vec4 v_ao;
+smooth out float v_ao;
 
 void main()
 {

@@ -29,7 +29,7 @@ namespace ld3d
 			void											Reset();
 
 			bool											CheckBlockAdjacency(int32 x, int32 y, int32 z, int32 v) const;
-			
+			bool											CheckBlock(int32 x, int32 y, int32 z) const;
 			void											UpdateChunkAdjacency(const ChunkKey& key, ChunkPtr pChunk);
 			void											OnBlockChange(int32 x, int32 y, int32 z, bool val);
 
@@ -44,6 +44,8 @@ namespace ld3d
 			int32											ToIndex(int32 x, int32 y, int32 z) const;
 
 			Coord											ToAdjacentBlockCoord(const Coord& c, uint32 adj) const;
+
+			
 		private:
 			bool											m_visible;
 			ChunkKey										m_key;

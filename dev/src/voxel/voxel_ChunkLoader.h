@@ -9,6 +9,9 @@ namespace ld3d
 		class ChunkLoader
 		{
 		public:
+
+			typedef std::function<void(const ChunkKey&)>			ChunkLoadedHandler;
+
 			ChunkLoader(void);
 			virtual ~ChunkLoader(void);
 
@@ -18,14 +21,16 @@ namespace ld3d
 
 			uint32													GetPendingCount() const;
 
-			bool													RequestChunkDiffSetAsync(const Coord& center, uint32 radius, const Coord& refer_center, uint32 refer_radius, bool gen_mesh, const std::function<void(ChunkPtr)>& on_loaded);
-			bool													RequestChunkAsync(const ChunkKey& key, bool gen_mesh, const std::function<void(ChunkPtr)>& on_loaded);
-			bool													RequestChunkAsync(const Coord& center, uint32 radius, bool gen_mesh, const std::function<void(ChunkPtr)>& on_loaded);
+			bool													RequestChunkDiffSetAsync(const Coord& center, uint32 radius, const Coord& refer_center, uint32 refer_radius, bool gen_mesh, const ChunkLoadedHandler& on_loaded);
+			bool													RequestChunkAsync(const ChunkKey& key, bool gen_mesh, const ChunkLoadedHandler& on_loaded);
+			bool													RequestChunkAsync(const Coord& center, uint32 radius, bool gen_mesh, const ChunkLoadedHandler& on_loaded);
 			bool													RequestUnloadChunk(const ChunkKey& key);
 			bool													RequestUnloadChunk(ChunkPtr pChunk);
 			bool													RequestMeshAsync(ChunkPtr pChunk, bool force = false);
 			
+			void													RequestUpdateAdjacency(const ChunkKey& key);
 		private:
+
 			void													PushTaskUntilSuccess(ChunkLoaderWorker::Command& t);
 			void													_handle_load_chunk_ret(ChunkLoaderWorker::Command& t);
 			void													_handle_gen_mesh(ChunkLoaderWorker::Command& t);

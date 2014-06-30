@@ -1,4 +1,5 @@
 #pragma once
+#include "voxel/voxel_ChunkKey.h"
 
 
 namespace ld3d
@@ -11,18 +12,17 @@ namespace ld3d
 			ChunkCache(ChunkLoaderPtr pLoader);
 			virtual ~ChunkCache(void);
 
-			void													AddChunk(ChunkPtr pChunk);
+			void													AddChunk(const ChunkKey& key);
 			void													Release();
 			bool													Initialize(ChunkLoaderPtr pLoader, uint32 size);
 			void													Update();
 
 			void													Flush();
 
-			void													RefreshMesh();
 		private:
 
-			typedef std::list<ChunkPtr, 
-				std_allocator_adapter<ChunkPtr>>					ChunkList;
+			typedef std::list<ChunkKey, 
+				std_allocator_adapter<ChunkKey>>					ChunkList;
 
 			ChunkList												m_chunks;
 

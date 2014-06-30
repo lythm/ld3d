@@ -20,10 +20,10 @@ namespace ld3d
 			s_Cube[0].verts[2] = math::Vector3(0, 1, 0);
 			s_Cube[0].verts[3] = math::Vector3(0, 1, 1);
 
-			s_Cube[0].ao[0]		= math::Vector4(1, 1, 1, 1);
-			s_Cube[0].ao[1]		= math::Vector4(1, 1, 1, 1);
-			s_Cube[0].ao[2]		= math::Vector4(1, 1, 1, 1);
-			s_Cube[0].ao[3]		= math::Vector4(1, 1, 1, 1);
+			s_Cube[0].ao[0]		= 1.0f;
+			s_Cube[0].ao[1]		= 1.0f;
+			s_Cube[0].ao[2]		= 1.0f;
+			s_Cube[0].ao[3]		= 1.0f;
 
 			s_Cube[0].normal = math::Vector3(-1, 0, 0);
 
@@ -33,10 +33,10 @@ namespace ld3d
 			s_Cube[1].verts[2] = math::Vector3(1, 0, 1);
 			s_Cube[1].verts[3] = math::Vector3(1, 1, 1);
 
-			s_Cube[1].ao[0]		= math::Vector4(1, 1, 1, 1);
-			s_Cube[1].ao[1]		= math::Vector4(1, 1, 1, 1);
-			s_Cube[1].ao[2]		= math::Vector4(1, 1, 1, 1);
-			s_Cube[1].ao[3]		= math::Vector4(1, 1, 1, 1);
+			s_Cube[1].ao[0]		=1.0f;
+			s_Cube[1].ao[1]		=1.0f;
+			s_Cube[1].ao[2]		=1.0f;
+			s_Cube[1].ao[3]		=1.0f;
 
 			s_Cube[1].normal = math::Vector3(1, 0, 0);
 
@@ -46,10 +46,10 @@ namespace ld3d
 			s_Cube[2].verts[2] = math::Vector3(0, 0, 1);
 			s_Cube[2].verts[3] = math::Vector3(1, 0, 1);
 
-			s_Cube[2].ao[0]		= math::Vector4(1, 1, 1, 1);
-			s_Cube[2].ao[1]		= math::Vector4(1, 1, 1, 1);
-			s_Cube[2].ao[2]		= math::Vector4(1, 1, 1, 1);
-			s_Cube[2].ao[3]		= math::Vector4(1, 1, 1, 1);
+			s_Cube[2].ao[0]		= 1.0f;
+			s_Cube[2].ao[1]		= 1.0f;
+			s_Cube[2].ao[2]		= 1.0f;
+			s_Cube[2].ao[3]		= 1.0f;
 
 			s_Cube[2].normal = math::Vector3(0, -1, 0);
 
@@ -59,10 +59,10 @@ namespace ld3d
 			s_Cube[3].verts[2] = math::Vector3(1, 1, 0);
 			s_Cube[3].verts[3] = math::Vector3(1, 1, 1);
 
-			s_Cube[3].ao[0]		= math::Vector4(1, 1, 1, 1);
-			s_Cube[3].ao[1]		= math::Vector4(1, 1, 1, 1);
-			s_Cube[3].ao[2]		= math::Vector4(1, 1, 1, 1);
-			s_Cube[3].ao[3]		= math::Vector4(1, 1, 1, 1);
+			s_Cube[3].ao[0]		= 1.0f;
+			s_Cube[3].ao[1]		= 1.0f;
+			s_Cube[3].ao[2]		= 1.0f;
+			s_Cube[3].ao[3]		= 1.0f;
 
 			s_Cube[3].normal = math::Vector3(0, 1, 0);
 
@@ -73,10 +73,10 @@ namespace ld3d
 			s_Cube[4].verts[2] = math::Vector3(1, 0, 0);
 			s_Cube[4].verts[3] = math::Vector3(1, 1, 0);
 
-			s_Cube[4].ao[0]		= math::Vector4(1, 1, 1, 1);
-			s_Cube[4].ao[1]		= math::Vector4(1, 1, 1, 1);
-			s_Cube[4].ao[2]		= math::Vector4(1, 1, 1, 1);
-			s_Cube[4].ao[3]		= math::Vector4(1, 1, 1, 1);
+			s_Cube[4].ao[0]		= 1.0f;
+			s_Cube[4].ao[1]		= 1.0f;
+			s_Cube[4].ao[2]		= 1.0f;
+			s_Cube[4].ao[3]		= 1.0f;
 
 			s_Cube[4].normal = math::Vector3(0, 0, -1);
 
@@ -86,10 +86,10 @@ namespace ld3d
 			s_Cube[5].verts[2] = math::Vector3(0, 1, 1);
 			s_Cube[5].verts[3] = math::Vector3(1, 1, 1);
 
-			s_Cube[5].ao[0]		= math::Vector4(1, 1, 1, 1);
-			s_Cube[5].ao[1]		= math::Vector4(1, 1, 1, 1);
-			s_Cube[5].ao[2]		= math::Vector4(1, 1, 1, 1);
-			s_Cube[5].ao[3]		= math::Vector4(1, 1, 1, 1);
+			s_Cube[5].ao[0]		= 1.0f;
+			s_Cube[5].ao[1]		= 1.0f;
+			s_Cube[5].ao[2]		= 1.0f;
+			s_Cube[5].ao[3]		= 1.0f;
 
 			s_Cube[5].normal = math::Vector3(0, 0, 1);
 
@@ -114,75 +114,49 @@ namespace ld3d
 			m_materialMap.clear();
 			m_templates.clear();
 		}
-		void Meshizer::GenerateFaceAO(const ChunkKey& key, uint8* chunk_data, const ChunkAdjacency& adj, VoxelFace& face)
+		void Meshizer::GenerateFaceAO(const ChunkKey& key, const ChunkAdjacency& adj, VoxelFace& face)
 		{
-			//Coord chunk_coord = key.ToChunkOrigin();
-			//
-			//for(int i = 0; i < 4; ++i)
-			//{
-			//	float ao = 0;
+			using namespace math;
 
-			//	if(adj.CheckBlockAdjacency(face.verts[i].x + c_x + 0.5, face.verts[i].y + c_y + 0.5, face.verts[i].z + c_z + 0.5f))
-			//	{
-			//		ao ++;
-			//	}
+			for(int ivert = 0; ivert < 4; ++ivert)
+			{
+				float ao = 0;
+				Vector3 c = face.voxelCoord.ToVector3() + Vector3(0.5f, 0.5f, 0.5f);
 
-
-			//	if(pRegion->Empty(face.verts[i].x + c_x + 0.5, face.verts[i].y + c_y + 0.5, face.verts[i].z + c_z - 0.5f))
-			//	{
-			//		ao ++;
-			//	}
+				Vector3 v = face.verts[ivert] - c;
+				std::vector<Vector3> normals;
 
 
-			//	if(pRegion->Empty(face.verts[i].x + c_x -0.5 , face.verts[i].y + c_y + 0.5, face.verts[i].z + c_z + 0.5))
-			//	{
-			//		ao ++;
-			//	}
+				normals.push_back(v);
+
+				normals.push_back(Vector3(0, v.y, v.z));
+
+				normals.push_back(Vector3(v.x, 0, v.z));
+
+				normals.push_back(Vector3(v.x, v.y, 0));
+
+				for(size_t i = 0; i < normals.size(); ++i)
+				{
+					float d = Dot(normals[i], face.normal);
+					if(d <= 0.001f)
+					{
+						continue;
+					}
+
+					Vector3 coord = (c + normals[i] * 2.0f);
+
+					ao += adj.CheckBlock(int32(coord.x), int32(coord.y), (int32)coord.z) ? 1 : 0;
+				}
+				ao /= (normals.size() - 1);
+
+				ao = 1 - ao + 0.3f;
+
+				face.ao[ivert] = ao > 1.0f ? 1.0f : ao;
 
 
-			//	if(pRegion->Empty(face.verts[i].x + c_x - 0.5, face.verts[i].y + c_y + 0.5, face.verts[i].z + c_z - 0.5))
-			//	{
-			//		ao ++;
-			//	}
-
-
-			//	///
-			//	if(pRegion->Empty(face.verts[i].x + c_x + 0.5, face.verts[i].y + c_y - 0.5, face.verts[i].z + c_z + 0.5f))
-			//	{
-			//		ao ++;
-			//	}
-
-
-			//	if(pRegion->Empty(face.verts[i].x + c_x + 0.5, face.verts[i].y + c_y - 0.5, face.verts[i].z + c_z - 0.5f))
-			//	{
-			//		ao ++;
-			//	}
-
-
-			//	if(pRegion->Empty(face.verts[i].x + c_x -0.5 , face.verts[i].y + c_y - 0.5, face.verts[i].z + c_z + 0.5))
-			//	{
-			//		ao ++;
-			//	}
-
-
-			//	if(pRegion->Empty(face.verts[i].x + c_x - 0.5, face.verts[i].y + c_y - 0.5, face.verts[i].z + c_z - 0.5))
-			//	{
-			//		ao ++;
-			//	}
-
-
-
-			//	ao = ao / 8.0f ;
-
-			//	ao += 0.3f;
-			//	ao = ao > 1? 1 : ao;
-
-			//	face.ao[i] = math::Vector4(ao, ao, ao, 1);
-
-			//	//face.ao[i] = math::Color4(1, 1, 1, 1);
-			//}
+			}
 		}
-		void Meshizer::DoGenerateMesh(const ChunkKey& key, const ChunkData& chunk_data, const ChunkAdjacency& adj, const Coord& base_coord, ChunkMesh* pMesh)
+		void Meshizer::GenerateMesh(const ChunkKey& key, const ChunkData& chunk_data, const ChunkAdjacency& adj, const Coord& base_coord, ChunkMesh* pMesh)
 		{
 			Coord chunk_base = key.ToChunkOrigin();
 
@@ -193,7 +167,7 @@ namespace ld3d
 
 			uint32 lod = 0;
 
-			float step = pow(2, lod);
+			float step = (float)pow(2, lod);
 
 			if(step > 8)
 			{
@@ -234,7 +208,6 @@ namespace ld3d
 
 
 						// -x
-						//if(pChunkManager->IsEmpty(Coord(x - 1, y, z) + chunk_base))
 						if(adj.CheckBlockAdjacency(x, y, z, ChunkAdjacency::n_x) == false)
 						{
 							VoxelFace face = s_Cube[0];
@@ -258,11 +231,11 @@ namespace ld3d
 							face.material = mat.materials[VoxelMaterial::n_x];
 							face.type = type;
 
+							face.voxelCoord = Coord(x, y, z);
 							mesh.push_back(face);
 						}
 
 						// +x
-						//if(pChunkManager->IsEmpty(Coord(x + 1, y, z) + chunk_base))
 						if(adj.CheckBlockAdjacency(x, y, z, ChunkAdjacency::p_x) == false)
 						{
 							VoxelFace face = s_Cube[1];
@@ -285,12 +258,11 @@ namespace ld3d
 
 							face.material = mat.materials[VoxelMaterial::p_x];
 							face.type = type;
-
+							face.voxelCoord = Coord(x, y, z);
 							mesh.push_back(face);
 						}
 
 						// -y
-						//if(pChunkManager->IsEmpty(Coord(x , y - 1, z) + chunk_base))
 						if(adj.CheckBlockAdjacency(x, y, z, ChunkAdjacency::n_y) == false)
 						{
 							VoxelFace face = s_Cube[2];
@@ -313,12 +285,11 @@ namespace ld3d
 
 							face.material = mat.materials[VoxelMaterial::n_y];
 							face.type = type;
-
+							face.voxelCoord = Coord(x, y, z);
 							mesh.push_back(face);
 						}
 
 						// +y
-						//if(pChunkManager->IsEmpty(Coord(x, y + 1, z) + chunk_base))
 						if(adj.CheckBlockAdjacency(x, y, z, ChunkAdjacency::p_y) == false)
 						{
 							VoxelFace face = s_Cube[3];
@@ -341,12 +312,11 @@ namespace ld3d
 
 							face.material = mat.materials[VoxelMaterial::p_y];
 							face.type = type;
-
+							face.voxelCoord = Coord(x, y, z);
 							mesh.push_back(face);
 						}
 
 						// -z
-						//if(pChunkManager->IsEmpty(Coord(x, y, z - 1) + chunk_base))
 						if(adj.CheckBlockAdjacency(x, y, z, ChunkAdjacency::n_z) == false)
 						{
 							VoxelFace face = s_Cube[4];
@@ -369,12 +339,11 @@ namespace ld3d
 
 							face.material = mat.materials[VoxelMaterial::n_z];
 							face.type = type;
-
+							face.voxelCoord = Coord(x, y, z);
 							mesh.push_back(face);
 						}
 
 						// +z
-						//if(pChunkManager->IsEmpty(Coord(x, y, z + 1) + chunk_base))
 						if(adj.CheckBlockAdjacency(x, y, z, ChunkAdjacency::p_z) == false)
 						{
 							VoxelFace face = s_Cube[5];
@@ -397,7 +366,7 @@ namespace ld3d
 
 							face.material = mat.materials[VoxelMaterial::p_z];
 							face.type = type;
-
+							face.voxelCoord = Coord(x, y, z);
 							mesh.push_back(face);
 						}
 					}
@@ -413,17 +382,7 @@ namespace ld3d
 
 			for(auto& face : mesh)
 			{
-				float ao = ((float)rand() / RAND_MAX) / 2.0f + 0.5f;
-				face.ao[0] = math::Vector4(ao, ao, ao, 1);
-
-				ao = ((float)rand() / RAND_MAX) / 2.0f + 0.5f;
-				face.ao[1] = math::Vector4(ao, ao, ao, 1);
-
-				ao = ((float)rand() / RAND_MAX) / 2.0f + 0.5f;
-				face.ao[2] = math::Vector4(ao, ao, ao, 1);
-
-				ao = ((float)rand() / RAND_MAX) / 2.0f + 0.5f;
-				face.ao[3] = math::Vector4(ao, ao, ao, 1);
+				GenerateFaceAO(key, adj, face);
 			}
 
 			pMesh->Reset();
@@ -500,7 +459,7 @@ namespace ld3d
 			}
 			pMesh->AddSubset(sub);
 		}
-		void Meshizer::GenerateMesh(ChunkPtr pChunk, const Coord& base_coord, ChunkMeshPtr pMesh)
+		void Meshizer::GenerateMesh1(ChunkPtr pChunk, const Coord& base_coord, ChunkMeshPtr pMesh)
 		{
 			ChunkManagerPtr pChunkManager = pChunk->GetChunkManager();
 

@@ -17,41 +17,37 @@ namespace ld3d
 		{
 			Release();
 		}
-		void ChunkCache::AddChunk(ChunkPtr pChunk)
+		void ChunkCache::AddChunk(const ChunkKey& key)
 		{
-			if(pChunk == nullptr)
-			{
-				return;
-			}
-			auto find = m_chunkMap.find(pChunk->GetKey().AsUint64());
+			auto find = m_chunkMap.find(key.AsUint64());
 			if(find != m_chunkMap.end())
 			{
-				m_pLoader->RequestUnloadChunk(pChunk);
+				m_pLoader->RequestUnloadChunk(key);
 				m_chunks.erase(find->second);
-				m_chunks.push_back(pChunk);
-				m_chunkMap[pChunk->GetKey().AsUint64()] = --m_chunks.rbegin().base();
+				m_chunks.push_back(key);
+				m_chunkMap[key.AsUint64()] = --m_chunks.rbegin().base();
 				return;
 			}
 
 			if(m_chunks.size() < m_cacheSize)
 			{
-				m_chunks.push_back(pChunk);
-				m_chunkMap[pChunk->GetKey().AsUint64()] = --m_chunks.rbegin().base();
+				m_chunks.push_back(key);
+				m_chunkMap[key.AsUint64()] = --m_chunks.rbegin().base();
 				return;
 			}
 
 			// cache is full
 
-			ChunkPtr pRemove = m_chunks.front();
+			const ChunkKey& remove = m_chunks.front();
 			
-			m_chunkMap.erase(pRemove->GetKey().AsUint64());
-			m_pLoader->RequestUnloadChunk(pRemove);
+			m_chunkMap.erase(remove.AsUint64());
+			m_pLoader->RequestUnloadChunk(remove);
 			
 			m_chunks.pop_front();
 
 
-			m_chunks.push_back(pChunk);
-			m_chunkMap[pChunk->GetKey().AsUint64()] = --m_chunks.rbegin().base();
+			m_chunks.push_back(key);
+			m_chunkMap[key.AsUint64()] = --m_chunks.rbegin().base();
 		}
 		void ChunkCache::Release()
 		{
@@ -82,12 +78,6 @@ namespace ld3d
 
 			return true;
 		}
-		void ChunkCache::RefreshMesh()
-		{
-			for(auto ch : m_chunks)
-			{
-				m_pLoader->RequestMeshAsync(ch, true);
-			}
-		}
+		
 	}
 }

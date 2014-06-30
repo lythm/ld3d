@@ -33,7 +33,8 @@ namespace ld3d
 		void										RefreshMesh();
 
 		uint32										GetRenderedFaceCount();
-
+		uint32										GetRenderedVertexCount();
+		uint32										GetRenderedVertexBytes();
 	private:
 		void										on_event_frustumcull(EventPtr pEvent);
 		bool										OnAttach();
@@ -74,6 +75,6 @@ namespace ld3d
 		math::Matrix44								m_worldMatrix;
 		std::vector<MaterialPtr>					m_materials;
 
-		uint32										m_renderedFaces;
+		uint32										m_renderedVertex;
 	};
 }

@@ -16,7 +16,8 @@ namespace ld3d
 				math::Vector3										pos;
 				math::Vector3										normal;
 				math::Vector3										uv;
-				math::Vector4										ao;
+				//math::Vector4										ao;
+				float												ao;
 			};
 
 

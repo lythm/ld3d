@@ -31,7 +31,7 @@ namespace ld3d
 				bool												force_regen;
 				ChunkMesh*											mesh;
 
-				std::function<void(ChunkPtr)>						on_loaded;
+				std::function<void(const ChunkKey&)>				on_loaded;
 
 			};
 			

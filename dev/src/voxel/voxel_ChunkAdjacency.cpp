@@ -55,6 +55,16 @@ namespace ld3d
 			return ac;
 
 		}
+		bool ChunkAdjacency::CheckBlock(int32 x, int32 y, int32 z) const
+		{
+			int32 index = ToIndex(x, y, z);
+			if(index == -1)
+			{
+				return false;
+			}
+
+			return m_blocks.at(index);
+		}
 		bool ChunkAdjacency::CheckBlockAdjacency(int32 x, int32 y, int32 z, int32 neighbour) const
 		{
 			Coord c = ToAdjacentBlockCoord(Coord(x, y, z), neighbour);
@@ -66,113 +76,10 @@ namespace ld3d
 			}
 			return m_blocks.at(index);
 		}
-
+	
+		
 		void ChunkAdjacency::UpdateChunkAdjacency(const ChunkKey& key, ChunkPtr pChunk)
 		{
-			// nx
-
-			int32 x = 0;
-			for(int32 z = 0; z < CHUNK_SIZE; ++z)
-			{
-				for(int32 y = 0; y < CHUNK_SIZE; ++y)
-				{
-					Coord this_coord = VoxelUtils::ChunkToChunk(key, Coord(x, y, z), m_key);
-					int32 index = ToIndex(this_coord.x, this_coord.y, this_coord.z);
-					if(index == -1)
-					{
-						continue;
-					}
-
-					bool val = pChunk == nullptr? false : pChunk->GetBlock(x, y, z) != VT_EMPTY;
-					m_blocks.set(index, val);
-				}
-			}
-
-			x = CHUNK_SIZE - 1;
-			for(int32 z = 0; z < CHUNK_SIZE; ++z)
-			{
-				for(int32 y = 0; y < CHUNK_SIZE; ++y)
-				{
-					Coord this_coord = VoxelUtils::ChunkToChunk(key, Coord(x, y, z), m_key);
-					int32 index = ToIndex(this_coord.x, this_coord.y, this_coord.z);
-					if(index == -1)
-					{
-						continue;
-					}
-
-					bool val = pChunk == nullptr? false : pChunk->GetBlock(x, y, z) != VT_EMPTY;
-					m_blocks.set(index, val);
-				}
-			}
-
-			int32 y = 0;
-			for(int32 z = 0; z < CHUNK_SIZE; ++z)
-			{
-				for(int32 x = 0; x < CHUNK_SIZE; ++x)
-				{
-					Coord this_coord = VoxelUtils::ChunkToChunk(key, Coord(x, y, z), m_key);
-					int32 index = ToIndex(this_coord.x, this_coord.y, this_coord.z);
-					if(index == -1)
-					{
-						continue;
-					}
-
-					bool val = pChunk == nullptr? false : pChunk->GetBlock(x, y, z) != VT_EMPTY;
-					m_blocks.set(index, val);
-
-					int ddd = 0;
-				}
-			}
-			y = CHUNK_SIZE - 1;
-			for(int32 z = 0; z < CHUNK_SIZE; ++z)
-			{
-				for(int32 x = 0; x < CHUNK_SIZE; ++x)
-				{
-					Coord this_coord = VoxelUtils::ChunkToChunk(key, Coord(x, y, z), m_key);
-					int32 index = ToIndex(this_coord.x, this_coord.y, this_coord.z);
-					if(index == -1)
-					{
-						continue;
-					}
-
-					bool val = pChunk == nullptr? false : pChunk->GetBlock(x, y, z) != VT_EMPTY;
-					m_blocks.set(index, val);
-				}
-			}
-
-			int32 z = 0;
-			for(int32 y = 0; y < CHUNK_SIZE; ++y)
-			{
-				for(int32 x = 0; x < CHUNK_SIZE; ++x)
-				{
-					Coord this_coord = VoxelUtils::ChunkToChunk(key, Coord(x, y, z), m_key);
-					int32 index = ToIndex(this_coord.x, this_coord.y, this_coord.z);
-					if(index == -1)
-					{
-						continue;
-					}
-
-					bool val = pChunk == nullptr? false : pChunk->GetBlock(x, y, z) != VT_EMPTY;
-					m_blocks.set(index, val);
-				}
-			}
-
-			z = CHUNK_SIZE - 1;
-			for(int32 y = 0; y < CHUNK_SIZE; ++y)
-			{
-				for(int32 x = 0; x < CHUNK_SIZE; ++x)
-				{
-					Coord this_coord = VoxelUtils::ChunkToChunk(key, Coord(x, y, z), m_key);
-					int32 index = ToIndex(this_coord.x, this_coord.y, this_coord.z);
-					if(index == -1)
-					{
-						continue;
-					}
-
-					bool val = pChunk == nullptr? false : pChunk->GetBlock(x, y, z) != VT_EMPTY;
-					m_blocks.set(index, val);
-				}
-			}
 
 			Coord this_coord = m_key.ToChunkCoord();
 			Coord chunk_coord = key.ToChunkCoord();
@@ -188,7 +95,196 @@ namespace ld3d
 			uint32 index = (dc.y + 1) * dim * dim + (dc.z + 1) * dim + (dc.x + 1);
 			
 			m_adj.set(index, true);
-		
+
+			int32 sx = dc.x == -1 ? CHUNK_SIZE - 1 : 0;
+			int32 ex = dc.x == 1 ? 1 : CHUNK_SIZE;
+			int32 sz = dc.z == -1 ? (CHUNK_SIZE - 1) : 0;
+			int32 ez = dc.z == 1 ? 1 : CHUNK_SIZE;
+			int32 sy = dc.y == -1 ? (CHUNK_SIZE - 1) : 0;
+			int32 ey = dc.y == 1 ? 1 : CHUNK_SIZE;
+
+
+			for(int32 x = sx; x < ex; ++x)
+			{
+				for(int32 y = sy; y < ey; ++y)
+				{
+					for(int32 z = sz; z < ez; ++z)
+					{
+						Coord this_coord = VoxelUtils::ChunkToChunk(key, Coord(x, y, z), m_key);
+						int32 index = ToIndex(this_coord.x, this_coord.y, this_coord.z);
+						if(index == -1)
+						{
+							continue;
+						}
+
+						bool val = pChunk == nullptr? false : pChunk->GetBlock(x, y, z) != VT_EMPTY;
+						m_blocks.set(index, val);
+					}
+				}
+			}
+
+			//if(dc.x == 1)
+			//{
+			//	// nx
+			//	int32 x = 0;
+
+			//	int32 z = dc.z == -1 ? (CHUNK_SIZE - 1) : 0;
+			//	int32 ez = dc.z == 1 ? 1 : CHUNK_SIZE;
+
+			//	for(z = 0; z < ez; ++z)
+			//	{
+			//		int32 y = dc.y == -1 ? (CHUNK_SIZE - 1) : 0;
+			//		int32 ey = dc.y == 1 ? 1 : CHUNK_SIZE;
+
+			//		for(y = 0; y < ey; ++y)
+			//		{
+			//			Coord this_coord = VoxelUtils::ChunkToChunk(key, Coord(x, y, z), m_key);
+			//			int32 index = ToIndex(this_coord.x, this_coord.y, this_coord.z);
+			//			if(index == -1)
+			//			{
+			//				continue;
+			//			}
+
+			//			bool val = pChunk == nullptr? false : pChunk->GetBlock(x, y, z) != VT_EMPTY;
+			//			m_blocks.set(index, val);
+			//		}
+			//	}
+			//}
+
+			//if(dc.x == -1)
+			//{
+			//	int32 x = CHUNK_SIZE - 1;
+
+			//	int32 z = dc.z == -1 ? (CHUNK_SIZE - 1) : 0;
+			//	int32 ez = dc.z == 1 ? 1 : CHUNK_SIZE;
+
+			//	for(z = 0; z < ez; ++z)
+			//	{
+			//		int32 y = dc.y == -1 ? (CHUNK_SIZE - 1) : 0;
+			//		int32 ey = dc.y == 1 ? 1 : CHUNK_SIZE;
+
+			//		for(y = 0; y < ey; ++y)
+			//		{
+			//			Coord this_coord = VoxelUtils::ChunkToChunk(key, Coord(x, y, z), m_key);
+			//			int32 index = ToIndex(this_coord.x, this_coord.y, this_coord.z);
+			//			if(index == -1)
+			//			{
+			//				continue;
+			//			}
+
+			//			bool val = pChunk == nullptr? false : pChunk->GetBlock(x, y, z) != VT_EMPTY;
+			//			m_blocks.set(index, val);
+			//		}
+			//	}
+			//}
+
+			//if(dc.y == 1)
+			//{
+			//	int32 y = 0;
+			//	int32 z = dc.z == -1 ? (CHUNK_SIZE - 1) : 0;
+			//	int32 ez = dc.z == 1 ? 1 : CHUNK_SIZE;
+
+			//	for(z = 0; z < ez; ++z)
+			//	{
+			//		int32 x = dc.x == -1 ? CHUNK_SIZE - 1 : 0;
+			//		int32 ex = dc.x == 1 ? 1 : CHUNK_SIZE;
+
+			//		for(x = 0; x < ex; ++x)
+			//		{
+			//			Coord this_coord = VoxelUtils::ChunkToChunk(key, Coord(x, y, z), m_key);
+			//			int32 index = ToIndex(this_coord.x, this_coord.y, this_coord.z);
+			//			if(index == -1)
+			//			{
+			//				continue;
+			//			}
+
+			//			bool val = pChunk == nullptr? false : pChunk->GetBlock(x, y, z) != VT_EMPTY;
+			//			m_blocks.set(index, val);
+
+			//			int ddd = 0;
+			//		}
+			//	}
+			//}
+
+			//if(dc.y == -1)
+			//{
+
+			//	int32 y = CHUNK_SIZE - 1;
+			//	int32 z = dc.z == -1 ? (CHUNK_SIZE - 1) : 0;
+			//	int32 ez = dc.z == 1 ? 1 : CHUNK_SIZE;
+
+			//	for(z = 0; z < ez; ++z)
+			//	{
+			//		int32 x = dc.x == -1 ? CHUNK_SIZE - 1 : 0;
+			//		int32 ex = dc.x == 1 ? 1 : CHUNK_SIZE;
+
+			//		for(x = 0; x < ex; ++x)
+			//		{
+			//			Coord this_coord = VoxelUtils::ChunkToChunk(key, Coord(x, y, z), m_key);
+			//			int32 index = ToIndex(this_coord.x, this_coord.y, this_coord.z);
+			//			if(index == -1)
+			//			{
+			//				continue;
+			//			}
+
+			//			bool val = pChunk == nullptr? false : pChunk->GetBlock(x, y, z) != VT_EMPTY;
+			//			m_blocks.set(index, val);
+			//		}
+			//	}
+			//}
+
+			//if(dc.z == 1)
+			//{
+			//	int32 z = 0;
+			//	int32 y = dc.y == -1 ? (CHUNK_SIZE - 1) : 0;
+			//	int32 ey = dc.y == 1 ? 1 : CHUNK_SIZE;
+
+			//	for(y = 0; y < ey; ++y)
+			//	{
+			//		int32 x = dc.x == -1 ? CHUNK_SIZE - 1 : 0;
+			//		int32 ex = dc.x == 1 ? 1 : CHUNK_SIZE;
+
+			//		for(x = 0; x < ex; ++x)
+			//		{
+			//			Coord this_coord = VoxelUtils::ChunkToChunk(key, Coord(x, y, z), m_key);
+			//			int32 index = ToIndex(this_coord.x, this_coord.y, this_coord.z);
+			//			if(index == -1)
+			//			{
+			//				continue;
+			//			}
+
+			//			bool val = pChunk == nullptr? false : pChunk->GetBlock(x, y, z) != VT_EMPTY;
+			//			m_blocks.set(index, val);
+			//		}
+			//	}
+			//}
+
+			//if(dc.z == -1)
+			//{
+			//	int32 z = CHUNK_SIZE - 1;
+			//	int32 y = dc.y == -1 ? (CHUNK_SIZE - 1) : 0;
+			//	int32 ey = dc.y == 1 ? 1 : CHUNK_SIZE;
+
+			//	for(y = 0; y < ey; ++y)
+			//	{
+			//		int32 x = dc.x == -1 ? CHUNK_SIZE - 1 : 0;
+			//		int32 ex = dc.x == 1 ? 1 : CHUNK_SIZE;
+
+			//		for(x = 0; x < ex; ++x)
+			//		{
+			//			Coord this_coord = VoxelUtils::ChunkToChunk(key, Coord(x, y, z), m_key);
+			//			int32 index = ToIndex(this_coord.x, this_coord.y, this_coord.z);
+			//			if(index == -1)
+			//			{
+			//				continue;
+			//			}
+
+			//			bool val = pChunk == nullptr? false : pChunk->GetBlock(x, y, z) != VT_EMPTY;
+			//			m_blocks.set(index, val);
+			//		}
+			//	}
+			//}
+	
 		}
 		bool ChunkAdjacency::IsComplete() const
 		{
