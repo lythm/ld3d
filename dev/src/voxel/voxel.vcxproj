@@ -160,18 +160,12 @@
     <ClInclude Include="..\..\include\voxel\voxel_types.h" />
     <ClInclude Include="..\..\include\voxel\voxel_World.h" />
     <ClInclude Include="..\..\include\voxel\voxel_WorldGen.h" />
-    <ClInclude Include="..\..\include\voxel\voxel_WorldGenPass.h" />
-    <ClInclude Include="..\..\include\voxel\voxel_WorldGenPass_Caves.h" />
-    <ClInclude Include="..\..\include\voxel\voxel_WorldGenPass_Heightmap.h" />
-    <ClInclude Include="..\..\include\voxel\voxel_WorldGenPass_Mineral.h" />
-    <ClInclude Include="..\..\include\voxel\voxel_WorldGenPass_Moutains.h" />
-    <ClInclude Include="..\..\include\voxel\voxel_WorldGenPass_Ocean.h" />
-    <ClInclude Include="..\..\include\voxel\voxel_WorldGenPass_Plants.h" />
-    <ClInclude Include="..\..\include\voxel\voxel_WorldGenPass_Water.h" />
     <ClInclude Include="..\..\include\voxel\voxel_WorldViewPort.h" />
     <ClInclude Include="voxel_ChunkCache.h" />
+    <ClInclude Include="voxel_ChunkGenService.h" />
     <ClInclude Include="voxel_ChunkLoader.h" />
     <ClInclude Include="voxel_ChunkLoaderWorker.h" />
+    <ClInclude Include="voxel_ChunkStorage.h" />
     <ClInclude Include="voxel_Octree.h" />
     <ClInclude Include="voxel_ChunkManager.h" />
     <ClInclude Include="voxel_OctreeManager.h" />
@@ -182,8 +176,10 @@
   <ItemGroup>
     <ClCompile Include="voxel_ChunkAdjacency.cpp" />
     <ClCompile Include="voxel_ChunkCache.cpp" />
+    <ClCompile Include="voxel_ChunkGenService.cpp" />
     <ClCompile Include="voxel_ChunkLoader.cpp" />
     <ClCompile Include="voxel_ChunkLoaderWorker.cpp" />
+    <ClCompile Include="voxel_ChunkStorage.cpp" />
     <ClCompile Include="voxel_Octree.cpp" />
     <ClCompile Include="voxel_Meshizer.cpp" />
     <ClCompile Include="voxel_ChunkManager.cpp" />
@@ -201,13 +197,6 @@
     </ClCompile>
     <ClCompile Include="voxel_World.cpp" />
     <ClCompile Include="voxel_WorldGen.cpp" />
-    <ClCompile Include="voxel_WorldGenPass_Caves.cpp" />
-    <ClCompile Include="voxel_WorldGenPass_Heightmap.cpp" />
-    <ClCompile Include="voxel_WorldGenPass_Mineral.cpp" />
-    <ClCompile Include="voxel_WorldGenPass_Moutains.cpp" />
-    <ClCompile Include="voxel_WorldGenPass_Ocean.cpp" />
-    <ClCompile Include="voxel_WorldGenPass_Plants.cpp" />
-    <ClCompile Include="voxel_WorldGenPass_Water.cpp" />
     <ClCompile Include="voxel_WorldViewPort.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

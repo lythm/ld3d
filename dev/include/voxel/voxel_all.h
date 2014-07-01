@@ -9,7 +9,6 @@
 #include "voxel/voxel_Chunk.h"
 #include "voxel/voxel_World.h"
 #include "voxel/voxel_WorldGen.h"
-#include "voxel/voxel_WorldGenPass.h"
 #include "voxel/voxel_WorldViewPort.h"
 #include "voxel/voxel_Meshizer.h"
 #include "voxel/voxel_ChunkMesh.h"

@@ -30,13 +30,11 @@ namespace ld3d
 		
 		class World;
 		class WorldGen;
-		class WorldGenPass;
 		class Chunk;
 		class ChunkManager;
 		class WorldViewport;
 		class Meshizer;
 		class ChunkMesh;
-		//class ChunkLoader;
 		class Octree;
 		class PoolManager;
 		class ChunkLoader;
@@ -48,17 +46,11 @@ namespace ld3d
 		typedef std::shared_ptr<PoolManager>									PoolManagerPtr;
 		typedef std::shared_ptr<Octree>											OctreePtr;
 		typedef std::shared_ptr<ChunkMesh>										ChunkMeshPtr;
-		//typedef std::shared_ptr<ChunkLoader>									ChunkLoaderPtr;
 		typedef std::shared_ptr<Meshizer>										MeshizerPtr;
 		typedef std::shared_ptr<WorldViewport>									WorldViewportPtr;
 		typedef std::shared_ptr<World>											WorldPtr;
 		typedef std::shared_ptr<WorldGen>										WorldGenPtr;
-		typedef std::shared_ptr<WorldGenPass>									WorldGenPassPtr;
 		typedef std::shared_ptr<Chunk>											ChunkPtr;
 		typedef std::shared_ptr<ChunkManager>									ChunkManagerPtr;
-
-
-
-		
 	}		
 }

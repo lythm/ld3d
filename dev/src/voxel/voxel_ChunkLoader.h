@@ -1,6 +1,7 @@
 #pragma once
 
 #include "voxel_ChunkLoaderWorker.h"
+#include "voxel_ChunkGenService.h"
 
 namespace ld3d
 {
@@ -47,6 +48,8 @@ namespace ld3d
 			ChunkLoaderWorker										m_worker;
 
 			int32													m_pendingCount;
+
+			ChunkGenService											m_service;
 		};
 	}
 }

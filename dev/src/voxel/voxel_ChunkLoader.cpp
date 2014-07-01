@@ -29,15 +29,24 @@ namespace ld3d
 			m_worker.SetWorldGenerator(pWorldGen);
 			m_worker.SetMeshizer(pMeshizer);
 			m_worker.Start();
+
+
+			m_service.Initialize(*pMeshizer, *pWorldGen);
 			return true;
 		}
 		void ChunkLoader::Release()
 		{
 			m_worker.Stop();
 			m_worker.Join();
+
+			m_service.Release();
+
 		}
 		void ChunkLoader::Update()
 		{
+			m_service.Run();
+
+
 			ChunkLoaderWorker::Command t;
 
 			while(m_worker.PopTask(t))
@@ -121,7 +130,7 @@ namespace ld3d
 				{
 					if(pChunk->GetMesh() == nullptr || pChunk->GetMesh()->GetSubsetCount() == 0)
 					{
-						RequestMeshAsync(pChunk);
+					//	RequestMeshAsync(pChunk);
 					}
 				}
 				return true;
@@ -240,10 +249,10 @@ namespace ld3d
 				t.on_loaded(t.key);
 			}
 
-			if(t.gen_mesh && t.chunk_empty != false)
+			/*if(t.gen_mesh && t.chunk_empty != false)
 			{
 				_handle_gen_mesh(t);
-			}
+			}*/
 		}
 
 		uint32 ChunkLoader::GetPendingCount() const
@@ -289,6 +298,10 @@ namespace ld3d
 				if(pChunk != nullptr)
 				{
 					pChunk->GetAdjacency().UpdateChunkAdjacency(adjKey, pAdj);
+					if(pChunk->GetAdjacency().IsComplete())
+					{
+					//	RequestMeshAsync(pChunk);
+					}
 				}
 				
 				if(pAdj == nullptr)
@@ -299,7 +312,7 @@ namespace ld3d
 				pAdj->GetAdjacency().UpdateChunkAdjacency(key, pChunk);
 				if(pAdj->GetAdjacency().IsComplete())
 				{
-					RequestMeshAsync(pAdj);
+					//RequestMeshAsync(pAdj);
 				}
 			});
 		}
@@ -362,15 +375,6 @@ namespace ld3d
 			++m_pendingCount;
 
 			PushTaskUntilSuccess(t);
-
-
-
-
-			/*for(int x = 0; x < CHUNK_SIZE; ++x)
-			{
-				for(int 
-			}*/
-
 
 			return true;
 		}

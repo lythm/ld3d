@@ -3,12 +3,11 @@
 #include "voxel/voxel_World.h"
 #include "voxel/voxel_Chunk.h"
 #include "voxel/voxel_WorldGen.h"
-
-#include "voxel/voxel_WorldGenPass_Heightmap.h"
-#include "voxel_ChunkManager.h"
 #include "voxel/voxel_WorldViewPort.h"
 #include "voxel_ChunkLoader.h"
 #include "voxel_OctreeManager.h"
+#include "voxel_ChunkManager.h"
+
 
 namespace ld3d
 {
@@ -48,10 +47,8 @@ namespace ld3d
 			if(m_pGen == nullptr)
 			{
 				m_pGen = alloc_object<WorldGen>(allocator());//std::make_shared<WorldGen>();
-				m_pGen->Initialize();
-				m_pGen->AddPass(alloc_object<WorldGenPass_Heightmap>(allocator()));
+
 			}
-			m_pGen->SetWorld(shared_from_this());
 
 			m_pChunkManager		= alloc_object<ChunkManager>(allocator());//std::make_shared<ChunkManager>();
 			
@@ -63,11 +60,6 @@ namespace ld3d
 				return false;
 			}
 
-			
-
-		//	m_pGen->GenChunk(Coord(0, 0, 0));
-
-			
 			return true;
 		}
 		void World::Destroy()

@@ -139,4 +139,46 @@ namespace ld3d
 	{
 		return std::allocate_shared<T, std_allocator_adapter<T> >(a, p1, p2, p3);
 	}
+
+	//////////////
+	template<typename T> inline
+		T*													alloc_object_rawptr(Allocator* a)
+	{
+		void* mem = a->Alloc(sizeof(T));
+		return new(mem)T();
+	}
+
+	template<typename T, typename TP> inline
+		T*													alloc_object_rawptr(Allocator* a, const TP& p)
+	{
+		void* mem = a->Alloc(sizeof(T));
+		return new(mem)T(p);
+	}
+
+
+
+	template<typename T, typename TP1, typename TP2> inline
+		T*													alloc_object_rawptr(Allocator* a, const TP1& p1, const TP2& p2)
+	{
+		void* mem = a->Alloc(sizeof(T));
+		return new(mem)T(p1, p2);
+	}
+
+	template<typename T, typename TP1, typename TP2, typename TP3> inline
+		T*													alloc_object_rawptr(Allocator* a, const TP1& p1, const TP2& p2, const TP3& p3)
+	{
+		void* mem = a->Alloc(sizeof(T));
+		return new(mem)T(p1, p2, p3);
+	}
+
+	template<typename T> inline
+		void												free_object(Allocator* a, T* pObj)
+	{
+		if(pObj == nullptr)
+		{
+			return;
+		}
+		pObj->~T();
+		a->free(pObj);
+	}
 }

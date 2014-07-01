@@ -40,8 +40,6 @@ namespace ld3d
 			ChunkLoaderWorker(uint16 inQueueSize, uint16 outQueueSize);
 			virtual ~ChunkLoaderWorker(void);
 
-
-			
 			void																					Start();
 			void																					Stop();
 			void																					Join();

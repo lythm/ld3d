@@ -10,6 +10,20 @@ namespace ld3d
 	{
 		class PoolManager
 		{
+			struct pool_allocator
+			{
+				typedef std::size_t size_type;
+				typedef std::ptrdiff_t difference_type;
+
+				static char * malloc(const size_type bytes)
+				{ 
+					return reinterpret_cast<char *>(allocator()->Alloc(bytes)); 
+				}
+				static void free(char * const block)
+				{ 
+					allocator()->Free(block);
+				}
+			};
 		public:
 			PoolManager(void);
 			virtual ~PoolManager(void);

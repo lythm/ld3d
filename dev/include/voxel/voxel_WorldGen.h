@@ -23,20 +23,11 @@ namespace ld3d
 			virtual ~WorldGen(void);
 
 			bool												GenChunk(const ChunkKey& key, ChunkData& chunk_data, ChunkAdjacency& adj);
-			bool												Initialize();
-			void												Release();
-
-			WorldPtr											GetWorld();
-			void												SetWorld(WorldPtr pWorld);
-
-			void												AddPass(WorldGenPassPtr pPass);
+			
 		private:
 			std::shared_ptr<HeightMap>							GetHeightMap(const ChunkKey& key);
 			void												GenHeightMap(const ChunkKey& key, HeightMap& hm);
 		private:
-			std::vector<WorldGenPassPtr>						m_passList;
-			WorldPtr											m_pWorld;
-
 			PerlinNoise											m_noise;
 			PerlinNoise											m_noiseBase;
 

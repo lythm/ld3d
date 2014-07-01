@@ -86,15 +86,14 @@ namespace ld3d
 
 			Coord dc = chunk_coord - this_coord;
 
-			/*if(CheckCoord(x, y, z) == false)
-			{
-				return -1;
-			}*/
 			uint32 dim = 3;
 			
 			uint32 index = (dc.y + 1) * dim * dim + (dc.z + 1) * dim + (dc.x + 1);
 			
 			m_adj.set(index, true);
+
+
+
 
 			int32 sx = dc.x == -1 ? CHUNK_SIZE - 1 : 0;
 			int32 ex = dc.x == 1 ? 1 : CHUNK_SIZE;

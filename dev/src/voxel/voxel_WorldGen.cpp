@@ -1,6 +1,5 @@
 #include "voxel_pch.h"
 #include "voxel/voxel_WorldGen.h"
-#include "voxel/voxel_WorldGenPass.h"
 
 namespace ld3d
 {
@@ -9,7 +8,8 @@ namespace ld3d
 
 		WorldGen::WorldGen(void)
 		{
-
+			m_noise.set_up(1, 20, 1, (int)os_get_tick());
+			m_noiseBase.set_up(1, 5, 1, (int)os_get_tick());
 		}
 
 		WorldGen::~WorldGen(void)
@@ -24,10 +24,10 @@ namespace ld3d
 
 			Coord chunk_origin = key.ToChunkOrigin();
 
-			/*if(chunk_origin.y > (pHM->max_height + 1))
+			if(chunk_origin.y > (pHM->max_height + 1))
 			{
 				return false;
-			}*/
+			}
 
 			bool ret = false;
 			for(int x = 0; x < CHUNK_SIZE; ++x)
@@ -53,10 +53,6 @@ namespace ld3d
 						double h = m_noise.perlin_noise_3D(vec);
 
 						h -= double(y + chunk_origin.y) / 50.0;
-
-						double vec1[2];
-
-						
 
 						float b = pHM->data[x + z * CHUNK_SIZE];
 
@@ -99,27 +95,6 @@ namespace ld3d
 			return ret;
 		}
 
-		bool WorldGen::Initialize()
-		{
-			m_noise.set_up(1, 20, 1, (int)os_get_tick());
-			m_noiseBase.set_up(1, 5, 1, (int)os_get_tick());
-			return true;
-		}
-		void WorldGen::Release()
-		{
-		}
-		WorldPtr WorldGen::GetWorld()
-		{
-			return m_pWorld;
-		}
-		void WorldGen::SetWorld(WorldPtr pWorld)
-		{
-			m_pWorld = pWorld;
-		}
-		void WorldGen::AddPass(WorldGenPassPtr pPass)
-		{
-			m_passList.push_back(pPass);
-		}
 		void WorldGen::GenHeightMap(const ChunkKey& key, HeightMap& hm)
 		{
 			Coord chunk_origin = key.ToChunkOrigin();

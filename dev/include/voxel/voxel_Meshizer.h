@@ -100,23 +100,18 @@ namespace ld3d
 			virtual ~Meshizer(void);
 
 			void										GenerateMesh(const ChunkKey& key, const ChunkData& chunk_data, const ChunkAdjacency& adj, const Coord& base_coord, ChunkMesh* pMesh);
-			virtual void								GenerateMesh1(ChunkPtr pChunk, const Coord& base_coord, ChunkMeshPtr pMesh);
 			void										AddVoxelMaterial(uint8 type, const VoxelMaterial& mat);
 
-			void										GenerateChunkBox(const ChunkKey& key, const Coord& base_coord, ChunkMeshPtr pMesh);
 		private:
-			static void									InitializeCubeVertex(uint32 size);
+			void										InitializeCubeVertex(uint32 size);
 			void										GenerateFaceAO(const ChunkKey& key, const ChunkAdjacency& adj, VoxelFace& face);
 		private:
-
-			
 
 			std::map<uint8, VoxelMaterial>				m_materialMap;
 
 			std::map<uint8, VoxelTemplate>				m_templates;
-
-
-			static VoxelFace							s_Cube[6];
+			
+			VoxelFace									m_Cube[6];
 		};
 	}
 }

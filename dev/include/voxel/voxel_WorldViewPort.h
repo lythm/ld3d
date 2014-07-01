@@ -55,7 +55,7 @@ namespace ld3d
 			WorldPtr													m_pWorld;
 			ChunkLoaderPtr												m_pLoader;
 			OctreeManagerPtr											m_pOctreeManager;
-			
+			ChunkManagerPtr												m_pChunkManager;
 			std::function<void (const Coord&, ChunkPtr)>				handler_dirty_chunk;
 
 			VPCylinder													m_VP;

@@ -45,30 +45,6 @@
     <ClInclude Include="..\..\include\voxel\voxel_WorldGen.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\voxel\voxel_WorldGenPass.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\voxel\voxel_WorldGenPass_Caves.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\voxel\voxel_WorldGenPass_Heightmap.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\voxel\voxel_WorldGenPass_Mineral.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\voxel\voxel_WorldGenPass_Moutains.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\voxel\voxel_WorldGenPass_Ocean.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\voxel\voxel_WorldGenPass_Plants.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\voxel\voxel_WorldGenPass_Water.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="voxel_ChunkManager.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -108,6 +84,12 @@
     <ClInclude Include="voxel_ChunkCache.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="voxel_ChunkStorage.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="voxel_ChunkGenService.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="voxel_pch.cpp">
@@ -126,27 +108,6 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="voxel_WorldGen.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="voxel_WorldGenPass_Caves.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="voxel_WorldGenPass_Heightmap.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="voxel_WorldGenPass_Mineral.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="voxel_WorldGenPass_Moutains.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="voxel_WorldGenPass_Ocean.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="voxel_WorldGenPass_Plants.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="voxel_WorldGenPass_Water.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="voxel_ChunkManager.cpp">
@@ -180,6 +141,12 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="voxel_ChunkCache.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="voxel_ChunkStorage.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="voxel_ChunkGenService.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
