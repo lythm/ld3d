@@ -8,7 +8,7 @@ namespace ld3d
 {
 	namespace voxel
 	{
-		class WorldGen : public std::enable_shared_from_this<WorldGen>
+		class WorldGen 
 		{
 		public:
 

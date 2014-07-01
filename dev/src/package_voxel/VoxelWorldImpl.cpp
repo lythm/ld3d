@@ -83,6 +83,33 @@ namespace ld3d
 		mat.materials[4] = 1;
 		mat.materials[5] = 1;
 		m_pMeshizer->AddVoxelMaterial(mat.type, mat);
+
+		mat.type = 3;
+		mat.materials[0] = 2;
+		mat.materials[1] = 2;
+		mat.materials[2] = 2;
+		mat.materials[3] = 2;
+		mat.materials[4] = 2;
+		mat.materials[5] = 2;
+		m_pMeshizer->AddVoxelMaterial(mat.type, mat);
+
+		mat.type = 4;
+		mat.materials[0] = 3;
+		mat.materials[1] = 3;
+		mat.materials[2] = 3;
+		mat.materials[3] = 3;
+		mat.materials[4] = 3;
+		mat.materials[5] = 3;
+		m_pMeshizer->AddVoxelMaterial(mat.type, mat);
+
+		mat.type = 5;
+		mat.materials[0] = 4;
+		mat.materials[1] = 4;
+		mat.materials[2] = 4;
+		mat.materials[3] = 4;
+		mat.materials[4] = 4;
+		mat.materials[5] = 4;
+		m_pMeshizer->AddVoxelMaterial(mat.type, mat);
 		
 
 		MaterialPtr pMaterial = m_pManager->GetRenderManager()->CreateMaterialFromFile("./assets/voxel/material/voxel_world.material");
@@ -100,6 +127,24 @@ namespace ld3d
 
 		pMaterial = m_pManager->GetRenderManager()->CreateMaterialFromFile("./assets/voxel/material/voxel_world.material");
 		pTex = m_pManager->GetRenderManager()->CreateTextureFromFile("./assets/voxel/texture/rock.dds");
+
+		pMaterial->GetParameterByName("diffuse_map")->SetParameterTexture(pTex);
+		m_materials.push_back(pMaterial);
+
+		pMaterial = m_pManager->GetRenderManager()->CreateMaterialFromFile("./assets/voxel/material/voxel_world.material");
+		pTex = m_pManager->GetRenderManager()->CreateTextureFromFile("./assets/voxel/texture/metal.dds");
+
+		pMaterial->GetParameterByName("diffuse_map")->SetParameterTexture(pTex);
+		m_materials.push_back(pMaterial);
+
+		pMaterial = m_pManager->GetRenderManager()->CreateMaterialFromFile("./assets/voxel/material/voxel_world.material");
+		pTex = m_pManager->GetRenderManager()->CreateTextureFromFile("./assets/voxel/texture/grass.dds");
+
+		pMaterial->GetParameterByName("diffuse_map")->SetParameterTexture(pTex);
+		m_materials.push_back(pMaterial);
+
+		pMaterial = m_pManager->GetRenderManager()->CreateMaterialFromFile("./assets/voxel/material/voxel_world.material");
+		pTex = m_pManager->GetRenderManager()->CreateTextureFromFile("./assets/voxel/texture/sand.dds");
 
 		pMaterial->GetParameterByName("diffuse_map")->SetParameterTexture(pTex);
 		m_materials.push_back(pMaterial);

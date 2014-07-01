@@ -88,8 +88,12 @@ namespace ld3d
 
 			uint32 dim = 3;
 			
-			uint32 index = (dc.y + 1) * dim * dim + (dc.z + 1) * dim + (dc.x + 1);
+			int32 index = (dc.y + 1) * dim * dim + (dc.z + 1) * dim + (dc.x + 1);
 			
+			if(index < 0)
+			{
+				return;
+			}
 			m_adj.set(index, true);
 
 

@@ -179,6 +179,6 @@ namespace ld3d
 			return;
 		}
 		pObj->~T();
-		a->free(pObj);
+		a->Free(pObj);
 	}
 }

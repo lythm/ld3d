@@ -32,7 +32,8 @@ namespace ld3d
 			bool													RequestMeshAsync(ChunkPtr pChunk, bool force = false);
 			
 		private:
-
+			void													_on_mesh_gen_complete(const ChunkKey& key, ChunkMesh* mesh);
+			void													_on_chunk_gen_complete(const ChunkKey& key, const ChunkData& data, const ChunkAdjacency& adj, bool is_empty);
 			void													PushTaskUntilSuccess(ChunkLoaderWorker::Command& t);
 			void													_handle_load_chunk_ret(ChunkLoaderWorker::Command& t);
 			void													_handle_gen_mesh(ChunkLoaderWorker::Command& t);

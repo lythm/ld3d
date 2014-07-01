@@ -130,7 +130,10 @@ namespace ld3d
 				{
 					if(pChunk->GetMesh() == nullptr || pChunk->GetMesh()->GetSubsetCount() == 0)
 					{
-					//	RequestMeshAsync(pChunk);
+						if(pChunk->GetAdjacency().IsComplete())
+						{
+							RequestMeshAsync(pChunk);
+						}
 					}
 				}
 				return true;
@@ -140,7 +143,18 @@ namespace ld3d
 			{
 				return true;
 			}
-			ChunkLoaderWorker::Command t;
+			m_pendingCount++;
+			m_service.GenChunk(key, [=](const ChunkKey& key, const ChunkData& data, const ChunkAdjacency& adj, bool is_empty)
+			{
+				_on_chunk_gen_complete(key, data, adj, is_empty);
+
+				if(on_loaded)
+				{
+					on_loaded(key);
+				}
+				m_pendingCount--;
+			});
+			/*ChunkLoaderWorker::Command t;
 			t.id = ChunkLoaderWorker::cmd_load_chunk;
 			t.chunk_data.Fill(0);
 			t.chunk_adjacency = ChunkAdjacency(key);
@@ -152,11 +166,25 @@ namespace ld3d
 			{
 				t.mesh = pool_manager()->AllocChunkMeshRaw();
 			}
-			PushTaskUntilSuccess(t);
-			m_pendingCount++;
+			PushTaskUntilSuccess(t);*/
+			
 			return true;
 		}
+		void ChunkLoader::_on_chunk_gen_complete(const ChunkKey& key, const ChunkData& data, const ChunkAdjacency& adj, bool is_empty)
+		{
+			ChunkPtr pChunk = nullptr;
+			if(is_empty == false)
+			{
+				pChunk = m_pChunkManager->CreateChunk(key, data.GetData());
+				pChunk->SetAdjacency(adj);
+				pChunk->SetGenerated(true);
+			}
 
+			m_pChunkManager->AddChunk(key, pChunk);
+
+			UpdateChunkAdjacency(key);
+
+		}
 		void ChunkLoader::_handle_gen_mesh(ChunkLoaderWorker::Command& t)
 		{
 			bool loaded = false;
@@ -291,6 +319,8 @@ namespace ld3d
 			Coord this_coord = key.ToChunkCoord();
 			m_pChunkManager->PickSurroundingChunks(key, [&](const ChunkKey& adjKey, ChunkPtr pAdj, bool adjLoaded)
 			{
+				Coord this_coord = key.ToChunkCoord();
+				Coord c = adjKey.ToChunkCoord();
 				if(adjLoaded == false)
 				{
 					return;
@@ -300,7 +330,7 @@ namespace ld3d
 					pChunk->GetAdjacency().UpdateChunkAdjacency(adjKey, pAdj);
 					if(pChunk->GetAdjacency().IsComplete())
 					{
-					//	RequestMeshAsync(pChunk);
+						RequestMeshAsync(pChunk);
 					}
 				}
 				
@@ -312,7 +342,7 @@ namespace ld3d
 				pAdj->GetAdjacency().UpdateChunkAdjacency(key, pChunk);
 				if(pAdj->GetAdjacency().IsComplete())
 				{
-					//RequestMeshAsync(pAdj);
+					RequestMeshAsync(pAdj);
 				}
 			});
 		}
@@ -364,7 +394,15 @@ namespace ld3d
 		}
 		bool ChunkLoader::RequestMeshAsync(ChunkPtr pChunk, bool force)
 		{
-			ChunkLoaderWorker::Command t;
+			++m_pendingCount;
+
+			m_service.GenMesh(pChunk->GetKey(), pChunk->GetData(), pChunk->GetAdjacency(), [=](const ChunkKey& key, ChunkMesh* mesh)
+			{
+				_on_mesh_gen_complete(key, mesh);
+				--m_pendingCount;
+			});
+
+		/*	ChunkLoaderWorker::Command t;
 			t.key = pChunk->GetKey();
 			t.chunk_adjacency = pChunk->GetAdjacency();
 			t.chunk_data = pChunk->GetData();
@@ -372,11 +410,52 @@ namespace ld3d
 			t.mesh = pool_manager()->AllocChunkMeshRaw();
 			t.gen_mesh = true;
 			t.force_regen = force;
-			++m_pendingCount;
+			
 
-			PushTaskUntilSuccess(t);
+			PushTaskUntilSuccess(t);*/
 
 			return true;
+		}
+		void ChunkLoader::_on_mesh_gen_complete(const ChunkKey& key, ChunkMesh* mesh)
+		{
+			bool loaded = false;
+			ChunkPtr pChunk = m_pChunkManager->FindChunk(key, loaded);
+			if(pChunk == nullptr)
+			{
+				return;
+			}
+
+			
+			if(mesh->GetSubsetCount() == 0)
+			{
+				return;
+			}
+
+			if(pChunk->GetMesh() != nullptr && pChunk->GetMesh()->GetSubsetCount() != 0)
+			{
+				return;
+			}
+
+
+			ChunkMeshPtr pMesh = pool_manager()->AllocChunkMesh();
+			pMesh->AllocVertexBuffer(mesh->GetVertexCount());
+			memcpy(pMesh->GetVertexBuffer(), mesh->GetVertexBuffer(), sizeof(ChunkMesh::VoxelVertex) * mesh->GetVertexCount());
+
+			for(uint32 i = 0; i < mesh->GetSubsetCount(); ++i)
+			{
+				ChunkMesh::Subset s = mesh->GetSubset(i);
+
+				uint64 offset = (uint8*)s.vertexBuffer - (uint8*)mesh->GetVertexBuffer();
+
+				s.vertexBuffer = (uint8*)pMesh->GetVertexBuffer() + offset;
+
+				pMesh->AddSubset(s);
+			}
+
+			pChunk->SetMesh(pMesh);
+
+			m_pOctreeManager->AddChunk(pChunk);
+
 		}
 	}
 }

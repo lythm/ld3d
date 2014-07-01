@@ -77,13 +77,25 @@ namespace ld3d
 						}
 						if(h > 0 && h < 1)
 						{
-							if(h > 0.5)
+							if(h > 0.8)
+							{
+								chunk_data.Set(x, y, z, 3);
+							}
+							else if(h > 0.6)
 							{
 								chunk_data.Set(x, y, z, 2);
 							}
-							else
+							else if(h > 0.4)
+							{
+								chunk_data.Set(x, y, z, 5);
+							}
+							else if(h > 0.2)
 							{
 								chunk_data.Set(x, y, z, 1);
+							}
+							else
+							{
+								chunk_data.Set(x, y, z, 4);
 							}
 							ret = true;
 							adj.OnBlockChange(x, y, z, true);

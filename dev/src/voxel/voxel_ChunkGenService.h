@@ -41,17 +41,26 @@ namespace ld3d
 					id				= message_gen_chunk;
 					chunk_empty		= false;
 					key				= _key;
+					chunk_adjacency = ChunkAdjacency(key);
+
 				}
 				ChunkKey													key;
 				ChunkData													chunk_data;
 				ChunkAdjacency												chunk_adjacency;
 				bool														chunk_empty;
+
+				std::function<void (const ChunkKey&, 
+					const ChunkData&,
+					const ChunkAdjacency&,
+					bool)>													on_completed;
 			};
 			struct Message_GenMesh : public Message
 			{
-				Message_GenMesh()
+				Message_GenMesh(const ChunkKey& _key)
 				{
 					id				= message_gen_mesh;
+					key				= _key;
+					mesh			= nullptr;
 				}
 
 				ChunkKey													key;
@@ -59,11 +68,12 @@ namespace ld3d
 				ChunkAdjacency												chunk_adjacency;
 				ChunkMesh*													mesh;
 
+				std::function<void(const ChunkKey&,
+					ChunkMesh*)>											on_completed;
 			};
 
 
-			typedef boost::lockfree::queue<Message*, 
-				boost::lockfree::capacity<5000>>							MessageQueue;
+			typedef boost::lockfree::queue<Message*>						MessageQueue;
 
 
 			struct worker
@@ -72,8 +82,8 @@ namespace ld3d
 				{
 					m_in				= in;
 					m_out				= out;
-					m_meshizer			= m_meshizer;
-					m_worldGen			= m_worldGen;
+					m_meshizer			= meshizer;
+					m_worldGen			= worldGen;
 
 				}
 				void operator()();
@@ -103,10 +113,18 @@ namespace ld3d
 			void															Run();
 
 
-			void															GenChunk(const ChunkKey& key);
-		private:
+			void															GenChunk(const ChunkKey& key, 
+																				const std::function<void (const ChunkKey&, 
+																					const ChunkData&,
+																					const ChunkAdjacency&,
+																					bool)>& on_completed);
 
-			void															PostMessage(Message* msg);
+			void															GenMesh(const ChunkKey& key, const ChunkData& chunk_data, const ChunkAdjacency& adj, 
+																				const std::function<void(const ChunkKey&,
+																					ChunkMesh*)>& on_complete);
+		private:
+			void															PushMessage(Message* msg);
+			
 			void															HandleMessage(Message* msg);
 		private:
 
@@ -114,9 +132,6 @@ namespace ld3d
 			MessageQueue													m_out;
 
 			boost::thread_group												m_workers;
-
-			std::list<Message*>												m_tmpList;
-
 		};
 	}
 }
