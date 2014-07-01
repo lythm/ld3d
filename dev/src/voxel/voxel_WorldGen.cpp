@@ -143,18 +143,23 @@ namespace ld3d
 		}
 		std::shared_ptr<WorldGen::HeightMap> WorldGen::GetHeightMap(const ChunkKey& key)
 		{
-			auto it = m_hms.find(key.AsUint64());
+			Coord c = key.tochunkCoord();
+			c.y = 0;
+			ChunkKey k;
+			k.FromChunkCoord(c);
+			
+			auto it = m_hms.find(k.AsUint64());
 			if(it != m_hms.end())
 			{
-				return m_hms[key.AsUint64()];
+				return m_hms[k.AsUint64()];
 			}
 
 			std::shared_ptr<HeightMap> hm = std::make_shared<HeightMap>();
-			GenHeightMap(key, *hm);
+			GenHeightMap(k, *hm);
 
-			m_hms[key.AsUint64()] = hm;
+			m_hms[k.AsUint64()] = hm;
 
-			return m_hms[key.AsUint64()];
+			return m_hms[k.AsUint64()];
 		}
 	}
 }
