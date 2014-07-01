@@ -6,9 +6,21 @@ namespace ld3d
 	{
 		class ChunkStorage
 		{
+			struct worker
+			{
+				void operator()()
+				{
+				}
+			};
 		public:
 			ChunkStorage(void);
 			virtual ~ChunkStorage(void);
+
+			bool													Initialize();
+			void													Release();
+
+		private:
+			boost::thread											m_worker;
 		};
 
 

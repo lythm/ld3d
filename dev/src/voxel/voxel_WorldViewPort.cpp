@@ -39,13 +39,13 @@ namespace ld3d
 			m_pLoader = pWorld->GetChunkLoader();
 			m_pOctreeManager = pWorld->GetOctreeManager();
 			m_pChunkManager = pWorld->GetChunkManager();
-			radius = 400;
+			radius = 64;
 			uint32 height = 128;
 			m_VP.center = center;
 			m_VP.radius = radius;
 			m_VP.height = height;
 
-			uint32 size = (radius * 2) / 16 + 2;
+			uint32 size = (radius * 2) / 16 + 10;
 			size = size * size * size;
 
 			m_pChunkCache->Initialize(m_pLoader, size);

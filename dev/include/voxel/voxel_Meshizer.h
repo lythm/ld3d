@@ -108,9 +108,7 @@ namespace ld3d
 		private:
 
 			std::map<uint8, VoxelMaterial>				m_materialMap;
-
-			std::map<uint8, VoxelTemplate>				m_templates;
-			
+	
 			VoxelFace									m_Cube[6];
 		};
 	}

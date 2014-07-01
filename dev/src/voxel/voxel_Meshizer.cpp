@@ -109,7 +109,6 @@ namespace ld3d
 		Meshizer::~Meshizer(void)
 		{
 			m_materialMap.clear();
-			m_templates.clear();
 		}
 		void Meshizer::GenerateFaceAO(const ChunkKey& key, const ChunkAdjacency& adj, VoxelFace& face)
 		{
@@ -144,12 +143,32 @@ namespace ld3d
 
 					Vector3 coord = (c + normals[i] * 2.0f);
 
+					coord.x += coord.x < 0 ? -1 : 0;
+					coord.y += coord.y < 0 ? -1 : 0;
+					coord.z += coord.z < 0 ? -1 : 0;
+
 					ao += adj.CheckBlock(int32(coord.x), int32(coord.y), (int32)coord.z) ? 1 : 0;
 				}
-				ao /= (normals.size() - 1);
+				//ao /= (normals.size() - 1);
+				if(ao == 0)
+				{
+					ao = 1;
+				}
+				else if(ao == 1)
+				{
+					ao = 0.3f;
+				}
+				else if(ao == 2)
+				{
+					ao = 0.2f;
+				}
+				else
+				{
+					ao = 0;
+				}
 
-				ao = 1 - ao + 0.3f;;
 
+				//ao = 1 - ao;
 				face.ao[ivert] = ao > 1.0f ? 1.0f : ao;
 
 
@@ -161,7 +180,7 @@ namespace ld3d
 
 			math::Vector3 vertex_offset( (float)base_coord.x, (float)base_coord.y, (float)base_coord.z);
 
-			std::vector<VoxelFace, std_allocator_adapter<VoxelFace>>			mesh(allocator());
+			std::vector<VoxelFace>			mesh;
 			mesh.reserve(10000);
 
 			uint32 lod = 0;
@@ -199,6 +218,7 @@ namespace ld3d
 						std::map<uint8, VoxelMaterial>::iterator it = m_materialMap.find(type);
 						if(it == m_materialMap.end())
 						{
+							assert(0);
 							// no material
 							continue;
 						}

@@ -1,6 +1,5 @@
 #pragma once
 
-#include "voxel_ChunkLoaderWorker.h"
 #include "voxel_ChunkGenService.h"
 
 namespace ld3d
@@ -34,11 +33,6 @@ namespace ld3d
 		private:
 			void													_on_mesh_gen_complete(const ChunkKey& key, ChunkMesh* mesh);
 			void													_on_chunk_gen_complete(const ChunkKey& key, const ChunkData& data, const ChunkAdjacency& adj, bool is_empty);
-			void													PushTaskUntilSuccess(ChunkLoaderWorker::Command& t);
-			void													_handle_load_chunk_ret(ChunkLoaderWorker::Command& t);
-			void													_handle_gen_mesh(ChunkLoaderWorker::Command& t);
-
-			void													_gen_chunk(const ChunkKey& key, uint8* chunk_data, ChunkAdjacency& adj);
 
 			void													UpdateChunkAdjacency(const ChunkKey& key);
 		private:
@@ -46,10 +40,7 @@ namespace ld3d
 			OctreeManagerPtr										m_pOctreeManager;
 			MeshizerPtr												m_pMeshizer;
 
-			ChunkLoaderWorker										m_worker;
-
 			int32													m_pendingCount;
-
 			ChunkGenService											m_service;
 		};
 	}

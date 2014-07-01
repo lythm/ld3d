@@ -73,7 +73,7 @@ namespace ld3d
 			};
 
 
-			typedef boost::lockfree::queue<Message*>						MessageQueue;
+			typedef boost::lockfree::queue<Message*, boost::lockfree::capacity<65535>>						MessageQueue;
 
 
 			struct worker

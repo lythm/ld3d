@@ -35,7 +35,10 @@ namespace ld3d
 
 						m_meshizer.GenerateMesh(gen_mesh->key, gen_mesh->chunk_data, gen_mesh->chunk_adjacency, chunk_mesh_base, gen_mesh->mesh);
 
-						m_out->push(gen_mesh);
+						while(false == m_out->push(gen_mesh))
+						{
+							boost::this_thread::sleep_for(boost::chrono::milliseconds(1));
+						}
 					}
 					break;
 
@@ -44,8 +47,10 @@ namespace ld3d
 						Message_GenChunk* gen_chunk = (Message_GenChunk*)msg;
 						gen_chunk->chunk_empty = !m_worldGen.GenChunk(gen_chunk->key, gen_chunk->chunk_data, gen_chunk->chunk_adjacency);
 
-						m_out->push(gen_chunk);
-
+						while(false == m_out->push(gen_chunk))
+						{
+							boost::this_thread::sleep_for(boost::chrono::milliseconds(1));
+						}
 					}
 					break;
 				default:
@@ -54,7 +59,7 @@ namespace ld3d
 			}
 		}
 		
-		ChunkGenService::ChunkGenService(void) : m_in(10000), m_out(10000)
+		ChunkGenService::ChunkGenService(void)// : m_in(65535), m_out(65535)
 		{
 		}
 		

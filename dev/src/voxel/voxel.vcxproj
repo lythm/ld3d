@@ -164,7 +164,6 @@
     <ClInclude Include="voxel_ChunkCache.h" />
     <ClInclude Include="voxel_ChunkGenService.h" />
     <ClInclude Include="voxel_ChunkLoader.h" />
-    <ClInclude Include="voxel_ChunkLoaderWorker.h" />
     <ClInclude Include="voxel_ChunkStorage.h" />
     <ClInclude Include="voxel_Octree.h" />
     <ClInclude Include="voxel_ChunkManager.h" />
@@ -178,7 +177,6 @@
     <ClCompile Include="voxel_ChunkCache.cpp" />
     <ClCompile Include="voxel_ChunkGenService.cpp" />
     <ClCompile Include="voxel_ChunkLoader.cpp" />
-    <ClCompile Include="voxel_ChunkLoaderWorker.cpp" />
     <ClCompile Include="voxel_ChunkStorage.cpp" />
     <ClCompile Include="voxel_Octree.cpp" />
     <ClCompile Include="voxel_Meshizer.cpp" />
