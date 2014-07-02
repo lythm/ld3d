@@ -13,6 +13,7 @@ namespace ld3d
 		OctreeManager::OctreeManager(void)
 		{
 			m_faceCount = 0;
+			m_chunkCount = 0;
 		}
 
 
@@ -57,7 +58,7 @@ namespace ld3d
 
 				m_octrees.push_back(pRoot);
 			}
-			
+			m_chunkCount++;
 			pRoot->AddChunk(pChunk);
 
 		}
@@ -84,6 +85,7 @@ namespace ld3d
 				return;
 			}
 			
+			--m_chunkCount;
 			pRoot->RemoveChunk(pChunk);
 
 			if(pRoot->GetChunkCount() == 0)
@@ -169,6 +171,10 @@ namespace ld3d
 		uint32 OctreeManager::GetOctreeCount()
 		{
 			return m_octrees.size();
+		}
+		int32 OctreeManager::GetChunkCount() const
+		{
+			return m_chunkCount;
 		}
 	}
 }

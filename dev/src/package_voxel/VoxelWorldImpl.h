@@ -35,6 +35,7 @@ namespace ld3d
 		const std::vector<MaterialPtr>&				GetMaterials();
 
 		int32										GetFaceCount();
+		int32										GetNonEmptyChunkCount();
 	private:
 
 		void										ResetComponents(voxel::WorldPtr pWorld);

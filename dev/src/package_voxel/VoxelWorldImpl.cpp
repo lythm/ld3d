@@ -261,6 +261,15 @@ namespace ld3d
 
 		return m_pWorld->GetChunkCount();
 	}
+	int32 VoxelWorldImpl::GetNonEmptyChunkCount()
+	{
+		if(m_pWorld == nullptr)
+		{
+			return 0;
+		}
+
+		return m_pWorld->GetNonEmptyChunk();
+	}
 	const std::vector<MaterialPtr>& VoxelWorldImpl::GetMaterials()
 	{
 		return m_materials;

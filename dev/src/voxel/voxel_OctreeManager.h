@@ -21,6 +21,7 @@ namespace ld3d
 
 			int32											GetFaceCount();
 			uint32											GetOctreeCount();
+			int32											GetChunkCount() const;
 		private:
 
 			OctreePtr										FindOctree(const Coord& region_origin);
@@ -29,7 +30,7 @@ namespace ld3d
 			std::list<OctreePtr>							m_octrees;
 
 			int32											m_faceCount;
-
+			int32											m_chunkCount;
 		};
 
 

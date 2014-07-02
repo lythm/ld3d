@@ -139,14 +139,15 @@ namespace ld3d
 			s.precision(3);
 			s.setf( std::ios::fixed, std:: ios::floatfield );
 			s << "<font style=\"color:#ff9999;\">[camera] " << 
-				"pos: " << pos.x << "," << pos.y << "," << pos.z <<
-				"dir: " << axis_z.x << "," << axis_z.y << "," << axis_z.z <<"</font><br>";
+				" pos: " << pos.x << "," << pos.y << "," << pos.z <<
+				" dir: " << axis_z.x << "," << axis_z.y << "," << axis_z.z <<"</font><br>";
 
 
 			VoxelWorldPtr pWorld = std::dynamic_pointer_cast<VoxelWorld>(m_pWorld->GetComponent("VoxelWorld"));
 			VoxelWorldRendererPtr pRenderer = std::dynamic_pointer_cast<VoxelWorldRenderer>(m_pWorld->GetComponent("VoxelWorldRenderer"));
 			s << "[chunk loader] pending chunk: " << pWorld->GetLoadingQueueSize() 
 				<< " chunks: " << pWorld->GetChunkCount()
+				<< " NE-chunks: " << pWorld->GetNonEmptyChunkCount()
 				<< " faces: " << pWorld->GetFaceCount()
 				<< "<br>";
 			s << "[world renderer] "<< " faces: " << pRenderer->GetRenderedFaceCount()

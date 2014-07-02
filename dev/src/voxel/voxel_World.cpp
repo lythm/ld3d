@@ -179,7 +179,10 @@ namespace ld3d
 		{
 			return m_pChunkManager->GetChunkCount();
 		}
-		
+		int32 World::GetNonEmptyChunk() const
+		{
+			return m_pOctreeManager->GetChunkCount();
+		}
 		ChunkLoaderPtr	World::GetChunkLoader()
 		{
 			return m_pChunkLoader;
