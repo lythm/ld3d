@@ -56,25 +56,25 @@ namespace ld3d
 			pCore->AddEventHandler(EV_RESIZE_FRAMEBUFFER, boost::bind(&VoxelEditor::_on_resize, this, _1));
 
 
-			m_pGrid = pCore->CreateGameObject("Grid");
+			/*m_pGrid = pCore->CreateGameObject("Grid");
 
 			GridRendererPtr pGridRenderer = std::dynamic_pointer_cast<GridRenderer>(pCore->CreateGameObjectComponent("GridRenderer"));
 
 			pGridRenderer->SetSize(2048);
 			pGridRenderer->SetGridSize(16);
 
-			m_pGrid->AddComponent(pGridRenderer);
+			m_pGrid->AddComponent(pGridRenderer);*/
 
 			m_pCamera= pCore->CreateGameObject("Camera");
 
 			CameraDataPtr pMD = std::dynamic_pointer_cast<CameraData>(pCore->CreateGameObjectComponent("Camera"));
 			m_pCamera->AddComponent(pMD);
-			pMD->SetFarPlane(500);
+			pMD->SetFarPlane(1024);
 			GameObjectComponentPtr pSkyBox = pCore->CreateGameObjectComponent("SkyBox");
 			m_pCamera->AddComponent(pSkyBox);
 
 			CameraController_FreePtr pController = std::dynamic_pointer_cast<CameraController_Free>(pCore->CreateGameObjectComponent("CameraFreeController"));
-			pController->SetSpeed(50);
+			pController->SetSpeed(10);
 			//	pController->Enable(false);
 			m_pCamera->AddComponent(pController);
 
@@ -83,8 +83,11 @@ namespace ld3d
 
 			GameObjectPtr pLight = m_pCore->CreatGameObjectFromTemplate("SkyLight", "light");
 
-			pLight->SetTranslation(-20, 60, 30);
+			pLight->SetTranslation(-100, 100, 100);
 			pLight->LookAt(math::Vector3(0, 0, 0));
+
+			Light_SkyPtr pSkyLight = std::dynamic_pointer_cast<Light_Sky>(pLight->GetComponent("SkyLight"));
+		//	pSkyLight->EnableShadow(true);
 
 
 			m_pWorld = m_pCore->CreatGameObjectFromTemplate("VoxelWorld", "world001");
@@ -97,7 +100,7 @@ namespace ld3d
 			AABBoxRendererPtr pRenderer = std::dynamic_pointer_cast<AABBoxRenderer>(pCore->CreateGameObjectComponent("AABBoxRenderer"));
 			pObj->AddComponent(pRenderer);
 
-			pRenderer->SetAABBox(math::AABBox(math::Vector3(-10, -10, -10), math::Vector3(10, 10, 10)));
+			pRenderer->SetAABBox(math::AABBox(math::Vector3(0, 0, 0), math::Vector3(16, 1.5, 2)));
 
 			m_debugInfo = m_pCore->GetDebugPanel()->AddLine();
 

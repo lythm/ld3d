@@ -77,7 +77,7 @@ namespace ld3d
 		bool ChunkGenService::Initialize(const Meshizer& meshizer, const WorldGen& worldGen)
 		{
 			
-			int num_thread = 4;
+			int num_thread = 2;
 			for(int i = 0; i < num_thread; ++i)
 			{
 				m_workers.create_thread(worker(&m_in, &m_out, meshizer, worldGen));

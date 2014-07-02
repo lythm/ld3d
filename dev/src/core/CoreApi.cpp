@@ -112,8 +112,6 @@ namespace ld3d
 	}
 	void CoreApi::RenderFrame()
 	{
-		m_pUIManager->PrepareForRendering();
-
 		Render();
 		ClearRenderQueue();
 		Present();

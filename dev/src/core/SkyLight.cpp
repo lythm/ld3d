@@ -107,7 +107,7 @@ namespace ld3d
 		{
 			return false;
 		}
-		m_pShadowMap = m_pRenderManager->CreateRenderTexture(1, w, h, &format, 0);
+		m_pShadowMap = m_pRenderManager->CreateRenderTexture(1, w, h, &format, 1);
 		if(m_pShadowMap == nullptr)
 		{
 			return false;
@@ -125,7 +125,7 @@ namespace ld3d
 			return;
 		}
 
-		math::Matrix44 proj = math::MatrixOrthoLH(100, 100, 0.1f, 1000);
+		math::Matrix44 proj = math::MatrixOrthoLH(100, 100, 0.1f, 20000);
 		
 		math::Matrix44 view = m_worldTM;
 		view.Invert();

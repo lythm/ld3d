@@ -29,7 +29,10 @@ namespace ld3d
 	{
 		return m_pLight;
 	}
-	
+	void Impl_Light_Sky::EnableShadow(bool enable)
+	{
+		m_pLight->SetCastShadow(enable);
+	}
 	bool Impl_Light_Sky::OnAttach()
 	{
 		m_pRenderManager = m_pManager->GetRenderManager();
@@ -40,10 +43,6 @@ namespace ld3d
 			m_pLight.reset();
 			return false;
 		}
-	
-
-
-
 		m_pRenderManager->AddLight(m_pLight);
 
 		RegisterProperty<bool, SkyLight>(m_pLight.get(), 

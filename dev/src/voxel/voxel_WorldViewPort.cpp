@@ -39,7 +39,7 @@ namespace ld3d
 			m_pLoader = pWorld->GetChunkLoader();
 			m_pOctreeManager = pWorld->GetOctreeManager();
 			m_pChunkManager = pWorld->GetChunkManager();
-			radius = 400;
+			radius = 256;
 			uint32 height = 128;
 			//m_VP.center = center;
 			//m_VP.radius = radius;
@@ -60,7 +60,7 @@ namespace ld3d
 				m_pChunkCache->AddChunk(key);
 			})*/;
 
-			Bound bound(center - Coord(radius, radius, radius), center + Coord(radius, radius, radius));;
+			Bound bound(center - Coord(radius, 32, radius), center + Coord(radius, 128, radius));;
 
 			m_VP = bound;
 

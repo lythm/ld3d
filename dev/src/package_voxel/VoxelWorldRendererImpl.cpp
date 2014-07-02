@@ -193,7 +193,7 @@ namespace ld3d
 
 		m_pManager->GetRenderManager()->AddRenderData(layer_deferred, m_pRenderData);
 
-		m_pManager->GetRenderManager()->AddRenderData(layer_forward, m_pAABBoxRenderData->GetRenderData());
+	//	m_pManager->GetRenderManager()->AddRenderData(layer_forward, m_pAABBoxRenderData->GetRenderData());
 
 	}
 	void VoxelWorldRendererImpl::_add_mesh(const voxel::Coord& base, voxel::ChunkMeshPtr pMesh)

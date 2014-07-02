@@ -8,6 +8,7 @@
 #include "core/TextureOverlay.h"
 #include "core/HtmlOverlay.h"
 #include "CEFManager.h"
+#include "core/Event.h"
 
 namespace ld3d
 {
@@ -32,10 +33,13 @@ namespace ld3d
 		{
 			return false;
 		}
+
+		m_ehFrustumCull = pCore->AddEventHandler(EV_FRUSTUM_CULL, std::bind(&UIManager::_on_frustum_cull, this, std::placeholders::_1));
 		return true;
 	}
 	void UIManager::Release()
 	{
+		m_pCore->RemoveEventHandler(m_ehFrustumCull);
 		
 		_release_and_reset(m_pOverlayRoot);
 
@@ -146,5 +150,9 @@ namespace ld3d
 	OverlayPtr UIManager::PickOverlay()
 	{
 		return OverlayPtr();
+	}
+	void UIManager::_on_frustum_cull(EventPtr pEvent)
+	{
+		PrepareForRendering();
 	}
 }

@@ -9,7 +9,7 @@ namespace ld3d
 		virtual ~Light_Sky(void){}
 
 		virtual SkyLightPtr									GetLight()						= 0;
-
+		virtual void										EnableShadow(bool enable)		= 0;
 	};
 
 

@@ -17,6 +17,7 @@ namespace ld3d
 		bool										OnSerialize(DataStream* pStream);
 		bool										OnUnSerialize(DataStream* pStream, const Version& version );
 
+		void										EnableShadow(bool enable);
 	private:
 		bool										OnAttach();
 		void										OnDetach();

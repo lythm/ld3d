@@ -20,7 +20,7 @@ namespace ld3d
 
 		void											AddOverlay(OverlayPtr pLayer);
 
-		void											PrepareForRendering();
+		
 
 		OverlayPtr										CreateOverlay(const std::string& name, const math::RectI& rect);
 		TextureOverlayPtr								CreateTextureOverlay(const std::string& name, const math::RectI& rect, TexturePtr pTex);
@@ -28,8 +28,9 @@ namespace ld3d
 
 		OverlayPtr										PickOverlay();
 	private:
+		void											PrepareForRendering();
 		void											_traverse_tree_preorder(OverlayPtr pRoot, std::function<bool(OverlayPtr)> handler);
-	
+		void											_on_frustum_cull(EventPtr pEvent);
 	private:
 		CoreApiPtr										m_pCore;
 		RenderManagerPtr								m_pRenderManager;
@@ -38,5 +39,7 @@ namespace ld3d
 		cef::CEFManagerPtr								m_pCEFManager;
 
 		OverlayPtr										m_pFocusOverlay;
+
+		EventHandlerID									m_ehFrustumCull;
 	};
 }

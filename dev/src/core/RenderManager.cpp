@@ -299,7 +299,7 @@ namespace ld3d
 		SetViewMatrix(view);
 		SetProjMatrix(proj);
 
-		for(uint32 iLayer = layer_deferred; iLayer < layer_overlay; ++iLayer)
+		for(uint32 iLayer = layer_deferred; iLayer < layer_forward; ++iLayer)
 		{
 			for(uint32 i = 0; i < m_pRenderQueue->GetRenderDataCount(iLayer); ++i)
 			{
@@ -401,7 +401,7 @@ namespace ld3d
 	//	ClearRenderTarget(0, GetClearColor());
 	//	ClearDepthBuffer(CLEAR_DEPTH, 1.0f, 0);
 		
-//		RenderTexturePtr pTex = m_pLightManager->GetNextLight(LightPtr())->GetShadowMap();
+	//	RenderTexturePtr pTex = m_pLightManager->GetNextLight(LightPtr())->GetShadowMap();
 
 		//Draw_Texture(pTex->GetTexture(0));
 

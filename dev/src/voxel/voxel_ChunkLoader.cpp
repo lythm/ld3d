@@ -145,6 +145,12 @@ namespace ld3d
 		{
 			m_pChunkManager->PickChunk(bound, [&](const ChunkKey& key)
 			{
+				Coord c = key.ToChunkOrigin();
+				if((c.y + (int32)CHUNK_SIZE) < -16 || (c.y > 128))
+				{
+					return;
+				}
+
 				if(pre_loaded(key) == true)
 				{
 					RequestChunkAsync(key, false, nullptr);

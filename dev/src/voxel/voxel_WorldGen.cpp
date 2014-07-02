@@ -72,7 +72,7 @@ namespace ld3d
 						//////// 
 
 
-						if((y + chunk_origin.y) > b)
+						if((y + chunk_origin.y) > b || (y + chunk_origin.y) < -32)
 						{
 							continue;
 						}
@@ -129,7 +129,7 @@ namespace ld3d
 
 					double b = m_noiseBase.perlin_noise_2D(vec);
 
-					b *= 100;
+					b *= 128;
 
 					if(b > max_height)
 					{
