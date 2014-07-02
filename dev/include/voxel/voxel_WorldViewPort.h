@@ -2,6 +2,7 @@
 
 #include "voxel/voxel_Coord.h"
 #include "voxel/voxel_ChunkKey.h"
+#include "voxel/voxel_Bound.h"
 
 namespace ld3d
 {
@@ -58,12 +59,13 @@ namespace ld3d
 			ChunkManagerPtr												m_pChunkManager;
 			std::function<void (const Coord&, ChunkPtr)>				handler_dirty_chunk;
 
-			VPCylinder													m_VP;
-			VPCylinder													m_lastVP;
+			Bound														m_VP;
+			Bound														m_lastVP;
 
 
 			std::shared_ptr<ChunkCache>									m_pChunkCache;
 
+											
 		};
 	}
 }

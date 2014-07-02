@@ -132,6 +132,8 @@ namespace ld3d
 			MessageQueue													m_out;
 
 			boost::thread_group												m_workers;
+
+			std::list<Message*, std_allocator_adapter<Message*>>			m_messageBuffer;
 		};
 	}
 }

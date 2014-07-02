@@ -78,6 +78,10 @@ namespace ld3d
 
 			return true;
 		}
-		
+		bool ChunkCache::InCache(const ChunkKey& key)
+		{
+			auto find = m_chunkMap.find(key.AsUint64());
+			return find != m_chunkMap.end();
+		}
 	}
 }

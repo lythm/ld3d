@@ -99,16 +99,6 @@ namespace ld3d
 					on_loaded(key);
 				}
 
-				if(gen_mesh)
-				{
-					if(pChunk->GetMesh() == nullptr || pChunk->GetMesh()->GetSubsetCount() == 0)
-					{
-						if(pChunk->GetAdjacency().IsComplete())
-						{
-							RequestMeshAsync(pChunk);
-						}
-					}
-				}
 				return true;
 			}
 
@@ -150,6 +140,27 @@ namespace ld3d
 		uint32 ChunkLoader::GetPendingCount() const
 		{
 			return m_pendingCount;
+		}
+		bool ChunkLoader::RequestChunk(const Bound& bound, const std::function<bool(const ChunkKey&)>& pre_loaded)
+		{
+			m_pChunkManager->PickChunk(bound, [&](const ChunkKey& key)
+			{
+				if(pre_loaded(key) == true)
+				{
+					RequestChunkAsync(key, false, nullptr);
+				}
+			});
+
+			return true;
+		}
+		bool ChunkLoader::RequestChunkSubtract(const Bound& bound, const Bound& refer_bound, const ChunkLoadedHandler& on_loaded)
+		{
+			m_pChunkManager->PickChunkSubtract(bound, refer_bound, [&](const ChunkKey& key)
+			{
+				RequestChunkAsync(key, false, on_loaded);
+			});
+
+			return true;
 		}
 		bool ChunkLoader::RequestChunkAsync(const Coord& center, uint32 radius, bool gen_mesh, const ChunkLoadedHandler& on_loaded)
 		{

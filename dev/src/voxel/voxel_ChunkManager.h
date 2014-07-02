@@ -3,6 +3,7 @@
 #include "voxel/voxel_Coord.h"
 #include "voxel/voxel_ChunkKey.h"
 #include "voxel/voxel_ChunkData.h"
+#include "voxel/voxel_Bound.h"
 
 
 namespace ld3d
@@ -44,6 +45,10 @@ namespace ld3d
 
 			uint32											GetChunkCount() const;
 
+			// pick chunks inside bound, y volome in spiral order on xz plane
+			void											PickChunk(const Bound& bound, const std::function<void(const ChunkKey&)>& op);
+			void											PickChunkSubtract(const Bound& bound, const Bound& refer_bound, const std::function<void(const ChunkKey&)>& op);
+
 
 			void											PickChunk(const Coord& center, uint32 radius, uint32 height, const std::function<void(const ChunkKey&)>& op);
 			void											PickChunk(const Coord& center, uint32 radius, const std::function<void(const ChunkKey&)>& op);
@@ -62,6 +67,7 @@ namespace ld3d
 			void											PickChunkDiffSetSlice(int32 sy, const Coord& center, uint32 radius, const Coord& refer_center, uint32 refer_radius, const std::function<void(const ChunkKey&)>& op);
 			void											PickChunkDiffSetSliceCylinder(int32 sy, const Coord& center, uint32 radius, uint32 height, const Coord& refer_center, uint32 refer_radius, uint32 refer_height, const std::function<void(const ChunkKey&)>& op);
 		
+			void											Spiral(uint32 w, uint32 h, const std::function<void(int32, int32)>& op);
 		private:
 
 			typedef 

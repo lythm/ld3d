@@ -9,6 +9,9 @@ namespace ld3d
 	{
 		void ChunkGenService::worker::operator()()
 		{
+			
+
+
 			Message* msg = nullptr;
 			while(true)
 			{
@@ -20,7 +23,12 @@ namespace ld3d
 				switch(msg->id)
 				{
 				case Message::message_exit:
-
+					{
+						while(false == m_out->push(msg))
+						{
+							boost::this_thread::sleep_for(boost::chrono::milliseconds(1));
+						}
+					}
 					// do not free msg, allocator is not thread safe
 					return;
 				case Message::message_gen_mesh:
@@ -59,7 +67,7 @@ namespace ld3d
 			}
 		}
 		
-		ChunkGenService::ChunkGenService(void)// : m_in(65535), m_out(65535)
+		ChunkGenService::ChunkGenService(void) : m_messageBuffer(allocator())// : m_in(65535), m_out(65535)
 		{
 		}
 		
@@ -69,7 +77,7 @@ namespace ld3d
 		bool ChunkGenService::Initialize(const Meshizer& meshizer, const WorldGen& worldGen)
 		{
 			
-			int num_thread = 2;
+			int num_thread = 4;
 			for(int i = 0; i < num_thread; ++i)
 			{
 				m_workers.create_thread(worker(&m_in, &m_out, meshizer, worldGen));
@@ -78,12 +86,52 @@ namespace ld3d
 		}
 		void ChunkGenService::Release()
 		{
+			int response = 0;
+
 			for(int i =0; i < m_workers.size(); ++i)
 			{
 				Message_Exit *m = alloc_object_rawptr<Message_Exit>(allocator());
 
-				PushMessage(m);
+				//PushMessage(m);
+
+				while(m_in.push(m) == false)
+				{
+					Message* ret = nullptr;
+					
+					while(m_out.pop(ret))
+					{
+						if(ret->id == Message::message_exit)
+						{
+							++response;
+						}
+
+						free_object<Message>(allocator(), ret);
+					}
+
+					boost::this_thread::sleep_for(boost::chrono::milliseconds(1));
+				}
 			}
+
+			Message* ret = nullptr;
+
+			while(true)
+			{
+				if(response == m_workers.size())
+				{
+					break;
+				}
+				if(false == m_out.pop(ret))
+				{
+					boost::this_thread::sleep_for(boost::chrono::milliseconds(1));
+					continue;
+				}
+				if(ret->id == Message::message_exit)
+				{
+					++response;
+				}
+				free_object<Message>(allocator(), ret);
+			}
+
 			m_workers.join_all();
 		}
 		void ChunkGenService::HandleMessage(Message* msg)
@@ -123,6 +171,19 @@ namespace ld3d
 		
 		void ChunkGenService::Run()
 		{
+
+			while(m_messageBuffer.size() != 0)
+			{
+				Message* front = m_messageBuffer.front();
+
+				if(false == m_in.push(front))
+				{
+					break;
+				}
+
+				m_messageBuffer.pop_front();
+			}
+
 			Message* msg = nullptr;
 
 			while(m_out.pop(msg) == true)
@@ -147,9 +208,18 @@ namespace ld3d
 		}
 		void ChunkGenService::PushMessage(Message* msg)
 		{
-			if(false == m_in.push(msg))
+			m_messageBuffer.push_back(msg);
+
+			while(m_messageBuffer.size() != 0)
 			{
-				logger() << "[ChunkGenService]: failed to post message.\n";
+				Message* front = m_messageBuffer.front();
+
+				if(false == m_in.push(front))
+				{
+					return;
+				}
+
+				m_messageBuffer.pop_front();
 			}
 		}
 	}

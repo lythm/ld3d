@@ -1,7 +1,7 @@
 #pragma once
 
 #include "voxel_ChunkGenService.h"
-
+#include "voxel/voxel_Bound.h"
 namespace ld3d
 {
 	namespace voxel
@@ -20,6 +20,9 @@ namespace ld3d
 			void													Update();
 
 			uint32													GetPendingCount() const;
+
+			bool													RequestChunk(const Bound& bound, const std::function<bool(const ChunkKey&)>& pre_load);
+			bool													RequestChunkSubtract(const Bound& bound, const Bound& refer_bound, const ChunkLoadedHandler& on_loaded);
 
 			bool													RequestChunkDiffSetAsync(const Coord& center, uint32 radius, uint32 height, const Coord& refer_center, uint32 refer_radius, uint32 refer_height, bool gen_mesh, const ChunkLoadedHandler& on_loaded);
 			bool													RequestChunkDiffSetAsync(const Coord& center, uint32 radius, const Coord& refer_center, uint32 refer_radius, bool gen_mesh, const ChunkLoadedHandler& on_loaded);

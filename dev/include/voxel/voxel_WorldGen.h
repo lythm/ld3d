@@ -14,7 +14,6 @@ namespace ld3d
 
 			struct HeightMap
 			{
-				ChunkKey										chunk_key;
 				double											max_height;
 				float											data[CHUNK_SIZE * CHUNK_SIZE];
 			};
@@ -25,14 +24,16 @@ namespace ld3d
 			bool												GenChunk(const ChunkKey& key, ChunkData& chunk_data, ChunkAdjacency& adj);
 			
 		private:
-			std::shared_ptr<HeightMap>							GetHeightMap(const ChunkKey& key);
+			HeightMap*											GetHeightMap(const ChunkKey& key);
 			void												GenHeightMap(const ChunkKey& key, HeightMap& hm);
+
+			
+
 		private:
 			PerlinNoise											m_noise;
 			PerlinNoise											m_noiseBase;
 
-			std::unordered_map<uint64, 
-				std::shared_ptr<HeightMap>>						m_hms;
+			std::unordered_map<uint64, HeightMap>				m_hms;
 		};
 	}
 }

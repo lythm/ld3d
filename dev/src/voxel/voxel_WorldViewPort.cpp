@@ -17,8 +17,8 @@ namespace ld3d
 	{
 		WorldViewport::WorldViewport()
 		{
-			m_VP.radius = 32;
-			m_lastVP.radius = 32;
+		//	m_VP.radius = 32;
+		//	m_lastVP.radius = 32;
 
 			m_pChunkCache = alloc_object<ChunkCache>(allocator(), nullptr);
 		}
@@ -30,7 +30,7 @@ namespace ld3d
 		
 		void WorldViewport::MoveTo(const Coord& c)
 		{
-			m_VP.center = c;
+			m_VP.MoveTo(c);
 		}
 		
 		bool WorldViewport::Open(WorldPtr pWorld, const Coord& center, uint32 radius)
@@ -39,24 +39,41 @@ namespace ld3d
 			m_pLoader = pWorld->GetChunkLoader();
 			m_pOctreeManager = pWorld->GetOctreeManager();
 			m_pChunkManager = pWorld->GetChunkManager();
-			radius = 64;
+			radius = 400;
 			uint32 height = 128;
-			m_VP.center = center;
-			m_VP.radius = radius;
-			m_VP.height = height;
+			//m_VP.center = center;
+			//m_VP.radius = radius;
+			//m_VP.height = height;
 
 			uint32 size = (radius * 2) / 16 + 10;
 			size = size * size * size;
+
+			size *= 8;
+
 
 			m_pChunkCache->Initialize(m_pLoader, size);
 
 			m_pWorld->AddDirtyChunkHandler(std::bind(&WorldViewport::_on_dirty_chunk, this, std::placeholders::_1));
 			
-			m_pLoader->RequestChunkAsync(m_VP.center, m_VP.radius, false, [&](const ChunkKey& key)
+			/*m_pLoader->RequestChunkAsync(m_VP.center, m_VP.radius, false, [&](const ChunkKey& key)
 			{
 				m_pChunkCache->AddChunk(key);
-			});
+			})*/;
 
+			Bound bound(center - Coord(radius, radius, radius), center + Coord(radius, radius, radius));;
+
+			m_VP = bound;
+
+			m_pLoader->RequestChunk(m_VP, [&](const ChunkKey& key)
+			{
+				if(m_pChunkCache->InCache(key))
+				{
+					return false;
+				}
+				m_pChunkCache->AddChunk(key);
+
+				return true;
+			});
 
 			/*VPSphere tmp = m_VP;
 
@@ -120,37 +137,52 @@ namespace ld3d
 
 		const Coord& WorldViewport::GetCenterCoord() const
 		{
-			return m_VP.center;
+			return m_VP.GetCenter();
 		}
 				
 		void WorldViewport::UpdateVP()
 		{
-			//return;
+		//	return;
 
-			Coord dc = m_VP.center - m_lastVP.center;
+			Coord dc = m_VP.GetCenter() - m_lastVP.GetCenter();
 
-			if(abs(dc.x) < CHUNK_SIZE && abs(dc.y) < CHUNK_SIZE && abs(dc.z) < CHUNK_SIZE  && m_VP.radius == m_lastVP.radius && m_VP.height	== m_lastVP.height)
+			if(abs(dc.x) < CHUNK_SIZE && abs(dc.y) < CHUNK_SIZE && abs(dc.z) < CHUNK_SIZE)
 			{
 				return;
 			}
-			m_pLoader->RequestChunkDiffSetAsync(m_VP.center, m_VP.radius, m_lastVP.center, m_lastVP.radius, false, [&](const ChunkKey& key)
+
+			m_pLoader->RequestChunk(m_VP, [&](const ChunkKey& key)
+			{
+				if(m_pChunkCache->InCache(key))
+				{
+					return false;
+				}
+				m_pChunkCache->AddChunk(key);
+
+				return true;
+			});
+
+			/*m_pLoader->RequestChunkSubtract(m_VP, m_lastVP, [&](const ChunkKey& key)
 			{
 				m_pChunkCache->AddChunk(key);
-			});
+			});*/
+
+			/*m_pLoader->RequestChunkDiffSetAsync(m_VP.center, m_VP.radius, m_lastVP.center, m_lastVP.radius, false, [&](const ChunkKey& key)
+			{
+				m_pChunkCache->AddChunk(key);
+			});*/
 
 			/*m_pLoader->RequestChunkDiffSetAsync(m_VP.center, m_VP.radius, m_VP.height, m_lastVP.center, m_lastVP.radius, m_lastVP.height, false, [&](const ChunkKey& key)
 			{
 				m_pChunkCache->AddChunk(key);
 			});*/
 
-			m_lastVP.center = m_VP.center;
-			m_lastVP.radius = m_VP.radius;
-			m_lastVP.height = m_VP.height;
+			m_lastVP = m_VP;
 
 		}
 		void WorldViewport::SetRadius(uint32 radius)
 		{
-			m_VP.radius = radius;
+			//m_VP.radius = radius;
 		}
 
 		void WorldViewport::RefreshMesh()

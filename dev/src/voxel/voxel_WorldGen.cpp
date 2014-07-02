@@ -8,17 +8,18 @@ namespace ld3d
 
 		WorldGen::WorldGen(void)
 		{
-			m_noise.set_up(1, 20, 1, (int)os_get_tick());
-			m_noiseBase.set_up(1, 5, 1, (int)os_get_tick());
+			m_noise.set_up(1, 50, 1, (int)os_get_tick());
+			m_noiseBase.set_up(1, 3, 1, (int)os_get_tick());
 		}
-
+		
 		WorldGen::~WorldGen(void)
 		{
+			m_hms.clear();
 		}
 
 		bool WorldGen::GenChunk(const ChunkKey& key, ChunkData& chunk_data, ChunkAdjacency& adj)
 		{
-			std::shared_ptr<HeightMap> pHM = GetHeightMap(key);
+			HeightMap* pHM = GetHeightMap(key);
 
 			chunk_data.Fill(0);
 
@@ -138,12 +139,11 @@ namespace ld3d
 				}
 			}
 
-			hm.chunk_key = key;
 			hm.max_height = max_height;
 		}
-		std::shared_ptr<WorldGen::HeightMap> WorldGen::GetHeightMap(const ChunkKey& key)
+		WorldGen::HeightMap* WorldGen::GetHeightMap(const ChunkKey& key)
 		{
-			Coord c = key.tochunkCoord();
+			Coord c = key.ToChunkCoord();
 			c.y = 0;
 			ChunkKey k;
 			k.FromChunkCoord(c);
@@ -151,15 +151,13 @@ namespace ld3d
 			auto it = m_hms.find(k.AsUint64());
 			if(it != m_hms.end())
 			{
-				return m_hms[k.AsUint64()];
+				return &m_hms[k.AsUint64()];
 			}
+		
+			GenHeightMap(k, m_hms[k.AsUint64()]);
 
-			std::shared_ptr<HeightMap> hm = std::make_shared<HeightMap>();
-			GenHeightMap(k, *hm);
-
-			m_hms[k.AsUint64()] = hm;
-
-			return m_hms[k.AsUint64()];
+			return &m_hms[k.AsUint64()];
 		}
+		
 	}
 }

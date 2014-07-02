@@ -13,7 +13,7 @@ namespace ld3d
 		{
 
 		}
-		
+
 		ChunkManager::~ChunkManager(void)
 		{
 		}
@@ -31,10 +31,10 @@ namespace ld3d
 			{
 				return false;
 			}
-			
+
 			pChunk = CreateChunk(key, ChunkData());
 			AddChunk(pChunk);
-			
+
 			if(pChunk->IsDirty() == false)
 			{
 				m_dirtyList.push_back(pChunk);
@@ -63,7 +63,7 @@ namespace ld3d
 			{
 				m_dirtyList.push_back(pChunk);
 			}
-		
+
 			return true;
 		}
 		bool ChunkManager::AddChunk(ChunkPtr pChunk)
@@ -71,7 +71,7 @@ namespace ld3d
 			uint64 key = pChunk->GetKey().AsUint64();
 
 			AddChunk(key, pChunk);
-			
+
 			return true;
 		}
 
@@ -108,7 +108,7 @@ namespace ld3d
 
 			return it == m_chunkmap.end() ? nullptr : it->second;
 		}
-		
+
 		void ChunkManager::UpdateBlock(const Coord& c)
 		{
 			bool loaded = false;
@@ -199,7 +199,7 @@ namespace ld3d
 				PickChunkSlice(y, VoxelUtils::ToChunkOrigin(center), radius, op);
 			}
 		}
-		
+
 		void ChunkManager::PickChunkSliceCylinder(int32 sy, const Coord& center, uint32 radius, const std::function<void(const ChunkKey&)>& op)
 		{
 			float r = radius;//sqrtf((float(radius * radius) - float(sy * sy)));
@@ -267,8 +267,8 @@ namespace ld3d
 
 			/*if((center - refer_center).Length() > (radius + refer_radius))
 			{
-				PickChunk(center, radius, op);
-				return;
+			PickChunk(center, radius, op);
+			return;
 			}*/
 
 			height /= 2;
@@ -277,7 +277,7 @@ namespace ld3d
 
 
 			for(int y = 0; y <= (int32)height; ++y)
-			//for(int32 y = -(int32)height; y <= (int32)height; ++y)
+				//for(int32 y = -(int32)height; y <= (int32)height; ++y)
 			{
 				PickChunkDiffSetSliceCylinder(y, VoxelUtils::ToChunkOrigin(center), radius, height, VoxelUtils::ToChunkOrigin(refer_center), refer_radius,  refer_height, op);
 				PickChunkDiffSetSliceCylinder(-y, VoxelUtils::ToChunkOrigin(center), radius, height, VoxelUtils::ToChunkOrigin(refer_center), refer_radius,  refer_height, op);
@@ -292,8 +292,8 @@ namespace ld3d
 
 			/*if((center - refer_center).Length() > (radius + refer_radius))
 			{
-				PickChunk(center, radius, op);
-				return;
+			PickChunk(center, radius, op);
+			return;
 			}*/
 
 			radius /= CHUNK_SIZE;
@@ -331,12 +331,12 @@ namespace ld3d
 			float r = radius;//sqrtf(float(radius * radius) - float(sy * sy));
 
 			for(int32 z = 0; z <= (int32)r; ++z)
-			//for(int32 z = -(int32)r; z <= (int32)r; ++z)
+				//for(int32 z = -(int32)r; z <= (int32)r; ++z)
 			{
 				float x_abs = sqrtf(r * r - z * z);
 
 				for(int32 x = 0; x <= (int32)x_abs; ++x)
-				//for(int32 x = -(int32)x_abs; x <= (int32)x_abs; ++x)
+					//for(int32 x = -(int32)x_abs; x <= (int32)x_abs; ++x)
 				{
 					Coord c = Coord(x, sy, z) + center / CHUNK_SIZE;
 					c *= CHUNK_SIZE;
@@ -359,7 +359,7 @@ namespace ld3d
 
 
 				for(int32 x = 0; x <= (int32)x_abs; ++x)
-				//for(int32 x = -(int32)x_abs; x <= (int32)x_abs; ++x)
+					//for(int32 x = -(int32)x_abs; x <= (int32)x_abs; ++x)
 				{
 					Coord c = Coord(x, sy, -z) + center / CHUNK_SIZE;
 					c *= CHUNK_SIZE;
@@ -394,7 +394,7 @@ namespace ld3d
 			if(rc.y >= -(int32)height && rc.y <= (int32)height)
 			{
 				float r = radius;//sqrtf(float(radius * radius) - float(rc.y * rc.y));
-				
+
 				if(rc.z >=-r && rc.z <= r)
 				{
 					float x_abs = sqrtf(r * r - rc.z * rc.z);
@@ -420,7 +420,7 @@ namespace ld3d
 			if(rc.y >= -(int32)radius && rc.y <= (int32)radius)
 			{
 				float r = sqrtf(float(radius * radius) - float(rc.y * rc.y));
-				
+
 				if(rc.z >=-r && rc.z <= r)
 				{
 					float x_abs = sqrtf(r * r - rc.z * rc.z);
@@ -494,6 +494,103 @@ namespace ld3d
 						op(chunk_key, pChunk, loaded);
 					}
 				}
+			}
+		}
+
+
+		void ChunkManager::PickChunk(const Bound& bound, const std::function<void(const ChunkKey&)>& op)
+		{
+			Coord min_coord = bound.GetMinCoord();
+			Coord max_coord = bound.GetMaxCoord();
+
+			min_coord /= CHUNK_SIZE;
+			max_coord /= CHUNK_SIZE;
+
+			int32 dx = max_coord.x - min_coord.x;
+			int32 dz = max_coord.z - min_coord.z;
+			int32 dy = max_coord.y - min_coord.y;
+
+			Coord center = (max_coord + min_coord) / 2;
+
+
+			Spiral(dx, dz, [&](int32 x, int32 z)
+			{
+				for(int32 y = dy / 2; y >= -dy / 2; --y)
+				{
+					Coord c(x, y, z);
+					c += center;
+
+					ChunkKey key;
+					key.FromChunkCoord(c);
+					op(key);
+				}
+			});
+		}
+		void ChunkManager::PickChunkSubtract(const Bound& bound, const Bound& refer_bound, const std::function<void(const ChunkKey&)>& op)
+		{
+			Coord min_coord = bound.GetMinCoord();
+			Coord max_coord = bound.GetMaxCoord();
+
+			min_coord /= CHUNK_SIZE;
+			max_coord /= CHUNK_SIZE;
+
+			int32 dx = max_coord.x - min_coord.x;
+			int32 dz = max_coord.z - min_coord.z;
+			int32 dy = max_coord.y - min_coord.y;
+
+			Coord center = (max_coord + min_coord) / 2;
+
+
+			Coord r_min_coord = refer_bound.GetMinCoord();
+			Coord r_max_coord = refer_bound.GetMaxCoord();
+
+			r_min_coord /= CHUNK_SIZE;
+			r_max_coord /= CHUNK_SIZE;
+
+			Bound r_bound(r_min_coord, r_max_coord);
+			
+			Spiral(dx, dz, [&](int32 x, int32 z)
+			{
+				for(int32 y = -dy / 2; y <= dy / 2; ++y)
+				{
+					Coord c(x, y, z);
+					c += center;
+
+					if(r_bound.Inside(c))
+					{
+						continue;
+					}
+
+					ChunkKey key;
+					key.FromChunkCoord(c);
+					op(key);
+				}
+			});
+		}
+		void ChunkManager::Spiral(uint32 w, uint32 h, const std::function<void(int32, int32)>& op)
+		{
+			int x		= 0;
+			int y		= 0;
+			int dx		= 0;
+			int dy		= -1;
+			
+			int t = std::max(w , h);
+			int maxI = t * t;
+			for(int i = 0; i < maxI; i++)
+			{
+				if (abs(x) <= w / 2 && abs(y) <= h / 2)
+				{
+					op(x, y);
+					// DO STUFF...
+				}
+				if( (x == y) || ((x < 0) && (x == -y)) || ((x > 0) && (x == 1 - y)))
+				{
+					t = dx;
+					dx = -dy;
+					dy = t;
+				}
+				x += dx;
+				y += dy;
 			}
 		}
 	}

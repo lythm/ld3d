@@ -167,6 +167,7 @@ namespace ld3d
 					ao = 0;
 				}
 
+				ao += 0.4f;
 
 				//ao = 1 - ao;
 				face.ao[ivert] = ao > 1.0f ? 1.0f : ao;

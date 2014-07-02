@@ -18,7 +18,7 @@ namespace ld3d
 			void													Update();
 
 			void													Flush();
-
+			bool													InCache(const ChunkKey& key);
 		private:
 
 			typedef std::list<ChunkKey, 
