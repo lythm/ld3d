@@ -40,8 +40,8 @@ namespace ld3d
 			
 						Coord chunk_mesh_base = chunk_origin - region_origin;
 
-
-						m_meshizer.GenerateMesh(gen_mesh->key, gen_mesh->chunk_data, gen_mesh->chunk_adjacency, chunk_mesh_base, gen_mesh->mesh);
+						m_meshizer.GenerateMeshOpt(gen_mesh->key, gen_mesh->chunk_data, gen_mesh->chunk_adjacency, chunk_mesh_base, gen_mesh->mesh);
+						//m_meshizer.GenerateMesh(gen_mesh->key, gen_mesh->chunk_data, gen_mesh->chunk_adjacency, chunk_mesh_base, gen_mesh->mesh);
 
 						while(false == m_out->push(gen_mesh))
 						{

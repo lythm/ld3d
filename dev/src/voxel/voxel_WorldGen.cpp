@@ -8,8 +8,12 @@ namespace ld3d
 
 		WorldGen::WorldGen(void)
 		{
-			m_noise.set_up(1, 50, 1, (int)os_get_tick());
-			m_noiseBase.set_up(1, 3, 1, (int)os_get_tick());
+			//int seed = (int)os_get_tick();
+
+			int seed = 999;
+
+			m_noise.set_up(1, 50, 1, seed);
+			m_noiseBase.set_up(1, 3, 1, seed);
 		}
 		
 		WorldGen::~WorldGen(void)

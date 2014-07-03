@@ -1,6 +1,8 @@
 #include "voxel_pch.h"
 #include "VoxelWorldRendererImpl.h"
 #include "VoxelWorldImpl.h"
+#include "core/MaterialTech.h"
+#include "core/MaterialPass.h"
 
 
 namespace ld3d
@@ -221,10 +223,22 @@ namespace ld3d
 		int nPass = pMaterial->Begin();
 
 		for(int i = 0; i < nPass; ++i)
-		{
-			pMaterial->ApplyPass(i);
+		{/*
+			pMaterial->GetTechByIndex(0)->GetPassByIndex(i)->GetRenderState()->Begin();
+			pMaterial->GetTechByIndex(0)->GetPassByIndex(i)->GetRenderState()->SetFillMode(RS_FILL_SOLID);
+			pMaterial->GetTechByIndex(0)->GetPassByIndex(i)->GetRenderState()->End();*/
 
+			pMaterial->ApplyPass(i);
 			pSysGraphics->Draw(m_pGeometry, m_nVertexCount, baseVertex);
+
+
+			/*pMaterial->GetTechByIndex(0)->GetPassByIndex(i)->GetRenderState()->Begin();
+			pMaterial->GetTechByIndex(0)->GetPassByIndex(i)->GetRenderState()->SetFillMode(RS_FILL_WIREFRAME);
+			pMaterial->GetTechByIndex(0)->GetPassByIndex(i)->GetRenderState()->End();
+			
+
+			pMaterial->ApplyPass(i);
+			pSysGraphics->Draw(m_pGeometry, m_nVertexCount, baseVertex);*/
 		}
 
 		pMaterial->End();

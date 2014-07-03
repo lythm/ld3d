@@ -24,7 +24,6 @@ namespace ld3d
 			{
 				void*												vertexBuffer;
 				uint32												vertexCount;
-				uint8												type;
 				uint32												material_id;
 			};
 

@@ -15,9 +15,8 @@ namespace ld3d
 				math::Vector3			verts[4];
 				math::Vector3			normal;
 				math::Vector3			uv[4];
-				uint8					type;
 				uint32					material;
-				float					ao[4];
+				uint8					ao_bits[4];
 				Coord					voxelCoord;
 			};
 
@@ -42,7 +41,7 @@ namespace ld3d
 				VoxelMaterial()
 				{
 					type			= VT_EMPTY;
-					
+
 					uv[n_x][0]		= math::Vector3(1, 0, 0);
 					uv[n_x][1]		= math::Vector3(0, 0, 0);
 					uv[n_x][2]		= math::Vector3(1, 1, 0);
@@ -67,7 +66,7 @@ namespace ld3d
 					uv[n_z][1]		= math::Vector3(0, 1, 0);
 					uv[n_z][2]		= math::Vector3(1, 0, 0);
 					uv[n_z][3]		= math::Vector3(1, 1, 0);
-					
+
 					uv[p_z][0]		= math::Vector3(0, 0, 0);
 					uv[p_z][1]		= math::Vector3(1, 0, 0);
 					uv[p_z][2]		= math::Vector3(0, 1, 0);
@@ -90,7 +89,21 @@ namespace ld3d
 				math::Vector3							uv[face_count][4];
 			};
 
-
+			struct FaceInfo
+			{
+				FaceInfo()
+				{
+					type		= VT_EMPTY;
+				}
+				uint8									type;
+				VoxelFace								face;
+			};
+			struct FaceRegion
+			{
+				int x1, y1;
+				int x2, y2;
+				FaceInfo								face;
+			};
 			struct VoxelTemplate
 			{
 
@@ -102,13 +115,26 @@ namespace ld3d
 			void										GenerateMesh(const ChunkKey& key, const ChunkData& chunk_data, const ChunkAdjacency& adj, const Coord& base_coord, ChunkMesh* pMesh);
 			void										AddVoxelMaterial(uint8 type, const VoxelMaterial& mat);
 
+			void										GenerateMeshOpt(const ChunkKey& key, const ChunkData& chunk_data, const ChunkAdjacency& adj, const Coord& base_coord, ChunkMesh* pMesh);
 		private:
+			uint32										FacesGenOpt(const ChunkKey& key, const ChunkData& chunk_data, const ChunkAdjacency& adj, std::vector<VoxelFace>& faces);
+			uint32										FacesGen(const ChunkKey& key, const ChunkData& chunk_data, const ChunkAdjacency& adj, std::vector<VoxelFace>& faces);
+			void										MakeFace(int32 x, int32 y, int32 z, uint32 v, const VoxelMaterial& mat, VoxelFace& face);
 			void										InitializeCubeVertex(uint32 size);
-			void										GenerateFaceAO(const ChunkKey& key, const ChunkAdjacency& adj, VoxelFace& face);
+			void										FaceAO(const ChunkKey& key, const ChunkAdjacency& adj, VoxelFace& face);
+			void										MakeMesh(const math::Vector3& vertex_offset, const std::vector<VoxelFace>& mesh, ChunkMesh* pMesh);
+			float										ao_factor(uint8 o);
+
+			std::vector<FaceRegion>						ExtractRegion(uint8 faces[CHUNK_SIZE][CHUNK_SIZE]);
+			bool										FindMaxRegion(FaceInfo* faces, FaceRegion& r);
+
+			void										ReginFacesGen(FaceInfo* face_buffer, uint32 v, int32 axis, std::vector<VoxelFace>& faces);
+			VoxelFace									MergeFace(FaceInfo* faces, const FaceRegion& r, uint32 v, int32 axis);
 		private:
 
+
 			std::map<uint8, VoxelMaterial>				m_materialMap;
-	
+
 			VoxelFace									m_Cube[6];
 		};
 	}
