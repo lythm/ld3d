@@ -82,7 +82,7 @@ namespace ld3d
 	void AABBoxRenderData::UpdateGeometry()
 	{
 		GPUBufferPtr pVB = m_pRenderData->geometry->GetVertexBuffer();
-		math::Vector3* data = (math::Vector3*)pVB->Map(MAP_DISCARD);
+		math::Vector3* data = (math::Vector3*)pVB->Map(MAP_DISCARD, 0, 24 * sizeof(math::Vector3));
 
 		math::Vector3 min_v, max_v;
 

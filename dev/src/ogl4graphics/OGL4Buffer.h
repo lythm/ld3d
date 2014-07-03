@@ -10,7 +10,7 @@ namespace ld3d
 		virtual ~OGL4Buffer(void);
 
 		bool											Create(BUFFER_TYPE type, uint32 bytes, void* initData, bool dynamic);
-		void*											Map(MAP_HINT hint);
+		void*											Map(MAP_HINT hint, uint64 offset, uint64 bytes);
 		void											Unmap();
 		void											Release();
 		uint64											GetBytes() const;

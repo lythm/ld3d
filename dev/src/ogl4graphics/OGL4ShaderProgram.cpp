@@ -181,7 +181,7 @@ namespace ld3d
 		{
 			return false;
 		}
-		void* pBuffer = m_uniformBlocks[param].pBuffer->Map(MAP_DEFAULT);
+		void* pBuffer = m_uniformBlocks[param].pBuffer->Map(MAP_DEFAULT, 0, bytes);
 		memcpy(pBuffer, data, bytes);
 		m_uniformBlocks[param].pBuffer->Unmap();
 

@@ -15,7 +15,7 @@ namespace ld3d
 		SetVersion(g_packageVersion);
 
 
-		m_nVBBytes						= 1024 * 1024 * 128;
+		m_nVBBytes						= 1024 * 1024 * 8;
 		m_nVBCurrent					= 0;
 		m_nVBOffset						= 0;
 		m_nVertexStride					= 0;
@@ -320,14 +320,14 @@ namespace ld3d
 		uint8* data = nullptr;
 		if(bytesLeft <= sizeof(ChunkMesh::VoxelVertex) * m_renderList[0].sub.vertexCount)
 		{
-			data = (uint8*)pVB->Map(MAP_DISCARD);
+			data = (uint8*)pVB->Map(MAP_DISCARD, 0, m_nVBBytes);
 			m_nVBOffset = 0;
 			m_nVBCurrent = 0;
 			bytesLeft = m_nVBBytes;
 		}
 		else
 		{
-			data = (uint8*)pVB->Map(MAP_NO_OVERWRITE);
+			data = (uint8*)pVB->Map(MAP_NO_OVERWRITE, m_nVBCurrent, m_nVBBytes - m_nVBCurrent);
 		}
 
 		uint32 mat_id = m_renderList[begin].sub.material_id;
@@ -345,7 +345,7 @@ namespace ld3d
 
 				Draw(pGraphics, pMat, m_nVBOffset / m_nVertexStride);
 
-				data = (uint8*)pVB->Map(MAP_NO_OVERWRITE);
+				data = (uint8*)pVB->Map(MAP_NO_OVERWRITE, m_nVBCurrent, m_nVBBytes - m_nVBCurrent);
 				m_nVBOffset = m_nVBCurrent;
 				m_nVertexCount = 0;
 				mat_id = unit.sub.material_id;
@@ -362,7 +362,7 @@ namespace ld3d
 
 				Draw(pGraphics, pMat, m_nVBOffset / m_nVertexStride);
 
-				data = (uint8*)pVB->Map(MAP_DISCARD);
+				data = (uint8*)pVB->Map(MAP_DISCARD, 0, m_nVBBytes);
 				m_nVBOffset = 0;
 				m_nVBCurrent = 0;
 				bytesLeft = m_nVBBytes;
@@ -370,7 +370,7 @@ namespace ld3d
 				mat_id = unit.sub.material_id;
 			}
 			
-			memcpy(data + m_nVBCurrent, unit.sub.vertexBuffer, sizeof(ChunkMesh::VoxelVertex) * unit.sub.vertexCount);
+			memcpy(data + m_nVBCurrent - m_nVBOffset, unit.sub.vertexBuffer, sizeof(ChunkMesh::VoxelVertex) * unit.sub.vertexCount);
 			
 			m_nVBCurrent += sizeof(ChunkMesh::VoxelVertex) * unit.sub.vertexCount;
 			m_nVertexCount += unit.sub.vertexCount;
@@ -410,14 +410,14 @@ namespace ld3d
 		uint8* data = nullptr;
 		if(bytesLeft <= sizeof(ChunkMesh::VoxelVertex) * m_renderList[0].sub.vertexCount)
 		{
-			data = (uint8*)pVB->Map(MAP_DISCARD);
+			data = (uint8*)pVB->Map(MAP_DISCARD, 0, m_nVBBytes);
 			m_nVBOffset = 0;
 			m_nVBCurrent = 0;
 			bytesLeft = m_nVBBytes;
 		}
 		else
 		{
-			data = (uint8*)pVB->Map(MAP_NO_OVERWRITE);
+			data = (uint8*)pVB->Map(MAP_NO_OVERWRITE, m_nVBOffset, m_nVBBytes - m_nVBCurrent);
 		}
 
 		for(size_t i = begin; i < end; ++i)
@@ -431,14 +431,14 @@ namespace ld3d
 
 				Draw(pGraphics, pMat, m_nVBOffset / m_nVertexStride);
 
-				data = (uint8*)pVB->Map(MAP_DISCARD);
+				data = (uint8*)pVB->Map(MAP_DISCARD, 0, m_nVBBytes);
 				m_nVBOffset = 0;
 				m_nVBCurrent = 0;
 				bytesLeft = m_nVBBytes;
 				m_nVertexCount = 0;
 			}
 			
-			memcpy(data + m_nVBCurrent, unit.sub.vertexBuffer, sizeof(ChunkMesh::VoxelVertex) * unit.sub.vertexCount);
+			memcpy(data + m_nVBCurrent - m_nVBOffset, unit.sub.vertexBuffer, sizeof(ChunkMesh::VoxelVertex) * unit.sub.vertexCount);
 			
 			m_nVBCurrent += sizeof(ChunkMesh::VoxelVertex) * unit.sub.vertexCount;
 			m_nVertexCount += unit.sub.vertexCount;

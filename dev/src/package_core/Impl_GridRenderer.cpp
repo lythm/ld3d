@@ -119,11 +119,12 @@ namespace ld3d
 
 		Sys_GraphicsPtr pGraphics = m_pRenderManager->GetSysGraphics();
 
-		GPUBufferPtr pVB = pGraphics->CreateBuffer(BT_VERTEX_BUFFER, sizeof(math::Vector3) * ((m_size / m_gridSize + 1) * 4), NULL, true);
+		uint32 vb_bytes = sizeof(math::Vector3) * ((m_size / m_gridSize + 1) * 4);
+		GPUBufferPtr pVB = pGraphics->CreateBuffer(BT_VERTEX_BUFFER, vb_bytes, NULL, true);
 
 		m_pRenderData->vertex_count = (m_size / m_gridSize + 1) * 4;
 
-		math::Vector3* pBuffer = (math::Vector3*)pVB->Map(MAP_DISCARD);
+		math::Vector3* pBuffer = (math::Vector3*)pVB->Map(MAP_DISCARD, 0, vb_bytes);
 
 		math::Vector3* pBufferData = pBuffer;
 
@@ -176,7 +177,7 @@ namespace ld3d
 		int index_count = line_count * 2;
 		GPUBufferPtr pIB = pGraphics->CreateBuffer(BT_INDEX_BUFFER, index_count * sizeof(int), NULL, true);
 
-		int * pStart = (int*)pIB->Map(MAP_DISCARD);
+		int * pStart = (int*)pIB->Map(MAP_DISCARD, 0, index_count * sizeof(int));
 
 		int * pData = pStart;
 

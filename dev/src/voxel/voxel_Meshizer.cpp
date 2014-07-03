@@ -8,14 +8,13 @@ namespace ld3d
 {
 	namespace voxel
 	{
-		// index : 0 - 1 - 2, 1 - 3 - 2
 		void Meshizer::InitializeCubeVertex(uint32 size)
 		{
 			// -x
 			m_Cube[0].verts[0] = math::Vector3(0, 0, 0);
 			m_Cube[0].verts[1] = math::Vector3(0, 0, 1);
-			m_Cube[0].verts[2] = math::Vector3(0, 1, 0);
-			m_Cube[0].verts[3] = math::Vector3(0, 1, 1);
+			m_Cube[0].verts[2] = math::Vector3(0, 1, 1);
+			m_Cube[0].verts[3] = math::Vector3(0, 1, 0);
 
 			m_Cube[0].ao_bits[0]		= 0;
 			m_Cube[0].ao_bits[1]		= 0;
@@ -27,8 +26,8 @@ namespace ld3d
 			// +x
 			m_Cube[1].verts[0] = math::Vector3(1, 0, 0);
 			m_Cube[1].verts[1] = math::Vector3(1, 1, 0);
-			m_Cube[1].verts[2] = math::Vector3(1, 0, 1);
-			m_Cube[1].verts[3] = math::Vector3(1, 1, 1);
+			m_Cube[1].verts[2] = math::Vector3(1, 1, 1);
+			m_Cube[1].verts[3] = math::Vector3(1, 0, 1);
 
 			m_Cube[1].ao_bits[0]		= 0;
 			m_Cube[1].ao_bits[1]		= 0;
@@ -40,8 +39,8 @@ namespace ld3d
 			// -y
 			m_Cube[2].verts[0] = math::Vector3(0, 0, 0);
 			m_Cube[2].verts[1] = math::Vector3(1, 0, 0);
-			m_Cube[2].verts[2] = math::Vector3(0, 0, 1);
-			m_Cube[2].verts[3] = math::Vector3(1, 0, 1);
+			m_Cube[2].verts[2] = math::Vector3(1, 0, 1);
+			m_Cube[2].verts[3] = math::Vector3(0, 0, 1);
 
 			m_Cube[2].ao_bits[0]		= 0;
 			m_Cube[2].ao_bits[1]		= 0;
@@ -53,8 +52,8 @@ namespace ld3d
 			// +y
 			m_Cube[3].verts[0] = math::Vector3(0, 1, 0);
 			m_Cube[3].verts[1] = math::Vector3(0, 1, 1);
-			m_Cube[3].verts[2] = math::Vector3(1, 1, 0);
-			m_Cube[3].verts[3] = math::Vector3(1, 1, 1);
+			m_Cube[3].verts[2] = math::Vector3(1, 1, 1);
+			m_Cube[3].verts[3] = math::Vector3(1, 1, 0);
 
 			m_Cube[3].ao_bits[0]		= 0;
 			m_Cube[3].ao_bits[1]		= 0;
@@ -67,8 +66,8 @@ namespace ld3d
 			// -z
 			m_Cube[4].verts[0] = math::Vector3(0, 0, 0);
 			m_Cube[4].verts[1] = math::Vector3(0, 1, 0);
-			m_Cube[4].verts[2] = math::Vector3(1, 0, 0);
-			m_Cube[4].verts[3] = math::Vector3(1, 1, 0);
+			m_Cube[4].verts[2] = math::Vector3(1, 1, 0);
+			m_Cube[4].verts[3] = math::Vector3(1, 0, 0);
 
 			m_Cube[4].ao_bits[0]		= 0;
 			m_Cube[4].ao_bits[1]		= 0;
@@ -80,8 +79,8 @@ namespace ld3d
 			// +z
 			m_Cube[5].verts[0] = math::Vector3(0, 0, 1);
 			m_Cube[5].verts[1] = math::Vector3(1, 0, 1);
-			m_Cube[5].verts[2] = math::Vector3(0, 1, 1);
-			m_Cube[5].verts[3] = math::Vector3(1, 1, 1);
+			m_Cube[5].verts[2] = math::Vector3(1, 1, 1);
+			m_Cube[5].verts[3] = math::Vector3(0, 1, 1);
 
 			m_Cube[5].ao_bits[0]		= 0;
 			m_Cube[5].ao_bits[1]		= 0;
@@ -328,7 +327,22 @@ namespace ld3d
 					sub.vertexBuffer	= pData;
 				}
 
-				pData->pos = face.verts[0] + vertex_offset;
+				uint32 indices[6] = {0,1,3,1,2,3,};
+				MakeTriangles(face, indices);
+
+				for(int ii = 0; ii < 6; ++ii)
+				{
+					int ivert = indices[ii];
+
+					pData->pos = face.verts[ivert] + vertex_offset;
+					pData->normal = face.normal;
+					pData->uv = face.uv[ivert];
+					pData->ao = ao_factor(face.ao_bits[ivert]);
+					++pData;
+					sub.vertexCount++;
+				}
+
+				/*pData->pos = face.verts[0] + vertex_offset;
 				pData->normal = face.normal;
 				pData->uv = face.uv[0];
 				pData->ao = ao_factor(face.ao_bits[0]);
@@ -369,7 +383,7 @@ namespace ld3d
 				pData->ao = ao_factor(face.ao_bits[2]);
 
 				++pData;
-				sub.vertexCount++;
+				sub.vertexCount++;*/
 			}
 			pMesh->AddSubset(sub);
 		}
@@ -962,8 +976,8 @@ namespace ld3d
 
 				f.verts[0] = math::Vector3(axis, r.x1, r.y1);
 				f.verts[1] = math::Vector3(axis, r.x1, r.y2 + 1);
-				f.verts[2] = math::Vector3(axis, r.x2 + 1, r.y1);
-				f.verts[3] = math::Vector3(axis, r.x2 + 1, r.y2 + 1);
+				f.verts[2] = math::Vector3(axis, r.x2 + 1, r.y2 + 1);
+				f.verts[3] = math::Vector3(axis, r.x2 + 1, r.y1);
 
 				for(int i = 0; i < 4; ++i)
 				{
@@ -976,8 +990,8 @@ namespace ld3d
 				axis = r.face.face.verts[0].x;
 				f.verts[0] = math::Vector3(axis, r.x1, r.y1);
 				f.verts[1] = math::Vector3(axis, r.x2 + 1, r.y1);
-				f.verts[2] = math::Vector3(axis, r.x1, r.y2 + 1);
-				f.verts[3] = math::Vector3(axis, r.x2 + 1, r.y2 + 1);
+				f.verts[2] = math::Vector3(axis, r.x2 + 1, r.y2 + 1);
+				f.verts[3] = math::Vector3(axis, r.x1, r.y2 + 1);
 				
 				for(int i = 0; i < 4; ++i)
 				{
@@ -991,8 +1005,8 @@ namespace ld3d
 				axis = r.face.face.verts[0].y;
 				f.verts[0] = math::Vector3(r.x1,		axis, r.y1);
 				f.verts[1] = math::Vector3(r.x2 + 1,	axis, r.y1);
-				f.verts[2] = math::Vector3(r.x1,		axis, r.y2 + 1);
-				f.verts[3] = math::Vector3(r.x2 + 1,	axis, r.y2 + 1);
+				f.verts[2] = math::Vector3(r.x2 + 1,	axis, r.y2 + 1);
+				f.verts[3] = math::Vector3(r.x1,		axis, r.y2 + 1);
 
 
 				for(int i = 0; i < 4; ++i)
@@ -1007,8 +1021,8 @@ namespace ld3d
 				axis = r.face.face.verts[0].y;
 				f.verts[0] = math::Vector3(r.x1,		axis, r.y1);
 				f.verts[1] = math::Vector3(r.x1,		axis, r.y2 + 1);
-				f.verts[2] = math::Vector3(r.x2 + 1,	axis, r.y1);
-				f.verts[3] = math::Vector3(r.x2 + 1,	axis, r.y2 + 1);
+				f.verts[2] = math::Vector3(r.x2 + 1,	axis, r.y2 + 1);
+				f.verts[3] = math::Vector3(r.x2 + 1,	axis, r.y1);
 
 				for(int i = 0; i < 4; ++i)
 				{
@@ -1022,9 +1036,8 @@ namespace ld3d
 				axis = r.face.face.verts[0].z;
 				f.verts[0] = math::Vector3(r.x1, r.y1,			axis);
 				f.verts[1] = math::Vector3(r.x1, r.y2 + 1,		axis);
-				f.verts[2] = math::Vector3(r.x2 + 1, r.y1,		axis);
-				f.verts[3] = math::Vector3(r.x2 + 1, r.y2 + 1,	axis);
-
+				f.verts[2] = math::Vector3(r.x2 + 1, r.y2 + 1,	axis);
+				f.verts[3] = math::Vector3(r.x2 + 1, r.y1,		axis);
 
 				for(int i = 0; i < 4; ++i)
 				{
@@ -1039,8 +1052,8 @@ namespace ld3d
 
 				f.verts[0] = math::Vector3(r.x1,		r.y1,		axis);
 				f.verts[1] = math::Vector3(r.x2 + 1,	r.y1,		axis);
-				f.verts[2] = math::Vector3(r.x1,		r.y2 + 1,	axis);
-				f.verts[3] = math::Vector3(r.x2 + 1,	r.y2 + 1,	axis);
+				f.verts[2] = math::Vector3(r.x2 + 1,	r.y2 + 1,	axis);
+				f.verts[3] = math::Vector3(r.x1,		r.y2 + 1,	axis);
 
 
 				for(int i = 0; i < 4; ++i)
@@ -1057,6 +1070,29 @@ namespace ld3d
 			}
 
 			return f;
+		}
+
+		void Meshizer::MakeTriangles(const VoxelFace& face, uint32 indices[6])
+		{
+			int i_max = -1;
+			int ao_max = -1;
+
+			for(int i = 0; i < 4; ++i)
+			{
+				if((int)face.ao_bits[i] > ao_max)
+				{
+					i_max = i;
+					ao_max = face.ao_bits[i];
+				}
+			}
+
+			indices[0] = i_max % 4;
+			indices[1] = (i_max + 1) % 4;
+			indices[2] = (i_max + 3) % 4;
+
+			indices[3] = (i_max + 1) % 4;
+			indices[4] = (i_max + 2) % 4;
+			indices[5] = (i_max + 3) % 4;
 		}
 	}
 }

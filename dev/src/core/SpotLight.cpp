@@ -145,7 +145,7 @@ namespace ld3d
 		math::Vector3* pVerts = MeshUtil::CreateSpotLightCone(m_range, m_angle, 50, m_nVerts);
 
 		GPUBufferPtr pVB = m_pGeometry->GetVertexBuffer();
-		void* pData = pVB->Map(MAP_DISCARD);
+		void* pData = pVB->Map(MAP_DISCARD, 0, sizeof(math::Vector3)* m_nVerts);
 
 		memcpy(pData, pVerts, sizeof(math::Vector3)* m_nVerts);
 		

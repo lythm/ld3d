@@ -17,7 +17,7 @@ namespace ld3d
 	OGL4Buffer::~OGL4Buffer(void)
 	{
 	}
-	void* OGL4Buffer::Map(MAP_HINT hint)
+	void* OGL4Buffer::Map(MAP_HINT hint, uint64 offset, uint64 bytes)
 	{
 		
 		GLenum target = OGL4Convert::BufferTypeToGLTarget(m_type);
@@ -28,15 +28,18 @@ namespace ld3d
 		switch(hint)
 		{
 		case MAP_DISCARD:
-			data = glMapBufferRange(target, 0, m_bytes, GL_MAP_WRITE_BIT | GL_MAP_INVALIDATE_BUFFER_BIT);
+			data = glMapBufferRange(target, offset, bytes, GL_MAP_WRITE_BIT | GL_MAP_INVALIDATE_BUFFER_BIT);
 			break;
 		case MAP_NO_OVERWRITE:
-			data = glMapBufferRange(target, 0, m_bytes, GL_MAP_WRITE_BIT | GL_MAP_UNSYNCHRONIZED_BIT);
+			//data = glMapBufferRange(target, offset, bytes, GL_MAP_WRITE_BIT | GL_MAP_UNSYNCHRONIZED_BIT);
+			data = glMapBufferRange(target, offset, bytes, GL_MAP_WRITE_BIT | GL_MAP_INVALIDATE_RANGE_BIT);
 			break;
 		case MAP_DEFAULT:
-			data = glMapBufferRange(target, 0, m_bytes, GL_MAP_WRITE_BIT);
+			data = glMapBufferRange(target, offset, bytes, GL_MAP_WRITE_BIT);
 			break;
 		}
+
+
 		return data;
 	}
 	void OGL4Buffer::Unmap()

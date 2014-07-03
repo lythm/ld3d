@@ -44,33 +44,33 @@ namespace ld3d
 
 					uv[n_x][0]		= math::Vector3(1, 0, 0);
 					uv[n_x][1]		= math::Vector3(0, 0, 0);
-					uv[n_x][2]		= math::Vector3(1, 1, 0);
-					uv[n_x][3]		= math::Vector3(0, 1, 0);
+					uv[n_x][2]		= math::Vector3(0, 1, 0);
+					uv[n_x][3]		= math::Vector3(1, 1, 0);
 
 					uv[p_x][0]		= math::Vector3(0, 0, 0);
 					uv[p_x][1]		= math::Vector3(0, 1, 0);
-					uv[p_x][2]		= math::Vector3(1, 0, 0);
-					uv[p_x][3]		= math::Vector3(1, 1, 0);
+					uv[p_x][2]		= math::Vector3(1, 1, 0);
+					uv[p_x][3]		= math::Vector3(1, 0, 0);
 
 					uv[n_y][0]		= math::Vector3(0, 1, 0);
 					uv[n_y][1]		= math::Vector3(1, 1, 0);
-					uv[n_y][2]		= math::Vector3(0, 0, 0);
-					uv[n_y][3]		= math::Vector3(1, 0, 0);
+					uv[n_y][2]		= math::Vector3(1, 0, 0);
+					uv[n_y][3]		= math::Vector3(0, 0, 0);
 
 					uv[p_y][0]		= math::Vector3(0, 0, 0);
 					uv[p_y][1]		= math::Vector3(0, 1, 0);
-					uv[p_y][2]		= math::Vector3(1, 0, 0);
-					uv[p_y][3]		= math::Vector3(1, 1, 0);
+					uv[p_y][2]		= math::Vector3(1, 1, 0);
+					uv[p_y][3]		= math::Vector3(1, 0, 0);
 
 					uv[n_z][0]		= math::Vector3(0, 0, 0);
 					uv[n_z][1]		= math::Vector3(0, 1, 0);
-					uv[n_z][2]		= math::Vector3(1, 0, 0);
-					uv[n_z][3]		= math::Vector3(1, 1, 0);
+					uv[n_z][2]		= math::Vector3(1, 1, 0);
+					uv[n_z][3]		= math::Vector3(1, 0, 0);
 
 					uv[p_z][0]		= math::Vector3(0, 0, 0);
 					uv[p_z][1]		= math::Vector3(1, 0, 0);
-					uv[p_z][2]		= math::Vector3(0, 1, 0);
-					uv[p_z][3]		= math::Vector3(1, 1, 0);
+					uv[p_z][2]		= math::Vector3(1, 1, 0);
+					uv[p_z][3]		= math::Vector3(0, 1, 0);
 
 					materials[n_x]	= -1;
 					materials[p_x]	= -1;
@@ -125,11 +125,12 @@ namespace ld3d
 			void										MakeMesh(const math::Vector3& vertex_offset, const std::vector<VoxelFace>& mesh, ChunkMesh* pMesh);
 			float										ao_factor(uint8 o);
 
-			std::vector<FaceRegion>						ExtractRegion(uint8 faces[CHUNK_SIZE][CHUNK_SIZE]);
 			bool										FindMaxRegion(FaceInfo* faces, FaceRegion& r);
 
 			void										ReginFacesGen(FaceInfo* face_buffer, uint32 v, int32 axis, std::vector<VoxelFace>& faces);
 			VoxelFace									MergeFace(FaceInfo* faces, const FaceRegion& r, uint32 v, int32 axis);
+
+			void										MakeTriangles(const VoxelFace& face, uint32 indices[6]);
 		private:
 
 
