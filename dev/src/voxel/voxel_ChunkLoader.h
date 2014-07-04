@@ -21,6 +21,7 @@ namespace ld3d
 
 			uint32													GetPendingCount() const;
 
+			bool													RequestChunk(const Coord& center, uint32 radius, uint32 height, const std::function<bool(const ChunkKey&)>& pre_load);
 			bool													RequestChunk(const Bound& bound, const std::function<bool(const ChunkKey&)>& pre_load);
 			bool													RequestChunkSubtract(const Bound& bound, const Bound& refer_bound, const ChunkLoadedHandler& on_loaded);
 

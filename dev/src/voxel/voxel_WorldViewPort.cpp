@@ -17,8 +17,8 @@ namespace ld3d
 	{
 		WorldViewport::WorldViewport()
 		{
-		//	m_VP.radius = 32;
-		//	m_lastVP.radius = 32;
+			m_VP.radius = 32;
+			m_lastVP.radius = 32;
 
 			m_pChunkCache = alloc_object<ChunkCache>(allocator(), nullptr);
 		}
@@ -30,7 +30,9 @@ namespace ld3d
 		
 		void WorldViewport::MoveTo(const Coord& c)
 		{
-			m_VP.MoveTo(c);
+			//m_VP.MoveTo(c);
+
+			m_VP.center = c;
 		}
 		
 		bool WorldViewport::Open(WorldPtr pWorld, const Coord& center, uint32 radius)
@@ -39,11 +41,11 @@ namespace ld3d
 			m_pLoader = pWorld->GetChunkLoader();
 			m_pOctreeManager = pWorld->GetOctreeManager();
 			m_pChunkManager = pWorld->GetChunkManager();
-			radius = 400;
+			radius = 128;
 			uint32 height = 128;
-			//m_VP.center = center;
-			//m_VP.radius = radius;
-			//m_VP.height = height;
+			m_VP.center = center;
+			m_VP.radius = radius;
+			m_VP.height = height;
 
 			uint32 size = (radius * 2) / 16 + 10;
 			size = size * size * size;
@@ -60,7 +62,19 @@ namespace ld3d
 				m_pChunkCache->AddChunk(key);
 			})*/;
 
-			Bound bound(center - Coord(radius, 32, radius), center + Coord(radius, 128, radius));;
+
+			m_pLoader->RequestChunk(m_VP.center, m_VP.radius, m_VP.height, [&](const ChunkKey& key)
+			{
+				if(m_pChunkCache->InCache(key))
+				{
+					return false;
+				}
+				m_pChunkCache->AddChunk(key);
+
+				return true;
+			});
+
+			/*Bound bound(center - Coord(radius, 32, radius), center + Coord(radius, 128, radius));;
 
 			m_VP = bound;
 
@@ -73,7 +87,7 @@ namespace ld3d
 				m_pChunkCache->AddChunk(key);
 
 				return true;
-			});
+			});*/
 
 			/*VPSphere tmp = m_VP;
 
@@ -137,21 +151,35 @@ namespace ld3d
 
 		const Coord& WorldViewport::GetCenterCoord() const
 		{
-			return m_VP.GetCenter();
+//			return m_VP.GetCenter();
+			return m_VP.center;
+
 		}
 				
 		void WorldViewport::UpdateVP()
 		{
 		//	return;
 
-			Coord dc = m_VP.GetCenter() - m_lastVP.GetCenter();
+			//Coord dc = m_VP.GetCenter() - m_lastVP.GetCenter();
+			Coord dc = m_VP.center - m_lastVP.center;
 
 			if(abs(dc.x) < CHUNK_SIZE && abs(dc.y) < CHUNK_SIZE && abs(dc.z) < CHUNK_SIZE)
 			{
 				return;
 			}
 
-			m_pLoader->RequestChunk(m_VP, [&](const ChunkKey& key)
+			/*m_pLoader->RequestChunk(m_VP, [&](const ChunkKey& key)
+			{
+				if(m_pChunkCache->InCache(key))
+				{
+					return false;
+				}
+				m_pChunkCache->AddChunk(key);
+
+				return true;
+			});*/
+
+			m_pLoader->RequestChunk(m_VP.center, m_VP.radius, m_VP.height, [&](const ChunkKey& key)
 			{
 				if(m_pChunkCache->InCache(key))
 				{

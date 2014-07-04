@@ -177,6 +177,24 @@ namespace ld3d
 
 			return true;
 		}
+		bool ChunkLoader::RequestChunk(const Coord& center, uint32 radius, uint32 height, const std::function<bool(const ChunkKey&)>& pre_load)
+		{
+			m_pChunkManager->PickChunk(center, radius, height, [&](const ChunkKey& key)
+			{
+				Coord c = key.ToChunkOrigin();
+				if((c.y + (int32)CHUNK_SIZE) < -16 || (c.y > 128))
+				{
+					return;
+				}
+
+				if(pre_load(key) == true)
+				{
+					RequestChunkAsync(key, false, nullptr);
+				}
+			});
+
+			return true;
+		}
 		bool ChunkLoader::RequestChunkAsync(const Coord& center, uint32 radius, uint32 height, bool gen_mesh, const ChunkLoadedHandler& on_loaded)
 		{
 			m_pChunkManager->PickChunk(center, radius, height, [&](const ChunkKey& key)

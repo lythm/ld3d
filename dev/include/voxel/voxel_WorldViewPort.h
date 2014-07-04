@@ -59,8 +59,8 @@ namespace ld3d
 			ChunkManagerPtr												m_pChunkManager;
 			std::function<void (const Coord&, ChunkPtr)>				handler_dirty_chunk;
 
-			Bound														m_VP;
-			Bound														m_lastVP;
+			VPCylinder														m_VP;
+			VPCylinder														m_lastVP;
 
 
 			std::shared_ptr<ChunkCache>									m_pChunkCache;

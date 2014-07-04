@@ -29,6 +29,7 @@ namespace ld3d
 		
 		
 		class World;
+		class WorldMetrics;
 		class WorldGen;
 		class Chunk;
 		class ChunkManager;
@@ -41,8 +42,10 @@ namespace ld3d
 		class OctreeManager;
 
 
+		
+		typedef std::shared_ptr<WorldMetrics>									WorldMetricsPtr;
 		typedef std::shared_ptr<OctreeManager>									OctreeManagerPtr;
-		typedef std::shared_ptr<ChunkLoader>								ChunkLoaderPtr;
+		typedef std::shared_ptr<ChunkLoader>									ChunkLoaderPtr;
 		typedef std::shared_ptr<PoolManager>									PoolManagerPtr;
 		typedef std::shared_ptr<Octree>											OctreePtr;
 		typedef std::shared_ptr<ChunkMesh>										ChunkMeshPtr;

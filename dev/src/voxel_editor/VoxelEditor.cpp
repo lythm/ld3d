@@ -45,7 +45,7 @@ namespace ld3d
 
 			m_pCore = pCore;
 
-			m_pCore->GetRenderManager()->SetGlobalAmbient(math::Color4(0.4f, 0.4f, 0.4f, 1.0f));
+			m_pCore->GetRenderManager()->SetGlobalAmbient(math::Color4(0.4f, 0.4f, 0.5f, 1.0f));
 			m_pCore->GetRenderManager()->SetClearColor(math::Color4(0.1f, 0.2f, 0.3f, 1));
 
 
@@ -74,7 +74,7 @@ namespace ld3d
 			m_pCamera->AddComponent(pSkyBox);
 
 			CameraController_FreePtr pController = std::dynamic_pointer_cast<CameraController_Free>(pCore->CreateGameObjectComponent("CameraFreeController"));
-			pController->SetSpeed(10);
+			pController->SetSpeed(50);
 			//	pController->Enable(false);
 			m_pCamera->AddComponent(pController);
 
@@ -85,8 +85,9 @@ namespace ld3d
 
 			pLight->SetTranslation(-100, 100, 100);
 			pLight->LookAt(math::Vector3(0, 0, 0));
-
+			
 			Light_SkyPtr pSkyLight = std::dynamic_pointer_cast<Light_Sky>(pLight->GetComponent("SkyLight"));
+			pSkyLight->GetLight()->SetDiffuseColor(math::Color4(0.9, 0.9f, 1.0f, 1.0f));
 		//	pSkyLight->EnableShadow(true);
 
 

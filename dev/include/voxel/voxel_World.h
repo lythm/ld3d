@@ -57,7 +57,7 @@ namespace ld3d
 
 			OctreeManagerPtr								m_pOctreeManager;
 			ChunkManagerPtr									m_pChunkManager;
-			ChunkLoaderPtr								m_pChunkLoader;
+			ChunkLoaderPtr									m_pChunkLoader;
 			std::string										m_name;
 		};
 	}

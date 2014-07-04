@@ -172,18 +172,31 @@ namespace ld3d
 		}
 		void ChunkManager::PickChunk(const Coord& center, uint32 radius, uint32 height, const std::function<void(const ChunkKey&)>& op)
 		{
-			if(op == nullptr)
-			{
-				return;
-			}
+			int32 dx = radius * 2 / CHUNK_SIZE;
+			int32 dz = radius * 2 / CHUNK_SIZE;
+			int32 dy = height;
 
-			height /= 2;
-			height /= CHUNK_SIZE;
-			radius /= CHUNK_SIZE;
-			for(int32 y = -(int32)height; y <= (int32)height; ++y)
+			Coord ch_center = center / CHUNK_SIZE;
+
+
+			Spiral(dx, dz, [&](int32 x, int32 z)
 			{
-				PickChunkSliceCylinder(y, VoxelUtils::ToChunkOrigin(center), radius, op);
-			}
+				if((x * x + z * z) >= radius / CHUNK_SIZE * radius / CHUNK_SIZE)
+				{
+					return;
+				}
+
+				for(int32 y = dy / 2; y >= -dy / 2; --y)
+				{
+					Coord c(x, y, z);
+					c += ch_center;
+
+					ChunkKey key;
+					key.FromChunkCoord(c);
+					op(key);
+				}
+			});
+
 		}
 		void ChunkManager::PickChunk(const Coord& center, uint32 radius, const std::function<void(const ChunkKey&)>& op)
 		{

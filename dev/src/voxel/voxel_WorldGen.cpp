@@ -8,9 +8,9 @@ namespace ld3d
 
 		WorldGen::WorldGen(void)
 		{
-			//int seed = (int)os_get_tick();
+			int seed = (int)os_get_tick();
 
-			int seed = 999;
+			//int seed = 999;
 
 			m_noise.set_up(1, 50, 1, seed);
 			m_noiseBase.set_up(1, 3, 1, seed);
