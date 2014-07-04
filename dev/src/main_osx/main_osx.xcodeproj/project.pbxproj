@@ -14,7 +14,6 @@
 		071B946B195FCD8900F4E198 /* libboost_system.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 071B946A195FCD8900F4E198 /* libboost_system.a */; };
 		071B946D195FCD9E00F4E198 /* libboost_filesystem.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 071B946C195FCD9E00F4E198 /* libboost_filesystem.a */; };
 		071B946F195FD5C100F4E198 /* libogl4graphics_osx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 071B946E195FD5C100F4E198 /* libogl4graphics_osx.a */; };
-		075D028419602EC300BAB471 /* ChunkStorage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 075D028219602EC300BAB471 /* ChunkStorage.cpp */; };
 		07B3C25C17C36C33004F86AA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07B3C25B17C36C33004F86AA /* Cocoa.framework */; };
 		07B3C26617C36C33004F86AA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 07B3C26417C36C33004F86AA /* InfoPlist.strings */; };
 		07B3C26817C36C33004F86AA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 07B3C26717C36C33004F86AA /* main.m */; };
@@ -32,8 +31,6 @@
 		071B946A195FCD8900F4E198 /* libboost_system.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_system.a; path = ../../../../../sdk/boost_1_55_0/stage/lib/libboost_system.a; sourceTree = "<group>"; };
 		071B946C195FCD9E00F4E198 /* libboost_filesystem.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_filesystem.a; path = ../../../../../sdk/boost_1_55_0/stage/lib/libboost_filesystem.a; sourceTree = "<group>"; };
 		071B946E195FD5C100F4E198 /* libogl4graphics_osx.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libogl4graphics_osx.a; path = "../../../../../Library/Developer/Xcode/DerivedData/all-fzaibiesvozrhseeqhrxwrkhswck/Build/Products/Debug/libogl4graphics_osx.a"; sourceTree = "<group>"; };
-		075D028219602EC300BAB471 /* ChunkStorage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ChunkStorage.cpp; sourceTree = "<group>"; };
-		075D028319602EC300BAB471 /* ChunkStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChunkStorage.h; sourceTree = "<group>"; };
 		076D32DE195F1C880071F6EC /* libboost_filesystem.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_filesystem.a; path = ../../lib/libboost_filesystem.a; sourceTree = "<group>"; };
 		076D32E0195F1CF10071F6EC /* libboost_system.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_system.a; path = ../../lib/libboost_system.a; sourceTree = "<group>"; };
 		07B3C25817C36C33004F86AA /* main_osx.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = main_osx.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -73,8 +70,6 @@
 		07B3C24F17C36C33004F86AA = {
 			isa = PBXGroup;
 			children = (
-				075D028219602EC300BAB471 /* ChunkStorage.cpp */,
-				075D028319602EC300BAB471 /* ChunkStorage.h */,
 				07B3C26117C36C33004F86AA /* main_osx */,
 				07B3C25A17C36C33004F86AA /* Frameworks */,
 				07B3C25917C36C33004F86AA /* Products */,
@@ -207,7 +202,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				07B3C26817C36C33004F86AA /* main.m in Sources */,
-				075D028419602EC300BAB471 /* ChunkStorage.cpp in Sources */,
 				07B3C26F17C36C33004F86AA /* AppDelegate.mm in Sources */,
 				0711ADB6195F0D8C007E0411 /* MainApp.cpp in Sources */,
 			);

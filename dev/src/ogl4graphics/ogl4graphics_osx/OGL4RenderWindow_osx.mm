@@ -30,14 +30,6 @@ namespace ld3d
 	}
 	void OGL4RenderWindow::Release()
 	{
-		
-		//wglMakeCurrent(m_hDC, 0);
-		
-		//wglDeleteContext(m_hRC);
-		
-		//DeleteDC(m_hDC);
-		//m_hDC = nullptr;
-		//m_hRC = nullptr;
 		m_window = nullptr;
 	}
 	bool OGL4RenderWindow::Create(void* wnd, int w, int h, G_FORMAT color_format, G_FORMAT depth_format)
@@ -51,9 +43,7 @@ namespace ld3d
 		
 		AdjustWindow(w, h);
 		CenterWindow();
-		
-		
-		
+	
 		// Insert code here to initialize your application
 		NSOpenGLPixelFormatAttribute attributes[] = {
 			NSOpenGLPFAColorSize, 32,
@@ -76,6 +66,9 @@ namespace ld3d
 		NSOpenGLView *view = [[NSOpenGLView alloc] initWithFrame:nsw.frame pixelFormat:pixelFormat];
 		
 		[nsw setContentView:view];
+		
+		[view setAutoresizesSubviews:YES];
+	
 		
 		MakeCurrent();
 		m_width = w;
@@ -146,10 +139,19 @@ namespace ld3d
 	}
 	void OGL4RenderWindow::Resize(int cx, int cy, bool fullscreen)
 	{
-		
 		m_fullscreen = fullscreen;
+		
+		NSWindow* nsw = (NSWindow*)m_window;
+		
 		if(m_fullscreen == false)
 		{
+			//[nsw setStyleMask:NSTitledWindowMask | NSClosableWindowMask | NSMiniaturizableWindowMask];
+			//[nsw setBackingType:NSBackingStoreBuffered];
+			//[nsw setLevel:NSNormalWindowLevel];
+		//	//[nsw setOpaque:YES];
+		//	[nsw setHidesOnDeactivate:YES];
+		
+			[nsw toggleFullScreen:nil];
 			AdjustWindow(cx, cy);
 			CenterWindow();
 			m_width = cx;
@@ -158,39 +160,22 @@ namespace ld3d
 		}
 		else
 		{
+			NSRect rc = [[NSScreen mainScreen] frame];
+			
+			
+		//	[nsw setStyleMask:NSBorderlessWindowMask];
+		//	[nsw setBackingType:NSBackingStoreBuffered];
+		//	[nsw setLevel:NSMainMenuWindowLevel + 1];
+	//		[nsw setOpaque:YES];
+//			[nsw setHidesOnDeactivate:YES];
+	//		[nsw setFrame:rc display:YES];
+			
+			[nsw toggleFullScreen:nil];
+			
+			m_width		= rc.size.width;
+			m_height	= rc.size.height;
 			
 		}
-		
-	/*	LONG_PTR value = GetWindowLongPtr(m_hWnd, GWL_STYLE);
-		m_fullscreen = fullscreen;
-		if(fullscreen == false)
-		{
-			value &= ~(WS_POPUP);
-			value |= (WS_OVERLAPPED | WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU);
-			
-			SetWindowLongPtr(m_hWnd, GWL_STYLE, value);
-			
-			SetWindowPos( m_hWnd, 0, 0, 0, cx, cy, SWP_NOZORDER );
-			AdjustWindow(cx, cy);
-			CenterWindow();
-			m_width			= cx;
-			m_height		= cy;
-		}
-		else
-		{
-			int screen_w = GetSystemMetrics(SM_CXSCREEN);
-			int screen_h = GetSystemMetrics(SM_CYSCREEN);
-			
-			value &= ~(WS_OVERLAPPED | WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU);
-			value |= (WS_POPUP);
-			
-			SetWindowLongPtr(m_hWnd, GWL_STYLE, value);
-			SetWindowPos( m_hWnd, 0, 0, 0, screen_w, screen_h, SWP_NOZORDER );
-			
-			m_width			= screen_w;
-			m_height		= screen_h;
-		}
-	 */
 	}
 	bool OGL4RenderWindow::IsFullscreen()
 	{

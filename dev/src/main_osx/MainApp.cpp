@@ -31,11 +31,11 @@ bool MainApp::Init(void* wnd)
 	GraphicsSetting setting;
 	setting.frameBufferWidth = 1024;
 	setting.frameBufferHeight = 600;
-	
+	setting.windowed = false;
 	setting.wnd = wnd;
 	m_pGraphics->Initialize(setting);
 	
-	
+	m_pGraphics->ResizeRenderWindow(1024, 600, true);
 	return true;
 }
 void MainApp::Release()
@@ -44,6 +44,9 @@ void MainApp::Release()
 }
 void MainApp::Update()
 {
+	
+	return;
+	
 	//m_pGraphics->SetViewPort(0, 0, 100, 100);
 	m_pGraphics->ClearRenderTarget(0, math::Color4(0, 0.5, 0, 1));
 	
