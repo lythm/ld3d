@@ -1,0 +1,31 @@
+
+SamplerState ss
+{
+	Filter		= MIN_MAG_MIP_LINEAR;
+};
+
+RenderState rs
+{
+	FrontFace	= CW;
+	CULLMODE	= none;
+	FILLMODE	= SOLID;
+
+	DepthEnable = TRUE;
+	DepthFunc = LESS;
+	DepthWriteMask = zero;
+	StencilEnable = false;
+	BlendEnable = false;
+
+};
+
+technique t1
+{
+  pass p1
+  {
+	SetRenderState(rs);
+	BindSampler("sky_map", ss);
+
+	SetVertexShader("./shader/skybox.vs");
+	SetPixelShader("./shader/skybox.ps");
+  }
+}

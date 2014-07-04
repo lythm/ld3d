@@ -52,7 +52,7 @@ namespace ld3d
 
 		
 
-		std::shared_ptr<VoxelWorldImpl> pWorld = std::dynamic_pointer_cast<VoxelWorldImpl>(m_pObject->GetComponent("VoxelWorld"));
+		std::shared_ptr<VoxelWorldImpl> pWorld = std::dynamic_pointer_cast<VoxelWorldImpl>(m_pObject->GetComponent("Voxel.World"));
 		if(pWorld != nullptr)
 		{
 			ResetWorld(pWorld->GetWorld(), pWorld->GetMaterials());

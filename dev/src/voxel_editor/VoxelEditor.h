@@ -21,7 +21,6 @@ namespace ld3d
 		private:
 			void									_on_cmd_set_camera_speed(const ld3d::CommandLine& cl, std::function<void (const std::string&)> writeln);
 			void									_on_cmd_move_to(const ld3d::CommandLine& cl, std::function<void (const std::string&)> writeln);
-			void									_on_cmd_regen_mesh(const ld3d::CommandLine& cl, std::function<void (const std::string&)> writeln);
 			void									_on_key_state(ld3d::EventPtr pEvent);
 			void									_on_resize(ld3d::EventPtr pEvent);
 		private:

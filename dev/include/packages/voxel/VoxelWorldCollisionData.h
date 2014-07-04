@@ -10,7 +10,7 @@ namespace ld3d
 
 
 	protected:
-		VoxelWorldCollisionData(GameObjectManagerPtr pManager) : GameObjectComponent("VoxelWorldCollisionData", pManager){}
+		VoxelWorldCollisionData(GameObjectManagerPtr pManager) : GameObjectComponent("Voxel.WorldCollisionData", pManager){}
 		virtual ~VoxelWorldCollisionData(void){}
 	};
 

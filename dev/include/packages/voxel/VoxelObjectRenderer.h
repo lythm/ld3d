@@ -8,7 +8,7 @@ namespace ld3d
 
 
 	protected:
-		VoxelObjectRenderer(GameObjectManagerPtr pManager) : GameObjectComponent("VoxelObjectRenderer", pManager){}
+		VoxelObjectRenderer(GameObjectManagerPtr pManager) : GameObjectComponent("Voxel.ObjectRenderer", pManager){}
 		virtual ~VoxelObjectRenderer(void){}
 		
 	};

@@ -17,7 +17,7 @@ namespace ld3d
 	
 	GameObjectPtr VoxelWorldTemplate::CreateGameObject()
 	{
-		GameObjectPtr pObj = m_pManager->CreateGameObject("VoxelWorld");
+		GameObjectPtr pObj = m_pManager->CreateGameObject("Voxel.World");
 
 		VoxelWorldPtr pWorld = m_pManager->alloc_object<VoxelWorldImpl>(m_pManager);
 

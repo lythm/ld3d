@@ -397,13 +397,13 @@ namespace ld3d
 				ao = 1.0f;
 				break;
 			case 1:
-				ao = 0.3f;
+				ao = 0.75f;
 				break;
 			case 2:
-				ao = 0.2f;
+				ao = 0.5;
 				break;
 			case 3:
-				ao = 0.0f;
+				ao = 0.25f;
 				break;
 			default:
 
@@ -411,7 +411,7 @@ namespace ld3d
 				break;
 			}
 
-			ao += 0.4f;
+		//	ao += 0.3f;
 			math::Clamp(ao, 0.0f, 1.0f);
 
 			return ao;

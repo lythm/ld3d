@@ -9,7 +9,7 @@ namespace ld3d
 
 	protected:
 
-		VoxelObject(GameObjectManagerPtr pManager) : GameObjectComponent("VoxelObject", pManager){}
+		VoxelObject(GameObjectManagerPtr pManager) : GameObjectComponent("Voxel.Object", pManager){}
 		virtual ~VoxelObject(void){}
 
 	};

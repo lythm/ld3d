@@ -13,7 +13,7 @@ namespace ld3d
 			//int seed = 999;
 
 			m_noise.set_up(1, 50, 1, seed);
-			m_noiseBase.set_up(1, 3, 1, seed);
+			m_noiseBase.set_up(1, 1, 1, seed);
 		}
 		
 		WorldGen::~WorldGen(void)

@@ -228,7 +228,7 @@ namespace ld3d
 	}
 	void VoxelWorldImpl::ResetComponents(voxel::WorldPtr pWorld)
 	{
-		std::shared_ptr<VoxelWorldRendererImpl> pRenderer = std::dynamic_pointer_cast<VoxelWorldRendererImpl>(m_pObject->GetComponent("VoxelWorldRenderer"));
+		std::shared_ptr<VoxelWorldRendererImpl> pRenderer = std::dynamic_pointer_cast<VoxelWorldRendererImpl>(m_pObject->GetComponent("Voxel.WorldRenderer"));
 
 		if(pRenderer != nullptr)
 		{

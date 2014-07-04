@@ -27,7 +27,7 @@ namespace ld3d
 		virtual int32										GetFaceCount(){return 0;}
 		virtual int32										GetNonEmptyChunkCount(){return 0;}
 	protected:
-		VoxelWorld(GameObjectManagerPtr pManager) : GameObjectComponent("VoxelWorld", pManager){}
+		VoxelWorld(GameObjectManagerPtr pManager) : GameObjectComponent("Voxel.World", pManager){}
 		virtual ~VoxelWorld(void){}
 	};
 }

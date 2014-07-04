@@ -42,36 +42,37 @@ namespace ld3d
 		
 		m_pManager = pManager;
 
-		m_classes.push_back(ComponentClass("VoxelWorld",
+		m_classes.push_back(ComponentClass("Voxel.World",
 							"Voxel",
 							"Voxel World",
 							&Create_Component<VoxelWorldImpl>));
-		m_classes.push_back(ComponentClass("VoxelWorldRenderer",
+		m_classes.push_back(ComponentClass("Voxel.WorldRenderer",
 							"Voxel",
 							"Voxel World Renderer",
 							&Create_Component<VoxelWorldRendererImpl>));
 
 		
-		m_classes.push_back(ComponentClass("VoxelObject",
+		m_classes.push_back(ComponentClass("Voxel.Object",
 							"Voxel",
 							"Voxel Object",
 							&Create_Component<VoxelObjectImpl>));
-		m_classes.push_back(ComponentClass("VoxelObjectRenderer",
+		m_classes.push_back(ComponentClass("Voxel.ObjectRenderer",
 							"Voxel",
 							"Voxel Object Renderer",
 							&Create_Component<VoxelObjectRendererImpl>));
 
 		// templates
-		GameObjectTemplate* pTpl = new VoxelWorldTemplate(m_pManager, "VoxelWorld");
+		GameObjectTemplate* pTpl = new VoxelWorldTemplate(m_pManager, "Voxel.World");
 		m_tpls.push_back(pTpl);
 
-		pTpl = new VoxelObjectTemplate(m_pManager, "VoxelObject");
+		pTpl = new VoxelObjectTemplate(m_pManager, "Voxel.Object");
 		m_tpls.push_back(pTpl);
 	}
 
 
 	VoxelPackage::~VoxelPackage(void)
 	{
+		
 	}
 	void VoxelPackage::Release()
 	{

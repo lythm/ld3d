@@ -16,7 +16,7 @@ namespace ld3d
 		virtual uint32										GetRenderedVertexCount()					= 0;
 		virtual uint32										GetRenderedVertexBytes()					= 0;
 	protected:
-		VoxelWorldRenderer(GameObjectManagerPtr pManager) : GameObjectComponent("VoxelWorldRenderer", pManager){}
+		VoxelWorldRenderer(GameObjectManagerPtr pManager) : GameObjectComponent("Voxel.WorldRenderer", pManager){}
 		virtual ~VoxelWorldRenderer(void){}
 	};
 }

@@ -15,16 +15,13 @@ namespace ld3d
 		public:
 			struct VPCylinder
 			{
+				Coord													center_offset;
+
 				Coord													center;
 				uint32													radius;
 				uint32													height;
 			};
-			struct VPSphere
-			{
-				Coord													center;
-				uint32													radius;
-			};
-
+			
 			WorldViewport();
 			virtual ~WorldViewport(void);
 
@@ -59,13 +56,10 @@ namespace ld3d
 			ChunkManagerPtr												m_pChunkManager;
 			std::function<void (const Coord&, ChunkPtr)>				handler_dirty_chunk;
 
-			VPCylinder														m_VP;
-			VPCylinder														m_lastVP;
-
+			VPCylinder													m_VP;
+			VPCylinder													m_lastVP;
 
 			std::shared_ptr<ChunkCache>									m_pChunkCache;
-
-											
 		};
 	}
 }

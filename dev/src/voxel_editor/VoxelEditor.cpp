@@ -69,7 +69,7 @@ namespace ld3d
 
 			CameraDataPtr pMD = std::dynamic_pointer_cast<CameraData>(pCore->CreateGameObjectComponent("Camera"));
 			m_pCamera->AddComponent(pMD);
-			pMD->SetFarPlane(1024);
+			pMD->SetFarPlane(500);
 			GameObjectComponentPtr pSkyBox = pCore->CreateGameObjectComponent("SkyBox");
 			m_pCamera->AddComponent(pSkyBox);
 
@@ -91,9 +91,9 @@ namespace ld3d
 		//	pSkyLight->EnableShadow(true);
 
 
-			m_pWorld = m_pCore->CreatGameObjectFromTemplate("VoxelWorld", "world001");
+			m_pWorld = m_pCore->CreatGameObjectFromTemplate("Voxel.World", "world001");
 
-			VoxelWorldRendererPtr pWorldRenderer = std::dynamic_pointer_cast<VoxelWorldRenderer>(m_pWorld->GetComponent("VoxelWorldRenderer"));
+			VoxelWorldRendererPtr pWorldRenderer = std::dynamic_pointer_cast<VoxelWorldRenderer>(m_pWorld->GetComponent("Voxel.WorldRenderer"));
 			pWorldRenderer->BindWorldViewPort(m_pCamera);
 
 
@@ -109,7 +109,6 @@ namespace ld3d
 
 			m_pCore->RegisterConsoleCommand("set_camera_speed", std::bind(&VoxelEditor::_on_cmd_set_camera_speed, this, std::placeholders::_1, std::placeholders::_2));
 			m_pCore->RegisterConsoleCommand("move_to", std::bind(&VoxelEditor::_on_cmd_move_to, this, std::placeholders::_1, std::placeholders::_2));
-			m_pCore->RegisterConsoleCommand("regen_mesh", std::bind(&VoxelEditor::_on_cmd_regen_mesh, this, std::placeholders::_1, std::placeholders::_2));
 
 			return true;
 		}
@@ -117,7 +116,6 @@ namespace ld3d
 		{
 			m_pCore->RemoveConsoleCommand("set_camera_speed");		
 			m_pCore->RemoveConsoleCommand("move_to");		
-			m_pCore->RemoveConsoleCommand("regen_mesh");	
 
 			m_pWorld = nullptr;
 		}
@@ -144,8 +142,8 @@ namespace ld3d
 				" dir: " << axis_z.x << "," << axis_z.y << "," << axis_z.z <<"</font><br>";
 
 
-			VoxelWorldPtr pWorld = std::dynamic_pointer_cast<VoxelWorld>(m_pWorld->GetComponent("VoxelWorld"));
-			VoxelWorldRendererPtr pRenderer = std::dynamic_pointer_cast<VoxelWorldRenderer>(m_pWorld->GetComponent("VoxelWorldRenderer"));
+			VoxelWorldPtr pWorld = std::dynamic_pointer_cast<VoxelWorld>(m_pWorld->GetComponent("Voxel.World"));
+			VoxelWorldRendererPtr pRenderer = std::dynamic_pointer_cast<VoxelWorldRenderer>(m_pWorld->GetComponent("Voxel.WorldRenderer"));
 			s << "[chunk loader] pending chunk: " << pWorld->GetLoadingQueueSize() 
 				<< " chunks: " << pWorld->GetChunkCount()
 				<< " NE-chunks: " << pWorld->GetNonEmptyChunkCount()
@@ -232,11 +230,7 @@ namespace ld3d
 			m_pCamera->SetTranslation(x, y, z);
 
 		}
-		void VoxelEditor::_on_cmd_regen_mesh(const ld3d::CommandLine& cl, std::function<void (const std::string&)> writeln)
-		{
-			VoxelWorldRendererPtr pRenderer = std::dynamic_pointer_cast<VoxelWorldRenderer>(m_pWorld->GetComponent("VoxelWorldRenderer"));
-			pRenderer->RefreshMesh();
-		}
+		
 	}
 }
 

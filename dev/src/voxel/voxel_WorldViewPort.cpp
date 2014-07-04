@@ -18,7 +18,9 @@ namespace ld3d
 		WorldViewport::WorldViewport()
 		{
 			m_VP.radius = 32;
+			m_VP.height = 32;
 			m_lastVP.radius = 32;
+			m_lastVP.height = 32;
 
 			m_pChunkCache = alloc_object<ChunkCache>(allocator(), nullptr);
 		}
@@ -41,29 +43,26 @@ namespace ld3d
 			m_pLoader = pWorld->GetChunkLoader();
 			m_pOctreeManager = pWorld->GetOctreeManager();
 			m_pChunkManager = pWorld->GetChunkManager();
+
+
+			Coord center_offset  = Coord(0, 32 , 0);
 			radius = 128;
 			uint32 height = 128;
 			m_VP.center = center;
 			m_VP.radius = radius;
 			m_VP.height = height;
+			m_VP.center_offset = center_offset;
 
-			uint32 size = (radius * 2) / 16 + 10;
+			uint32 size = (radius * 2) / 16;
 			size = size * size * size;
 
-			size *= 8;
-
+			size *= 4;
 
 			m_pChunkCache->Initialize(m_pLoader, size);
 
 			m_pWorld->AddDirtyChunkHandler(std::bind(&WorldViewport::_on_dirty_chunk, this, std::placeholders::_1));
 			
-			/*m_pLoader->RequestChunkAsync(m_VP.center, m_VP.radius, false, [&](const ChunkKey& key)
-			{
-				m_pChunkCache->AddChunk(key);
-			})*/;
-
-
-			m_pLoader->RequestChunk(m_VP.center, m_VP.radius, m_VP.height, [&](const ChunkKey& key)
+			m_pLoader->RequestChunk(m_VP.center + m_VP.center_offset, m_VP.radius, m_VP.height, [&](const ChunkKey& key)
 			{
 				if(m_pChunkCache->InCache(key))
 				{
@@ -74,32 +73,6 @@ namespace ld3d
 				return true;
 			});
 
-			/*Bound bound(center - Coord(radius, 32, radius), center + Coord(radius, 128, radius));;
-
-			m_VP = bound;
-
-			m_pLoader->RequestChunk(m_VP, [&](const ChunkKey& key)
-			{
-				if(m_pChunkCache->InCache(key))
-				{
-					return false;
-				}
-				m_pChunkCache->AddChunk(key);
-
-				return true;
-			});*/
-
-			/*VPSphere tmp = m_VP;
-
-			tmp.center += Coord(-14, -16, -16);
-
-			m_pLoader->RequestChunkDiffSetAsync(VoxelUtils::ToChunkOrigin(m_VP.center), m_VP.radius, VoxelUtils::ToChunkOrigin(tmp.center), tmp.radius, std::bind(&WorldViewport::AddChunkToCache, this, std::placeholders::_1));*/
-
-			/*while(m_pLoader->GetPendingCount() != 0)
-			{
-				m_pLoader->Update();
-				os_sleep(1);
-			}*/
 			m_lastVP = m_VP;
 			return true;
 		}
@@ -115,7 +88,6 @@ namespace ld3d
 		
 		void WorldViewport::Update()
 		{
-		//	return;
 			UpdateVP();
 		}
 		
@@ -151,16 +123,11 @@ namespace ld3d
 
 		const Coord& WorldViewport::GetCenterCoord() const
 		{
-//			return m_VP.GetCenter();
 			return m_VP.center;
-
 		}
 				
 		void WorldViewport::UpdateVP()
 		{
-		//	return;
-
-			//Coord dc = m_VP.GetCenter() - m_lastVP.GetCenter();
 			Coord dc = m_VP.center - m_lastVP.center;
 
 			if(abs(dc.x) < CHUNK_SIZE && abs(dc.y) < CHUNK_SIZE && abs(dc.z) < CHUNK_SIZE)
@@ -168,18 +135,7 @@ namespace ld3d
 				return;
 			}
 
-			/*m_pLoader->RequestChunk(m_VP, [&](const ChunkKey& key)
-			{
-				if(m_pChunkCache->InCache(key))
-				{
-					return false;
-				}
-				m_pChunkCache->AddChunk(key);
-
-				return true;
-			});*/
-
-			m_pLoader->RequestChunk(m_VP.center, m_VP.radius, m_VP.height, [&](const ChunkKey& key)
+			m_pLoader->RequestChunk(m_VP.center + m_VP.center_offset, m_VP.radius, m_VP.height, [&](const ChunkKey& key)
 			{
 				if(m_pChunkCache->InCache(key))
 				{
@@ -190,27 +146,12 @@ namespace ld3d
 				return true;
 			});
 
-			/*m_pLoader->RequestChunkSubtract(m_VP, m_lastVP, [&](const ChunkKey& key)
-			{
-				m_pChunkCache->AddChunk(key);
-			});*/
-
-			/*m_pLoader->RequestChunkDiffSetAsync(m_VP.center, m_VP.radius, m_lastVP.center, m_lastVP.radius, false, [&](const ChunkKey& key)
-			{
-				m_pChunkCache->AddChunk(key);
-			});*/
-
-			/*m_pLoader->RequestChunkDiffSetAsync(m_VP.center, m_VP.radius, m_VP.height, m_lastVP.center, m_lastVP.radius, m_lastVP.height, false, [&](const ChunkKey& key)
-			{
-				m_pChunkCache->AddChunk(key);
-			});*/
-
 			m_lastVP = m_VP;
 
 		}
 		void WorldViewport::SetRadius(uint32 radius)
 		{
-			//m_VP.radius = radius;
+			m_VP.radius = radius;
 		}
 
 		void WorldViewport::RefreshMesh()

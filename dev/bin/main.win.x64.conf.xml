@@ -10,6 +10,8 @@
   <package_list>
     <package>core</package>
     <package>voxel</package>
+    <package>water</package>
+    <package>atmosphere</package>
   </package_list>
 
   <mod>voxel_editor/voxel_editor_x64.mod</mod>
