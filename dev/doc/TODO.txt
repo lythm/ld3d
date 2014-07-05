@@ -1,15 +1,51 @@
+block是axis aligned 所以顶点法线可以用用uint8来表示，减少顶点大小
+{
+	float3 	pos
+	float3  uvw
+	int8	normal		// -x +x -y +y -z +z
+	float	ao
+}
+顶点大小是否还需要对齐32字节或者64字节
+基于定点色的skydome
+deferred的 skydome + scatering
+新的基于hemisphere lighting的 skylight
+重构shadowmapping
+vertex lighting or deferred lighting
+day night circle
 
+世界生成系统建模
+	2d perlin noise 生成elevation
+	2d perlin noise 生成温度分布
+	2d perlin noise 生成湿度分布
+	3d perlin noise 生成block密度
+	block type = f(海拔， 温度 湿度， 密度）
+
+	优化采样， 降低采样分辨率， 用线性插值
+	重新实现perlin noise， 快速版本
+
+screen space ocean
+	重构renderer 使得ocean rendering 提前 这样才能受到光照影响
+	或者 projected-grid 在世界空间实现ocean
+
+UI	
+	输入流控制， 界面响应的输入不传递给 游戏， cef无法得知是否响应了某事件， 需要想别的办法
+
+mesh生成队列增加优先级， 修改的chunk立刻生成，新加载的chunk 延后
+
+
+fmodstudio api 重新实现sound 系统
+
+
+
+===========================
 1.fog 指数
-2.voxelWorld 纹理
+
 3.PointLight ShadowMap
 4.SpotLight ShadowMap
 5.碰撞
 6.刚体物理
-7.OSX GLRenderer
-8.天空系统，日夜动态交替，大气效果
+
 9.水渲染
-10.VoxelWorld 扩大规模
-11.VoxelWorld 动态加载
 12.VoxelObject 技术方案
 13.VoxelObject 动画方案
 14.界面系统
@@ -19,7 +55,7 @@
 18.VoxelWorld 生成
 19.VoxelWorld寻路方案
 20.AI方案
-21.SSAO
+
 22.HDR
 
 
