@@ -15,7 +15,7 @@
 
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/json_parser.hpp>
-
+#include <sstream>
 namespace ld3d
 {
 	Console::Console(void)
@@ -89,7 +89,9 @@ namespace ld3d
 
 		try
 		{
-			read_json(std::stringstream(json), pt);
+			std::stringstream stream(json);
+			
+			read_json(stream, pt);
 		}
 		catch(json_parser_error& e)
 		{

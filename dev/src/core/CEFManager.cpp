@@ -18,8 +18,14 @@ namespace ld3d
 		bool CEFManager::Initialize(CoreApiPtr pCore)
 		{
 			m_pCore = pCore;
+			
+#ifdef WIN32
 			CefMainArgs main_args(GetModuleHandle(NULL));
-
+#endif
+			
+#ifdef __APPLE__
+			CefMainArgs main_args;
+#endif
 			m_pApp = new CEFApp;
 
 			CefSettings settings;
@@ -29,7 +35,7 @@ namespace ld3d
 			CefString(&settings.browser_subprocess_path).FromASCII(szSub);
 			CefString(&settings.log_file).FromString("./log/cef.log");
 
-			if(false == CefInitialize(main_args, settings, m_pApp.get()))
+			if(false == CefInitialize(main_args, settings, m_pApp.get(), nullptr))
 			{
 				return false;
 			}

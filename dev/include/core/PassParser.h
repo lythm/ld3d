@@ -9,7 +9,7 @@ namespace ld3d
 		{
 			typedef std::pair<std::string, std::string>			SamplerLink;
 		public:
-			PassParser(BaseParser* parent, Logger& logger = Logger());
+			PassParser(BaseParser* parent, const Logger& logger = Logger());
 			virtual ~PassParser(void);
 
 			bool												Parse(Lexer* lexer, const boost::filesystem::path& dir = "./");

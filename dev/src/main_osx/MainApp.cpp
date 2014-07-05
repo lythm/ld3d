@@ -10,6 +10,9 @@
 
 #include "MainApp.h"
 
+
+#include "core/core_all.h"
+
 #include "core/graphics_osx.h"
 #include "core/Sys_Graphics.h"
 ld3d::Logger	s_logger;
@@ -25,6 +28,10 @@ MainApp::~MainApp()
 bool MainApp::Init(void* wnd)
 {
 	using namespace ld3d;
+	
+	CoreApiPtr pCore = std::make_shared<CoreApi>();
+	
+	
 	
 	m_pGraphics = CreateSysGraphicsPtr(s_logger);
 	
@@ -45,7 +52,7 @@ void MainApp::Release()
 void MainApp::Update()
 {
 	
-	return;
+	//return;
 	
 	//m_pGraphics->SetViewPort(0, 0, 100, 100);
 	m_pGraphics->ClearRenderTarget(0, math::Color4(0, 0.5, 0, 1));

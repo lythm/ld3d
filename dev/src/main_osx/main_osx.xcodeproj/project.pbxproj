@@ -14,18 +14,20 @@
 		071B946B195FCD8900F4E198 /* libboost_system.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 071B946A195FCD8900F4E198 /* libboost_system.a */; };
 		071B946D195FCD9E00F4E198 /* libboost_filesystem.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 071B946C195FCD9E00F4E198 /* libboost_filesystem.a */; };
 		071B946F195FD5C100F4E198 /* libogl4graphics_osx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 071B946E195FD5C100F4E198 /* libogl4graphics_osx.a */; };
+		077AD5701967C9C200D32FE5 /* Chromium Embedded Framework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 077AD56F1967C9C200D32FE5 /* Chromium Embedded Framework.framework */; };
+		077AD5721967C9DD00D32FE5 /* libcef_dll_wrapper.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 077AD5711967C9DD00D32FE5 /* libcef_dll_wrapper.a */; };
 		07B3C25C17C36C33004F86AA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07B3C25B17C36C33004F86AA /* Cocoa.framework */; };
 		07B3C26617C36C33004F86AA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 07B3C26417C36C33004F86AA /* InfoPlist.strings */; };
 		07B3C26817C36C33004F86AA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 07B3C26717C36C33004F86AA /* main.m */; };
 		07B3C26C17C36C33004F86AA /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 07B3C26A17C36C33004F86AA /* Credits.rtf */; };
 		07B3C26F17C36C33004F86AA /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 07B3C26E17C36C33004F86AA /* AppDelegate.mm */; };
 		07B3C27217C36C33004F86AA /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07B3C27017C36C33004F86AA /* MainMenu.xib */; };
+		07F03B9D196730150062ADE0 /* libcore_osx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 07F03B9C196730150062ADE0 /* libcore_osx.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0711ADB4195F0D8C007E0411 /* MainApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MainApp.cpp; path = ../MainApp.cpp; sourceTree = "<group>"; };
 		0711ADB5195F0D8C007E0411 /* MainApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MainApp.h; path = ../MainApp.h; sourceTree = "<group>"; };
-		0711ADB7195F16BB007E0411 /* libogl4graphics_osx.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libogl4graphics_osx.a; path = ../ogl4graphics/ogl4graphics_osx/build/Debug/libogl4graphics_osx.a; sourceTree = "<group>"; };
 		0711ADBC195F1A29007E0411 /* libutils_osx.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libutils_osx.a; path = "../../../../../Library/Developer/Xcode/DerivedData/all-fzaibiesvozrhseeqhrxwrkhswck/Build/Products/Debug/libutils_osx.a"; sourceTree = "<group>"; };
 		0711ADBE195F1A30007E0411 /* libplatform_osx.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libplatform_osx.a; path = "../../../../../Library/Developer/Xcode/DerivedData/all-fzaibiesvozrhseeqhrxwrkhswck/Build/Products/Debug/libplatform_osx.a"; sourceTree = "<group>"; };
 		071B946A195FCD8900F4E198 /* libboost_system.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_system.a; path = ../../../../../sdk/boost_1_55_0/stage/lib/libboost_system.a; sourceTree = "<group>"; };
@@ -33,6 +35,8 @@
 		071B946E195FD5C100F4E198 /* libogl4graphics_osx.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libogl4graphics_osx.a; path = "../../../../../Library/Developer/Xcode/DerivedData/all-fzaibiesvozrhseeqhrxwrkhswck/Build/Products/Debug/libogl4graphics_osx.a"; sourceTree = "<group>"; };
 		076D32DE195F1C880071F6EC /* libboost_filesystem.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_filesystem.a; path = ../../lib/libboost_filesystem.a; sourceTree = "<group>"; };
 		076D32E0195F1CF10071F6EC /* libboost_system.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_system.a; path = ../../lib/libboost_system.a; sourceTree = "<group>"; };
+		077AD56F1967C9C200D32FE5 /* Chromium Embedded Framework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "Chromium Embedded Framework.framework"; path = "../../../../../sdk/cef3-mac/Release/Chromium Embedded Framework.framework"; sourceTree = "<group>"; };
+		077AD5711967C9DD00D32FE5 /* libcef_dll_wrapper.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcef_dll_wrapper.a; path = "../../../../../sdk/cef3-mac/xcodebuild/Release/libcef_dll_wrapper.a"; sourceTree = "<group>"; };
 		07B3C25817C36C33004F86AA /* main_osx.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = main_osx.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		07B3C25B17C36C33004F86AA /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		07B3C25E17C36C33004F86AA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -46,6 +50,7 @@
 		07B3C26D17C36C33004F86AA /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		07B3C26E17C36C33004F86AA /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
 		07B3C27117C36C33004F86AA /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		07F03B9C196730150062ADE0 /* libcore_osx.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcore_osx.a; path = "../../../../../Library/Developer/Xcode/DerivedData/all-fzaibiesvozrhseeqhrxwrkhswck/Build/Products/Debug/libcore_osx.a"; sourceTree = "<group>"; };
 		07FA9F2617C91D0900CAD600 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -54,6 +59,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				077AD5721967C9DD00D32FE5 /* libcef_dll_wrapper.a in Frameworks */,
+				077AD5701967C9C200D32FE5 /* Chromium Embedded Framework.framework in Frameworks */,
+				07F03B9D196730150062ADE0 /* libcore_osx.a in Frameworks */,
 				071B946F195FD5C100F4E198 /* libogl4graphics_osx.a in Frameworks */,
 				071B946D195FCD9E00F4E198 /* libboost_filesystem.a in Frameworks */,
 				071B946B195FCD8900F4E198 /* libboost_system.a in Frameworks */,
@@ -87,6 +95,9 @@
 		07B3C25A17C36C33004F86AA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				077AD5711967C9DD00D32FE5 /* libcef_dll_wrapper.a */,
+				077AD56F1967C9C200D32FE5 /* Chromium Embedded Framework.framework */,
+				07F03B9C196730150062ADE0 /* libcore_osx.a */,
 				071B946E195FD5C100F4E198 /* libogl4graphics_osx.a */,
 				071B946C195FCD9E00F4E198 /* libboost_filesystem.a */,
 				071B946A195FCD8900F4E198 /* libboost_system.a */,
@@ -94,7 +105,6 @@
 				076D32DE195F1C880071F6EC /* libboost_filesystem.a */,
 				0711ADBE195F1A30007E0411 /* libplatform_osx.a */,
 				0711ADBC195F1A29007E0411 /* libutils_osx.a */,
-				0711ADB7195F16BB007E0411 /* libogl4graphics_osx.a */,
 				07FA9F2617C91D0900CAD600 /* OpenGL.framework */,
 				07B3C25B17C36C33004F86AA /* Cocoa.framework */,
 				07B3C25D17C36C33004F86AA /* Other Frameworks */,
@@ -172,6 +182,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				English,
 			);
 			mainGroup = 07B3C24F17C36C33004F86AA;
 			productRefGroup = 07B3C25917C36C33004F86AA /* Products */;
@@ -313,6 +324,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Users/lythm/sdk/cef3-mac/Release",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
 				HEADER_SEARCH_PATHS = (
@@ -325,12 +340,13 @@
 				INFOPLIST_FILE = "main_osx/main_osx-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/lythm/works/ld3d/dev/src/ogl4graphics/ogl4graphics_osx/build/Debug,
 					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/all-fzaibiesvozrhseeqhrxwrkhswck/Build/Products/Debug",
 					/Users/lythm/works/ld3d/dev/lib,
 					/Users/lythm/sdk/boost_1_55_0/stage/lib,
+					"/Users/lythm/sdk/cef3-mac/xcodebuild/Release",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "../../include ~/sdk/ ~/sdk/cef3-mac/";
 				WARNING_LDFLAGS = "";
 				WRAPPER_EXTENSION = app;
 			};
@@ -340,17 +356,22 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Users/lythm/sdk/cef3-mac/Release",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
 				INFOPLIST_FILE = "main_osx/main_osx-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/lythm/works/ld3d/dev/src/ogl4graphics/ogl4graphics_osx/build/Debug,
 					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/all-fzaibiesvozrhseeqhrxwrkhswck/Build/Products/Debug",
 					/Users/lythm/works/ld3d/dev/lib,
 					/Users/lythm/sdk/boost_1_55_0/stage/lib,
+					"/Users/lythm/sdk/cef3-mac/xcodebuild/Release",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "../../include ~/sdk/ ~/sdk/cef3-mac/";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

@@ -1,7 +1,12 @@
 #pragma once
 
+#ifdef WIN32
 #include "cef3/include/cef_app.h"
+#endif
 
+#ifdef __APPLE__
+#include "cef3-mac/include/cef_app.h"
+#endif
 namespace ld3d
 {
 	namespace cef

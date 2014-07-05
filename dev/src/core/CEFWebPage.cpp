@@ -9,7 +9,9 @@
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/json_parser.hpp>
 
+#ifdef WIN32
 #include <windowsx.h>
+#endif
 
 #include <boost/function_types/result_type.hpp>
 
@@ -51,9 +53,12 @@ namespace ld3d
 		}
 		void CEFWebpageRenderer::_on_win_msg(EventPtr pEvent)
 		{
+			
+#ifdef WIN32
 			Event_WindowMessage* pMsg = (Event_WindowMessage*)pEvent.get();
 
 			m_pPage->HandleWinMsg(pMsg->msg);
+#endif
 		}
 		void CEFWebpageRenderer::SetVisible(bool visible)
 		{
@@ -242,7 +247,7 @@ namespace ld3d
 				CefDoMessageLoopWork();
 			}
 		}
-
+#ifdef WIN32
 		void CEFWebpage::GetMouseLocalCoord(LPARAM lParam, int& x, int& y)
 		{
 			x = GET_X_LPARAM(lParam);
@@ -412,6 +417,8 @@ namespace ld3d
 				break;
 			}
 		}
+		
+#endif
 		bool CEFWebpage::IsPointInside(int screenX, int screenY)
 		{
 			if(screenX < m_screenX || screenX > m_screenX + m_pTexture->GetWidth())
@@ -426,7 +433,9 @@ namespace ld3d
 
 			return true;
 		}
-		bool CEFWebpage::IsKeyDown(WPARAM wparam) 
+		
+#ifdef WIN32
+		bool CEFWebpage::IsKeyDown(WPARAM wparam)
 		{
 			return (GetKeyState(wparam) & 0x8000) != 0;
 		}
@@ -534,6 +543,10 @@ namespace ld3d
 				modifiers |= EVENTFLAG_CAPS_LOCK_ON;
 			return modifiers;
 		}
+		
+#endif
+		
+		
 		void CEFWebpage::SetScreenCoord(int x, int y)
 		{
 			m_screenX = x;

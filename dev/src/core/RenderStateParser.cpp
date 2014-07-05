@@ -147,7 +147,7 @@ namespace ld3d
 		};
 
 
-		RenderStateParser::RenderStateParser(BaseParser* parent, Logger& logger) : BaseParser(parent, logger)
+		RenderStateParser::RenderStateParser(BaseParser* parent, const Logger& logger) : BaseParser(parent, logger)
 		{
 			_BlendFactor						= math::Vector4(0, 0, 0, 1);
 			_BlendEnable						= false;

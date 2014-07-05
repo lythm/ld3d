@@ -9,7 +9,7 @@ namespace ld3d
 	namespace material_script
 	{
 		
-		TechniqueParser::TechniqueParser(BaseParser* parent, Logger& logger) : BaseParser(parent, logger)
+		TechniqueParser::TechniqueParser(BaseParser* parent, const Logger& logger) : BaseParser(parent, logger)
 		{
 		}
 

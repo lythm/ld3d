@@ -7,7 +7,7 @@ namespace ld3d
 		class TechniqueParser  : public BaseParser
 		{
 		public:
-			TechniqueParser(BaseParser* parent, Logger& logger = Logger());
+			TechniqueParser(BaseParser* parent, const Logger& logger = Logger());
 			virtual ~TechniqueParser(void);
 
 			bool												Parse(Lexer* lexer, const boost::filesystem::path& dir = "./");

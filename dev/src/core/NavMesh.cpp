@@ -1,5 +1,5 @@
 #include "core_pch.h"
-#include "..\..\include\core\NavMesh.h"
+#include "core/NavMesh.h"
 
 
 namespace ld3d

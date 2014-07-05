@@ -1,5 +1,5 @@
 #include "core_pch.h"
-#include "..\..\include\core\TextureOverlay.h"
+#include "core/TextureOverlay.h"
 #include "core/Material.h"
 #include "core/Texture.h"
 #include "core/RenderData.h"

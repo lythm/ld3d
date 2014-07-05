@@ -19,6 +19,21 @@
 		07D9C5B119601E0B00F6C339 /* PoolAllocator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07D9C5AD19601E0B00F6C339 /* PoolAllocator.cpp */; };
 		07D9C5B219601E0B00F6C339 /* StdAllocator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07D9C5AE19601E0B00F6C339 /* StdAllocator.cpp */; };
 		07D9C5B319601E0B00F6C339 /* TaskManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07D9C5AF19601E0B00F6C339 /* TaskManager.cpp */; };
+		07F03A80196725AD0062ADE0 /* Allocator.h in Headers */ = {isa = PBXBuildFile; fileRef = 07F03A74196725AD0062ADE0 /* Allocator.h */; };
+		07F03A81196725AD0062ADE0 /* CommandLine.h in Headers */ = {isa = PBXBuildFile; fileRef = 07F03A75196725AD0062ADE0 /* CommandLine.h */; };
+		07F03A82196725AD0062ADE0 /* Config.h in Headers */ = {isa = PBXBuildFile; fileRef = 07F03A76196725AD0062ADE0 /* Config.h */; };
+		07F03A83196725AD0062ADE0 /* Lexer.h in Headers */ = {isa = PBXBuildFile; fileRef = 07F03A77196725AD0062ADE0 /* Lexer.h */; };
+		07F03A84196725AD0062ADE0 /* Linked.h in Headers */ = {isa = PBXBuildFile; fileRef = 07F03A78196725AD0062ADE0 /* Linked.h */; };
+		07F03A85196725AD0062ADE0 /* logger.h in Headers */ = {isa = PBXBuildFile; fileRef = 07F03A79196725AD0062ADE0 /* logger.h */; };
+		07F03A86196725AD0062ADE0 /* PerlinNoise.h in Headers */ = {isa = PBXBuildFile; fileRef = 07F03A7A196725AD0062ADE0 /* PerlinNoise.h */; };
+		07F03A87196725AD0062ADE0 /* PoolAllocator.h in Headers */ = {isa = PBXBuildFile; fileRef = 07F03A7B196725AD0062ADE0 /* PoolAllocator.h */; };
+		07F03A88196725AD0062ADE0 /* PropertySet.h in Headers */ = {isa = PBXBuildFile; fileRef = 07F03A7C196725AD0062ADE0 /* PropertySet.h */; };
+		07F03A89196725AD0062ADE0 /* RefCount.h in Headers */ = {isa = PBXBuildFile; fileRef = 07F03A7D196725AD0062ADE0 /* RefCount.h */; };
+		07F03A8A196725AD0062ADE0 /* scope_exit.h in Headers */ = {isa = PBXBuildFile; fileRef = 07F03A7E196725AD0062ADE0 /* scope_exit.h */; };
+		07F03A8B196725AD0062ADE0 /* StdAllocator.h in Headers */ = {isa = PBXBuildFile; fileRef = 07F03A7F196725AD0062ADE0 /* StdAllocator.h */; };
+		07F03A8F196726040062ADE0 /* utils_all.h in Headers */ = {isa = PBXBuildFile; fileRef = 07F03A8C196726040062ADE0 /* utils_all.h */; };
+		07F03A90196726040062ADE0 /* utils_helper.h in Headers */ = {isa = PBXBuildFile; fileRef = 07F03A8D196726040062ADE0 /* utils_helper.h */; };
+		07F03A91196726040062ADE0 /* Version.h in Headers */ = {isa = PBXBuildFile; fileRef = 07F03A8E196726040062ADE0 /* Version.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +50,21 @@
 		07D9C5AD19601E0B00F6C339 /* PoolAllocator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PoolAllocator.cpp; path = ../PoolAllocator.cpp; sourceTree = "<group>"; };
 		07D9C5AE19601E0B00F6C339 /* StdAllocator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = StdAllocator.cpp; path = ../StdAllocator.cpp; sourceTree = "<group>"; };
 		07D9C5AF19601E0B00F6C339 /* TaskManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TaskManager.cpp; path = ../TaskManager.cpp; sourceTree = "<group>"; };
+		07F03A74196725AD0062ADE0 /* Allocator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Allocator.h; path = ../../../include/utils/Allocator.h; sourceTree = "<group>"; };
+		07F03A75196725AD0062ADE0 /* CommandLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CommandLine.h; path = ../../../include/utils/CommandLine.h; sourceTree = "<group>"; };
+		07F03A76196725AD0062ADE0 /* Config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Config.h; path = ../../../include/utils/Config.h; sourceTree = "<group>"; };
+		07F03A77196725AD0062ADE0 /* Lexer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Lexer.h; path = ../../../include/utils/Lexer.h; sourceTree = "<group>"; };
+		07F03A78196725AD0062ADE0 /* Linked.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Linked.h; path = ../../../include/utils/Linked.h; sourceTree = "<group>"; };
+		07F03A79196725AD0062ADE0 /* logger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = logger.h; path = ../../../include/utils/logger.h; sourceTree = "<group>"; };
+		07F03A7A196725AD0062ADE0 /* PerlinNoise.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PerlinNoise.h; path = ../../../include/utils/PerlinNoise.h; sourceTree = "<group>"; };
+		07F03A7B196725AD0062ADE0 /* PoolAllocator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PoolAllocator.h; path = ../../../include/utils/PoolAllocator.h; sourceTree = "<group>"; };
+		07F03A7C196725AD0062ADE0 /* PropertySet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PropertySet.h; path = ../../../include/utils/PropertySet.h; sourceTree = "<group>"; };
+		07F03A7D196725AD0062ADE0 /* RefCount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RefCount.h; path = ../../../include/utils/RefCount.h; sourceTree = "<group>"; };
+		07F03A7E196725AD0062ADE0 /* scope_exit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = scope_exit.h; path = ../../../include/utils/scope_exit.h; sourceTree = "<group>"; };
+		07F03A7F196725AD0062ADE0 /* StdAllocator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StdAllocator.h; path = ../../../include/utils/StdAllocator.h; sourceTree = "<group>"; };
+		07F03A8C196726040062ADE0 /* utils_all.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = utils_all.h; path = ../../../include/utils/utils_all.h; sourceTree = "<group>"; };
+		07F03A8D196726040062ADE0 /* utils_helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = utils_helper.h; path = ../../../include/utils/utils_helper.h; sourceTree = "<group>"; };
+		07F03A8E196726040062ADE0 /* Version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Version.h; path = ../../../include/utils/Version.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,6 +81,21 @@
 		07284AA917C39D690062CEF9 = {
 			isa = PBXGroup;
 			children = (
+				07F03A8C196726040062ADE0 /* utils_all.h */,
+				07F03A8D196726040062ADE0 /* utils_helper.h */,
+				07F03A8E196726040062ADE0 /* Version.h */,
+				07F03A74196725AD0062ADE0 /* Allocator.h */,
+				07F03A75196725AD0062ADE0 /* CommandLine.h */,
+				07F03A76196725AD0062ADE0 /* Config.h */,
+				07F03A77196725AD0062ADE0 /* Lexer.h */,
+				07F03A78196725AD0062ADE0 /* Linked.h */,
+				07F03A79196725AD0062ADE0 /* logger.h */,
+				07F03A7A196725AD0062ADE0 /* PerlinNoise.h */,
+				07F03A7B196725AD0062ADE0 /* PoolAllocator.h */,
+				07F03A7C196725AD0062ADE0 /* PropertySet.h */,
+				07F03A7D196725AD0062ADE0 /* RefCount.h */,
+				07F03A7E196725AD0062ADE0 /* scope_exit.h */,
+				07F03A7F196725AD0062ADE0 /* StdAllocator.h */,
 				07D9C5AD19601E0B00F6C339 /* PoolAllocator.cpp */,
 				07D9C5AE19601E0B00F6C339 /* StdAllocator.cpp */,
 				07D9C5AF19601E0B00F6C339 /* TaskManager.cpp */,
@@ -82,7 +127,22 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				07F03A87196725AD0062ADE0 /* PoolAllocator.h in Headers */,
+				07F03A8A196725AD0062ADE0 /* scope_exit.h in Headers */,
+				07F03A8F196726040062ADE0 /* utils_all.h in Headers */,
+				07F03A89196725AD0062ADE0 /* RefCount.h in Headers */,
+				07F03A82196725AD0062ADE0 /* Config.h in Headers */,
+				07F03A91196726040062ADE0 /* Version.h in Headers */,
+				07F03A88196725AD0062ADE0 /* PropertySet.h in Headers */,
+				07F03A80196725AD0062ADE0 /* Allocator.h in Headers */,
 				07284ACF17C3A1AC0062CEF9 /* utils_pch.h in Headers */,
+				07F03A8B196725AD0062ADE0 /* StdAllocator.h in Headers */,
+				07F03A86196725AD0062ADE0 /* PerlinNoise.h in Headers */,
+				07F03A81196725AD0062ADE0 /* CommandLine.h in Headers */,
+				07F03A85196725AD0062ADE0 /* logger.h in Headers */,
+				07F03A90196726040062ADE0 /* utils_helper.h in Headers */,
+				07F03A83196725AD0062ADE0 /* Lexer.h in Headers */,
+				07F03A84196725AD0062ADE0 /* Linked.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

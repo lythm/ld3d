@@ -44,14 +44,15 @@ namespace ld3d
 		AdjustWindow(w, h);
 		CenterWindow();
 	
-		// Insert code here to initialize your application
-		NSOpenGLPixelFormatAttribute attributes[] = {
-			NSOpenGLPFAColorSize, 32,
-			NSOpenGLPFADepthSize, 24,
-			NSOpenGLPFAStencilSize, 8,
+
+		NSOpenGLPixelFormatAttribute attributes[] =
+		{
+			NSOpenGLPFAColorSize,			32,
+			NSOpenGLPFADepthSize,			24,
+			NSOpenGLPFAStencilSize,			8,
 			NSOpenGLPFADoubleBuffer,
 			NSOpenGLPFAAccelerated,
-			NSOpenGLPFAOpenGLProfile, NSOpenGLProfileVersion3_2Core,
+			NSOpenGLPFAOpenGLProfile,		NSOpenGLProfileVersion3_2Core,
 			0
 		};
 		

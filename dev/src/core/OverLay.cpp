@@ -1,8 +1,8 @@
 #include "core_pch.h"
-#include "..\..\include\core\Overlay.h"
-#include "core\Material.h"
-#include "core\RenderData.h"
-#include "core\GeometryData.h"
+#include "core/Overlay.h"
+#include "core/Material.h"
+#include "core/RenderData.h"
+#include "core/GeometryData.h"
 
 namespace ld3d
 {

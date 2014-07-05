@@ -47,7 +47,12 @@ namespace ld3d
 																		boost::function<const T& ()> getter,
 																		boost::function<void (const T&)> setter = boost::function<void (const T&)>())
 		{
+#ifdef __APPLE__
+			std::shared_ptr<Property_T<T> > pProp = std::make_shared<Property_T<T> >(name);
+#endif
+#if defined(WIN32) || defined(WIN64)
 			std::shared_ptr<Property_T<T> > pProp = CoreApi::GetAllocator()->AllocObject<Property_T<T> >(name);
+#endif
 			pProp->setType(PropTypeId<T>::m_type);
 			pProp->m_getter = getter;
 			pProp->m_setter = setter;
@@ -63,7 +68,14 @@ namespace ld3d
 																		boost::function<const T& (TObject*)> getter,
 																		boost::function<void (TObject*, const T&)> setter =  boost::function<void (TObject*, const T&)>())
 		{
+#ifdef __APPLE__
+			std::shared_ptr<Property_T<T> > pProp = std::make_shared<Property_T<T> >(name);
+#endif
+#if defined(WIN32) || defined(WIN64)
+			//std::shared_ptr<Property_T<T> > pProp = CoreApi::GetAllocator()->AllocObject<Property_T<T> >(name);
 			std::shared_ptr<Property_T<T> > pProp = m_pManager->alloc_object<Property_T<T> >(name);
+#endif
+			
 			pProp->setType(PropTypeId<T>::m_type);
 			pProp->m_getter = boost::bind(getter, pObj);
 

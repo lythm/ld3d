@@ -1,5 +1,5 @@
 #include "core_pch.h"
-#include "..\..\include\core\HtmlOverlay.h"
+#include "core/HtmlOverlay.h"
 #include "core_utils.h"
 #include "core/TextureOverlay.h"
 #include "core/RenderManager.h"
