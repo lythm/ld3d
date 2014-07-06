@@ -48,6 +48,11 @@ namespace ld3d
 																	int count, 
 																	int startindex,
 																	int basevertex)														= 0;
+		virtual void									MultiDrawIndexed(GeometryDataPtr pData,
+																	int draw_count,
+																	int count[],
+																	void* index[],
+																	int basevertex[])													= 0;
 		virtual void									Draw(PRIMITIVE_TYPE prim, 
 																	GPUBufferPtr pVertexBuffer, 
 																	int vertexCount, 

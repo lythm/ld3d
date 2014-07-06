@@ -14,15 +14,12 @@
 		071B946B195FCD8900F4E198 /* libboost_system.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 071B946A195FCD8900F4E198 /* libboost_system.a */; };
 		071B946D195FCD9E00F4E198 /* libboost_filesystem.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 071B946C195FCD9E00F4E198 /* libboost_filesystem.a */; };
 		071B946F195FD5C100F4E198 /* libogl4graphics_osx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 071B946E195FD5C100F4E198 /* libogl4graphics_osx.a */; };
-		077AD5701967C9C200D32FE5 /* Chromium Embedded Framework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 077AD56F1967C9C200D32FE5 /* Chromium Embedded Framework.framework */; };
-		077AD5721967C9DD00D32FE5 /* libcef_dll_wrapper.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 077AD5711967C9DD00D32FE5 /* libcef_dll_wrapper.a */; };
 		07B3C25C17C36C33004F86AA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07B3C25B17C36C33004F86AA /* Cocoa.framework */; };
 		07B3C26617C36C33004F86AA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 07B3C26417C36C33004F86AA /* InfoPlist.strings */; };
 		07B3C26817C36C33004F86AA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 07B3C26717C36C33004F86AA /* main.m */; };
 		07B3C26C17C36C33004F86AA /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 07B3C26A17C36C33004F86AA /* Credits.rtf */; };
 		07B3C26F17C36C33004F86AA /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 07B3C26E17C36C33004F86AA /* AppDelegate.mm */; };
 		07B3C27217C36C33004F86AA /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07B3C27017C36C33004F86AA /* MainMenu.xib */; };
-		07F03B9D196730150062ADE0 /* libcore_osx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 07F03B9C196730150062ADE0 /* libcore_osx.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -59,9 +56,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				077AD5721967C9DD00D32FE5 /* libcef_dll_wrapper.a in Frameworks */,
-				077AD5701967C9C200D32FE5 /* Chromium Embedded Framework.framework in Frameworks */,
-				07F03B9D196730150062ADE0 /* libcore_osx.a in Frameworks */,
 				071B946F195FD5C100F4E198 /* libogl4graphics_osx.a in Frameworks */,
 				071B946D195FCD9E00F4E198 /* libboost_filesystem.a in Frameworks */,
 				071B946B195FCD8900F4E198 /* libboost_system.a in Frameworks */,

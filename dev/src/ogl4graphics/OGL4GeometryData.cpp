@@ -6,10 +6,11 @@ namespace ld3d
 {
 	OGL4GeometryData::OGL4GeometryData(void)
 	{
-		m_vao = 0;
-		m_indexType = GL_UNSIGNED_SHORT;
-		m_primType = GL_TRIANGLES;
-		m_vbOffset = 0;
+		m_vao				= 0;
+		m_indexType			= GL_UNSIGNED_SHORT;
+		m_indexElementBytes	= 2;
+		m_primType			= GL_TRIANGLES;
+		m_vbOffset			= 0;
 	}
 
 
@@ -58,19 +59,27 @@ namespace ld3d
 		{
 		case G_FORMAT_R32_UINT:
 			m_indexType = GL_UNSIGNED_INT;
+				m_indexElementBytes	= 4;
 			break;
 		case G_FORMAT_R16_UINT:
 			m_indexType = GL_UNSIGNED_SHORT;
+				m_indexElementBytes = 2;
 			break;
 		default:
 			assert(0);
 			m_indexType = GL_UNSIGNED_SHORT;
+			m_indexElementBytes = 2;
 			break;
 		}
 
 		OGL4BufferPtr pOGLBuffer = std::dynamic_pointer_cast<OGL4Buffer>(m_pIndexBuffer);
 
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, pOGLBuffer->GetBufferObject());
+	}
+	uint32 OGL4GeometryData::GetIndexElementBytes() const
+	{
+		return m_indexElementBytes;
+		
 	}
 
 	GPUBufferPtr OGL4GeometryData::GetIndexBuffer()

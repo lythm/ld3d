@@ -300,23 +300,28 @@ namespace ld3d
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, pIB->GetBufferObject());
 
 
-		GLenum glType = GL_INVALID_ENUM;
+		GLenum glType					= GL_INVALID_ENUM;
+		uint32 indexElementBytes		= 2;
 		switch(indexType)
 		{
 		case G_FORMAT_R32_UINT:
-			glType = GL_UNSIGNED_INT;
+			glType					= GL_UNSIGNED_INT;
+			indexElementBytes		= 4;
 			break;
 		case G_FORMAT_R16_UINT:
-			glType = GL_UNSIGNED_SHORT;
+			glType					= GL_UNSIGNED_SHORT;
+			indexElementBytes		= 2;
 			break;
 		default:
 			assert(0);
 			glType = GL_UNSIGNED_SHORT;
+			indexElementBytes		= 2;
 			break;
 		}
 
 
-		glDrawElements(prim, count, glType, 0);
+		//glDrawElements(prim, count, glType, (GLvoid*)(startindex * indexElementBytes));
+		glDrawElementsBaseVertex(prim, count, glType, (GLvoid*)(startindex * indexElementBytes), basevertex);
 	}
 
 	void OGL4Graphics::DrawIndexed(GeometryDataPtr pData, int count, int startindex, int basevertex)
@@ -325,7 +330,8 @@ namespace ld3d
 
 		pGLData->Bind();
 
-		glDrawElements(pGLData->GetPrimitiveType(), count, pGLData->GetIndexType(), 0);
+		//glDrawElements(pGLData->GetPrimitiveType(), count, pGLData->GetIndexType(), 0);
+		glDrawElementsBaseVertex(pGLData->GetPrimitiveType(), count, pGLData->GetIndexType(), (GLvoid*)(startindex * pGLData->GetIndexElementBytes()), basevertex);
 
 	}
 	void OGL4Graphics::Draw(GeometryDataPtr pData, int vertexCount, int baseVertex)
@@ -666,5 +672,16 @@ namespace ld3d
 			pTex.reset();
 		}
 		return pTex;
+	}
+	void OGL4Graphics::MultiDrawIndexed(GeometryDataPtr pData, int draw_count, int count[], void* index[], int basevertex[])
+	{
+		OGL4GeometryData* pGLData = (OGL4GeometryData*)pData.get();
+		
+		pGLData->Bind();
+		
+		//glDrawElements(pGLData->GetPrimitiveType(), count, pGLData->GetIndexType(), 0);
+		
+		
+		glMultiDrawElementsBaseVertex(pGLData->GetPrimitiveType(), (int*)count, pGLData->GetIndexType(), (const void* const*)index, draw_count, (int*)basevertex);
 	}
 }

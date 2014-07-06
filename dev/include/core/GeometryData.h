@@ -29,8 +29,8 @@ namespace ld3d
 		virtual GPUBufferPtr											GetIndexBuffer()										= 0;
 		virtual GPUBufferPtr											GetVertexBuffer()										= 0;
 
-		virtual void													SetVertexBufferOffset(unsigned int offset, 
-																			const VertexLayout& layout)							= 0;
+		//virtual void													SetVertexBufferOffset(unsigned int offset,
+		//																	const VertexLayout& layout)							= 0;
 
 		virtual void													SetVertexLayout(const VertexLayout& layout)				= 0;
 

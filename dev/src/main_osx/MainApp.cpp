@@ -11,7 +11,7 @@
 #include "MainApp.h"
 
 
-#include "core/core_all.h"
+//#include "core/core_all.h"
 
 #include "core/graphics_osx.h"
 #include "core/Sys_Graphics.h"
@@ -29,7 +29,7 @@ bool MainApp::Init(void* wnd)
 {
 	using namespace ld3d;
 	
-	CoreApiPtr pCore = std::make_shared<CoreApi>();
+	//CoreApiPtr pCore = std::make_shared<CoreApi>();
 	
 	
 	
@@ -38,11 +38,11 @@ bool MainApp::Init(void* wnd)
 	GraphicsSetting setting;
 	setting.frameBufferWidth = 1024;
 	setting.frameBufferHeight = 600;
-	setting.windowed = false;
+	setting.windowed = true;
 	setting.wnd = wnd;
 	m_pGraphics->Initialize(setting);
 	
-	m_pGraphics->ResizeRenderWindow(1024, 600, true);
+	//m_pGraphics->ResizeRenderWindow(1024, 600, true);
 	return true;
 }
 void MainApp::Release()

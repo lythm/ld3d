@@ -38,6 +38,7 @@ namespace ld3d
 		bool													Create();
 		void													Bind();
 		GLenum													GetIndexType() const;
+		uint32													GetIndexElementBytes() const;
 		GLenum													GetPrimitiveType() const;
 		
 		void													SetVertexLayout(const VertexLayout& layout);
@@ -51,6 +52,7 @@ namespace ld3d
 		GPUBufferPtr											m_pIndexBuffer;
 		VertexLayout											m_layout;
 		GLenum													m_indexType;
+		uint32													m_indexElementBytes;
 		GLenum													m_primType;
 		unsigned int											m_vbOffset;
 
