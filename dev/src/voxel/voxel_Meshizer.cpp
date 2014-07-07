@@ -396,6 +396,7 @@ namespace ld3d
 				}
 			}
 			pMesh->AddSubset(sub);
+
 		}
 		void Meshizer::MakeMesh(const math::Vector3& vertex_offset, const std::vector<VoxelFace>& mesh, ChunkMesh* pMesh)
 		{

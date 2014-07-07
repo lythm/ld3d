@@ -330,8 +330,12 @@ namespace ld3d
 
 		pGLData->Bind();
 
-		//glDrawElements(pGLData->GetPrimitiveType(), count, pGLData->GetIndexType(), 0);
-		glDrawElementsBaseVertex(pGLData->GetPrimitiveType(), count, pGLData->GetIndexType(), (GLvoid*)(startindex * pGLData->GetIndexElementBytes()), basevertex);
+		int offset = startindex * pGLData->GetIndexElementBytes();
+
+		glDrawElementsBaseVertex(pGLData->GetPrimitiveType(), count, pGLData->GetIndexType(), (GLvoid*)(offset), basevertex);
+
+		GLenum error = glGetError();
+		assert(error == 0);
 
 	}
 	void OGL4Graphics::Draw(GeometryDataPtr pData, int vertexCount, int baseVertex)
@@ -679,9 +683,7 @@ namespace ld3d
 		
 		pGLData->Bind();
 		
-		//glDrawElements(pGLData->GetPrimitiveType(), count, pGLData->GetIndexType(), 0);
+		glMultiDrawElementsBaseVertex(pGLData->GetPrimitiveType(), (int*)count, pGLData->GetIndexType(), index, draw_count, (int*)basevertex);
 		
-		
-		glMultiDrawElementsBaseVertex(pGLData->GetPrimitiveType(), (int*)count, pGLData->GetIndexType(), (const void* const*)index, draw_count, (int*)basevertex);
 	}
 }

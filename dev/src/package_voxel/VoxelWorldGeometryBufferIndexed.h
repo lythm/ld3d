@@ -23,6 +23,9 @@ namespace ld3d
 
 		uint32										GetIndexCount();
 		uint32										GetBaseIndex();
+
+		uint8*										m_indexBufferCopy;
+
 	private:
 		uint32										m_nVBBytes;
 		uint32										m_nVBCurrent;
@@ -35,7 +38,7 @@ namespace ld3d
 
 		GPUBufferPtr								m_pIB;
 		GPUBufferPtr								m_pVB;
-		uint16*										m_pIBData;
+		uint8*										m_pIBData;
 		uint8*										m_pVBData;
 		RenderManagerPtr							m_pRenderManager;
 
@@ -45,6 +48,7 @@ namespace ld3d
 		uint32										m_nIndexCount;
 		uint32										m_baseIndex;
 
+		
 	};
 
 

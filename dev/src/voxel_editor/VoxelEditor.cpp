@@ -56,14 +56,14 @@ namespace ld3d
 			pCore->AddEventHandler(EV_RESIZE_FRAMEBUFFER, boost::bind(&VoxelEditor::_on_resize, this, _1));
 
 
-			/*m_pGrid = pCore->CreateGameObject("Grid");
+			m_pGrid = pCore->CreateGameObject("Grid");
 
 			GridRendererPtr pGridRenderer = std::dynamic_pointer_cast<GridRenderer>(pCore->CreateGameObjectComponent("GridRenderer"));
 
 			pGridRenderer->SetSize(2048);
 			pGridRenderer->SetGridSize(16);
 
-			m_pGrid->AddComponent(pGridRenderer);*/
+			m_pGrid->AddComponent(pGridRenderer);
 
 			m_pCamera= pCore->CreateGameObject("Camera");
 

@@ -223,20 +223,79 @@ namespace ld3d
 
 	void VoxelWorldRendererImpl::MultiDrawIndexed(Sys_GraphicsPtr pSysGraphics, GeometryDataPtr pGeo, MaterialPtr pMaterial, int draw_count, int index_count[], void* index[], int base_verts[])
 	{
+		if(draw_count == 0)
+		{
+			return;
+		}
 		/*m_renderedVertex += nVerts;
 		if(nVerts == 0)
 		{
 			return;
 		}
 */
+
+		///////////////////////////////////
+
+
+		for(int i = 0; i < draw_count; ++i)
+		{
+			uint32 base = base_verts[i];
+			uint16* pbuffer = (uint16*)(((uint8*)(m_pGeometryBuffer->m_indexBufferCopy) + (int64)(index[i])));
+			for(int ii = 0; ii < index_count[i]; ++ii)
+			{
+				uint16 ind = pbuffer[ii];
+
+				if(ind == -1)
+				{
+					assert(0);
+				}
+				ind += base;
+
+				if(ind > m_pGeometryBuffer->GetBaseVertex() + m_pGeometryBuffer->GetVertexCount())
+				{
+					int debug = 0;
+				}
+			}
+		}
+
+		
+		//////////////////////////////////
+
+
 		int nPass = pMaterial->Begin();
 
-		for(int i = 0; i < nPass; ++i)
+		for(int ipass = 0; ipass < nPass; ++ipass)
 		{
-			pMaterial->ApplyPass(i);
-			//pSysGraphics->Draw(pGeo, nVerts, baseVertex);
+			pMaterial->ApplyPass(ipass);
+			
+			//pSysGraphics->MultiDrawIndexed(pGeo, draw_count, index_count, index, base_verts);
 
-			pSysGraphics->MultiDrawIndexed(pGeo, draw_count, index_count, index, base_verts);
+			for(int i = 0; i < draw_count; ++i)
+			{
+				uint16* pBaseIB = (uint16*)m_pGeometryBuffer->m_indexBufferCopy;
+				uint64 offset = (uint64)(index[i]);
+				uint16* pIB = (uint16*)(m_pGeometryBuffer->m_indexBufferCopy + offset);
+				uint32 i_count = index_count[i];
+				uint32 base = base_verts[i];
+
+				for(int ii = 0; ii < i_count; ++ii)
+				{
+					uint16 ind = pIB[i] + base;
+					if(ind >= (m_pGeometryBuffer->GetBaseVertex() + m_pGeometryBuffer->GetVertexCount()))
+					{
+						assert(0);
+					}
+				}
+
+				//pSysGraphics->DrawIndexed(pGeo, index_count[i], (int64)(index[i]) / sizeof(uint16), base_verts[i]);
+
+				//pSysGraphics->DrawIndexed(pGeo, 3, (int64)(index[i]) / sizeof(uint16), base_verts[i]);
+
+				pSysGraphics->DrawIndexed(pGeo, 3, 0, 0);
+
+
+				int debug = 0;
+			}
 		}
 
 		pMaterial->End();
@@ -364,6 +423,7 @@ namespace ld3d
 
 	void VoxelWorldRendererImpl::_render_indexed(size_t begin, size_t end)
 	{
+		return;
 		using namespace voxel;
 		if(begin == end)
 		{
@@ -391,17 +451,10 @@ namespace ld3d
 		int base_verts[1000];
 		void*  index[1000];
 
-		int base_v = 0;
-		int base_i = 0;
+		int base_v = m_pGeometryBuffer->GetBaseVertex();
+		int base_i = m_pGeometryBuffer->GetBaseIndex();
 
-
-		struct VoxelVertex
-		{
-			math::Vector3										pos;
-			math::Vector3										uv;
-			float												ao;
-			uint32												normal;
-		};
+		int vertex_count[1000];
 
 		for(size_t i = begin; i < end; ++i)
 		{
@@ -416,11 +469,12 @@ namespace ld3d
 
 				MultiDrawIndexed(pGraphics, pGeo, pMat, draw_count, index_count, index, base_verts);
 				
-				draw_count	= 0;
-				base_v		= 0;
-				base_i		= 0;
-
 				m_pGeometryBuffer->Begin(unit.sub.vertexCount);
+
+				draw_count	= 0;
+				base_v		= m_pGeometryBuffer->GetBaseVertex();
+				base_i		= m_pGeometryBuffer->GetBaseIndex();
+
 				mat_id = unit.sub.material_id;
 			}
 
@@ -433,11 +487,11 @@ namespace ld3d
 				m_pRenderManager->SetMatrixBlock(pMat, world);
 
 				MultiDrawIndexed(pGraphics, pGeo, pMat, draw_count, index_count, index, base_verts);
-				draw_count	= 0;
-				base_v		= 0;
-				base_i		= 0;
-
+				
 				m_pGeometryBuffer->Begin(unit.sub.vertexCount);
+				draw_count	= 0;
+				base_v		= m_pGeometryBuffer->GetBaseVertex();
+				base_i		= m_pGeometryBuffer->GetBaseIndex();
 
 				m_pGeometryBuffer->Push(unit.sub);
 
@@ -445,9 +499,10 @@ namespace ld3d
 			}
 
 			index_count[draw_count]		= unit.sub.indexCount;
-			base_verts[draw_count]		= base_v + m_pGeometryBuffer->GetBaseVertex();
+			base_verts[draw_count]		= base_v;
 
-			index[draw_count]			= (void*)((base_i + m_pGeometryBuffer->GetBaseIndex()) * sizeof(uint16));
+			index[draw_count]			= (void*)((base_i) * sizeof(uint16));
+			vertex_count[draw_count]	= unit.sub.vertexCount;
 
 			draw_count++;
 

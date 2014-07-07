@@ -23,7 +23,7 @@ private:
 	std::shared_ptr<server::GameServer>		m_pServer;
 	std::shared_ptr<client::GameClient>		m_pClient;
 
-
+	ld3d::GeometryDataPtr					m_pGeo;
 	VoxelDemo*								m_pDemo;
 };
 

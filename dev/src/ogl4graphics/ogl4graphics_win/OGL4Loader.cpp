@@ -143,7 +143,9 @@ namespace ld3d
 	}
 	bool OGL4Loader::load_api()
 	{
-		
+
+		LOAD_API(glGetError,											PFNGLGETERRORPROC);
+
 		LOAD_API(glGetStringi,											PFNGLGETSTRINGIPROC);
 		LOAD_API(glGetString,											PFNGLGETSTRINGPROC);
 		LOAD_API(glGetIntegerv,											PFNGLGETINTEGERVPROC);

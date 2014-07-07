@@ -5,7 +5,7 @@
 
 
 
-
+PFNGLGETERRORPROC								glGetError											= nullptr;
 PFNGLGETSTRINGPROC								glGetString											= nullptr;
 PFNGLGETINTEGERVPROC							glGetIntegerv										= nullptr;
 PFNGLDELETETEXTURESPROC							glDeleteTextures									= nullptr;

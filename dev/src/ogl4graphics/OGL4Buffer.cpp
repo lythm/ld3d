@@ -31,8 +31,8 @@ namespace ld3d
 			data = glMapBufferRange(target, offset, bytes, GL_MAP_WRITE_BIT | GL_MAP_INVALIDATE_BUFFER_BIT);
 			break;
 		case MAP_NO_OVERWRITE:
-			//data = glMapBufferRange(target, offset, bytes, GL_MAP_WRITE_BIT | GL_MAP_UNSYNCHRONIZED_BIT);
-			data = glMapBufferRange(target, offset, bytes, GL_MAP_WRITE_BIT | GL_MAP_INVALIDATE_RANGE_BIT);
+			data = glMapBufferRange(target, offset, bytes, GL_MAP_WRITE_BIT | GL_MAP_UNSYNCHRONIZED_BIT);
+			//data = glMapBufferRange(target, offset, bytes, GL_MAP_WRITE_BIT | GL_MAP_INVALIDATE_RANGE_BIT);
 			break;
 		case MAP_DEFAULT:
 			data = glMapBufferRange(target, offset, bytes, GL_MAP_WRITE_BIT);

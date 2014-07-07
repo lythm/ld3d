@@ -250,7 +250,6 @@ namespace ld3d
 			pChunk->SetMesh(pMesh);
 
 			m_pOctreeManager->AddChunk(pChunk);
-
 		}
 	}
 }

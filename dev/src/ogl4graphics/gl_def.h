@@ -12,7 +12,7 @@
 #if defined(_WIN64) || defined(_WIN32)
 #include "glext/glcorearb.h"
 
-
+extern PFNGLGETERRORPROC								glGetError;
 extern PFNGLGETSTRINGPROC								glGetString;
 extern PFNGLGETINTEGERVPROC								glGetIntegerv;
 extern PFNGLDELETETEXTURESPROC							glDeleteTextures;

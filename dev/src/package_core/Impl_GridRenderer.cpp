@@ -175,11 +175,11 @@ namespace ld3d
 
 		int line_count = (m_size / m_gridSize + 1) + (m_size / m_gridSize + 1) ;
 		int index_count = line_count * 2;
-		GPUBufferPtr pIB = pGraphics->CreateBuffer(BT_INDEX_BUFFER, index_count * sizeof(int), NULL, true);
+		GPUBufferPtr pIB = pGraphics->CreateBuffer(BT_INDEX_BUFFER, index_count * sizeof(uint16), NULL, true);
 
-		int * pStart = (int*)pIB->Map(MAP_DISCARD, 0, index_count * sizeof(int));
+		uint16 * pStart = (uint16*)pIB->Map(MAP_DISCARD, 0, index_count * sizeof(uint16));
 
-		int * pData = pStart;
+		uint16 * pData = pStart;
 
 		for(int i = 0; i < (m_size / m_gridSize + 1); ++i)
 		{
@@ -215,8 +215,8 @@ namespace ld3d
 
 		m_pRenderData->geometry->BeginGeometry(PT_LINE_LIST);
 		{
-			m_pRenderData->geometry->AttachIndexBuffer(pIB, G_FORMAT_R32_UINT);
 			m_pRenderData->geometry->AttachVertexBuffer(pVB, layout);
+			m_pRenderData->geometry->AttachIndexBuffer(pIB, G_FORMAT_R16_UINT);
 		}
 		m_pRenderData->geometry->EndGeometry();
 		m_pRenderData->index_count = index_count;

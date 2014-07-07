@@ -30,7 +30,7 @@ namespace ld3d
 		m_pRenderManager	= pRenderManager;
 		m_nVBBytes			= nVerts * sizeof(voxel::ChunkMesh::VoxelVertex);
 		m_nIBBytes			= (nVerts * 6 / 4) * sizeof(uint16);
-		
+	//	m_nIBBytes			= 1024 * 1024 * 8;
 
 		VertexLayout layout;
 		layout.AddAttribute(G_FORMAT_R32G32B32_FLOAT);
@@ -54,6 +54,11 @@ namespace ld3d
 			}
 		}
 		m_pGeometry->EndGeometry();
+
+
+		m_indexBufferCopy       = (uint8*)new char[m_nIBBytes];
+		memset(m_indexBufferCopy, -1, m_nIBBytes);
+
 
 		m_nVBCurrent			= 0;
 		m_nVBOffset				= 0;
@@ -83,34 +88,33 @@ namespace ld3d
 		m_nVertexCount		= 0;
 		m_nVBOffset			= m_nVBCurrent;
 
+		m_nIndexCount		= 0;
+		m_nIBOffset			= m_nIBCurrent;
+
 		uint32 bytesLeft = m_nVBBytes - m_nVBCurrent;
 		
 		m_pIBData = nullptr;
 		m_pVBData = nullptr;
-		if(bytesLeft <= (verts_at_least * sizeof(voxel::ChunkMesh::VoxelVertex)))
+		//if(bytesLeft <= (verts_at_least * sizeof(voxel::ChunkMesh::VoxelVertex)))
 		{
 			m_pVBData = (uint8*)m_pVB->Map(MAP_DISCARD, 0, m_nVBBytes);
-			m_nVBOffset = 0;
-			m_nVBCurrent = 0;
+			m_nVBOffset			= 0;
+			m_nVBCurrent		= 0;
 
-			m_pIBData = (uint16*)m_pIB->Map(MAP_DISCARD, 0, m_nIBBytes);
+			m_pIBData = (uint8*)m_pIB->Map(MAP_DISCARD, 0, m_nIBBytes);
+			m_nIBOffset			= 0;
+			m_nIBCurrent		= 0;
 		}
-		else
+		/*else
 		{
 			m_pVBData = (uint8*)m_pVB->Map(MAP_NO_OVERWRITE, m_nVBCurrent, m_nVBBytes - m_nVBCurrent);
 
-			m_pIBData = (uint16*)m_pIB->Map(MAP_NO_OVERWRITE, m_nIBCurrent, m_nIBBytes - m_nIBCurrent);
-		}
+			m_pIBData = (uint8*)m_pIB->Map(MAP_NO_OVERWRITE, m_nIBCurrent, m_nIBBytes - m_nIBCurrent);
+		}*/
 
 		m_baseVertex = m_nVBOffset / m_nVertexStride;
-
-
-
-		m_nIndexCount		= 0;
-		m_nIBOffset			= m_nIBCurrent;
-
+		
 		m_baseIndex	= m_nIBOffset / sizeof(uint16);
-
 	}
 	void VoxelWorldGeometryBufferIndexed::End()
 	{
@@ -130,15 +134,26 @@ namespace ld3d
 			return false;
 		}
 
-		memcpy(m_pVBData + m_nVBCurrent - m_nVBOffset, sub.vertexBuffer, sizeof(ChunkMesh::VoxelVertex) * sub.vertexCount);
+		uint32 bytes_copy = sizeof(ChunkMesh::VoxelVertex) * sub.vertexCount;
+		memcpy(m_pVBData + m_nVBCurrent - m_nVBOffset, sub.vertexBuffer, bytes_copy);
 
-		m_nVBCurrent += sizeof(ChunkMesh::VoxelVertex) * sub.vertexCount;
-		m_nVertexCount += sub.vertexCount;
+		m_nVBCurrent		+= bytes_copy;
+		m_nVertexCount		+= sub.vertexCount;
 
-
-		memcpy(m_pIBData + m_nIBCurrent - m_nIBOffset, sub.indexBuffer, sizeof(uint16) * sub.indexCount);
-		m_nIBCurrent += sizeof(uint16) * sub.indexCount;
-		m_nIndexCount += sub.indexCount;
+		bytes_copy = sizeof(uint16) * sub.indexCount;
+		memcpy(m_indexBufferCopy + m_nIBCurrent, sub.indexBuffer, bytes_copy);
+		memcpy(m_pIBData + m_nIBCurrent - m_nIBOffset, sub.indexBuffer, bytes_copy);
+		
+		for(int i = 0; i < sub.indexCount; ++i)
+		{
+			uint16 v1 = ((uint16*)(m_indexBufferCopy + m_nIBCurrent))[i];
+			uint16 v2 = ((uint16*)(m_pIBData + m_nIBCurrent - m_nIBOffset))[i];  
+			assert( v1 == v2); 
+		}
+		
+		
+		m_nIBCurrent		+= bytes_copy;
+		m_nIndexCount		+= sub.indexCount;
 
 		return true;
 	}

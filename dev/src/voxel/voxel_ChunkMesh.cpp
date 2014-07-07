@@ -54,6 +54,7 @@ namespace ld3d
 		bool ChunkMesh::Reset()
 		{
 			m_nVertexCount				= 0;
+			m_nIndexCount				= 0;
 
 			m_subsets.clear();
 
