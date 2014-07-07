@@ -2,8 +2,12 @@
 
 
 #include "packages/voxel/VoxelWorldRenderer.h"
+
+
 namespace ld3d
 {
+	class VoxelWorldGeometryBuffer;
+	class VoxelWorldGeometryBufferIndexed;
 	class VoxelWorldRendererImpl : public VoxelWorldRenderer
 	{
 		struct RenderUnit
@@ -35,17 +39,20 @@ namespace ld3d
 		uint32										GetRenderedFaceCount();
 		uint32										GetRenderedVertexCount();
 		uint32										GetRenderedVertexBytes();
+		uint32										GetRenderedChunkCount();
 	private:
 		void										on_event_frustumcull(EventPtr pEvent);
 		bool										OnAttach();
 		void										OnDetach();
 
 		void										_add_mesh(const voxel::Coord& base, voxel::ChunkMeshPtr pMesh);
-		void										Draw(Sys_GraphicsPtr pSysGraphics, MaterialPtr pMaterial, int baseVertex);
+		void										Draw(Sys_GraphicsPtr pSysGraphics, GeometryDataPtr pGeo, MaterialPtr pMaterial, int baseVertex, int nVerts);
+		void										MultiDrawIndexed(Sys_GraphicsPtr pSysGraphics, GeometryDataPtr pGeo, MaterialPtr pMaterial, int draw_count, int index_count[], void* index[], int base_verts[]);
 		void										Render(RenderManagerPtr pManager);
 		void										RenderShadowMapGeo(RenderManagerPtr pManager, MaterialPtr pMaterial);
 
 		void										_render(size_t begin, size_t end);
+		void										_render_indexed(size_t begin, size_t end);
 		void										_render_smg(size_t begin, size_t end, MaterialPtr pMaterial);
 	private:
 		bool										m_bShowBound;
@@ -55,26 +62,20 @@ namespace ld3d
 		voxel::WorldViewportPtr						m_pWorldVP;
 		
 		EventHandlerID								m_hFrustumCull;
-
 		
 		RenderList									m_renderList;
 				
 		RenderDataPtr								m_pRenderData;
 
 		AABBoxRenderDataPtr							m_pAABBoxRenderData;
-		uint32										m_nVBBytes;
-		uint32										m_nVBCurrent;
-		uint32										m_nVBOffset;
-		uint32										m_nVertexStride;
-		uint32										m_nVertexCount;
-
-		GeometryDataPtr								m_pGeometry;
-
+		
 		RenderManagerPtr							m_pRenderManager;
 
 		math::Matrix44								m_worldMatrix;
 		std::vector<MaterialPtr>					m_materials;
 
 		uint32										m_renderedVertex;
+		uint32										m_renderedChunk;
+		std::shared_ptr<VoxelWorldGeometryBufferIndexed>	m_pGeometryBuffer;
 	};
 }

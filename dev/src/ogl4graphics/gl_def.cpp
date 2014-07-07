@@ -33,6 +33,9 @@ PFNGLDEPTHFUNCPROC								glDepthFunc											= nullptr;
 
 PFNGLDRAWARRAYSPROC								glDrawArrays										= nullptr;
 PFNGLDRAWELEMENTSPROC							glDrawElements										= nullptr;
+PFNGLMULTIDRAWELEMENTSBASEVERTEXPROC			glMultiDrawElementsBaseVertex						= nullptr;
+PFNGLDRAWELEMENTSBASEVERTEXPROC					glDrawElementsBaseVertex							= nullptr;
+
 PFNGLVIEWPORTPROC								glViewport											= nullptr;
 
 

@@ -34,7 +34,7 @@ namespace ld3d
 	}
 	
 
-#if 0
+#if defined(WIN32)
 //#ifdef _DEBUG
 	void APIENTRY _DebugCallback(GLenum source, 
 		GLenum type, 

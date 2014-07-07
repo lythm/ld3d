@@ -13,7 +13,8 @@ namespace ld3d
 			struct VoxelFace
 			{
 				math::Vector3			verts[4];
-				math::Vector3			normal;
+				VoxelFaceNormal			normal;
+				//math::Vector3			normal;
 				math::Vector3			uv[4];
 				uint32					material;
 				uint8					ao_bits[4];
@@ -116,6 +117,8 @@ namespace ld3d
 			void										AddVoxelMaterial(uint8 type, const VoxelMaterial& mat);
 
 			void										GenerateMeshOpt(const ChunkKey& key, const ChunkData& chunk_data, const ChunkAdjacency& adj, const Coord& base_coord, ChunkMesh* pMesh);
+
+			math::Vector3								VoxelNormalToVector3(VoxelFaceNormal n);
 		private:
 			uint32										FacesGenOpt(const ChunkKey& key, const ChunkData& chunk_data, const ChunkAdjacency& adj, std::vector<VoxelFace>& faces);
 			uint32										FacesGen(const ChunkKey& key, const ChunkData& chunk_data, const ChunkAdjacency& adj, std::vector<VoxelFace>& faces);
@@ -123,6 +126,8 @@ namespace ld3d
 			void										InitializeCubeVertex(uint32 size);
 			void										FaceAO(const ChunkKey& key, const ChunkAdjacency& adj, VoxelFace& face);
 			void										MakeMesh(const math::Vector3& vertex_offset, const std::vector<VoxelFace>& mesh, ChunkMesh* pMesh);
+			void										MakeMeshIndexed(const math::Vector3& vertex_offset, const std::vector<VoxelFace>& mesh, ChunkMesh* pMesh);
+
 			float										ao_factor(uint8 o);
 
 			bool										FindMaxRegion(FaceInfo* faces, FaceRegion& r);

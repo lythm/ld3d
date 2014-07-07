@@ -152,6 +152,7 @@ namespace ld3d
 			s << "[world renderer] "<< " faces: " << pRenderer->GetRenderedFaceCount()
 				<< " vertex count: " << pRenderer->GetRenderedVertexCount()
 				<< " vertex bytes: " << pRenderer->GetRenderedVertexBytes() / 1024.0f / 1024.0f << "M"
+				<< " chunks: " << pRenderer->GetRenderedChunkCount()
 				<< "<br>";
 				s << "[mem]: " << double(mem.resident) / 1024.0 / 1024.0 << "M";
 			*m_debugInfo = s.str();

@@ -37,14 +37,13 @@ extern PFNGLPOLYGONOFFSETPROC							glPolygonOffset;
 extern PFNGLDEPTHMASKPROC								glDepthMask;
 extern PFNGLDEPTHFUNCPROC								glDepthFunc;
 
-
 extern PFNGLDRAWARRAYSPROC								glDrawArrays;
 extern PFNGLDRAWELEMENTSPROC							glDrawElements;
+extern PFNGLMULTIDRAWELEMENTSBASEVERTEXPROC				glMultiDrawElementsBaseVertex;
+extern PFNGLDRAWELEMENTSBASEVERTEXPROC					glDrawElementsBaseVertex;
+
+
 extern PFNGLVIEWPORTPROC								glViewport;
-
-
-
-
 
 
 extern PFNGLGETSTRINGIPROC								glGetStringi;

@@ -25,9 +25,19 @@ namespace ld3d
 		const uint32 CHUNK_BLOCKS												= CHUNK_SIZE * CHUNK_SIZE * CHUNK_SIZE;
 		const uint32 REGION_CHUNK_LENGTH										= 32;										// in chunk
 		const uint32 REGION_SIZE												= REGION_CHUNK_LENGTH * CHUNK_SIZE;			// in block
-		
-		
-		
+
+
+		enum class VoxelFaceNormal
+		{
+			normal_nx,
+			normal_px,
+			normal_ny,
+			normal_py,
+			normal_nz,
+			normal_pz,
+
+		};
+
 		class World;
 		class WorldGen;
 		class Chunk;

@@ -21,7 +21,8 @@ namespace ld3d
 			m_Cube[0].ao_bits[2]		= 0;
 			m_Cube[0].ao_bits[3]		= 0;
 
-			m_Cube[0].normal = math::Vector3(-1, 0, 0);
+			//m_Cube[0].normal = math::Vector3(-1, 0, 0);
+			m_Cube[0].normal = VoxelFaceNormal::normal_nx;
 
 			// +x
 			m_Cube[1].verts[0] = math::Vector3(1, 0, 0);
@@ -34,7 +35,7 @@ namespace ld3d
 			m_Cube[1].ao_bits[2]		= 0;
 			m_Cube[1].ao_bits[3]		= 0;
 
-			m_Cube[1].normal = math::Vector3(1, 0, 0);
+			m_Cube[1].normal = VoxelFaceNormal::normal_px;
 
 			// -y
 			m_Cube[2].verts[0] = math::Vector3(0, 0, 0);
@@ -47,7 +48,7 @@ namespace ld3d
 			m_Cube[2].ao_bits[2]		= 0;
 			m_Cube[2].ao_bits[3]		= 0;
 
-			m_Cube[2].normal = math::Vector3(0, -1, 0);
+			m_Cube[2].normal = VoxelFaceNormal::normal_ny;
 
 			// +y
 			m_Cube[3].verts[0] = math::Vector3(0, 1, 0);
@@ -60,7 +61,7 @@ namespace ld3d
 			m_Cube[3].ao_bits[2]		= 0;
 			m_Cube[3].ao_bits[3]		= 0;
 
-			m_Cube[3].normal = math::Vector3(0, 1, 0);
+			m_Cube[3].normal = VoxelFaceNormal::normal_py;
 
 
 			// -z
@@ -74,7 +75,7 @@ namespace ld3d
 			m_Cube[4].ao_bits[2]		= 0;
 			m_Cube[4].ao_bits[3]		= 0;
 
-			m_Cube[4].normal = math::Vector3(0, 0, -1);
+			m_Cube[4].normal = VoxelFaceNormal::normal_nz;
 
 			// +z
 			m_Cube[5].verts[0] = math::Vector3(0, 0, 1);
@@ -87,7 +88,7 @@ namespace ld3d
 			m_Cube[5].ao_bits[2]		= 0;
 			m_Cube[5].ao_bits[3]		= 0;
 
-			m_Cube[5].normal = math::Vector3(0, 0, 1);
+			m_Cube[5].normal = VoxelFaceNormal::normal_pz;
 
 
 			for(int i = 0; i < 5; ++i)
@@ -108,6 +109,36 @@ namespace ld3d
 		Meshizer::~Meshizer(void)
 		{
 			m_materialMap.clear();
+		}
+		math::Vector3 Meshizer::VoxelNormalToVector3(VoxelFaceNormal n)
+		{
+			math::Vector3 v(0, 0, 0);
+
+			switch(n)
+			{
+			case VoxelFaceNormal::normal_nx:
+				v.x = -1.0f;
+				break;
+			case VoxelFaceNormal::normal_px:
+				v.x = 1.0f;
+				break;
+			case VoxelFaceNormal::normal_ny:
+				v.y = -1.0f;
+				break;
+			case VoxelFaceNormal::normal_py:
+				v.y = 1.0f;
+				break;
+			case VoxelFaceNormal::normal_nz:
+				v.z = -1.0f;
+				break;
+			case VoxelFaceNormal::normal_pz:
+				v.z = 1.0f;
+				break;
+			default:
+				break;
+			}
+
+			return v;
 		}
 		void Meshizer::FaceAO(const ChunkKey& key, const ChunkAdjacency& adj, VoxelFace& face)
 		{
@@ -134,7 +165,8 @@ namespace ld3d
 
 				for(size_t i = 0; i < normals.size(); ++i)
 				{
-					float d = Dot(normals[i], face.normal);
+					math::Vector3 vn = VoxelNormalToVector3(face.normal);
+					float d = Dot(normals[i], vn);
 					if(d <= 0.001f)
 					{
 						continue;
@@ -190,7 +222,8 @@ namespace ld3d
 
 			math::Vector3 vertex_offset( (float)base_coord.x, (float)base_coord.y, (float)base_coord.z);
 
-			MakeMesh(vertex_offset, mesh, pMesh);
+			//MakeMesh(vertex_offset, mesh, pMesh);
+			MakeMeshIndexed(vertex_offset, mesh, pMesh);
 		}
 		uint32 Meshizer::FacesGen(const ChunkKey& key, const ChunkData& chunk_data, const ChunkAdjacency& adj, std::vector<VoxelFace>& faces)
 		{
@@ -301,6 +334,69 @@ namespace ld3d
 
 			return (uint32)faces.size();
 		}
+		void Meshizer::MakeMeshIndexed(const math::Vector3& vertex_offset, const std::vector<VoxelFace>& mesh, ChunkMesh* pMesh)
+		{
+			ChunkMesh::Subset sub;
+			sub.vertexCount				= 0;
+			sub.vertexBuffer			= nullptr;
+			sub.indexCount				= 0;
+			sub.indexBuffer				= nullptr;
+
+			sub.material_id				= mesh[0].material;
+			pMesh->AllocVertexBuffer((uint32)mesh.size() * 4);
+
+			pMesh->AllocIndexBuffer((uint32)mesh.size() * 6);
+
+			ChunkMesh::VoxelVertex* pVBData = (ChunkMesh::VoxelVertex*)pMesh->GetVertexBuffer();
+			sub.vertexBuffer	= pVBData;
+
+			uint16*	pIBData					= (uint16*)pMesh->GetIndexBuffer();
+			sub.indexBuffer		= pIBData;
+
+		//	uint16 nBaseVert = 0;
+			for(size_t i = 0; i < mesh.size(); ++i)
+			{
+				const VoxelFace& face = mesh[i];
+
+				if(face.material != sub.material_id && sub.vertexCount != 0)
+				{
+					pMesh->AddSubset(sub);
+
+					sub.material_id		= face.material;
+					sub.vertexCount		= 0;
+					sub.vertexBuffer	= pVBData;
+
+					sub.indexBuffer		= pIBData;
+					sub.indexCount		= 0;
+
+				//	nBaseVert			= 0;
+				}
+
+				uint32 indices[6] = {0,1,3,1,2,3,};
+				MakeTriangles(face, indices);
+
+				for(int ii = 0; ii < 6; ++ii)
+				{
+					*pIBData = indices[ii] + sub.vertexCount;
+
+					++pIBData;
+					sub.indexCount++;
+				}
+
+				//nBaseVert += 4;
+
+				for(int ii = 0; ii < 4; ++ii)
+				{
+					pVBData->pos = face.verts[ii] + vertex_offset;
+					pVBData->normal = (uint32)face.normal;
+					pVBData->uv = face.uv[ii];
+					pVBData->ao = ao_factor(face.ao_bits[ii]);
+					++pVBData;
+					sub.vertexCount++;
+				}
+			}
+			pMesh->AddSubset(sub);
+		}
 		void Meshizer::MakeMesh(const math::Vector3& vertex_offset, const std::vector<VoxelFace>& mesh, ChunkMesh* pMesh)
 		{
 			ChunkMesh::Subset sub;
@@ -335,55 +431,12 @@ namespace ld3d
 					int ivert = indices[ii];
 
 					pData->pos = face.verts[ivert] + vertex_offset;
-					pData->normal = face.normal;
+					pData->normal = (uint32)face.normal;
 					pData->uv = face.uv[ivert];
 					pData->ao = ao_factor(face.ao_bits[ivert]);
 					++pData;
 					sub.vertexCount++;
 				}
-
-				/*pData->pos = face.verts[0] + vertex_offset;
-				pData->normal = face.normal;
-				pData->uv = face.uv[0];
-				pData->ao = ao_factor(face.ao_bits[0]);
-				++pData;
-				sub.vertexCount++;
-
-				pData->pos = face.verts[1] + vertex_offset;
-				pData->normal = face.normal;
-				pData->uv = face.uv[1];
-				pData->ao = ao_factor(face.ao_bits[1]);
-				++pData;
-				sub.vertexCount++;
-
-				pData->pos = face.verts[2] + vertex_offset;
-				pData->normal = face.normal;
-				pData->uv = face.uv[2];
-				pData->ao = ao_factor(face.ao_bits[2]);
-				++pData;
-				sub.vertexCount++;
-
-				pData->pos = face.verts[1] + vertex_offset;
-				pData->normal = face.normal;
-				pData->uv = face.uv[1];
-				pData->ao = ao_factor(face.ao_bits[1]);
-				++pData;
-				sub.vertexCount++;
-
-				pData->pos = face.verts[3] + vertex_offset;
-				pData->normal = face.normal;
-				pData->uv = face.uv[3];
-				pData->ao = ao_factor(face.ao_bits[3]);
-				++pData;
-				sub.vertexCount++;
-
-				pData->pos = face.verts[2] + vertex_offset;
-				pData->normal = face.normal;
-				pData->uv = face.uv[2];
-				pData->ao = ao_factor(face.ao_bits[2]);
-
-				++pData;
-				sub.vertexCount++;*/
 			}
 			pMesh->AddSubset(sub);
 		}

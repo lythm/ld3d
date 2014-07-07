@@ -14,9 +14,9 @@ namespace ld3d
 			struct VoxelVertex
 			{
 				math::Vector3										pos;
-				math::Vector3										normal;
 				math::Vector3										uv;
 				float												ao;
+				uint32												normal;
 			};
 
 
@@ -25,6 +25,9 @@ namespace ld3d
 				void*												vertexBuffer;
 				uint32												vertexCount;
 				uint32												material_id;
+
+				void*												indexBuffer;
+				uint32												indexCount;
 			};
 
 			ChunkMesh(void);
@@ -32,10 +35,16 @@ namespace ld3d
 
 			void													Release();
 			bool													Reset();
+			
+			
 			bool													AllocVertexBuffer(uint32 nVerts);
 			void*													GetVertexBuffer();
-
 			uint32													GetVertexCount();
+
+
+			bool													AllocIndexBuffer(uint32 nIndexCount);
+			void*													GetIndexBuffer();
+			uint32													GetIndexCount();
 
 			void													AddSubset(const Subset& sub);
 
@@ -48,6 +57,10 @@ namespace ld3d
 			uint32													m_vertexBufferBytes;
 
 			std::vector<Subset>										m_subsets;
+
+			void*													m_pIndexBuffer;
+			uint32													m_nIndexCount;
+			uint32													m_nIndexBufferBytes;
 		};
 	}
 }

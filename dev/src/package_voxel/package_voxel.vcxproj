@@ -175,6 +175,8 @@
     <ClInclude Include="VoxelObjectTemplate.h" />
     <ClInclude Include="VoxelPackage.h" />
     <ClInclude Include="VoxelWorldCollisionDataImpl.h" />
+    <ClInclude Include="VoxelWorldGeometryBuffer.h" />
+    <ClInclude Include="VoxelWorldGeometryBufferIndexed.h" />
     <ClInclude Include="VoxelWorldImpl.h" />
     <ClInclude Include="VoxelWorldRendererImpl.h" />
     <ClInclude Include="VoxelWorldUtils.h" />
@@ -187,6 +189,8 @@
     <ClCompile Include="VoxelObjectTemplate.cpp" />
     <ClCompile Include="VoxelPackage.cpp" />
     <ClCompile Include="VoxelWorldCollisionDataImpl.cpp" />
+    <ClCompile Include="VoxelWorldGeometryBuffer.cpp" />
+    <ClCompile Include="VoxelWorldGeometryBufferIndexed.cpp" />
     <ClCompile Include="VoxelWorldImpl.cpp" />
     <ClCompile Include="VoxelWorldRendererImpl.cpp" />
     <ClCompile Include="VoxelWorldUtils.cpp" />

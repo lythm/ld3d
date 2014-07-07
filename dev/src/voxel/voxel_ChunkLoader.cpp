@@ -229,8 +229,9 @@ namespace ld3d
 
 			ChunkMeshPtr pMesh = pool_manager()->AllocChunkMesh();
 			pMesh->AllocVertexBuffer(mesh->GetVertexCount());
+			pMesh->AllocIndexBuffer(mesh->GetIndexCount());
 			memcpy(pMesh->GetVertexBuffer(), mesh->GetVertexBuffer(), sizeof(ChunkMesh::VoxelVertex) * mesh->GetVertexCount());
-
+			memcpy(pMesh->GetIndexBuffer(), mesh->GetIndexBuffer(), sizeof(uint16) * mesh->GetIndexCount());
 			for(uint32 i = 0; i < mesh->GetSubsetCount(); ++i)
 			{
 				ChunkMesh::Subset s = mesh->GetSubset(i);
@@ -238,6 +239,10 @@ namespace ld3d
 				uint64 offset = (uint8*)s.vertexBuffer - (uint8*)mesh->GetVertexBuffer();
 
 				s.vertexBuffer = (uint8*)pMesh->GetVertexBuffer() + offset;
+
+
+				offset = (uint8*)s.indexBuffer - (uint8*)mesh->GetIndexBuffer();
+				s.indexBuffer = (uint8*)pMesh->GetIndexBuffer() + offset;
 
 				pMesh->AddSubset(s);
 			}

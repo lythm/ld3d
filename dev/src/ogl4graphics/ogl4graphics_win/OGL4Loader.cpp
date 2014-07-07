@@ -168,6 +168,9 @@ namespace ld3d
 		LOAD_API(glDepthFunc,											PFNGLDEPTHFUNCPROC);
 		LOAD_API(glDrawArrays,											PFNGLDRAWARRAYSPROC);
 		LOAD_API(glDrawElements,										PFNGLDRAWELEMENTSPROC);
+		LOAD_API(glMultiDrawElementsBaseVertex,							PFNGLMULTIDRAWELEMENTSBASEVERTEXPROC);
+		LOAD_API(glDrawElementsBaseVertex,								PFNGLDRAWELEMENTSBASEVERTEXPROC);
+	
 		LOAD_API(glViewport,											PFNGLVIEWPORTPROC);
 
 
@@ -305,6 +308,7 @@ namespace ld3d
 		LOAD_API(glCompressedTexSubImage2D,								PFNGLCOMPRESSEDTEXSUBIMAGE2DPROC);
 
 		LOAD_API(glCompressedTexSubImage3D,								PFNGLCOMPRESSEDTEXSUBIMAGE3DPROC);
+
 
 		return true;
 	}

@@ -35,7 +35,12 @@ namespace ld3d
 			CefString(&settings.browser_subprocess_path).FromASCII(szSub);
 			CefString(&settings.log_file).FromString("./log/cef.log");
 
+#ifdef __APPLE__
 			if(false == CefInitialize(main_args, settings, m_pApp.get(), nullptr))
+#endif
+#ifdef WIN32
+			if(false == CefInitialize(main_args, settings, m_pApp.get()))
+#endif
 			{
 				return false;
 			}

@@ -13,6 +13,10 @@ namespace ld3d
 			m_nVertexCount				= 0;
 			m_vertexBufferBytes			= 0;
 
+			m_pIndexBuffer				= nullptr;
+			m_nIndexCount				= 0;
+			m_nIndexBufferBytes			= 0;
+
 		}
 		ChunkMesh::~ChunkMesh(void)
 		{
@@ -20,6 +24,12 @@ namespace ld3d
 			{
 				delete m_pVertexBuffer;
 				m_pVertexBuffer = nullptr;
+			}
+
+			if(m_pIndexBuffer)
+			{
+				delete m_pIndexBuffer;
+				m_pIndexBuffer	= nullptr;
 			}
 
 			m_subsets.clear();
@@ -30,6 +40,11 @@ namespace ld3d
 			{
 				delete m_pVertexBuffer;
 				m_pVertexBuffer = nullptr;
+			}
+			if(m_pIndexBuffer)
+			{
+				delete m_pIndexBuffer;
+				m_pIndexBuffer	= nullptr;
 			}
 
 			m_subsets.clear();
@@ -70,7 +85,32 @@ namespace ld3d
 		{
 			return m_nVertexCount;
 		}
-		
+		bool ChunkMesh::AllocIndexBuffer(uint32 nIndexCount)
+		{
+			uint32 bytes_need = nIndexCount * sizeof(uint16);
+
+			if((bytes_need) > m_nIndexBufferBytes)
+			{
+				if(m_pIndexBuffer)
+				{
+					delete m_pIndexBuffer;
+				}
+				m_pIndexBuffer = new char[bytes_need];
+				m_nIndexBufferBytes = bytes_need;
+			}
+
+			m_nIndexCount = nIndexCount;
+
+			return true;
+		}
+		void* ChunkMesh::GetIndexBuffer()
+		{
+			return m_pIndexBuffer;
+		}
+		uint32 ChunkMesh::GetIndexCount()
+		{
+			return m_nIndexCount;
+		}
 		void ChunkMesh::AddSubset(const Subset& sub)
 		{
 			m_subsets.push_back(sub);
