@@ -193,8 +193,8 @@ namespace ld3d
 		LOAD_API(glBindVertexBuffer,									PFNGLBINDVERTEXBUFFERPROC);
 
 		LOAD_API(glVertexAttribPointer,									PFNGLVERTEXATTRIBPOINTERPROC);
-
-
+		LOAD_API(glVertexAttribIPointer,								PFNGLVERTEXATTRIBIPOINTERPROC);
+		
 		LOAD_API(glClearBufferfv,										PFNGLCLEARBUFFERFVPROC);
 		LOAD_API(glClearBufferfi,										PFNGLCLEARBUFFERFIPROC);
 		LOAD_API(glClearBufferiv,										PFNGLCLEARBUFFERIVPROC);

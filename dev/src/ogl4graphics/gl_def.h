@@ -72,6 +72,7 @@ extern PFNGLISBUFFERPROC								glIsBuffer;
 extern PFNGLBUFFERSUBDATAPROC							glBufferSubData;	
 extern PFNGLDELETEBUFFERSPROC							glDeleteBuffers;	
 extern PFNGLVERTEXATTRIBPOINTERPROC						glVertexAttribPointer;	
+extern PFNGLVERTEXATTRIBIPOINTERPROC					glVertexAttribIPointer;
 extern PFNGLMAPBUFFERRANGEPROC							glMapBufferRange;	
 extern PFNGLUNMAPBUFFERPROC								glUnmapBuffer;	
 extern PFNGLBINDVERTEXBUFFERPROC						glBindVertexBuffer;

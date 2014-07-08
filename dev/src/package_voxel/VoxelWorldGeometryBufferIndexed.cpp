@@ -32,9 +32,10 @@ namespace ld3d
 
 		VertexLayout layout;
 		layout.AddAttribute(G_FORMAT_R32G32B32_FLOAT);
-		layout.AddAttribute(G_FORMAT_R32G32B32_FLOAT);
+		layout.AddAttribute(G_FORMAT_R32G32_FLOAT);
+		layout.AddAttribute(G_FORMAT_R32_UINT);
 		layout.AddAttribute(G_FORMAT_R32_FLOAT);
-		layout.AddAttribute(G_FORMAT_R32_FLOAT);
+		layout.AddAttribute(G_FORMAT_R32_UINT);
 		
 		m_pGeometry = m_pRenderManager->CreateGeometryData();
 		

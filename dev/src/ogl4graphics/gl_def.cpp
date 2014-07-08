@@ -62,6 +62,7 @@ PFNGLBUFFERSUBDATAPROC								glBufferSubData									= nullptr;
 
 PFNGLDELETEBUFFERSPROC								glDeleteBuffers									= nullptr;	
 PFNGLVERTEXATTRIBPOINTERPROC						glVertexAttribPointer							= nullptr;	
+PFNGLVERTEXATTRIBIPOINTERPROC						glVertexAttribIPointer							= nullptr;	
 PFNGLMAPBUFFERRANGEPROC								glMapBufferRange								= nullptr;
 PFNGLUNMAPBUFFERPROC								glUnmapBuffer									= nullptr;	
 PFNGLBINDVERTEXBUFFERPROC							glBindVertexBuffer								= nullptr;

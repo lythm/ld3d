@@ -14,11 +14,11 @@ namespace ld3d
 			struct VoxelVertex
 			{
 				math::Vector3										pos;
-				math::Vector3										uv;
+				math::Vector2										uv;
+				uint32												tex_id;
 				float												ao;
-				float												normal;
+				uint32												normal;
 			};
-
 
 			struct Subset
 			{

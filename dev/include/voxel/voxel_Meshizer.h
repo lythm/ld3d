@@ -14,8 +14,8 @@ namespace ld3d
 			{
 				math::Vector3			verts[4];
 				VoxelFaceNormal			normal;
-				//math::Vector3			normal;
-				math::Vector3			uv[4];
+				math::Vector2			uv[4];
+				uint32					tex_id;
 				uint32					material;
 				uint8					ao_bits[4];
 				Coord					voxelCoord;
@@ -25,69 +25,27 @@ namespace ld3d
 
 			struct VoxelMaterial
 			{
-				enum
-				{
-					n_x,
-					p_x,
-
-					n_y,
-					p_y,
-
-					n_z,
-					p_z,
-
-					face_count,
-				};
-
 				VoxelMaterial()
 				{
 					type			= VT_EMPTY;
 
-					uv[n_x][0]		= math::Vector3(1, 0, 0);
-					uv[n_x][1]		= math::Vector3(0, 0, 0);
-					uv[n_x][2]		= math::Vector3(0, 1, 0);
-					uv[n_x][3]		= math::Vector3(1, 1, 0);
+					materials[(int)VoxelFaceNormal::normal_nx]	= -1;
+					materials[(int)VoxelFaceNormal::normal_px]	= -1;
+					materials[(int)VoxelFaceNormal::normal_ny]	= -1;
+					materials[(int)VoxelFaceNormal::normal_py]	= -1;
+					materials[(int)VoxelFaceNormal::normal_nz]	= -1;
+					materials[(int)VoxelFaceNormal::normal_pz]	= -1;
 
-					uv[p_x][0]		= math::Vector3(0, 0, 0);
-					uv[p_x][1]		= math::Vector3(0, 1, 0);
-					uv[p_x][2]		= math::Vector3(1, 1, 0);
-					uv[p_x][3]		= math::Vector3(1, 0, 0);
-
-					uv[n_y][0]		= math::Vector3(0, 1, 0);
-					uv[n_y][1]		= math::Vector3(1, 1, 0);
-					uv[n_y][2]		= math::Vector3(1, 0, 0);
-					uv[n_y][3]		= math::Vector3(0, 0, 0);
-
-					uv[p_y][0]		= math::Vector3(0, 0, 0);
-					uv[p_y][1]		= math::Vector3(0, 1, 0);
-					uv[p_y][2]		= math::Vector3(1, 1, 0);
-					uv[p_y][3]		= math::Vector3(1, 0, 0);
-
-					uv[n_z][0]		= math::Vector3(0, 0, 0);
-					uv[n_z][1]		= math::Vector3(0, 1, 0);
-					uv[n_z][2]		= math::Vector3(1, 1, 0);
-					uv[n_z][3]		= math::Vector3(1, 0, 0);
-
-					uv[p_z][0]		= math::Vector3(0, 0, 0);
-					uv[p_z][1]		= math::Vector3(1, 0, 0);
-					uv[p_z][2]		= math::Vector3(1, 1, 0);
-					uv[p_z][3]		= math::Vector3(0, 1, 0);
-
-					materials[n_x]	= -1;
-					materials[p_x]	= -1;
-					materials[n_y]	= -1;
-					materials[p_y]	= -1;
-					materials[n_z]	= -1;
-					materials[p_z]	= -1;
+					tex_index[(int)VoxelFaceNormal::normal_nx]	= -1;
+					tex_index[(int)VoxelFaceNormal::normal_px]	= -1;
+					tex_index[(int)VoxelFaceNormal::normal_ny]	= -1;
+					tex_index[(int)VoxelFaceNormal::normal_py]	= -1;
+					tex_index[(int)VoxelFaceNormal::normal_nz]	= -1;
+					tex_index[(int)VoxelFaceNormal::normal_pz]	= -1;
 				}
 				uint8									type;
-				uint32									materials[face_count];
-
-				// 3 ----- 2
-				// |       |
-				// |       |
-				// 1 ----- 0
-				math::Vector3							uv[face_count][4];
+				uint32									materials[6];
+				uint32									tex_index[6];
 			};
 
 			struct FaceInfo

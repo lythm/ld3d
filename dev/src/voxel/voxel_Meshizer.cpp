@@ -16,6 +16,11 @@ namespace ld3d
 			m_Cube[0].verts[2] = math::Vector3(0, 1, 1);
 			m_Cube[0].verts[3] = math::Vector3(0, 1, 0);
 
+			m_Cube[0].uv[0]		= math::Vector2(1, 0);
+			m_Cube[0].uv[1]		= math::Vector2(0, 0);
+			m_Cube[0].uv[2]		= math::Vector2(0, 1);
+			m_Cube[0].uv[3]		= math::Vector2(1, 1);
+
 			m_Cube[0].ao_bits[0]		= 0;
 			m_Cube[0].ao_bits[1]		= 0;
 			m_Cube[0].ao_bits[2]		= 0;
@@ -30,6 +35,11 @@ namespace ld3d
 			m_Cube[1].verts[2] = math::Vector3(1, 1, 1);
 			m_Cube[1].verts[3] = math::Vector3(1, 0, 1);
 
+			m_Cube[1].uv[0]		= math::Vector2(0, 0);
+			m_Cube[1].uv[1]		= math::Vector2(0, 1);
+			m_Cube[1].uv[2]		= math::Vector2(1, 1);
+			m_Cube[1].uv[3]		= math::Vector2(1, 0);
+						
 			m_Cube[1].ao_bits[0]		= 0;
 			m_Cube[1].ao_bits[1]		= 0;
 			m_Cube[1].ao_bits[2]		= 0;
@@ -43,6 +53,11 @@ namespace ld3d
 			m_Cube[2].verts[2] = math::Vector3(1, 0, 1);
 			m_Cube[2].verts[3] = math::Vector3(0, 0, 1);
 
+			m_Cube[2].uv[0]		= math::Vector2(0, 1);
+			m_Cube[2].uv[1]		= math::Vector2(1, 1);
+			m_Cube[2].uv[2]		= math::Vector2(1, 0);
+			m_Cube[2].uv[3]		= math::Vector2(0, 0);
+
 			m_Cube[2].ao_bits[0]		= 0;
 			m_Cube[2].ao_bits[1]		= 0;
 			m_Cube[2].ao_bits[2]		= 0;
@@ -55,6 +70,12 @@ namespace ld3d
 			m_Cube[3].verts[1] = math::Vector3(0, 1, 1);
 			m_Cube[3].verts[2] = math::Vector3(1, 1, 1);
 			m_Cube[3].verts[3] = math::Vector3(1, 1, 0);
+
+			m_Cube[3].uv[0]		= math::Vector2(0, 0);
+			m_Cube[3].uv[1]		= math::Vector2(0, 1);
+			m_Cube[3].uv[2]		= math::Vector2(1, 1);
+			m_Cube[3].uv[3]		= math::Vector2(1, 0);
+					
 
 			m_Cube[3].ao_bits[0]		= 0;
 			m_Cube[3].ao_bits[1]		= 0;
@@ -70,6 +91,12 @@ namespace ld3d
 			m_Cube[4].verts[2] = math::Vector3(1, 1, 0);
 			m_Cube[4].verts[3] = math::Vector3(1, 0, 0);
 
+			m_Cube[4].uv[0]		= math::Vector2(0, 0);
+			m_Cube[4].uv[1]		= math::Vector2(0, 1);
+			m_Cube[4].uv[2]		= math::Vector2(1, 1);
+			m_Cube[4].uv[3]		= math::Vector2(1, 0);
+
+					
 			m_Cube[4].ao_bits[0]		= 0;
 			m_Cube[4].ao_bits[1]		= 0;
 			m_Cube[4].ao_bits[2]		= 0;
@@ -83,6 +110,11 @@ namespace ld3d
 			m_Cube[5].verts[2] = math::Vector3(1, 1, 1);
 			m_Cube[5].verts[3] = math::Vector3(0, 1, 1);
 
+			m_Cube[5].uv[0]		= math::Vector2(0, 0);
+			m_Cube[5].uv[1]		= math::Vector2(1, 0);
+			m_Cube[5].uv[2]		= math::Vector2(1, 1);
+			m_Cube[5].uv[3]		= math::Vector2(0, 1);
+				
 			m_Cube[5].ao_bits[0]		= 0;
 			m_Cube[5].ao_bits[1]		= 0;
 			m_Cube[5].ao_bits[2]		= 0;
@@ -390,6 +422,8 @@ namespace ld3d
 					pVBData->pos = face.verts[ii] + vertex_offset;
 					pVBData->normal = (uint32)face.normal;
 					pVBData->uv = face.uv[ii];
+					pVBData->tex_id = face.tex_id;
+
 					pVBData->ao = ao_factor(face.ao_bits[ii]);
 					++pVBData;
 					sub.vertexCount++;
@@ -477,29 +511,29 @@ namespace ld3d
 			{
 			case ChunkAdjacency::n_x:
 				face				= m_Cube[0];
-				i_mat_face			= VoxelMaterial::n_x;
+				i_mat_face			= (int)VoxelFaceNormal::normal_nx;
 				break;
 
 			case ChunkAdjacency::p_x:
 				face				= m_Cube[1];
-				i_mat_face			= VoxelMaterial::p_x;
+				i_mat_face			= (int)VoxelFaceNormal::normal_px;
 
 				break;
 			case ChunkAdjacency::n_y:
 				face				= m_Cube[2];
-				i_mat_face			= VoxelMaterial::n_y;
+				i_mat_face			= (int)VoxelFaceNormal::normal_ny;
 				break;
 			case ChunkAdjacency::p_y:
 				face				= m_Cube[3];
-				i_mat_face			= VoxelMaterial::p_y;
+				i_mat_face			= (int)VoxelFaceNormal::normal_py;
 				break;
 			case ChunkAdjacency::n_z:
 				face				= m_Cube[4];
-				i_mat_face			= VoxelMaterial::n_z;
+				i_mat_face			= (int)VoxelFaceNormal::normal_nz;
 				break;
 			case ChunkAdjacency::p_z:
 				face				= m_Cube[5];
-				i_mat_face			= VoxelMaterial::p_z;
+				i_mat_face			= (int)VoxelFaceNormal::normal_pz;
 				break;
 
 			default:
@@ -507,12 +541,8 @@ namespace ld3d
 				return;
 			}
 
-			face.uv[0] = mat.uv[i_mat_face][0];
-			face.uv[1] = mat.uv[i_mat_face][1];
-			face.uv[2] = mat.uv[i_mat_face][2];
-			face.uv[3] = mat.uv[i_mat_face][3];
-
-			face.material = mat.materials[i_mat_face];
+			face.material	= mat.materials[i_mat_face];
+			face.tex_id		= mat.tex_index[i_mat_face];
 
 			face.verts[0] += math::Vector3((float)x, (float)y, (float)z);
 			face.verts[1] += math::Vector3((float)x, (float)y, (float)z);
@@ -851,17 +881,16 @@ namespace ld3d
 
 			auto face_state_equal = [](const FaceInfo& f1, const FaceInfo& f2)->bool
 			{
-				
-
 				if(f2.type == VT_EMPTY || f1.type == VT_EMPTY)
 				{
 					return false;
 				}
 
-				//return f1.face.material == f2.face.material;
-
-
 				if(f1.face.material != f2.face.material)
+				{
+					return false;
+				}
+				if(f1.face.tex_id != f2.face.tex_id)
 				{
 					return false;
 				}
@@ -873,7 +902,6 @@ namespace ld3d
 						return false;
 					}
 				}
-
 
 				return true;
 			};

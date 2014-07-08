@@ -39,16 +39,12 @@ namespace ld3d
 		}
 		bool VoxelEditor::Initialize(CoreApiPtr pCore)
 		{
-
 			voxel::MeshizerPtr pMeshizer = std::make_shared<voxel::Meshizer>();
-
-
 			m_pCore = pCore;
 
-			m_pCore->GetRenderManager()->SetGlobalAmbient(math::Color4(0.3f, 0.3f, 0.3f, 1.0f));
+			m_pCore->GetRenderManager()->SetGlobalAmbient(math::Color4(0.4f, 0.4f, 0.3f, 1.0f));
 			//m_pCore->GetRenderManager()->SetGlobalAmbient(math::Color4(0.0f, 0.0f, 0.0f, 1.0f));
 			m_pCore->GetRenderManager()->SetClearColor(math::Color4(0.1f, 0.2f, 0.3f, 1));
-
 
 			pCore->GetCursor()->ConfineCursor(true);
 			pCore->GetCursor()->ShowCursor(false);

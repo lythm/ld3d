@@ -72,43 +72,77 @@ namespace ld3d
 		mat.materials[3] = 0;
 		mat.materials[4] = 0;
 		mat.materials[5] = 0;
+		mat.tex_index[0] = 0;
+		mat.tex_index[1] = 0;
+		mat.tex_index[2] = 0;
+		mat.tex_index[3] = 0;
+		mat.tex_index[4] = 0;
+		mat.tex_index[5] = 0;
 		
 		m_pMeshizer->AddVoxelMaterial(mat.type, mat);
 
 		mat.type = 2;
-		mat.materials[0] = 1;
-		mat.materials[1] = 1;
-		mat.materials[2] = 1;
-		mat.materials[3] = 1;
-		mat.materials[4] = 1;
-		mat.materials[5] = 1;
+		mat.materials[0] = 0;
+		mat.materials[1] = 0;
+		mat.materials[2] = 0;
+		mat.materials[3] = 0;
+		mat.materials[4] = 0;
+		mat.materials[5] = 0;
+
+		mat.tex_index[0] = 1;
+		mat.tex_index[1] = 1;
+		mat.tex_index[2] = 1;
+		mat.tex_index[3] = 1;
+		mat.tex_index[4] = 1;
+		mat.tex_index[5] = 1;
 		m_pMeshizer->AddVoxelMaterial(mat.type, mat);
 
 		mat.type = 3;
-		mat.materials[0] = 2;
-		mat.materials[1] = 2;
-		mat.materials[2] = 2;
-		mat.materials[3] = 2;
-		mat.materials[4] = 2;
-		mat.materials[5] = 2;
+		mat.materials[0] = 0;
+		mat.materials[1] = 0;
+		mat.materials[2] = 0;
+		mat.materials[3] = 0;
+		mat.materials[4] = 0;
+		mat.materials[5] = 0;
+
+		mat.tex_index[0] = 2;
+		mat.tex_index[1] = 2;
+		mat.tex_index[2] = 2;
+		mat.tex_index[3] = 2;
+		mat.tex_index[4] = 2;
+		mat.tex_index[5] = 2;
 		m_pMeshizer->AddVoxelMaterial(mat.type, mat);
 
 		mat.type = 4;
-		mat.materials[0] = 3;
-		mat.materials[1] = 3;
-		mat.materials[2] = 3;
-		mat.materials[3] = 3;
-		mat.materials[4] = 3;
-		mat.materials[5] = 3;
+		mat.materials[0] = 0;
+		mat.materials[1] = 0;
+		mat.materials[2] = 0;
+		mat.materials[3] = 0;
+		mat.materials[4] = 0;
+		mat.materials[5] = 0;
+
+		mat.tex_index[0] = 3;
+		mat.tex_index[1] = 3;
+		mat.tex_index[2] = 3;
+		mat.tex_index[3] = 3;
+		mat.tex_index[4] = 3;
+		mat.tex_index[5] = 3;
 		m_pMeshizer->AddVoxelMaterial(mat.type, mat);
 
 		mat.type = 5;
-		mat.materials[0] = 4;
-		mat.materials[1] = 4;
-		mat.materials[2] = 4;
-		mat.materials[3] = 4;
-		mat.materials[4] = 4;
-		mat.materials[5] = 4;
+		mat.materials[0] = 0;
+		mat.materials[1] = 0;
+		mat.materials[2] = 0;
+		mat.materials[3] = 0;
+		mat.materials[4] = 0;
+		mat.materials[5] = 0;
+
+		mat.tex_index[0] = 4;
+		mat.tex_index[1] = 4;
+		mat.tex_index[2] = 4;
+		mat.tex_index[3] = 4;
+		mat.tex_index[4] = 4;
+		mat.tex_index[5] = 4;
 		m_pMeshizer->AddVoxelMaterial(mat.type, mat);
 		
 
@@ -117,42 +151,19 @@ namespace ld3d
 		{
 			return false;
 		}
+				
+		std::vector<std::string> array;
+		array.push_back("./assets/voxel/texture/dirt.dds");
+		array.push_back("./assets/voxel/texture/rock.dds");
+		array.push_back("./assets/voxel/texture/metal.dds");
+		array.push_back("./assets/voxel/texture/grass.dds");
+		array.push_back("./assets/voxel/texture/sand.dds");
 
-		TexturePtr pTex = m_pManager->GetRenderManager()->CreateTextureFromFile("./assets/voxel/texture/dirt.dds");
-
+		TexturePtr pTex = m_pManager->GetRenderManager()->Create2DTextureArrayFromFileList(array);
 		pMaterial->GetParameterByName("diffuse_map")->SetParameterTexture(pTex);
-
+		
 		m_materials.push_back(pMaterial);
-
-
-		pMaterial = m_pManager->GetRenderManager()->CreateMaterialFromFile("./assets/voxel/material/voxel_world.material");
-		pTex = m_pManager->GetRenderManager()->CreateTextureFromFile("./assets/voxel/texture/rock.dds");
-
-		pMaterial->GetParameterByName("diffuse_map")->SetParameterTexture(pTex);
-		m_materials.push_back(pMaterial);
-
-		pMaterial = m_pManager->GetRenderManager()->CreateMaterialFromFile("./assets/voxel/material/voxel_world.material");
-		pTex = m_pManager->GetRenderManager()->CreateTextureFromFile("./assets/voxel/texture/metal.dds");
-
-		pMaterial->GetParameterByName("diffuse_map")->SetParameterTexture(pTex);
-		m_materials.push_back(pMaterial);
-
-		pMaterial = m_pManager->GetRenderManager()->CreateMaterialFromFile("./assets/voxel/material/voxel_world.material");
-		pTex = m_pManager->GetRenderManager()->CreateTextureFromFile("./assets/voxel/texture/grass.dds");
-
-		pMaterial->GetParameterByName("diffuse_map")->SetParameterTexture(pTex);
-		m_materials.push_back(pMaterial);
-
-		pMaterial = m_pManager->GetRenderManager()->CreateMaterialFromFile("./assets/voxel/material/voxel_world.material");
-		pTex = m_pManager->GetRenderManager()->CreateTextureFromFile("./assets/voxel/texture/sand.dds");
-
-		pMaterial->GetParameterByName("diffuse_map")->SetParameterTexture(pTex);
-		m_materials.push_back(pMaterial);
-
-
-		pMaterial = m_pManager->GetRenderManager()->CreateMaterialFromFile("./assets/standard/material/simple_line.material");
-		m_materials.push_back(pMaterial);
-
+		
 		if(false == m_pWorld->Create(name, nullptr, m_pMeshizer, m_pManager->GetAllocator(), m_pManager->logger()))
 		{
 			return false;
