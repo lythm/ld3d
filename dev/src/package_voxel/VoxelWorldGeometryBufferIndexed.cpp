@@ -34,7 +34,7 @@ namespace ld3d
 		layout.AddAttribute(G_FORMAT_R32G32B32_FLOAT);
 		layout.AddAttribute(G_FORMAT_R32G32B32_FLOAT);
 		layout.AddAttribute(G_FORMAT_R32_FLOAT);
-		layout.AddAttribute(G_FORMAT_R32_UINT);
+		layout.AddAttribute(G_FORMAT_R32_FLOAT);
 		
 		m_pGeometry = m_pRenderManager->CreateGeometryData();
 		
@@ -131,6 +131,8 @@ namespace ld3d
 		{
 			return false;
 		}
+
+		ChunkMesh::VoxelVertex* pData = (ChunkMesh::VoxelVertex*)sub.vertexBuffer;
 
 		uint32 bytes_copy = sizeof(ChunkMesh::VoxelVertex) * sub.vertexCount;
 		memcpy(m_pVBData + m_nVBCurrent - m_nVBOffset, sub.vertexBuffer, bytes_copy);

@@ -24,8 +24,6 @@ void main()
 
 	vec3 diffuse = texture(diffuse_map, tex_coord.xy).xyz;
 
-//	diffuse += vec3(1, 1, 1);
-
 	diffuse = diffuse * vec3(v_ao, v_ao, v_ao);
 
 	G_BUFFER_2 = vec4(diffuse, specular);

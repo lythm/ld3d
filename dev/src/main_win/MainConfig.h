@@ -21,14 +21,10 @@ namespace ld3d
 		bool													LoadMod(pugi::xml_document& doc);
 	private:
 		SysSetting												m_sysSetting;
-
 		std::vector<boost::filesystem::path>					m_packages;
-
-
 		boost::filesystem::path									m_mod;
 
 		uint32													m_frameRate;
-
 	};
 
 	typedef std::shared_ptr<MainConfig>							MainConfigPtr;

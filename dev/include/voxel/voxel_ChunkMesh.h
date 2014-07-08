@@ -16,7 +16,7 @@ namespace ld3d
 				math::Vector3										pos;
 				math::Vector3										uv;
 				float												ao;
-				uint32												normal;
+				float												normal;
 			};
 
 

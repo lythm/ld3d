@@ -45,7 +45,8 @@ namespace ld3d
 
 			m_pCore = pCore;
 
-			m_pCore->GetRenderManager()->SetGlobalAmbient(math::Color4(0.4f, 0.4f, 0.5f, 1.0f));
+			m_pCore->GetRenderManager()->SetGlobalAmbient(math::Color4(0.3f, 0.3f, 0.3f, 1.0f));
+			//m_pCore->GetRenderManager()->SetGlobalAmbient(math::Color4(0.0f, 0.0f, 0.0f, 1.0f));
 			m_pCore->GetRenderManager()->SetClearColor(math::Color4(0.1f, 0.2f, 0.3f, 1));
 
 
@@ -83,11 +84,11 @@ namespace ld3d
 
 			GameObjectPtr pLight = m_pCore->CreatGameObjectFromTemplate("SkyLight", "light");
 
-			pLight->SetTranslation(-100, 100, 100);
+			pLight->SetTranslation(-90, 200, 80);
 			pLight->LookAt(math::Vector3(0, 0, 0));
 			
 			Light_SkyPtr pSkyLight = std::dynamic_pointer_cast<Light_Sky>(pLight->GetComponent("SkyLight"));
-			pSkyLight->GetLight()->SetDiffuseColor(math::Color4(0.9, 0.9f, 1.0f, 1.0f));
+			pSkyLight->GetLight()->SetDiffuseColor(math::Color4(1.0, 1.0f, 1.0f, 1.0f));
 		//	pSkyLight->EnableShadow(true);
 
 

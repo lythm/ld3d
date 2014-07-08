@@ -451,13 +451,13 @@ namespace ld3d
 				ao = 1.0f;
 				break;
 			case 1:
-				ao = 0.75f;
+				ao = 0.65f;
 				break;
 			case 2:
 				ao = 0.5;
 				break;
 			case 3:
-				ao = 0.25f;
+				ao = 0.35f;
 				break;
 			default:
 
