@@ -46,12 +46,10 @@ namespace ld3d
 		void										OnDetach();
 
 		void										_add_mesh(const voxel::Coord& base, voxel::ChunkMeshPtr pMesh);
-		void										Draw(Sys_GraphicsPtr pSysGraphics, GeometryDataPtr pGeo, MaterialPtr pMaterial, int baseVertex, int nVerts);
 		void										MultiDrawIndexed(Sys_GraphicsPtr pSysGraphics, GeometryDataPtr pGeo, MaterialPtr pMaterial, int draw_count, int index_count[], void* index[], int base_verts[]);
 		void										Render(RenderManagerPtr pManager);
 		void										RenderShadowMapGeo(RenderManagerPtr pManager, MaterialPtr pMaterial);
 
-		void										_render(size_t begin, size_t end);
 		void										_render_indexed(size_t begin, size_t end);
 		void										_render_smg(size_t begin, size_t end, MaterialPtr pMaterial);
 	private:
@@ -74,8 +72,9 @@ namespace ld3d
 		math::Matrix44								m_worldMatrix;
 		std::vector<MaterialPtr>					m_materials;
 
-		uint32										m_renderedVertex;
 		uint32										m_renderedChunk;
-		std::shared_ptr<VoxelWorldGeometryBufferIndexed>	m_pGeometryBuffer;
+		uint32										m_renderedIndex;
+		std::shared_ptr<
+			VoxelWorldGeometryBufferIndexed>		m_pGeometryBuffer;
 	};
 }

@@ -319,8 +319,6 @@ namespace ld3d
 			break;
 		}
 
-
-		//glDrawElements(prim, count, glType, (GLvoid*)(startindex * indexElementBytes));
 		glDrawElementsBaseVertex(prim, count, glType, (GLvoid*)(startindex * indexElementBytes), basevertex);
 	}
 

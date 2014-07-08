@@ -4,7 +4,6 @@
 #include "core/MaterialTech.h"
 #include "core/MaterialPass.h"
 
-#include "VoxelWorldGeometryBuffer.h"
 #include "VoxelWorldGeometryBufferIndexed.h"
 
 
@@ -18,6 +17,8 @@ namespace ld3d
 		SetVersion(g_packageVersion);
 
 		m_worldMatrix.MakeIdentity();
+		m_renderedIndex			= 0;
+		m_renderedChunk			= 0;
 	}
 
 
@@ -189,37 +190,6 @@ namespace ld3d
 			m_renderList.push_back(unit);
 		}
 	}
-	void VoxelWorldRendererImpl::Draw(Sys_GraphicsPtr pSysGraphics, GeometryDataPtr pGeo, MaterialPtr pMaterial, int baseVertex, int nVerts)
-	{
-		m_renderedVertex += nVerts;
-		if(nVerts == 0)
-		{
-			return;
-		}
-
-		int nPass = pMaterial->Begin();
-
-		for(int i = 0; i < nPass; ++i)
-		{/*
-			pMaterial->GetTechByIndex(0)->GetPassByIndex(i)->GetRenderState()->Begin();
-			pMaterial->GetTechByIndex(0)->GetPassByIndex(i)->GetRenderState()->SetFillMode(RS_FILL_SOLID);
-			pMaterial->GetTechByIndex(0)->GetPassByIndex(i)->GetRenderState()->End();*/
-
-			pMaterial->ApplyPass(i);
-			pSysGraphics->Draw(pGeo, nVerts, baseVertex);
-
-
-			/*pMaterial->GetTechByIndex(0)->GetPassByIndex(i)->GetRenderState()->Begin();
-			pMaterial->GetTechByIndex(0)->GetPassByIndex(i)->GetRenderState()->SetFillMode(RS_FILL_WIREFRAME);
-			pMaterial->GetTechByIndex(0)->GetPassByIndex(i)->GetRenderState()->End();
-			
-
-			pMaterial->ApplyPass(i);
-			pSysGraphics->Draw(m_pGeometry, m_nVertexCount, baseVertex);*/
-		}
-
-		pMaterial->End();
-	}
 
 	void VoxelWorldRendererImpl::MultiDrawIndexed(Sys_GraphicsPtr pSysGraphics, GeometryDataPtr pGeo, MaterialPtr pMaterial, int draw_count, int index_count[], void* index[], int base_verts[])
 	{
@@ -227,82 +197,25 @@ namespace ld3d
 		{
 			return;
 		}
-		/*m_renderedVertex += nVerts;
-		if(nVerts == 0)
-		{
-			return;
-		}
-*/
-
-		///////////////////////////////////
-
-
 		for(int i = 0; i < draw_count; ++i)
 		{
-			uint32 base = base_verts[i];
-			uint16* pbuffer = (uint16*)(((uint8*)(m_pGeometryBuffer->m_indexBufferCopy) + (int64)(index[i])));
-			for(int ii = 0; ii < index_count[i]; ++ii)
-			{
-				uint16 ind = pbuffer[ii];
-
-				if(ind == -1)
-				{
-					assert(0);
-				}
-				ind += base;
-
-				if(ind > m_pGeometryBuffer->GetBaseVertex() + m_pGeometryBuffer->GetVertexCount())
-				{
-					int debug = 0;
-				}
-			}
+			m_renderedIndex += index_count[i];
 		}
-
-		
-		//////////////////////////////////
-
-
+	
 		int nPass = pMaterial->Begin();
 
 		for(int ipass = 0; ipass < nPass; ++ipass)
 		{
 			pMaterial->ApplyPass(ipass);
 			
-			//pSysGraphics->MultiDrawIndexed(pGeo, draw_count, index_count, index, base_verts);
-
-			for(int i = 0; i < draw_count; ++i)
-			{
-				uint16* pBaseIB = (uint16*)m_pGeometryBuffer->m_indexBufferCopy;
-				uint64 offset = (uint64)(index[i]);
-				uint16* pIB = (uint16*)(m_pGeometryBuffer->m_indexBufferCopy + offset);
-				uint32 i_count = index_count[i];
-				uint32 base = base_verts[i];
-
-				for(int ii = 0; ii < i_count; ++ii)
-				{
-					uint16 ind = pIB[i] + base;
-					if(ind >= (m_pGeometryBuffer->GetBaseVertex() + m_pGeometryBuffer->GetVertexCount()))
-					{
-						assert(0);
-					}
-				}
-
-				//pSysGraphics->DrawIndexed(pGeo, index_count[i], (int64)(index[i]) / sizeof(uint16), base_verts[i]);
-
-				//pSysGraphics->DrawIndexed(pGeo, 3, (int64)(index[i]) / sizeof(uint16), base_verts[i]);
-
-				pSysGraphics->DrawIndexed(pGeo, 3, 0, 0);
-
-
-				int debug = 0;
-			}
+			pSysGraphics->MultiDrawIndexed(pGeo, draw_count, index_count, index, base_verts);
 		}
 
 		pMaterial->End();
 	}
 	void VoxelWorldRendererImpl::Render(RenderManagerPtr pManager)
 	{
-		m_renderedVertex = 0;
+		m_renderedIndex = 0;
 		if(m_renderList.size() == 0)
 		{
 			return;
@@ -351,79 +264,9 @@ namespace ld3d
 
 		_render_smg(index, m_renderList.size(), pMaterial);
 	}
-
-	void VoxelWorldRendererImpl::_render(size_t begin, size_t end)
-	{
-		using namespace voxel;
-		if(begin == end)
-		{
-			return;
-		}
-
-		math::Matrix44 world = math::MatrixTranslation(m_renderList[begin].base.ToVector3());
-
-		std::sort(m_renderList.begin() + begin, 
-			m_renderList.begin() + end, 
-			[](const RenderUnit& a, const RenderUnit& b){return a.sub.material_id < b.sub.material_id;});
-
-		MaterialPtr pMat = nullptr;
-		Sys_GraphicsPtr pGraphics = m_pRenderManager->GetSysGraphics();
 		
-		uint32 mat_id = m_renderList[begin].sub.material_id;
-
-		GeometryDataPtr pGeo = m_pGeometryBuffer->GetGeometryData();
-
-		m_pGeometryBuffer->Begin(m_renderList[begin].sub.vertexCount);
-
-		for(size_t i = begin; i < end; ++i)
-		{
-			const RenderUnit& unit = m_renderList[i];
-			if(unit.sub.material_id != mat_id)
-			{
-				m_pGeometryBuffer->End();
-				
-				pMat = m_materials[mat_id];
-			
-				m_pRenderManager->SetMatrixBlock(pMat, world);
-
-				Draw(pGraphics, pGeo, pMat, m_pGeometryBuffer->GetBaseVertex(), m_pGeometryBuffer->GetVertexCount());
-
-				m_pGeometryBuffer->Begin(unit.sub.vertexCount);
-
-				mat_id = unit.sub.material_id;
-			}
-
-			if(m_pGeometryBuffer->Push(unit.sub) == false)
-			{
-				m_pGeometryBuffer->End();
-
-				pMat = m_materials[mat_id];
-				
-				m_pRenderManager->SetMatrixBlock(pMat, world);
-
-				Draw(pGraphics, pGeo, pMat, m_pGeometryBuffer->GetBaseVertex(), m_pGeometryBuffer->GetVertexCount());
-
-				m_pGeometryBuffer->Begin(unit.sub.vertexCount);
-
-				m_pGeometryBuffer->Push(unit.sub);
-
-				mat_id = unit.sub.material_id;
-			}
-		}
-
-		m_pGeometryBuffer->End();
-
-		pMat = m_materials[mat_id];
-		
-		m_pRenderManager->SetMatrixBlock(pMat, world);
-
-		Draw(pGraphics, pGeo, pMat, m_pGeometryBuffer->GetBaseVertex(), m_pGeometryBuffer->GetVertexCount());
-
-	}
-
 	void VoxelWorldRendererImpl::_render_indexed(size_t begin, size_t end)
 	{
-		return;
 		using namespace voxel;
 		if(begin == end)
 		{
@@ -453,8 +296,6 @@ namespace ld3d
 
 		int base_v = m_pGeometryBuffer->GetBaseVertex();
 		int base_i = m_pGeometryBuffer->GetBaseIndex();
-
-		int vertex_count[1000];
 
 		for(size_t i = begin; i < end; ++i)
 		{
@@ -501,8 +342,7 @@ namespace ld3d
 			index_count[draw_count]		= unit.sub.indexCount;
 			base_verts[draw_count]		= base_v;
 
-			index[draw_count]			= (void*)((base_i) * sizeof(uint16));
-			vertex_count[draw_count]	= unit.sub.vertexCount;
+			index[draw_count]			= (void*)(base_i * sizeof(uint16));
 
 			draw_count++;
 
@@ -516,10 +356,8 @@ namespace ld3d
 		
 		m_pRenderManager->SetMatrixBlock(pMat, world);
 
-	//	MultiDrawIndexed(pGraphics, pGeo, pMat, draw_count, index_count, index, base_verts);
+		MultiDrawIndexed(pGraphics, pGeo, pMat, draw_count, index_count, index, base_verts);
 		draw_count = 0;
-
-		//Draw(pGraphics, pMat, m_pGeometryBuffer->GetBaseVertex(), m_pGeometryBuffer->GetVertexCount());
 	}
 	void VoxelWorldRendererImpl::_render_smg(size_t begin, size_t end, MaterialPtr pMaterial)
 	{
@@ -541,6 +379,16 @@ namespace ld3d
 
 		m_pGeometryBuffer->Begin(m_renderList[begin].sub.vertexCount);
 
+		uint32 draw_count = 0;
+
+		int index_count[1000];
+		int base_verts[1000];
+		void*  index[1000];
+
+		int base_v = m_pGeometryBuffer->GetBaseVertex();
+		int base_i = m_pGeometryBuffer->GetBaseIndex();
+
+
 		for(size_t i = begin; i < end; ++i)
 		{
 			const RenderUnit& unit = m_renderList[i];
@@ -550,17 +398,30 @@ namespace ld3d
 				m_pGeometryBuffer->End();
 				
 
-				Draw(pGraphics, pGeo, pMat, m_pGeometryBuffer->GetBaseVertex(), m_pGeometryBuffer->GetVertexCount());
+				MultiDrawIndexed(pGraphics, pGeo, pMat, draw_count, index_count, index, base_verts);
 
 				m_pGeometryBuffer->Begin(unit.sub.vertexCount);
 
+				draw_count	= 0;
+				base_v		= m_pGeometryBuffer->GetBaseVertex();
+				base_i		= m_pGeometryBuffer->GetBaseIndex();
+
 				m_pGeometryBuffer->Push(unit.sub);
 			}
+			index_count[draw_count]		= unit.sub.indexCount;
+			base_verts[draw_count]		= base_v;
+
+			index[draw_count]			= (void*)(base_i * sizeof(uint16));
+
+			draw_count++;
+
+			base_v += unit.sub.vertexCount;
+			base_i += unit.sub.indexCount;
 		}
 
 		m_pGeometryBuffer->End();
 		
-		Draw(pGraphics, pGeo, pMat, m_pGeometryBuffer->GetBaseVertex(), m_pGeometryBuffer->GetVertexCount());
+		MultiDrawIndexed(pGraphics, pGeo, pMat, draw_count, index_count, index, base_verts);
 
 	}
 	void VoxelWorldRendererImpl::RefreshMesh()
@@ -569,15 +430,15 @@ namespace ld3d
 	}
 	uint32 VoxelWorldRendererImpl::GetRenderedFaceCount()
 	{
-		return m_renderedVertex / 3;
+		return m_renderedIndex / 3;
 	}
 	uint32 VoxelWorldRendererImpl::GetRenderedVertexCount()
 	{
-		return m_renderedVertex;
+		return m_renderedIndex * 4 / 6;
 	}
 	uint32 VoxelWorldRendererImpl::GetRenderedVertexBytes()
 	{
-		return m_renderedVertex * sizeof(voxel::ChunkMesh::VoxelVertex); 
+		return GetRenderedVertexCount() * sizeof(voxel::ChunkMesh::VoxelVertex); 
 	}
 	uint32 VoxelWorldRendererImpl::GetRenderedChunkCount()
 	{

@@ -46,7 +46,7 @@ namespace ld3d
 
 
 			Coord center_offset  = Coord(0, 32 , 0);
-			radius = 128;
+			radius = 256;
 			uint32 height = 128;
 			m_VP.center = center;
 			m_VP.radius = radius;

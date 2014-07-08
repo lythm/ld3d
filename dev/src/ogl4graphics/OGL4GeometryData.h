@@ -30,6 +30,9 @@ namespace ld3d
 
 		void													EndGeometry();
 
+
+		void													CommitModify();
+
 		void													Release();
 		void													SetPrimitiveType(PRIMITIVE_TYPE type);
 		const VertexLayout&										GetVertexLayout() const;
@@ -43,6 +46,7 @@ namespace ld3d
 		
 		void													SetVertexLayout(const VertexLayout& layout);
 
+		GLuint													GetGLObject();
 	private:
 		
 	private:

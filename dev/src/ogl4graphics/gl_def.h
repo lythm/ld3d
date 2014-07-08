@@ -173,6 +173,9 @@ extern PFNGLBLENDFUNCSEPARATEPROC						glBlendFuncSeparate;
 extern PFNGLSTENCILOPSEPARATEPROC						glStencilOpSeparate;
 extern PFNGLSTENCILMASKSEPARATEPROC						glStencilMaskSeparate;
 extern PFNGLSTENCILFUNCSEPARATEPROC						glStencilFuncSeparate;
+
+
+extern PFNGLWAITSYNCPROC								glWaitSync;
 #endif
 
 #if defined(_WIN64) || defined(_WIN32)

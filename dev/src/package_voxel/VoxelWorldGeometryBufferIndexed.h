@@ -24,8 +24,6 @@ namespace ld3d
 		uint32										GetIndexCount();
 		uint32										GetBaseIndex();
 
-		uint8*										m_indexBufferCopy;
-
 	private:
 		uint32										m_nVBBytes;
 		uint32										m_nVBCurrent;

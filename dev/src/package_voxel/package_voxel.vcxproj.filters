@@ -69,9 +69,6 @@
     <ClInclude Include="VoxelWorldRendererImpl.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="VoxelWorldGeometryBuffer.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="VoxelWorldGeometryBufferIndexed.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -105,9 +102,6 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="VoxelWorldRendererImpl.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="VoxelWorldGeometryBuffer.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="VoxelWorldGeometryBufferIndexed.cpp">

@@ -311,7 +311,8 @@ namespace ld3d
 
 		LOAD_API(glCompressedTexSubImage3D,								PFNGLCOMPRESSEDTEXSUBIMAGE3DPROC);
 
-
+		LOAD_API(glWaitSync,											PFNGLWAITSYNCPROC);
+		
 		return true;
 	}
 	const std::vector<std::string>& OGL4Loader::GetExt()

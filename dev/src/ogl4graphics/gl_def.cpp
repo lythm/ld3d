@@ -181,6 +181,8 @@ PFNGLSTENCILOPSEPARATEPROC							glStencilOpSeparate								= nullptr;
 PFNGLSTENCILMASKSEPARATEPROC						glStencilMaskSeparate							= nullptr;
 PFNGLSTENCILFUNCSEPARATEPROC						glStencilFuncSeparate							= nullptr;
 
+
+PFNGLWAITSYNCPROC									glWaitSync										= nullptr;
 #endif
 
 #if defined(_WIN64) || defined(_WIN32)

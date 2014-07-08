@@ -172,4 +172,26 @@ namespace ld3d
 		AttachIndexBuffer(pBuffer, format);
 		return true;
 	}
+	GLuint OGL4GeometryData::GetGLObject()
+	{
+		return m_vao;
+	}
+
+	void OGL4GeometryData::CommitModify()
+	{
+		glBindVertexArray(m_vao);
+
+		OGL4BufferPtr pOGLBuffer = std::dynamic_pointer_cast<OGL4Buffer>(m_pVertexBuffer);
+
+		glBindBuffer(GL_ARRAY_BUFFER, pOGLBuffer->GetBufferObject());
+
+
+		pOGLBuffer = std::dynamic_pointer_cast<OGL4Buffer>(m_pIndexBuffer);
+		if(pOGLBuffer)
+		{
+			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, pOGLBuffer->GetBufferObject());
+		}
+
+		glBindVertexArray(0);
+	}
 }

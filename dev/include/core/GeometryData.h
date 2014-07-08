@@ -38,6 +38,8 @@ namespace ld3d
 		virtual void													SetPrimitiveType(PRIMITIVE_TYPE type)					= 0;
 		virtual const VertexLayout&										GetVertexLayout() const									= 0;
 
+		
+		virtual void													CommitModify()											= 0;
 
 		virtual ~GeometryData(void){}
 		GeometryData(void){}
