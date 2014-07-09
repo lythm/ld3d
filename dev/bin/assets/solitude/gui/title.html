@@ -4,42 +4,48 @@
 <meta charset="utf-8"/>
 <title> Solitude </title>
 <style type="text/css"> 
-body { margin: 0px; overflow: hidden; }
-div {margin: 0px; overflow: hidden; }
+body {
+	margin: 0px;
+	overflow: hidden;
+	background-image: url(images/TitleScreen.png);
+	background-repeat: no-repeat;
+	background-position: center top;
+	background-color: #000000;
+	background-attachment: fixed;
+}
+div {
+	margin: 0px;
+	overflow: hidden;
+	position: absolute;
+	left: 417px;
+	top: 530px;
+	text-align: center;
+	vertical-align: middle;
+}
 </style>
 
 <link href="css/pepper-grinder/jquery-ui-1.10.4.custom.css" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="css/spectrum.css">
+<link href="jQueryAssets/jquery.ui.core.min.css" rel="stylesheet" type="text/css">
+<link href="jQueryAssets/jquery.ui.theme.min.css" rel="stylesheet" type="text/css">
+<link href="jQueryAssets/jquery.ui.button.min.css" rel="stylesheet" type="text/css">
 <script src="js/jquery-1.10.2.js"></script>
 <script src="js/jquery-ui-1.10.4.js"></script>
 <script type="text/javascript" src="js/spectrum.js"></script>
-    
-<script language="javascript" >
-$(function(){
-	$( "#date" ).datepicker({
-			inline: true
-		});
-	
-		 
-	$("#cp").spectrum({
-			showAlpha: true,
-			showInitial:true
-	});
-
-
-});
-</script>
-
+<script src="jQueryAssets/jquery-1.8.3.min.js" type="text/javascript"></script>
+<script src="jQueryAssets/jquery-ui-1.9.2.button.custom.min.js" type="text/javascript"></script>
 </head>
 
 <body>
-<h2 class="demoHeaders">Datepicker</h2>
-<input type="text" name="date" id="date">
-
-
-<br>
-
-<input type="text" id="cp">
+<div>
+  <button id="Button1">Start</button><br>
+  <button id="Button2">End</button>  
+</div>
+<script type="text/javascript">
+$(function() {
+	$( "#Button1" ).button(); 
+});
+</script>
 </body>
 
 

@@ -34,7 +34,10 @@ namespace ld3d
 	}
 	void OGL4GeometryData::Bind()
 	{
+		CommitModify();
 		glBindVertexArray(m_vao);
+
+		
 	}
 
 	void OGL4GeometryData::AttachVertexBuffer(GPUBufferPtr pBuffer, const VertexLayout& layout)

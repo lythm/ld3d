@@ -460,7 +460,7 @@ namespace ld3d
 
 		return pVerts;
 	}
-	void MeshUtil::CreateUnitIcoSphere(int refine_lvl, std::vector<math::Vector3>& vb, std::vector<int>& ib)
+	void MeshUtil::CreateUnitIcoSphere(int refine_lvl, std::vector<math::Vector3>& vb, std::vector<uint32>& ib, bool inv_vertex_order)
 	{
 		std::map<int64, int> cache;
 
@@ -540,8 +540,16 @@ namespace ld3d
 		for (auto tri : faces)
 		{
 			ib.push_back(tri.v1);
-			ib.push_back(tri.v2);
-			ib.push_back(tri.v3);
+			if(inv_vertex_order)
+			{
+				ib.push_back(tri.v3);
+				ib.push_back(tri.v2);
+			}
+			else
+			{
+				ib.push_back(tri.v2);
+				ib.push_back(tri.v3);
+			}
 		}
 	}
 	int MeshUtil::IcoSphere_GetMidPoint(std::vector<math::Vector3>& geo, int p1, int p2, std::map<int64, int>& cache)
@@ -583,7 +591,7 @@ namespace ld3d
 
 		return (int)geo.size() - 1;
 	}
-	MeshPtr MeshUtil::CreateIcoSphere(float radius, int refine_lvl, MaterialPtr pMat)
+	MeshPtr MeshUtil::CreateIcoSphere(float radius, int refine_lvl, MaterialPtr pMat, bool inv_vertex_order)
 	{
 		MeshPtr pMesh = alloc_object<Mesh>();
 
@@ -599,8 +607,8 @@ namespace ld3d
 		};
 
 		std::vector<math::Vector3>	vb;
-		std::vector<int>			ib;
-		CreateUnitIcoSphere(refine_lvl, vb, ib);
+		std::vector<uint32>			ib;
+		CreateUnitIcoSphere(refine_lvl, vb, ib, inv_vertex_order);
 
 		if(vb.size() == 0)
 		{

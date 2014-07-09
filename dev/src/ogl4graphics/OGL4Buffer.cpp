@@ -64,7 +64,7 @@ namespace ld3d
 		
 		glBindBuffer(target, m_buffer);
 		
-		glBufferData(target, bytes, initData, dynamic ? GL_STREAM_DRAW : GL_STATIC_DRAW);
+		glBufferData(target, bytes, initData, dynamic ? GL_DYNAMIC_DRAW : GL_STATIC_DRAW);
 
 		glBindBuffer(target, 0);
 

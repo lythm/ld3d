@@ -6,7 +6,7 @@ namespace ld3d
 	{
 	public:
 
-		static MeshPtr									CreateIcoSphere(float radius, int refine_lvl, MaterialPtr pMat);
+		static MeshPtr									CreateIcoSphere(float radius, int refine_lvl, MaterialPtr pMat, bool inv_vertex_order = false);
 		static MeshPtr									CreatePlane(float size, MaterialPtr pMat);
 		static MeshPtr									CreateSphere(float radius, float slice, float stack, MaterialPtr pMat);
 		static MeshPtr									CreateCube(float size, MaterialPtr pMat);
@@ -17,7 +17,7 @@ namespace ld3d
 
 		static math::Vector3*							CreateCube(float size, int& nVerts);
 
-		static void										CreateUnitIcoSphere(int refine_lvl, std::vector<math::Vector3>& vb, std::vector<int>& ib);
+		static void										CreateUnitIcoSphere(int refine_lvl, std::vector<math::Vector3>& vb, std::vector<uint32>& ib, bool inv_vertex_order = false);
 
 	private:
 		struct Triangle

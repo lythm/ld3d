@@ -23,9 +23,8 @@ technique t1
   pass p1
   {
 	SetRenderState(rs);
-	BindSampler("sky_map", ss);
 
-	SetVertexShader("./shader/skybox.vs");
-	SetPixelShader("./shader/skybox.ps");
+	SetVertexShader("./shader/skydome.vs");
+	SetPixelShader("./shader/skydome.ps");
   }
 }

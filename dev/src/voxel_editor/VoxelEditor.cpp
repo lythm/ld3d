@@ -70,6 +70,9 @@ namespace ld3d
 			//GameObjectComponentPtr pSkyBox = pCore->CreateGameObjectComponent("SkyBox");
 			//m_pCamera->AddComponent(pSkyBox);
 
+			GameObjectComponentPtr pSkyDome = pCore->CreateGameObjectComponent("Atmosphere.SkyDome");
+			m_pCamera->AddComponent(pSkyDome);
+
 			CameraController_FreePtr pController = std::dynamic_pointer_cast<CameraController_Free>(pCore->CreateGameObjectComponent("CameraFreeController"));
 			pController->SetSpeed(50);
 			//	pController->Enable(false);

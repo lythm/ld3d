@@ -1,0 +1,10 @@
+#version 330
+
+out vec4 o_color;
+
+smooth in vec3 v_clr;
+void main()
+{
+	o_color.xyz = v_clr;
+	o_color.w = 1;
+}
