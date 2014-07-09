@@ -111,13 +111,13 @@ namespace ld3d
 			{
 				return false;
 			}
-			MeshPtr pMesh = MeshUtil::CreateSphere(1, 50, 50, pMaterial);
+			//MeshPtr pMesh = MeshUtil::CreateSphere(1, 50, 50, pMaterial);
+			MeshPtr pMesh = MeshUtil::CreateIcoSphere(50, 4, pMaterial);
 			m_pMesh = pMesh;
 			ResetMeshRenderer();
 		}
 		else if(m_meshAsset == "_cone_")
 		{
-			
 			MaterialPtr pMaterial = m_pManager->GetRenderManager()->CreateMaterialFromFile("./assets/standard/material/editor_shape.material");
 			if(pMaterial == nullptr)
 			{

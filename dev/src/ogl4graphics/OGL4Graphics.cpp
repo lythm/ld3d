@@ -331,10 +331,6 @@ namespace ld3d
 		int offset = startindex * pGLData->GetIndexElementBytes();
 
 		glDrawElementsBaseVertex(pGLData->GetPrimitiveType(), count, pGLData->GetIndexType(), (GLvoid*)(offset), basevertex);
-
-		GLenum error = glGetError();
-		assert(error == 0);
-
 	}
 	void OGL4Graphics::Draw(GeometryDataPtr pData, int vertexCount, int baseVertex)
 	{

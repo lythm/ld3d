@@ -4,6 +4,7 @@ RenderState rs
 	FrontFace						= CW;
 	CULLMODE						= Back;
 
+	#FillMode						= wireframe;
 	DepthEnable						= true;
 	DepthFunc						= less;
 	DepthWriteMask					= ALL;

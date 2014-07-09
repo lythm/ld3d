@@ -32,6 +32,7 @@ namespace ld3d
 
 		const VertexLayout&						GetVertexFormat();
 		G_FORMAT								GetIndexFormat();
+		int										GetIndexBytes();
 	private:
 
 		MeshPtr									m_pMesh;

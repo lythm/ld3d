@@ -59,7 +59,7 @@ namespace ld3d
 	}
 	int	SubMesh::GetIndexDataBytes()
 	{
-		return m_indexCount * sizeof(uint16);
+		return m_indexCount * GetIndexBytes();
 	}
 	int SubMesh::GetVertexDataBytes()
 	{
@@ -93,5 +93,20 @@ namespace ld3d
 	bool SubMesh::IsIndexed()
 	{
 		return m_indexed;
+	}
+	int SubMesh::GetIndexBytes()
+	{
+		switch(m_indexFormat)
+		{
+		case G_FORMAT_R32_SINT:
+		case G_FORMAT_R32_UINT:
+			return sizeof(uint32);
+		case G_FORMAT_R16_SINT:
+		case G_FORMAT_R16_UINT:
+			return sizeof(uint16);
+		default:
+			break;
+		}
+		return sizeof(uint32);
 	}
 }

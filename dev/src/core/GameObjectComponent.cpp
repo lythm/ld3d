@@ -37,6 +37,7 @@ namespace ld3d
 	void GameObjectComponent::Detach()
 	{
 		OnDetach();
+		ClearPropertySet();
 		m_pObject.reset();
 		m_pManager.reset();
 	}

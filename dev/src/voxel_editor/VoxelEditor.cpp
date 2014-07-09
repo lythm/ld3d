@@ -67,8 +67,8 @@ namespace ld3d
 			CameraDataPtr pMD = std::dynamic_pointer_cast<CameraData>(pCore->CreateGameObjectComponent("Camera"));
 			m_pCamera->AddComponent(pMD);
 			pMD->SetFarPlane(500);
-			GameObjectComponentPtr pSkyBox = pCore->CreateGameObjectComponent("SkyBox");
-			m_pCamera->AddComponent(pSkyBox);
+			//GameObjectComponentPtr pSkyBox = pCore->CreateGameObjectComponent("SkyBox");
+			//m_pCamera->AddComponent(pSkyBox);
 
 			CameraController_FreePtr pController = std::dynamic_pointer_cast<CameraController_Free>(pCore->CreateGameObjectComponent("CameraFreeController"));
 			pController->SetSpeed(50);
@@ -107,6 +107,10 @@ namespace ld3d
 			m_pCore->RegisterConsoleCommand("set_camera_speed", std::bind(&VoxelEditor::_on_cmd_set_camera_speed, this, std::placeholders::_1, std::placeholders::_2));
 			m_pCore->RegisterConsoleCommand("move_to", std::bind(&VoxelEditor::_on_cmd_move_to, this, std::placeholders::_1, std::placeholders::_2));
 
+
+			GameObjectPtr pSphere = m_pCore->CreatGameObjectFromTemplate("Sphere", "sphere");
+
+			pSphere->SetTranslation(0, 128, 0);
 			return true;
 		}
 		void VoxelEditor::Release()
