@@ -18,7 +18,7 @@ namespace ld3d
 
 		static bool							SortFunction(CameraPtr pC1, CameraPtr pC2);
 
-		const std::vector<PostEffectPtr>	GetEffectList() const;
+		const std::vector<PostEffectPtr>&	GetEffectList() const;
 
 		void								AddPostEffect(PostEffectPtr pEffect);
 		void								Release();

@@ -245,6 +245,7 @@
     <ClInclude Include="RenderSystem_Deferred.h" />
     <ClInclude Include="RenderSystem_Forward.h" />
     <ClInclude Include="..\..\include\core\RenderSystem_Post.h" />
+    <ClInclude Include="..\..\include\core\PostEffect_FXAA.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="math">

@@ -131,5 +131,7 @@ namespace ld3d
 
 
 		pVB->Unmap();
+
+		m_pRenderData->geometry->CommitModify();
 	}
 }

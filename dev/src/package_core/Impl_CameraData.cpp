@@ -1,5 +1,6 @@
 #include "core_ext_pch.h"
 #include "Impl_CameraData.h"
+#include "core/PostEffect_FXAA.h"
 
 
 namespace ld3d
@@ -39,12 +40,18 @@ namespace ld3d
 									&Camera::SetOrder);
 
 		m_ehOnFrameBufferResize = m_pManager->AddEventHandler(EV_RESIZE_FRAMEBUFFER, std::bind(&Impl_CameraData::_on_event_framebuffer_resize, this, std::placeholders::_1));
+
+
+		/*PostEffect_FXAAPtr pFXAA = std::make_shared<PostEffect_FXAA>();
+		pFXAA->Initialize(m_pManager->GetRenderManager());
+
+		AddPostEffect(pFXAA);*/
 		return true;
 	}
 	void Impl_CameraData::OnDetach()
 	{
-		m_pManager->RemoveEventHandler(m_ehOnFrameBufferResize);
 		ClearPropertySet();
+		m_pManager->RemoveEventHandler(m_ehOnFrameBufferResize);
 		m_pManager->GetRenderManager()->RemoveCamera(m_pCamera);
 		m_pCamera->Release();
 		m_pCamera.reset();
@@ -125,7 +132,7 @@ namespace ld3d
 	}
 	void Impl_CameraData::AddPostEffect(PostEffectPtr pEffect)
 	{
-		assert(pEffect != nullptr);
+		//assert(pEffect != nullptr);
 
 		m_pCamera->AddPostEffect(pEffect);
 	}

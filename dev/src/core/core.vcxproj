@@ -220,6 +220,7 @@
     <ClInclude Include="..\..\include\core\ObjectPool.h" />
     <ClInclude Include="..\..\include\core\PassParser.h" />
     <ClInclude Include="..\..\include\core\PhysicsManager.h" />
+    <ClInclude Include="..\..\include\core\PostEffect_FXAA.h" />
     <ClInclude Include="..\..\include\core\RenderSystem_Post.h" />
     <ClInclude Include="..\..\include\core\PostEffect_BilateralBlur.h" />
     <ClInclude Include="..\..\include\core\PostEffect_GaussianBlur.h" />

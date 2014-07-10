@@ -36,8 +36,6 @@ namespace ld3d
 	{
 		CommitModify();
 		glBindVertexArray(m_vao);
-
-		
 	}
 
 	void OGL4GeometryData::AttachVertexBuffer(GPUBufferPtr pBuffer, const VertexLayout& layout)
@@ -105,6 +103,7 @@ namespace ld3d
 	}
 	void OGL4GeometryData::EndGeometry()
 	{
+		CommitModify();
 		glBindVertexArray(0);
 	}
 	const VertexLayout&	OGL4GeometryData::GetVertexLayout() const
@@ -205,5 +204,7 @@ namespace ld3d
 		}
 
 		glBindVertexArray(0);
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	}
 }

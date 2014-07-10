@@ -283,8 +283,7 @@ namespace ld3d
 		// Final Pass
 		m_pPR->RenderFinal(nullptr);
 				
-		// overlays
-
+	
 	//	SetRenderTarget(nullptr);
 	//	ClearRenderTarget(0, GetClearColor());
 	//	ClearDepthBuffer(CLEAR_DEPTH, 1.0f, 0);

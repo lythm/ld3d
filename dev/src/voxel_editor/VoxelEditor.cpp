@@ -85,13 +85,12 @@ namespace ld3d
 			pBlur->Initialize(m_pCore->GetRenderManager());
 			pMD->GetCamera()->AddPostEffect(pBlur);*/
 			
-			PostEffect_FXAAPtr pFXAA = alloc_object<PostEffect_FXAA>(m_pCore->GetAllocator());
-			pFXAA->Initialize(m_pCore->GetRenderManager());
-			pMD->GetCamera()->AddPostEffect(pFXAA);
+			//PostEffect_FXAAPtr pFXAA = <PostEffect_FXAA>();
+			//pFXAA->Initialize(m_pCore->GetRenderManager());
+			//pMD->AddPostEffect(pFXAA);
 
 			m_pCamera->SetTranslation(0, 20, 0);
-
-
+			
 			GameObjectPtr pLight = m_pCore->CreatGameObjectFromTemplate("SkyLight", "light");
 
 			pLight->SetTranslation(-90, 200, 80);

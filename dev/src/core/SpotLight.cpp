@@ -150,7 +150,8 @@ namespace ld3d
 		memcpy(pData, pVerts, sizeof(math::Vector3)* m_nVerts);
 		
 		pVB->Unmap();
-				
+		m_pGeometry->CommitModify();
+
 		mem_free(pVerts);
 
 		UpdateLightProjMatrix();

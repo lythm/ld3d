@@ -44,7 +44,7 @@ namespace ld3d
 	{
 		return m_viewPort;
 	}
-	const std::vector<PostEffectPtr> Camera::GetEffectList() const
+	const std::vector<PostEffectPtr>& Camera::GetEffectList() const
 	{
 		return m_effects;
 	}
