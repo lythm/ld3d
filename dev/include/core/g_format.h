@@ -279,15 +279,15 @@ namespace ld3d
 	};
 	
 
-	enum LAYER
+	enum RENDER_LAYER
 	{
-		layer_sky			= 0,
-		layer_deferred		= 1,
-		layer_forward		= 10,
-		layer_transparent	= 15,
-		layer_overlay		= 20,
+		layer_background	= 0,
+		layer_deferred		= 10,
+		layer_forward		= 20,
+		layer_transparent	= 30,
+		layer_overlay		= 40,
 
-		layer_count			= 25,
+		layer_max			= 50,
 	};
 
 }

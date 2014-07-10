@@ -569,15 +569,17 @@ namespace ld3d
 		}
 
 		// render texture
+		if(m_pCurrentRT == pTarget)
+		{
+			return;
+		}
 		m_pCurrentRT = std::dynamic_pointer_cast<OGL4RenderTexture>(pTarget);
-
 		m_pCurrentRT->Bind();
 
 		glDepthMask(GL_TRUE);
 		glEnable(GL_DEPTH_TEST);
 
 		ResetViewport();
-
 	}
 	
 	TexturePtr OGL4Graphics::CreateTexture1D(G_FORMAT format, int l, int lvls, bool dynamic)

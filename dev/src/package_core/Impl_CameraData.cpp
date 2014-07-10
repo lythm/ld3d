@@ -122,4 +122,8 @@ namespace ld3d
 	{
 		m_autoAspect = autoAspect;
 	}
+	void Impl_CameraData::AddPostEffect(PostEffectPtr pEffect)
+	{
+		m_pCamera->AddPostEffect(pEffect);
+	}
 }

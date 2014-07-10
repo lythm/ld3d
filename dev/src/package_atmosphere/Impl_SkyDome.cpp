@@ -84,7 +84,7 @@ namespace ld3d
 
 			m_pWorldPos->SetParameterVector(pos);
 
-			m_pManager->GetRenderManager()->AddRenderData(layer_sky, m_pRD);
+			m_pManager->GetRenderManager()->AddRenderData(layer_background, m_pRD);
 		}
 	}
 }

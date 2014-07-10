@@ -4,30 +4,8 @@
 
 namespace ld3d
 {
-	class RenderQueue;
-	
 	class _DLL_CLASS RenderManager : public std::enable_shared_from_this<RenderManager>
 	{
-		typedef std::shared_ptr<RenderQueue>		RenderQueuePtr;
-
-		struct MATRIX_BLOCK
-		{
-			math::Matrix44							MATRIX_WORLD;
-			math::Matrix44							MATRIX_VIEW;
-			math::Matrix44							MATRIX_PROJ;
-
-			math::Matrix44							MATRIX_I_WORLD;
-			math::Matrix44							MATRIX_I_VIEW;
-			math::Matrix44							MATRIX_I_PROJ;
-
-			math::Matrix44							MATRIX_WV;
-			math::Matrix44							MATRIX_WVP;
-			
-			math::Matrix44							MATRIX_I_WV;
-			math::Matrix44							MATRIX_I_WVP;
-			math::Matrix44							MATRIX_I_VP;
-		};
-		
 		class ScreenQuad
 		{
 		public:
@@ -47,7 +25,7 @@ namespace ld3d
 
 		bool										Initialize(Sys_GraphicsPtr pGraphics, EventDispatcherPtr pED);
 		void										Release();
-		void										AddRenderData(LAYER layer, RenderDataPtr pData);
+		void										AddRenderData(RENDER_LAYER layer, RenderDataPtr pData);
 		void										Clear();
 		void										Render();
 		void										Render(CameraPtr pCamera);
@@ -91,7 +69,6 @@ namespace ld3d
 		MaterialPtr									CreateMaterialFromFile(const char* szFile);
 		TexturePtr									CreateTextureFromFile(const char* szFile);
 		TexturePtr									Create2DTextureArrayFromFileList(const std::vector<std::string>& files);
-		void										AddPostEffect(PostEffectPtr pEffect);
 
 		void										AddCamera(CameraPtr pCamera);
 		void										RemoveCamera(CameraPtr pCamera);
@@ -115,37 +92,25 @@ namespace ld3d
 
 		bool										IsFullscreen();
 
+		LightManagerPtr								GetLightManager();
+
+		RenderParametersPtr							GetRenderParams() const;
 		// test
 		void										RenderTest(CameraPtr pCamera);
 		//
 	private:
-		bool										CreateABuffer(int w, int h);
-		bool										CreateGBuffer(int w, int h);
-
-		void										DR_G_Pass();
-		void										DR_Merge_Pass();
-		void										DR_Light_Pass(CameraPtr pCamera);
-		void										RenderPostEffects();
-		void										RenderFinal();
-		void										RenderForward();
+		
+		void										RenderBackground(RenderTargetPtr pTarget);
 		void										RenderOverlay();
 		void										RenderShadowMaps(CameraPtr pCamera);
 
 		void										Draw_Texture(TexturePtr pTex);
 	private:
-		math::Matrix44								m_viewMatrix;
-		math::Matrix44								m_projMatrix;
-
+		
 		RenderQueuePtr								m_pRenderQueue;
 
 		Sys_GraphicsPtr								m_pGraphics;
 
-		math::Color4								m_clearClr;
-		float										m_clearDepth;
-		int											m_clearStencil;
-
-		RenderTexturePtr							m_pGBuffer;
-		RenderTexturePtr							m_pABuffer;
 		DepthStencilBufferPtr						m_pDSBuffer;
 
 		ScreenQuadPtr								m_pScreenQuad;
@@ -154,20 +119,17 @@ namespace ld3d
 
 		MaterialPtr									m_pLightMaterial;
 
-		MaterialPtr									m_pScreenQuadMaterial;
-
-		math::Color4								m_globalAmbientColor;
-
-		PostEffectManagerPtr						m_pPostEffectManager;
-
 		std::list<CameraPtr>						m_cameras;
 
 		EventDispatcherPtr							m_pEventDispatcher;
 
-		MATRIX_BLOCK								m_matrixBlock;
-
 		MaterialPtr									m_pDrawTextureMaterial;
 
 		MaterialPtr									m_pShadowMapMaterial;
+
+		RenderParametersPtr							m_pRenderParams;
+		RenderSystem_DeferredPtr					m_pDR;
+		RenderSystem_ForwardPtr						m_pFR;
+		RenderSystem_PostPtr						m_pPR;
 	};
 }

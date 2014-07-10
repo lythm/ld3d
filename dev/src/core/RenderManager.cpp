@@ -9,7 +9,7 @@
 #include "core/GPUBuffer.h"
 #include "core/LightManager.h"
 #include "core/Light.h"
-#include "core/PostEffectManager.h"
+#include "core/RenderSystem_Post.h"
 #include "core/Camera.h"
 #include "core/Event.h"
 #include "core/GeometryData.h"
@@ -18,6 +18,9 @@
 #include "core/MaterialParameter.h"
 #include "core/MaterialCompiler.h"
 #include "RenderQueue.h"
+#include "RenderParameters.h"
+#include "RenderSystem_Deferred.h"
+#include "RenderSystem_Forward.h"
 
 namespace ld3d
 {
@@ -67,13 +70,6 @@ namespace ld3d
 {
 	RenderManager::RenderManager(void)
 	{
-		m_viewMatrix.MakeIdentity();
-		m_projMatrix.MakeIdentity();
-
-		m_clearClr						= math::Color4(0.0f, 0.2f, 0.3f, 1.0f);
-		m_clearDepth					= 1.0f;
-		m_clearStencil					= 0;
-		m_globalAmbientColor			= math::Color4(0.3f, 0.3f, 0.3f, 1.0f);
 	}
 
 
@@ -86,13 +82,14 @@ namespace ld3d
 		m_pGraphics = pGraphics;
 		m_pEventDispatcher = pED;
 
+		m_pRenderParams = alloc_object<RenderParameters>();
+		
 		m_pRenderQueue = alloc_object<RenderQueue>();
 
-		if(m_pRenderQueue->Initialize(layer_count) == false)
+		if(m_pRenderQueue->Initialize(layer_max) == false)
 		{
 			return false;
 		}
-
 
 		int w = pGraphics->GetFrameBufferWidth();
 		int h = pGraphics->GetFrameBufferHeight();
@@ -104,17 +101,8 @@ namespace ld3d
 		{
 			return false;
 		}
-
-
-
-		if(false == CreateGBuffer(w, h))
-		{
-			return false;
-		}
-		if(false == CreateABuffer(w, h))
-		{
-			return false;
-		}
+		
+		
 
 		m_pScreenQuad = alloc_object<ScreenQuad>();
 		if(m_pScreenQuad->Init(m_pGraphics) == false)
@@ -128,19 +116,23 @@ namespace ld3d
 			return false;
 		}
 
-		m_pPostEffectManager = alloc_object<PostEffectManager>();
-		if(m_pPostEffectManager->Initialize(shared_from_this()) == false)
+		m_pPR = alloc_object<RenderSystem_Post>();
+		if(m_pPR->Initialize(shared_from_this()) == false)
 		{
 			return false;
 		}
 
-		m_pScreenQuadMaterial = CreateMaterialFromFile("./assets/standard/material/dr_render_merge.material");
-
-		if(m_pScreenQuadMaterial == nullptr)
+		m_pDR			= alloc_object<RenderSystem_Deferred>();
+		if(false == m_pDR->Initialize(shared_from_this(), m_pDSBuffer))
 		{
 			return false;
 		}
 
+		m_pFR			= alloc_object<RenderSystem_Forward>();
+		if(false == m_pFR->Initialize(shared_from_this()))
+		{
+			return false;
+		}
 		m_pDrawTextureMaterial = CreateMaterialFromFile("./assets/standard/material/draw_screen_texture.material");
 		if(m_pDrawTextureMaterial == nullptr)
 		{
@@ -155,28 +147,7 @@ namespace ld3d
 		
 		return true;
 	}
-	bool RenderManager::CreateGBuffer(int w, int h)
-	{
-		_release_and_reset(m_pGBuffer);
 
-		G_FORMAT formats[3] = 
-		{
-			G_FORMAT_R32_FLOAT,					// depth
-			G_FORMAT_R16G16_FLOAT,				// normal.xy
-			G_FORMAT_R8G8B8A8_UNORM,			// diffuse color : specular
-		};
-
-		m_pGBuffer = CreateRenderTexture(3, w, h, formats);
-
-		if(m_pGBuffer == nullptr)
-		{
-			return false;
-		}
-
-		m_pGBuffer->SetDepthStencilBuffer(m_pDSBuffer);
-		return true;
-
-	}
 	void RenderManager::Release()
 	{
 		Clear();
@@ -185,17 +156,14 @@ namespace ld3d
 
 		_release_and_reset(m_pDrawTextureMaterial);
 		
-		_release_and_reset(m_pScreenQuadMaterial);
-
 		_release_and_reset(m_pLightManager);
 
-		_release_and_reset(m_pPostEffectManager);
+		_release_and_reset(m_pPR);
 
 		_release_and_reset(m_pScreenQuad);
 
-		_release_and_reset(m_pGBuffer);
-
-		_release_and_reset(m_pABuffer);
+		_release_and_reset(m_pFR);
+		_release_and_reset(m_pDR);
 
 		_release_and_reset(m_pDSBuffer);
 
@@ -203,7 +171,7 @@ namespace ld3d
 
 	}
 
-	void RenderManager::AddRenderData(LAYER layer, RenderDataPtr pData)
+	void RenderManager::AddRenderData(RENDER_LAYER layer, RenderDataPtr pData)
 	{
 		m_pRenderQueue->AddRenderData(layer, pData);
 
@@ -213,25 +181,7 @@ namespace ld3d
 		m_pRenderQueue->ClearAll();
 
 	}
-	void RenderManager::DR_G_Pass()
-	{
-		for(uint32 iLayer = layer_deferred; iLayer < layer_forward; ++iLayer)
-		{
-			for(uint32 i = 0; i < m_pRenderQueue->GetRenderDataCount(iLayer); ++i)
-			{
-				RenderDataPtr pData = m_pRenderQueue->GetRenderData(iLayer, i);
-
-				if(pData->dr_draw)
-				{
-					pData->dr_draw(shared_from_this());
-					continue;
-				}
-
-				SetMatrixBlock(pData->material, pData->world_matrix);
-				DrawRenderData(pData);
-			}
-		}
-	}
+	
 	void RenderManager::DrawRenderData(RenderDataPtr pData, MaterialPtr pMaterial)
 	{
 		MaterialPtr pDrawMaterial = pMaterial == nullptr ? pData->material : pMaterial;
@@ -249,16 +199,10 @@ namespace ld3d
 		}
 		pDrawMaterial->End();
 	}
-	void RenderManager::DR_Merge_Pass()
-	{
-		SetDRBuffer(m_pScreenQuadMaterial);
-		SetMatrixBlock(m_pScreenQuadMaterial, math::MatrixIdentity());
 
-		DrawFullScreenQuad(m_pScreenQuadMaterial);
-	}
 	void RenderManager::RenderOverlay()
 	{
-		for(uint32 iLayer = layer_overlay; iLayer < layer_count; ++iLayer)
+		for(uint32 iLayer = layer_overlay; iLayer < layer_max; ++iLayer)
 		{
 			for(uint32 i = 0; i < m_pRenderQueue->GetRenderDataCount(iLayer); ++i)
 			{
@@ -276,24 +220,7 @@ namespace ld3d
 			}
 		}
 	}
-	void RenderManager::RenderForward()
-	{
-		for(uint32 iLayer = layer_forward; iLayer < layer_overlay; ++iLayer)
-		{
-			for(uint32 i = 0; i < m_pRenderQueue->GetRenderDataCount(iLayer); ++i)
-			{
-				RenderDataPtr pData = m_pRenderQueue->GetRenderData(iLayer, i);
-				
-				if(pData->fr_draw)
-				{
-					pData->fr_draw(shared_from_this());
-					continue;
-				}
-				SetMatrixBlock(pData->material, pData->world_matrix);
-				DrawRenderData(pData);
-			}
-		}
-	}
+	
 	void RenderManager::DrawShadowMapGeometry(const math::Matrix44& view, const math::Matrix44& proj)
 	{
 		SetViewMatrix(view);
@@ -339,62 +266,23 @@ namespace ld3d
 		math::ViewFrustum vf = pCamera->GetViewFrustum();
 		EmitViewFrustumCullEvent(vf);
 
-		RenderTexturePtr pOutput = m_pPostEffectManager->GetInput();
+		RenderTexturePtr pTarget = m_pPR->GetIn();
 
-		SetRenderTarget(pOutput);
-		ClearRenderTarget(0, m_clearClr);
-		ClearDepthBuffer(CLEAR_DEPTH, 1.0f, 0);
-		for(uint32 i = 0; i < m_pRenderQueue->GetRenderDataCount(layer_sky); ++i)
-		{
-			RenderDataPtr pData = m_pRenderQueue->GetRenderData(layer_sky, i);
-			if(pData->fr_draw)
-			{
-				pData->fr_draw(shared_from_this());
-				continue;
-			}
-			SetMatrixBlock(pData->material, pData->world_matrix);
+		RenderBackground(pTarget);
+		
 
-			DrawRenderData(pData);
-		}
-
-		//
-
-		// Geometry Pass
-
-
-		m_pGraphics->SetRenderTarget(m_pGBuffer);
-		m_pGraphics->ClearRenderTarget(0, math::Color4(1, 0, 0, 0));
-		m_pGraphics->ClearRenderTarget(1, math::Color4(0, 0, 0, 0));
-		m_pGraphics->ClearRenderTarget(2, math::Color4(0, 0, 0, 1));
-		m_pGraphics->ClearDepthStencil(CLEAR_ALL, 1.0f, 0);
-
-		DR_G_Pass();
-
-		// Light Pass
-		m_pGraphics->SetRenderTarget(m_pABuffer);
-
-		math::Color4 clr = m_globalAmbientColor;
-		clr.a = 0;
-		m_pGraphics->ClearRenderTarget(0, clr);
-
-		DR_Light_Pass(pCamera);
-
-
-		// Merge Pass
-		m_pGraphics->SetRenderTarget(pOutput);
-
-		DR_Merge_Pass();
+		// render deferred
+		m_pDR->Render(m_pRenderQueue, pCamera, pTarget);
 
 		// Forward and transparent pass
-		RenderForward();
+		m_pFR->Render(m_pRenderQueue, pTarget);
 
 		// post effects pass
-		RenderPostEffects();
+		m_pPR->Render(pCamera->GetEffectList());
 
 		// Final Pass
-		RenderFinal();
-
-		
+		m_pPR->RenderFinal(nullptr);
+				
 		// overlays
 
 	//	SetRenderTarget(nullptr);
@@ -407,7 +295,7 @@ namespace ld3d
 
 		//Draw_Texture(m_pGBuffer->GetTexture(0));
 		//Draw_Texture(m_pABuffer->GetTexture(0));
-		//Draw_Texture(m_pPostEffectManager->GetOutput()->GetTexture(0));
+		//Draw_Texture(m_pPR->GetOutput()->GetTexture(0));
 
 	}
 	void RenderManager::Render()
@@ -428,11 +316,11 @@ namespace ld3d
 	}
 	void RenderManager::SetViewMatrix(const math::Matrix44& view)
 	{
-		m_viewMatrix = view;
+		m_pRenderParams->SetViewMatrix(view);
 	}
 	void RenderManager::SetProjMatrix(const math::Matrix44& proj)
 	{
-		m_projMatrix = proj;
+		m_pRenderParams->SetProjMatrix(proj);
 	}
 
 	Sys_GraphicsPtr RenderManager::GetSysGraphics()
@@ -441,19 +329,19 @@ namespace ld3d
 	}
 	void RenderManager::SetClearColor(const math::Color4& clr)
 	{
-		m_clearClr	 = clr;
+		m_pRenderParams->SetClearColor(clr);
 	}
 	const math::Color4&	RenderManager::GetClearColor()
 	{
-		return m_clearClr;
+		return m_pRenderParams->GetClearColor();
 	}
 	void RenderManager::SetClearDepth(float d)
 	{
-		m_clearDepth = d;
+		m_pRenderParams->SetClearDepth(d);
 	}
 	void RenderManager::SetClearStencil(int s)
 	{
-		m_clearStencil = s;
+		m_pRenderParams->SetClearStencil(s);
 	}
 	void RenderManager::ResizeFramebuffer(int cx, int cy, bool fullscreen)
 	{
@@ -474,10 +362,9 @@ namespace ld3d
 
 		m_pDSBuffer = m_pGraphics->CreateDepthStencilBuffer(G_FORMAT_D24_UNORM_S8_UINT, cx, cy);
 
-		CreateGBuffer(cx, cy);
-		CreateABuffer(cx, cy);
-
-		m_pPostEffectManager->Resize(cx, cy);
+		m_pDR->ResizeFrameBuffer(cx, cy, m_pDSBuffer);
+		
+		m_pPR->Resize(cx, cy);
 
 
 		std::shared_ptr<Event_ResizeFrameBuffer> pEvent = alloc_object<Event_ResizeFrameBuffer>(cx, cy);
@@ -504,10 +391,9 @@ namespace ld3d
 
 		m_pDSBuffer = m_pGraphics->CreateDepthStencilBuffer(G_FORMAT_D24_UNORM_S8_UINT, cx, cy);
 
-		CreateGBuffer(cx, cy);
-		CreateABuffer(cx, cy);
+		m_pDR->ResizeFrameBuffer(cx, cy, m_pDSBuffer);
 
-		m_pPostEffectManager->Resize(cx, cy);
+		m_pPR->Resize(cx, cy);
 
 		std::shared_ptr<Event_ResizeFrameBuffer> pEvent = alloc_object<Event_ResizeFrameBuffer>(cx, cy);
 
@@ -526,49 +412,27 @@ namespace ld3d
 		return m_pLightManager->GetLightCount();
 	}
 
-	void RenderManager::DR_Light_Pass(CameraPtr pCamera)
-	{
-		m_pLightManager->RenderLights(pCamera);
-	}
 	void RenderManager::RenderShadowMaps(CameraPtr pCamera)
 	{
 		m_pLightManager->RenderShadowMaps(pCamera);
 	}
 
-	bool RenderManager::CreateABuffer(int w, int h)
-	{
-		if(m_pABuffer != nullptr)
-		{
-			m_pABuffer->Release();
-			m_pABuffer.reset();
-		}
 
-		G_FORMAT formats[1] = {G_FORMAT_R8G8B8A8_UNORM,};
-		m_pABuffer = CreateRenderTexture(1, w, h, formats);
-
-		if(m_pABuffer == nullptr)
-		{
-			return false;
-		}
-
-		m_pABuffer->SetDepthStencilBuffer(m_pDSBuffer);
-		return true;
-	}
 	RenderTexturePtr RenderManager::GetGBuffer()
 	{
-		return m_pGBuffer;
+		return m_pDR->GetGBuffer();
 	}
 	RenderTexturePtr RenderManager::GetABuffer()
 	{
-		return m_pABuffer;
+		return m_pDR->GetABuffer();
 	}
 	const math::Matrix44& RenderManager::GetViewMatrix()
 	{
-		return m_viewMatrix;
+		return m_pRenderParams->GetViewMatrix();
 	}
 	const math::Matrix44& RenderManager::GetProjMatrix()
 	{
-		return m_projMatrix;
+		return m_pRenderParams->GetProjMatrix();
 	}
 	void RenderManager::DrawFullScreenQuad(MaterialPtr pMaterial)
 	{
@@ -576,11 +440,11 @@ namespace ld3d
 	}
 	const math::Color4& RenderManager::GetGlobalAmbient()
 	{
-		return m_globalAmbientColor;
+		return m_pRenderParams->GetGlobalAmbientColor();
 	}
 	void RenderManager::SetGlobalAmbient(const math::Color4& clr)
 	{
-		m_globalAmbientColor = clr;
+		m_pRenderParams->SetGlobalAmbientColor(clr);
 	}
 	void RenderManager::SetRenderTarget(RenderTargetPtr pRT)
 	{
@@ -626,14 +490,7 @@ namespace ld3d
 	{
 		return m_pGraphics->GetFrameBufferHeight();
 	}
-	void RenderManager::RenderPostEffects()
-	{
-		m_pPostEffectManager->Render();
-	}
-	void RenderManager::RenderFinal()
-	{
-		m_pPostEffectManager->RenderToFrameBuffer();
-	}
+	
 	MaterialPtr RenderManager::CreateMaterialFromFile(const char* szFile)
 	{
 		using namespace material_script;
@@ -644,10 +501,7 @@ namespace ld3d
 	{
 		return m_pGraphics->CreateTextureFromFile(szFile);
 	}
-	void RenderManager::AddPostEffect(PostEffectPtr pEffect)
-	{
-		m_pPostEffectManager->AddEffect(pEffect);
-	}
+	
 	void RenderManager::AddCamera(CameraPtr pCamera)
 	{
 		m_cameras.push_back(pCamera);
@@ -662,49 +516,32 @@ namespace ld3d
 	}
 	void RenderManager::SetMatrixBlock(MaterialPtr pMaterial, const math::Matrix44& world)
 	{
-		m_matrixBlock.MATRIX_WORLD				= world;
-		m_matrixBlock.MATRIX_VIEW				= m_viewMatrix;
-		m_matrixBlock.MATRIX_PROJ				= m_projMatrix;
-
-		m_matrixBlock.MATRIX_I_WORLD			= math::MatrixInverse(world);
-		m_matrixBlock.MATRIX_I_VIEW				= math::MatrixInverse(m_viewMatrix);
-		m_matrixBlock.MATRIX_I_PROJ				= math::MatrixInverse(m_projMatrix);
-
-		m_matrixBlock.MATRIX_WV					= world * m_viewMatrix;
-		m_matrixBlock.MATRIX_WVP				= world * m_viewMatrix * m_projMatrix;
-
-		m_matrixBlock.MATRIX_I_WV				= math::MatrixInverse(m_matrixBlock.MATRIX_WV);	
-		m_matrixBlock.MATRIX_I_WVP				= math::MatrixInverse(m_matrixBlock.MATRIX_WVP);
-		m_matrixBlock.MATRIX_I_VP				= math::MatrixInverse(m_viewMatrix * m_projMatrix);
-
-		MaterialParameterPtr pParam = pMaterial->GetParameterByName("_MATRIX");
-		if(pParam)
-		{
-			pParam->SetParameterBlock(&m_matrixBlock, sizeof(MATRIX_BLOCK));
-		}
+		m_pRenderParams->SetMaterialMatrixBlock(pMaterial, world);
 	}
 	void RenderManager::SetDRBuffer(MaterialPtr pMaterial)
 	{
 		SetABuffer(pMaterial);
 		SetGBuffer(pMaterial);
-
 	}
 	void RenderManager::SetABuffer(MaterialPtr pMaterial)
 	{
+		RenderTexturePtr pABuffer = m_pDR->GetABuffer();
 		MaterialParameterPtr pParam = pMaterial->GetParameterByName("_DR_A_BUFFER");
-		pParam ? pParam->SetParameterTexture(m_pABuffer->GetTexture(0)) : (void)0 ;
+		pParam ? pParam->SetParameterTexture(pABuffer->GetTexture(0)) : (void)0 ;
 	}
 	void RenderManager::SetGBuffer(MaterialPtr pMaterial)
 	{
+		RenderTexturePtr pGBuffer = m_pDR->GetGBuffer();
+
 		MaterialParameterPtr pParam = pMaterial->GetParameterByName("_DR_G_BUFFER_0");
-		pParam ? pParam->SetParameterTexture(m_pGBuffer->GetTexture(0)) : (void)0;
+		pParam ? pParam->SetParameterTexture(pGBuffer->GetTexture(0)) : (void)0;
 
 		pParam = pMaterial->GetParameterByName("_DR_G_BUFFER_1");
 
-		pParam ? pParam->SetParameterTexture(m_pGBuffer->GetTexture(1)) : (void)0;
+		pParam ? pParam->SetParameterTexture(pGBuffer->GetTexture(1)) : (void)0;
 
 		pParam = pMaterial->GetParameterByName("_DR_G_BUFFER_2");
-		pParam ? pParam->SetParameterTexture(m_pGBuffer->GetTexture(2)) : (void)0;
+		pParam ? pParam->SetParameterTexture(pGBuffer->GetTexture(2)) : (void)0;
 
 	}
 	void RenderManager::Draw_Texture(TexturePtr pTex)
@@ -716,16 +553,6 @@ namespace ld3d
 	}
 	void RenderManager::RenderTest(CameraPtr pCamera)
 	{
-		pCamera->UpdateViewFrustum();
-
-		SetViewMatrix(pCamera->GetViewMatrix());
-		SetProjMatrix(pCamera->GetProjMatrix());
-
-		SetRenderTarget(nullptr);
-		//ClearRenderTarget(0, GetClearColor());
-		ClearRenderTarget(0, math::Color4(0, 0, 0,1));
-		ClearDepthBuffer(CLEAR_ALL, 1, 0);
-		RenderForward();
 	}
 	DepthStencilBufferPtr RenderManager::GetDepthStencilBuffer()
 	{
@@ -742,5 +569,32 @@ namespace ld3d
 	TexturePtr RenderManager::Create2DTextureArrayFromFileList(const std::vector<std::string>& files)
 	{
 		return m_pGraphics->Create2DArrayFromFiles(files);
+	}
+	RenderParametersPtr RenderManager::GetRenderParams() const
+	{
+		return m_pRenderParams;
+	}
+	LightManagerPtr RenderManager::GetLightManager()
+	{
+		return m_pLightManager;
+	}
+
+	void RenderManager::RenderBackground(RenderTargetPtr pTarget)
+	{
+		SetRenderTarget(pTarget);
+		ClearRenderTarget(0, m_pRenderParams->GetClearColor());
+		ClearDepthBuffer(CLEAR_DEPTH, 1.0f, 0);
+		for(uint32 i = 0; i < m_pRenderQueue->GetRenderDataCount(layer_background); ++i)
+		{
+			RenderDataPtr pData = m_pRenderQueue->GetRenderData(layer_background, i);
+			if(pData->fr_draw)
+			{
+				pData->fr_draw(shared_from_this());
+				continue;
+			}
+			SetMatrixBlock(pData->material, pData->world_matrix);
+
+			DrawRenderData(pData);
+		}
 	}
 }

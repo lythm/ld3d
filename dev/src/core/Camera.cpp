@@ -1,5 +1,6 @@
 #include "core_pch.h"
 #include "core/Camera.h"
+#include "core/PostEffect.h"
 
 
 namespace ld3d
@@ -8,6 +9,11 @@ namespace ld3d
 	Camera::Camera(void)
 	{
 		m_order = 0;
+		for(auto pe : m_effects)
+		{
+			pe->Release();
+		}
+		m_effects.clear();
 	}
 
 
@@ -33,5 +39,13 @@ namespace ld3d
 	const math::RectI& Camera::GetViewport() const
 	{
 		return m_viewPort;
+	}
+	const std::vector<PostEffectPtr> Camera::GetEffectList() const
+	{
+		return m_effects;
+	}
+	void Camera::AddPostEffect(PostEffectPtr pEffect)
+	{
+		m_effects.push_back(pEffect);
 	}
 }

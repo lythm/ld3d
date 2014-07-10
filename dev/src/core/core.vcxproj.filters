@@ -31,8 +31,6 @@
     <ClCompile Include="DataStream.cpp" />
     <ClCompile Include="DataStream_Mem.cpp" />
     <ClCompile Include="SceneSerializer.cpp" />
-    <ClCompile Include="PostEffectManager.cpp" />
-    <ClCompile Include="PostEffect_FinalCompose.cpp" />
     <ClCompile Include="PostEffect_BilateralBlur.cpp" />
     <ClCompile Include="PostEffect_GaussianBlur.cpp" />
     <ClCompile Include="AssetsManager.cpp" />
@@ -53,8 +51,6 @@
     <ClCompile Include="PassParser.cpp" />
     <ClCompile Include="MaterialBaseParser.cpp" />
     <ClCompile Include="Material.cpp" />
-    <ClCompile Include="RenderSystem_FR.cpp" />
-    <ClCompile Include="RenderSystem_DR.cpp" />
     <ClCompile Include="WinRawInput.cpp" />
     <ClCompile Include="UIManager.cpp" />
     <ClCompile Include="RenderQueue.cpp" />
@@ -76,6 +72,10 @@
     <ClCompile Include="Screen.cpp" />
     <ClCompile Include="HtmlTexture.cpp" />
     <ClCompile Include="WinWindow.cpp" />
+    <ClCompile Include="RenderParameters.cpp" />
+    <ClCompile Include="RenderSystem_Deferred.cpp" />
+    <ClCompile Include="RenderSystem_Forward.cpp" />
+    <ClCompile Include="RenderSystem_Post.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\core\ArcBall.h" />
@@ -127,8 +127,6 @@
     <ClInclude Include="..\..\include\core\DataStream_Mem.h" />
     <ClInclude Include="..\..\include\core\SceneSerializer.h" />
     <ClInclude Include="..\..\include\core\RenderTarget.h" />
-    <ClInclude Include="..\..\include\core\PostEffectManager.h" />
-    <ClInclude Include="..\..\include\core\PostEffect_FinalCompose.h" />
     <ClInclude Include="..\..\include\core\PostEffect_SSAO.h" />
     <ClInclude Include="..\..\include\core\PostEffect_BilateralBlur.h" />
     <ClInclude Include="..\..\include\core\PostEffect_GaussianBlur.h" />
@@ -163,9 +161,6 @@
     <ClInclude Include="..\..\include\core\RenderTexture.h" />
     <ClInclude Include="..\..\include\core\Material.h" />
     <ClInclude Include="..\..\include\core\Package.h" />
-    <ClInclude Include="RenderSystem_FR.h" />
-    <ClInclude Include="RenderSystem_DR.h" />
-    <ClInclude Include="RenderSystem.h" />
     <ClInclude Include="..\..\include\core\input_types.h" />
     <ClInclude Include="WinRawInput.h" />
     <ClInclude Include="..\..\include\core\UIManager.h" />
@@ -247,6 +242,10 @@
     <ClInclude Include="..\..\include\math\math_viewfrustum.h">
       <Filter>math</Filter>
     </ClInclude>
+    <ClInclude Include="RenderParameters.h" />
+    <ClInclude Include="RenderSystem_Deferred.h" />
+    <ClInclude Include="RenderSystem_Forward.h" />
+    <ClInclude Include="..\..\include\core\RenderSystem_Post.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="math">

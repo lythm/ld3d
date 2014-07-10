@@ -78,6 +78,11 @@ namespace ld3d
 			//	pController->Enable(false);
 			m_pCamera->AddComponent(pController);
 
+
+			/*PostEffect_GaussianBlurPtr pBlur = std::make_shared<PostEffect_GaussianBlur>();
+			pBlur->Initialize(m_pCore->GetRenderManager());
+			pMD->GetCamera()->AddPostEffect(pBlur);*/
+
 			m_pCamera->SetTranslation(0, 20, 0);
 
 

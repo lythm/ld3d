@@ -1,5 +1,5 @@
 #include "core_pch.h"
-#include "core/PostEffectManager.h"
+#include "core/RenderSystem_Post.h"
 #include "core/PostEffect.h"
 #include "core/RenderManager.h"
 #include "core/Material.h"
@@ -12,15 +12,15 @@
 
 namespace ld3d
 {
-	PostEffectManager::PostEffectManager(void)
+	RenderSystem_Post::RenderSystem_Post(void)
 	{
 	}
 
 
-	PostEffectManager::~PostEffectManager(void)
+	RenderSystem_Post::~RenderSystem_Post(void)
 	{
 	}
-	bool PostEffectManager::Initialize(RenderManagerPtr pRenderManager)
+	bool RenderSystem_Post::Initialize(RenderManagerPtr pRenderManager)
 	{
 		m_pRenderManager = pRenderManager;
 
@@ -44,9 +44,9 @@ namespace ld3d
 		m_pFinalMaterial->GetParameterByName("render_window_width")->SetParameterInt(rw);
 		m_pFinalMaterial->GetParameterByName("render_window_height")->SetParameterInt(rh);
 
-		m_pParamOutput = m_pFinalMaterial->GetParameterByName("final_image");
+		m_pFinalParam = m_pFinalMaterial->GetParameterByName("final_image");
 
-		if(m_pParamOutput == nullptr)
+		if(m_pFinalParam == nullptr)
 		{
 			return false;
 		}
@@ -58,53 +58,46 @@ namespace ld3d
 
 		return true;
 	}
-	void PostEffectManager::Release()
+	void RenderSystem_Post::Release()
 	{
-		for(size_t i = 0; i < m_effects.size(); ++i)
-		{
-			m_effects[i]->Release();
-		}
+		_release_and_reset(m_pIn);
 
-		m_effects.clear();
-
-		_release_and_reset(m_pInput);
-
-		_release_and_reset(m_pOutput);
+		_release_and_reset(m_pOut);
 
 		_release_and_reset(m_pFinalMaterial);
 		
 	}
-	void PostEffectManager::Render()
+	void RenderSystem_Post::Render(PostEffectPtr pEffect)
 	{
-		for(size_t i = 0; i < m_effects.size(); ++i)
-		{
-			m_effects[i]->Render(m_pRenderManager, m_pInput, m_pOutput);
-			SwapRenderTarget();
-		}
-
+		pEffect->Render(m_pRenderManager, m_pIn, m_pOut);
 		SwapRenderTarget();
-		
 	}
-	void PostEffectManager::SwapRenderTarget()
+	void RenderSystem_Post::Render(const std::vector<PostEffectPtr>& effects)
 	{
-		RenderTexturePtr pTmp;
-		pTmp = m_pInput;
-		m_pInput = m_pOutput;
-		m_pOutput = pTmp;
+		if(effects.size() == 0)
+		{
+			return;
+		}
+		for(size_t i = 0; i < effects.size(); ++i)
+		{
+			Render(effects[i]);
+		}
 	}
-	RenderTexturePtr PostEffectManager::GetInput()
+	
+	void RenderSystem_Post::SwapRenderTarget()
 	{
-		return m_pInput;
+		std::swap(m_pIn, m_pOut);
 	}
-	RenderTexturePtr PostEffectManager::GetOutput()
+	RenderTexturePtr RenderSystem_Post::GetIn()
 	{
-		return m_pOutput;
+		return m_pIn;
 	}
-	int	PostEffectManager::GetEffectCount()
+	RenderTexturePtr RenderSystem_Post::GetOut()
 	{
-		return (int)m_effects.size();
+		return m_pOut;
 	}
-	void PostEffectManager::Resize(int cx, int cy)
+	
+	void RenderSystem_Post::Resize(int cx, int cy)
 	{
 		if(cx == 0 || cy == 0)
 		{
@@ -119,46 +112,41 @@ namespace ld3d
 		m_pFinalMaterial->GetParameterByName("render_window_width")->SetParameterInt(w);
 		m_pFinalMaterial->GetParameterByName("render_window_height")->SetParameterInt(h);
 	}
-	bool PostEffectManager::CreateRT(int w, int h)
+	bool RenderSystem_Post::CreateRT(int w, int h)
 	{
-		_release_and_reset(m_pInput);
+		_release_and_reset(m_pIn);
 
-		_release_and_reset(m_pOutput);
+		_release_and_reset(m_pOut);
 
 		G_FORMAT formats[1] = {G_FORMAT_R8G8B8A8_UNORM,};
-		m_pInput = m_pRenderManager->CreateRenderTexture(1, w, h, formats);
+		m_pIn = m_pRenderManager->CreateRenderTexture(1, w, h, formats);
 
-		if(m_pInput == nullptr)
+		if(m_pIn == nullptr)
 		{
 			return false;
 		}
 
-		m_pInput->SetDepthStencilBuffer(m_pRenderManager->GetDepthStencilBuffer());
+		m_pIn->SetDepthStencilBuffer(m_pRenderManager->GetDepthStencilBuffer());
 
-		m_pOutput = m_pRenderManager->CreateRenderTexture(1, w, h, formats);
+		m_pOut = m_pRenderManager->CreateRenderTexture(1, w, h, formats);
 
-		if(m_pOutput == nullptr)
+		if(m_pOut == nullptr)
 		{
 			return false;
 		}
-		m_pOutput->SetDepthStencilBuffer(m_pRenderManager->GetDepthStencilBuffer());
+		m_pOut->SetDepthStencilBuffer(m_pRenderManager->GetDepthStencilBuffer());
 		return true;
 	}
-	void PostEffectManager::RenderToFrameBuffer()
+	
+	void RenderSystem_Post::RenderFinal(RenderTargetPtr pTarget)
 	{
-		m_pRenderManager->SetRenderTarget(nullptr);
+		m_pRenderManager->SetRenderTarget(pTarget);
 		m_pRenderManager->ClearRenderTarget(0, m_pRenderManager->GetClearColor());
 		m_pRenderManager->ClearDepthBuffer(CLEAR_DEPTH, 1.0f, 0);
 
-		m_pParamOutput->SetParameterTexture(m_pOutput->GetTexture(0));
-		//m_pParamOutput->SetParameterTexture(m_pInput->GetTexture(0));
-
+		m_pFinalParam->SetParameterTexture(m_pIn->GetTexture(0));
 
 		m_pRenderManager->DrawFullScreenQuad(m_pFinalMaterial);
-	}
-	void PostEffectManager::AddEffect(PostEffectPtr pEffect)
-	{
-		m_effects.push_back(pEffect);
 	}
 }
 

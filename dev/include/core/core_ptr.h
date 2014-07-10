@@ -97,7 +97,18 @@ namespace ld3d
 	class GeometryData;
 	class ShaderProgram;
 	class SamplerState;
-	
+	class RenderQueue;
+	class RenderParameters;
+	class RenderSystem_Deferred;
+	class RenderSystem_Forward;
+	class RenderSystem_Post;
+
+
+	typedef std::shared_ptr<RenderSystem_Post>				RenderSystem_PostPtr;
+	typedef std::shared_ptr<RenderSystem_Forward>			RenderSystem_ForwardPtr;
+	typedef std::shared_ptr<RenderSystem_Deferred>			RenderSystem_DeferredPtr;
+	typedef std::shared_ptr<RenderParameters>				RenderParametersPtr;
+	typedef std::shared_ptr<RenderQueue>					RenderQueuePtr;
 	typedef std::shared_ptr<Material>						MaterialPtr;
 	typedef std::shared_ptr<MaterialPass>					MaterialPassPtr;
 	typedef std::shared_ptr<MaterialTech>					MaterialTechPtr;
@@ -140,7 +151,6 @@ namespace ld3d
 
 	class CoreApi;
 	class RenderManager;
-	class PostEffectManager;
 	class PostEffect;
 	class PostEffect_SSAO;
 	class PostEffect_GaussianBlur;
@@ -148,7 +158,6 @@ namespace ld3d
 	typedef std::shared_ptr<PostEffect_GaussianBlur>		PostEffect_GaussianBlurPtr;
 	typedef std::shared_ptr<PostEffect_SSAO>				PostEffect_SSAOPtr;
 	typedef std::shared_ptr<PostEffect>						PostEffectPtr;
-	typedef std::shared_ptr<PostEffectManager>				PostEffectManagerPtr;
 	typedef std::shared_ptr<RenderManager>					RenderManagerPtr;
 	typedef std::shared_ptr<CoreApi>						CoreApiPtr;
 

@@ -17,10 +17,16 @@ namespace ld3d
 		const math::RectI&					GetViewport() const;
 
 		static bool							SortFunction(CameraPtr pC1, CameraPtr pC2);
+
+		const std::vector<PostEffectPtr>	GetEffectList() const;
+
+		void								AddPostEffect(PostEffectPtr pEffect);
 	private:
 		int									m_order;
 
 		math::RectI							m_viewPort;
+
+		std::vector<PostEffectPtr>			m_effects;
 
 	};
 }

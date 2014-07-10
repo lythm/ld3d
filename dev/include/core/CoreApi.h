@@ -42,7 +42,7 @@ namespace ld3d
 		void											Render();
 		void											Render(CameraPtr pCamera);
 		void											Present();
-		void											AddRenderData(LAYER layer, RenderDataPtr pData);
+		void											AddRenderData(RENDER_LAYER layer, RenderDataPtr pData);
 		void											ClearRenderQueue();
 
 		void											AddCamera(CameraPtr pCamera);

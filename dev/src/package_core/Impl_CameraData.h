@@ -26,6 +26,8 @@ namespace ld3d
 		void						SetFOV(float fov);
 
 		void						SetAutoAspect(bool autoAspect);
+
+		void						AddPostEffect(PostEffectPtr pEffect);
 	private:
 		void						_on_event_framebuffer_resize(EventPtr pEvent);
 
