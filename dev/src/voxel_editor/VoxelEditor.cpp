@@ -1,6 +1,8 @@
 #include "voxel_editor_pch.h"
 #include "VoxelEditor.h"
 
+#include "core/PostEffect_FXAA.h"
+
 #include <unordered_map>
 extern "C" 
 {
@@ -82,6 +84,10 @@ namespace ld3d
 			/*PostEffect_GaussianBlurPtr pBlur = std::make_shared<PostEffect_GaussianBlur>();
 			pBlur->Initialize(m_pCore->GetRenderManager());
 			pMD->GetCamera()->AddPostEffect(pBlur);*/
+			
+			PostEffect_FXAAPtr pFXAA = alloc_object<PostEffect_FXAA>(m_pCore->GetAllocator());
+			pFXAA->Initialize(m_pCore->GetRenderManager());
+			pMD->GetCamera()->AddPostEffect(pFXAA);
 
 			m_pCamera->SetTranslation(0, 20, 0);
 
@@ -116,9 +122,9 @@ namespace ld3d
 			m_pCore->RegisterConsoleCommand("move_to", std::bind(&VoxelEditor::_on_cmd_move_to, this, std::placeholders::_1, std::placeholders::_2));
 
 
-			GameObjectPtr pSphere = m_pCore->CreatGameObjectFromTemplate("Sphere", "sphere");
+			/*GameObjectPtr pSphere = m_pCore->CreatGameObjectFromTemplate("Sphere", "sphere");
 
-			pSphere->SetTranslation(0, 128, 0);
+			pSphere->SetTranslation(0, 128, 0);*/
 			return true;
 		}
 		void VoxelEditor::Release()

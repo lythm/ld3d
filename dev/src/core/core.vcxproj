@@ -288,7 +288,6 @@
     <ClInclude Include="Frame.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="MaterialParameterManager.h" />
-    <ClInclude Include="PostEffect_FXAA.h" />
     <ClInclude Include="RenderParameters.h" />
     <ClInclude Include="RenderQueue.h" />
     <ClInclude Include="RenderSystem_Deferred.h" />

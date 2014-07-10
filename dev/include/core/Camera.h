@@ -21,6 +21,7 @@ namespace ld3d
 		const std::vector<PostEffectPtr>	GetEffectList() const;
 
 		void								AddPostEffect(PostEffectPtr pEffect);
+		void								Release();
 	private:
 		int									m_order;
 

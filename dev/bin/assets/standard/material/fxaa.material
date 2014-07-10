@@ -1,0 +1,20 @@
+
+RenderState rs
+{
+	CULLMODE						= None;
+	DepthEnable						= False;
+	DepthFunc						= ALWAYS;
+	DepthWriteMask					= ZERO;
+	StencilEnable					= false;
+	BlendEnable						= false;
+};
+
+Technique T1
+{
+	Pass P1
+	{
+		SetRenderState(rs);
+		SetVertexShader("./shader/fxaa.vs");
+		SetPixelShader("./shader/fxaa.ps");
+	};
+}

@@ -154,7 +154,9 @@ namespace ld3d
 	class PostEffect;
 	class PostEffect_SSAO;
 	class PostEffect_GaussianBlur;
+	class PostEffect_FXAA;
 
+	typedef std::shared_ptr<PostEffect_FXAA>				PostEffect_FXAAPtr;
 	typedef std::shared_ptr<PostEffect_GaussianBlur>		PostEffect_GaussianBlurPtr;
 	typedef std::shared_ptr<PostEffect_SSAO>				PostEffect_SSAOPtr;
 	typedef std::shared_ptr<PostEffect>						PostEffectPtr;

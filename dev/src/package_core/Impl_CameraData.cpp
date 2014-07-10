@@ -46,6 +46,7 @@ namespace ld3d
 		m_pManager->RemoveEventHandler(m_ehOnFrameBufferResize);
 		ClearPropertySet();
 		m_pManager->GetRenderManager()->RemoveCamera(m_pCamera);
+		m_pCamera->Release();
 		m_pCamera.reset();
 	}
 	bool Impl_CameraData::OnSerialize(DataStream* pStream)
@@ -124,6 +125,8 @@ namespace ld3d
 	}
 	void Impl_CameraData::AddPostEffect(PostEffectPtr pEffect)
 	{
+		assert(pEffect != nullptr);
+
 		m_pCamera->AddPostEffect(pEffect);
 	}
 }

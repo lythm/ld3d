@@ -9,16 +9,20 @@ namespace ld3d
 	Camera::Camera(void)
 	{
 		m_order = 0;
-		for(auto pe : m_effects)
-		{
-			pe->Release();
-		}
-		m_effects.clear();
 	}
 
 
 	Camera::~Camera(void)
 	{
+		Release();
+	}
+	void Camera::Release()
+	{
+		/*for(auto pe : m_effects)
+		{
+			pe->Release();
+		}*/
+		m_effects.clear();
 	}
 	void Camera::SetOrder(const int& order)
 	{
