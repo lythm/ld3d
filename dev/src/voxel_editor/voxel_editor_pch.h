@@ -9,3 +9,4 @@
 
 #include "packages/core/core_ext_all.h"
 #include "packages/voxel/voxel_all.h"
+#include "atmosphere/atmosphere_all.h"

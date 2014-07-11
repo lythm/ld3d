@@ -13,7 +13,6 @@
 #include "Impl_MeshData.h"
 #include "Impl_LuaBehavior.h"
 #include "Impl_Light_Spot.h"
-#include "Impl_Light_Sky.h"
 #include "Impl_Light_Point.h"
 #include "Impl_Light_Dir.h"
 #include "Impl_CameraData.h"
@@ -30,7 +29,6 @@
 #include "Tpl_Sphere.h"
 #include "Tpl_Cone.h"
 #include "Tpl_PointLight.h"
-#include "Tpl_SkyLight.h"
 #include "Tpl_SpotLight.h"
 #include "Tpl_DirLight.h"
 #include "Tpl_Camera.h"
@@ -86,9 +84,6 @@ namespace ld3d
 		pTpl = new Tpl_DirLight(m_pManager, "DirectionalLight");
 		m_tpls.push_back(pTpl);
 
-		pTpl = new Tpl_SkyLight(m_pManager, "SkyLight");
-		m_tpls.push_back(pTpl);
-
 		pTpl = new Tpl_Camera(m_pManager, "Camera");
 		m_tpls.push_back(pTpl);
 
@@ -137,11 +132,7 @@ namespace ld3d
 					"Spot Light",
 					&Create_Component<Impl_Light_Spot>));
 
-		m_classes.push_back(ComponentClass("SkyLight",
-					"Light",
-					"Sky Light",
-					&Create_Component<Impl_Light_Sky>));
-
+		
 		m_classes.push_back(ComponentClass("SkyBox",
 					"Sky",
 					"SkyBox",

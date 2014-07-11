@@ -4,7 +4,7 @@
 
 
 
-
+#include "atmosphere/atmosphere_types.h"
 
 
 

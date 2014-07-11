@@ -77,7 +77,6 @@
 #include "core/Scene.h"
 
 #include "core/Light.h"
-#include "core/SkyLight.h"
 #include "core/PointLight.h"
 #include "core/DirectionalLight.h"
 #include "core/SpotLight.h"

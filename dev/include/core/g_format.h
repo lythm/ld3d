@@ -275,7 +275,7 @@ namespace ld3d
 		LT_POINTLIGHT,
 		LT_DIRLIGHT,
 		LT_SPOTLIGHT,
-		LT_SKYLIGHT,
+		LT_USER						= 0x80000000,
 	};
 	
 

@@ -243,7 +243,6 @@
     <ClInclude Include="..\..\include\core\Serializer.h" />
     <ClInclude Include="..\..\include\core\Shader.h" />
     <ClInclude Include="..\..\include\core\ShaderProgram.h" />
-    <ClInclude Include="..\..\include\core\SkyLight.h" />
     <ClInclude Include="..\..\include\core\Sound.h" />
     <ClInclude Include="..\..\include\core\SoundChannel.h" />
     <ClInclude Include="..\..\include\core\SpotLight.h" />
@@ -366,7 +365,6 @@
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneSerializer.cpp" />
     <ClCompile Include="Screen.cpp" />
-    <ClCompile Include="SkyLight.cpp" />
     <ClCompile Include="SpotLight.cpp" />
     <ClCompile Include="SubMesh.cpp" />
     <ClCompile Include="SysManager.cpp" />

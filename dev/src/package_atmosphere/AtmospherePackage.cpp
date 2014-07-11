@@ -1,6 +1,8 @@
 #include "package_atmosphere_pch.h"
 #include "AtmospherePackage.h"
 #include "Impl_SkyDome.h"
+#include "Impl_SkyLight.h"
+#include "Impl_TimeOfTheDay.h"
 
 
 
@@ -28,7 +30,17 @@ namespace ld3d
 			m_classes.push_back(ComponentClass("Atmosphere.SkyDome",
 				"Atmosphere",
 				"Sky Dome",
-				&Create_Component<Impl_SkyDome>));
+				&Create_Component<impl::Impl_SkyDome>));
+
+			m_classes.push_back(ComponentClass("Atmosphere.SkyLight",
+				"Atmosphere",
+				"Sky Light",
+				&Create_Component<impl::Impl_SkyLight>));
+
+			m_classes.push_back(ComponentClass("Atmosphere.TimeOfTheDay",
+				"Atmosphere",
+				"Time Of The Day",
+				&Create_Component<impl::Impl_TimeOfTheDay>));
 
 		}
 

@@ -72,14 +72,24 @@ namespace ld3d
 			//GameObjectComponentPtr pSkyBox = pCore->CreateGameObjectComponent("SkyBox");
 			//m_pCamera->AddComponent(pSkyBox);
 
-			GameObjectComponentPtr pSkyDome = pCore->CreateGameObjectComponent("Atmosphere.SkyDome");
+			GameObjectComponentPtr pTOTD = pCore->CreateGameObjectComponent("Atmosphere.TimeOfTheDay");
+			m_pCamera->AddComponent(pTOTD);
+
+			/*GameObjectComponentPtr pSkyDome = pCore->CreateGameObjectComponent("Atmosphere.SkyDome");
 			m_pCamera->AddComponent(pSkyDome);
+
+			atmosphere::SkyLightPtr pSkyLight = std::dynamic_pointer_cast<atmosphere::SkyLight>(pCore->CreateGameObjectComponent("Atmosphere.SkyLight"));
+
+			m_pCamera->AddComponent(pSkyLight);
+
+			pSkyLight->SetLightDir(math::Vector3(1, -1, 1));*/
 
 			CameraController_FreePtr pController = std::dynamic_pointer_cast<CameraController_Free>(pCore->CreateGameObjectComponent("CameraFreeController"));
 			pController->SetSpeed(50);
 			//	pController->Enable(false);
 			m_pCamera->AddComponent(pController);
 
+			
 
 			/*PostEffect_GaussianBlurPtr pBlur = std::make_shared<PostEffect_GaussianBlur>();
 			pBlur->Initialize(m_pCore->GetRenderManager());
@@ -91,13 +101,13 @@ namespace ld3d
 
 			m_pCamera->SetTranslation(0, 20, 0);
 			
-			GameObjectPtr pLight = m_pCore->CreatGameObjectFromTemplate("SkyLight", "light");
+			/*GameObjectPtr pLight = m_pCore->CreatGameObjectFromTemplate("SkyLight", "light");
 
 			pLight->SetTranslation(-90, 200, 80);
 			pLight->LookAt(math::Vector3(0, 0, 0));
 			
 			Light_SkyPtr pSkyLight = std::dynamic_pointer_cast<Light_Sky>(pLight->GetComponent("SkyLight"));
-			pSkyLight->GetLight()->SetDiffuseColor(math::Color4(1.0, 1.0f, 1.0f, 1.0f));
+			pSkyLight->GetLight()->SetDiffuseColor(math::Color4(1.0, 1.0f, 1.0f, 1.0f));*/
 		//	pSkyLight->EnableShadow(true);
 
 

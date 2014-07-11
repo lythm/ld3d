@@ -27,10 +27,28 @@
     <ClInclude Include="Impl_SkyDome.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\packages\atmosphere\atmosphere_SkyLight.h">
+    <ClInclude Include="WeatherControl.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="WeatherControl.h">
+    <ClInclude Include="Impl_SkyLight.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="detail_SkyLight.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\packages\atmosphere\atmosphere_all.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\packages\atmosphere\atmosphere_types.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\packages\atmosphere\SkyLight.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\packages\atmosphere\TimeOfTheDay.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Impl_TimeOfTheDay.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
@@ -42,6 +60,15 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Impl_SkyDome.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Impl_SkyLight.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="detail_SkyLight.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Impl_TimeOfTheDay.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

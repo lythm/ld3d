@@ -8,11 +8,10 @@
 #include "Light_Dir.h"
 #include "Light_Point.h"
 #include "Light_Spot.h"
-#include "Light_Sky.h"
 #include "GridRenderer.h"
 #include "AABBoxRenderer.h"
 
-#include "cameradata.h"
+#include "CameraData.h"
 #include "CameraController_Free.h"
 #include "CameraController_Orbit.h"
 

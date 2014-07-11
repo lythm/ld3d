@@ -9,7 +9,6 @@ namespace ld3d
 	class Light_Dir;
 	class Light_Point;
 	class Light_Spot;
-	class Light_Sky;
 	class CameraData;
 	class OctTreeNode;
 	class CameraController_Orbit;
@@ -27,7 +26,6 @@ namespace ld3d
 	typedef std::shared_ptr<CameraController_Free>							CameraController_FreePtr;
 	typedef std::shared_ptr<CameraController_Orbit>							CameraController_OrbitPtr;
 	typedef std::shared_ptr<CameraData>										CameraDataPtr;
-	typedef std::shared_ptr<Light_Sky>										Light_SkyPtr;
 	typedef std::shared_ptr<Light_Spot>										Light_SpotPtr;
 	typedef std::shared_ptr<Light_Point>									Light_PointPtr;
 	typedef std::shared_ptr<Light_Dir>										Light_DirPtr;

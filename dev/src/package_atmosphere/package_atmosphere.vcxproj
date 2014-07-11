@@ -92,7 +92,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;PACKAGE_ATMOSPHERE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <PrecompiledHeaderFile>package_atomsphere_pch.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile>package_atmosphere_pch.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -149,16 +149,25 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\include\packages\atmosphere\atmosphere_SkyLight.h" />
+    <ClInclude Include="..\..\include\packages\atmosphere\atmosphere_all.h" />
+    <ClInclude Include="..\..\include\packages\atmosphere\SkyLight.h" />
+    <ClInclude Include="..\..\include\packages\atmosphere\atmosphere_types.h" />
     <ClInclude Include="..\..\include\packages\atmosphere\SkyDome.h" />
+    <ClInclude Include="..\..\include\packages\atmosphere\TimeOfTheDay.h" />
     <ClInclude Include="AtmospherePackage.h" />
+    <ClInclude Include="detail_SkyLight.h" />
     <ClInclude Include="Impl_SkyDome.h" />
+    <ClInclude Include="Impl_SkyLight.h" />
+    <ClInclude Include="Impl_TimeOfTheDay.h" />
     <ClInclude Include="package_atmosphere_pch.h" />
     <ClInclude Include="WeatherControl.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AtmospherePackage.cpp" />
+    <ClCompile Include="detail_SkyLight.cpp" />
     <ClCompile Include="Impl_SkyDome.cpp" />
+    <ClCompile Include="Impl_SkyLight.cpp" />
+    <ClCompile Include="Impl_TimeOfTheDay.cpp" />
     <ClCompile Include="package_atmosphere_pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

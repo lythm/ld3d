@@ -55,14 +55,13 @@ namespace ld3d
 	class PointLight;
 	class DirectionalLight;
 	class SpotLight;
-	class SkyLight;
+
 
 	typedef std::shared_ptr<LightManager>					LightManagerPtr;
 	typedef std::shared_ptr<Light>							LightPtr;
 	typedef std::shared_ptr<PointLight>						PointLightPtr;
 	typedef std::shared_ptr<DirectionalLight>				DirectionalLightPtr;
 	typedef std::shared_ptr<SpotLight>						SpotLightPtr;
-	typedef std::shared_ptr<SkyLight>						SkyLightPtr;
 	
 	class DataStream;
 	class Mesh;

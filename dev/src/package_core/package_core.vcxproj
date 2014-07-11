@@ -173,7 +173,6 @@
     <ClInclude Include="..\..\include\packages\core\GridRenderer.h" />
     <ClInclude Include="..\..\include\packages\core\Light_Dir.h" />
     <ClInclude Include="..\..\include\packages\core\Light_Point.h" />
-    <ClInclude Include="..\..\include\packages\core\Light_Sky.h" />
     <ClInclude Include="..\..\include\packages\core\Light_Spot.h" />
     <ClInclude Include="..\..\include\packages\core\LuaBehavior.h" />
     <ClInclude Include="..\..\include\packages\core\MeshAnimator.h" />
@@ -182,8 +181,6 @@
     <ClInclude Include="..\..\include\packages\core\SkyBox.h" />
     <ClInclude Include="..\..\include\packages\core\SoundEmitter.h" />
     <ClInclude Include="..\..\include\packages\core\SoundListener.h" />
-    <ClInclude Include="..\..\include\packages\core\WaterBody.h" />
-    <ClInclude Include="..\..\include\packages\core\WaterRenderer.h" />
     <ClInclude Include="..\..\include\packages\core\WorldMeshRenderer.h" />
     <ClInclude Include="Impl_AABBoxRenderer.h" />
     <ClInclude Include="Impl_Behavior.h" />
@@ -194,7 +191,6 @@
     <ClInclude Include="Impl_GridRenderer.h" />
     <ClInclude Include="Impl_Light_Dir.h" />
     <ClInclude Include="Impl_Light_Point.h" />
-    <ClInclude Include="Impl_Light_Sky.h" />
     <ClInclude Include="Impl_Light_Spot.h" />
     <ClInclude Include="Impl_LuaBehavior.h" />
     <ClInclude Include="Impl_MeshData.h" />
@@ -202,8 +198,6 @@
     <ClInclude Include="Impl_SkyBox.h" />
     <ClInclude Include="Impl_SoundEmitter.h" />
     <ClInclude Include="Impl_SoundListener.h" />
-    <ClInclude Include="Impl_WaterBody.h" />
-    <ClInclude Include="Impl_WaterRenderer.h" />
     <ClInclude Include="Impl_WorldMeshRenderer.h" />
     <ClInclude Include="Tpl_Camera.h" />
     <ClInclude Include="Tpl_Cone.h" />
@@ -213,7 +207,6 @@
     <ClInclude Include="Tpl_DirLight.h" />
     <ClInclude Include="Tpl_Plane.h" />
     <ClInclude Include="Tpl_PointLight.h" />
-    <ClInclude Include="Tpl_SkyLight.h" />
     <ClInclude Include="Tpl_Sphere.h" />
     <ClInclude Include="Tpl_SpotLight.h" />
   </ItemGroup>
@@ -228,7 +221,6 @@
     <ClCompile Include="Impl_GridRenderer.cpp" />
     <ClCompile Include="Impl_Light_Dir.cpp" />
     <ClCompile Include="Impl_Light_Point.cpp" />
-    <ClCompile Include="Impl_Light_Sky.cpp" />
     <ClCompile Include="Impl_Light_Spot.cpp" />
     <ClCompile Include="Impl_LuaBehavior.cpp" />
     <ClCompile Include="Impl_MeshData.cpp" />
@@ -236,8 +228,6 @@
     <ClCompile Include="Impl_SkyBox.cpp" />
     <ClCompile Include="Impl_SoundEmitter.cpp" />
     <ClCompile Include="Impl_SoundListener.cpp" />
-    <ClCompile Include="Impl_WaterBody.cpp" />
-    <ClCompile Include="Impl_WaterRenderer.cpp" />
     <ClCompile Include="Impl_WorldMeshRenderer.cpp" />
     <ClCompile Include="Tpl_Camera.cpp" />
     <ClCompile Include="Tpl_Cone.cpp" />
@@ -252,7 +242,6 @@
     <ClCompile Include="CorePackage.cpp" />
     <ClCompile Include="Tpl_Plane.cpp" />
     <ClCompile Include="Tpl_PointLight.cpp" />
-    <ClCompile Include="Tpl_SkyLight.cpp" />
     <ClCompile Include="Tpl_Sphere.cpp" />
     <ClCompile Include="Tpl_SpotLight.cpp" />
   </ItemGroup>
