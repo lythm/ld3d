@@ -38,6 +38,6 @@ void Scene_Game::_on_key(ld3d::EventPtr pEvent)
 
 	if(pState->key_code == key_2 && pState->IsKeyUp())
 	{
-		m_pManager.lock()->ExitScene("Title");
+		Exit("Title");
 	}
 }

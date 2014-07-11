@@ -21,7 +21,7 @@ bool GameSceneManager::Initialize(ld3d::CoreApiPtr pCore)
 	m_sceneMap["Game"]			= std::make_shared<Scene_Game>(shared_from_this());
 
 
-	SetCurrentScene("Game");
+	MakeCurrentScene("Game");
 	
 	return true;
 }
@@ -52,13 +52,13 @@ void GameSceneManager::ProcessSceneSwitch()
 		return;
 	}
 
-	if(false == SetCurrentScene(m_nextScene))
+	if(false == MakeCurrentScene(m_nextScene))
 	{
 		m_pCore->QuitApp();
 		return;
 	}
 }
-bool GameSceneManager::SetCurrentScene(const std::string & sceneName)
+bool GameSceneManager::MakeCurrentScene(const std::string & sceneName)
 {
 	GameScenePtr pScene = m_sceneMap[sceneName];
 	if(pScene == nullptr)

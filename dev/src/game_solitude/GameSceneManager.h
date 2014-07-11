@@ -13,7 +13,7 @@ public:
 
 	void													Update(float dt);
 
-	bool													SetCurrentScene(const std::string & sceneName);
+	bool													MakeCurrentScene(const std::string & sceneName);
 
 	void													ExitScene(const std::string& next_scene);
 private:
