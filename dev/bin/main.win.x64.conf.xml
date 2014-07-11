@@ -12,6 +12,8 @@
     <package>voxel</package>
     <package>water</package>
     <package>atmosphere</package>
+    <package>particle</package>
+    
   </package_list>
 
   <mod>game_solitude/game_solitude_x64.mod</mod>
