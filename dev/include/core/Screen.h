@@ -17,6 +17,8 @@ namespace ld3d
 		uint32													GetRenderWindowHeight();
 		uint32													GetFramebufferWidth();
 		uint32													GetFramebufferHeight();
+
+		math::RectI												ScreenRect();
 	private:
 		CoreApiPtr												m_pCore;
 	};

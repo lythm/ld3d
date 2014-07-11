@@ -16,5 +16,7 @@ public:
 
 private:
 	ld3d::CoreApiPtr								m_pCore;
+
+	GameSceneManagerPtr								m_pSceneManager;
 };
 

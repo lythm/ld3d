@@ -70,7 +70,7 @@ namespace ld3d
 		}
 
 
-		os_unload_module(m_hLib);
+		//os_unload_module(m_hLib);
 		m_hLib = nullptr;
 	}
 

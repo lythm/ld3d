@@ -21,12 +21,78 @@
     <ClInclude Include="GameSolitude.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Scene_Title.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene_Loading.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene_Game.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="GameScene.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="GameSceneManager.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="FireControl.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="BluePrint.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="GlobalResource.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="KineticProjectile.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="VesselController.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Inventory.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="solitude_pch.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="GameSolitude.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene_Title.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene_Loading.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene_Game.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="GameScene.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="GameSceneManager.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="FireControl.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="BluePrint.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="GlobalResource.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="KineticProjectile.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="VesselController.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Inventory.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

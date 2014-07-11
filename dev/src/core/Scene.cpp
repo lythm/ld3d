@@ -182,5 +182,6 @@ namespace ld3d
 	{
 		return m_pRoot->FindChildRecursive(name);
 	}
+	
 }
 

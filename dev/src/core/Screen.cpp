@@ -51,4 +51,8 @@ namespace ld3d
 		int cy = GetFramebufferHeight();
 		SetResolution(cx, cy, !windowed);
 	}
+	math::RectI	Screen::ScreenRect()
+	{
+		return math::RectI(0, 0, GetFramebufferWidth(), GetFramebufferHeight());
+	}
 }

@@ -19,6 +19,8 @@ namespace ld3d
 		bool							UnSerialize(DataStream* pStream);
 
 		GameObjectPtr					FindGameObject(const std::string& name);
+
+		
 	private:
 
 		bool							SerializeObject(GameObjectPtr pObj, DataStream* pStream);
