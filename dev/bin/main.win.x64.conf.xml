@@ -14,6 +14,6 @@
     <package>atmosphere</package>
   </package_list>
 
-  <mod>voxel_editor/voxel_editor_x64.mod</mod>
+  <mod>game_solitude/game_solitude_x64.mod</mod>
 
 </main>
